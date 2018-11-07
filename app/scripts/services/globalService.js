@@ -40,42 +40,42 @@ var globalService = function($http, $httpParamSerializerJQLike) {
     id: 4,
     name: "NAV_Swap",
     url: "swap",
-    mew: true,
-    cx: true
+    mew: false,
+    cx: false
   },
   offlineTransaction: {
     id: 5,
     name: "NAV_Offline",
     url:"offline-transaction",
-    mew: true,
+    mew: false,
     cx: false
   },
   contracts: {
     id: 6,
     name: "NAV_Contracts",
     url: "contracts",
-    mew: true,
+    mew: false,
     cx: true
   },
   ens: {
     id:7,
     name: "NAV_ENS",
     url: "ens",
-    mew: true,
-    cx: true
+    mew: false,
+    cx: false
   },
   domainsale: {
     id: 8,
     name: "NAV_DomainSale",
     url: "domainsale",
-    mew: true,
+    mew: false,
     cx: true
   },
   txStatus: {
     id: 9,
     name: "NAV_CheckTxStatus",
     url: "check-tx-status",
-    mew: true,
+    mew: false,
     cx: true
   },
   viewWalletInfo: {
