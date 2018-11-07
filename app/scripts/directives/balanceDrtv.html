@@ -54,43 +54,43 @@
 
   <!-- Slider Thingy -->
   <!-- Hardware Wallets -->
-  <a href="https://kb.myetherwallet.com/getting-started/protecting-yourself-and-your-funds.html"
-     ng-show="slide==1 || ajaxReq.type!=='ETH'"
-     class="block swap--hw"
-     target="_blank" rel="noopener noreferrer">
-    <div class="col-sm-7">
+  <!--<a href="https://kb.myetherwallet.com/getting-started/protecting-yourself-and-your-funds.html"-->
+     <!--ng-show="slide==1 || ajaxReq.type!=='ETH'"-->
+     <!--class="block swap&#45;&#45;hw"-->
+     <!--target="_blank" rel="noopener noreferrer">-->
+    <!--<div class="col-sm-7">-->
 
-      <h5 class="swap__cta" ng-show="wallet.balance<=1">Learn more about protecting your funds.</h5>
+      <!--<h5 class="swap__cta" ng-show="wallet.balance<=1">Learn more about protecting your funds.</h5>-->
 
-      <p class="swap__subhead" ng-show="wallet.balance<50 && wallet.balance>1">Welcome back</h5>
-      <h5 class="swap__cta" ng-show="wallet.balance<50 && wallet.balance>1">Are you as secure as you can be?</h5>
+      <!--<p class="swap__subhead" ng-show="wallet.balance<50 && wallet.balance>1">Welcome back</h5>-->
+      <!--<h5 class="swap__cta" ng-show="wallet.balance<50 && wallet.balance>1">Are you as secure as you can be?</h5>-->
 
-      <p class="swap__subhead" ng-show="wallet.balance>=50">Holy cow, look at you go!</p>
-      <h5 class="swap__cta" ng-show="wallet.balance>=50">Time to beef up your security?</h5>
-    </div>
-    <div class="col-sm-5">
-      <img src="images/logo-ledger.svg" width="80" height="auto" class="swap__logo">
-      <br />
-      <img src="images/logo-trezor.svg" width="80" height="auto" class="swap__logo">
-    </div>
-  </a>
+      <!--<p class="swap__subhead" ng-show="wallet.balance>=50">Holy cow, look at you go!</p>-->
+      <!--<h5 class="swap__cta" ng-show="wallet.balance>=50">Time to beef up your security?</h5>-->
+    <!--</div>-->
+    <!--<div class="col-sm-5">-->
+      <!--<img src="images/logo-ledger.svg" width="80" height="auto" class="swap__logo">-->
+      <!--<br />-->
+      <!--<img src="images/logo-trezor.svg" width="80" height="auto" class="swap__logo">-->
+    <!--</div>-->
+  <!--</a>-->
 
   <!-- Bity -->
-  <a ng-click="globalService.currentTab=globalService.tabs.swap.id"
-     ng-show="ajaxReq.type=='ETH' && slide==2"
-     class="block swap--btc"
-     target="_blank" rel="noopener noreferrer">
-    <div class="col-sm-7">
-      <p class="swap__subhead" ng-show="wallet.balance<=0">Aw...you don't have any ETH.</p>
-      <p class="swap__subhead" ng-show="wallet.balance>0&&wallet.balance<50">It's now easier to get more ETH</p>
-      <p class="swap__subhead" ng-show="wallet.balance>50">It's now easier to move between ETH &amp; BTC</p>
-      <h5 class="swap__cta">Swap BTC <-> ETH</h5>
-    </div>
-    <div class="col-sm-5">
-      <img src="images/logo-bity-white.svg" width="60" height="auto" class="swap__logo">
-      <p class="swap-flag--price">1 ETH ≈ <br /> {{wallet.btcPrice}} BTC</p>
-    </div>
-  </a>
+  <!--<a ng-click="globalService.currentTab=globalService.tabs.swap.id"-->
+     <!--ng-show="ajaxReq.type=='ETH' && slide==2"-->
+     <!--class="block swap&#45;&#45;btc"-->
+     <!--target="_blank" rel="noopener noreferrer">-->
+    <!--<div class="col-sm-7">-->
+      <!--<p class="swap__subhead" ng-show="wallet.balance<=0">Aw...you don't have any ETH.</p>-->
+      <!--<p class="swap__subhead" ng-show="wallet.balance>0&&wallet.balance<50">It's now easier to get more ETH</p>-->
+      <!--<p class="swap__subhead" ng-show="wallet.balance>50">It's now easier to move between ETH &amp; BTC</p>-->
+      <!--<h5 class="swap__cta">Swap BTC <-> ETH</h5>-->
+    <!--</div>-->
+    <!--<div class="col-sm-5">-->
+      <!--<img src="images/logo-bity-white.svg" width="60" height="auto" class="swap__logo">-->
+      <!--<p class="swap-flag&#45;&#45;price">1 ETH ≈ <br /> {{wallet.btcPrice}} BTC</p>-->
+    <!--</div>-->
+  <!--</a>-->
 
   <!-- Coinbase
   <a href="#"
@@ -109,10 +109,10 @@
   </a>
   -->
 
-  <div class="swap__nav" ng-show="ajaxReq.type=='ETH'">
-    <a ng-click="slide=1"> &bull; </a>
-    <a ng-click="slide=2"> &bull; </a>
-  </div>
+  <!--<div class="swap__nav" ng-show="ajaxReq.type=='ETH'">-->
+    <!--<a ng-click="slide=1"> &bull; </a>-->
+    <!--<a ng-click="slide=2"> &bull; </a>-->
+  <!--</div>-->
 
 
 
