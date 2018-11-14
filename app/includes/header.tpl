@@ -72,20 +72,24 @@
 </script>
 </head>
 <body>
-
 <header class="{{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}" aria-label="header" ng-controller='tabsCtrl' >
+  <div class="header-container">
 
-<section class="bg-gradient header-branding">
+  <section class="bg-white header-branding border-gray-bottom ">
   <section class="container">
     @@if (site === 'mew' ) {
+    <div class="align-self-center">
       <a class="brand" href="/" aria-label="Go to homepage">
-        <img src="images/fusion-logo.png"   height="64px" width="100px" alt="MyFusionWallet" />
-        <p class="small visible-xs">3.25.0</p>
+        <img src="images/fusion-logo.jpg" height="80px" width="125px" alt="MyFusionWallet" />
       </a>
+    </div>
+    <div class="align-self-center">
+        <span class="hidden-xs text-fusion fusion-header-text">| My Wallet</span>
+    </div>
+
     }
     <div class="tagline">
-
-    <span class="hidden-xs">3.25.0</span>
+    <span class="hidden-xs text-fusion">0.0.1 DEV</span>
 
     <span class="dropdown dropdown-lang" ng-cloak>
       <a tabindex="0"  aria-haspopup="true" aria-expanded="false" aria-label="change language. current language {{curLang}}" class="dropdown-toggle" ng-click="dropdown = !dropdown">{{curLang}}<i class="caret"></i></a>
@@ -190,7 +194,7 @@
   </p>
 </section>
 
-<nav role="navigation" aria-label="main navigation" class="container nav-container overflowing">
+<nav role="navigation" aria-label="main navigation" class="nav-container overflowing">
   <a aria-hidden="true" ng-show="showLeftArrow" class="nav-arrow-left" ng-click="scrollLeft(100);" ng-mouseover="scrollHoverIn(true,2);" ng-mouseleave="scrollHoverOut()">&#171;</a>
   <div class="nav-scroll">
     <ul class="nav-inner">
@@ -243,5 +247,6 @@
 
 @@if (site === 'mew' ) { @@include( './header-node-modal.tpl', { "site": "mew" } ) }
 @@if (site === 'cx'  ) { @@include( './header-node-modal.tpl', { "site": "cx"  } ) }
+  </div>
 
 </header>

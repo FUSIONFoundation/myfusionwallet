@@ -1,6 +1,5 @@
 <!-- Content -->
-<div class="col-sm-8">
-
+<div class="col-sm-4">
 
     <!-- If unlocked with address only -->
     <article class="block" ng-show="wallet.type=='addressOnly'">
@@ -312,7 +311,8 @@
 
 
     </article>
-
+</div>
+<div class="col-sm-4">
 
     <!-- Generate Asset -->
     <article class="block" ng-hide="wallet.type=='addressOnly'">

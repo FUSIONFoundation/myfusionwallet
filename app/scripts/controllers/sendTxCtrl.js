@@ -262,6 +262,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
         });
     }
 
+
     $scope.transferAllBalance = function() {
         if ($scope.tx.sendMode != 'token') {
             uiFuncs.transferAllBalance($scope.wallet.getAddressString(), $scope.tx.gasLimit, function(resp) {
