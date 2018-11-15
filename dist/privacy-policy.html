@@ -86,12 +86,12 @@
     <div class="align-self-center">
         <span class="hidden-xs text-fusion fusion-header-text">| My Wallet</span>
     </div>
+    <div class="align-self-center">
+      <span class="badge badge-secondary text-fusion">0.0.1 DEV</span>
+    </div>
 
     
     <div class="tagline">
-      <div class="align-self-center">
-        <span class="badge badge-secondary text-fusion">0.0.1 DEV</span>
-      </div>
     <span class="dropdown dropdown-lang" ng-cloak>
       <a tabindex="0"  aria-haspopup="true" aria-expanded="false" aria-label="change language. current language {{curLang}}" class="dropdown-toggle" ng-click="dropdown = !dropdown">{{curLang}}<i class="caret"></i></a>
       <ul class="dropdown-menu" ng-show="dropdown">
@@ -124,7 +124,7 @@
       </ul>
     </span>
 
-    <span class="dropdown dropdown-gas" ng-cloak>
+    <span class="dropdown dropdown-gas hidden" ng-cloak>
       <a tabindex="0" aria-haspopup="true" aria-label="adjust gas price" class="dropdown-toggle  btn btn-white" ng-click="dropdownGasPrice = !dropdownGasPrice">
         <span translate="OFFLINE_Step2_Label_3">Gas Price</span>:
           {{gas.value}} Gwei
