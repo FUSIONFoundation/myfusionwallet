@@ -1,35 +1,48 @@
-.text-fusion{
-  color:#1B0D56 !important;
+.text-fusion {
+  color: #1B0D56 !important;
 }
-.fusion-header-text{
+
+.fusion-header-text {
   font-family: Montserrat;
   font-size: 22px;
   font-weight: 800;
-  margin-left:.5em;
+  margin-left: .5em;
 }
 
-.view-all-details-button{
+.view-all-details-button {
   border-radius: 3px;
-  color:black !important;
-  background-color: rgba(0,0,0,0.1);
+  color: black !important;
+  background-color: rgba(0, 0, 0, 0.1);
+  width:80%;
+}
+
+.close-wallet-button {
+  background-color: rgba(208, 2, 27, 0.1) !important;
+  border-radius: 3px;
+  color: #D0021B;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  width:80%;
 }
 
 body {
-  font-family: Lato,sans-serif;
+  font-family: Lato, sans-serif;
   font-size: 1rem;
   line-height: 1.4;
   color: #333;
   height: 100%;
 }
 
-header{
-  background-color:#fff !important;
+header {
+  background-color: #fff !important;
 }
 
 .badge-secondary {
   color: #fff;
   background-color: #E1E5EB;
 }
+
 .badge {
   display: inline-block;
   padding: .25em .4em;
@@ -44,21 +57,21 @@ header{
 
 .header-container {
   width: 100%;
-  background-color:#fff !important;
+  background-color: #fff !important;
   margin-right: auto;
   margin-left: auto;
   max-width: 100rem;
   padding: 0 5rem;
 }
 
-.header-branding .container{
-  min-height:72px;
+.header-branding .container {
+  min-height: 72px;
 }
 
-.block{
+.block {
   background-color: #fff;
-  -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,.07) !important;
-  box-shadow: 0px 0px 0px 0px rgba(0,0,0,.07) !important;
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, .07) !important;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, .07) !important;
   padding: 1.5rem 2rem;
   min-height: 1.5rem;
   margin: 1rem auto;
@@ -71,10 +84,12 @@ header{
 .container {
   max-width: 100rem;
 }
-body{
-  background-color:#FBFAFF !important;
+
+body {
+  background-color: #FBFAFF !important;
 }
-.border-gray-bottom{
+
+.border-gray-bottom {
   box-shadow: inset 0 -1px 0 0 #E1E5EB !important;
 }
 
@@ -97,13 +112,15 @@ header.ETH .header-branding {
 
 .block {
   background-color: white;
-  box-shadow: 16px 16px 47px 2px rgba(0,0,0,.07);
+  box-shadow: 16px 16px 47px 2px rgba(0, 0, 0, .07);
   padding: @space-lg @space-xl;
   min-height: @space-lg;
   margin: @space auto;
   position: relative;
   .clearfix();
-  @media screen and (max-width: @screen-xs) { padding: 1.25rem; }
+  @media screen and (max-width: @screen-xs) {
+    padding: 1.25rem;
+  }
   & > *:first-child {
     margin-top: 0;
   }
@@ -113,10 +130,16 @@ header.ETH .header-branding {
 }
 
 .block--text-white {
-  * { color: white }
-  a { color: white }
+  * {
+    color: white
+  }
+  a {
+    color: white
+  }
   a:hover,
-  a:focus { color: rgba(255,255,255,.9) }
+  a:focus {
+    color: rgba(255, 255, 255, .9)
+  }
 }
 
 .block--danger {
@@ -177,7 +200,7 @@ header.ETH .header-branding {
     color: #ff5722;
   }
   a:hover {
-    color: darken(#ff5722,5%);
+    color: darken(#ff5722, 5%);
   }
   > *:first-child {
     margin-top: 0;
@@ -185,7 +208,7 @@ header.ETH .header-branding {
   ul {
     list-style: circle;
   }
-  ul,ol {
+  ul, ol {
     padding-left: @space;
   }
   h2 {
@@ -195,7 +218,7 @@ header.ETH .header-branding {
 }
 
 .equal-space {
-    > * {
+  > * {
     margin-top: @space;
     margin-bottom: @space;
   }
@@ -215,10 +238,18 @@ header.ETH .header-branding {
 
 .gen__1--inner {
   text-align: center;
-  h1   {  margin: @space   auto @space*2  }
-  h4   {  margin: @space*3 auto @space    }
-  p    {  margin: 0        0    @space*2  }
-  .btn {  margin: 0        auto @space*3  }
+  h1 {
+    margin: @space auto @space*2
+  }
+  h4 {
+    margin: @space*3 auto @space
+  }
+  p {
+    margin: 0 0    @space*2
+  }
+  .btn {
+    margin: 0 auto @space*3
+  }
 }
 
 .gen__2 {
@@ -226,22 +257,32 @@ header.ETH .header-branding {
 
 .gen__2--inner {
   text-align: center;
-  h1     {  margin: @space   auto   }
-  > .btn {  margin: @space   auto  @space*2 }
-  .warn  {  margin: @space*2 auto   }
+  h1 {
+    margin: @space auto
+  }
+  > .btn {
+    margin: @space auto  @space*2
+  }
+  .warn {
+    margin: @space*2 auto
+  }
 }
 
 .gen__3--inner {
   text-align: center;
-  h1     {  margin: @space*2   auto  @space }
+  h1 {
+    margin: @space*2   auto @space
+  }
   > .btn,
-  > .form-control { margin: 0 auto @space*3 }
+  > .form-control {
+    margin: 0 auto @space*3
+  }
 }
 
 // footer
 .pre-footer {
   padding: 1rem;
-  box-shadow: 16px 16px 47px 0px rgba(0,0,0,.07);
+  box-shadow: 16px 16px 47px 0px rgba(0, 0, 0, .07);
   margin-top: 5rem;
   background-color: white;
   text-align: center;
@@ -250,13 +291,12 @@ header.ETH .header-branding {
   }
 }
 
-
 .footer {
   background-color: @ether-navy-dark;
   color: white;
   font-size: .8rem;
   margin-top: 0;
-  h5{
+  h5 {
     margin-top: .5rem;
     margin-bottom: .25rem;
     i {
@@ -322,12 +362,16 @@ header.ETH .header-branding {
   max-width: 22rem;
   flex-grow: 1;
 }
+
 .footer--cent {
   .footer--col();
   max-width: 34rem;
   flex-grow: 2;
-  ul, li:last-child { margin-bottom: 0; }
+  ul, li:last-child {
+    margin-bottom: 0;
+  }
 }
+
 .footer--righ {
   .footer--col();
   max-width: 28rem;
@@ -359,7 +403,6 @@ a.footer__pill {
   }
 }
 
-
 .custom-token-fields {
   label {
     font-weight: 400;
@@ -379,7 +422,7 @@ a.footer__pill {
 .swap--usd,
 .swap--btc,
 .swap--hw {
-  text-align:center;
+  text-align: center;
   display: flex;
   padding: 1rem .15rem;
   .col-sm-7 {
@@ -397,6 +440,7 @@ a.footer__pill {
     background-color: lighten(saturate(#2B71B1, 7%), 8%);
   }
 }
+
 .swap--btc {
   .block--text-white();
   background-color: #006e79;
@@ -457,8 +501,6 @@ a.footer__pill {
 .send-modal__addr {
   font-size: 12px;
 }
-
-
 
 .u__protip {
   display: table;

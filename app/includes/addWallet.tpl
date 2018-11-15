@@ -277,10 +277,6 @@
   </section> <!-- / id="walletselection" -->
 
 
-
-
-
-
   <article class="row" ng-if="showAddWallet">
 
     <hr />
