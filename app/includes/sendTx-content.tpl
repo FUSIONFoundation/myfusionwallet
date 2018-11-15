@@ -1,4 +1,10 @@
 <!-- Content -->
+
+<div class="col-sm-3">
+    <wallet-balance-drtv></wallet-balance-drtv>
+
+</div>
+
 <div class="col-sm-4">
 
     <!-- If unlocked with address only -->
@@ -368,31 +374,4 @@
 <!-- / Content -->
 
 
-<!-- Sidebar -->
-<section class="col-sm-4">
-
-    <div class="block block--danger"
-         ng-show="wallet!=null && globalService.currentTab==globalService.tabs.swap.id && !hasEnoughBalance()">
-
-        <h5 translate="SWAP_Warning_1">
-            Warning! You do not have enough funds to complete this swap.
-        </h5>
-
-        <p translate="SWAP_Warning_2">
-            Please add more funds to your wallet or access a different wallet.
-        </p>
-
-    </div>
-
-    <wallet-balance-drtv></wallet-balance-drtv>
-
-    <div ng-show="checkTxPage"
-         ng-click="checkTxReadOnly=!checkTxReadOnly"
-         class="small text-right text-gray-lighter">
-        <small translate="X_Advanced">
-            Advanced Users Only.
-        </small>
-    </div>
-
-</section>
 <!-- / Sidebar -->

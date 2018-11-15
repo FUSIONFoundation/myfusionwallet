@@ -6,9 +6,24 @@
 
   <!-- Account Address -->
   <div class="block">
-    <h5 translate="sidebar_AccountAddr">Account Address</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="addressIdenticon med float" blockie-address="{{wallet.getAddressString()}}" watch-var="wallet"></div>
+      </div>
+      <div class="col-md-8">
+        <button class="btn btn-sm btn-primary view-all-details-button">View Details</button>
+        <button class="btn btn-sm btn-danger">Close Wallet</button>
+      </div>
+    </div>
+    <hr>
+    <h5 translate="">FUSION Balance</h5>
+    <ul class="account-info point">
+      <li>
+        <span class="mono wrap text-fusion">{{wallet.balance}}</span> FSN
+      </li>
+    </ul>
+    <h5 translate="">Public Address</h5>
     <ul class="account-info">
-      <div class="addressIdenticon med float" blockie-address="{{wallet.getAddressString()}}" watch-var="wallet"></div>
       <span class="mono wrap">{{wallet.getChecksumAddressString()}}</span>
       <label class="ens-response" ng-show="showEns()">
         ↳ <span class="mono ng-binding"> {{ensAddress}} </span>
@@ -26,12 +41,6 @@
         <li><a href="" ng-click="displayOnLedger()" translate="sidebar_DisplayOnLedger">Display address on Ledger</a></li>
       </ul>
     </div>
-    <h5 translate="sidebar_AccountBal">Account Balance</h5>
-    <ul class="account-info point">
-      <li>
-        <span class="mono wrap">{{wallet.balance}}</span> {{ajaxReq.type}}
-      </li>
-    </ul>
     <h5 translate="sidebar_TransHistory"> Transaction History</h5>
     <ul class="account-info">
       <li ng-show="ajaxReq.type != 'CUS'">
