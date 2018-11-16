@@ -1,4 +1,5 @@
 'use strict';
+
 var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     $scope.tx = {};
     $scope.signedTx
@@ -240,6 +241,14 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
             }
             if (!$scope.$$phase) $scope.$apply();
         });
+    }
+
+    $scope.createAsset = function() {
+
+    }
+
+    $scope.timeLock = function(){
+
     }
 
     $scope.sendTx = function() {
