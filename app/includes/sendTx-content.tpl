@@ -396,7 +396,7 @@
         <div class="row form-group">
             <div class="col-xs-12 clearfix">
                 <a class="btn btn-info btn-block"
-                   ng-click="generateTx()">
+                   ng-click="createAsset()">
                     Generate Asset
                 </a>
             </div>

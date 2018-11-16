@@ -1,6 +1,8 @@
 'use strict';
 
+
 var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
+
     $scope.tx = {};
     $scope.signedTx
     $scope.ajaxReq = ajaxReq;
@@ -244,6 +246,16 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.createAsset = function() {
+        let accountData = uiFuncs.getTxData($scope);
+
+        let privateKey = accountData.privKey;
+
+        let assetSymbol;
+        let assetName;
+        let decimals;
+        let totalSupply;
+
+        web3.eth.getAccounts(console.log);
 
     }
 
