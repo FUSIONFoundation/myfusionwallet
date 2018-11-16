@@ -46,6 +46,18 @@ nodes.customNodeObj = {
 	lib: null
 };
 nodes.nodeList = {
+	eth_PSN: {
+		name: "FUSION PAYABLE STAGE",
+		blockExplorerTX: "https://etherscan.io/tx/[[txHash]]",
+		blockExplorerAddr: "https://etherscan.io/address/[[address]]",
+		type: nodes.nodeTypes.ETH,
+		eip155: true,
+		chainId: 15,
+		tokenList: require("./tokens/ethTokens.json"),
+		abiList: require("./abiDefinitions/ethAbi.json"),
+		service: "testfsn1.fusion.org",
+		lib: new nodes.customNode("http://3.16.110.25:8545", "")
+	},
 	eth_mew: {
 		name: "ETH",
 		blockExplorerTX: "https://etherscan.io/tx/[[txHash]]",
