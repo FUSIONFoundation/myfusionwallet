@@ -6,8 +6,15 @@
 
 <div class="col-sm-9">
     <!-- FUSION Assets -->
-    <h3>Assets</h3>
-
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Assets</h3>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-sm btn-primary">+ Create Asset</button>
+            <button class="btn btn-sm btn-primary">Send Assets</button>
+        </div>
+    </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
