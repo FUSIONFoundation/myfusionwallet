@@ -8,6 +8,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     $scope.ajaxReq = ajaxReq;
     $scope.unitReadable = ajaxReq.type;
     $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
+
     walletService.wallet = null;
     walletService.password = '';
     $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
@@ -245,6 +246,11 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
         });
     }
 
+    $scope.createAssetModal = function(){
+        $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
+        $scope.createAssetModal.open();
+    }
+
     $scope.createAsset = function() {
         let accountData = uiFuncs.getTxData($scope);
         let privateKey = accountData.privKey;
@@ -253,6 +259,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
         let assetName = $scope.assetCreate.assetName;
         let decimals = $scope.assetCreate.decimals;
         let totalSupply = $scope.assetCreate.totalSupply;
+
 
     }
 

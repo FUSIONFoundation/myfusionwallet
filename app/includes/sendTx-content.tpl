@@ -11,7 +11,13 @@
             <h3>Assets</h3>
         </div>
         <div class="col-md-6">
-            <button class="btn btn-sm btn-primary">+ Create Asset</button>
+            <a class="btn btn-sm btn-primary"
+               data-toggle="modal"
+               data-target="#createAsset"
+               ng-click="createAssetModal()"
+            >
+                + Create Asset
+            </a>
             <button class="btn btn-sm btn-primary">Send Assets</button>
         </div>
     </div>
@@ -359,61 +365,71 @@
 
     </article>
 </div>
+
+<article class="modal fade" id="createAsset" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+
+                <h3>Generate Asset</h3>
+                <section class="row form-group">
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            Asset Symbol:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="assetCreate.assetSymbol"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            Asset Name:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="assetCreate.assetName"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            Decimals:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="assetCreate.decimals"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            Total Supply:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="assetCreate.totalSupply"
+                               placeholder=""/>
+                    </div>
+                </section>
+
+                <div class="row form-group">
+                    <div class="col-xs-12 clearfix">
+                        <a class="btn btn-info btn-block"
+                           ng-click="createAsset()">
+                            Generate Asset
+                        </a>
+                    </div>
+                </div>
+
+            </article>
+
+        </section>
+    </section>
+</article>
+
+
 <div class="col-sm-9">
 
     <!-- Generate Asset -->
-    <article class="block" ng-hide="wallet.type=='addressOnly'">
-
-        <h3>Generate Asset</h3>
-        <section class="row form-group">
-            <div class="col-sm-12 clearfix">
-                <label>
-                    Asset Symbol:
-                </label>
-                <input type="text"
-                       class="form-control"
-                       ng-model="assetCreate.assetSymbol"
-                       placeholder=""/>
-            </div>
-            <div class="col-sm-12 clearfix">
-                <label>
-                    Asset Name:
-                </label>
-                <input type="text"
-                       class="form-control"
-                       ng-model="assetCreate.assetName"
-                       placeholder=""/>
-            </div>
-            <div class="col-sm-12 clearfix">
-                <label>
-                    Decimals:
-                </label>
-                <input type="text"
-                       class="form-control"
-                       ng-model="assetCreate.decimals"
-                       placeholder=""/>
-            </div>
-            <div class="col-sm-12 clearfix">
-                <label>
-                    Total Supply:
-                </label>
-                <input type="text"
-                       class="form-control"
-                       ng-model="assetCreate.totalSupply"
-                       placeholder=""/>
-            </div>
-        </section>
-
-        <div class="row form-group">
-            <div class="col-xs-12 clearfix">
-                <a class="btn btn-info btn-block"
-                   ng-click="createAsset()">
-                    Generate Asset
-                </a>
-            </div>
-        </div>
-
-    </article>
 
 </div>
 <!-- / Content -->

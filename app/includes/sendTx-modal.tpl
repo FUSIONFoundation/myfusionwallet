@@ -1,7 +1,6 @@
 <article class="modal fade" id="sendTransaction" tabindex="-1">
   <section class="modal-dialog">
     <section class="modal-content">
-
       <div class="modal-body">
 
         <button type="button" class="close" data-dismiss="modal" aria-label="Close Dialog">&times;</button>
@@ -142,9 +141,6 @@
           The network is a bit overloaded. If you're having issues with TXs, please read me.
         </a>
       </p>
-
-
-
     </section>
   </section>
 </article>
