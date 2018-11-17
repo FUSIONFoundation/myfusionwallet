@@ -247,15 +247,12 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
 
     $scope.createAsset = function() {
         let accountData = uiFuncs.getTxData($scope);
-
         let privateKey = accountData.privKey;
 
-        let assetSymbol;
-        let assetName;
-        let decimals;
-        let totalSupply;
-
-        web3.eth.getAccounts(console.log);
+        let assetSymbol = $scope.assetCreate.assetSymbol;
+        let assetName = $scope.assetCreate.assetName;
+        let decimals = $scope.assetCreate.decimals;
+        let totalSupply = $scope.assetCreate.totalSupply;
 
     }
 

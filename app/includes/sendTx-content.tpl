@@ -365,6 +365,7 @@
                 </label>
                 <input type="text"
                        class="form-control"
+                       ng-model="assetCreate.assetSymbol"
                        placeholder=""/>
             </div>
             <div class="col-sm-12 clearfix">
@@ -373,6 +374,7 @@
                 </label>
                 <input type="text"
                        class="form-control"
+                       ng-model="assetCreate.assetName"
                        placeholder=""/>
             </div>
             <div class="col-sm-12 clearfix">
@@ -381,6 +383,7 @@
                 </label>
                 <input type="text"
                        class="form-control"
+                       ng-model="assetCreate.decimals"
                        placeholder=""/>
             </div>
             <div class="col-sm-12 clearfix">
@@ -389,6 +392,7 @@
                 </label>
                 <input type="text"
                        class="form-control"
+                       ng-model="assetCreate.totalSupply"
                        placeholder=""/>
             </div>
         </section>
