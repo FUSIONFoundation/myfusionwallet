@@ -18,8 +18,13 @@
             >
                 + Create Asset
             </a>
-            <button class="btn btn-sm btn-primary">Send Assets</button>
-        </div>
+            <a class="btn btn-sm btn-primary"
+               data-toggle="modal"
+               data-target="#txModal"
+               ng-click="txModalOpen()"
+            >
+                Send Assets
+            </a>        </div>
     </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
@@ -102,6 +107,10 @@
     </article>
 
 
+    <article class="modal fade" id="txModal" tabindex="-1">
+        <section class="modal-dialog">
+            <section class="modal-content">
+                <article class="block" ng-hide="wallet.type=='addressOnly'">
     <!-- If unlocked with PK -->
     <article class="block" ng-hide="wallet.type=='addressOnly'">
 
@@ -363,6 +372,10 @@
         </div>
 
 
+    </article>
+                </article>
+            </section>
+        </section>
     </article>
 </div>
 

@@ -251,6 +251,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.createAssetModal.open();
     }
 
+    $scope.txModalOpen = function () {
+        $scope.txModal = new Modal(document.getElementById('txModal'));
+        $scope.txModal.open();
+    }
+
     $scope.createAsset = function () {
         let accountData = uiFuncs.getTxData($scope);
         let privateKey = accountData.privKey;
