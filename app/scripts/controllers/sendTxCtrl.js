@@ -278,10 +278,40 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
     }
 
-    $scope.getAllErcToken = function () {
-        let tokenList = {};
+    $scope.getAllErcTokens = function () {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let tokenList = [
+            {
+                "address": "0x4E84E9e5fb0A972628Cf4568c403167EF1D40431",
+                "symbol": "$FFC",
+                "decimal": 18,
+                "type": "default"
+            },
+            {
+                "address": "0xa024e8057eec474a9b2356833707dd0579e26ef3",
+                "symbol": "$FYX",
+                "decimal": 18,
+                "type": "default"
+            }
+        ];
+
+        var tknAddress = (walletAddress).substring(2);
 
         tokenList.forEach(function (token) {
+            var contractData = ('0x70a08231000000000000000000000000' + tknAddress);
+            web3.eth.call({
+                to: token.address,
+                data: contractData
+            }, function(err, result) {
+                if (result) {
+                    var tokens = web3.utils.toBN(result).toString();
+                    console.log('You own: ' + web3.utils.fromWei(tokens, 'ether') + ' of ' + token.symbol );
+                }
+                else {
+                    console.log(err);
+                }
+            });
         });
     }
 
