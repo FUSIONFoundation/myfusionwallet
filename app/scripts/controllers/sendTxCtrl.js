@@ -274,16 +274,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.getAllFsnAssets = async function () {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
-        let assetList;
+        let assetList = {};
         await web3.fsn.allAssets().then(function (res) {
             assetList = res;
         });
-
-        console.log(assetList);
-
+        for(var asset in assetList){
+            let id = assetList[asset]["ID"];
+            web3.fsn.getBalance(walletAddress , assetList[asset]["ID"]);
+        }
 
     }
-
 
     $scope.getAllErcTokens = function () {
         let accountData = uiFuncs.getTxData($scope);
