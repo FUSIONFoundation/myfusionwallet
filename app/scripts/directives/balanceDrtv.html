@@ -28,10 +28,10 @@
                 ↳ <span class="mono ng-binding"> {{ensAddress}} </span>
             </label>
         </ul>
-        <h5 translate="">Short Address</h5>
+        <h5 translate="" ng-click="getShortAddressNotation();">Short Address</h5>
         <ul class="account-info point">
             <li>
-                <span class="mono wrap text-fusion">NOT AVAILABLE</span>
+                <span class="mono wrap text-fusion" ng-bind="addressNotation.value"></span>
             </li>
         </ul>
         <div ng-show="showDisplayOnTrezor()">

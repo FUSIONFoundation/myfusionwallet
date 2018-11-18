@@ -271,28 +271,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }
 
-    $scope.getShortAddressNotation = async function () {
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        let notation = '';
-
-        await web3.fsn.getNotation(walletAddress).then(function(res){
-        notation = res;
-        });
-
-        if (notation === 0){
-            notation = 'Not available';
-            console.log(notation);
-        } else {
-            console.log(notation);
-        }
-
-    }
-
-    $scope.setShortAddressNotation = async function () {
-
-    }
-
     $scope.getAllFsnAssets = async function () {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;

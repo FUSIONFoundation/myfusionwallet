@@ -1,5 +1,7 @@
 'use strict';
 var walletBalanceCtrl = function($scope, $sce, $rootScope) {
+
+    $scope.addressNotation = { 'value' : ''};
     $scope.ajaxReq = ajaxReq;
     $scope.tokensLoaded = false;
     $scope.showAllTokens = false;
@@ -96,6 +98,28 @@ var walletBalanceCtrl = function($scope, $sce, $rootScope) {
     $scope.displayOnLedger = function() {
         var app = new ledgerEth($scope.wallet.getHWTransport());
         app.getAddress($scope.wallet.path, function(){}, true, false);
+    }
+
+
+    $scope.getShortAddressNotation = async function () {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let notation = '';
+
+        await web3.fsn.getNotation(walletAddress).then(function(res){
+            notation = res;
+        });
+
+        if (notation === 0){
+            notation = 'Not available';
+            $scope.addressNotation.value = 'Not available';
+        } else {
+            $scope.addressNotation.value = notation;
+        }
+    }
+
+    $scope.setShortAddressNotation = async function () {
+
     }
 
 };
