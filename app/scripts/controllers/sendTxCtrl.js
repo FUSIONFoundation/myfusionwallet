@@ -1,7 +1,7 @@
 'use strict';
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
-
+    $scope.assetCreate = { 'assetHash' : ''};
     $scope.tx = {};
     $scope.signedTx
     $scope.ajaxReq = ajaxReq;
@@ -255,32 +255,36 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.txModal.open();
     }
 
-    $scope.createAsset = function () {
+    $scope.createAsset = async function () {
+        let password = walletService.password;
         let accountData = uiFuncs.getTxData($scope);
-        let privateKey = accountData.privKey;
+        let walletAddress = accountData.from;
         let assetSymbol = $scope.assetCreate.assetSymbol;
         assetSymbol = assetSymbol.toUpperCase();
         let assetName = $scope.assetCreate.assetName;
         let decimals = $scope.assetCreate.decimals;
         let totalSupply = $scope.assetCreate.totalSupply;
 
-        web3.fsn.genAsset({from:fsn.coinbase,name:assetName,symbol:assetSymbol,decimals:decimals,total:totalSupply},123456);
-
+        await web3.fsn.genAsset({from: walletAddress, name: assetName, symbol: assetSymbol, decimals: 12, total: totalSupply}, password).then(function(res){
+            $scope.assetCreate.assetHash = res;
+        })
     }
+
     $scope.timeLock = function () {
 
     }
 
     $scope.getAllFsnAssets = async function () {
+
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let assetList = {};
         await web3.fsn.allAssets().then(function (res) {
             assetList = res;
         });
-        for(var asset in assetList){
+        for (var asset in assetList) {
             let id = assetList[asset]["ID"];
-            web3.fsn.getBalance(walletAddress , assetList[asset]["ID"]);
+            web3.fsn.getBalance(walletAddress, assetList[asset]["ID"]);
         }
 
     }

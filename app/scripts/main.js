@@ -274,6 +274,7 @@ var walletGenCtrl = require("./controllers/walletGenCtrl");
 var onboardingCtrl = require("./controllers/onboardingCtrl");
 var bulkGenCtrl = require("./controllers/bulkGenCtrl");
 var decryptWalletCtrl = require("./controllers/decryptWalletCtrl");
+window.decryptWallet = decryptWalletCtrl;
 var viewWalletCtrl = require("./controllers/viewWalletCtrl");
 var txStatusCtrl = require("./controllers/txStatusCtrl");
 var sendTxCtrl = require("./controllers/sendTxCtrl");

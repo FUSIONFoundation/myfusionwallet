@@ -433,6 +433,8 @@
                     </div>
                 </div>
 
+                {{assetCreate.assetHash}}
+
             </article>
 
         </section>
