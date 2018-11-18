@@ -2,6 +2,7 @@
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.assetCreate = {'assetHash': ''};
+    $scope.assetListOwns = [];
     $scope.tx = {};
     $scope.signedTx
     $scope.ajaxReq = ajaxReq;
@@ -291,21 +292,26 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         await web3.fsn.allAssets().then(function (res) {
             assetList = res;
         });
-        for (var asset in assetList) {
+        for (let asset in assetList) {
             let id = assetList[asset]["ID"];
             let owner = assetList[asset]["Owner"];
             if (owner === walletAddress) {
-                let name = assetList[asset]["Name"];
-                let symbol = assetList[asset]["Symbol"];
-                let decimals = assetList[asset]["Decimals"];
                 let assetBalance = '';
-                await web3.fsn.getBalance(id, walletAddress).then(function(res){
+                await web3.fsn.getBalance(id, walletAddress).then(function (res) {
                     assetBalance = res;
                 });
-                console.log(`You own ${assetBalance} of ${name} (${symbol}) which has ${decimals} decimals`);
+                let data = {
+                    "name": assetList[asset]["Name"],
+                    "symbol": assetList[asset]["Symbol"],
+                    "decimals": assetList[asset]["Decimals"],
+                    "total": assetList[asset]["Total"],
+                    "balance" : assetBalance
+                }
+                $scope.assetListOwns.push(data);
             }
-
         }
+
+        console.log($scope.assetListOwns);
 
     }
 
