@@ -37,10 +37,10 @@
                 <table class="table">
                     <tbody>
                     <tr ng-repeat="asset in assetListOwns track by $index">
-                        <td>{{asset.name}}</td>
+                        <td>{{asset.name}} <br> <span class="small-gray-text">ID: {{asset.contractaddress}}</span></td>
                         <td>{{asset.symbol}}</td>
-                        <td>{{asset.balance}} of {{asset.total}}</td>
-                        <td><span class="badge badge-secondary">OWNED</span></td>
+                        <td>{{asset.balance}} <br> <span class="small-gray-text">of {{asset.total}}</span></td>
+                        <td><span class="badge badge-secondary">Owned Asset</span></td>
                     </tr>
                     </tbody>
                 </table>

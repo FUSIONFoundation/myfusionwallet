@@ -285,8 +285,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
-        console.log('Wallet ADRESS');
-        console.log(walletAddress);
         let assetList = {};
 
         await web3.fsn.allAssets().then(function (res) {
@@ -305,14 +303,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "symbol": assetList[asset]["Symbol"],
                     "decimals": assetList[asset]["Decimals"],
                     "total": assetList[asset]["Total"],
+                    "contractaddress" : id,
                     "balance" : assetBalance
                 }
                 $scope.assetListOwns.push(data);
             }
         }
-
-        console.log($scope.assetListOwns);
-
     }
 
     $scope.getAllErcTokens = function () {
