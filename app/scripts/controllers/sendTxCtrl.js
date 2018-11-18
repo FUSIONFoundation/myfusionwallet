@@ -270,21 +270,41 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }
 
-    $scope.getAllFsnAssets = function () {
-
+    $scope.getShortAddressNotation = async function () {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
-        let assetIdList = web3.fsn.allAssets("");
+        let notation = '';
 
-        web3.fsn.allTickets().then(function(res){
-            console.log(res);
-        })
+        await web3.fsn.getNotation(walletAddress).then(function(res){
+        notation = res;
+        });
 
-        // assetIdList.forEach(function (asset) {
-        //     let balance = web3.fsn.getBalance(walletAddress , asset);
-        //     console.log(`You own ${balance} of ${asset}`);
-        // });
+        if (notation === 0){
+            notation = 'Not available';
+            console.log(notation);
+        } else {
+            console.log(notation);
+        }
+
     }
+
+    $scope.setShortAddressNotation = async function () {
+
+    }
+
+    $scope.getAllFsnAssets = async function () {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let assetList;
+        await web3.fsn.allAssets().then(function (res) {
+            assetList = res;
+        });
+
+        console.log(assetList);
+
+
+    }
+
 
     $scope.getAllErcTokens = function () {
         let accountData = uiFuncs.getTxData($scope);
@@ -311,10 +331,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             web3.eth.call({
                 to: token.address,
                 data: contractData
-            }, function(err, result) {
+            }, function (err, result) {
                 if (result) {
                     var tokens = web3.utils.toBN(result).toString();
-                    console.log('You own: ' + web3.utils.fromWei(tokens, 'ether') + ' of ' + token.symbol );
+                    console.log('You own: ' + web3.utils.fromWei(tokens, 'ether') + ' of ' + token.symbol);
                 }
                 else {
                     console.log(err);
