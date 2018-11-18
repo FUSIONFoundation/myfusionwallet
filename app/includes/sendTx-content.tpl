@@ -40,7 +40,7 @@
     </article>
 </div>
 
-<div class="col-sm-9" ng-click="getAllErcTokens()">
+<div class="col-sm-9" ng-click="getAllFsnAssets()">
     <!-- ERC20 Assets -->
     <h3>Legacy (ERC20) Tokens</h3>
 
