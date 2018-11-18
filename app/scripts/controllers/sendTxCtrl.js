@@ -1,7 +1,7 @@
 'use strict';
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
-    $scope.assetCreate = { 'assetHash' : ''};
+    $scope.assetCreate = {'assetHash': ''};
     $scope.tx = {};
     $scope.signedTx
     $scope.ajaxReq = ajaxReq;
@@ -265,7 +265,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let decimals = $scope.assetCreate.decimals;
         let totalSupply = $scope.assetCreate.totalSupply;
 
-        await web3.fsn.genAsset({from: walletAddress, name: assetName, symbol: assetSymbol, decimals: 12, total: totalSupply}, password).then(function(res){
+        await web3.fsn.genAsset({
+            from: walletAddress,
+            name: assetName,
+            symbol: assetSymbol,
+            decimals: 12,
+            total: totalSupply
+        }, password).then(function (res) {
             $scope.assetCreate.assetHash = res;
         })
     }
@@ -278,13 +284,27 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
+        console.log('Wallet ADRESS');
+        console.log(walletAddress);
         let assetList = {};
+
         await web3.fsn.allAssets().then(function (res) {
             assetList = res;
         });
         for (var asset in assetList) {
             let id = assetList[asset]["ID"];
-            web3.fsn.getBalance(walletAddress, assetList[asset]["ID"]);
+            let owner = assetList[asset]["Owner"];
+            if (owner === walletAddress) {
+                let name = assetList[asset]["Name"];
+                let symbol = assetList[asset]["Symbol"];
+                let decimals = assetList[asset]["Decimals"];
+                let assetBalance = '';
+                await web3.fsn.getBalance(id, walletAddress).then(function(res){
+                    assetBalance = res;
+                });
+                console.log(`You own ${assetBalance} of ${name} (${symbol}) which has ${decimals} decimals`);
+            }
+
         }
 
     }
