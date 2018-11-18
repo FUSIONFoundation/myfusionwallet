@@ -258,12 +258,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.createAsset = function () {
         let accountData = uiFuncs.getTxData($scope);
         let privateKey = accountData.privKey;
-
         let assetSymbol = $scope.assetCreate.assetSymbol;
+        assetSymbol = assetSymbol.toUpperCase();
         let assetName = $scope.assetCreate.assetName;
         let decimals = $scope.assetCreate.decimals;
         let totalSupply = $scope.assetCreate.totalSupply;
 
+        web3.fsn.genAsset({from:fsn.coinbase,name:assetName,symbol:assetSymbol,decimals:decimals,total:totalSupply},123456);
 
     }
     $scope.timeLock = function () {
