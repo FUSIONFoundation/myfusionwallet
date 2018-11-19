@@ -1,6 +1,9 @@
 'use strict';
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
+    $scope.init = function () {
+        $scope.getAllFsnAssets();
+    };
     $scope.assetCreate = {'assetHash': ''};
     $scope.assetListOwns = [];
     $scope.tx = {};
@@ -82,7 +85,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null ? true : false;
         $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
         if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true // if there is a query string, show an warning at top of page
-
+        $scope.init();
     }
     $scope.$watch(function () {
         if (walletService.wallet == null) return null;
@@ -291,9 +294,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             assetList = res;
         });
 
-        console.log(assetList);
-
-         for (let asset in assetList) {
+        for (let asset in assetList) {
             let id = assetList[asset]["ID"];
             let owner = assetList[asset]["Owner"];
             if (owner === walletAddress) {
@@ -306,13 +307,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "symbol": assetList[asset]["Symbol"],
                     "decimals": assetList[asset]["Decimals"],
                     "total": assetList[asset]["Total"],
-                    "contractaddress" : id,
-                    "balance" : assetBalance
+                    "contractaddress": id,
+                    "balance": assetBalance
                 }
                 await $scope.assetListOwns.push(data);
             }
         }
-        console.log($scope.assetListOwns);
     }
 
     $scope.getAllErcTokens = function () {
@@ -422,6 +422,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.wd = false
         }
     }
+
     globalFuncs.MEWconnectStatus.registerDecryptOpeners($scope.reOpenDecryptWalletMEWconnect.bind(this))
 
 };

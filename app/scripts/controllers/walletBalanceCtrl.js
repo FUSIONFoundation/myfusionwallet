@@ -1,6 +1,8 @@
 'use strict';
 var walletBalanceCtrl = function($scope, $sce, walletService, $rootScope) {
-
+    $scope.init = function () {
+        $scope.getShortAddressNotation();
+    };
     $scope.addressNotation = { 'value' : ''};
     $scope.ajaxReq = ajaxReq;
     walletService.wallet = null;
@@ -17,6 +19,10 @@ var walletBalanceCtrl = function($scope, $sce, walletService, $rootScope) {
     $scope.slide = 1;
 
     $scope.customTokenField = false;
+
+    $scope.$watch(function () {
+        $scope.init();
+    });
 
     $scope.saveTokenToLocal = function() {
         globalFuncs.saveTokenToLocal($scope.localToken, function(data) {
@@ -118,6 +124,8 @@ var walletBalanceCtrl = function($scope, $sce, walletService, $rootScope) {
         } else {
             $scope.addressNotation.value = notation;
         }
+
+        return notation;
     }
 
     $scope.setShortAddressNotation = async function () {
