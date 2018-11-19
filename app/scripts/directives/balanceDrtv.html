@@ -1,6 +1,5 @@
 <aside ng-controller="walletBalanceCtrl">
 
-
     <h3>Wallet Info</h3>
     <!-- Account Address -->
     <div class="block">
@@ -28,8 +27,9 @@
                 ↳ <span class="mono ng-binding"> {{ensAddress}} </span>
             </label>
         </ul>
-        <h5 translate="" ng-click="getShortAddressNotation();">Short Address</h5>
+        <h5 translate="">Short Address</h5>
         <ul class="account-info point">
+            {{getShortAddressNotation()}}
             <li>
                 <span class="mono wrap text-fusion" ng-bind="addressNotation.value"></span>
             </li>

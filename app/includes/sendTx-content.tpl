@@ -34,6 +34,7 @@
                     luctus.</p>
             </div>
             <div class="col-sm-12 clearfix">
+                {{getAllFsnAssets()}}
                 <table class="table">
                     <tbody>
                     <tr ng-repeat="asset in assetListOwns track by $index">

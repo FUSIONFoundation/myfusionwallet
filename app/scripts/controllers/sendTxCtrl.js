@@ -290,7 +290,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         await web3.fsn.allAssets().then(function (res) {
             assetList = res;
         });
-        for (let asset in assetList) {
+
+        console.log(assetList);
+
+         for (let asset in assetList) {
             let id = assetList[asset]["ID"];
             let owner = assetList[asset]["Owner"];
             if (owner === walletAddress) {
@@ -306,9 +309,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "contractaddress" : id,
                     "balance" : assetBalance
                 }
-                $scope.assetListOwns.push(data);
+                await $scope.assetListOwns.push(data);
             }
         }
+        console.log($scope.assetListOwns);
     }
 
     $scope.getAllErcTokens = function () {
