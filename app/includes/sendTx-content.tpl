@@ -415,21 +415,13 @@
                     </div>
                     <div class="col-sm-12 clearfix">
                         <label>
-                            Gas Limit:
-                        </label>
-                        <input type="text"
-                               class="form-control"
-                               ng-model="assetCreate.decimals"
-                               placeholder="21000"/>
-                    </div>
-                    <div class="col-sm-12 clearfix">
-                        <label>
                             Select Asset:
                         </label>
-                        <select>
-                            <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}"
-                                    ng-model="assetCreate.assetToSend">{{asset.symbol}}
-                                - {{asset.contractaddress}}</option>
+                        <select ng-model="assetToSend">
+                            <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
+                                {{asset.symbol}}
+                                - {{asset.contractaddress}}
+                            </option>
                         </select>
                 </section>
 

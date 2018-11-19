@@ -266,9 +266,17 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let from = accountData.from;
         let to = $scope.sendAsset.toAddress;
         let amount = $scope.sendAsset.amountToSend;
-        let asset = $scope.sendAsset.assetToSend;
+        let asset = $scope.assetToSend;
 
-        console.log(`from -> ${from} , to ${to} -> , amount -> ${amount}, asset -> ${asset} , password ${password}`);
+        web3.fsn.sendAsset({
+            from: from,
+            to: to,
+            value: amount,
+            asset: asset
+        }, password).then(function(res){
+            console.log(res);
+        });
+
     }
 
     $scope.createAsset = async function () {
