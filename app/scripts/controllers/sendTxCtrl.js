@@ -275,6 +275,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             asset: asset
         }, password).then(function(res){
             console.log(res);
+            $scope.successMessagebool = true;
+            $scope.successHash = res;
         });
 
     }

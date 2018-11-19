@@ -423,6 +423,12 @@
                                 - {{asset.contractaddress}}
                             </option>
                         </select>
+
+                        <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool">
+                            Congratulations! Your transaction was emitted and is now pending!
+
+                            <strong>{{successHash}}</strong>
+                        </div>
                 </section>
 
                 <div class="row form-group">
