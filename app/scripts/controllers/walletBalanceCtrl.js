@@ -125,7 +125,7 @@ var walletBalanceCtrl = function($scope, $sce,walletService, $rootScope) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let notation = '';
-        await web3.fsn.genNotation({from:"0x91db50F5c36aE7616009d4e94462DcA4D4c7e833"}, password).then(function(res){})
+        await web3.fsn.genNotation({from:walletAddress}, password).then(function(res){})
 
         $scope.getShortAddressNotation();
     }
