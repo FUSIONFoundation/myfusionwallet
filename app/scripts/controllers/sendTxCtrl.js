@@ -1,10 +1,8 @@
 'use strict';
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
-    $scope.addressNotation = {'value': '', 'state': ''};
     $scope.init = function () {
         $scope.getAllFsnAssets();
-        $scope.getShortAddressNotation();
     };
     $scope.assetCreate = {'assetHash': ''};
     $scope.assetListOwns = [];
@@ -88,6 +86,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
         if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true // if there is a query string, show an warning at top of page
         $scope.init();
+
     }
     $scope.$watch(function () {
         if (walletService.wallet == null) return null;
@@ -308,9 +307,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
 
-            // ADD DECIMALS FORMULA HERE
-
-            // ADD TIMELOCK CHECK HERE
             if (assetBalance > 0) {
                 let data = {
                     "name": assetList[asset]["Name"],
@@ -363,39 +359,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
     }
 
-    $scope.getShortAddressNotation = async function () {
-        let accountData = uiFuncs.getTxData($scope);
-        walletService.wallet.address
-        let walletAddress = accountData.from;
-        let notation = '';
-
-        await web3.fsn.getNotation(walletAddress).then(function (res) {
-            notation = res;
-        });
-
-        if (notation === 0) {
-            $scope.addressNotation.state = false;
-            $scope.addressNotation.value = 'Not available';
-        } else {
-            $scope.addressNotation.state = true;
-            $scope.addressNotation.value = notation;
-        }
-
-        return notation;
-    }
-
-    $scope.setShortAddressNotation = async function () {
-        let password = walletService.password;
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        console.log(password);
-        await web3.fsn.genNotation({from: walletAddress}, password).then(function (res) {
-            console.log(res);
-            $scope.addressNotation.value = res;
-        })
-
-        console.log($scope.addressNotation.value);
-    }
 
     $scope.sendTx = function () {
         $scope.sendTxModal.close();

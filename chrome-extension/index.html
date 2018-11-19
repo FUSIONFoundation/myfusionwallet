@@ -756,6 +756,7 @@
     <main class="tab-pane active"
       ng-if="globalService.currentTab==globalService.tabs.sendTransaction.id"
       ng-controller='sendTxCtrl'
+      ng-init="init()"
       ng-cloak >
 
   <!-- Header : todo turn into warning notification-->
@@ -835,7 +836,7 @@
     </article>
 </div>
 
-<div class="col-sm-9" ng-click="getAllFsnAssets()">
+<div class="col-sm-9">
     <!-- ERC20 Assets -->
     <h3>Legacy (ERC20) Tokens</h3>
 
@@ -1739,7 +1740,7 @@
     </article>
 </div>
 
-<div class="col-sm-9" ng-click="getAllFsnAssets()">
+<div class="col-sm-9">
     <!-- ERC20 Assets -->
     <h3>Legacy (ERC20) Tokens</h3>
 
@@ -5431,7 +5432,7 @@
     </article>
 </div>
 
-<div class="col-sm-9" ng-click="getAllFsnAssets()">
+<div class="col-sm-9">
     <!-- ERC20 Assets -->
     <h3>Legacy (ERC20) Tokens</h3>
 
@@ -7332,7 +7333,7 @@
     </article>
 </div>
 
-<div class="col-sm-9" ng-click="getAllFsnAssets()">
+<div class="col-sm-9">
     <!-- ERC20 Assets -->
     <h3>Legacy (ERC20) Tokens</h3>
 

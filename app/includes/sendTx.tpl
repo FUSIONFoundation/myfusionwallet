@@ -1,6 +1,7 @@
 <main class="tab-pane active"
       ng-if="globalService.currentTab==globalService.tabs.sendTransaction.id"
       ng-controller='sendTxCtrl'
+      ng-init="init()"
       ng-cloak >
 
   <!-- Header : todo turn into warning notification-->
