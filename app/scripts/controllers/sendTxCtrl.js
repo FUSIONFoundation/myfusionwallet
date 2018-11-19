@@ -255,9 +255,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.createAssetModal.open();
     }
 
-    $scope.txModalOpen = function () {
-        $scope.txModal = new Modal(document.getElementById('txModal'));
-        $scope.txModal.open();
+    $scope.sendAssetModalOpen = function () {
+        $scope.sendAssetModalOpen = new Modal(document.getElementById('sendAsset'));
+        $scope.sendAssetModalOpen.open();
+    }
+
+    $scope.sendAsset = async function () {
+        let password = walletService.password;
+        let accountData = uiFuncs.getTxData($scope);
+        let from = accountData.from;
+        let to = $scope.sendAsset.toAddress;
+        let amount = $scope.sendAsset.amountToSend;
+        let asset = $scope.sendAsset.assetToSend;
+
+        console.log(`from -> ${from} , to ${to} -> , amount -> ${amount}, asset -> ${asset} , password ${password}`);
     }
 
     $scope.createAsset = async function () {

@@ -21,7 +21,7 @@
             <a class="btn btn-sm btn-primary"
                data-toggle="modal"
                data-target="#txModal"
-               ng-click="txModalOpen()"
+               ng-click="sendAssetModalOpen()"
             >
                 Send Assets
             </a></div>
@@ -389,6 +389,64 @@
         </section>
     </article>
 </div>
+<article class="modal fade" id="sendAsset" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <h3>Send Asset</h3>
+                <section class="row form-group">
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            To Address:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="sendAsset.toAddress"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            Amount To Send:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="sendAsset.amountToSend"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            Gas Limit:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="assetCreate.decimals"
+                               placeholder="21000"/>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <label>
+                            Select Asset:
+                        </label>
+                        <select>
+                            <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}"
+                                    ng-model="assetCreate.assetToSend">{{asset.symbol}}
+                                - {{asset.contractaddress}}</option>
+                        </select>
+                </section>
+
+                <div class="row form-group">
+                    <div class="col-xs-12 clearfix">
+                        <a class="btn btn-info btn-block"
+                           ng-click="sendAsset()">
+                            Send Asset
+                        </a>
+                    </div>
+                </div>
+
+            </article>
+
+        </section>
+    </section>
+</article>
 
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
