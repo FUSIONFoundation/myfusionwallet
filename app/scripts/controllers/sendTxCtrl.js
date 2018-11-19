@@ -261,24 +261,32 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.sendAsset = async function () {
+        $scope.successMessagebool = true;
         let password = walletService.password;
         let accountData = uiFuncs.getTxData($scope);
         let from = accountData.from;
         let to = $scope.sendAsset.toAddress;
         let amount = $scope.sendAsset.amountToSend;
         let asset = $scope.assetToSend;
+        let hash = '';
 
-        web3.fsn.sendAsset({
+        await web3.fsn.sendAsset({
             from: from,
             to: to,
             value: amount,
             asset: asset
-        }, password).then(function(res){
+        }, password).then(function (res) {
             console.log(res);
-            $scope.successMessagebool = true;
             $scope.successHash = res;
+            hash = res;
+            if ($scope.succesHash = '') {
+                $scope.successHash = res;
+            } else {
+                $scope.successHash = res;
+            }
         });
 
+        $scope.successHash = hash;
     }
 
     $scope.createAsset = async function () {
