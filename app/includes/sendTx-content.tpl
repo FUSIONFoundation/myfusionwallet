@@ -40,7 +40,7 @@
                         <td>{{asset.name}} <br> <span class="small-gray-text">ID: {{asset.contractaddress}}</span></td>
                         <td>{{asset.symbol}}</td>
                         <td>{{asset.balance}} <br> <span class="small-gray-text">of {{asset.total}}</span></td>
-                        <td><span class="badge badge-secondary">Owned Asset</span></td>
+                        <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
                     </tr>
                     </tbody>
                 </table>

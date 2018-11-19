@@ -297,21 +297,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         for (let asset in assetList) {
             let id = assetList[asset]["ID"];
             let owner = assetList[asset]["Owner"];
-            if (owner === walletAddress) {
-                let assetBalance = '';
-                await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                    assetBalance = res;
-                });
-                let data = {
-                    "name": assetList[asset]["Name"],
-                    "symbol": assetList[asset]["Symbol"],
-                    "decimals": assetList[asset]["Decimals"],
-                    "total": assetList[asset]["Total"],
-                    "contractaddress": id,
-                    "balance": assetBalance
-                }
-                await $scope.assetListOwns.push(data);
+            let owned = false;
+            let assetBalance = '';
+
+            await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                assetBalance = res;
+            });
+
+            owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
+
+            let data = {
+                "name": assetList[asset]["Name"],
+                "symbol": assetList[asset]["Symbol"],
+                "decimals": assetList[asset]["Decimals"],
+                "total": assetList[asset]["Total"],
+                "contractaddress": id,
+                "balance": assetBalance,
+                "owner": owned
             }
+            await $scope.assetListOwns.push(data);
         }
     }
 
