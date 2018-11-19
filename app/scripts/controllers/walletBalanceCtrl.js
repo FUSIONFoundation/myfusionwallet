@@ -1,8 +1,10 @@
 'use strict';
-var walletBalanceCtrl = function($scope, $sce, $rootScope) {
+var walletBalanceCtrl = function($scope, $sce,walletService, $rootScope) {
 
     $scope.addressNotation = { 'value' : ''};
     $scope.ajaxReq = ajaxReq;
+    walletService.wallet = null;
+    walletService.password = '';
     $scope.tokensLoaded = false;
     $scope.showAllTokens = false;
     $scope.localToken = {
@@ -119,7 +121,13 @@ var walletBalanceCtrl = function($scope, $sce, $rootScope) {
     }
 
     $scope.setShortAddressNotation = async function () {
+        let password = walletService.password;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let notation = '';
+        await web3.fsn.genNotation({from:"0x91db50F5c36aE7616009d4e94462DcA4D4c7e833"}, password).then(function(res){})
 
+        $scope.getShortAddressNotation();
     }
 
 };
