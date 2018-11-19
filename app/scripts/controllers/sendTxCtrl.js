@@ -306,6 +306,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
 
+            // ADD DECIMALS FORMULA HERE
+
+            // ADD TIMELOCK CHECK HERE
             if (assetBalance > 0) {
                 let data = {
                     "name": assetList[asset]["Name"],

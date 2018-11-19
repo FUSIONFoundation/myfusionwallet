@@ -30,9 +30,13 @@
         <h5 translate="">Short Address</h5>
         <ul class="account-info point">
             <li>
-                <span class="mono wrap text-fusion" ng-bind="addressNotation.value"></span>
+                <span class="mono wrap text-fusion" ng-bind="addressNotation.value">
+                </span>
             </li>
         </ul>
+        <div ng-if="addressNotation.state === false">
+            <button class="btn btn-sm btn-primary" ng-click="setShortAddressNotation()">Generate SAN</button>
+        </div>
         <div ng-show="showDisplayOnTrezor()">
             <h5 translate="sidebar_DisplayOnTrezor">Display address on TREZOR</h5>
             <ul class="account-info">
