@@ -1,9 +1,6 @@
 'use strict';
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
-    $scope.init = function () {
-        $scope.getShortAddressNotation();
-    };
-    $scope.addressNotation = {'value': '', 'state': ''};
+
     $scope.ajaxReq = ajaxReq;
     walletService.wallet = null;
     walletService.password = '';
@@ -107,39 +104,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         var app = new ledgerEth($scope.wallet.getHWTransport());
         app.getAddress($scope.wallet.path, function () {
         }, true, false);
-    }
-
-
-    $scope.getShortAddressNotation = async function () {
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        let notation = '';
-
-        await web3.fsn.getNotation(walletAddress).then(function (res) {
-            notation = res;
-        });
-
-        if (notation === 0) {
-            $scope.addressNotation.state = false;
-            $scope.addressNotation.value = 'Not available';
-        } else {
-            $scope.addressNotation.state = true;
-            $scope.addressNotation.value = notation;
-        }
-
-        return notation;
-    }
-
-    $scope.setShortAddressNotation = async function () {
-        let password = walletService.password;
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        let notation = '';
-        await web3.fsn.genNotation({from: walletAddress}, password).then(function (res) {
-            console.log(res)
-        })
-
-        $scope.getShortAddressNotation();
     }
 
 };

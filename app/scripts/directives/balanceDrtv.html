@@ -34,8 +34,13 @@
                 </span>
             </li>
         </ul>
+        <div ng-controller="sendTxCtrl">
         <div ng-if="addressNotation.state === false">
-            <button class="btn btn-sm btn-primary" ng-click="setShortAddressNotation()">Generate SAN</button>
+            <button class="btn btn-sm btn-primary" ng-click="setShortAddressNotation()"
+                    ng-disabled="addressNotation.value != 'Not available'">
+                Generate SAN
+            </button>
+        </div>
         </div>
         <div ng-show="showDisplayOnTrezor()">
             <h5 translate="sidebar_DisplayOnTrezor">Display address on TREZOR</h5>

@@ -1,8 +1,10 @@
 'use strict';
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
+    $scope.addressNotation = {'value': '', 'state': ''};
     $scope.init = function () {
         $scope.getAllFsnAssets();
+        $scope.getShortAddressNotation();
     };
     $scope.assetCreate = {'assetHash': ''};
     $scope.assetListOwns = [];
@@ -359,6 +361,40 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             });
         });
+    }
+
+    $scope.getShortAddressNotation = async function () {
+        let accountData = uiFuncs.getTxData($scope);
+        walletService.wallet.address
+        let walletAddress = accountData.from;
+        let notation = '';
+
+        await web3.fsn.getNotation(walletAddress).then(function (res) {
+            notation = res;
+        });
+
+        if (notation === 0) {
+            $scope.addressNotation.state = false;
+            $scope.addressNotation.value = 'Not available';
+        } else {
+            $scope.addressNotation.state = true;
+            $scope.addressNotation.value = notation;
+        }
+
+        return notation;
+    }
+
+    $scope.setShortAddressNotation = async function () {
+        let password = walletService.password;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        console.log(password);
+        await web3.fsn.genNotation({from: walletAddress}, password).then(function (res) {
+            console.log(res);
+            $scope.addressNotation.value = res;
+        })
+
+        console.log($scope.addressNotation.value);
     }
 
     $scope.sendTx = function () {
