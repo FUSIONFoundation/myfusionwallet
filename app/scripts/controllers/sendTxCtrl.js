@@ -306,16 +306,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
 
-            let data = {
-                "name": assetList[asset]["Name"],
-                "symbol": assetList[asset]["Symbol"],
-                "decimals": assetList[asset]["Decimals"],
-                "total": assetList[asset]["Total"],
-                "contractaddress": id,
-                "balance": assetBalance,
-                "owner": owned
+            if (assetBalance > 0) {
+                let data = {
+                    "name": assetList[asset]["Name"],
+                    "symbol": assetList[asset]["Symbol"],
+                    "decimals": assetList[asset]["Decimals"],
+                    "total": assetList[asset]["Total"],
+                    "contractaddress": id,
+                    "balance": assetBalance,
+                    "owner": owned
+                }
+                await $scope.assetListOwns.push(data);
             }
-            await $scope.assetListOwns.push(data);
         }
     }
 
