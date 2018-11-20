@@ -56,7 +56,7 @@ nodes.nodeList = {
 		tokenList: require("./tokens/ethTokens.json"),
 		abiList: require("./abiDefinitions/ethAbi.json"),
 		service: "testfsn1.fusion.org",
-		lib: new nodes.customNode("http://3.16.110.25:8545", "")
+		lib: new nodes.customNode("http://3.16.110.25:9000", "")
 	},
 	eth_mew: {
 		name: "ETH",
