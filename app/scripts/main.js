@@ -11,7 +11,7 @@ var angularSanitize = require("angular-sanitize");
 var angularAnimate = require("angular-animate");
 var Web3 = require("web3");
 var web3 = new Web3();
-web3 = new Web3(new Web3.providers.HttpProvider("http://3.16.110.25:8545"));
+web3 = new Web3(new Web3.providers.HttpProvider("http://3.16.110.25:9000"));
 web3.extend({
     property: 'fsn',
     methods: [{
