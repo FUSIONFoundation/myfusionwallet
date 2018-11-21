@@ -336,10 +336,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }
 
+    setInterval(function() {
+        $scope.getAllFsnAssets();
+    }, 15000);
+
     $scope.getAllFsnAssets = async function () {
         if (walletService.password !== '') {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
+            $scope.assetListOwns = [];
             let assetList = {};
 
             await web3.fsn.allAssets().then(function (res) {
@@ -372,6 +377,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await $scope.assetListOwns.push(data);
                 }
             }
+            $scope.$apply(function () {
+                console.log('Is it actually applying?');
+                $scope.assetListOwns = $scope.assetListOwns;
+                $scope.assetListOwns = $scope.assetListOwns;
+            });
         }
     }
 
