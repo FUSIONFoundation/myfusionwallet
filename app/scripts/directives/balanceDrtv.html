@@ -37,7 +37,7 @@
         </ul>
         <div ng-if="addressNotation.state === false">
             <button class="btn btn-sm btn-primary" ng-click="setShortAddressNotation()"
-                    ng-disabled="addressNotation.value != 'Not available'">
+                    ng-disabled="addressNotation.value != 'Not available' || web3WalletBalance == '0'">
                 Generate SAN
             </button>
         </div>

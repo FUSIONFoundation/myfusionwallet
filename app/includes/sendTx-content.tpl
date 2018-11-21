@@ -33,6 +33,12 @@
                     nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
                     luctus.</p>
             </div>
+
+
+            <div class="col-sm-12 clearfix" ng-hide="assetListOwns != ''">
+                <h4 class="text-fusion">Loading assets...</h4>
+            </div>
+
             <div class="col-sm-12 clearfix" data-ng-init="getAllFsnAssets()">
                 <table class="table">
                     <tbody>

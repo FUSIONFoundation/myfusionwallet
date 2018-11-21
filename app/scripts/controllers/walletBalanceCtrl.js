@@ -158,7 +158,10 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.addressNotation.value = 'Not available';
             } else {
                 $scope.addressNotation.state = true;
-                $scope.addressNotation.value = notation;
+                $scope.$apply(function () {
+                    $scope.addressNotation.value = notation;
+                    $scope.addressNotation.value = notation;
+                });
             }
 
             return notation;
@@ -174,6 +177,8 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 console.log(res);
                 $scope.addressNotation.value = res;
             })
+
+            await $scope.getShortAddressNotation();
 
             console.log($scope.addressNotation.value);
         }
