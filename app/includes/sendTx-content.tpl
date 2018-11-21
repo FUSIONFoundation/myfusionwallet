@@ -394,32 +394,36 @@
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <h3>Send Asset</h3>
+
+                <label>
+                    Transaction Type:
+                </label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-1">
+                            <input type="radio" class="form-check-input" ng-model="transactionType"
+                                   value="standard" checked>
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="text-fusion">Standard Send</h4>
+                            Standard sending an asset will give the recipient full and permanent access to
+                            the asset.
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-1">
+                            <input type="radio" class="form-check-input" ng-model="transactionType"
+                                   value="timed">
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="text-fusion">Timed Send</h4>
+                            Time Sending an asset will give the recipient the asset for a time period you
+                            determine.
+                        </div>
+                    </div>
+                </div>
                 <section class="row form-group">
                     <div class="col-sm-12 clearfix">
-                        <label>
-                            Transaction Type:
-                        </label>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="col-md-4">
-                                    <input type="checkbox" class="form-check-input">
-                                </div>
-                                <div class="col-md-8">
-                                    <h4 class="text-fusion">Standard Send</h4>
-                                    Standard sending an asset will give the recipient full and permanent access to
-                                    the asset.
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="col-md-4">
-                                    <input type="checkbox" class="form-check-input">
-                                </div>
-                                <div class="col-md-8">
-                                    <h4 class="text-fusion">Timed Send</h4>
-                                    Time Sending an asset will give the recipient the asset for a time period you determine.
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-sm-12 clearfix">
                         <label>
@@ -433,6 +437,15 @@
                     <div class="col-sm-12 clearfix">
                         <label>
                             Amount To Send:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="sendAsset.amountToSend"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-sm-12 clearfix" ng-hide="transactionType =='standard'">
+                        <label>
+                            From Time To Time
                         </label>
                         <input type="text"
                                class="form-control"
@@ -455,6 +468,7 @@
 
                             <strong>{{successHash}}</strong>
                         </div>
+
                 </section>
 
                 <div class="row form-group">

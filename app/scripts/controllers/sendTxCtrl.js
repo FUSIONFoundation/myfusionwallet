@@ -270,6 +270,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.sendAsset = async function () {
+        $scope.$watch('transactionType', function() {
+            if ($scope.transactionType == "standard") {
+                console.log($scope.transactionType);
+            }
+            if ($scope.transactionType == "timed"){
+                console.log($scope.transactionType);
+            }
+        })
         $scope.successMessagebool = true;
         let password = walletService.password;
         let accountData = uiFuncs.getTxData($scope);
