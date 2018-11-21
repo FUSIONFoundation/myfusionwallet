@@ -2,6 +2,7 @@
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.init = function () {
         $scope.getShortAddressNotation();
+        $scope.getBalance();
     };
     $scope.mayRunState = false;
     $scope.addressNotation = {'value': '', 'state': ''};
@@ -109,6 +110,36 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         var app = new ledgerEth($scope.wallet.getHWTransport());
         app.getAddress($scope.wallet.path, function () {
         }, true, false);
+    }
+
+    $scope.countDecimals = function (decimals) {
+        let returnDecimals = '1';
+        for (let i = 0; i < decimals; i++) {
+            returnDecimals += '0';
+        }
+        return parseInt(returnDecimals);
+    }
+
+    setInterval(function() {
+        $scope.getBalance();
+    }, 15000);
+
+    $scope.getBalance = async function () {
+        if ($scope.mayRunState = true) {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let balance = '';
+
+            await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress).then(function (res) {
+                balance = res;
+            });
+
+            balance = balance / $scope.countDecimals(18);
+            $scope.$apply(function () {
+                $scope.web3WalletBalance = balance;
+                $scope.web3WalletBalance = balance;
+            });
+        }
     }
 
 

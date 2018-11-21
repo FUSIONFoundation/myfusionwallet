@@ -344,8 +344,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (walletService.password !== '') {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
-            $scope.assetListOwns = [];
             let assetList = {};
+            let assetList2 = [];
 
             await web3.fsn.allAssets().then(function (res) {
                 assetList = res;
@@ -374,13 +374,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "balance": assetBalance / divider,
                         "owner": owned
                     }
-                    await $scope.assetListOwns.push(data);
+                    await assetList2.push(data);
                 }
             }
             $scope.$apply(function () {
-                console.log('Is it actually applying?');
-                $scope.assetListOwns = $scope.assetListOwns;
-                $scope.assetListOwns = $scope.assetListOwns;
+                $scope.assetListOwns = assetList2;
+                $scope.assetListOwns = assetList2;
             });
         }
     }
