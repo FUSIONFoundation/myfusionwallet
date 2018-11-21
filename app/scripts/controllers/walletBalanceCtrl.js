@@ -65,23 +65,23 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     /*
-    $scope.$watch('wallet', function() {
-        if ($scope.wallet) $scope.reverseLookup();
-    });
+     $scope.$watch('wallet', function() {
+     if ($scope.wallet) $scope.reverseLookup();
+     });
 
-    $scope.reverseLookup = function() {
-        var _ens = new ens();
-        _ens.getName($scope.wallet.getAddressString().substring(2) + '.addr.reverse', function(data) {
-            if (data.error) uiFuncs.notifier.danger(data.msg);
-            else if (data.data == '0x') {
-                $scope.showens = false;
-            } else {
-                $scope.ensAddress = data.data;
-                $scope.showens = true;
-            }
-        });
-    }
-    */
+     $scope.reverseLookup = function() {
+     var _ens = new ens();
+     _ens.getName($scope.wallet.getAddressString().substring(2) + '.addr.reverse', function(data) {
+     if (data.error) uiFuncs.notifier.danger(data.msg);
+     else if (data.data == '0x') {
+     $scope.showens = false;
+     } else {
+     $scope.ensAddress = data.data;
+     $scope.showens = true;
+     }
+     });
+     }
+     */
 
     $scope.removeTokenFromLocal = function (tokensymbol) {
         globalFuncs.removeTokenFromLocal(tokensymbol, $scope.wallet.tokenObjs);
@@ -111,35 +111,39 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
     $scope.getShortAddressNotation = async function () {
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        let notation = '';
+        if (walletService.password !== '') {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let notation = '';
 
-        await web3.fsn.getNotation(walletAddress).then(function (res) {
-            notation = res;
-        });
+            await web3.fsn.getNotation(walletAddress).then(function (res) {
+                notation = res;
+            });
 
-        if (notation === 0) {
-            $scope.addressNotation.state = false;
-            $scope.addressNotation.value = 'Not available';
-        } else {
-            $scope.addressNotation.state = true;
-            $scope.addressNotation.value = notation;
+            if (notation === 0) {
+                $scope.addressNotation.state = false;
+                $scope.addressNotation.value = 'Not available';
+            } else {
+                $scope.addressNotation.state = true;
+                $scope.addressNotation.value = notation;
+            }
+
+            return notation;
         }
-
-        return notation;
     }
 
     $scope.setShortAddressNotation = async function () {
-        let password = walletService.password;
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        await web3.fsn.genNotation({from: walletAddress}, password).then(function (res) {
-            console.log(res);
-            $scope.addressNotation.value = res;
-        })
+        if (walletService.password !== '') {
+            let password = walletService.password;
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            await web3.fsn.genNotation({from: walletAddress}, password).then(function (res) {
+                console.log(res);
+                $scope.addressNotation.value = res;
+            })
 
-        console.log($scope.addressNotation.value);
+            console.log($scope.addressNotation.value);
+        }
     }
 
 };

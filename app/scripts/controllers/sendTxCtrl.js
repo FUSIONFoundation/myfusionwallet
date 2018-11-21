@@ -315,38 +315,39 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.getAllFsnAssets = async function () {
+        if (walletService.password !== '') {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let assetList = {};
 
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        let assetList = {};
-
-        await web3.fsn.allAssets().then(function (res) {
-            assetList = res;
-        });
-
-        for (let asset in assetList) {
-            let id = assetList[asset]["ID"];
-            let owner = assetList[asset]["Owner"];
-            let owned = false;
-            let assetBalance = '';
-
-            await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                assetBalance = res;
+            await web3.fsn.allAssets().then(function (res) {
+                assetList = res;
             });
 
-            owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
+            for (let asset in assetList) {
+                let id = assetList[asset]["ID"];
+                let owner = assetList[asset]["Owner"];
+                let owned = false;
+                let assetBalance = '';
 
-            if (assetBalance > 0.000000000001) {
-                let data = {
-                    "name": assetList[asset]["Name"],
-                    "symbol": assetList[asset]["Symbol"],
-                    "decimals": assetList[asset]["Decimals"],
-                    "total": assetList[asset]["Total"],
-                    "contractaddress": id,
-                    "balance": assetBalance,
-                    "owner": owned
+                await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                    assetBalance = res;
+                });
+
+                owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
+
+                if (assetBalance > 0.000000000001) {
+                    let data = {
+                        "name": assetList[asset]["Name"],
+                        "symbol": assetList[asset]["Symbol"],
+                        "decimals": assetList[asset]["Decimals"],
+                        "total": assetList[asset]["Total"],
+                        "contractaddress": id,
+                        "balance": assetBalance,
+                        "owner": owned
+                    }
+                    await $scope.assetListOwns.push(data);
                 }
-                await $scope.assetListOwns.push(data);
             }
         }
     }
