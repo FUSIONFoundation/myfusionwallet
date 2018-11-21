@@ -250,6 +250,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
     }
 
+    $scope.countDecimals = function (decimals) {
+        let returnDecimals = '1';
+        for (let i = 0; i < decimals; i++) {
+            returnDecimals += '0';
+        }
+        return parseInt(returnDecimals);
+    }
+
+
     $scope.createAssetModal = function () {
         $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
         $scope.createAssetModal.open();
@@ -298,15 +307,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let assetSymbol = $scope.assetCreate.assetSymbol;
         assetSymbol = assetSymbol.toUpperCase();
         let assetName = $scope.assetCreate.assetName;
-        let decimals = $scope.assetCreate.decimals;
+        let decimals = parseInt($scope.assetCreate.decimals);
         let totalSupply = $scope.assetCreate.totalSupply;
+        let power = $scope.countDecimals(decimals);
 
         await web3.fsn.genAsset({
             from: walletAddress,
             name: assetName,
             symbol: assetSymbol,
-            decimals: 12,
-            total: totalSupply
+            decimals: decimals,
+            total: totalSupply * power
         }, password).then(function (res) {
             $scope.$apply(function () {
                 $scope.assetCreate.assetHash = res;
@@ -317,16 +327,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.timeLock = function () {
 
     }
-
-    $scope.countDecimals = function (decimals) {
-        let returnDecimals = '1';
-        for (var i = 0; i < decimals; i++) {
-            returnDecimals += '0';
-        }
-        return parseInt(returnDecimals);
-    }
-
-    $scope.countDecimals(12);
 
     $scope.getAllFsnAssets = async function () {
         if (walletService.password !== '') {
