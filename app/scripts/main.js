@@ -398,9 +398,11 @@ app.controller("offlineTxCtrl", [
 app.controller("walletBalanceCtrl", [
   "$scope",
   "$sce",
+  "walletService",
   "$rootScope",
   walletBalanceCtrl
 ]);
+
 app.controller("helpersCtrl", ["$scope", helpersCtrl]);
 if (IS_CX) {
   app.controller("addWalletCtrl", ["$scope", "$sce", addWalletCtrl]);

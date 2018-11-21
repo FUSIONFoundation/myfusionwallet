@@ -286,7 +286,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         });
 
-        $scope.successHash = hash;
+        $scope.$apply(function () {
+            $scope.successHash = hash;
+        });
     }
 
     $scope.createAsset = async function () {
@@ -306,7 +308,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             decimals: 12,
             total: totalSupply
         }, password).then(function (res) {
-            $scope.assetCreate.assetHash = res;
+            $scope.$apply(function () {
+                $scope.assetCreate.assetHash = res;
+            });
         })
     }
 

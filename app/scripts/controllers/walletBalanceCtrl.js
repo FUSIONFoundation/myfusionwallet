@@ -3,6 +3,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.init = function () {
         $scope.getShortAddressNotation();
     };
+    $scope.mayRunState = false;
     $scope.addressNotation = {'value': '', 'state': ''};
     $scope.ajaxReq = ajaxReq;
     walletService.wallet = null;
@@ -62,9 +63,10 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
     $scope.$watch('wallet', function () {
-        console.log($scope.wallet);
         if ($scope.wallet === null) {
+            $scope.mayRunState = false;
         } else {
+            $scope.mayRunState = true;
             $scope.init();
         }
     });
@@ -111,28 +113,29 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
     $scope.getShortAddressNotation = async function () {
+        if ($scope.mayRunState = true) {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let notation = '';
 
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        let notation = '';
+            await web3.fsn.getNotation(walletAddress).then(function (res) {
+                notation = res;
+            });
 
-        await web3.fsn.getNotation(walletAddress).then(function (res) {
-            notation = res;
-        });
+            if (notation === 0) {
+                $scope.addressNotation.state = false;
+                $scope.addressNotation.value = 'Not available';
+            } else {
+                $scope.addressNotation.state = true;
+                $scope.addressNotation.value = notation;
+            }
 
-        if (notation === 0) {
-            $scope.addressNotation.state = false;
-            $scope.addressNotation.value = 'Not available';
-        } else {
-            $scope.addressNotation.state = true;
-            $scope.addressNotation.value = notation;
+            return notation;
         }
-
-        return notation;
     }
 
     $scope.setShortAddressNotation = async function () {
-        if (walletService.password !== '') {
+        if ($scope.mayRunState = true) {
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
