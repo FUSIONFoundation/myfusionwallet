@@ -318,6 +318,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }
 
+    $scope.countDecimals = function (decimals) {
+        let returnDecimals = '1';
+        for (var i = 0; i < decimals; i++) {
+            returnDecimals += '0';
+        }
+        return parseInt(returnDecimals);
+    }
+
+    $scope.countDecimals(12);
+
     $scope.getAllFsnAssets = async function () {
         if (walletService.password !== '') {
             let accountData = uiFuncs.getTxData($scope);
@@ -341,13 +351,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
 
                 if (assetBalance > 0.000000000001) {
+                    let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                     let data = {
                         "name": assetList[asset]["Name"],
                         "symbol": assetList[asset]["Symbol"],
                         "decimals": assetList[asset]["Decimals"],
-                        "total": assetList[asset]["Total"],
+                        "total": assetList[asset]["Total"] / divider,
                         "contractaddress": id,
-                        "balance": assetBalance,
+                        "balance": assetBalance / divider,
                         "owner": owned
                     }
                     await $scope.assetListOwns.push(data);
