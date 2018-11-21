@@ -286,6 +286,7 @@ var domainsaleCtrl = require("./controllers/domainsaleCtrl");
 var footerCtrl = require("./controllers/footerCtrl");
 var offlineTxCtrl = require("./controllers/offlineTxCtrl");
 var walletBalanceCtrl = require("./controllers/walletBalanceCtrl");
+window.walletBalanceCtrl = walletBalanceCtrl;
 var helpersCtrl = require("./controllers/helpersCtrl");
 var globalService = require("./services/globalService");
 var walletService = require("./services/walletService");
