@@ -86,9 +86,6 @@
             </div>
         </section>
     </article>
-</div>
-
-<div class="col-sm-9">
     <!-- ERC20 Assets -->
     <h3>Legacy (ERC20) Tokens</h3>
 
