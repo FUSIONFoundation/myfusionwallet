@@ -4,7 +4,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
             $scope.getAllFsnAssets();
         };
-        $scope.assetCreate = {'assetHash': ''};
+        $scope.assetCreate = {'assetHash': '', 'errorMessage' : ''};
         $scope.assetListOwns = [];
         $scope.tx = {};
         $scope.signedTx
@@ -315,16 +315,33 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.createAsset = async function () {
+            $scope.assetCreate.errorMessage == '';
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
-            let assetSymbol = $scope.assetCreate.assetSymbol;
-            assetSymbol = assetSymbol.toUpperCase();
+            let assetSymbol = '';
+            if (!$scope.assetCreate.assetSymbol) {
+                assetSymbol = '';
+            } else {
+                assetSymbol = $scope.assetCreate.assetSymbol.toUpperCase();
+            }
             let assetName = $scope.assetCreate.assetName;
             let decimals = parseInt($scope.assetCreate.decimals);
             let totalSupply = $scope.assetCreate.totalSupply;
             let power = $scope.countDecimals(decimals);
 
+            if (assetSymbol == '' || assetName == '' || decimals == '' || totalSupply == '') {
+                $scope.assetCreate.errorMessage = 'One or more required fields are missing.';
+                return null;
+            }
+            if (decimals > 15) {
+                $scope.assetCreate.errorMessage = 'Decimals must be below 16.';
+                return null;
+            }
+            if (assetSymbol.length > 4) {
+                $scope.assetCreate.errorMessage = 'Asset Symbols maximum characters is 4.';
+                return null;
+            }
             await web3.fsn.genAsset({
                 from: walletAddress,
                 name: assetName,
@@ -333,6 +350,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 total: totalSupply * power
             }, password).then(function (res) {
                 $scope.$apply(function () {
+                    $scope.assetCreate.errorMessage = '';
                     $scope.assetCreate.assetHash = res;
                 });
             })
@@ -340,7 +358,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         setInterval(function () {
             $scope.getAllFsnAssets();
             $scope.getTimeLockAssets();
-        }, 15000);
+        }, 7500);
 
         $scope.getTimeLockAssets = async function () {
             if (walletService.password !== '') {
@@ -350,6 +368,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let assetList2 = [];
 
                 await web3.fsn.getAllTimeLockBalances(walletAddress).then(function (res) {
+                    console.log(res);
                     assetList = res;
                 });
 
