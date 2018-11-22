@@ -3,7 +3,7 @@ require("babel-polyfill");
 require("./localStoragePolyfill");
 var IS_CX = false;
 if (typeof chrome != "undefined")
-  IS_CX = chrome.windows === undefined ? false : true;
+    IS_CX = chrome.windows === undefined ? false : true;
 var angular = require("angular");
 var angularTranslate = require("angular-translate");
 var angularTranslateErrorLog = require("angular-translate-handler-log");
@@ -31,6 +31,14 @@ web3.extend({
             inputFormatter: [
                 web3.extend.formatters.inputAddressFormatter,
                 web3.extend.formatters.inputDefaultBlockNumberFormatter
+            ]
+        },
+        {
+            name: 'getAsset',
+            call: 'fsn_getAsset',
+            params: 1,
+            inputFormatter: [
+                null
             ]
         },
         {
@@ -184,7 +192,7 @@ var bip39 = require("bip39");
 var HDKey = require("hdkey");
 var xssFilters = require("xss-filters");
 window.xssFilters = xssFilters;
-window.hd = { bip39: bip39, HDKey: HDKey };
+window.hd = {bip39: bip39, HDKey: HDKey};
 var BigNumber = require("bignumber.js");
 window.BigNumber = BigNumber;
 var marked = require("./staticJS/customMarked");
@@ -232,38 +240,38 @@ var domainsale = require("./domainsale");
 window.domainsale = domainsale;
 var translate = require("./translations/translate.js");
 if (IS_CX) {
-  var cxFuncs = require("./cxFuncs");
-  var punycode = require("punycode");
-  var similarity = require("similarity");
-  var levenshtein = require("levenshtein");
-  var uniMap = require("unicode/category/Ll");
-  var homoglyphs = require("./homoglyphs.json");
-  window.cxHelpers = {};
-  window.cxFuncs = cxFuncs;
-  window.cxHelpers["punycode"] = punycode;
-  window.cxHelpers["uniMap"] = uniMap;
-  window.cxHelpers["homoglyphs"] = homoglyphs;
-  window.cxHelpers["similarity"] = similarity;
-  window.cxHelpers["levenshtein"] = levenshtein;
+    var cxFuncs = require("./cxFuncs");
+    var punycode = require("punycode");
+    var similarity = require("similarity");
+    var levenshtein = require("levenshtein");
+    var uniMap = require("unicode/category/Ll");
+    var homoglyphs = require("./homoglyphs.json");
+    window.cxHelpers = {};
+    window.cxFuncs = cxFuncs;
+    window.cxHelpers["punycode"] = punycode;
+    window.cxHelpers["uniMap"] = uniMap;
+    window.cxHelpers["homoglyphs"] = homoglyphs;
+    window.cxHelpers["similarity"] = similarity;
+    window.cxHelpers["levenshtein"] = levenshtein;
 } else {
-  var MewConnectEth = require("./staticJS/mewConnectEth");
-  var MewConnect = require("@myetherwallet/mewconnect-web-client").Initiator;
-  var ledger3 = require("./staticJS/ledger3");
-  var ledgerEth = require("./staticJS/ledger-eth");
-  var trezorConnect = require("trezor-connect").default;
-  var digitalBitboxUsb = require("./staticJS/digitalBitboxUsb");
-  var digitalBitboxEth = require("./staticJS/digitalBitboxEth");
-  var secalotUsb = require("./staticJS/secalotUsb");
-  var secalotEth = require("./staticJS/secalotEth");
-  window.Ledger3 = ledger3;
-  window.ledgerEth = ledgerEth;
-  window.TrezorConnect = trezorConnect;
-  window.DigitalBitboxUsb = digitalBitboxUsb;
-  window.DigitalBitboxEth = digitalBitboxEth;
-  window.SecalotUsb = secalotUsb;
-  window.SecalotEth = secalotEth;
-  window.MewConnectEth = MewConnectEth;
-  window.MewConnect = MewConnect;
+    var MewConnectEth = require("./staticJS/mewConnectEth");
+    var MewConnect = require("@myetherwallet/mewconnect-web-client").Initiator;
+    var ledger3 = require("./staticJS/ledger3");
+    var ledgerEth = require("./staticJS/ledger-eth");
+    var trezorConnect = require("trezor-connect").default;
+    var digitalBitboxUsb = require("./staticJS/digitalBitboxUsb");
+    var digitalBitboxEth = require("./staticJS/digitalBitboxEth");
+    var secalotUsb = require("./staticJS/secalotUsb");
+    var secalotEth = require("./staticJS/secalotEth");
+    window.Ledger3 = ledger3;
+    window.ledgerEth = ledgerEth;
+    window.TrezorConnect = trezorConnect;
+    window.DigitalBitboxUsb = digitalBitboxUsb;
+    window.DigitalBitboxEth = digitalBitboxEth;
+    window.SecalotUsb = secalotUsb;
+    window.SecalotEth = secalotEth;
+    window.MewConnectEth = MewConnectEth;
+    window.MewConnect = MewConnect;
 }
 var CustomGasMessages = require("./customGas.js");
 window.CustomGasMessages = CustomGasMessages;
@@ -298,45 +306,45 @@ var cxWalletDecryptDrtv = require("./directives/cxWalletDecryptDrtv");
 var fileReaderDrtv = require("./directives/fileReaderDrtv");
 var balanceDrtv = require("./directives/balanceDrtv");
 if (IS_CX) {
-  var addWalletCtrl = require("./controllers/CX/addWalletCtrl");
-  var cxDecryptWalletCtrl = require("./controllers/CX/cxDecryptWalletCtrl");
-  var myWalletsCtrl = require("./controllers/CX/myWalletsCtrl");
-  var mainPopCtrl = require("./controllers/CX/mainPopCtrl");
-  var quickSendCtrl = require("./controllers/CX/quickSendCtrl");
+    var addWalletCtrl = require("./controllers/CX/addWalletCtrl");
+    var cxDecryptWalletCtrl = require("./controllers/CX/cxDecryptWalletCtrl");
+    var myWalletsCtrl = require("./controllers/CX/myWalletsCtrl");
+    var mainPopCtrl = require("./controllers/CX/mainPopCtrl");
+    var quickSendCtrl = require("./controllers/CX/quickSendCtrl");
 }
 var app = angular.module("mewApp", [
-  "pascalprecht.translate",
-  "ngSanitize",
-  "ngAnimate"
+    "pascalprecht.translate",
+    "ngSanitize",
+    "ngAnimate"
 ]);
 app.config([
-  "$compileProvider",
-  function($compileProvider) {
-    $compileProvider.aHrefSanitizationWhitelist(
-      /^\s*(|blob|https?|mailto|chrome-extension):/
-    );
-    $compileProvider.imgSrcSanitizationWhitelist(
-      /^\s*(https?|local|data|file|chrome-extension):/
-    );
-  }
+    "$compileProvider",
+    function ($compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(
+            /^\s*(|blob|https?|mailto|chrome-extension):/
+        );
+        $compileProvider.imgSrcSanitizationWhitelist(
+            /^\s*(https?|local|data|file|chrome-extension):/
+        );
+    }
 ]);
 app.config([
-  "$translateProvider",
-  function($translateProvider) {
-    $translateProvider.useMissingTranslationHandlerLog();
-    new translate($translateProvider);
-  }
+    "$translateProvider",
+    function ($translateProvider) {
+        $translateProvider.useMissingTranslationHandlerLog();
+        new translate($translateProvider);
+    }
 ]);
 app.config([
-  "$animateProvider",
-  function($animateProvider) {
-    $animateProvider.classNameFilter(/^no-animate$/);
-  }
+    "$animateProvider",
+    function ($animateProvider) {
+        $animateProvider.classNameFilter(/^no-animate$/);
+    }
 ]);
 app.factory("globalService", [
-  "$http",
-  "$httpParamSerializerJQLike",
-  globalService
+    "$http",
+    "$httpParamSerializerJQLike",
+    globalService
 ]);
 app.factory("walletService", walletService);
 app.directive("blockieAddress", blockiesDrtv);
@@ -348,82 +356,82 @@ app.directive("walletDecryptDrtv", walletDecryptDrtv);
 app.directive("cxWalletDecryptDrtv", cxWalletDecryptDrtv);
 app.constant("darkList", darkListConst);
 app.controller("tabsCtrl", [
-  "$scope",
-  "globalService",
-  "$translate",
-  "$sce",
-  tabsCtrl
+    "$scope",
+    "globalService",
+    "$translate",
+    "$sce",
+    tabsCtrl
 ]);
 app.controller("viewCtrl", ["$scope", "globalService", "$sce", viewCtrl]);
 app.controller("walletGenCtrl", ["$scope", walletGenCtrl]);
 app.controller("bulkGenCtrl", ["$scope", bulkGenCtrl]);
 app.controller("onboardingCtrl", ["$scope", onboardingCtrl]);
 app.controller("decryptWalletCtrl", [
-  "$scope",
-  "$sce",
-  "walletService",
-  decryptWalletCtrl
+    "$scope",
+    "$sce",
+    "walletService",
+    decryptWalletCtrl
 ]);
 app.controller("viewWalletCtrl", ["$scope", "walletService", viewWalletCtrl]);
 app.controller("txStatusCtrl", ["$scope", txStatusCtrl]);
 app.controller("sendTxCtrl", [
-  "$scope",
-  "$sce",
-  "walletService",
-  "$rootScope",
-  sendTxCtrl
+    "$scope",
+    "$sce",
+    "walletService",
+    "$rootScope",
+    sendTxCtrl
 ]);
 app.controller("swapCtrl", ["$scope", "$sce", "walletService", swapCtrl]);
 app.controller("signMsgCtrl", ["$scope", "$sce", "walletService", signMsgCtrl]);
 app.controller("contractsCtrl", [
-  "$scope",
-  "$sce",
-  "walletService",
-  contractsCtrl
+    "$scope",
+    "$sce",
+    "walletService",
+    contractsCtrl
 ]);
 app.controller("ensCtrl", ["$scope", "$sce", "walletService", ensCtrl]);
 app.controller("domainsaleCtrl", [
-  "$scope",
-  "$sce",
-  "walletService",
-  domainsaleCtrl
+    "$scope",
+    "$sce",
+    "walletService",
+    domainsaleCtrl
 ]);
 app.controller("footerCtrl", ["$scope", "globalService", footerCtrl]);
 app.controller("offlineTxCtrl", [
-  "$scope",
-  "$sce",
-  "walletService",
-  offlineTxCtrl
+    "$scope",
+    "$sce",
+    "walletService",
+    offlineTxCtrl
 ]);
 app.controller("walletBalanceCtrl", [
-  "$scope",
-  "$sce",
-  "walletService",
-  "$rootScope",
-  walletBalanceCtrl
+    "$scope",
+    "$sce",
+    "walletService",
+    "$rootScope",
+    walletBalanceCtrl
 ]);
 
 app.controller("helpersCtrl", ["$scope", helpersCtrl]);
 if (IS_CX) {
-  app.controller("addWalletCtrl", ["$scope", "$sce", addWalletCtrl]);
-  app.controller("myWalletsCtrl", [
-    "$scope",
-    "$sce",
-    "$timeout",
-    "walletService",
-    myWalletsCtrl
-  ]);
-  app.controller("mainPopCtrl", ["$scope", "$sce", mainPopCtrl]);
-  app.controller("quickSendCtrl", [
-    "$scope",
-    "$sce",
-    "darkList",
-    quickSendCtrl
-  ]);
-  app.controller("cxDecryptWalletCtrl", [
-    "$scope",
-    "$sce",
-    "walletService",
-    cxDecryptWalletCtrl
-  ]);
+    app.controller("addWalletCtrl", ["$scope", "$sce", addWalletCtrl]);
+    app.controller("myWalletsCtrl", [
+        "$scope",
+        "$sce",
+        "$timeout",
+        "walletService",
+        myWalletsCtrl
+    ]);
+    app.controller("mainPopCtrl", ["$scope", "$sce", mainPopCtrl]);
+    app.controller("quickSendCtrl", [
+        "$scope",
+        "$sce",
+        "darkList",
+        quickSendCtrl
+    ]);
+    app.controller("cxDecryptWalletCtrl", [
+        "$scope",
+        "$sce",
+        "walletService",
+        cxDecryptWalletCtrl
+    ]);
 }

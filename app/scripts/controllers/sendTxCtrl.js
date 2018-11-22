@@ -284,8 +284,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let from = accountData.from;
             let to = $scope.sendAsset.toAddress;
             let amount = $scope.sendAsset.amountToSend;
+            let decimals = '';
             let asset = $scope.assetToSend;
             let hash = '';
+
+            console.log(`Asset is -> ${asset}`);
+
+            web3.fsn.getAsset(asset).then(function(res){
+                console.log(res["Decimals"]);
+                decimals = res["Decimals"];
+
+                console.log(decimals);
+            });
 
             await web3.fsn.sendAsset({
                 from: from,
