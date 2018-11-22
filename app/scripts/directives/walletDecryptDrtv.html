@@ -8,89 +8,89 @@
     </h4>
 
     <!-- View Balance Only -->
-    <label aria-flowto="aria1"
-           class="radio"
-           ng-show="globalService.currentTab==globalService.tabs.sendTransaction.id || globalService.currentTab==globalService.tabs.viewWalletInfo.id">
-      <input aria-flowto="aria1"
-             aria-label="address"
-             type="radio"
-             ng-model="walletType"
-             value="addressOnly" />
-        View w/ Address Only
-    </label>
+    <!--<label aria-flowto="aria1"-->
+           <!--class="radio"-->
+           <!--ng-show="globalService.currentTab==globalService.tabs.sendTransaction.id || globalService.currentTab==globalService.tabs.viewWalletInfo.id">-->
+      <!--<input aria-flowto="aria1"-->
+             <!--aria-label="address"-->
+             <!--type="radio"-->
+             <!--ng-model="walletType"-->
+             <!--value="addressOnly" />-->
+        <!--View w/ Address Only-->
+    <!--</label>-->
 
-    <!-- MEWconnect -->
-    <label
-      class="radio"><!-- todo re-add aria-flowto="aria10" property -->
-      <input type="radio"
-             aria-label="MEW Connect"
-             ng-model="walletType"
-             value="mewConnect"/>
-      <span><!-- todo re-add translation property -->
-       <img src="images/MEWconnectLogo.svg" width="120" height="26">
-      </span>
-    </label>
+    <!--&lt;!&ndash; MEWconnect &ndash;&gt;-->
+    <!--<label-->
+      <!--class="radio">&lt;!&ndash; todo re-add aria-flowto="aria10" property &ndash;&gt;-->
+      <!--<input type="radio"-->
+             <!--aria-label="MEW Connect"-->
+             <!--ng-model="walletType"-->
+             <!--value="mewConnect"/>-->
+      <!--<span>&lt;!&ndash; todo re-add translation property &ndash;&gt;-->
+       <!--<img src="images/MEWconnectLogo.svg" width="120" height="26">-->
+      <!--</span>-->
+    <!--</label>-->
 
     <!-- MetaMask -->
-    <label aria-flowto="aria2"
-           class="radio">
-      <input aria-flowto="aria2"
-             type="radio"
-             aria-label="MetaMask / Mist"
-             ng-model="walletType"
-             value="metamask" />
-      <span translate="x_MetaMask">
-        MetaMask / Mist
-      </span>
-    </label>
+    <!--<label aria-flowto="aria2"-->
+           <!--class="radio">-->
+      <!--<input aria-flowto="aria2"-->
+             <!--type="radio"-->
+             <!--aria-label="MetaMask / Mist"-->
+             <!--ng-model="walletType"-->
+             <!--value="metamask" />-->
+      <!--<span translate="x_MetaMask">-->
+        <!--MetaMask / Mist-->
+      <!--</span>-->
+    <!--</label>-->
 
-    <!-- Ledger -->
-    <label aria-flowto="aria3"
-           class="radio"
-           ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ESN'||ajaxReq.type=='AKA'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ATH'||ajaxReq.type=='MUSIC'||ajaxReq.type=='EOSC'||ajaxReq.type=='GO'||ajaxReq.type=='MIX'||ajaxReq.type=='ILT'">
-      <input aria-flowto="aria3"
-             type="radio"
-             aria-label="Ledger Hardware Wallet"
-             ng-model="walletType"
-             value="ledger"/>
-      Ledger Wallet
-    </label>
+    <!--&lt;!&ndash; Ledger &ndash;&gt;-->
+    <!--<label aria-flowto="aria3"-->
+           <!--class="radio"-->
+           <!--ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ESN'||ajaxReq.type=='AKA'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ATH'||ajaxReq.type=='MUSIC'||ajaxReq.type=='EOSC'||ajaxReq.type=='GO'||ajaxReq.type=='MIX'||ajaxReq.type=='ILT'">-->
+      <!--<input aria-flowto="aria3"-->
+             <!--type="radio"-->
+             <!--aria-label="Ledger Hardware Wallet"-->
+             <!--ng-model="walletType"-->
+             <!--value="ledger"/>-->
+      <!--Ledger Wallet-->
+    <!--</label>-->
 
-    <!-- TREZOR -->
-    <label class="radio"
-           aria-flowto="aria4"
-           ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ELLA'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ETSC'||ajaxReq.type=='MUSIC'||ajaxReq.type=='GO'||ajaxReq.type=='EOSC'||ajaxReq.type=='AKA'||ajaxReq.type=='ESN'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='ATH'||ajaxReq.type=='ILT'">
-      <input aria-flowto="aria4"
-             type="radio"
-             aria-label="Trezor Hardware Wallet"
-             ng-model="walletType"
-             value="trezor" />
-      TREZOR
-    </label>
+    <!--&lt;!&ndash; TREZOR &ndash;&gt;-->
+    <!--<label class="radio"-->
+           <!--aria-flowto="aria4"-->
+           <!--ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ELLA'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ETSC'||ajaxReq.type=='MUSIC'||ajaxReq.type=='GO'||ajaxReq.type=='EOSC'||ajaxReq.type=='AKA'||ajaxReq.type=='ESN'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='ATH'||ajaxReq.type=='ILT'">-->
+      <!--<input aria-flowto="aria4"-->
+             <!--type="radio"-->
+             <!--aria-label="Trezor Hardware Wallet"-->
+             <!--ng-model="walletType"-->
+             <!--value="trezor" />-->
+      <!--TREZOR-->
+    <!--</label>-->
 
-    <!-- Digital Bitbox -->
-    <label aria-flowto="aria5"
-           class="radio"
-           ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'">
-      <input aria-flowto="aria5"
-             type="radio"
-             aria-label="Digital Bitbox hardware wallet"
-             ng-model="walletType"
-             value="digitalBitbox"/>
-      Digital Bitbox
-    </label>
+    <!--&lt;!&ndash; Digital Bitbox &ndash;&gt;-->
+    <!--<label aria-flowto="aria5"-->
+           <!--class="radio"-->
+           <!--ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'">-->
+      <!--<input aria-flowto="aria5"-->
+             <!--type="radio"-->
+             <!--aria-label="Digital Bitbox hardware wallet"-->
+             <!--ng-model="walletType"-->
+             <!--value="digitalBitbox"/>-->
+      <!--Digital Bitbox-->
+    <!--</label>-->
 
-    <!-- Secalot -->
-    <label aria-flowto="aria5"
-           class="radio"
-           ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'">
-      <input aria-flowto="aria5"
-             type="radio"
-             aria-label="Secalot hardware wallet"
-             ng-model="walletType"
-             value="secalot"/>
-      Secalot
-    </label>
+    <!--&lt;!&ndash; Secalot &ndash;&gt;-->
+    <!--<label aria-flowto="aria5"-->
+           <!--class="radio"-->
+           <!--ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'">-->
+      <!--<input aria-flowto="aria5"-->
+             <!--type="radio"-->
+             <!--aria-label="Secalot hardware wallet"-->
+             <!--ng-model="walletType"-->
+             <!--value="secalot"/>-->
+      <!--Secalot-->
+    <!--</label>-->
 
     <!-- Keystore / JSON File -->
     <label aria-flowto="aria6"
@@ -108,23 +108,23 @@
       </a>
     </label>
 
-    <!-- Mnemonic Phrase -->
-    <label aria-flowto="aria7"
-           class="radio">
-      <input aria-flowto="aria7"
-             aria-label="mnemonic phrase"
-             type="radio"
-             ng-model="walletType"
-             value="pastemnemonic" />
-      <span translate="x_Mnemonic">
-        Mnemonic Phrase
-      </span>
-      <a href="https://kb.myetherwallet.com/private-keys-passwords/difference-beween-private-key-and-keystore-file.html"
-         target="_blank"
-         rel="noopener noreferrer">
-        <img src="images/icon-help-3.svg" width="16px" height="16px" style="margin: 0 5px 5px">
-      </a>
-    </label>
+    <!--&lt;!&ndash; Mnemonic Phrase &ndash;&gt;-->
+    <!--<label aria-flowto="aria7"-->
+           <!--class="radio">-->
+      <!--<input aria-flowto="aria7"-->
+             <!--aria-label="mnemonic phrase"-->
+             <!--type="radio"-->
+             <!--ng-model="walletType"-->
+             <!--value="pastemnemonic" />-->
+      <!--<span translate="x_Mnemonic">-->
+        <!--Mnemonic Phrase-->
+      <!--</span>-->
+      <!--<a href="https://kb.myetherwallet.com/private-keys-passwords/difference-beween-private-key-and-keystore-file.html"-->
+         <!--target="_blank"-->
+         <!--rel="noopener noreferrer">-->
+        <!--<img src="images/icon-help-3.svg" width="16px" height="16px" style="margin: 0 5px 5px">-->
+      <!--</a>-->
+    <!--</label>-->
 
     <!-- Private -->
     <label aria-flowto="aria8"
@@ -144,32 +144,32 @@
       </a>
     </label>
 
-    <!-- Parity -->
-    <label aria-flowto="aria9"
-           class="radio"
-           style="display: none;"
-           id="showMeTheMoney">
-      <input aria-flowto="aria9"
-             aria-label="parity phrase"
-             type="radio"
-             ng-model="walletType"
-             value="parityBWallet" />
-      <span translate="x_ParityPhrase">
-        Parity Phrase
-      </span>
-    </label>
+    <!--&lt;!&ndash; Parity &ndash;&gt;-->
+    <!--<label aria-flowto="aria9"-->
+           <!--class="radio"-->
+           <!--style="display: none;"-->
+           <!--id="showMeTheMoney">-->
+      <!--<input aria-flowto="aria9"-->
+             <!--aria-label="parity phrase"-->
+             <!--type="radio"-->
+             <!--ng-model="walletType"-->
+             <!--value="parityBWallet" />-->
+      <!--<span translate="x_ParityPhrase">-->
+        <!--Parity Phrase-->
+      <!--</span>-->
+    <!--</label>-->
 
-    <label class="radio">
-      &nbsp;
-      <span translate="x_ParityPhrase">
-        Parity Phrase
-      </span>
-      <a href="https://kb.myetherwallet.com/private-keys-passwords/parity-phrases-are-no-longer-supported.html"
-         target="_blank"
-         rel="noopener noreferrer">
-           <img src="images/icon-help-2.svg" width="16px" height="16px" style="margin: 0 5px 5px">
-      </a>
-    </label>
+    <!--<label class="radio">-->
+      <!--&nbsp;-->
+      <!--<span translate="x_ParityPhrase">-->
+        <!--Parity Phrase-->
+      <!--</span>-->
+      <!--<a href="https://kb.myetherwallet.com/private-keys-passwords/parity-phrases-are-no-longer-supported.html"-->
+         <!--target="_blank"-->
+         <!--rel="noopener noreferrer">-->
+           <!--<img src="images/icon-help-2.svg" width="16px" height="16px" style="margin: 0 5px 5px">-->
+      <!--</a>-->
+    <!--</label>-->
   </section>
   <!-- / Column 1 - Select Type of Key -->
 
