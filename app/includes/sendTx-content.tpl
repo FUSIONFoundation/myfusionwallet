@@ -54,6 +54,38 @@
             </div>
         </section>
     </article>
+
+        <h3>Time Locked Assets</h3>
+
+    <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="row form-group">
+            <div class="col-sm-12 clearfix">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lectus odio. Pellentesque sed
+                    nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
+                    luctus.</p>
+            </div>
+
+
+            <div class="col-sm-12 clearfix" ng-hide="timeLockList != ''">
+                <h4 class="text-fusion">Loading assets...</h4>
+            </div>
+
+            <div class="col-sm-12 clearfix" data-ng-init="getTimeLockAssets()">
+                <table class="table">
+                    <tbody>
+                    <tr ng-repeat="asset in timeLockList track by $index">
+                        <td><span class="small-gray-text">ASSET ID </span> <br> {{asset.asset}} </td>
+                        <td><span class="small-gray-text">FROM </span> <br> {{asset.startTime}}</td>
+                        <td><span class="small-gray-text">TILL</span> <br> {{asset.endTime}}</td>
+                        <td><span class="small-gray-text">VALUE </span> <br> {{asset.value}}</td>
+                        <td><span class="badge badge-secondary">Time Locked</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </section>
+    </article>
 </div>
 
 <div class="col-sm-9">

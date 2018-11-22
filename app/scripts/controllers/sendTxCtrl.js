@@ -4,7 +4,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
             $scope.getAllFsnAssets();
         };
-        $scope.assetCreate = {'assetHash': '', 'errorMessage' : ''};
+        $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
         $scope.assetListOwns = [];
         $scope.tx = {};
         $scope.signedTx
@@ -364,49 +364,33 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (walletService.password !== '') {
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
-                let assetList = {};
-                let assetList2 = [];
+                let timeLockList = {};
+                let timeLockListSave = [];
 
                 await web3.fsn.getAllTimeLockBalances(walletAddress).then(function (res) {
-                    console.log(res);
-                    assetList = res;
+                    timeLockList = res;
                 });
 
-                for (let asset in assetList) {
-                    console.log(assetList[asset]["Items"]["EndTime"]);
-                    console.log(assetList[asset]["Items"]["StartTime"]);
-                    console.log(assetList[asset]["Items"]["Value"]);
-
-
-                    // let id = assetList[asset]["ID"];
-                    // let owner = assetList[asset]["Owner"];
-                    // let owned = false;
-                    // let assetBalance = '';
-                    //
-                    // await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                    //     assetBalance = res;
-                    // });
-                    //
-                    // owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
-                    //
-                    // if (assetBalance > 0.000000000001) {
-                    //     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
-                    //     let data = {
-                    //         "name": assetList[asset]["Name"],
-                    //         "symbol": assetList[asset]["Symbol"],
-                    //         "decimals": assetList[asset]["Decimals"],
-                    //         "total": assetList[asset]["Total"] / divider,
-                    //         "contractaddress": id,
-                    //         "balance": assetBalance / divider,
-                    //         "owner": owned
-                    //     }
-                    //     await assetList2.push(data);
+                let x = 0;
+                for (let asset in timeLockList) {
+                    let assetId = Object.keys(timeLockList);
+                    for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
+                        let data = {
+                            "asset": assetId[x],
+                            "startTime": timeLockList[asset]["Items"][i]["StartTime"],
+                            "endTime": timeLockList[asset]["Items"][i]["EndTime"],
+                            "value": timeLockList[asset]["Items"][i]["Value"],
+                        }
+                        await timeLockListSave.push(data);
+                    }
+                    x++;
+                    console.log(timeLockListSave);
                 }
+                $scope.$apply(function () {
+                    $scope.timeLockList = timeLockListSave;
+                    $scope.timeLockList = timeLockListSave;
+                });
             }
-            $scope.$apply(function () {
-                // $scope.assetListOwns = assetList2;
-                // $scope.assetListOwns = assetList2;
-            });
         }
 
 
