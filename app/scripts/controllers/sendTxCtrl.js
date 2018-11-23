@@ -375,12 +375,17 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 for (let asset in timeLockList) {
                     let assetId = Object.keys(timeLockList);
                     for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
+
+                        let startTime = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000);
+                        let endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000);
+
                         let data = {
                             "asset": assetId[x],
-                            "startTime": timeLockList[asset]["Items"][i]["StartTime"],
-                            "endTime": timeLockList[asset]["Items"][i]["EndTime"],
+                            "startTime": startTime.toLocaleString(),
+                            "endTime": endTime.toLocaleString(),
                             "value": timeLockList[asset]["Items"][i]["Value"],
                         }
+
                         await timeLockListSave.push(data);
                     }
                     x++;
