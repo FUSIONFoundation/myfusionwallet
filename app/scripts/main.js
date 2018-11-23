@@ -36,9 +36,10 @@ web3.extend({
         {
             name: 'getAsset',
             call: 'fsn_getAsset',
-            params: 1,
+            params: 2,
             inputFormatter: [
-                null
+                null,
+                web3.extend.formatters.inputDefaultBlockNumberFormatter
             ]
         },
         {
