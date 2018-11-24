@@ -269,15 +269,21 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.sendAssetModalOpen.open();
         }
 
+        function convertDate(inputFormat) {
+            function pad(s) {
+                return (s < 10) ? '0' + s : s;
+            }
+
+            var d = new Date(inputFormat);
+            return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
+        }
+
+        function getHexDate(d)
+        {
+            return "0x" + (new Date(d).getTime() / 1000)
+        }
+
         $scope.sendAsset = async function () {
-            $scope.$watch('transactionType', function () {
-                if ($scope.transactionType == "standard") {
-                    console.log($scope.transactionType);
-                }
-                if ($scope.transactionType == "timed") {
-                    console.log($scope.transactionType);
-                }
-            })
             $scope.successMessagebool = true;
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
@@ -286,6 +292,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let decimals = '';
             let asset = $scope.assetToSend;
             let hash = '';
+            var fromTime = convertDate($scope.sendAsset.fromTime);
+            var tillTime = convertDate($scope.sendAsset.tillTime);
+
+
+            $scope.$watch('transactionType', function () {
+                if ($scope.transactionType == "standard") {
+                    console.log($scope.transactionType);
+                }
+                if ($scope.transactionType == "timed") {
+                    console.log($scope.transactionType);
+                }
+            })
 
             await web3.fsn.allAssets().then(function (res) {
                 decimals = parseInt(res[asset]["Decimals"]);
@@ -294,24 +312,54 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let amount = parseInt($scope.sendAsset.amountToSend) * $scope.countDecimals(decimals);
 
-            await web3.fsn.sendAsset({
-                from: from,
-                to: to,
-                value: amount,
-                asset: asset
-            }, password).then(function (res) {
-                $scope.successHash = res;
-                hash = res;
-                if ($scope.succesHash = '') {
-                    $scope.successHash = res;
-                } else {
-                    $scope.successHash = res;
-                }
-            });
 
-            $scope.$apply(function () {
-                $scope.successHash = hash;
-            });
+            if ($scope.transactionType == "standard") {
+                await web3.fsn.sendAsset({
+                    from: from,
+                    to: to,
+                    value: amount,
+                    asset: asset
+                }, password).then(function (res) {
+                    $scope.successHash = res;
+                    hash = res;
+                    if ($scope.succesHash = '') {
+                        $scope.successHash = res;
+                    } else {
+                        $scope.successHash = res;
+                    }
+                });
+
+                $scope.$apply(function () {
+                    $scope.successHash = hash;
+                });
+            }
+            if ($scope.transactionType == "timed") {
+
+                console.log(tillTime);
+                console.log(fromTime);
+                console.log(`Asset -> ${asset} | From -> ${from} | To -> ${to} | From -> ${getHexDate(fromTime)} | Till -> ${getHexDate(tillTime)} | Value -> ${amount}`);
+
+                await web3.fsn.assetToTimeLock({
+                    asset: asset,
+                    from: from,
+                    to: to,
+                    start: getHexDate(fromTime),
+                    end: getHexDate(tillTime),
+                    value: amount
+                }, password).then(function (res) {
+                    $scope.successHash = res;
+                    hash = res;
+                    if ($scope.succesHash = '') {
+                        $scope.successHash = res;
+                    } else {
+                        $scope.successHash = res;
+                    }
+                });
+
+                $scope.$apply(function () {
+                    $scope.successHash = hash;
+                });
+            }
         }
 
         $scope.createAsset = async function () {

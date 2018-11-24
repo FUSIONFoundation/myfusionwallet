@@ -40,22 +40,24 @@
             </div>
 
             <div class="col-sm-12 clearfix" data-ng-init="getAllFsnAssets()">
-                <table class="table">
-                    <tbody>
-                    <tr ng-repeat="asset in assetListOwns track by $index">
-                        <td>{{asset.name}} <br> <span class="small-gray-text">ID: {{asset.contractaddress}}</span></td>
-                        <td>{{asset.symbol}}</td>
-                        <td>{{asset.balance}} <br> <span class="small-gray-text">of {{asset.total}}</span></td>
-                        <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
-                    </tr>
-                    </tbody>
-                </table>
-
+                <div class="table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr ng-repeat="asset in assetListOwns track by $index">
+                            <td>{{asset.name}} <br> <span class="small-gray-text">ID: {{asset.contractaddress}}</span>
+                            </td>
+                            <td>{{asset.symbol}}</td>
+                            <td>{{asset.balance}} <br> <span class="small-gray-text">of {{asset.total}}</span></td>
+                            <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </article>
 
-        <h3>Time Locked Assets</h3>
+    <h3>Time Locked Assets</h3>
 
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
@@ -67,7 +69,7 @@
 
 
             <div class="col-sm-12 clearfix" ng-hide="timeLockList != ''">
-                <h4 class="text-fusion">Loading assets...</h4>
+                <h4 class="text-fusion">No timelocked assets</h4>
             </div>
 
             <div class="col-sm-12 clearfix" data-ng-init="getTimeLockAssets()">
@@ -480,13 +482,22 @@
                                    placeholder=""/>
                         </div>
                         <div class="col-sm-12 clearfix" ng-hide="transactionType =='standard'">
-                            <label>
-                                From Time To Time
-                            </label>
-                            <input type="text"
-                                   class="form-control"
-                                   ng-model="sendAsset.amountToSend"
-                                   placeholder=""/>
+                            <div class="col-md-6">
+                                <label>
+                                    From
+                                </label>
+                                <br>
+                                <input type="date" ng-model="sendAsset.fromTime"
+                                       name="bday">
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    Till
+                                </label>
+                                <br>
+                                <input type="date" ng-model="sendAsset.tillTime"
+                                       name="bday">
+                            </div>
                         </div>
                         <div class="col-sm-12 clearfix">
                             <label>
