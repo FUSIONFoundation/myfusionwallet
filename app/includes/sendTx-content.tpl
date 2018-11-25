@@ -11,20 +11,22 @@
             <h3>Assets</h3>
         </div>
         <div class="col-md-6">
-            <a class="btn btn-sm btn-primary"
-               data-toggle="modal"
-               data-target="#createAsset"
-               ng-click="createAssetModal()"
-            >
-                + Create Asset
-            </a>
-            <a class="btn btn-sm btn-primary"
-               data-toggle="modal"
-               data-target="#txModal"
-               ng-click="sendAssetModalOpen()"
-            >
-                Send Assets
-            </a></div>
+            <div class="float-right">
+                <a class="btn btn-sm btn-secondary"
+                   data-toggle="modal"
+                   data-target="#createAsset"
+                   ng-click="createAssetModal()"
+                >
+                    + Create Asset
+                </a>
+                <a class="btn btn-sm btn-primary"
+                   data-toggle="modal"
+                   data-target="#txModal"
+                   ng-click="sendAssetModalOpen()"
+                >
+                    Send Assets
+                </a></div>
+        </div>
     </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
@@ -535,7 +537,8 @@
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <h3 class="h3-title">Create Asset</h3>
-                <p>Here is a short descriptor about any restrictions or any supplemental information We can figure out what this will say together. </p>
+                <p>Here is a short descriptor about any restrictions or any supplemental information We can figure out
+                    what this will say together. </p>
                 <section class="row form-group">
                     <div class="col-sm-12 clearfix">
                         <label>
