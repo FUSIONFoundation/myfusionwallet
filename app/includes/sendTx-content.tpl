@@ -433,26 +433,26 @@
                 <h3>Send Asset</h3>
 
                 <label>
-                    Transaction Type:
+                    Select Send Type:
                 </label>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="col-md-1">
+                        <div class="col-md-1 mt-3">
                             <input type="radio" class="form-check-input" ng-model="transactionType"
                                    value="standard" checked>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <h4 class="text-fusion">Standard Send</h4>
                             Standard sending an asset will give the recipient full and permanent access to
                             the asset.
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="col-md-1">
+                        <div class="col-md-1 mt-3">
                             <input type="radio" class="form-check-input" ng-model="transactionType"
                                    value="timed">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-10">
                             <h4 class="text-fusion">Timed Send</h4>
                             Time Sending an asset will give the recipient the asset for a time period you
                             determine.
@@ -474,6 +474,16 @@
                         </div>
                         <div class="col-sm-12 clearfix">
                             <label>
+                                Select Asset:
+                            </label>
+                            <select class="form-control" ng-model="assetToSend">
+                                <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
+                                    {{asset.symbol}}
+                                    - {{asset.contractaddress}}
+                                </option>
+                            </select>
+
+                            <label>
                                 Amount To Send:
                             </label>
                             <input type="text"
@@ -481,41 +491,29 @@
                                    ng-model="sendAsset.amountToSend"
                                    placeholder=""/>
                         </div>
-                        <div class="col-sm-12 clearfix" ng-hide="transactionType =='standard'">
+                        <div ng-hide="transactionType =='standard'">
                             <div class="col-md-6">
                                 <label>
                                     From
                                 </label>
                                 <br>
-                                <input type="date" ng-model="sendAsset.fromTime"
-                                       name="bday">
+                                <input class="form-control" type="date" ng-model="sendAsset.fromTime">
                             </div>
                             <div class="col-md-6">
                                 <label>
                                     Till
                                 </label>
                                 <br>
-                                <input type="date" ng-model="sendAsset.tillTime"
-                                       name="bday">
+                                <input class="form-control" type="date" ng-model="sendAsset.tillTime">
                             </div>
                         </div>
                         <div class="col-sm-12 clearfix">
-                            <label>
-                                Select Asset:
-                            </label>
-                            <select ng-model="assetToSend">
-                                <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
-                                    {{asset.symbol}}
-                                    - {{asset.contractaddress}}
-                                </option>
-                            </select>
-
                             <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool">
                                 Congratulations! Your transaction was emitted and is now pending!
 
                                 <strong>{{successHash}}</strong>
                             </div>
-
+                        </div>
                     </section>
                     <div class="row form-group">
                         <div class="col-xs-12 clearfix">
