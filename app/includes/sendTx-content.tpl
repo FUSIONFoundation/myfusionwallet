@@ -497,6 +497,7 @@
                                    class="form-control"
                                    ng-model="sendAsset.amountToSend"
                                    placeholder=""/>
+                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send Max</a>
                         </div>
                         <div ng-hide="transactionType =='standard'">
                             <div class="col-md-6">

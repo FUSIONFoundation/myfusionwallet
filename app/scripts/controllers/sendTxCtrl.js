@@ -304,6 +304,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
         }
 
+        $scope.setMaxBalance = function () {
+                $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
+        }
+
         $scope.sendAsset = async function () {
             $scope.successMessagebool = true;
             let password = walletService.password;
