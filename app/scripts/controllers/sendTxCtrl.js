@@ -275,7 +275,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             var d = new Date(inputFormat);
-            return [pad(d.getDate()), pad(d.getMonth() + 1), d.getFullYear()].join('-');
+            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())] .join('.');
         }
 
         function getHexDate(d)
@@ -284,6 +284,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAsset = async function () {
+
             $scope.successMessagebool = true;
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
