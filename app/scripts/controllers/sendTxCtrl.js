@@ -6,6 +6,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         };
         $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
         $scope.assetListOwns = [];
+        $scope.selectedAssetBalance = '';
         $scope.tx = {};
         $scope.signedTx
         $scope.ajaxReq = ajaxReq;
@@ -275,16 +276,35 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             var d = new Date(inputFormat);
-            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())] .join('.');
+            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('.');
         }
 
-        function getHexDate(d)
-        {
+        function getHexDate(d) {
             return "0x" + (new Date(d).getTime() / 1000)
         }
 
-        $scope.sendAsset = async function () {
+        $scope.getAssetBalance = async function () {
+            let asset = $scope.assetToSend;
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let assetBalance = '';
+            let decimals = '';
+            await web3.fsn.getAsset(asset).then(function (res) {
+                decimals = res["Decimals"];
+            });
 
+            await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
+                assetBalance = res;
+            });
+
+            let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
+
+            $scope.$apply(function () {
+                $scope.selectedAssetBalance = balance;
+            });
+        }
+
+        $scope.sendAsset = async function () {
             $scope.successMessagebool = true;
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);

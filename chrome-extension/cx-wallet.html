@@ -185,7 +185,7 @@
 <nav role="navigation" aria-label="main navigation" class="nav-container overflowing">
   <a aria-hidden="true" ng-show="showLeftArrow" class="nav-arrow-left" ng-click="scrollLeft(100);" ng-mouseover="scrollHoverIn(true,2);" ng-mouseleave="scrollHoverOut()">&#171;</a>
   <div class="nav-scroll">
-    <ul class="nav-inner border-gray-bottom">
+    <ul class="nav-inner">
       
       
       <li ng-repeat="tab in tabNames track by $index" \
@@ -1465,7 +1465,7 @@
     <div ng-click="wd = !wd">
       <a class="collapse-button"><span ng-show="wd">+</span><span ng-show="!wd">-</span></a>
       <h1 translate="NAV_SendEther">
-        Send Ether &amp; Tokens
+        Send FSN &amp; Assets
       </h1>
     </div>
     <div ng-show="!wd">
@@ -1960,12 +1960,15 @@
                             <label>
                                 Select Asset:
                             </label>
-                            <select class="form-control" ng-model="assetToSend">
+                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
                                 </option>
                             </select>
+                            <div class="sendAssetBalanceAvailable" ng-hide="selectedAssetBalance == ''">
+                                <span class="text-fusion">{{selectedAssetBalance}}</span> <span class="small-gray-text">available to send.</span>
+                            </div>
 
                             <label>
                                 Amount To Send:
@@ -3016,12 +3019,15 @@
                             <label>
                                 Select Asset:
                             </label>
-                            <select class="form-control" ng-model="assetToSend">
+                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
                                 </option>
                             </select>
+                            <div class="sendAssetBalanceAvailable" ng-hide="selectedAssetBalance == ''">
+                                <span class="text-fusion">{{selectedAssetBalance}}</span> <span class="small-gray-text">available to send.</span>
+                            </div>
 
                             <label>
                                 Amount To Send:
@@ -6858,12 +6864,15 @@
                             <label>
                                 Select Asset:
                             </label>
-                            <select class="form-control" ng-model="assetToSend">
+                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
                                 </option>
                             </select>
+                            <div class="sendAssetBalanceAvailable" ng-hide="selectedAssetBalance == ''">
+                                <span class="text-fusion">{{selectedAssetBalance}}</span> <span class="small-gray-text">available to send.</span>
+                            </div>
 
                             <label>
                                 Amount To Send:
@@ -8747,12 +8756,15 @@
                             <label>
                                 Select Asset:
                             </label>
-                            <select class="form-control" ng-model="assetToSend">
+                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
                                 </option>
                             </select>
+                            <div class="sendAssetBalanceAvailable" ng-hide="selectedAssetBalance == ''">
+                                <span class="text-fusion">{{selectedAssetBalance}}</span> <span class="small-gray-text">available to send.</span>
+                            </div>
 
                             <label>
                                 Amount To Send:
