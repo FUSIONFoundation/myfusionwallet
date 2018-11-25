@@ -536,18 +536,9 @@
     <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
-
-                <h3>Generate Asset</h3>
+                <h3 class="h3-title">Create Asset</h3>
+                <p>Here is a short descriptor about any restrictions or any supplemental information We can figure out what this will say together. </p>
                 <section class="row form-group">
-                    <div class="col-sm-12 clearfix">
-                        <label>
-                            Asset Symbol:
-                        </label>
-                        <input type="text"
-                               class="form-control"
-                               ng-model="assetCreate.assetSymbol"
-                               placeholder=""/>
-                    </div>
                     <div class="col-sm-12 clearfix">
                         <label>
                             Asset Name:
@@ -557,7 +548,16 @@
                                ng-model="assetCreate.assetName"
                                placeholder=""/>
                     </div>
-                    <div class="col-sm-12 clearfix">
+                    <div class="col-sm-6">
+                        <label>
+                            Asset Symbol:
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               ng-model="assetCreate.assetSymbol"
+                               placeholder=""/>
+                    </div>
+                    <div class="col-sm-6">
                         <label>
                             Decimals:
                         </label>
