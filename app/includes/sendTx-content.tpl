@@ -78,7 +78,9 @@
                 <table class="table">
                     <tbody>
                     <tr ng-repeat="asset in timeLockList track by $index">
-                        <td><span class="small-gray-text">ASSET ID </span> <br>{{asset.name}} {{asset.asset}} </td>
+                        <td>
+                            {{asset.name}} <br>
+                            <span class="small-gray-text"> ID: {{asset.asset}}  </span></td>
                         <td><span class="small-gray-text">FROM </span> <br> {{asset.startTime}}</td>
                         <td><span class="small-gray-text">TILL</span> <br> {{asset.endTime}}</td>
                         <td><span class="small-gray-text">VALUE </span> <br> {{asset.value}}</td>
