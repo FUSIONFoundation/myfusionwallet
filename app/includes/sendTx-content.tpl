@@ -427,7 +427,7 @@
     </article>
 </div>
 <article class="modal fade" id="sendAsset" tabindex="-1">
-    <section class="modal-dialog">
+    <section class="modal-dialog send-asset-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <h3>Send Asset</h3>
