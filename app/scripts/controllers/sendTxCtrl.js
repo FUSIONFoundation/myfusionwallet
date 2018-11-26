@@ -329,7 +329,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             await web3.fsn.allAssets().then(function (res) {
                 decimals = parseInt(res[asset]["Decimals"]);
-                console.log(decimals);
             });
 
             let amount = parseInt($scope.sendAsset.amountToSend) * $scope.countDecimals(decimals);

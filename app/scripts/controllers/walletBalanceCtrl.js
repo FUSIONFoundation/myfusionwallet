@@ -122,6 +122,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     setInterval(function() {
         $scope.getBalance();
+        $scope.getShortAddressNotation();
     }, 15000);
 
     $scope.getBalance = async function () {
