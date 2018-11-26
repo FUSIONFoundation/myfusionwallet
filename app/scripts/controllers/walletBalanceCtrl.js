@@ -181,7 +181,10 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             await $scope.getShortAddressNotation();
 
-            console.log($scope.addressNotation.value);
+            $scope.$apply(function () {
+                $scope.addressNotation.value = 'SAN Requested';
+                $scope.addressNotation.value = 'SAN Requested';
+            });
         }
     }
 
