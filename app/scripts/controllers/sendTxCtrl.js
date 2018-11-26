@@ -276,7 +276,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             var d = new Date(inputFormat);
-            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('.');
+            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
         }
 
         function getHexDate(d) {
@@ -336,7 +336,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
 
             let amount = parseInt($scope.sendAsset.amountToSend) * $scope.countDecimals(decimals);
-
 
             if ($scope.transactionType == "standard") {
                 await web3.fsn.sendAsset({
