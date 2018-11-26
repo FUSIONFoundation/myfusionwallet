@@ -280,7 +280,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         function getHexDate(d) {
-            return "0x" + (new Date(d).getTime() / 1000)
+            return "0x" + (new Date(d).getTime() / 1000).toString(16);
         }
 
         $scope.getAssetBalance = async function () {
@@ -358,6 +358,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
             if ($scope.transactionType == "timed") {
+
+                console.log(`Asset -> ${asset} | From -> ${from} | To -> ${to} | ${getHexDate(fromTime)}`)
 
                 await web3.fsn.assetToTimeLock({
                     asset: asset,
@@ -482,6 +484,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await web3.fsn.allAssets().then(function (res) {
                     assetList = res;
                 });
+
+
+                // IMPLEMENT GET_BALANCE
 
                 for (let asset in assetList) {
                     let id = assetList[asset]["ID"];

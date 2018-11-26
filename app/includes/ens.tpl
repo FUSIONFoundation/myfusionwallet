@@ -28,7 +28,7 @@
 
 
   <!-- Send Tx Content -->
-  <article class="row" ng-show="wallet!=null">
+  <article class="row" ng-hide="wallet!=null">
     @@if (site === 'mew' ) { @@include( './swaps-content.tpl', { "site": "mew" } ) }
     @@if (site === 'cx'  ) { @@include( './swaps-content.tpl', { "site": "cx"  } ) }
 
