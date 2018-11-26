@@ -70,6 +70,19 @@
                         <label class="small-gray-text">Wallet Address</label>
                         <input type="text" class="form-control" placeholder="XXXXX">
                     </div>
+                    <div class="form-group">
+                        <label class="small-gray-text">Expiration</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary">Make Swap</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -77,8 +90,8 @@
     <div class="col-md-9 pl-0 pr-0">
         <div class="panel panel-default">
             <div class="panel-heading">Swap Market</div>
-            <div class="panel-body">
-                No Open Swaps
+            <div class="panel-body text-center">
+                <span class="small-gray-text">No Open Swaps</span>
             </div>
         </div>
         <div class="panel panel-default">
