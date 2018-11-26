@@ -1,8 +1,8 @@
-<article class="block p-2" ng-hide="wallet.type=='addressOnly'">
-    <div class="col-md-12">
+<article class="block p-0" ng-hide="wallet.type=='addressOnly'">
+    <div class="col-md-12 p-2">
         Swap Market / My Swaps
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 p-2">
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Send Assets</span>
         </div>
@@ -10,18 +10,25 @@
             <span class="small-gray-text">Receive Asset</span>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="panel panel-default">
+    <div class="col-md-3 pl-0 pr-0">
+        <div class="panel panel-default p-0 m-0">
             <div class="panel-heading">Panel Heading</div>
             <div class="panel-body">
                 Panel Content
             </div>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9 pl-0 pr-0">
         <div class="panel panel-default">
             <div class="panel-heading">Swap Market</div>
-            <div class="panel-body">        <table class="table">
+            <div class="panel-body">
+                No Open Swaps
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Swap Market</div>
+            <div class="panel-body">
+                <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
