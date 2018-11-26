@@ -1,11 +1,12 @@
-<article class="block decrypt-drtv clearfix" ng-controller='decryptWalletCtrl as $crtl'>
+<article class="block decrypt-drtv clearfix container-small" ng-controller='decryptWalletCtrl as $crtl'>
 
     <!-- Column 1 - Select Type of Key -->
-    <section class="col-md-4 col-sm-6">
+    <section class="col-md-12 col-sm-6">
 
-        <h4 translate="decrypt_Access">
+        <h4 class="text-fusion">Access Existing Wallet</h4>
+        <p class="text-fusion" translate="decrypt_Access">
             How would you like to access your wallet?
-        </h4>
+        </p>
 
         <!-- View Balance Only -->
         <!--<label aria-flowto="aria1"-->
@@ -175,8 +176,8 @@
 
 
     <!-- Column 2 - Unlock That Key -->
-    <section class="col-md-8 col-sm-6">
-
+    <section class="col-md-12 col-sm-6">
+        <hr>
         <!-- View Only -->
         <div id="selectedTypeKey" ng-if="walletType=='addressOnly'">
             <h4 translate="x_Address">
@@ -608,26 +609,18 @@
 
         <!-- Keystore -->
         <div ng-if="walletType=='fileupload'">
-            <h4 translate="ADD_Radio_2_alt">Select your wallet file</h4>
-            <h5>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
-                    <path fill="#d9534f"
-                          d="M256 0C114.844 0 0 114.844 0 256s114.844 256 256 256 256-114.844 256-256S397.156 0 256 0zm102.625 313.375c12.5 12.492 12.5 32.758 0 45.25C352.383 364.875 344.188 368 336 368s-16.383-3.125-22.625-9.375L256 301.25l-57.375 57.375C192.383 364.875 184.188 368 176 368s-16.383-3.125-22.625-9.375c-12.5-12.492-12.5-32.758 0-45.25L210.75 256l-57.375-57.375c-12.5-12.492-12.5-32.758 0-45.25 12.484-12.5 32.766-12.5 45.25 0L256 210.75l57.375-57.375c12.484-12.5 32.766-12.5 45.25 0 12.5 12.492 12.5 32.758 0 45.25L301.25 256l57.375 57.375z"/>
-                </svg>
-                This is <u>not</u> a recommended way to access your wallet.
-            </h5>
-            <div class="form-group">
+            <p class="form-group">
                 Entering your private key on a website dangerous. If our website is compromised or you accidentally
                 visit a different website, your funds will be stolen. Please consider:
-            </div>
-            <div class="form-group">
+            </p>
+            <p class="form-group">
                 If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://www.fusionwallet.org</code>
                 &amp; <code>FUSION FOUNDATION</code> in your URL bar.
 
-            </div>
-            <div class="form-group">
+            </p>
+            <p class="form-group">
                 FUSION employees will <code>never</code> ask for your private key.
-            </div>
+            </p>
             <br/>
             <div class="form-group">
                 <input style="display:none;" type="file" on-read-file="showContent($fileContent)" id="fselector"/>
