@@ -317,9 +317,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let decimals = '';
             let asset = $scope.assetToSend;
             let hash = '';
-            var fromTime = convertDate($scope.sendAsset.fromTime);
-            var tillTime = convertDate($scope.sendAsset.tillTime);
-
 
             $scope.$watch('transactionType', function () {
                 if ($scope.transactionType == "standard") {
@@ -359,14 +356,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             if ($scope.transactionType == "timed") {
 
-                console.log(`Asset -> ${asset} | From -> ${from} | To -> ${to} | ${getHexDate(fromTime)}`)
+                let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+                let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
 
                 await web3.fsn.assetToTimeLock({
                     asset: asset,
                     from: from,
                     to: to,
-                    start: getHexDate(fromTime),
-                    end: getHexDate(tillTime),
+                    start: fromTime,
+                    end: tillTime,
                     value: amount
                 }, password).then(function (res) {
                     $scope.successHash = res;
@@ -451,14 +449,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         divider = $scope.countDecimals(res["Decimals"]);
                     });
                     for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
-                        let startTime = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000);
-                        let endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000);
+                        let startTime = new Date(parseInt(timeLockList[asset]["Items"][i]["StartTime"]) * 1000).toLocaleDateString();
+                        let endTime = new Date(parseInt(timeLockList[asset]["Items"][i]["EndTime"]) * 1000).toLocaleDateString();
 
                         let data = {
                             "name": assetName,
                             "asset": assetId[x],
-                            "startTime": startTime.toLocaleString(),
-                            "endTime": endTime.toLocaleString(),
+                            "startTime": startTime,
+                            "endTime": endTime,
                             "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                         }
 
