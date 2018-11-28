@@ -61,16 +61,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         });
 
-    $scope.countDecimals = function (decimals) {
-        let returnDecimals = '1';
-        for (let i = 0; i < decimals; i++) {
-            returnDecimals += '0';
+        $scope.countDecimals = function (decimals) {
+            let returnDecimals = '1';
+            for (let i = 0; i < decimals; i++) {
+                returnDecimals += '0';
+            }
+            return parseInt(returnDecimals);
         }
-        return parseInt(returnDecimals);
-    }
 
 
-    $scope.getAllAssets = async function (){
+        $scope.getAllAssets = async function () {
             if (walletService.password !== '') {
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
@@ -107,7 +107,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                     await assetList2.push(data);
 
-                    if(assetBalance > 0.000000000000001){
+                    if (assetBalance > 0.000000000000001) {
                         let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                         let data = {
                             "name": assetList[asset]["Name"],
@@ -150,10 +150,47 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.allSwaps = async function () {
-            await web3.fsn.allSwaps.then(function (res) {
+            let swapList = [];
+            let swapListFront = []
 
-            })
+            if (walletService.password !== '') {
+                let accountData = uiFuncs.getTxData($scope);
+                let walletAddress = accountData.from;
+                console.log(walletAddress);
+
+                await web3.fsn.allSwaps().then(function (res) {
+                    swapList = res;
+                });
+
+                for (let asset in swapList) {
+                    let id = swapList[asset]["ID"];
+                    let owner = swapList[asset]["Owner"];
+                    let owned = false;
+                    let assetBalance = '';
+
+                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                        assetBalance = res;
+                    });
+
+                    owner === walletAddress ? owned = true : owned = false;
+                        let data = {
+                            "id": swapList[asset]["ID"],
+                            "fromAssetId": swapList[asset]["FromAssetID"],
+                            "fromAmount": swapList[asset]["MinFromAmount"],
+                            "toAssetId": swapList[asset]["ToAssetID"],
+                            "toAmount": swapList[asset]["MinToAmount"],
+                            "owner": swapList[asset]["Owner"],
+                            "owned" : owned
+                        }
+                        await swapListFront.push(data);
+                }
+            }
+            $scope.$apply(function () {
+                console.log(swapListFront)
+                $scope.swapsList = swapListFront;
+            });
         }
+
     }
 ;
 module.exports = ensCtrl;

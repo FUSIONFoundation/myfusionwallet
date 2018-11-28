@@ -5289,7 +5289,7 @@
 
     
      <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
-    <button class="btn btn-primary" ng-click="getAllAssets()">I want to be clicked</button>
+    <button class="btn btn-primary" ng-click="allSwaps()">I want to be clicked</button>
     <div class="col-md-12 p-2 swap-border">
         Swap Market / My Swaps
     </div>
@@ -5385,36 +5385,18 @@
             <div class="panel-heading">Swap Market</div>
             <div class="panel-body">
                 <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
-                    </tr>
-                    </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
+                    <tr ng-repeat="asset in swapsList track by $index">
+                        <td>{{asset.id}}</td>
+                        <td>{{asset.fromAssetId}}</td>
+                        <td>{{asset.fromAmount}}</td>
+                        <td>{{asset.toAssetId}}</td>
+                        <td>{{asset.toAmount}}</td>
+                        <td>{{asset.owner}}</td>
+                        <td>{{asset.owned}}</td>
                     </tr>
                     </tbody>
-                </table>
-            </div>
+                </table>            </div>
         </div>
     </div>
 </article> 
