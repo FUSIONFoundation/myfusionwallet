@@ -796,7 +796,7 @@
                 </a>
                 <a class="btn btn-sm btn-primary"
                    data-toggle="modal"
-                   data-target="#txModal"
+                   data-target="#sendAsset"
                    ng-click="sendAssetModalOpen()"
                 >
                     Send Assets
@@ -1209,6 +1209,14 @@
     <section class="modal-dialog send-asset-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="sendAssetModalOpen.close();">                    <i class="fa fa-times"
+                                                                                                                      aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
                 <h3>Send Asset</h3>
 
                 <label>
@@ -1272,7 +1280,8 @@
                                    class="form-control"
                                    ng-model="sendAsset.amountToSend"
                                    placeholder=""/>
-                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send Max</a>
+                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
+                                Max</a>
                         </div>
                         <div ng-hide="transactionType =='standard'">
                             <div class="col-md-6">
@@ -1317,6 +1326,13 @@
     <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i class="fa fa-times"
+                                                                                                    aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
                 <h3 class="h3-title">Create Asset</h3>
                 <p>Here is a short descriptor about any restrictions or any supplemental information We can figure out
                     what this will say together. </p>
@@ -1855,7 +1871,7 @@
                 </a>
                 <a class="btn btn-sm btn-primary"
                    data-toggle="modal"
-                   data-target="#txModal"
+                   data-target="#sendAsset"
                    ng-click="sendAssetModalOpen()"
                 >
                     Send Assets
@@ -2268,6 +2284,14 @@
     <section class="modal-dialog send-asset-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="sendAssetModalOpen.close();">                    <i class="fa fa-times"
+                                                                                                                      aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
                 <h3>Send Asset</h3>
 
                 <label>
@@ -2331,7 +2355,8 @@
                                    class="form-control"
                                    ng-model="sendAsset.amountToSend"
                                    placeholder=""/>
-                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send Max</a>
+                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
+                                Max</a>
                         </div>
                         <div ng-hide="transactionType =='standard'">
                             <div class="col-md-6">
@@ -2376,6 +2401,13 @@
     <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i class="fa fa-times"
+                                                                                                    aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
                 <h3 class="h3-title">Create Asset</h3>
                 <p>Here is a short descriptor about any restrictions or any supplemental information We can figure out
                     what this will say together. </p>
@@ -4663,7 +4695,8 @@
                         <td>{{asset.owned}}</td>
                     </tr>
                     </tbody>
-                </table>            </div>
+                </table>
+            </div>
         </div>
     </div>
 </article> 
@@ -5976,7 +6009,7 @@
                 </a>
                 <a class="btn btn-sm btn-primary"
                    data-toggle="modal"
-                   data-target="#txModal"
+                   data-target="#sendAsset"
                    ng-click="sendAssetModalOpen()"
                 >
                     Send Assets
@@ -6389,6 +6422,14 @@
     <section class="modal-dialog send-asset-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="sendAssetModalOpen.close();">                    <i class="fa fa-times"
+                                                                                                                      aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
                 <h3>Send Asset</h3>
 
                 <label>
@@ -6452,7 +6493,8 @@
                                    class="form-control"
                                    ng-model="sendAsset.amountToSend"
                                    placeholder=""/>
-                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send Max</a>
+                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
+                                Max</a>
                         </div>
                         <div ng-hide="transactionType =='standard'">
                             <div class="col-md-6">
@@ -6497,6 +6539,13 @@
     <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i class="fa fa-times"
+                                                                                                    aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
                 <h3 class="h3-title">Create Asset</h3>
                 <p>Here is a short descriptor about any restrictions or any supplemental information We can figure out
                     what this will say together. </p>

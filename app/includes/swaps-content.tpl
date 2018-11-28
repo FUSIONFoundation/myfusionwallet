@@ -106,7 +106,8 @@
                         <td>{{asset.owned}}</td>
                     </tr>
                     </tbody>
-                </table>            </div>
+                </table>
+            </div>
         </div>
     </div>
 </article>
