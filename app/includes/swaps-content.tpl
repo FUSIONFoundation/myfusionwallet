@@ -1,5 +1,5 @@
 <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
-    <button class="btn btn-primary" ng-click="takeSwap()">I want to be clicked</button>
+    <button class="btn btn-primary" ng-click="getAllAssets()">I want to be clicked</button>
     <div class="col-md-12 p-2 swap-border">
         Swap Market / My Swaps
     </div>
@@ -7,12 +7,11 @@
         <div class="col-md-3 text-left mr-0">
             <span class="small-gray-text">Send Assets</span>
             <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                <select class="form-control" ng-model="assetToSend" ng-change="getAllAssets()">
+                    <option ng-repeat="asset in assetListOwned" value="{{asset.contractaddress}}">
+                        {{asset.symbol}}
+                        - {{asset.contractaddress}}
+                    </option>
                 </select>
             </div>
         </div>
@@ -21,20 +20,17 @@
         </div>
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Receive Asset</span>
-            <div class="form-group">
-                <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-            </div>
+            <select class="form-control" ng-model="assetToReceive" ng-change="getAllAssets()">
+                <option ng-repeat="asset in assetList" value="{{asset.contractaddress}}">
+                    {{asset.symbol}}
+                    - {{asset.contractaddress}}
+                </option>
+            </select>
         </div>
     </div>
     <div class="col-md-3 pl-0 pr-0 ml-0">
         <div class="panel panel-default p-0 m-0">
-            <div class="panel-heading">Panel Heading</div>
+            <div class="panel-heading">Make Swap</div>
             <div class="panel-body">
                 <form>
                     <div class="form-group d-flex">
@@ -90,7 +86,7 @@
     </div>
     <div class="col-md-9 pl-0 pr-0">
         <div class="panel panel-default">
-            <div class="panel-heading">Swap Market</div>
+            <div class="panel-heading">My Open Swaps</div>
             <div class="panel-body text-center">
                 <span class="small-gray-text">No Open Swaps</span>
             </div>

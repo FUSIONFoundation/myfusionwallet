@@ -30,7 +30,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.wallet = walletService.wallet;
             $scope.wd = true;
             $scope.wallet.setBalance(applyScope);
-            $scope.wallet.setTokens();
             if ($scope.parentTxConfig) {
                 var setTxObj = function () {
                     $scope.addressDrtv.ensAddressField = $scope.parentTxConfig.to;
@@ -61,6 +60,76 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.wallet.setTokens();
             }
         });
+
+    $scope.countDecimals = function (decimals) {
+        let returnDecimals = '1';
+        for (let i = 0; i < decimals; i++) {
+            returnDecimals += '0';
+        }
+        return parseInt(returnDecimals);
+    }
+
+
+    $scope.getAllAssets = async function (){
+            if (walletService.password !== '') {
+                let accountData = uiFuncs.getTxData($scope);
+                let walletAddress = accountData.from;
+                let assetList = {};
+                let assetListOwned = [];
+                let assetList2 = [];
+
+                console.log(walletAddress);
+
+                await web3.fsn.allAssets().then(function (res) {
+                    assetList = res;
+                });
+
+                for (let asset in assetList) {
+                    let id = assetList[asset]["ID"];
+                    let owner = assetList[asset]["Owner"];
+                    let owned = false;
+                    let assetBalance = '';
+
+                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                        assetBalance = res;
+                    });
+
+                    let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
+
+                    let data = {
+                        "name": assetList[asset]["Name"],
+                        "symbol": assetList[asset]["Symbol"],
+                        "decimals": assetList[asset]["Decimals"],
+                        "total": assetList[asset]["Total"] / divider,
+                        "contractaddress": id,
+                        "balance": assetBalance / divider,
+                        "owner": owned
+                    }
+                    await assetList2.push(data);
+
+                    if(assetBalance > 0.000000000000001){
+                        let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
+                        let data = {
+                            "name": assetList[asset]["Name"],
+                            "symbol": assetList[asset]["Symbol"],
+                            "decimals": assetList[asset]["Decimals"],
+                            "total": assetList[asset]["Total"] / divider,
+                            "contractaddress": id,
+                            "balance": assetBalance / divider,
+                            "owner": owned
+                        }
+                        await assetListOwned.push(data);
+                    }
+
+                }
+                $scope.$apply(function () {
+                    $scope.assetList = assetList2;
+                    $scope.assetList = assetList2;
+                    $scope.assetListOwned = assetListOwned;
+                    $scope.assetListOwned = assetListOwned;
+                });
+            }
+        }
 
         $scope.takeSwap = async function () {
             let password = walletService.password;
