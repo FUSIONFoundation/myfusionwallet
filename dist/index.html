@@ -4617,7 +4617,44 @@
             </select>
         </div>
     </div>
-    <div class="col-md-3 pl-0 pr-0 ml-0">
+    <div class="col-md-12 pl-0 pr-0">
+        <div class="panel panel-default">
+            <div class="panel-heading">My Open Swaps</div>
+            <div class="panel-body text-center">
+                <span class="small-gray-text">No Open Swaps</span>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Swap Market</div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr class="small-gray-text">
+                        <th scope="col"> </th>
+                        <th scope="col">Time Initiated</th>
+                        <th scope="col">Send</th>
+                        <th scope="col">Receive</th>
+                        <th scope="col">Swap Rate</th>
+                        <th scope="col">Minimum Swap</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="asset in swapsList track by $index">
+                        <td>Public</td>
+                        <td>Today</td>
+                        <td>{{asset.fromAmount}} - {{asset.fromAssetId}}</td>
+                        <td>{{asset.toAmount}} - {{asset.toAssetId}}</td>
+                        <td> 1 : 25</td>
+                        <td> Min Swap</td>
+                        <td>Take swap</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 pl-0 pr-0 ml-0">
         <div class="panel panel-default p-0 m-0">
             <div class="panel-heading">Make Swap</div>
             <div class="panel-body">
@@ -4676,32 +4713,6 @@
                         <button class="btn btn-primary">Make Swap</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-9 pl-0 pr-0">
-        <div class="panel panel-default">
-            <div class="panel-heading">My Open Swaps</div>
-            <div class="panel-body text-center">
-                <span class="small-gray-text">No Open Swaps</span>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">Swap Market</div>
-            <div class="panel-body">
-                <table class="table">
-                    <tbody>
-                    <tr ng-repeat="asset in swapsList track by $index">
-                        <td>{{asset.id}}</td>
-                        <td>{{asset.fromAssetId}}</td>
-                        <td>{{asset.fromAmount}}</td>
-                        <td>{{asset.toAssetId}}</td>
-                        <td>{{asset.toAmount}}</td>
-                        <td>{{asset.owner}}</td>
-                        <td>{{asset.owned}}</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
