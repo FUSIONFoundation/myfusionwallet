@@ -150,6 +150,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.allSwaps = async function () {
+
+            $scope.getAllAssets();
             let swapList = [];
             let swapListFront = []
 
