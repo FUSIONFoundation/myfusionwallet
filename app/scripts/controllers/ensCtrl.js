@@ -62,13 +62,28 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         });
 
-        $scope.takeSwap = async function (){
+        $scope.takeSwap = async function () {
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let from = accountData.from;
+        }
 
-            console.log(password);
-            console.log(from);
+        $scope.makeSwap = async function () {
+            await web3.fsn.makeSwap.then(function (res) {
+
+            })
+        }
+
+        $scope.recallSwap = async function () {
+            await web3.fsn.recallSwap.then(function (res) {
+
+            })
+        }
+
+        $scope.allSwaps = async function () {
+            await web3.fsn.allSwaps.then(function (res) {
+
+            })
         }
     }
 ;
