@@ -4616,6 +4616,14 @@
                 </option>
             </select>
         </div>
+        <div class="col-md-3 text-left">
+            <span class="small-gray-text">Asset Balance</span>
+            <br>
+            500
+        </div>
+        <div class="col-md-2 text-left">
+           <button class="btn btn-sm btn-primary">Make Swap</button>
+        </div>
     </div>
     <div class="col-md-12 pl-0 pr-0">
         <div class="panel panel-default">
@@ -4643,11 +4651,11 @@
                     <tr ng-repeat="asset in swapsList track by $index">
                         <td>Public</td>
                         <td>Today</td>
-                        <td>{{asset.fromAmount}} - {{asset.fromAssetId}}</td>
-                        <td>{{asset.toAmount}} - {{asset.toAssetId}}</td>
+                        <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
+                        <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td> 1 : 25</td>
                         <td> Min Swap</td>
-                        <td>Take swap</td>
+                        <td><button class="btn btn-sm btn-primary">Take Swap</button></td>
                     </tr>
                     </tbody>
                 </table>

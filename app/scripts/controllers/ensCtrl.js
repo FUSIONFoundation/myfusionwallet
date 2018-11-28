@@ -174,13 +174,26 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         assetBalance = res;
                     });
 
+                    let fromAsset = [];
+                    let toAsset = [];
+
+                    await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
+                        fromAsset = res;
+                    });
+
+                    await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
+                        toAsset = res;
+                    });
+
                     owner === walletAddress ? owned = true : owned = false;
                         let data = {
                             "id": swapList[asset]["ID"],
                             "fromAssetId": swapList[asset]["FromAssetID"],
+                            "fromAssetSymbol" : fromAsset["Symbol"],
                             "fromAmount": swapList[asset]["MinFromAmount"],
                             "toAssetId": swapList[asset]["ToAssetID"],
                             "toAmount": swapList[asset]["MinToAmount"],
+                            "toAssetSymbol" : fromAsset["Symbol"],
                             "owner": swapList[asset]["Owner"],
                             "owned" : owned
                         }
