@@ -215,8 +215,14 @@
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
-                            <button class="btn btn-primary" ng-click="recallSwap(recallAssetId)"
-                                    ng-disabled="swapRecallSuccess">Confirm</button>
+                            <button class="btn btn-primary" ng-click="takeSwap()"
+                                    ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" ng-show="takeDataFront.fromAssetBalance <= 0">
+                            <hr>
+                            <i class="fa fa-exclamation" aria-hidden="true"></i> <span class="small-gray-text">You are unable to take this swap. You do not have enough funds.</span>
                         </div>
                     </div>
                     <div class="col-sm-12 clearfix">
