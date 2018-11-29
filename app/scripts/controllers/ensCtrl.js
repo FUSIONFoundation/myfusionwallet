@@ -160,10 +160,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
                 await web3.fsn.recallSwap({from: walletAddress, SwapID: swap_id}, password).then(function (res) {
-                    console.log(res);
+
                 })
 
-                $scope.swapRecallSuccess = true;
+                $scope.$apply(function () {
+                    $scope.swapRecallSuccess = true;
+                });
             }
         }
 
