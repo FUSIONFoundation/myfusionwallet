@@ -5,7 +5,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         };
         $scope.tx = {};
-        $scope.takeDataFront = {'fromAssetSymbol' : '', 'toAssetSymbol' : '' , 'fromAssetBalance' : '', 'swapRate' : ''};
+        $scope.takeDataFront = {'fromAssetSymbol' : '', 'toAssetSymbol' : '' , 'fromAssetBalance' : '', 'swapRate' : '', 'toAssetMin' : '', 'fromAssetMin' : ''};
 
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
@@ -170,7 +170,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             $scope.$apply(function () {
                 $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
+                $scope.takeDataFront.fromAssetMin = swapList[swap_id]["MinFromAmount"];
                 $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
+                $scope.takeDataFront.toAssetMin = swapList[swap_id]["MinToAmount"]
                 $scope.takeDataFront.fromAssetBalance = balance;
                 $scope.takeDataFront.swapRate = swapRate;
             })
