@@ -5,6 +5,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         };
         $scope.tx = {};
+        $scope.takeDataFront = {'fromAssetSymbol' : '', 'toAssetSymbol' : '' , 'fromAssetBalance' : '', 'swapRate' : ''};
+
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         walletService.wallet = null;
@@ -134,22 +136,57 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
         }
-    $scope.takeModal = function (swap_id) {
-        // $scope.swapRecallSuccess = false;
-        $scope.takeSwapModal.open();
-        console.log(swap_id)
-        // $scope.recallAssetId = swap_id;
+        $scope.takeModal = async function (swap_id) {
+            // $scope.swapRecallSuccess = false;
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let takeData = [];
+            console.log(swap_id)
+            let swapList = [];
+            let balance = '';
 
-    }
+            await web3.fsn.allSwaps().then(function (res) {
+                swapList = res;
+            })
 
-        $scope.takeSwap = async function () {
+            let fromAsset = [];
+            let toAsset = [];
+
+            await web3.fsn.getAsset(swapList[swap_id]["FromAssetID"]).then(function (res) {
+                fromAsset = res;
+            });
+
+            await web3.fsn.getBalance(swapList[swap_id]["FromAssetID"], walletAddress).then(function (res) {
+                balance = res;
+            });
+
+            await web3.fsn.getAsset(swapList[swap_id]["ToAssetID"]).then(function (res) {
+                toAsset = res;
+            });
+
+            let id = swapList[swap_id]["ID"];
+            let swapRate = parseInt(swapList[swap_id]["MinToAmount"]) / parseInt(swapList[swap_id]["MinFromAmount"]);
+
+
+            $scope.$apply(function () {
+                $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
+                $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
+                $scope.takeDataFront.fromAssetBalance = balance;
+                $scope.takeDataFront.swapRate = swapRate;
+            })
+
+            console.log($scope.takeDataFront);
+
+            // $scope.recallAssetId = swap_id;
+
+            $scope.takeSwapModal.open();
+        }
+
+        $scope.takeSwap = async function (swap_id) {
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let from = accountData.from;
 
-            await web3.fsn.takeSwap.then(function (res) {
-
-            })
         }
 
         $scope.makeSwap = async function () {

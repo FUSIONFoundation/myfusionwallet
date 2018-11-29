@@ -174,7 +174,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                500 ETH
+                                {{takeDataFront.fromAssetBalance}} {{takeDataFront.fromAssetSymbol}}
                             </div>
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                500 ETH
+                                {{takeDataFront.swapRate}}
                             </div>
                         </div>
                     </div>
