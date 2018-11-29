@@ -9,6 +9,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.unitReadable = ajaxReq.type;
         walletService.wallet = null;
         walletService.password = '';
+        $scope.recallAssetModal = new Modal(document.getElementById('recallAsset'));
+        $scope.swapRecallSuccess = false;
+
 
         var applyScope = function () {
             if (!$scope.$$phase) $scope.$apply();
@@ -143,6 +146,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         }
 
+        $scope.recallModal = function (swap_id) {
+            $scope.swapRecallSuccess = false;
+            $scope.recallAssetModal.open();
+            $scope.recallAssetId = swap_id;
+
+        }
+
         $scope.recallSwap = async function (swap_id) {
             if (walletService.password !== '') {
                 console.log(swap_id);
@@ -152,6 +162,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await web3.fsn.recallSwap({from: walletAddress, SwapID: swap_id}, password).then(function (res) {
                     console.log(res);
                 })
+
+                $scope.swapRecallSuccess = true;
             }
         }
 

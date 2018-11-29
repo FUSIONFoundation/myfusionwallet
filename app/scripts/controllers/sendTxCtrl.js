@@ -12,7 +12,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
-
         walletService.wallet = null;
         walletService.password = '';
         $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
@@ -305,7 +304,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.setMaxBalance = function () {
-                $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
+            $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
         }
 
         $scope.sendAsset = async function () {

@@ -5392,7 +5392,8 @@
                         <td> Min Swap</td>
                         <td>
                             <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-primary" ng-click="recallSwap(asset.id)">Recall Swap</button>
+                                <button class="btn btn-sm btn-primary" ng-click="recallModal(asset.id)">Recall Swap
+                                </button>
                             </div>
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-primary" ng-click="takeSwap(asset.id)">Take Swap</button>
@@ -5404,6 +5405,41 @@
             </div>
         </div>
     </div>
+    <article class="modal fade" id="recallAsset" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog">
+            <section class="modal-content">
+                <article class="block" ng-hide="wallet.type=='addressOnly'">
+                    <div class="col-md-12 p-0">
+                        <div class="float-right">
+                                  <span class="gray-text" ng-click="recallAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                        </div>
+                    </div>
+                    <h3>Recall Asset Confirmation</h3>
+
+                    <p>Are you sure you want to recall this swap? It will be removed from the swap market the next
+                        block.</p>
+
+                    <div class="row">
+                        <div class="col-lg-offset-6 float-right">
+                            <button class="btn btn-sm btn-primary" ng-click="recallSwap(recallAssetId)">Confirm</button>
+                            <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
+                            Success! Your swap was recalled and will be confirmed next block!
+
+                            <strong>{{successHash}}</strong>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </article>
+
     <div class="col-md-12 pl-0 pr-0 ml-0">
         <div class="panel panel-default p-0 m-0">
             <div class="panel-heading">Make Swap</div>
