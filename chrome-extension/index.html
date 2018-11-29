@@ -4697,7 +4697,7 @@
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-primary" ng-click="takeSwap(asset.id)">Take Swap</button>
+                                <button class="btn btn-sm btn-primary" ng-click="takeModal(asset.id)">Take Swap</button>
                             </div>
                         </td>
                     </tr>
@@ -4742,6 +4742,82 @@
             </section>
         </section>
     </article>
+    <article class="modal fade" id="takeSwap" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog">
+            <section class="modal-content">
+                <article class="block" ng-hide="wallet.type=='addressOnly'">
+                    <div class="col-md-12 p-0">
+                        <div class="float-right">
+                                  <span class="gray-text" ng-click="takeSwapModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                        </div>
+                    </div>
+                    <h3>Take Swap</h3>
+                    <div class="row">
+                        <div class="col-md-6 small-gray-text">
+                            Funds Available
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                500 ETH
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 small-gray-text">
+                            Send
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                500 ETH
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 small-gray-text">
+                            Receive
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                500 ETH
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6 small-gray-text">
+                            Swap Rate
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                500 ETH
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-offset-6 float-right">
+                            <button class="btn btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
+                            <button class="btn btn-primary" ng-click="recallSwap(recallAssetId)"
+                                    ng-disabled="swapRecallSuccess">Confirm</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 clearfix">
+                        <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
+                            Success! Your swap was recalled and will be confirmed next block!
+
+                            <strong>{{successHash}}</strong>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </article>
+
     <div class="col-md-12 pl-0 pr-0 ml-0">
         <div class="panel panel-default p-0 m-0">
             <div class="panel-heading">Make Swap</div>

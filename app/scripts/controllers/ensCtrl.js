@@ -10,6 +10,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         walletService.wallet = null;
         walletService.password = '';
         $scope.recallAssetModal = new Modal(document.getElementById('recallAsset'));
+        $scope.takeSwapModal = new Modal(document.getElementById('takeSwap'));
         $scope.swapRecallSuccess = false;
 
 
@@ -133,11 +134,22 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
         }
+    $scope.takeModal = function (swap_id) {
+        // $scope.swapRecallSuccess = false;
+        $scope.takeSwapModal.open();
+        console.log(swap_id)
+        // $scope.recallAssetId = swap_id;
+
+    }
 
         $scope.takeSwap = async function () {
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let from = accountData.from;
+
+            await web3.fsn.takeSwap.then(function (res) {
+
+            })
         }
 
         $scope.makeSwap = async function () {
@@ -246,7 +258,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAmount": swapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate,
-                        "time" : time.toLocaleString(),
+                        "time": time.toLocaleString(),
                         "targes": targes,
                         "owner": swapList[asset]["Owner"],
                         "owned": owned
@@ -313,7 +325,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAmount": mySwapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate,
-                        "time" : time.toLocaleString(),
+                        "time": time.toLocaleString(),
                         "targes": targes,
                         "owner": mySwapList[asset]["Owner"],
                         "owned": owned
