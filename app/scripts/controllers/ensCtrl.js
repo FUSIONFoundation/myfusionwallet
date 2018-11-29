@@ -12,9 +12,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             'swapRate': '',
             'toAssetMin': '',
             'fromAssetMin': '',
-            'maxAmount': ''
+            'maxAmount': '',
+            'swapId': '',
+            'fromAssetId': ''
         };
         $scope.takeAmountSwap = '';
+        $scope.receiveTokens = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         walletService.wallet = null;
@@ -191,28 +194,43 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
             $scope.$apply(function () {
+                $scope.takeDataFront.swapId = swapList[swap_id]["ID"];
                 $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
+                $scope.takeDataFront.fromAssetId = fromAsset["ID"];
                 $scope.takeDataFront.fromAssetMin = swapList[swap_id]["MinFromAmount"];
                 $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
                 $scope.takeDataFront.toAssetMin = swapList[swap_id]["MinToAmount"]
                 $scope.takeDataFront.fromAssetBalance = balance;
-                $scope.takeDataFront.swapRate = swapRate.toFixed(2);
+                $scope.takeDataFront.swapRate = swapRate;
                 $scope.takeDataFront.maxAmount = maximumsize;
 
             })
 
-            console.log($scope.takeDataFront);
-
-            // $scope.recallAssetId = swap_id;
-
             $scope.takeSwapModal.open();
         }
 
-        $scope.takeSwap = async function (swap_id) {
+        $scope.setReceive = function () {
+            $scope.receiveTokens = $scope.takeAmountSwap * $scope.takeDataFront.swapRate;
+        }
+
+        $scope.takeSwap = async function (asset_id, swap_id, amount) {
+            console.log(asset_id);
+            console.log(swap_id);
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
-            let from = accountData.from;
+            let walletAddress = accountData.from;
+            let toAsset = [];
 
+            await web3.fsn.getAsset(asset_id).then(function (res) {
+                toAsset = res;
+            });
+
+            let take = amount * $scope.countDecimals(toAsset["Decimals"]);
+            console.log(take);
+
+            await web3.fsn.takeSwap({from: walletAddress, SwapID: swap_id, Size: amount}, password).then(function (res) {
+                console.log(res);
+            })
         }
 
         $scope.makeSwap = async function () {
@@ -321,7 +339,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAssetId": swapList[asset]["ToAssetID"],
                         "toAmount": swapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
-                        "swaprate": swapRate.toFixed(2),
+                        "swaprate": swapRate,
                         "minswap": minimumswap,
                         "time": time.toLocaleString(),
                         "targes": targes,
@@ -391,7 +409,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAmount": mySwapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
                         "minswap": minimumswap,
-                        "swaprate": swapRate.toFixed(2),
+                        "swaprate": swapRate,
                         "time": time.toLocaleString(),
                         "targes": targes,
                         "owner": mySwapList[asset]["Owner"],

@@ -191,7 +191,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="float-right">
-                                <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap" placeholder="Amount">
+                                <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap" ng-change="setReceive()" placeholder="Amount">
                                 <a class="small-gray-text" ng-click="setMaxTakeSwap()">Max Amount</a>
                             </div>
                         </div>
@@ -203,7 +203,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{takeDataFront.toAssetMin}} {{takeDataFront.toAssetSymbol}}
+                                {{receiveTokens}} {{takeDataFront.toAssetSymbol}}
                             </div>
                         </div>
                     </div>
@@ -222,7 +222,7 @@
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
-                            <button class="btn btn-primary" ng-click="takeSwap()"
+                            <button class="btn btn-primary" ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
                                     ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
                             </button>
                         </div>
