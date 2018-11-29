@@ -149,6 +149,28 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         }
 
+        $scope.getAssetBalance = async function () {
+            let asset = $scope.assetToSend;
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let assetBalance = '';
+            let decimals = '';
+            await web3.fsn.getAsset(asset).then(function (res) {
+                decimals = res["Decimals"];
+            });
+
+            await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
+                assetBalance = res;
+            });
+
+            let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
+
+            $scope.$apply(function () {
+                $scope.selectedAssetBalance = balance;
+            });
+        }
+
+
         $scope.allSwaps = async function () {
 
             $scope.getAllAssets();
@@ -188,20 +210,24 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     owner === walletAddress ? owned = true : owned = false;
 
                     let swapRate = parseInt(swapList[asset]["MinToAmount"]) / parseInt(swapList[asset]["MinFromAmount"]);
+                    let targes = '';
+
+                    swapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
 
                     let data = {
-                            "id": swapList[asset]["ID"],
-                            "fromAssetId": swapList[asset]["FromAssetID"],
-                            "fromAssetSymbol" : fromAsset["Symbol"],
-                            "fromAmount": swapList[asset]["MinFromAmount"],
-                            "toAssetId": swapList[asset]["ToAssetID"],
-                            "toAmount": swapList[asset]["MinToAmount"],
-                            "toAssetSymbol" : fromAsset["Symbol"],
-                            "swaprate" : swapRate,
-                            "owner": swapList[asset]["Owner"],
-                            "owned" : owned
-                        }
-                        await swapListFront.push(data);
+                        "id": swapList[asset]["ID"],
+                        "fromAssetId": swapList[asset]["FromAssetID"],
+                        "fromAssetSymbol": fromAsset["Symbol"],
+                        "fromAmount": swapList[asset]["MinFromAmount"],
+                        "toAssetId": swapList[asset]["ToAssetID"],
+                        "toAmount": swapList[asset]["MinToAmount"],
+                        "toAssetSymbol": fromAsset["Symbol"],
+                        "swaprate": swapRate,
+                        "targes": targes,
+                        "owner": swapList[asset]["Owner"],
+                        "owned": owned
+                    }
+                    await swapListFront.push(data);
                 }
             }
             $scope.$apply(function () {

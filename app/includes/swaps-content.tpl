@@ -7,7 +7,7 @@
         <div class="col-md-3 text-left mr-0">
             <span class="small-gray-text">Send Assets</span>
             <div class="form-group">
-                <select class="form-control" ng-model="assetToSend" ng-change="getAllAssets()">
+                <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
                     <option ng-repeat="asset in assetListOwned" value="{{asset.contractaddress}}">
                         {{asset.symbol}}
                         - {{asset.contractaddress}}
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Receive Asset</span>
-            <select class="form-control" ng-model="assetToReceive" ng-change="getAllAssets()">
+            <select class="form-control" ng-model="assetToReceive">
                 <option ng-repeat="asset in assetList" value="{{asset.contractaddress}}">
                     {{asset.symbol}}
                     - {{asset.contractaddress}}
@@ -30,10 +30,12 @@
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Asset Balance</span>
             <br>
-            500
+            <div class="sendAssetBalanceAvailable w-50">
+                <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span class="small-gray-text"> available to send.</span>
+            </div>
         </div>
         <div class="col-md-2 text-left">
-           <button class="btn btn-sm btn-primary">Make Swap</button>
+            <button class="btn btn-sm btn-primary">Make Swap</button>
         </div>
     </div>
     <div class="col-md-12 pl-0 pr-0">
@@ -49,7 +51,7 @@
                 <table class="table">
                     <thead>
                     <tr class="small-gray-text">
-                        <th scope="col"> </th>
+                        <th scope="col"></th>
                         <th scope="col">Time Initiated</th>
                         <th scope="col">Send</th>
                         <th scope="col">Receive</th>
@@ -66,7 +68,9 @@
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td>{{asset.swaprate}}</td>
                         <td> Min Swap</td>
-                        <td><button class="btn btn-sm btn-primary">Take Swap</button></td>
+                        <td>
+                            <button class="btn btn-sm btn-primary">Take Swap</button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -81,7 +85,8 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">@</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                           aria-describedby="basic-addon1">
                 </div>
                 <form>
                     <div class="form-group d-flex">
