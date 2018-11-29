@@ -173,7 +173,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.takeDataFront.fromAssetMin = swapList[swap_id]["MinFromAmount"];
                 $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
                 $scope.takeDataFront.toAssetMin = swapList[swap_id]["MinToAmount"]
-                $scope.takeDataFront.fromAssetBalance = balance;
+                $scope.takeDataFront.fromAssetBalance = balance / $scope.countDecimals(fromAsset["Decimals"]);
                 $scope.takeDataFront.swapRate = swapRate.toFixed(2);
             })
 
