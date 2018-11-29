@@ -174,7 +174,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
                 $scope.takeDataFront.toAssetMin = swapList[swap_id]["MinToAmount"]
                 $scope.takeDataFront.fromAssetBalance = balance;
-                $scope.takeDataFront.swapRate = swapRate;
+                $scope.takeDataFront.swapRate = swapRate.toFixed(2);
             })
 
             console.log($scope.takeDataFront);
@@ -296,7 +296,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAssetId": swapList[asset]["ToAssetID"],
                         "toAmount": swapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
-                        "swaprate": swapRate,
+                        "swaprate": swapRate.toFixed(2),
                         "time": time.toLocaleString(),
                         "targes": targes,
                         "owner": swapList[asset]["Owner"],
