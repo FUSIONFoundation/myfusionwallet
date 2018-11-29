@@ -283,6 +283,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     let swapRate = parseInt(swapList[asset]["MinToAmount"]) / parseInt(swapList[asset]["MinFromAmount"]);
                     let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
+                    let minimumswap = parseInt(swapList[asset]["SwapSize"]) / parseInt(swapList[asset]["MinFromAmount"]);
                     let targes = '';
 
                     swapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
@@ -297,6 +298,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAmount": swapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate.toFixed(2),
+                        "minswap" : minimumswap,
                         "time": time.toLocaleString(),
                         "targes": targes,
                         "owner": swapList[asset]["Owner"],
@@ -350,6 +352,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     let swapRate = parseInt(mySwapList[asset]["MinToAmount"]) / parseInt(mySwapList[asset]["MinFromAmount"]);
                     let time = new Date(parseInt(mySwapList[asset]["Time"]) * 1000);
+                    let minimumswap = parseInt(mySwapList[asset]["SwapSize"]) / parseInt(mySwapList[asset]["MinFromAmount"]);
                     let targes = '';
 
                     mySwapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
@@ -363,7 +366,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAssetId": mySwapList[asset]["ToAssetID"],
                         "toAmount": mySwapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
-                        "swaprate": swapRate,
+                        "minswap" : minimumswap,
+                        "swaprate": swapRate.toFixed(2),
                         "time": time.toLocaleString(),
                         "targes": targes,
                         "owner": mySwapList[asset]["Owner"],
