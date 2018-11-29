@@ -4617,11 +4617,16 @@
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Asset Balance</span>
             <br>
-            <div class="sendAssetBalanceAvailable w-50">
+            <div class="sendAssetBalanceAvailable w-50" ng-hide="selectedAssetBalance >= 0">
+                <span class="small-gray-text ng-binding">Select asset first</span>
+            </div>
+            <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
                 <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span class="small-gray-text"> available to send.</span>
             </div>
         </div>
         <div class="col-md-2 text-left">
+            <span class="small-gray-text"> </span>
+            <br>
             <button class="btn btn-sm btn-primary">Make Swap</button>
         </div>
     </div>
