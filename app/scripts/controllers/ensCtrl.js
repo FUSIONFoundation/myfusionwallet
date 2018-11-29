@@ -244,7 +244,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "fromAmount": swapList[asset]["MinFromAmount"],
                         "toAssetId": swapList[asset]["ToAssetID"],
                         "toAmount": swapList[asset]["MinToAmount"],
-                        "toAssetSymbol": fromAsset["Symbol"],
+                        "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate,
                         "time" : time.toLocaleString(),
                         "targes": targes,
@@ -270,7 +270,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let walletAddress = accountData.from;
                 console.log(walletAddress);
 
-                await web3.fsn.allSwaps().then(function (res) {
+                await web3.fsn.allSwapsByAddress(walletAddress).then(function (res) {
                     mySwapList = res;
                 });
 
@@ -307,11 +307,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let data = {
                         "id": mySwapList[asset]["ID"],
                         "fromAssetId": mySwapList[asset]["FromAssetID"],
-                        "fromAssetSymbol": mySwapList["Symbol"],
+                        "fromAssetSymbol": fromAsset["Symbol"],
                         "fromAmount": mySwapList[asset]["MinFromAmount"],
                         "toAssetId": mySwapList[asset]["ToAssetID"],
                         "toAmount": mySwapList[asset]["MinToAmount"],
-                        "toAssetSymbol": mySwapList["Symbol"],
+                        "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate,
                         "time" : time.toLocaleString(),
                         "targes": targes,
