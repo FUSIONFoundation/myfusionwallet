@@ -47,7 +47,8 @@
         <div class="panel panel-default">
             <div class="panel-heading">My Open Swaps</div>
             <div class="panel-body text-center">
-                <table class="table">
+                <div class="text-center" ng-hide="mySwapList.length != 0"><span class="small-gray-text">No Open Swaps</span></div>
+                <table class="table" ng-show="mySwapList.length != 0">
                     <thead>
                     <tr class="small-gray-text">
                         <th scope="col"></th>
