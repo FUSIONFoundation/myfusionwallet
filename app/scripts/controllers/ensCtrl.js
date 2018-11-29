@@ -186,7 +186,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     });
 
                     owner === walletAddress ? owned = true : owned = false;
-                        let data = {
+
+                    let swapRate = parseInt(swapList[asset]["MinToAmount"]) / parseInt(swapList[asset]["MinFromAmount"]);
+
+                    let data = {
                             "id": swapList[asset]["ID"],
                             "fromAssetId": swapList[asset]["FromAssetID"],
                             "fromAssetSymbol" : fromAsset["Symbol"],
@@ -194,6 +197,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             "toAssetId": swapList[asset]["ToAssetID"],
                             "toAmount": swapList[asset]["MinToAmount"],
                             "toAssetSymbol" : fromAsset["Symbol"],
+                            "swaprate" : swapRate,
                             "owner": swapList[asset]["Owner"],
                             "owned" : owned
                         }

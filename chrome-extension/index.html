@@ -4648,12 +4648,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList track by $index">
+                    <tr class="text-center" ng-repeat="asset in swapsList track by $index">
                         <td>Public</td>
                         <td>Today</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
-                        <td> 1 : 25</td>
+                        <td>{{asset.swaprate}}</td>
                         <td> Min Swap</td>
                         <td><button class="btn btn-sm btn-primary">Take Swap</button></td>
                     </tr>
