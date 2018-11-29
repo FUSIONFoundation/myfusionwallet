@@ -5,7 +5,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         };
         $scope.tx = {};
-        $scope.takeDataFront = {'fromAssetSymbol' : '', 'toAssetSymbol' : '' , 'fromAssetBalance' : '', 'swapRate' : '', 'toAssetMin' : '', 'fromAssetMin' : ''};
+        $scope.takeDataFront = {
+            'fromAssetSymbol': '',
+            'toAssetSymbol': '',
+            'fromAssetBalance': '',
+            'swapRate': '',
+            'toAssetMin': '',
+            'fromAssetMin': '',
+            'maxAmount' : ''
+        };
 
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
@@ -167,14 +175,19 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let id = swapList[swap_id]["ID"];
             let swapRate = parseInt(swapList[swap_id]["MinToAmount"]) / parseInt(swapList[swap_id]["MinFromAmount"]);
 
+            balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
+            let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"]);
+
 
             $scope.$apply(function () {
                 $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
                 $scope.takeDataFront.fromAssetMin = swapList[swap_id]["MinFromAmount"];
                 $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
                 $scope.takeDataFront.toAssetMin = swapList[swap_id]["MinToAmount"]
-                $scope.takeDataFront.fromAssetBalance = balance / $scope.countDecimals(fromAsset["Decimals"]);
+                $scope.takeDataFront.fromAssetBalance = balance;
                 $scope.takeDataFront.swapRate = swapRate.toFixed(2);
+                $scope.takeDataFront.maxAmount = maximumsize;
+
             })
 
             console.log($scope.takeDataFront);
@@ -298,7 +311,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAmount": swapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate.toFixed(2),
-                        "minswap" : minimumswap,
+                        "minswap": minimumswap,
                         "time": time.toLocaleString(),
                         "targes": targes,
                         "owner": swapList[asset]["Owner"],
@@ -366,7 +379,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "toAssetId": mySwapList[asset]["ToAssetID"],
                         "toAmount": mySwapList[asset]["MinToAmount"],
                         "toAssetSymbol": toAsset["Symbol"],
-                        "minswap" : minimumswap,
+                        "minswap": minimumswap,
                         "swaprate": swapRate.toFixed(2),
                         "time": time.toLocaleString(),
                         "targes": targes,
