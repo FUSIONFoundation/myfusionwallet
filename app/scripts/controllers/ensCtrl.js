@@ -144,9 +144,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.recallSwap = async function (swap_id) {
-            await web3.fsn.recallSwap(swap_id).then(function (res) {
-
-            })
+            if (walletService.password !== '') {
+                console.log(swap_id);
+                let password = walletService.password;
+                let accountData = uiFuncs.getTxData($scope);
+                let walletAddress = accountData.from;
+                await web3.fsn.recallSwap({from: walletAddress, SwapID: swap_id}, password).then(function (res) {
+                    console.log(res);
+                })
+            }
         }
 
         $scope.getAssetBalance = async function () {
