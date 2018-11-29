@@ -194,6 +194,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.allSwaps = async function () {
 
             $scope.getAllAssets();
+            $scope.mySwaps();
             let swapList = [];
             let swapListFront = []
 
@@ -258,6 +259,74 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.swapsList = swapListFront;
             });
         }
+
+
+        $scope.mySwaps = async function () {
+            let mySwapList = [];
+            let mySwapListFront = []
+
+            if (walletService.password !== '') {
+                let accountData = uiFuncs.getTxData($scope);
+                let walletAddress = accountData.from;
+                console.log(walletAddress);
+
+                await web3.fsn.allSwaps().then(function (res) {
+                    mySwapList = res;
+                });
+
+                for (let asset in mySwapList) {
+                    let id = mySwapList[asset]["ID"];
+                    let owner = mySwapList[asset]["Owner"];
+                    let owned = false;
+                    let assetBalance = '';
+
+                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                        assetBalance = res;
+                    });
+
+                    let fromAsset = [];
+                    let toAsset = [];
+
+                    await web3.fsn.getAsset(mySwapList[asset]["FromAssetID"]).then(function (res) {
+                        fromAsset = res;
+                    });
+
+                    await web3.fsn.getAsset(mySwapList[asset]["ToAssetID"]).then(function (res) {
+                        toAsset = res;
+                    });
+
+                    owner === walletAddress ? owned = true : owned = false;
+
+                    let swapRate = parseInt(mySwapList[asset]["MinToAmount"]) / parseInt(mySwapList[asset]["MinFromAmount"]);
+                    let time = new Date(parseInt(mySwapList[asset]["Time"]) * 1000);
+                    let targes = '';
+
+                    mySwapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
+
+
+                    let data = {
+                        "id": mySwapList[asset]["ID"],
+                        "fromAssetId": mySwapList[asset]["FromAssetID"],
+                        "fromAssetSymbol": mySwapList["Symbol"],
+                        "fromAmount": mySwapList[asset]["MinFromAmount"],
+                        "toAssetId": mySwapList[asset]["ToAssetID"],
+                        "toAmount": mySwapList[asset]["MinToAmount"],
+                        "toAssetSymbol": mySwapList["Symbol"],
+                        "swaprate": swapRate,
+                        "time" : time.toLocaleString(),
+                        "targes": targes,
+                        "owner": mySwapList[asset]["Owner"],
+                        "owned": owned
+                    }
+                    await mySwapListFront.push(data);
+                }
+            }
+            $scope.$apply(function () {
+                console.log(mySwapListFront)
+                $scope.mySwapList = mySwapListFront;
+            });
+        }
+
 
     }
 ;
