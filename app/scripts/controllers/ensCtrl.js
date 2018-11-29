@@ -12,9 +12,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             'swapRate': '',
             'toAssetMin': '',
             'fromAssetMin': '',
-            'maxAmount' : ''
+            'maxAmount': ''
         };
-
+        $scope.takeAmountSwap = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         walletService.wallet = null;
@@ -144,6 +144,17 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
         }
+
+        $scope.setMaxTakeSwap = function () {
+            let amount = '';
+            if ($scope.takeDataFront.fromAssetBalance >= $scope.takeDataFront.maxAmount) {
+                amount = $scope.takeDataFront.maxAmount;
+            } else {
+                amount = $scope.takeDataFront.fromAssetBalance;
+            }
+            $scope.takeAmountSwap = amount;
+        }
+
         $scope.takeModal = async function (swap_id) {
             // $scope.swapRecallSuccess = false;
             let accountData = uiFuncs.getTxData($scope);
@@ -176,7 +187,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let swapRate = parseInt(swapList[swap_id]["MinToAmount"]) / parseInt(swapList[swap_id]["MinFromAmount"]);
 
             balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
-            let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"]);
+            let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]));
 
 
             $scope.$apply(function () {
