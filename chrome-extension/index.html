@@ -4658,7 +4658,12 @@
                         <td>{{asset.swaprate}}</td>
                         <td> Min Swap</td>
                         <td>
-                            <button class="btn btn-sm btn-primary">Take Swap</button>
+                            <div ng-hide="asset.owned == false">
+                                <button class="btn btn-sm btn-primary" ng-click="recallSwap(asset.id)">Recall Swap</button>
+                            </div>
+                            <div ng-hide="asset.owned == true">
+                                <button class="btn btn-sm btn-primary" ng-click="takeSwap(asset.id)">Take Swap</button>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

@@ -143,8 +143,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         }
 
-        $scope.recallSwap = async function () {
-            await web3.fsn.recallSwap.then(function (res) {
+        $scope.recallSwap = async function (swap_id) {
+            await web3.fsn.recallSwap(swap_id).then(function (res) {
 
             })
         }
