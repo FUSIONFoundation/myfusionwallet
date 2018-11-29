@@ -156,6 +156,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 amount = $scope.takeDataFront.fromAssetBalance;
             }
             $scope.takeAmountSwap = amount;
+
+            $scope.setReceive();
         }
 
         $scope.takeModal = async function (swap_id) {
