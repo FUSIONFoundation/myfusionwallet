@@ -4654,8 +4654,8 @@
                     </thead>
                     <tbody>
                     <tr class="text-center" ng-repeat="asset in swapsList track by $index">
-                        <td>Public</td>
-                        <td>Today</td>
+                        <td><i class="fa fa-globe" aria-hidden="true"></i> Public </td>
+                        <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td>{{asset.swaprate}}</td>
@@ -4694,7 +4694,9 @@
 
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-primary" ng-click="recallSwap(recallAssetId)" ng-disabled="swapRecallSuccess">Confirm</button>
+                            <button class="btn btn-sm btn-primary" ng-click="recallSwap(recallAssetId)"
+                                    ng-disabled="swapRecallSuccess">Confirm
+                            </button>
                             <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Cancel</button>
                         </div>
                     </div>
@@ -4709,7 +4711,6 @@
             </section>
         </section>
     </article>
-
     <div class="col-md-12 pl-0 pr-0 ml-0">
         <div class="panel panel-default p-0 m-0">
             <div class="panel-heading">Make Swap</div>
