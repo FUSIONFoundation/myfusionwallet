@@ -194,7 +194,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.takeDataFront.swapId = swapList[swap_id]["ID"];
                 $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
                 $scope.takeDataFront.fromAssetId = fromAsset["ID"];
-                $scope.takeDataFront.fromAssetMin = swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+                $scope.takeDataFront.fromAssetMin = swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
                 $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
                 $scope.takeDataFront.toAssetMin = swapList[swap_id]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
                 $scope.takeDataFront.fromAssetBalance = balance;
@@ -401,9 +401,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "id": mySwapList[asset]["ID"],
                         "fromAssetId": mySwapList[asset]["FromAssetID"],
                         "fromAssetSymbol": fromAsset["Symbol"],
-                        "fromAmount": mySwapList[asset]["MinFromAmount"],
+                        "fromAmount": mySwapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]),
                         "toAssetId": mySwapList[asset]["ToAssetID"],
-                        "toAmount": mySwapList[asset]["MinToAmount"],
+                        "toAmount": mySwapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]),
                         "toAssetSymbol": toAsset["Symbol"],
                         "minswap": minimumswap,
                         "swaprate": swapRate,
