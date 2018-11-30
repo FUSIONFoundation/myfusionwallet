@@ -161,11 +161,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.takeModal = async function (swap_id) {
-            // $scope.swapRecallSuccess = false;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
-            let takeData = [];
-            console.log(swap_id)
             let swapList = [];
             let balance = '';
 
@@ -188,12 +185,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 toAsset = res;
             });
 
-            let id = swapList[swap_id]["ID"];
             let swapRate = parseInt(swapList[swap_id]["MinToAmount"]) / parseInt(swapList[swap_id]["MinFromAmount"]);
 
             balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
             let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]));
-
 
             $scope.$apply(function () {
                 $scope.takeDataFront.swapId = swapList[swap_id]["ID"];
@@ -228,9 +223,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
 
             let take = amount * $scope.countDecimals(toAsset["Decimals"]);
-            console.log(take);
+            console.log(`This is Size -> ${take}`);
 
-            await web3.fsn.takeSwap({from: walletAddress, SwapID: swap_id, Size: amount}, password).then(function (res) {
+            await web3.fsn.takeSwap({from: walletAddress, SwapID: swap_id, Size: parseInt(take)}, password).then(function (res) {
                 console.log(res);
             })
         }
@@ -337,9 +332,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "id": swapList[asset]["ID"],
                         "fromAssetId": swapList[asset]["FromAssetID"],
                         "fromAssetSymbol": fromAsset["Symbol"],
-                        "fromAmount": swapList[asset]["MinFromAmount"],
+                        "fromAmount": swapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]),
                         "toAssetId": swapList[asset]["ToAssetID"],
-                        "toAmount": swapList[asset]["MinToAmount"],
+                        "toAmount": swapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]),
                         "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate,
                         "minswap": minimumswap,
