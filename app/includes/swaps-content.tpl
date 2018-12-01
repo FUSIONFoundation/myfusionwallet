@@ -259,16 +259,36 @@
                         </div>
                     </div>
                     <h3>Make Swap</h3>
-
-                    <p>Are you sure you want to recall this swap? It will be removed from the swap market the next
-                        block.</p>
-
+                    <div class="col-md-12 text-left mr-0">
+                        <span class="small-gray-text">Send Asset</span>
+                        <div class="form-group">
+                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
+                                <option ng-repeat="asset in assetListOwned" value="{{asset.contractaddress}}">
+                                    {{asset.symbol}}
+                                    - {{asset.contractaddress}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 text-left">
+                        <span class="small-gray-text">Receive Asset</span>
+                        <select class="form-control" ng-model="assetToReceive">
+                            <option ng-repeat="asset in assetList" value="{{asset.contractaddress}}">
+                                {{asset.symbol}}
+                                - {{asset.contractaddress}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
+                            <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span class="small-gray-text"> available.</span>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-primary" ng-click="recallSwap(recallAssetId)"
-                                    ng-disabled="swapRecallSuccess">Confirm
+                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel
                             </button>
-                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel</button>
+                            <button class="btn btn-sm btn-primary" ng-click="makeSwapModal.close()">Review Make Swap</button>
                         </div>
                     </div>
                     <div class="col-sm-12 clearfix">
@@ -283,67 +303,4 @@
         </section>
     </article>
 
-    <div class="col-md-12 pl-0 pr-0 ml-0">
-        <div class="panel panel-default p-0 m-0">
-            <div class="panel-heading">Make Swap</div>
-            <div class="panel-body">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">@</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-                           aria-describedby="basic-addon1">
-                </div>
-                <form>
-                    <div class="form-group d-flex">
-                        <div class="col-md-6 pl-1 m-0">
-                            <label class="small-gray-text">Swap Amount</label>
-                            <input type="text" class="form-control" placeholder="Amount">
-                        </div>
-                        <div class="col-md-6 pr-1 m-0">
-                            <label class="small-gray-text">Swap Amount</label>
-                            <input type="text" class="form-control" placeholder="Amount">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="small-gray-text">Swap Amount</label>
-                        <input type="text" class="form-control" placeholder="Amount">
-                    </div>
-                    <div class="form-group">
-                        <label class="small-gray-text">Minimum Partial Swap</label>
-                        <input type="text" class="form-control" placeholder="Amount">
-                    </div>
-                    <div class="form-check">
-                        <div class="col-md-6">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox"> Public
-                            </label>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox"> Private
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="small-gray-text">Wallet Address</label>
-                        <input type="text" class="form-control" placeholder="XXXXX">
-                    </div>
-                    <div class="form-group">
-                        <label class="small-gray-text">Expiration</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-primary">Make Swap</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </article>
