@@ -5318,7 +5318,20 @@
   <!-- Send Tx Content -->
   <article class="row" ng-show="wallet!=null">
     
-     <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
+     
+<article class="block p-0" ng-hide="wallet.type=='addressOnly'">
+    <div class="col-md-12">
+        <div class="col-md-5 float-left">
+            <div class="sendAssetBalanceAvailable w-100">
+                <span class="small-gray-text">Public Address </span><span class="small-gray-text text-fusion">{{walletAddress}}</span>
+            </div>
+        </div>
+        <div class="col-md-5 float-left">
+            <div class="sendAssetBalanceAvailable w-100">
+                <span class="small-gray-text">Short Address </span><span class="small-gray-text text-fusion">0x430..</span>
+            </div>
+        </div>
+    </div>
     <button class="btn btn-primary" ng-click="allSwaps()">I want to be clicked</button>
     <div class="col-md-12 p-2 swap-border">
         Swap Market / My Swaps

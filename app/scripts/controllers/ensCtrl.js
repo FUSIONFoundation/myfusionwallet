@@ -2,7 +2,6 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
-
         };
         $scope.tx = {};
         $scope.takeDataFront = {
@@ -18,6 +17,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         };
         $scope.takeAmountSwap = '';
         $scope.receiveTokens = '';
+        $scope.walletAddress = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         walletService.wallet = null;
@@ -88,6 +88,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             return parseInt(returnDecimals);
         }
 
+        $scope.setWalletAddress = function () {
+            if (walletService.password !== '') {
+                let accountData = uiFuncs.getTxData($scope);
+                let walletAddress = accountData.from;
+                    $scope.walletAddress = walletAddress;
+            }
+        }
+
 
         $scope.getAllAssets = async function () {
             if (walletService.password !== '') {
@@ -143,8 +151,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
                 $scope.$apply(function () {
                     $scope.assetList = assetList2;
-                    $scope.assetList = assetList2;
-                    $scope.assetListOwned = assetListOwned;
                     $scope.assetListOwned = assetListOwned;
                 });
             }
@@ -236,8 +242,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         }
 
-        $scope.switchAsset = function (){
-            if ($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive)){
+        $scope.switchAsset = function () {
+            if ($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive)) {
                 let t = $scope.assetToSend;
                 $scope.assetToSend = $scope.assetToReceive;
                 $scope.assetToReceive = t;
@@ -339,6 +345,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             $scope.getAllAssets();
             $scope.mySwaps();
+            $scope.setWalletAddress();
             let swapList = [];
             let swapListFront = [];
 
@@ -470,7 +477,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
             $scope.$apply(function () {
-                console.log(mySwapListFront)
+                console.log(mySwapListFront);
                 $scope.mySwapList = mySwapListFront;
             });
         }
