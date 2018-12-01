@@ -4585,23 +4585,35 @@
 
   <!-- Send Tx Content -->
   <article class="row" ng-show="wallet!=null">
-     
-<article class="block p-0" ng-hide="wallet.type=='addressOnly'">
+     <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
     <div class="col-md-12">
         <div class="col-md-5 float-left">
             <div class="sendAssetBalanceAvailable w-100">
-                <span class="small-gray-text">Public Address </span><span class="small-gray-text text-fusion">{{walletAddress}}</span>
+                <span class="small-gray-text">Public Address </span><span
+                        class="small-gray-text text-fusion">{{walletAddress}}</span>
             </div>
         </div>
         <div class="col-md-5 float-left">
             <div class="sendAssetBalanceAvailable w-100">
-                <span class="small-gray-text">Short Address </span><span class="small-gray-text text-fusion">{{addressNotation}}</span>
+                <span class="small-gray-text">Short Address </span><span
+                        class="small-gray-text text-fusion">{{addressNotation}}</span>
             </div>
         </div>
     </div>
     <button class="btn btn-primary" ng-click="allSwaps()">I want to be clicked</button>
     <div class="col-md-12 p-2 swap-border">
-        Swap Market / My Swaps
+        <nav class="nav-container">
+            <div class="nav-scroll">
+                <ul class="nav-inner">
+                    <li class="nav-item Swaps">
+                        <a class="ng-scope">Swap Market</a>
+                    </li>
+                    <li class="nav-item Swaps">
+                        <a class="ng-scope">Open Makes</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
     <div class="col-md-12 p-2 swap-border">
         <div class="col-md-3 text-left mr-0">
@@ -4618,7 +4630,8 @@
         <div class="col-md-1 text-center">
             <span class="small-gray-text"> </span>
             <br>
-            <button class="btn btn-sm btn-secondary" ng-click="switchAsset()"><i class="fa fa-exchange" aria-hidden="true"></i>
+            <button class="btn btn-sm btn-secondary" ng-click="switchAsset()"><i class="fa fa-exchange"
+                                                                                 aria-hidden="true"></i>
             </button>
         </div>
         <div class="col-md-3 text-left">
