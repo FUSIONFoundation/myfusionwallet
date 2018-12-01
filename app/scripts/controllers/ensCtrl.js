@@ -18,6 +18,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.takeAmountSwap = '';
         $scope.receiveTokens = '';
         $scope.walletAddress = '';
+        $scope.addressNotation = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         walletService.wallet = null;
@@ -96,8 +97,28 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
+    $scope.getShortAddressNotation = async function () {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let notation = '';
 
-        $scope.getAllAssets = async function () {
+            await web3.fsn.getNotation(walletAddress).then(function (res) {
+                notation = res;
+            });
+
+            if (notation === 0) {
+                $scope.addressNotation = 'Not available';
+            } else {
+                $scope.$apply(function () {
+                    $scope.addressNotation = notation;
+                    $scope.addressNotation = notation;
+                });
+            }
+            return notation;
+    }
+
+
+    $scope.getAllAssets = async function () {
             if (walletService.password !== '') {
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
@@ -346,6 +367,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getAllAssets();
             $scope.mySwaps();
             $scope.setWalletAddress();
+            $scope.getShortAddressNotation();
             let swapList = [];
             let swapListFront = [];
 
@@ -416,7 +438,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.mySwaps = async function () {
             let mySwapList = [];
-            let mySwapListFront = []
+            let mySwapListFront = [];
 
             if (walletService.password !== '') {
                 let accountData = uiFuncs.getTxData($scope);
