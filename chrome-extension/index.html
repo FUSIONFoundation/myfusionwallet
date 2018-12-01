@@ -4846,7 +4846,7 @@
                         </div>
                     </div>
                     <h3>Make Swap</h3>
-                    <div class="col-md-12 text-left mr-0">
+                    <div class="col-md-12 text-left p-0">
                         <span class="small-gray-text">Send Asset</span>
                         <div class="form-group">
                             <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
@@ -4857,7 +4857,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-12 text-left">
+                    <div class="col-md-12 p-0 text-left">
                         <span class="small-gray-text">Receive Asset</span>
                         <select class="form-control" ng-model="assetToReceive">
                             <option ng-repeat="asset in assetList" value="{{asset.contractaddress}}">
@@ -4866,11 +4866,19 @@
                             </option>
                         </select>
                     </div>
-                    <div class="col-md-12">
+                    <h3>Enter a Swap Rate</h3>
+
+                    <h3>Enter Swap Details</h3>
+
+                    <div class="col-md-12 p-0">
                         <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
                             <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span class="small-gray-text"> available.</span>
                         </div>
                     </div>
+
+                    <h3>Set Access</h3>
+
+
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel
