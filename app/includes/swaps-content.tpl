@@ -302,13 +302,9 @@
                         <span class="small-gray-text">Minimum Swap Amount</span>
                         <input type="text" class="form-control m-0 mt-1" ng-model="makeMinumumSwap" placeholder="Amount">
                     </div>
-
-
                     <h3>Set Access</h3>
-
-
                     <div class="col-md-12 p-0">
-                        <span class="small-gray-text">Seperate addresse with commas.</span>
+                        <span class="small-gray-text">Seperate addresses with commas.</span>
                         <input type="text" class="form-control m-0 mt-1" ng-model="makePrivateAddresses" placeholder="Amount">
                     </div>
 
@@ -318,7 +314,7 @@
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel
                             </button>
-                            <button class="btn btn-sm btn-primary" ng-click="makeSwapModal.close()">Review Make Swap</button>
+                            <button class="btn btn-sm btn-primary" ng-click="makeSwap()">Review Make Swap</button>
                         </div>
                     </div>
                     <div class="col-sm-12 clearfix">

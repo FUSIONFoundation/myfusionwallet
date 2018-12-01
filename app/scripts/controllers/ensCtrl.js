@@ -237,23 +237,40 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.makeModal = async function (send, receive) {
-            let fromAsset = [];
-            let toAsset = [];
-
-            // await web3.fsn.getAsset(send).then(function (res) {
-            //     fromAsset = res;
-            // });
-            //
-            // await web3.fsn.getAsset(receive).then(function (res) {
-            //     toAsset = res;
-            // });
 
             $scope.makeSwapModal.open();
         }
 
         $scope.makeSwap = async function () {
-            await web3.fsn.makeSwap.then(function (res) {
+            let password = walletService.password;
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
 
+            let fromAsset = [];
+            let toAsset = [];
+
+            await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
+                fromAsset = res;
+            });
+
+            await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
+                toAsset = res;
+            });
+
+            let data = {
+                from: walletAddress,
+                FromAssetID: $scope.assetToSend,
+                ToAssetID: $scope.assetToReceive,
+                MinToAmount: $scope.makeSendAmount,
+                MinFromAmount: $scope.makeReceiveAmount,
+                SwapSize: '',
+                Targes: ''
+            };
+
+            console.log(data);
+
+            await web3.fsn.makeSwap(data, password).then(function (res) {
+                console.log(res);
             })
         }
 
