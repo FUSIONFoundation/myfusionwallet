@@ -236,6 +236,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         }
 
+    $scope.makeModal = async function () {
+        $scope.makeSwapModal.open();
+    }
+
         $scope.makeSwap = async function () {
             await web3.fsn.makeSwap.then(function (res) {
 
