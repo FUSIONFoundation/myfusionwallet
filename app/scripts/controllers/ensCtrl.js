@@ -236,6 +236,22 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         }
 
+        $scope.switchAsset = function (){
+            if ($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive)){
+                let t = $scope.assetToSend;
+                $scope.assetToSend = $scope.assetToReceive;
+                $scope.assetToReceive = t;
+                console.log('Correct, we can switch!');
+            } else {
+            }
+
+            //
+            // if(assetListOwned.includes("Mango")
+            //
+            // assetToReceive
+            // assetList
+        }
+
         $scope.makeModal = async function (send, receive) {
 
             $scope.makeSwapModal.open();
