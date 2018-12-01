@@ -24,6 +24,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         walletService.password = '';
         $scope.recallAssetModal = new Modal(document.getElementById('recallAsset'));
         $scope.takeSwapModal = new Modal(document.getElementById('takeSwap'));
+        $scope.makeSwapModal = new Modal(document.getElementById('makeSwap'));
+
         $scope.swapRecallSuccess = false;
 
 
@@ -225,7 +227,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let take = amount * $scope.countDecimals(toAsset["Decimals"]);
             console.log(`This is Size -> ${take}`);
 
-            await web3.fsn.takeSwap({from: walletAddress, SwapID: swap_id, Size: parseInt(take)}, password).then(function (res) {
+            await web3.fsn.takeSwap({
+                from: walletAddress,
+                SwapID: swap_id,
+                Size: parseInt(take)
+            }, password).then(function (res) {
                 console.log(res);
             })
         }
