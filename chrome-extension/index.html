@@ -4585,21 +4585,21 @@
 
   <!-- Send Tx Content -->
   <article class="row" ng-show="wallet!=null">
-     <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
-    <div class="col-md-12">
-        <div class="col-md-5 float-left">
-            <div class="sendAssetBalanceAvailable w-100">
-                <span class="small-gray-text">Public Address </span><span
-                        class="small-gray-text text-fusion">{{walletAddress}}</span>
-            </div>
-        </div>
-        <div class="col-md-5 float-left">
-            <div class="sendAssetBalanceAvailable w-100">
-                <span class="small-gray-text">Short Address </span><span
-                        class="small-gray-text text-fusion">{{addressNotation}}</span>
-            </div>
+     <div class="block-transparent p-0">
+    <div class="col-md-5 float-left">
+        <div class="gray-bg p-1">
+            <span class="small-gray-text">Public Address </span><span
+                    class="small-gray-text text-fusion fusion-text-14">{{walletAddress}}</span>
         </div>
     </div>
+    <div class="col-md-5 float-left">
+        <div class="gray-bg p-1">
+            <span class="small-gray-text">Short Address </span><span
+                    class="small-gray-text text-fusion fusion-text-14">{{addressNotation}}</span>
+        </div>
+    </div>
+</div>
+<article class="block p-0" ng-hide="wallet.type=='addressOnly'">
     <button class="btn btn-primary" ng-click="allSwaps()">I want to be clicked</button>
     <div class="col-md-12 p-2 swap-border">
         <nav class="nav-container">
