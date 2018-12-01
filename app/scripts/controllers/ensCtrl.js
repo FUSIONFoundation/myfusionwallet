@@ -263,7 +263,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 ToAssetID: $scope.assetToReceive,
                 MinToAmount: $scope.makeSendAmount * $scope.countDecimals(fromAsset["Decimals"]),
                 MinFromAmount: $scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]),
-                SwapSize: '',
+                SwapSize: 1,
                 Targes: []
             };
 
