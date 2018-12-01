@@ -15,8 +15,11 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-1 text-center justify-content-center">
-            <i class="fa fa-exchange" aria-hidden="true"></i>
+        <div class="col-md-1 text-center">
+            <span class="small-gray-text"> </span>
+            <br>
+            <button class="btn btn-sm btn-secondary"><i class="fa fa-exchange" aria-hidden="true"></i>
+            </button>
         </div>
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Receive Asset</span>
@@ -47,7 +50,8 @@
         <div class="panel panel-default">
             <div class="panel-heading">My Open Swaps</div>
             <div class="panel-body text-center">
-                <div class="text-center" ng-hide="mySwapList.length != 0"><span class="small-gray-text">No Open Swaps</span></div>
+                <div class="text-center" ng-hide="mySwapList.length != 0"><span
+                            class="small-gray-text">No Open Swaps</span></div>
                 <table class="table" ng-show="mySwapList.length != 0">
                     <thead>
                     <tr class="small-gray-text">
@@ -186,13 +190,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                <span class="mr-1"><span class="small-gray-text">Min Amount</span> {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}</span>
-                                <span class="ml-1"><span class="small-gray-text">Max Amount</span> {{takeDataFront.maxAmount}}  {{takeDataFront.fromAssetSymbol}}</span>
+                                <span class="mr-1"><span
+                                            class="small-gray-text">Min Amount</span> {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}</span>
+                                <span class="ml-1"><span
+                                            class="small-gray-text">Max Amount</span> {{takeDataFront.maxAmount}}  {{takeDataFront.fromAssetSymbol}}</span>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="float-right">
-                                <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap" ng-change="setReceive()" placeholder="Amount">
+                                <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
+                                       ng-change="setReceive()" placeholder="Amount">
                                 <a class="small-gray-text" ng-click="setMaxTakeSwap()">Max Amount</a>
                             </div>
                         </div>
@@ -223,7 +230,8 @@
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
-                            <button class="btn btn-primary" ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
+                            <button class="btn btn-primary"
+                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
                                     ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
                             </button>
                         </div>
@@ -285,7 +293,8 @@
 
                     <div class="col-md-12 p-0">
                         <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
-                            <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span class="small-gray-text"> available.</span>
+                            <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span
+                                    class="small-gray-text"> available.</span>
                         </div>
                     </div>
 
@@ -295,19 +304,21 @@
                     </div>
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">Receive Amount</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount" placeholder="Amount">
+                        <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
+                               placeholder="Amount">
                     </div>
 
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">Minimum Swap Amount</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makeMinumumSwap" placeholder="Amount">
+                        <input type="text" class="form-control m-0 mt-1" ng-model="makeMinumumSwap"
+                               placeholder="Amount">
                     </div>
                     <h3>Set Access</h3>
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">Seperate addresses with commas.</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makePrivateAddresses" placeholder="Amount">
+                        <input type="text" class="form-control m-0 mt-1" ng-model="makePrivateAddresses"
+                               placeholder="Amount">
                     </div>
-
 
 
                     <div class="row">
