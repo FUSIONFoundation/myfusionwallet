@@ -15,9 +15,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             'swapId': '',
             'fromAssetId': ''
         };
+
         $scope.takeAmountSwap = '';
-    $scope.showSwapMarket = true;
-    $scope.showOpenMakes = false;
+        $scope.showSwapMarket = true;
+        $scope.showOpenMakes = false;
         $scope.receiveTokens = '';
         $scope.walletAddress = '';
         $scope.addressNotation = '';
@@ -94,11 +95,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (walletService.password !== '') {
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
-                    $scope.walletAddress = walletAddress;
+                $scope.walletAddress = walletAddress;
             }
         }
 
-    $scope.getShortAddressNotation = async function () {
+        $scope.getShortAddressNotation = async function () {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             let notation = '';
@@ -116,10 +117,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
             return notation;
-    }
+        }
 
 
-    $scope.getAllAssets = async function () {
+        $scope.getAllAssets = async function () {
             if (walletService.password !== '') {
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
