@@ -19,10 +19,10 @@
             <div class="nav-scroll">
                 <ul class="nav-inner">
                     <li class="nav-item Swaps">
-                        <a class="ng-scope">Swap Market</a>
+                        <a class="ng-scope" ng-click="showSwapMarket = true && showOpenMakes = false">Swap Market</a>
                     </li>
                     <li class="nav-item Swaps">
-                        <a class="ng-scope">Open Makes</a>
+                        <a class="ng-scope" ng-click="showSwapMarket = false && showOpenMakes = true">Open Makes</a>
                     </li>
                 </ul>
             </div>
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="col-md-12 pl-0 pr-0">
-        <div class="panel panel-default">
+        <div class="panel panel-default" ng-show="showSwapMarket === true">
             <div class="panel-heading">My Open Swaps</div>
             <div class="panel-body text-center">
                 <div class="text-center" ng-hide="mySwapList.length != 0"><span

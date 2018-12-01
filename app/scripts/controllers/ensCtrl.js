@@ -16,6 +16,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             'fromAssetId': ''
         };
         $scope.takeAmountSwap = '';
+    $scope.showSwapMarket = true;
+    $scope.showOpenMakes = false;
         $scope.receiveTokens = '';
         $scope.walletAddress = '';
         $scope.addressNotation = '';
@@ -28,7 +30,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.makeSwapModal = new Modal(document.getElementById('makeSwap'));
 
         $scope.swapRecallSuccess = false;
-
 
         var applyScope = function () {
             if (!$scope.$$phase) $scope.$apply();
