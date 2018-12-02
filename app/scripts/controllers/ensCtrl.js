@@ -409,7 +409,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     owner === walletAddress ? owned = true : owned = false;
 
-                    let swapRate = parseInt(swapList[asset]["MinToAmount"]) / parseInt(swapList[asset]["MinFromAmount"]);
+                    let fromAmount = swapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
+                    let toAmount = swapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+                    let swapRate = fromAmount / toAmount;
                     let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
                     let minimumswap = parseInt(swapList[asset]["SwapSize"]) / parseInt(swapList[asset]["MinFromAmount"]);
                     let targes = '';
@@ -421,9 +423,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "id": swapList[asset]["ID"],
                         "fromAssetId": swapList[asset]["FromAssetID"],
                         "fromAssetSymbol": fromAsset["Symbol"],
-                        "fromAmount": swapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]),
+                        "fromAmount": fromAmount,
                         "toAssetId": swapList[asset]["ToAssetID"],
-                        "toAmount": swapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]),
+                        "toAmount": toAmount,
                         "toAssetSymbol": toAsset["Symbol"],
                         "swaprate": swapRate,
                         "minswap": minimumswap,
@@ -478,7 +480,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     owner === walletAddress ? owned = true : owned = false;
 
-                    let swapRate = parseInt(mySwapList[asset]["MinToAmount"]) / parseInt(mySwapList[asset]["MinFromAmount"]);
+                    let fromAmount = mySwapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
+                    let toAmount = mySwapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+                    let swapRate = fromAmount / toAmount;
+
                     let time = new Date(parseInt(mySwapList[asset]["Time"]) * 1000);
                     let minimumswap = parseInt(mySwapList[asset]["SwapSize"]) / parseInt(mySwapList[asset]["MinFromAmount"]);
                     let targes = '';
