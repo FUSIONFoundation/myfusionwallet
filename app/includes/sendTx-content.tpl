@@ -47,9 +47,7 @@
         </div>
         <section class="row form-group" ng-show="showAllAssets === true">
             <div class="col-sm-12 clearfix">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lectus odio. Pellentesque sed
-                    nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
-                    luctus.</p>
+                <p class="p-2">The “All Assets” tab gives you an overview of assets in your fusion wallet Assets can be created, sent, timelocked or swapped.</p>
             </div>
             <div class="col-sm-12 clearfix" ng-hide="assetListOwns != ''">
                 <h4 class="text-fusion">Loading assets...</h4>
@@ -73,9 +71,7 @@
         </section>
         <section class="row form-group" ng-show="showTimeLockedAssets === true">
             <div class="col-sm-12 clearfix">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lectus odio. Pellentesque sed
-                    nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
-                    luctus.</p>
+                <p class="p-2">The Timelocked Assets tab gives you more details on timelocks, their length, and their type.</p>
             </div>
 
 
