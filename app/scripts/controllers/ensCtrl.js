@@ -413,7 +413,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let toAmount = swapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
                     let swapRate = fromAmount / toAmount;
                     let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
-                    let minimumswap = parseInt(swapList[asset]["SwapSize"]) / parseInt(swapList[asset]["MinFromAmount"]);
+                    let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]) ;
                     let targes = '';
 
                     swapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
@@ -485,7 +485,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let swapRate = fromAmount / toAmount;
 
                     let time = new Date(parseInt(mySwapList[asset]["Time"]) * 1000);
-                    let minimumswap = parseInt(mySwapList[asset]["SwapSize"]) / parseInt(mySwapList[asset]["MinFromAmount"]);
+                    let minimumswap = fromAmount / parseInt(mySwapList[asset]["SwapSize"]) ;
                     let targes = '';
 
                     mySwapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
