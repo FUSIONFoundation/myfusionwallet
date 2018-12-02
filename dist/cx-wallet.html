@@ -5724,7 +5724,7 @@
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">Seperate addresses with commas.</span>
                         <input type="text" class="form-control m-0 mt-1" ng-model="makePrivateAddresses"
-                               placeholder="Amount">
+                               placeholder="Addresses">
                     </div>
 
 
@@ -5758,9 +5758,61 @@
 </span>
                         </div>
                     </div>
-                    <h3>Make Swap Confirmation</h3>
+                    <h3>Review Make Swap</h3>
 
-                    <p>Please check all the details</p>
+                    <p>Please review the following details carefully before making your swap.</p>
+
+                    <div class="row p-2">
+                        <div class="col-md-6 small-gray-text">
+                            You will be sending
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                {{makeSendAmount}} {{assetToSend}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-6 small-gray-text">
+                            You will be receiving
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                {{makeReceiveAmount}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-6 small-gray-text">
+                            Swap Rate
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                1 : 2
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-6 small-gray-text">
+                            Minimum Swap Amount
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                {{makeMinumumSwap}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2" ng-hide="makePrivateAddresses = ''">
+                        <div class="col-md-6 small-gray-text">
+                            Available To
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                {{makePrivateAddresses}}
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
