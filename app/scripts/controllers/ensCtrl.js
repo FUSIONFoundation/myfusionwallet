@@ -21,6 +21,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.showOpenMakes = false;
         $scope.receiveTokens = '';
         $scope.walletAddress = '';
+        $scope.makeSendAmount = '';
+        $scope.makeReceiveAmount = '';
         $scope.addressNotation = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
@@ -308,8 +310,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 from: walletAddress,
                 FromAssetID: $scope.assetToSend,
                 ToAssetID: $scope.assetToReceive,
-                MinToAmount: $scope.makeSendAmount * $scope.countDecimals(fromAsset["Decimals"]),
-                MinFromAmount: $scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]),
+                MinToAmount: $scope.makeReceiveAmount * $scope.countDecimals(fromAsset["Decimals"]),
+                MinFromAmount: $scope.makeSendAmount * $scope.countDecimals(toAsset["Decimals"]),
                 SwapSize: 1,
                 Targes: []
             };
