@@ -5456,7 +5456,7 @@
     <div class="col-md-12 pl-0 pr-0">
         <div class="panel panel-default" ng-show="showSwapMarket === false">
             <div class="panel-heading">My Open Swaps</div>
-            <div class="panel-body text-center">
+            <div class="panel-body">
                 <div class="text-center" ng-hide="mySwapList.length != 0"><span
                             class="small-gray-text">No Open Swaps</span></div>
                 <table class="table" ng-show="mySwapList.length != 0">
@@ -5472,7 +5472,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center" ng-repeat="asset in mySwapList track by $index">
+                    <tr ng-repeat="asset in mySwapList track by $index">
                         <td><i class="fa fa-globe" aria-hidden="true"></i> Public</td>
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
@@ -5509,7 +5509,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center" ng-repeat="asset in swapsList track by $index">
+                    <tr ng-repeat="asset in swapsList track by $index">
                         <td><i class="fa fa-globe" aria-hidden="true"></i> Public</td>
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
