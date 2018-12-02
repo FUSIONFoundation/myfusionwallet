@@ -29,6 +29,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.recallAssetModal = new Modal(document.getElementById('recallAsset'));
         $scope.takeSwapModal = new Modal(document.getElementById('takeSwap'));
         $scope.makeSwapModal = new Modal(document.getElementById('makeSwap'));
+        $scope.makeSwapConfirmModal = new Modal(document.getElementById('makeSwapConfirm'));
+
 
         $scope.swapRecallSuccess = false;
 
