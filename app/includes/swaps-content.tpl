@@ -22,7 +22,7 @@
                         <a class="ng-scope"ng-click="showSwapMarket = true ; showOpenMakes = false">Swap Market</a>
                     </li>
                     <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes</a>
+                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes <span ng-model="mySwapList">({{mySwapList.length}})</span></a>
                     </li>
                 </ul>
             </div>
