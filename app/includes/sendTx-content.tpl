@@ -35,7 +35,7 @@
                     <ul class="nav-inner">
                         <li class="nav-item Swaps" ng-class="{active: showAllAssets==true}">
                             <a class="ng-scope" ng-click="showAllAssets = true ; showTimeLockedAssets = false">
-                                All Assets  <span ng-model="assetListOwns">({{assetListOwns.length}})</span></a>
+                                All Assets <span ng-model="assetListOwns">({{assetListOwns.length}})</span></a>
                         </li>
                         <li class="nav-item Swaps" ng-class="{active: showTimeLockedAssets==true}">
                             <a class="ng-scope" ng-click="showAllAssets = false ; showTimeLockedAssets = true">
@@ -47,7 +47,8 @@
         </div>
         <section class="row form-group" ng-show="showAllAssets === true">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The “All Assets” tab gives you an overview of assets in your fusion wallet Assets can be created, sent, timelocked or swapped.</p>
+                <p class="p-2">The “All Assets” tab gives you an overview of assets in your fusion wallet Assets can be
+                    created, sent, timelocked or swapped.</p>
             </div>
             <div class="col-sm-12 clearfix" ng-hide="assetListOwns != ''">
                 <h4 class="text-fusion">Loading assets...</h4>
@@ -66,7 +67,8 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <br> <span class="small-gray-text">ID: {{asset.contractaddress}}</span>
+                            <td>{{asset.name}} ({{asset.symbol}}) <br> <span
+                                        class="small-gray-text">ID: {{asset.contractaddress}}</span>
                             </td>
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
                             <td>{{asset.balance}} <br> <span class="small-gray-text"></span></td>
@@ -79,7 +81,8 @@
         </section>
         <section class="row form-group" ng-show="showTimeLockedAssets === true">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The Timelocked Assets tab gives you more details on timelocks, their length, and their type.</p>
+                <p class="p-2">The Timelocked Assets tab gives you more details on timelocks, their length, and their
+                    type.</p>
             </div>
 
 
@@ -89,15 +92,27 @@
 
             <div class="col-sm-12 clearfix" data-ng-init="getTimeLockAssets()">
                 <table class="table">
+                    <thead>
+                    <tr class="small-gray-text text-left">
+                        <th scope="col">Asset Name</th>
+                        <th class="col">Timelock Type</th>
+                        <th scope="col">Timelock Period</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     <tr ng-repeat="asset in timeLockList track by $index">
-                        <td>
-                            {{asset.name}} <br>
+                        <td> {{asset.name}} <br>
                             <span class="small-gray-text"> ID: {{asset.asset}}  </span></td>
-                        <td><span class="small-gray-text">FROM </span> <br> {{asset.startTime}}</td>
-                        <td><span class="small-gray-text">TILL</span> <br> {{asset.endTime}}</td>
-                        <td><span class="small-gray-text">VALUE </span> <br> {{asset.value}}</td>
                         <td><span class="badge badge-secondary">Time Locked</span></td>
+                        <td>
+                        <span class="small-gray-text">
+                                From
+                            </span> {{asset.startTime}} <br>
+                        <span class="small-gray-text">
+                                Until
+                            </span> {{asset.endTime}}</td>
+                        <td>{{asset.value}}</td>
                     </tr>
                     </tbody>
                 </table>
