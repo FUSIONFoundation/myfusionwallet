@@ -29,14 +29,28 @@
         </div>
     </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <article class="block block-nopad">
+            <div class="col-md-12 p-0">
+                <nav class="nav-container">
+                    <div class="nav-scroll">
+                        <ul class="nav-inner">
+                            <li class="nav-item Swaps" ng-class="{active: showSwapMarket==true}">
+                                <a class="ng-scope"ng-click="showSwapMarket = true ; showOpenMakes = false">All Assets</a>
+                            </li>
+                            <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false}">
+                                <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Timelocked Assets <span ng-model="mySwapList">({{mySwapList.length}})</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </article>
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lectus odio. Pellentesque sed
                     nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
                     luctus.</p>
             </div>
-
-
             <div class="col-sm-12 clearfix" ng-hide="assetListOwns != ''">
                 <h4 class="text-fusion">Loading assets...</h4>
             </div>
