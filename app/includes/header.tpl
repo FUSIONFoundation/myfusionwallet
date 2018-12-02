@@ -80,7 +80,6 @@
 <header class="{{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
         aria-label="header" ng-controller='tabsCtrl'>
     <div class="header-container">
-
         <section class="bg-white header-branding border-gray-bottom ">
             <section class="container">
                 @@if (site === 'mew' ) {

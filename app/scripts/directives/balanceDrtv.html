@@ -14,21 +14,21 @@
             </div>
         </div>
         <hr>
-        <h5 translate="">FUSION Balance</h5>
+        <h5>FUSION Balance</h5>
         <ul class="account-info point">
             <li>
                 <!--<span class="mono wrap text-fusion">{{wallet.balance}}</span> FSN-->
                 <span class="mono wrap text-fusion">{{web3WalletBalance}}</span> FSN
             </li>
         </ul>
-        <h5 translate="">Public Address</h5>
+        <h5>Public Address</h5>
         <ul class="account-info">
             <span class="mono wrap">{{wallet.getChecksumAddressString()}}</span>
             <label class="ens-response" ng-show="showEns()">
                 ↳ <span class="mono ng-binding"> {{ensAddress}} </span>
             </label>
         </ul>
-        <h5 translate="">Short Address</h5>
+        <h5>Short Address</h5>
         <ul class="account-info point">
             <li>
                 <span class="mono wrap text-fusion" ng-bind="addressNotation.value">

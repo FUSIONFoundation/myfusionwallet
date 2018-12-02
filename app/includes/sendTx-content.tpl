@@ -56,13 +56,21 @@
             <div class="col-sm-12 clearfix" data-ng-init="getAllFsnAssets()">
                 <div class="table-responsive">
                     <table class="table">
+                        <thead>
+                        <tr class="small-gray-text text-left">
+                            <th scope="col">Asset Name</th>
+                            <th scope="col">Asset Info</th>
+                            <th scope="col">Available</th>
+                            <th scope="col">Total Quantity</th>
+                        </tr>
+                        </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} <br> <span class="small-gray-text">ID: {{asset.contractaddress}}</span>
+                            <td>{{asset.name}} ({{asset.symbol}}) <br> <span class="small-gray-text">ID: {{asset.contractaddress}}</span>
                             </td>
-                            <td>{{asset.symbol}}</td>
-                            <td>{{asset.balance}} <br> <span class="small-gray-text">of {{asset.total}}</span></td>
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
+                            <td>{{asset.balance}} <br> <span class="small-gray-text"></span></td>
+                            <td>{{asset.total}}</td>
                         </tr>
                         </tbody>
                     </table>
