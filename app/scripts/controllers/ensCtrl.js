@@ -399,11 +399,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let fromAsset = [];
                     let toAsset = [];
 
-                    await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
+                    await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
                         fromAsset = res;
                     });
 
-                    await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
+                    await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
                         toAsset = res;
                     });
 
@@ -468,11 +468,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let fromAsset = [];
                     let toAsset = [];
 
-                    await web3.fsn.getAsset(mySwapList[asset]["FromAssetID"]).then(function (res) {
+                    await web3.fsn.getAsset(mySwapList[asset]["ToAssetID"]).then(function (res) {
                         fromAsset = res;
                     });
 
-                    await web3.fsn.getAsset(mySwapList[asset]["ToAssetID"]).then(function (res) {
+                    await web3.fsn.getAsset(mySwapList[asset]["FromAssetID"]).then(function (res) {
                         toAsset = res;
                     });
 
