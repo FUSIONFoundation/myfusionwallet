@@ -5338,10 +5338,10 @@
         <nav class="nav-container">
             <div class="nav-scroll">
                 <ul class="nav-inner">
-                    <li class="nav-item Swaps">
-                        <a class="ng-scope" ng-click="showSwapMarket = true ; showOpenMakes = false">Swap Market</a>
+                    <li class="nav-item Swaps" ng-class="{active: showSwapMarket==true}">
+                        <a class="ng-scope"ng-click="showSwapMarket = true ; showOpenMakes = false">Swap Market</a>
                     </li>
-                    <li class="nav-item Swaps">
+                    <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false}">
                         <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes</a>
                     </li>
                 </ul>
