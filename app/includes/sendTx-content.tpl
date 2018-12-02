@@ -35,11 +35,11 @@
                     <ul class="nav-inner">
                         <li class="nav-item Swaps" ng-class="{active: showAllAssets==true}">
                             <a class="ng-scope" ng-click="showAllAssets = true ; showTimeLockedAssets = false">
-                                All Assets</a>
+                                All Assets  <span ng-model="assetListOwns">({{assetListOwns.length}})</span></a>
                         </li>
                         <li class="nav-item Swaps" ng-class="{active: showTimeLockedAssets==true}">
                             <a class="ng-scope" ng-click="showAllAssets = false ; showTimeLockedAssets = true">
-                                Timelocked Assets</a>
+                                Timelocked Assets <span ng-model="timeLockList">({{timeLockList.length}})</span></a>
                         </li>
                     </ul>
                 </div>
