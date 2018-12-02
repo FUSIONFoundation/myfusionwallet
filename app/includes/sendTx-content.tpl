@@ -29,23 +29,23 @@
         </div>
     </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">
-        <article class="block block-nopad">
-            <div class="col-md-12 p-0">
-                <nav class="nav-container">
-                    <div class="nav-scroll">
-                        <ul class="nav-inner">
-                            <li class="nav-item Swaps" ng-class="{active: showSwapMarket==true}">
-                                <a class="ng-scope"ng-click="showSwapMarket = true ; showOpenMakes = false">All Assets</a>
-                            </li>
-                            <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false}">
-                                <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Timelocked Assets <span ng-model="mySwapList">({{mySwapList.length}})</span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </article>
-        <section class="row form-group">
+        <div class="col-md-12 p-0">
+            <nav class="nav-container">
+                <div class="nav-scroll">
+                    <ul class="nav-inner">
+                        <li class="nav-item Swaps" ng-class="{active: showAllAssets==true}">
+                            <a class="ng-scope" ng-click="showAllAssets = true ; showTimeLockedAssets = false">
+                                All Assets</a>
+                        </li>
+                        <li class="nav-item Swaps" ng-class="{active: showTimeLockedAssets==true}">
+                            <a class="ng-scope" ng-click="showAllAssets = false ; showTimeLockedAssets = true">
+                                Timelocked Assets</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <section class="row form-group" ng-show="showAllAssets === true">
             <div class="col-sm-12 clearfix">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lectus odio. Pellentesque sed
                     nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
@@ -71,12 +71,7 @@
                 </div>
             </div>
         </section>
-    </article>
-
-    <h3>Time Locked Assets</h3>
-
-    <article class="block" ng-hide="wallet.type=='addressOnly'">
-        <section class="row form-group">
+        <section class="row form-group" ng-show="showTimeLockedAssets === true">
             <div class="col-sm-12 clearfix">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lectus odio. Pellentesque sed
                     nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
@@ -106,6 +101,7 @@
             </div>
         </section>
     </article>
+
     <!-- ERC20 Assets -->
     <h3>Legacy (ERC20) Tokens</h3>
 
@@ -450,8 +446,9 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="sendAssetModalOpen.close();">                    <i class="fa fa-times"
-                                                                                                                      aria-hidden="true"></i>
+                                  <span class="gray-text" ng-click="sendAssetModalOpen.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
 </span>
                     </div>
                 </div>
@@ -567,8 +564,9 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i class="fa fa-times"
-                                                                                                    aria-hidden="true"></i>
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
 </span>
                     </div>
                 </div>

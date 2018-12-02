@@ -4,6 +4,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
             $scope.getAllFsnAssets();
         };
+        $scope.showAllAssets = true;
+        $scope.showTimeLockedAssets = false;
         $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
         $scope.assetListOwns = [];
         $scope.selectedAssetBalance = '';
