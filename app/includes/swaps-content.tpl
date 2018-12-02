@@ -94,8 +94,8 @@
                     <tr ng-repeat="asset in mySwapList track by $index">
                         <td><i class="fa fa-globe" aria-hidden="true"></i> Public</td>
                         <td>{{asset.time}}</td>
-                        <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td>{{asset.swaprate}}</td>
                         <td> {{asset.minswap}}</td>
                         <td>
@@ -131,8 +131,8 @@
                     <tr ng-repeat="asset in swapsList track by $index">
                         <td><i class="fa fa-globe" aria-hidden="true"></i> Public</td>
                         <td>{{asset.time}}</td>
-                        <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td>{{asset.swaprate}}</td>
                         <td> {{asset.minswap}}</td>
                         <td>
