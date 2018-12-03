@@ -188,7 +188,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let amount = '';
             if ($scope.takeDataFront.fromAssetBalance >= $scope.takeDataFront.maxAmount) {
                 amount = $scope.takeDataFront.maxAmount;
-            } else {
+            } else {$scope.makeTarges;
                 amount = $scope.takeDataFront.fromAssetBalance;
             }
             $scope.takeAmountSwap = amount;
@@ -417,7 +417,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
                     let targes = '';
 
-                    swapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
+                    swapList[asset]["Targes"] === [] ? targes == 'Public' : targes == 'Private';
 
 
                     let data = {
