@@ -221,7 +221,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 toAsset = res;
             });
 
-            let swapRate = parseInt(swapList[swap_id]["MinToAmount"]) / parseInt(swapList[swap_id]["MinFromAmount"]);
+            let fromAmount = swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
+            let toAmount = swapList[swap_id]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+            let swapRate = fromAmount / toAmount;
+
+            console.log(fromAmount);
+            console.log(toAmount);
+            console.log(swapRate);
 
             balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
             let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]));
@@ -307,6 +313,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 toAsset = res;
             });
 
+            let targes = '';
+
+            $scope.makeTarges !== '' ? targes = [$scope.makeTarges] : targes = [];
+
             let data = {
                 from: walletAddress,
                 FromAssetID: $scope.assetToSend,
@@ -314,7 +324,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 MinToAmount: $scope.makeReceiveAmount * $scope.countDecimals(fromAsset["Decimals"]),
                 MinFromAmount: $scope.makeSendAmount * $scope.countDecimals(toAsset["Decimals"]),
                 SwapSize: 1,
-                Targes: [$scope.makeTarges]
+                Targes: targes,
             };
 
             console.log(data);
