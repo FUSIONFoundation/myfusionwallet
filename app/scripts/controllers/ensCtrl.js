@@ -23,6 +23,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.walletAddress = '';
         $scope.makeSendAmount = '';
         $scope.makeReceiveAmount = '';
+        $scope.makeTarges = '';
         $scope.addressNotation = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
@@ -313,7 +314,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 MinToAmount: $scope.makeReceiveAmount * $scope.countDecimals(fromAsset["Decimals"]),
                 MinFromAmount: $scope.makeSendAmount * $scope.countDecimals(toAsset["Decimals"]),
                 SwapSize: 1,
-                Targes: []
+                Targes: [$scope.makeTarges]
             };
 
             console.log(data);
@@ -413,7 +414,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let toAmount = swapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
                     let swapRate = fromAmount / toAmount;
                     let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
-                    let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]) ;
+                    let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
                     let targes = '';
 
                     swapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
@@ -485,7 +486,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let swapRate = fromAmount / toAmount;
 
                     let time = new Date(parseInt(mySwapList[asset]["Time"]) * 1000);
-                    let minimumswap = fromAmount / parseInt(mySwapList[asset]["SwapSize"]) ;
+                    let minimumswap = fromAmount / parseInt(mySwapList[asset]["SwapSize"]);
                     let targes = '';
 
                     mySwapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';

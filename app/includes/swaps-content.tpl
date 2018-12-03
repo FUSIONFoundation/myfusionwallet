@@ -342,7 +342,7 @@
                     <h3>Set Access</h3>
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">Seperate addresses with commas.</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makePrivateAddresses"
+                        <input type="text" class="form-control m-0 mt-1" ng-model="makeTarges"
                                placeholder="Addresses">
                     </div>
 
