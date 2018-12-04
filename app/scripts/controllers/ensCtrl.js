@@ -209,12 +209,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let fromAsset = [];
             let toAsset = [];
 
-            await web3.fsn.getAsset(swapList[swap_id]["FromAssetID"]).then(function (res) {
-                fromAsset = res;
-            });
-
             await web3.fsn.getBalance(swapList[swap_id]["FromAssetID"], walletAddress).then(function (res) {
                 balance = res;
+            });
+
+            await web3.fsn.getAsset(swapList[swap_id]["FromAssetID"]).then(function (res) {
+                fromAsset = res;
             });
 
             await web3.fsn.getAsset(swapList[swap_id]["ToAssetID"]).then(function (res) {
