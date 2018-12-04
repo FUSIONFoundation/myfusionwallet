@@ -249,7 +249,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.setReceive = function () {
-            $scope.receiveTokens = $scope.takeAmountSwap * $scope.takeDataFront.swapRate;
+            $scope.receiveTokens = $scope.takeAmountSwap / $scope.takeDataFront.swapRate;
         }
 
         $scope.takeSwap = async function (asset_id, swap_id, amount) {
