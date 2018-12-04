@@ -21,6 +21,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.showOpenMakes = false;
         $scope.receiveTokens = '';
         $scope.walletAddress = '';
+        $scope.assetToSendConfirm = '';
+        $scope.assetToReceiveConfirm = '';
         $scope.makeSendAmount = '';
         $scope.makeReceiveAmount = '';
         $scope.makeTarges = '';
@@ -188,7 +190,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let amount = '';
             if ($scope.takeDataFront.fromAssetBalance >= $scope.takeDataFront.maxAmount) {
                 amount = $scope.takeDataFront.maxAmount;
-            } else {$scope.makeTarges;
+            } else {
+                $scope.makeTarges;
                 amount = $scope.takeDataFront.fromAssetBalance;
             }
             $scope.takeAmountSwap = amount;
@@ -293,8 +296,27 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.makeModal = async function (send, receive) {
-
             $scope.makeSwapModal.open();
+        }
+
+        $scope.makeSwapConfirmation = async function (end) {
+            let sendAsset = [];
+            let receiveAsset = [];
+
+            console.log('Make Swap Confirmation');
+
+            await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
+                sendAsset = res;
+            });
+            await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
+                receiveAsset = res;
+            });
+            $scope.$apply(function () {
+                $scope.assetToSendConfirm = sendAsset["Symbol"];
+                $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
+            });
+
+            end = true ? $scope.makeSwapConfirmModal.open() : $scope.makeSwapConfirmModal.open()
         }
 
         $scope.makeSwap = async function () {

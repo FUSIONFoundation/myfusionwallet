@@ -351,7 +351,7 @@
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel
                             </button>
-                            <button class="btn btn-sm btn-primary" ng-click="makeSwapConfirmModal.open()">Review Make Swap</button>
+                            <button class="btn btn-sm btn-primary" ng-click="makeSwapConfirmation(false)">Review Make Swap</button>
                         </div>
                     </div>
                     <div class="col-sm-12 clearfix">
@@ -387,7 +387,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeSendAmount}} {{assetToSend}}
+                                {{makeSendAmount}} {{assetToSendConfirm}}
                             </div>
                         </div>
                     </div>
@@ -397,7 +397,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeReceiveAmount}}
+                                {{makeReceiveAmount}} {{assetToReceiveConfirm}}
                             </div>
                         </div>
                     </div>
