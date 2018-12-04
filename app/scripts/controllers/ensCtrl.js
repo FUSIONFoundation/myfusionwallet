@@ -221,8 +221,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 toAsset = res;
             });
 
-            let fromAmount = swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
-            let toAmount = swapList[swap_id]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+            let fromAmount = swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+            let toAmount = swapList[swap_id]["MinToAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
             let swapRate = fromAmount / toAmount;
 
             console.log(fromAmount);
