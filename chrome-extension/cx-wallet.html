@@ -5802,13 +5802,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2" ng-hide="makePrivateAddresses = ''">
+                    <div class="row p-2" ng-show="makeTarges != ''">
                         <div class="col-md-6 small-gray-text">
                             Available To
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makePrivateAddresses}}
+                                {{makeTarges}}
                             </div>
                         </div>
                     </div>
@@ -5820,13 +5820,6 @@
                                     ng-disabled="swapRecallSuccess">Confirm
                             </button>
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.open()">Cancel</button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 clearfix">
-                        <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
-                            Success! Your swap was recalled and will be confirmed next block!
-
-                            <strong>{{successHash}}</strong>
                         </div>
                     </div>
                 </article>
