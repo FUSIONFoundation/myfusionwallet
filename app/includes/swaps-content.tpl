@@ -407,7 +407,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                1 : 2
+                                {{makeSendAmount}} : {{makeReceiveAmount}}
                             </div>
                         </div>
                     </div>
