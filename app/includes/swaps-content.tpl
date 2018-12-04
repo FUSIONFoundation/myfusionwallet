@@ -351,7 +351,7 @@
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel
                             </button>
-                            <button class="btn btn-sm btn-primary" ng-click="makeSwapConfirmation(false)">Review Make Swap</button>
+                            <button class="btn btn-sm btn-primary" ng-click="makeSwapConfirmation('notend')">Review Make Swap</button>
                         </div>
                     </div>
                     <div class="col-sm-12 clearfix">
@@ -439,6 +439,58 @@
                                     ng-disabled="swapRecallSuccess">Confirm
                             </button>
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.open()">Cancel</button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </article>
+    <article class="modal fade" id="makeSwapEndConfirm" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog">
+            <section class="modal-content">
+                <article class="block" ng-hide="wallet.type=='addressOnly'">
+                    <div class="col-md-12 p-0">
+                        <div class="float-right">
+                                  <span class="gray-text" ng-click="makeSwapConfirmEndModal.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                        </div>
+                    </div>
+                    <h3>Success</h3>
+
+                    <div class="row p-2">
+                        <div class="col-md-6 small-gray-text">
+                            Sent
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                {{makeSendAmount}} {{assetToSendConfirm}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-6 small-gray-text">
+                            Receiving
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                {{makeReceiveAmount}} {{assetToReceiveConfirm}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <h1 class="text-green">
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-offset-6 float-right">
+                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapConfirmEndModal.close()">Close</button>
                         </div>
                     </div>
                 </article>

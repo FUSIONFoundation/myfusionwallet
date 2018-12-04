@@ -35,6 +35,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.takeSwapModal = new Modal(document.getElementById('takeSwap'));
         $scope.makeSwapModal = new Modal(document.getElementById('makeSwap'));
         $scope.makeSwapConfirmModal = new Modal(document.getElementById('makeSwapConfirm'));
+        $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
 
 
         $scope.swapRecallSuccess = false;
@@ -287,12 +288,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 console.log('Correct, we can switch!');
             } else {
             }
-
-            //
-            // if(assetListOwned.includes("Mango")
-            //
-            // assetToReceive
-            // assetList
         }
 
         $scope.makeModal = async function (send, receive) {
@@ -316,7 +311,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
             });
 
-            end = true ? $scope.makeSwapConfirmModal.open() : $scope.makeSwapConfirmModal.open()
+            if (end === 'end'){
+                $scope.makeSwapConfirmEndModal.open()
+            } else if (end === 'notend'){
+                $scope.makeSwapConfirmModal.open()
+            }
         }
 
         $scope.makeSwap = async function () {
@@ -352,7 +351,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             console.log(data);
 
             await web3.fsn.makeSwap(data, password).then(function (res) {
-                console.log(res);
+                if (res.toString() > 5) {
+                    console.log(res);
+                    $scope.makeSwapConfirmation('end');
+                }
             })
         }
 
