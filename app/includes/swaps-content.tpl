@@ -483,7 +483,7 @@
                         <div class="col-md-12">
                             <div class="text-center">
                                 <h1 class="text-green">
-                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                <i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i>
                                 </h1>
                             </div>
                         </div>
