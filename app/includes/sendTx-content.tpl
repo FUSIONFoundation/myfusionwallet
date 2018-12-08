@@ -643,7 +643,7 @@
                 </div>
                 <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="assetCreate.assetHash != ''">
                     Congratulations! {{assetCreate.assetName}} was created and is now pending! <br>
-                    ID: <strong>{{assetCreate.assetHash}}</strong>
+                    <span class="hide-overflow">ID : {{assetCreate.assetHash}}</span>
                 </div>
 
                 <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
