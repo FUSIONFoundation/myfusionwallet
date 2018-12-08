@@ -74,11 +74,24 @@
             <section class="modal-dialog">
                 <section class="modal-content">
                     <article class="block">
-                        <article class="block">
+                        <h3>Wallet Details</h3>
+                        <div class="row">
+                            <span class="small-gray-text">Wallet Address </span>
+                            <div class="gray-bg p-1">
+                                <span class="small-gray-text text-fusion fusion-text-14">{{wallet.getChecksumAddressString()}}</span>
+                            </div>
+                            <span class="small-gray-text">Short Address </span>
+                            <div class="gray-bg p-1">
+                                <span class="small-gray-text text-fusion fusion-text-14" ng-bind="addressNotation.value"></span>
+                            </div>
+                            <span class="small-gray-text">Private Key (Unencrypted)</span>
+                            <div class="gray-bg p-1">
+                                <span class="small-gray-text text-fusion fusion-text-14">{{wallet.getPrivateKeyString()}}</span>
+                            </div>
 
-                            <h3>Wallet Details</h3>
-                            <div class="row">{{walletAddress}}</div>
-                        </article>
+
+                        </div>
+
                     </article>
                 </section>
             </section>
@@ -151,13 +164,13 @@
 
     <!--&lt;!&ndash; Extra Content Balances &ndash;&gt;-->
     <!--<div class="block token-balances">-->
-        <!--EXTRA CONTENT-->
+    <!--EXTRA CONTENT-->
     <!--</div>-->
 
 
     <!--&lt;!&ndash; Equivalent Balances &ndash;&gt;-->
     <!--<div class="block">-->
-        <!--EXTRA CONTENT-->
+    <!--EXTRA CONTENT-->
     <!--</div>-->
 
 </aside>
