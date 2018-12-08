@@ -362,8 +362,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             if ($scope.transactionType == "timed") {
 
+
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
+
+                console.log(fromTime, tillTime);
 
                 await web3.fsn.assetToTimeLock({
                     asset: asset,
