@@ -2,6 +2,7 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
+
         };
         $scope.tx = {};
         $scope.takeDataFront = {
