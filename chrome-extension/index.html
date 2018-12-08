@@ -738,12 +738,22 @@
                 <p class="p-2">The “All Assets” tab gives you an overview of assets in your fusion wallet Assets can be
                     created, sent, timelocked or swapped.</p>
             </div>
-            <div class="col-sm-12 clearfix" ng-hide="assetListOwns != ''">
-                <h4 class="text-fusion">Loading assets...</h4>
+
+            <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
+                <h4 class="small-gray-text">No available assets</h4>
             </div>
 
+            <div class="col-sm-12 clearfix text-center" ng-show="assetListLoading">
+                <h4 class="text-center">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                </h4>
+                <h4 class="small-gray-text text-center">Loading assets</h4>
+
+            </div>
+
+
             <div class="col-sm-12 clearfix" data-ng-init="getAllFsnAssets()">
-                <div class="table-responsive">
+                <div class="table-responsive" ng-show="assetListOwns != ''">
                     <table class="table">
                         <thead>
                         <tr class="small-gray-text text-left">
@@ -1250,15 +1260,16 @@
                                 <br>
                                 Your transaction was emitted and is now pending!
                                 <br>
-                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on Explorer</a></button>
+                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on
+                                        Explorer</a></button>
                             </div>
                         </div>
                     </section>
                     <div class="row form-group">
                         <div class="col-xs-12 clearfix">
                             <button class="btn btn-info btn-block"
-                               ng-click="sendAsset()"
-                               ng-hide="successMessagebool">
+                                    ng-click="sendAsset()"
+                                    ng-hide="successMessagebool">
                                 Send Asset
                             </button>
                         </div>
@@ -1849,12 +1860,22 @@
                 <p class="p-2">The “All Assets” tab gives you an overview of assets in your fusion wallet Assets can be
                     created, sent, timelocked or swapped.</p>
             </div>
-            <div class="col-sm-12 clearfix" ng-hide="assetListOwns != ''">
-                <h4 class="text-fusion">Loading assets...</h4>
+
+            <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
+                <h4 class="small-gray-text">No available assets</h4>
             </div>
 
+            <div class="col-sm-12 clearfix text-center" ng-show="assetListLoading">
+                <h4 class="text-center">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                </h4>
+                <h4 class="small-gray-text text-center">Loading assets</h4>
+
+            </div>
+
+
             <div class="col-sm-12 clearfix" data-ng-init="getAllFsnAssets()">
-                <div class="table-responsive">
+                <div class="table-responsive" ng-show="assetListOwns != ''">
                     <table class="table">
                         <thead>
                         <tr class="small-gray-text text-left">
@@ -2361,15 +2382,16 @@
                                 <br>
                                 Your transaction was emitted and is now pending!
                                 <br>
-                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on Explorer</a></button>
+                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on
+                                        Explorer</a></button>
                             </div>
                         </div>
                     </section>
                     <div class="row form-group">
                         <div class="col-xs-12 clearfix">
                             <button class="btn btn-info btn-block"
-                               ng-click="sendAsset()"
-                               ng-hide="successMessagebool">
+                                    ng-click="sendAsset()"
+                                    ng-hide="successMessagebool">
                                 Send Asset
                             </button>
                         </div>
@@ -6409,12 +6431,22 @@
                 <p class="p-2">The “All Assets” tab gives you an overview of assets in your fusion wallet Assets can be
                     created, sent, timelocked or swapped.</p>
             </div>
-            <div class="col-sm-12 clearfix" ng-hide="assetListOwns != ''">
-                <h4 class="text-fusion">Loading assets...</h4>
+
+            <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
+                <h4 class="small-gray-text">No available assets</h4>
             </div>
 
+            <div class="col-sm-12 clearfix text-center" ng-show="assetListLoading">
+                <h4 class="text-center">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                </h4>
+                <h4 class="small-gray-text text-center">Loading assets</h4>
+
+            </div>
+
+
             <div class="col-sm-12 clearfix" data-ng-init="getAllFsnAssets()">
-                <div class="table-responsive">
+                <div class="table-responsive" ng-show="assetListOwns != ''">
                     <table class="table">
                         <thead>
                         <tr class="small-gray-text text-left">
@@ -6921,15 +6953,16 @@
                                 <br>
                                 Your transaction was emitted and is now pending!
                                 <br>
-                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on Explorer</a></button>
+                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on
+                                        Explorer</a></button>
                             </div>
                         </div>
                     </section>
                     <div class="row form-group">
                         <div class="col-xs-12 clearfix">
                             <button class="btn btn-info btn-block"
-                               ng-click="sendAsset()"
-                               ng-hide="successMessagebool">
+                                    ng-click="sendAsset()"
+                                    ng-hide="successMessagebool">
                                 Send Asset
                             </button>
                         </div>

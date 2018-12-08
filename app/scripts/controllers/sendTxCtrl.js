@@ -8,6 +8,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.showTimeLockedAssets = false;
         $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
         $scope.assetListOwns = [];
+        $scope.assetListLoading = true;
+        $scope.showNoAssets = false;
         $scope.selectedAssetBalance = '';
         $scope.tx = {};
         $scope.signedTx = '';
@@ -490,7 +492,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     assetList = res;
                 });
 
-
                 // IMPLEMENT GET_BALANCE
 
                 for (let asset in assetList) {
@@ -519,9 +520,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         await assetList2.push(data);
                     }
                 }
+
                 $scope.$apply(function () {
                     $scope.assetListOwns = assetList2;
                     $scope.assetListOwns = assetList2;
+                    $scope.assetListLoading = false;
                 });
             }
         }
