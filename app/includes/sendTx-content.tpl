@@ -30,7 +30,7 @@
     </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <div class="col-md-12 p-0">
-            <nav class="nav-container">
+            <nav class="nav-container" style="background-color: white!important;">
                 <div class="nav-scroll">
                     <ul class="nav-inner">
                         <li class="nav-item Swaps" ng-class="{active: showAllAssets==true}">
