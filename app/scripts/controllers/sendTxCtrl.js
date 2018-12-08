@@ -10,7 +10,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.assetListOwns = [];
         $scope.selectedAssetBalance = '';
         $scope.tx = {};
-        $scope.signedTx
+        $scope.signedTx = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
@@ -450,8 +450,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         divider = $scope.countDecimals(res["Decimals"]);
                     });
                     for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
-                        let startTime = new Date(parseInt(timeLockList[asset]["Items"][i]["StartTime"]) * 1000).toLocaleDateString();
-                        let endTime = new Date(parseInt(timeLockList[asset]["Items"][i]["EndTime"]) * 1000).toLocaleDateString();
+                        let startTime = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000).toLocaleDateString();
+                        let endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000).toLocaleDateString();
 
                         let data = {
                             "name": assetName,

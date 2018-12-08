@@ -18,12 +18,16 @@
         <ul class="account-info point">
             <li>
                 <!--<span class="mono wrap text-fusion">{{wallet.balance}}</span> FSN-->
-                <span class="mono wrap text-fusion">{{web3WalletBalance}}</span> FSN
+                <div class="gray-bg p-1 w-50">
+                    <span class="small-gray-text text-fusion fusion-text-14">{{web3WalletBalance}} FSN</span>
+                </div>
             </li>
         </ul>
         <h5>Public Address</h5>
         <ul class="account-info">
-            <span class="mono wrap">{{wallet.getChecksumAddressString()}}</span>
+            <div class="gray-bg p-1">
+                <span class="small-gray-text text-fusion fusion-text-14">{{wallet.getChecksumAddressString()}}</span>
+            </div>
             <label class="ens-response" ng-show="showEns()">
                 ↳ <span class="mono ng-binding"> {{ensAddress}} </span>
             </label>
@@ -31,8 +35,7 @@
         <h5>Short Address</h5>
         <ul class="account-info point">
             <li>
-                <span class="mono wrap text-fusion" ng-bind="addressNotation.value">
-                </span>
+                    <span class="small-gray-text text-fusion fusion-text-14 gray-bg p-1"  ng-bind="addressNotation.value"></span>
             </li>
         </ul>
         <div ng-if="addressNotation.state === false">
