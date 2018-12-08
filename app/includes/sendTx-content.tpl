@@ -103,8 +103,8 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index">
-                            <td> {{asset.name}} <br>
-                                <span class="small-gray-text"> ID: {{asset.asset}}  </span></td>
+                            <td> {{asset.name}} ({{asset.symbol}}) <br>
+                                <span class="small-gray-text"> ID: {{asset.asset}}</span></td>
                             <td><span class="badge badge-secondary">Time Locked</span></td>
                             <td>
                         <span class="small-gray-text">

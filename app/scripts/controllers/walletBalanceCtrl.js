@@ -170,6 +170,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
+
     $scope.setShortAddressNotation = async function () {
         if ($scope.mayRunState = true) {
             let password = walletService.password;

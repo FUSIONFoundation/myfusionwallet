@@ -444,9 +444,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 for (let asset in timeLockList) {
                     let assetId = Object.keys(timeLockList);
                     let assetName = '';
+                    let assetSymbol = '';
                     let divider = '';
                     await web3.fsn.getAsset(assetId[x]).then(function (res) {
                         assetName = res["Name"];
+                        assetSymbol = res["Symbol"];
                         divider = $scope.countDecimals(res["Decimals"]);
                     });
                     for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
@@ -456,6 +458,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         let data = {
                             "name": assetName,
                             "asset": assetId[x],
+                            "symbol" : assetSymbol,
                             "startTime": startTime,
                             "endTime": endTime,
                             "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
