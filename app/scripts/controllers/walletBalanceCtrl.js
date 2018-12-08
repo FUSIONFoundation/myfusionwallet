@@ -7,6 +7,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.mayRunState = false;
     $scope.addressNotation = {'value': '', 'state': ''};
     $scope.ajaxReq = ajaxReq;
+    $scope.viewDetailsModal = new Modal(document.getElementById('viewDetailsModal'));
     walletService.wallet = null;
     walletService.password = '';
     $scope.tokensLoaded = false;

@@ -9,7 +9,7 @@
                      watch-var="wallet"></div>
             </div>
             <div class="col-md-8">
-                <button class="btn btn-white">View Details</button>
+                <button class="btn btn-white" ng-click="viewDetailsModal.open()">View Details</button>
                 <button class="btn btn-sm btn-white text-red">Close Wallet</button>
             </div>
         </div>
@@ -70,8 +70,21 @@
                 </a>
             </li>
         </ul>
-    </div>
+        <article class="modal fade" id="viewDetailsModal" tabindex="-1">
+            <section class="modal-dialog">
+                <section class="modal-content">
+                    <article class="block">
+                        <article class="block">
 
+                            <h3>Wallet Details</h3>
+                            <div class="row">{{walletAddress}}</div>
+                        </article>
+                    </article>
+                </section>
+            </section>
+        </article>
+
+    </div>
 
     <!-- Slider Thingy -->
     <!-- Hardware Wallets -->
