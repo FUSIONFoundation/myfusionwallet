@@ -268,6 +268,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAssetModalOpen = function () {
+            $scope.sendAsset.toAddress = '';
+            $scope.sendAsset.amountToSend = '';
+            $scope.successMessagebool = false;
             $scope.sendAssetModalOpen = new Modal(document.getElementById('sendAsset'));
             $scope.sendAssetModalOpen.open();
         }
@@ -458,7 +461,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         let data = {
                             "name": assetName,
                             "asset": assetId[x],
-                            "symbol" : assetSymbol,
+                            "symbol": assetSymbol,
                             "startTime": startTime,
                             "endTime": endTime,
                             "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
