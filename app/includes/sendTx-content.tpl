@@ -556,20 +556,23 @@
                                 <input class="form-control" type="date" ng-model="sendAsset.tillTime">
                             </div>
                         </div>
-                        <div class="col-sm-12 clearfix">
+                        <div class="col-sm-12 clearfix text-center">
                             <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool">
-                                Congratulations! Your transaction was emitted and is now pending!
-
-                                <strong>{{successHash}}</strong>
+                                <strong>Congratulations!</strong>
+                                <br>
+                                Your transaction was emitted and is now pending!
+                                <br>
+                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on Explorer</a></button>
                             </div>
                         </div>
                     </section>
                     <div class="row form-group">
                         <div class="col-xs-12 clearfix">
-                            <a class="btn btn-info btn-block"
-                               ng-click="sendAsset()">
+                            <button class="btn btn-info btn-block"
+                               ng-click="sendAsset()"
+                               ng-hide="successMessagebool">
                                 Send Asset
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
