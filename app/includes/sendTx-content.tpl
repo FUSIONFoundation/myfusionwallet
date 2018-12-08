@@ -91,32 +91,33 @@
             </div>
 
             <div class="col-sm-12 clearfix" ng-show="timeLockList != ''" data-ng-init="getTimeLockAssets()">
-                <table class="table">
-                    <thead>
-                    <tr class="small-gray-text text-left">
-                        <th scope="col">Asset Name</th>
-                        <th class="col">Timelock Type</th>
-                        <th scope="col">Timelock Period</th>
-                        <th scope="col">Quantity</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="asset in timeLockList track by $index">
-                        <td> {{asset.name}} <br>
-                            <span class="small-gray-text"> ID: {{asset.asset}}  </span></td>
-                        <td><span class="badge badge-secondary">Time Locked</span></td>
-                        <td>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr class="small-gray-text text-left">
+                            <th scope="col">Asset Name</th>
+                            <th class="col">Timelock Type</th>
+                            <th scope="col">Timelock Period</th>
+                            <th scope="col">Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asset in timeLockList track by $index">
+                            <td> {{asset.name}} <br>
+                                <span class="small-gray-text"> ID: {{asset.asset}}  </span></td>
+                            <td><span class="badge badge-secondary">Time Locked</span></td>
+                            <td>
                         <span class="small-gray-text">
                                 From
                             </span> {{asset.startTime}} <br>
-                        <span class="small-gray-text">
+                                <span class="small-gray-text">
                                 Until
                             </span> {{asset.endTime}}</td>
-                        <td>{{asset.value}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-
+                            <td>{{asset.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </article>
