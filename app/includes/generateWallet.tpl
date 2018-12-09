@@ -49,7 +49,7 @@
             </h1>
 
             <a tabindex="0" role="button"
-               class="btn btn-primary"
+               class="btn btn-white"
                href="{{blobEnc}}"
                download="{{encFileName}}"
                aria-label="{{'x_Download'|translate}} {{'x_Keystore'|translate}}"
@@ -77,15 +77,15 @@
             </div>
 
             <p>
-                <a tabindex="0"
+                <button tabindex="0"
                    role="button"
-                   class="btn btn-danger"
+                   class="btn btn-primary"
                    ng-class="fileDownloaded ? '' : 'disabled' "
                    ng-click="continueToPaper()">
             <span translate="GET_ConfButton">
               I understand. Continue.
             </span>
-                </a>
+                </button>
             </p>
 
         </section>
