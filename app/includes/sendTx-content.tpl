@@ -618,12 +618,19 @@
                             <br>
                             <span>{{sendAsset.toAddress}}</span>
                         </div>
-                        <div class="col-sm-12 clearfix">
+                        <div class="col-sm-12 clearfix" ng-show="transactionType == 'standard' || transactionType == 'timed'">
                             <label>
                                 Send Type:
                             </label>
                             <br>
-                            <span>{{transactionType}}</span>
+                            <span>Standard Send</span>
+                        </div>
+                        <div class="col-sm-12 clearfix" ng-show="transactionType == 'timed'">
+                            <label>
+                                Send Type:
+                            </label>
+                            <br>
+                            <span>Timed Send</span>
                         </div>
                         <div class="col-sm-12 clearfix">
                             <label>
