@@ -17,7 +17,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.unitReadable = ajaxReq.type;
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
         $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
-
+        $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
 
         walletService.wallet = null;
         walletService.password = '';

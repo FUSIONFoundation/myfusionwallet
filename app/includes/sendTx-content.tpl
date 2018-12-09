@@ -566,6 +566,88 @@
                                 <input class="form-control" type="date" ng-model="sendAsset.tillTime">
                             </div>
                         </div>
+                    </section>
+                    <div class="row form-group">
+                        <div class="col-xs-12 clearfix">
+                            <button class="btn btn-info btn-block"
+                                    ng-click="sendAssetConfirm.open()">
+                                Send Asset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="sendAssetConfirm" tabindex="-1">
+    <section class="modal-dialog send-asset-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="sendAssetModal.open();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <h3>Review Your Transaction Details</h3>
+                <p>
+                    Please carefully read the details of your transaction below before sending the transaction.
+                </p>
+
+                <div ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                    <section class="row form-group">
+                        <div class="col-sm-12 clearfix">
+                        </div>
+                        <div class="col-sm-12 clearfix">
+                            <label>
+                                Your Address:
+                            </label>
+                            <br>
+                            <span>{{wallet.getChecksumAddressString()}}</span>
+
+                        </div>
+                        <div class="col-sm-12 clearfix">
+                            <label>
+                                Recepient Address:
+                            </label>
+                            <br>
+                            <span>{{sendAsset.toAddress}}</span>
+                        </div>
+                        <div class="col-sm-12 clearfix">
+                            <label>
+                                Send Type:
+                            </label>
+                            <br>
+                            <span>{{transactionType}}</span>
+                        </div>
+                        <div class="col-sm-12 clearfix">
+                            <label>
+                                Sending:
+                            </label>
+                            <br>
+                            <span>{{sendAsset.amountToSend}}</span>
+                        </div>
+                        <div ng-hide="transactionType =='standard'">
+                            <div class="col-md-6">
+                                <label>
+                                    From
+                                </label>
+                                <br>
+                                <input class="form-control" type="date" ng-model="sendAsset.fromTime">
+                            </div>
+                            <div class="col-md-6">
+                                <label>
+                                    Till
+                                </label>
+                                <br>
+                                <input class="form-control" type="date" ng-model="sendAsset.tillTime">
+                            </div>
+                        </div>
                         <div class="col-sm-12 clearfix text-center">
                             <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool">
                                 <strong>Congratulations!</strong>
