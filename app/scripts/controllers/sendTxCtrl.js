@@ -273,6 +273,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.sendAsset.toAddress = '';
             $scope.sendAsset.amountToSend = '';
             $scope.successMessagebool = false;
+
             $scope.sendAssetModalOpen = new Modal(document.getElementById('sendAsset'));
             $scope.sendAssetModalOpen.open();
         }
