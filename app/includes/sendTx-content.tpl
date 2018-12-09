@@ -96,7 +96,7 @@
             </div>
 
 
-            <div class="col-sm-12 clearfix text-center" ng-hide="timeLockList != ''">
+            <div class="col-sm-12 clearfix text-center gray-bg p-2" ng-hide="timeLockList != ''">
                 <h4 class="small-gray-text">No timelocked assets</h4>
             </div>
 
