@@ -121,7 +121,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         return parseInt(returnDecimals);
     }
 
-    setInterval(function() {
+    setInterval(function () {
         $scope.getBalance();
         $scope.getShortAddressNotation();
     }, 15000);
@@ -157,7 +157,11 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             if (notation === 0) {
                 $scope.addressNotation.state = false;
-                $scope.addressNotation.value = 'Not available';
+                if ($scope.addressNotation.value = 'SAN Requested') {
+                    $scope.addressNotation.value = 'SAN Requested';
+                } else {
+                    $scope.addressNotation.value = 'Not available';
+                }
             } else {
                 $scope.addressNotation.state = true;
                 $scope.$apply(function () {
