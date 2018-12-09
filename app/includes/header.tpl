@@ -86,7 +86,7 @@
                 @@if (site === 'mew' ) {
                 <div class="align-self-center">
                     <a class="brand" href="/" aria-label="Go to homepage">
-                        <img src="images/fusion-logo.jpg" height="80px" width="125px" alt="MyFusionWallet"/>
+                        <img src="images/fsn-logo.svg" height="80px" width="125px" alt="MyFusionWallet"/>
                     </a>
                 </div>
                 <div class="align-self-center">
