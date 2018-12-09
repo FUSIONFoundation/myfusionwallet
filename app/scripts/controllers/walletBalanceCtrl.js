@@ -157,8 +157,8 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             if (notation === 0) {
                 $scope.addressNotation.state = false;
-                if ($scope.addressNotation.value = 'SAN Requested') {
-                    $scope.addressNotation.value = 'SAN Requested';
+                if ($scope.addressNotation.value = 'USAN Requested') {
+                    $scope.addressNotation.value = 'USAN Requested';
                 } else {
                     $scope.addressNotation.value = 'Not available';
                 }
@@ -188,8 +188,8 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             await $scope.getShortAddressNotation();
 
             $scope.$apply(function () {
-                $scope.addressNotation.value = 'SAN Requested';
-                $scope.addressNotation.value = 'SAN Requested';
+                $scope.addressNotation.value = 'USAN Requested';
+                $scope.addressNotation.value = 'USAN Requested';
             });
         }
     }
