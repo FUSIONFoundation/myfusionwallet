@@ -638,14 +638,14 @@
                                     From
                                 </label>
                                 <br>
-                                <input class="form-control" type="date" ng-model="sendAsset.fromTime">
+                                <span>{{sendAsset.fromTime}}</span>
                             </div>
                             <div class="col-md-6">
                                 <label>
                                     Till
                                 </label>
                                 <br>
-                                <input class="form-control" type="date" ng-model="sendAsset.tillTime">
+                                <span>{{sendAsset.tillTime}}</span>
                             </div>
                         </div>
                         <div class="col-sm-12 clearfix text-center">
