@@ -16,6 +16,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
+        $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
+
 
         walletService.wallet = null;
         walletService.password = '';
@@ -270,12 +272,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAssetModalOpen = function () {
-            $scope.sendAsset.toAddress = '';
-            $scope.sendAsset.amountToSend = '';
-            $scope.successMessagebool = false;
-
-            $scope.sendAssetModalOpen = new Modal(document.getElementById('sendAsset'));
-            $scope.sendAssetModalOpen.open();
+            $scope.sendAssetModal.open();
+            $scope.$applyAsync(function () {
+                $scope.sendAsset.toAddress = '';
+                $scope.sendAsset.amountToSend = '';
+                $scope.successMessagebool = false;
+            });
         }
 
         function convertDate(inputFormat) {
@@ -386,9 +388,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                 });
 
-                $scope.$apply(function () {
-                    $scope.successHash = hash;
-                });
+
             }
         }
 
