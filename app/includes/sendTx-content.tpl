@@ -575,7 +575,7 @@
                             </button>
                         </div>
                         <div class="col-xs-6 clearfix">
-                            <button class="btn btn-info btn-block"
+                            <button class="btn btn-primary btn-block"
                                     ng-click="sendAssetConfirm.open()">
                                 Next
                             </button>

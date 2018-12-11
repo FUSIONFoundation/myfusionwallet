@@ -47,6 +47,7 @@
     <meta name="twitter:site" content="@MyEtherWallet">
     <meta name="twitter:creator" content="@MyEtherWallet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+
     <script type="application/ld+json">
 {
 "@context": "http://schema.org",
@@ -75,7 +76,6 @@
 ]
 }
 
-
     </script>
 </head>
 <body>
@@ -96,28 +96,60 @@
                 <span class="dropdown dropdown-node">
                         <a tabindex="0"
                            aria-haspopup="true"
-                           class="dropdown-toggle  btn btn-white"
+                           class="dropdown-toggle  btn btn-white text-16"
                            ng-click="dropdownMenu = !dropdownMenu">
-                                       <i class="fa fa-bars" aria-hidden="true"></i> My Wallet
+                                       <img src="images/group-2-copy-4.svg"
+                                            class="Group-2-Copy-4 Group-6">
+ My Wallet
                         </a>
-                        <div class="dropdown-menu fusion-text-14" ng-show="dropdownMenu">
-                              <div class="col-md-12 m-1">
+                        <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownMenu">
+                              <div class="col-md-12 p-2">
                              <span class="small-gray-text">Apps</span>
                             </div>
-                            <div class="col-md-12 m-1 app-select-active">
-                             <span>My Wallet</span>
+                            <div class="col-md-12 p-2 app-select-active">
+                                <a href="">
+                                    <span class="fusion-text-14">
+                                  <img src="images/group-5.svg"
+                                       class="Group-6">
+                                      My Wallet
+                                    </span>
+                                </a>
                             </div>
-                              <div class="col-md-12 m-1">
-                             <span>Asset Locking</span>
+                            <div class="col-md-12 p-2 app-select-active">
+                                <a href="">
+                                    <span class="fusion-text-14">
+                                    <img src="images/group-6.svg"
+                                         class="Group-6">
+                                      Asset Locking
+                                    </span>
+                                </a>
                             </div>
-                              <div class="col-md-12 m-1">
-                             <span>Autobuy Stake</span>
+                               <div class="col-md-12 p-2 app-select-active">
+                                <a href="">
+                                    <span class="fusion-text-14">
+                                    <img src="images/group-7.svg"
+                                         class="Group-6">
+                                      Autobuy Stake
+                                    </span>
+                                </a>
                             </div>
-                              <div class="col-md-12 m-1">
-                             <span>Block Explorer</span>
+                               <div class="col-md-12 p-2 app-select-active">
+                                <a href="">
+                                    <span class="fusion-text-14">
+                                    <img src="images/group-8.svg"
+                                         class="Group-6">
+                                      Block Explorer
+                                    </span>
+                                </a>
                             </div>
-                              <div class="col-md-12 m-1">
-                             <span>Swap Exchange</span>
+                               <div class="col-md-12 p-2 app-select-active">
+                                <a href="">
+                                    <span class="fusion-text-14">
+                                    <img src="images/group-9.svg"
+                                         class="Group-6">
+                                      Swap Exchange
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </span>
@@ -1197,7 +1229,7 @@
                             </button>
                         </div>
                         <div class="col-xs-6 clearfix">
-                            <button class="btn btn-info btn-block"
+                            <button class="btn btn-primary btn-block"
                                     ng-click="sendAssetConfirm.open()">
                                 Next
                             </button>
@@ -2416,7 +2448,7 @@
                             </button>
                         </div>
                         <div class="col-xs-6 clearfix">
-                            <button class="btn btn-info btn-block"
+                            <button class="btn btn-primary btn-block"
                                     ng-click="sendAssetConfirm.open()">
                                 Next
                             </button>
@@ -7084,7 +7116,7 @@
                             </button>
                         </div>
                         <div class="col-xs-6 clearfix">
-                            <button class="btn btn-info btn-block"
+                            <button class="btn btn-primary btn-block"
                                     ng-click="sendAssetConfirm.open()">
                                 Next
                             </button>
