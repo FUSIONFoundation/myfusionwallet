@@ -154,16 +154,17 @@
                         </div>
                     </span>
                 <div class="align-self-center">
-                    <span class="badge badge-secondary text-fusion ml-4">0.0.1 DEV</span>
+                    <span class="badge badge-secondary text-fusion ml-4">1.00.00</span>
                 </div>
 
                 <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
                 <div class="tagline hidden-xs">
+                    <a class="dropdown-toggle btn btn-gray m-3" href="">Feedback</a>
                                     <span class="dropdown dropdown-node" ng-cloak>
       <a tabindex="0"
          aria-haspopup="true"
          aria-label="change node. current node {{curNode.name}} node by {{curNode.service}}"
-         class="dropdown-toggle  btn btn-white"
+         class="dropdown-toggle btn btn-gray"
          ng-click="dropdownNode = !dropdownNode">
            <span translate="X_Network">Network:</span>
           {{curNode.name}}
@@ -191,51 +192,6 @@
                 
             </section>
         </section>
-
-        <nav role="navigation" aria-label="main navigation" class="nav-container overflowing pl-3 pr-3">
-            <a aria-hidden="true" ng-show="showLeftArrow" class="nav-arrow-left" ng-click="scrollLeft(100);"
-               ng-mouseover="scrollHoverIn(true,2);" ng-mouseleave="scrollHoverOut()">&#171;</a>
-            <div class="nav-scroll">
-                <ul class="nav-inner">
-                    
-                    <li ng-repeat="tab in tabNames track by $index" \
-                        class="nav-item {{tab.name}}" \
-                        ng-class="{active: $index==gService.currentTab}"
-                        ng-show="tab.mew"
-                        ng-click="tabClick($index)">
-                        <a tabindex="0" aria-label="nav item: {{tab.name | translate}}" translate="{{tab.name}}"></a>
-                    </li>
-                    
-                    
-                    <li class="nav-item" ng-show="MEWconnectActive" ng-cloak>
-                        <div style="margin-left: 20px;">
-                            <div ng-show="MEWconnectState == 0" style="border-bottom: solid 2px #929292">
-                                <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Not Connected</h4>
-                            </div>
-                            <div ng-show="MEWconnectState == 1" style="border-bottom: solid 2px #1995be">
-                                <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"
-                                         style="margin-right: 10px">Preparing Connection</h4>
-                            </div>
-                            <div ng-show="MEWconnectState == 2" style="border-bottom: solid 2px #23aeb2">
-                                <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Connected</h4>
-                            </div>
-                            <div ng-show="MEWconnectState == 3" style="border-bottom: solid 2px #febe1a">
-                                <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Timed Out</h4>
-                            </div>
-                            <div ng-show="MEWconnectState == 4" style="border-bottom: solid 2px #e74d41">
-                                <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Disconnected</h4>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <a aria-hidden="true"
-               ng-show="showRightArrow"
-               class="nav-arrow-right"
-               ng-click="scrollRight(100);"
-               ng-mouseover="scrollHoverIn(false,2);"
-               ng-mouseleave="scrollHoverOut()">&#187;</a>
-        </nav>
 
          <article class="modal fade" id="customNodeModal" tabindex="-1">
   <section class="modal-dialog">
@@ -320,8 +276,54 @@
  
         
     </div>
-
+    <article class="clearfix container-small">
+            <nav role="navigation" aria-label="main navigation" class="nav-container overflowing">
+                <a aria-hidden="true" ng-show="showLeftArrow" class="nav-arrow-left" ng-click="scrollLeft(100);"
+                   ng-mouseover="scrollHoverIn(true,2);" ng-mouseleave="scrollHoverOut()">&#171;</a>
+                <div class="nav-scroll">
+                    <ul class="nav-inner">
+                        
+                        <li ng-repeat="tab in tabNames track by $index" \
+                            class="nav-item {{tab.name}}" \
+                            ng-class="{active: $index==gService.currentTab}"
+                            ng-show="tab.mew"
+                            ng-click="tabClick($index)">
+                            <a tabindex="0" aria-label="nav item: {{tab.name | translate}}" translate="{{tab.name}}"></a>
+                        </li>
+                        
+                        
+                        <li class="nav-item" ng-show="MEWconnectActive" ng-cloak>
+                            <div style="margin-left: 20px;">
+                                <div ng-show="MEWconnectState == 0" style="border-bottom: solid 2px #929292">
+                                    <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Not Connected</h4>
+                                </div>
+                                <div ng-show="MEWconnectState == 1" style="border-bottom: solid 2px #1995be">
+                                    <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"
+                                             style="margin-right: 10px">Preparing Connection</h4>
+                                </div>
+                                <div ng-show="MEWconnectState == 2" style="border-bottom: solid 2px #23aeb2">
+                                    <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Connected</h4>
+                                </div>
+                                <div ng-show="MEWconnectState == 3" style="border-bottom: solid 2px #febe1a">
+                                    <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Timed Out</h4>
+                                </div>
+                                <div ng-show="MEWconnectState == 4" style="border-bottom: solid 2px #e74d41">
+                                    <h4><img src="images/MEWconnectLogo.svg" width="120" height="26"> Disconnected</h4>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <a aria-hidden="true"
+                   ng-show="showRightArrow"
+                   class="nav-arrow-right"
+                   ng-click="scrollRight(100);"
+                   ng-mouseover="scrollHoverIn(false,2);"
+                   ng-mouseleave="scrollHoverOut()">&#187;</a>
+            </nav>
+    </article>
 </header>
+
 
 
 <section class="container" style="min-height: 50%" ng-controller='viewCtrl'>
