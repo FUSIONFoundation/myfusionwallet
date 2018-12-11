@@ -76,32 +76,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
 </head>
 <body>
@@ -126,14 +100,26 @@
                            ng-click="dropdownMenu = !dropdownMenu">
                                        <i class="fa fa-bars" aria-hidden="true"></i> My Wallet
                         </a>
-                        <ul class="dropdown-menu fusion-text-14 p-2" ng-show="dropdownMenu">
-                            <span class="small-gray-text">Apps</span>
-                            <li class="p-2">My Wallet</li>
-                            <li class="p-2">Asset Locking</li>
-                            <li class="p-2">Autobuy Stake</li>
-                            <li class="p-2">Block Explorer</li>
-                            <li class="p-2">Swap Exchange</li>
-                        </ul>
+                        <div class="dropdown-menu fusion-text-14" ng-show="dropdownMenu">
+                              <div class="col-md-12 m-1">
+                             <span class="small-gray-text">Apps</span>
+                            </div>
+                            <div class="col-md-12 m-1 app-select-active">
+                             <span>My Wallet</span>
+                            </div>
+                              <div class="col-md-12 m-1">
+                             <span>Asset Locking</span>
+                            </div>
+                              <div class="col-md-12 m-1">
+                             <span>Autobuy Stake</span>
+                            </div>
+                              <div class="col-md-12 m-1">
+                             <span>Block Explorer</span>
+                            </div>
+                              <div class="col-md-12 m-1">
+                             <span>Swap Exchange</span>
+                            </div>
+                        </div>
                     </span>
                 <div class="align-self-center">
                     <span class="badge badge-secondary text-fusion ml-4">0.0.1 DEV</span>

@@ -568,10 +568,16 @@
                         </div>
                     </section>
                     <div class="row form-group">
-                        <div class="col-xs-12 clearfix">
+                        <div class="col-xs-6 clearfix">
+                            <button class="btn btn-white btn-block"
+                                    ng-click="sendAssetModal.close()">
+                                Cancel
+                            </button>
+                        </div>
+                        <div class="col-xs-6 clearfix">
                             <button class="btn btn-info btn-block"
                                     ng-click="sendAssetConfirm.open()">
-                                Send Asset
+                                Next
                             </button>
                         </div>
                     </div>
@@ -655,26 +661,28 @@
                                 <span>{{sendAsset.tillTime}}</span>
                             </div>
                         </div>
+                        <div class="row form-group">
+                            <div class="col-xs-12 clearfix">
+                                <button class="btn btn-info btn-block"
+                                        ng-click="sendAsset()">
+                                    Send Asset
+                                </button>
+                            </div>
+                        </div>
                         <div class="col-sm-12 clearfix text-center">
                             <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool">
                                 <strong>Congratulations!</strong>
                                 <br>
                                 Your transaction was emitted and is now pending!
                                 <br>
-                                <button class="btn btn-primary"><a href="linktoexplorer/{{successHash}}">View on
-                                        Explorer</a></button>
+                                <button class="btn btn-primary">
+                                    <a href="linktoexplorer/{{successHash}}">
+                                        View on Explorer
+                                    </a>
+                                </button>
                             </div>
                         </div>
                     </section>
-                    <div class="row form-group">
-                        <div class="col-xs-12 clearfix">
-                            <button class="btn btn-info btn-block"
-                                    ng-click="sendAsset()"
-                                    ng-hide="successMessagebool">
-                                Send Asset
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </article>
 
