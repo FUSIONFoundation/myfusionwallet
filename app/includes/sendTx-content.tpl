@@ -39,7 +39,7 @@
                         </li>
                         <li class="nav-item Swaps" ng-class="{active: showTimeLockedAssets==true}">
                             <a class="ng-scope" ng-click="showAllAssets = false ; showTimeLockedAssets = true">
-                                Timelocked Assets <span ng-model="timeLockList">({{timeLockList.length}})</span></a>
+                                Time-locked Assets <span ng-model="timeLockList">({{timeLockList.length}})</span></a>
                         </li>
                     </ul>
                 </div>
@@ -91,13 +91,13 @@
         </section>
         <section class="row form-group" ng-show="showTimeLockedAssets === true">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The Timelocked Assets tab gives you more details on timelocks, their length, and their
+                <p class="p-2">The Time-locked Assets tab gives you more details on timelocks, their length, and their
                     type.</p>
             </div>
 
 
             <div class="col-sm-12 clearfix text-center gray-bg p-2" ng-hide="timeLockList != ''">
-                <h4 class="small-gray-text">No timelocked assets</h4>
+                <h4 class="small-gray-text">No time-locked assets</h4>
             </div>
 
             <div class="col-sm-12 clearfix" ng-show="timeLockList != ''" data-ng-init="getTimeLockAssets()">
