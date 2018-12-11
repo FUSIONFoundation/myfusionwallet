@@ -76,6 +76,32 @@
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </script>
 </head>
 <body>
@@ -90,9 +116,25 @@
                         <img src="images/fsn-logo.svg" height="80px" width="125px" alt="MyFusionWallet"/>
                     </a>
                 </div>
-                <div class="align-self-center">
-                    <span class="hidden-xs text-fusion fusion-header-text">| My Wallet</span>
+                <div class="align-self-center p-2">
+                    <span class="hidden-xs text-fusion fusion-header-text">|</span>
                 </div>
+                <span class="dropdown dropdown-node">
+                        <a tabindex="0"
+                           aria-haspopup="true"
+                           class="dropdown-toggle  btn btn-white"
+                           ng-click="dropdownMenu = !dropdownMenu">
+                                       <i class="fa fa-bars" aria-hidden="true"></i> My Wallet
+                        </a>
+                        <ul class="dropdown-menu fusion-text-14 p-2" ng-show="dropdownMenu">
+                            <span class="small-gray-text">Apps</span>
+                            <li class="p-2">My Wallet</li>
+                            <li class="p-2">Asset Locking</li>
+                            <li class="p-2">Autobuy Stake</li>
+                            <li class="p-2">Block Explorer</li>
+                            <li class="p-2">Swap Exchange</li>
+                        </ul>
+                    </span>
                 <div class="align-self-center">
                     <span class="badge badge-secondary text-fusion ml-4">0.0.1 DEV</span>
                 </div>
