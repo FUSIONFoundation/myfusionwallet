@@ -1097,12 +1097,22 @@
             </span>
                         <br/>
                     </h3>
-                    <p class="float-left">
+                    <p>
                         MyFusionWallet (MFW) is a powerful, open-source wallet that enables user to interact with
                         FUSION’s innovative features seamlessly and securely.
                     </p>
 
-                    <p class="float-left fusion-text-14">Learn more about MFW’s revolutionary new features:</p>
+                    <div class="alert-yellow p-3">
+                        <i class="fa fa-warning"></i>
+                        <p class="intro-p">
+                        MFW is only an interface to access your wallet. Double check all
+                        transactions and never share your private keys. We cannot retreive funds lost on the platform.
+                        If you are new to blockchain and wallets, please click here to learn more about keeping your
+                        assets safe and secure.
+                        </p>
+                    </div>
+                    <br>
+                    <p class="float-left fusion-text-14 intro-p">Learn more about MFW’s revolutionary new features:</p>
 
                     <div class="text-center">
                         <div class="col-md-6 p-2 funcs-bg">
@@ -1147,47 +1157,23 @@
 
 
                 <article class="onboarding__modal" ng-show="showOnboardSlide==2">
-                    <h3 class="onboarding__title" translate="ONBOARD_bank_title">
-                        MyEtherWallet is not a Bank
+                    <h3 class="onboarding__title">
+            <span>
+              Asset Lock-in
+            </span>
+                        <br/>
                     </h3>
-                    <section class="row row--flex">
-                        <div class="col-xs-12 col-sm-4 onboarding__image">
-                            <img src="./images/onboarding_icon-02.svg" width="100%" height="auto"/>
-                        </div>
-                        <div class="col-xs-12 col-sm-8 onboarding__content">
-                            <ul>
-                                <li translate="ONBOARD_bank_content__1">
-                                    When you open an account with a bank or exchange, they create an account for you in
-                                    their system.
-                                </li>
-                                <li translate="ONBOARD_bank_content__2">
-                                    They keep track of your personal information, account passwords, balances,
-                                    transactions and ultimately your money.
-                                </li>
-                                <li translate="ONBOARD_bank_content__3">
-                                    They charge fees to manage your account and provide services, like refunding
-                                    transactions when your card gets stolen.
-                                </li>
-                                <li translate="ONBOARD_bank_content__4">
-                                    You can write a check or charge your debit card to send money, go online to check
-                                    your balance, reset your password, and get a new debit card if you lose it.
-                                </li>
-                                <li translate="ONBOARD_bank_content__5">
-                                    You have an account *with the bank* and they decide how much money you can send,
-                                    where you can send it, and how long to hold on a suspicious deposit. All for a fee.
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                    <div class="onboarding__buttons">
-                        <a ng-click="setOnboardStatus(1)" class="btn btn-default">
-              <span translate="ONBOARD_welcome_title__alt">
-                Introduction
-              </span>
-                        </a>
-                        <a ng-click="setOnboardStatus(3)" class="btn btn-primary">
-              <span translate="ONBOARD_interface_title">
-                MyEtherWallet is an Interface
+
+                    <div class="col-md-12 text-center">
+                        <i class="fa fa-lock lock"></i>
+                    </div>
+
+                    <p class="float-left fusion-text-14 intro-p">FUSION’s Lock-in function enables assets from various blockchains to enter the FUSION ecosystem and access the complete functionality of the FUSION Protocol. </p>
+
+                    <div class="col-md-12">
+                        <a ng-click="setOnboardStatus(3)" class="btn btn-primary w-100">
+              <span>
+                Learn about Auto Buy Staking
               </span>
                         </a>
                     </div>
