@@ -83,7 +83,7 @@
         aria-label="header">
     <div class="header-container p-0">
         <section class="bg-white header-branding border-gray-bottom ">
-            <section class="container ml-2 mr-2">
+            <section class="container">
                 @@if (site === 'mew' ) {
                 <div class="align-self-center">
                     <a class="brand" href="/" aria-label="Go to homepage">

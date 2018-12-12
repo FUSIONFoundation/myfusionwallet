@@ -83,7 +83,7 @@
         aria-label="header">
     <div class="header-container p-0">
         <section class="bg-white header-branding border-gray-bottom ">
-            <section class="container ml-2 mr-2">
+            <section class="container">
                 
                 <div class="align-self-center">
                     <a class="brand" href="/" aria-label="Go to homepage">
@@ -685,8 +685,6 @@
                         </a>
                     </div>
                 </article>
-
-
                 <article class="onboarding__modal" ng-show="showOnboardSlide==2">
                     <h3 class="onboarding__title">
             <span>
@@ -696,7 +694,7 @@
                     </h3>
 
                     <div class="col-md-12 text-center">
-                        <i class="fa fa-lock lock"></i>
+                        <img src="images/lock-in.svg" alt="">
                     </div>
 
                     <p class="float-left fusion-text-14 intro-p">FUSION’s Lock-in function enables assets from various blockchains to enter the FUSION ecosystem and access the complete functionality of the FUSION Protocol. </p>
@@ -709,67 +707,100 @@
                         </a>
                     </div>
                 </article>
-
-
                 <article class="onboarding__modal" ng-show="showOnboardSlide==3">
-                    <h3 class="onboarding__title" translate="ONBOARD_interface_title">
-                        MyEtherWallet is an Interface
+                    <h3 class="onboarding__title">
+            <span>
+              Auto Buy Staking
+            </span>
+                        <br/>
                     </h3>
-                    <section class="row row--flex">
-                        <div class="col-xs-12 col-sm-4 onboarding__image">
-                            <img src="./images/onboarding_icon-03.svg" width="100%" height="auto"/>
-                        </div>
-                        <div class="col-xs-12 col-sm-8 onboarding__content">
-                            <ul>
-                                <li translate="ONBOARD_interface_content__1">
-                                    When you create an account here, you are generating an cryptographic set of numbers:
-                                    your private key and your public key (address).
-                                </li>
-                                <li translate="ONBOARD_interface_content__2">
-                                    The handling of your keys happens entirely on your computer, inside your browser.
-                                </li>
-                                <li translate="ONBOARD_interface_content__3">
-                                    We never transmit, receive or store your private key, password, or other account
-                                    information.
-                                </li>
-                                <li translate="ONBOARD_interface_content__4">
-                                    We do not charge a transaction fee.
-                                </li>
-                                <li translate="ONBOARD_interface_content__5">
-                                    You are just using our **interface** to interact **directly with the blockchain**.
-                                </li>
-                                <li translate="ONBOARD_interface_content__6">
-                                    If you send your *public key (address)* to someone, they can send you ETH or tokens.
-                                    👍
-                                </li>
-                                <li translate="ONBOARD_interface_content__7">
-                                    If you send your *private key* to someone, they now have full control of your
-                                    account. 👎
-                                </li>
-                            </ul>
-                        </div>
-                    </section>
-                    <div class="onboarding__buttons">
-                        <a ng-click="setOnboardStatus(2)" class="btn btn-default">
-              <span translate="ONBOARD_bank_title__alt">
-                MEW isn't a Bank
-              </span>
-                        </a>
-                        <a ng-click="setOnboardStatus(4)" class="btn btn-primary">
-              <span translate="ONBOARD_blockchain_title__alt">
-                WTF is a Blockchain?
+
+                    <div class="col-md-12 text-center">
+                        <img src="images/ticket.svg" alt="">
+                    </div>
+
+                    <p class="float-left fusion-text-14 intro-p">
+                        The auto-buy staking WebApp makes participating in Proof of Stake easier than ever. By using Auto-buy, a user can just set-it and forget-it and seamlessly earn block rewards.
+                    </p>
+
+                    <div class="col-md-12">
+                        <a ng-click="setOnboardStatus(4)" class="btn btn-primary w-100">
+              <span>
+                Learn about Short Account Number
               </span>
                         </a>
                     </div>
-                    <p ng-click="setOnboardStatus(5)" class="text-right small" style="cursor:pointer">
-            <span translate="ONBOARD_blockchain_skip">
-              I already know what a blockchain is...
+                </article>
+                <article class="onboarding__modal" ng-show="showOnboardSlide==4">
+                    <h3 class="onboarding__title">
+            <span>
+              Short Account Number
             </span>
-                    </p>
+                        <br/>
+                    </h3>
+
+                    <div class="col-md-12 text-center">
+                        <img src="images/san.svg" alt="">
+                    </div>
+
+                    <p class="float-left fusion-text-14 intro-p">
+                        Generate a short account address which will make sending and receiving transactions easier, interacting with other users simpler, reduce errors and increase the speed of blockchain adoption.                    </p>
+
+                    <div class="col-md-12">
+                        <a ng-click="setOnboardStatus(5)" class="btn btn-primary w-100">
+              <span>
+Learn about Time Lock
+              </span>
+                        </a>
+                    </div>
+                </article>
+                <article class="onboarding__modal" ng-show="showOnboardSlide==5">
+                    <h3 class="onboarding__title">
+            <span>
+              Time Lock
+            </span>
+                        <br/>
+                    </h3>
+
+                    <div class="col-md-12 text-center">
+                        <img src="images/time-lock.svg" alt="">
+                    </div>
+
+                    <p class="float-left fusion-text-14 intro-p">
+                        MFW supports sending assets for a specified period of time with Time-Lock. When sending an asset, you can choose timelock to “lend” or “loan” that asset out temporarily.
+                    <div class="col-md-12">
+                        <a ng-click="setOnboardStatus(6)" class="btn btn-primary w-100">
+              <span>
+Learn about Quantum Swap
+              </span>
+                        </a>
+                    </div>
+                </article>
+                <article class="onboarding__modal" ng-show="showOnboardSlide==6">
+                    <h3 class="onboarding__title">
+            <span>
+              Quantum Swap
+            </span>
+                        <br/>
+                    </h3>
+
+                    <div class="col-md-12 text-center">
+                        <img src="images/time-lock.svg" alt="">
+                    </div>
+
+                    <p class="float-left fusion-text-14 intro-p">
+                        MFW supports sending assets for a specified period of time with Time-Lock. When sending an asset, you can choose timelock to “lend” or “loan” that asset out temporarily.
+                    <div class="col-md-12">
+                        <a ng-click="setOnboardStatus(6)" class="btn btn-primary w-100">
+              <span>
+Learn about Quantum Swap
+              </span>
+                        </a>
+                    </div>
                 </article>
 
 
-                <article class="onboarding__modal" ng-show="showOnboardSlide==4">
+                <article class="onboarding__modal" ng-show="showOnboardSlide==99">
                     <h3 class="onboarding__title" translate="ONBOARD_blockchain_title">
                         Wait, WTF is a Blockchain?
                     </h3>
@@ -818,9 +849,7 @@
                         </a>
                     </div>
                 </article>
-
-
-                <article class="onboarding__modal" ng-show="showOnboardSlide==5">
+                <article class="onboarding__modal" ng-show="showOnboardSlide==999">
                     <h3 class="onboarding__title" translate="ONBOARD_why_title">
                         Why are you making me read all this?
                     </h3>
@@ -881,8 +910,6 @@
                         </a>
                     </div>
                 </article>
-
-
                 <article class="onboarding__modal" ng-show="showOnboardSlide==6">
                     <h3 class="onboarding__title" translate="ONBOARD_whymew_title">
                         If MyEtherWallet can't do those things, what's the point?
@@ -935,8 +962,6 @@
                         </a>
                     </div>
                 </article>
-
-
                 <article class="onboarding__modal" ng-show="showOnboardSlide==7">
                     <h3 class="onboarding__title" translate="ONBOARD_secure_1_title">
                         How To Protect Yourself from Phishers
@@ -998,8 +1023,6 @@
                         </a>
                     </div>
                 </article>
-
-
                 <article class="onboarding__modal" ng-show="showOnboardSlide==8">
                     <h3 class="onboarding__title" translate="ONBOARD_secure_2_title">
                         How To Protect Yourself from Scams
@@ -1044,8 +1067,6 @@
                         </a>
                     </div>
                 </article>
-
-
                 <article class="onboarding__modal" ng-show="showOnboardSlide==9">
                     <h3 class="onboarding__title" translate="ONBOARD_secure_3_title">
                         How To Protect Yourself from Loss
@@ -1096,8 +1117,6 @@
                         </a>
                     </div>
                 </article>
-
-
                 <article class="onboarding__modal" ng-show="showOnboardSlide==10">
                     <h3 class="onboarding__title" translate="ONBOARD_final_title">
                         Alright, I'm done lecturing you!
@@ -1181,7 +1200,6 @@
                         </div>
                     </section>
                 </article>
-
             </div>
         </div>
     </div>
