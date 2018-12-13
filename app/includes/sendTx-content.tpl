@@ -131,22 +131,6 @@
             </div>
         </section>
     </article>
-
-    <!-- ERC20 Assets -->
-    <h3>Legacy (ERC20) Tokens</h3>
-
-    <article class="block" ng-hide="wallet.type=='addressOnly'">
-        <section class="row form-group">
-            <div class="col-sm-12 clearfix">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus a lectus odio. Pellentesque sed
-                    nisl et leo congue rutrum. Sed eget odio ac est facilisis mollis. Curabitur pretium elementum
-                    luctus.</p>
-            </div>
-            <div class="col-sm-12 clearfix">
-                Assets will be loading here
-            </div>
-        </section>
-    </article>
 </div>
 
 <div class="col-sm-9">
