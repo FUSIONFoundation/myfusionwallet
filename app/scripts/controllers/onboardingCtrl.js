@@ -14,7 +14,7 @@ var onboardingCtrl = function($scope, globalService, $translate, $sce) {
     $scope.onboardStatus = parseInt( globalFuncs.localStorage.getItem("onboardStatus") )
 
     // if they've seen a few slides...
-    if ( $scope.onboardStatus > 0  &&  $scope.onboardStatus < 10 ) {
+    if ( $scope.onboardStatus > 0  &&  $scope.onboardStatus < 7 ) {
       $scope.showOnboardSlide = $scope.onboardStatus // set the slide to the last slide they viewed
       $scope.onboardMsg = true                    // show a msg explaining they need to finish it
       $scope.onboardModal.open()                     // show the modal
