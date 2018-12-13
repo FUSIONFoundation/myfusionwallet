@@ -508,13 +508,13 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="sendAsset.toAddress"
-                                   placeholder=""/>
+                                   placeholder="Enter a fusion address"/>
                         </div>
                         <div class="col-sm-12 clearfix">
                             <label>
                                 Select Asset:
                             </label>
-                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
+                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()" placeholder="lol">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
@@ -530,7 +530,7 @@
                             <input type="number"
                                    class="form-control"
                                    ng-model="sendAsset.amountToSend"
-                                   placeholder=""/>
+                                   placeholder="Enter an amount"/>
                             <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
