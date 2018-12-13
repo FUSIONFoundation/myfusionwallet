@@ -697,7 +697,7 @@
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetName"
-                               placeholder=""/>
+                               placeholder="Enter an Asset Name"/>
                     </div>
                     <div class="col-sm-6">
                         <label>
@@ -706,7 +706,7 @@
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetSymbol"
-                               placeholder=""/>
+                               placeholder="ABCDE"/>
                     </div>
                     <div class="col-sm-6">
                         <label>
@@ -715,7 +715,7 @@
                         <input type="number"
                                class="form-control"
                                ng-model="assetCreate.decimals"
-                               placeholder=""/>
+                               placeholder="Up to 18 Decimal Points"/>
                     </div>
                     <div class="col-sm-12 clearfix">
                         <label>
@@ -724,13 +724,19 @@
                         <input type="number"
                                class="form-control"
                                ng-model="assetCreate.totalSupply"
-                               placeholder=""/>
+                               placeholder="Enter the amount of this assets you want to create"/>
                     </div>
                 </section>
 
                 <div class="row form-group">
-                    <div class="col-xs-12 clearfix">
-                        <a class="btn btn-info btn-block"
+                    <div class="col-xs-6 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="createAssetModal.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-xs-6 clearfix">
+                        <a class="btn btn-primary btn-block"
                            ng-click="createAsset()">
                             Generate Asset
                         </a>
