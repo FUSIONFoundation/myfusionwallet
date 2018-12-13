@@ -543,9 +543,8 @@
                             <label>
                                 Amount To Send:
                             </label>
-                            <input type="text"
+                            <input type="number"
                                    class="form-control"
-                                   ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
                                    ng-model="sendAsset.amountToSend"
                                    placeholder=""/>
                             <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
@@ -729,7 +728,7 @@
                         <label>
                             Decimals:
                         </label>
-                        <input type="text"
+                        <input type="number"
                                class="form-control"
                                ng-model="assetCreate.decimals"
                                placeholder=""/>
@@ -738,7 +737,7 @@
                         <label>
                             Total Supply:
                         </label>
-                        <input type="text"
+                        <input type="number"
                                class="form-control"
                                ng-model="assetCreate.totalSupply"
                                placeholder=""/>
