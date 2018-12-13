@@ -134,7 +134,7 @@
                                 </a>
                             </div>
                                <div class="col-md-12 p-2 app-select-active">
-                                <a href="">
+                                <a href="http://blocks.fusionnetwork.io/" target="_blank">
                                     <span class="fusion-text-14">
                                     <img src="images/group-8.svg"
                                          class="Group-6">
