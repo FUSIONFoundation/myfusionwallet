@@ -11,6 +11,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.assetListLoading = true;
         $scope.showNoAssets = false;
         $scope.selectedAssetBalance = '';
+        $scope.todayDate = formatDate();
         $scope.tx = {};
         $scope.signedTx = '';
         $scope.ajaxReq = ajaxReq;
@@ -18,6 +19,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
         $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
         $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
+
+        function formatDate() {
+            let d = new Date(),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
 
         walletService.wallet = null;
         walletService.password = '';
