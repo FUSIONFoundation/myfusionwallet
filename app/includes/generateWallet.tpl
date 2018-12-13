@@ -66,26 +66,33 @@
             </a>
 
             <div class="warn alert-yellow float-left text-left p-3 m-1">
-                <strong>DO NOT lose your Keystore File</strong>
-                <p>
-                    This file cannot be recovered if you lose it.
-                </p>
-                <strong>DO NOT share your Keystore File</strong>
-                <p>
-                    This is the key to all of the funds in your wallet. They will be stolen if you use this file on a malicious or phishing site.
-                </p>
-                <strong>Make a backup</strong>
-                <p>
-                    Make sure you never lose your keys and all the funds they unlock.
-                </p>
+                <div class="col-md-1 col-xs-1">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-11 col-xs-1">
+                    <strong>DO NOT lose your Keystore File</strong>
+                    <p>
+                        This file cannot be recovered if you lose it.
+                    </p>
+                    <strong>DO NOT share your Keystore File</strong>
+                    <p>
+                        This is the key to all of the funds in your wallet. They will be stolen if you use this file on
+                        a
+                        malicious or phishing site.
+                    </p>
+                    <strong>Make a backup</strong>
+                    <p>
+                        Make sure you never lose your keys and all the funds they unlock.
+                    </p>
+                </div>
             </div>
 
             <p>
                 <button tabindex="0"
-                   role="button"
-                   class="btn btn-primary w-100"
-                   ng-class="fileDownloaded ? '' : 'disabled' "
-                   ng-click="continueToPaper()">
+                        role="button"
+                        class="btn btn-primary w-100"
+                        ng-class="fileDownloaded ? '' : 'disabled' "
+                        ng-click="continueToPaper()">
             <span>
               Confirm and Continue
             </span>
@@ -97,47 +104,55 @@
 
 
     <article role="main" class="block__wrap gen__3" ng-show="showPaperWallet">
-
-        <section class="block__main gen__3--inner">
-
-            <br/>
-
-            <h1 translate="GEN_Label_5"> Save your Private Key</h1>
-            <textarea aria-label="{{'x_PrivKey'|translate}}"
-                      aria-describedby="{{'x_PrivKeyDesc'|translate}}"
-                      class="form-control"
-                      readonly="readonly"
-                      rows="3"
-                      style="max-width: 50rem;margin: auto;"
-            >{{wallet.getPrivateKeyString()}}</textarea>
+        <h4 class="text-fusion mb-2">Save your Private Key</h4>
+        <section class="block__main gen__3--inner p-4">
+            <span aria-label="{{'x_PrivKey'|translate}}"
+                  aria-describedby="{{'x_PrivKeyDesc'|translate}}"
+                  class="gray-bg inline p-2"
+                  readonly="readonly"
+                  rows="3"
+                  style="max-width: 50rem;margin: auto;">
+                <span class="small-gray-text text-fusion fusion-text-14">{{wallet.getPrivateKeyString()}}</span>
+            </span>
             <br/>
 
             <a tabindex="0"
                aria-label="{{'x_Print'|translate}}"
                aria-describedby="x_PrintDesc"
                role="button"
-               class="btn btn-primary"
-               ng-click="printQRCode()"
-               translate="x_Print">
-                PRINT
+               class="btn btn-white w-100 mt-2"
+               ng-click="printQRCode()">
+                <i class="fa fa-print" aria-hidden="true"></i>
+                Print your Paper Wallet
             </a>
 
-            <div class="warn">
-                <p>
-                    **Do not lose it!** It cannot be recovered if you lose it.
-                </p>
-                <p>
-                    **Do not share it!** Your funds will be stolen if you use this file on a malicious/phishing site.
-                </p>
-                <p>
-                    **Make a backup!** Secure it like the millions of dollars it may one day be worth.
-                </p>
+            <div class="warn alert-yellow float-left text-left p-3 m-1">
+                <div class="row">
+                    <div class="col-md-1 col-xs-1">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-11 col-xs-1">
+                        <strong>DO NOT lose your Private Key</strong>
+                        <p>
+                            Your private key cannot be recovered if you lose it.
+                        </p>
+                        <strong>DO NOT share your Private Key</strong>
+                        <p>
+                            This is the key to all of the funds in your wallet. They will be stolen if you use this file
+                            on a malicious or phishing site.
+                        </p>
+                        <strong>Make a backup</strong>
+                        <p>
+                            Make sure you never lose your keys and all the funds they unlock.
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <br/>
 
-            <a class="btn btn-default btn-sm" href="./index.html#send-transaction">
-                <span translate="GEN_Label_3"> Save your Address </span> →
+            <a class="btn btn-primary w-100 mt-2 mb-1" href="./index.html#send-transaction">
+                <span>Access My Wallet</span>
             </a>
 
         </section>
