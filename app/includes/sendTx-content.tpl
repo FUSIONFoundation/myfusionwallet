@@ -545,6 +545,7 @@
                             </label>
                             <input type="text"
                                    class="form-control"
+                                   ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
                                    ng-model="sendAsset.amountToSend"
                                    placeholder=""/>
                             <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send

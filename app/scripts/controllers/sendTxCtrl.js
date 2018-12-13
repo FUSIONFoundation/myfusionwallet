@@ -434,6 +434,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetCreate.errorMessage = 'Asset Symbols maximum characters is 4.';
                 return null;
             }
+
             await web3.fsn.genAsset({
                 from: walletAddress,
                 name: assetName,
