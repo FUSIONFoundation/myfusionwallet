@@ -100,7 +100,8 @@
                    aria-label="Keystore JSON file"
                    type="radio"
                    ng-model="walletType"
-                   value="fileupload"/>
+                   value="fileupload"
+            />
             Keystore / JSON File
         </label>
 
@@ -594,22 +595,31 @@
 
         <!-- Keystore -->
         <div ng-if="walletType=='fileupload'">
-            <p class="form-group">
-                Entering your private key on a website dangerous. If our website is compromised or you accidentally
-                visit a different website, your funds will be stolen. Please consider:
-            </p>
-            <p class="form-group">
-                If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <code>https://www.fusionwallet.org</code>
-                &amp; <code>FUSION FOUNDATION</code> in your URL bar.
 
-            </p>
-            <p class="form-group">
-                FUSION employees will <code>never</code> ask for your private key.
-            </p>
+            <div class="warn alert-yellow float-left text-left p-3 m-1">
+                <div class="col-md-1 col-xs-1">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-11 col-xs-1">
+                    <p>
+                        Entering your private key on a website dangerous. If our website is compromised or you accidentally
+                        visit a different website, your funds will be stolen. Please consider:
+                    </p>
+                    <p>
+                        If you must, please <u>double-check the URL &amp; SSL cert</u>. It should say <u>https://www.myfusionwallet.com</u>
+                        &amp; FUSION FOUNDATION in your URL bar.
+                    </p>
+
+                    <p>
+                        FUSION employees will <u>never</u> ask for your private key.
+                    </p>
+                </div>
+            </div>
+
             <br/>
             <div class="form-group">
                 <input style="display:none;" type="file" on-read-file="showContent($fileContent)" id="fselector"/>
-                <a class="btn-file marg-v-sm"
+                <a class="btn btn-white w-100"
                    ng-click="openFileDialog()"
                    translate="ADD_Radio_2_short"
                    id="aria1"
