@@ -50,7 +50,7 @@
       ng-cloak>
 
     <article class="block__wrap gen__1" ng-show="!wallet && !showGetAddress">
-        <section class="block__main gen__1--inner">
+        <section class="block__main gen__1--inner p-4">
             <br/>
             <div class="col-md-12">
                 <h4 translate="NAV_GenerateWallet" aria-live="polite" class="text-fusion">
@@ -87,48 +87,52 @@
 
     <article role="main" class="block__wrap gen__2" ng-show="wallet && !showPaperWallet"> <!-- -->
 
-        <section class="block__main gen__2--inner">
+        <h4 class="text-fusion mb-2">Save your Keystore File</h4>
+        <section class="block__main gen__2--inner p-4">
             <br/>
-            <h1 translate="GEN_Label_2">
-                Save your Keystore File (UTC / JSON)
-            </h1>
+            <p class="float-left">Your keystore file acts as a key to unlock your wallet. </p>
 
             <a tabindex="0" role="button"
-               class="btn btn-white"
+               class="btn btn-white w-100"
                href="{{blobEnc}}"
                download="{{encFileName}}"
                aria-label="{{'x_Download'|translate}} {{'x_Keystore'|translate}}"
                aria-describedby="x_KeystoreDesc"
                ng-click="downloaded()"
                rel="noopener noreferrer">
-        <span translate="x_Download">
+                <i class="fa fa-download" aria-hidden="true"></i>
+
+                <span translate="x_Download">
           DOWNLOAD
         </span>
-                <span translate="x_Keystore2">
-          Keystore File (UTC / JSON)
+                <span>
+ Keystore File (UTC / JSON)
         </span>
             </a>
 
-            <div class="warn">
-                <p class="GEN_Warning_1">
-                    **Do not lose it!** It cannot be recovered if you lose it.
+            <div class="warn alert-yellow float-left text-left p-3 m-1">
+                <strong>DO NOT lose your Keystore File</strong>
+                <p>
+                    This file cannot be recovered if you lose it.
                 </p>
-                <p class="GEN_Warning_2">
-                    **Do not share it!** Your funds will be stolen if you use this file on a malicious/phishing site.
+                <strong>DO NOT share your Keystore File</strong>
+                <p>
+                    This is the key to all of the funds in your wallet. They will be stolen if you use this file on a malicious or phishing site.
                 </p>
-                <p class="GEN_Warning_3">
-                    **Make a backup!** Secure it like the millions of dollars it may one day be worth.
+                <strong>Make a backup</strong>
+                <p>
+                    Make sure you never lose your keys and all the funds they unlock.
                 </p>
             </div>
 
             <p>
                 <button tabindex="0"
                    role="button"
-                   class="btn btn-primary"
+                   class="btn btn-primary w-100"
                    ng-class="fileDownloaded ? '' : 'disabled' "
                    ng-click="continueToPaper()">
-            <span translate="GET_ConfButton">
-              I understand. Continue.
+            <span>
+              Confirm and Continue
             </span>
                 </button>
             </p>
