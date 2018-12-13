@@ -50,21 +50,16 @@
       ng-cloak>
 
     <article class="block__wrap gen__1" ng-show="!wallet && !showGetAddress">
-        <section class="block__main gen__1--inner p-4">
-            <br/>
-            <div class="col-md-12">
-                <h4 translate="NAV_GenerateWallet" aria-live="polite" class="text-fusion">
-                    Create New Wallet
-                </h4>
-                <h5 translate="GEN_Label_1" class="text-fusion">
-                    Enter password
-                </h5>
-            </div>
-            <div class="input-group">
+        <h4 class="text-fusion mb-2">Create New Wallet</h4>
+        <section class="block__main gen__1--inner p-4 text-left">
+            <p class="text-left">To create your new wallet you need to create a password. Make sure you save this
+                password somewhere as we cannot help you recover this password if you lose it!</p>
+            <span class="small-gray-text mt-2 text-left">Enter a password</span>
+            <div class="input-group m-0">
                 <input name="password"
                        class="form-control"
                        type="{{showPass && 'password' || 'text'}}"
-                       placeholder="{{'GEN_Placeholder_1' | translate }}"
+                       placeholder="Must be 9 characters or greater"
                        ng-model="password"
                        ng-class="isStrongPass() ? 'is-valid' : 'is-invalid'"
                        aria-label="{{'GEN_Label_1' | translate}}"
@@ -73,7 +68,7 @@
             <div class="input-group text-center">
                 <button tabindex="0"
                         role="button"
-                        class="btn btn-xs btn-primary"
+                        class="btn btn-primary w-100 mt-2 mb-0"
                         ng-click="genNewWallet()"
                         translate="NAV_GenerateWallet">
                     Generate Wallet
