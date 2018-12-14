@@ -71,8 +71,8 @@
                         <tr class="small-gray-text text-left">
                             <th scope="col">Asset Name</th>
                             <th scope="col">Asset Info</th>
-                            <th scope="col">Available</th>
-                            <th scope="col">Total Quantity</th>
+                            <th scope="col" class="text-right">Available</th>
+                            <th scope="col" class="text-right">Total Quantity</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -83,8 +83,8 @@
                                 </div>
                             </td>
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
-                            <td>{{asset.balance}} <br> <span class="small-gray-text"></span></td>
-                            <td>{{asset.total}}</td>
+                            <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
+                            <td class="text-right">{{asset.total}}</td>
                         </tr>
                         </tbody>
                     </table>
