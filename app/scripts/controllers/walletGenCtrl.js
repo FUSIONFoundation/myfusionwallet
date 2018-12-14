@@ -20,8 +20,6 @@ var walletGenCtrl = function($scope) {
     $scope.genNewWallet = function() {
         if (!$scope.isStrongPass()) {
             $scope.notifier.danger(globalFuncs.errorMsgs[1]);
-        } else if ($scope.isMobileApple()) {
-          $scope.appleMobileModal.open();
         } else if ($scope.isDone) {
             $scope.wallet = $scope.blob = $scope.blobEnc = null;
             if (!$scope.$$phase) $scope.$apply();
