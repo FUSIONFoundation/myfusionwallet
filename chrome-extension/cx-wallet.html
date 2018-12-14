@@ -1461,8 +1461,10 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <br> <span
-                                        class="small-gray-text">ID: {{asset.contractaddress}}</span>
+                            <td>{{asset.name}} ({{asset.symbol}}) <br>
+                                <div class="max-char">
+                                    <span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
+                                </div>
                             </td>
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
                             <td>{{asset.balance}} <br> <span class="small-gray-text"></span></td>
@@ -2671,8 +2673,10 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <br> <span
-                                        class="small-gray-text">ID: {{asset.contractaddress}}</span>
+                            <td>{{asset.name}} ({{asset.symbol}}) <br>
+                                <div class="max-char">
+                                    <span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
+                                </div>
                             </td>
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
                             <td>{{asset.balance}} <br> <span class="small-gray-text"></span></td>
@@ -7165,8 +7169,10 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <br> <span
-                                        class="small-gray-text">ID: {{asset.contractaddress}}</span>
+                            <td>{{asset.name}} ({{asset.symbol}}) <br>
+                                <div class="max-char">
+                                    <span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
+                                </div>
                             </td>
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
                             <td>{{asset.balance}} <br> <span class="small-gray-text"></span></td>

@@ -64,7 +64,7 @@
                 <div class="col-md-1 col-xs-1">
                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 </div>
-                <div class="col-md-11 col-xs-1">
+                <div class="col-md-11 col-xs-11">
                     <strong>DO NOT lose your Keystore File</strong>
                     <p>
                         This file cannot be recovered if you lose it.
@@ -126,7 +126,7 @@
                     <div class="col-md-1 col-xs-1">
                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                     </div>
-                    <div class="col-md-11 col-xs-1">
+                    <div class="col-md-11 col-xs-11">
                         <strong>DO NOT lose your Private Key</strong>
                         <p>
                             Your private key cannot be recovered if you lose it.
