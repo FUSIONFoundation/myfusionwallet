@@ -2,6 +2,9 @@
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
+            if ( !$scope.tx || !$scope.wallet ) {
+                return
+            }
             $scope.getAllFsnAssets();
         };
         $scope.showAllAssets = true;
@@ -449,6 +452,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         }
         setInterval(function () {
+            if ( !$scope.tx || !$scope.wallet) {
+                return
+            }
             $scope.getAllFsnAssets();
             $scope.getTimeLockAssets();
         }, 7500);

@@ -31,6 +31,9 @@ var swapCtrl = function ($scope, $sce, walletService) {
   };
 
   setInterval(function () {
+    if ( !$scope.tx || !$scope.wallet ) {
+      return
+    }
     $scope.bity.refreshRates();
     // $scope.kyber.refreshRates();
     //$scope.checkKyberNetwork();

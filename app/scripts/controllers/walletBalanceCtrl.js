@@ -1,6 +1,9 @@
 'use strict';
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
+            if ( !$scope.tx || !$scope.wallet ) {
+                return
+            }
             $scope.getShortAddressNotation();
             $scope.getBalance();
         };
@@ -123,6 +126,9 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         setInterval(function () {
+            if ( !$scope.tx || !$scope.wallet ) {
+                return
+            }
             $scope.getBalance();
             $scope.getShortAddressNotation();
         }, 15000);
