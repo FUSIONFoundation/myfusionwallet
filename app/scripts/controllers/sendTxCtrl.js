@@ -391,7 +391,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                                 } else {
                                     $scope.successHash = txHash;
                                 }
-                            console.log(txHash);
                         })
                     });
 
@@ -399,21 +398,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         $scope.successHash = hash;
                     });
                 })
-
-                // await web3.fsn.sendAsset({
-                //     from: from,
-                //     to: to,
-                //     value: amount,
-                //     asset: asset
-                // }, password).then(function (res) {
-                //     $scope.successHash = res;
-                //     hash = res;
-                //     if ($scope.succesHash = '') {
-                //         $scope.successHash = res;
-                //     } else {
-                //         $scope.successHash = res;
-                //     }
-                // });
 
                 $scope.$apply(function () {
                     $scope.successHash = hash;
@@ -427,21 +411,46 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 console.log(fromTime, tillTime);
 
-                await web3.fsn.assetToTimeLock({
+                if (!$scope.account) {
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
+                }
+                await web3.fsntx.buildAssetToTimeLockTx({
                     asset: asset,
                     from: from,
                     to: to,
                     start: fromTime,
                     end: tillTime,
                     value: amount
-                }, password).then(function (res) {
-                    $scope.successHash = res;
-                    hash = res;
-                    if ($scope.succesHash = '') {
-                        $scope.successHash = res;
-                    } else {
-                        $scope.successHash = res;
-                    }
+                }).then((tx) => {
+                    let input = tx.input;
+                    let rawTx = Object.assign(tx, {});
+                    let signedMessage = '';
+
+                    return $scope.account.signTransaction(tx).then(function (res) {
+                        signedMessage = res;
+                        let {r, s, v} = signedMessage;
+                        rawTx.r = r;
+                        rawTx.s = s;
+                        rawTx.v = v;
+                        rawTx.input = input;
+                        return web3.fsntx.sendRawTransaction(rawTx).then(txHash => {
+                            $scope.successHash = txHash;
+                            hash = res;
+                            if ($scope.succesHash = '') {
+                                $scope.successHash = txHash;
+                            } else {
+                                $scope.successHash = txHash;
+                            }
+                        })
+                    });
+
+                    $scope.$apply(function () {
+                        $scope.successHash = hash;
+                    });
+                })
+
+                $scope.$apply(function () {
+                    $scope.successHash = hash;
                 });
 
 
