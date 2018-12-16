@@ -534,7 +534,11 @@
                             <input type="number"
                                    class="form-control"
                                    ng-model="sendAsset.amountToSend"
+                                   ng-class="{'is-invalid' : sendAsset.amountToSend > selectedAssetBalance}"
                                    placeholder="Enter an amount"/>
+                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance">
+                                You entered a higher amount than you own.
+                            </div>
                             <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
@@ -568,6 +572,7 @@
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance"
                                 ng-show="transactionType == 'standard' || transactionType == 'timed'">
                             Next
                         </button>
