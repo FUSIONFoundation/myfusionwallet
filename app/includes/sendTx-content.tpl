@@ -533,6 +533,7 @@
                             </span>
                             <input type="number"
                                    class="form-control"
+                                   min="0"
                                    ng-model="sendAsset.amountToSend"
                                    ng-class="{'is-invalid' : sendAsset.amountToSend > selectedAssetBalance}"
                                    placeholder="Enter an amount"/>
@@ -769,6 +770,7 @@
                             Decimals:
                         </label>
                         <input type="number"
+                               min="0"
                                class="form-control"
                                ng-model="assetCreate.decimals"
                                placeholder="Up to 18 Decimal Points"/>
@@ -778,6 +780,7 @@
                             Total Supply:
                         </label>
                         <input type="number"
+                               min="0"
                                class="form-control"
                                ng-model="assetCreate.totalSupply"
                                placeholder="Enter the amount of this assets you want to create"/>
