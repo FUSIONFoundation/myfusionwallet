@@ -162,6 +162,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     notation = res;
                 });
 
+
                 if ($scope.requestedSAN == false) {
                     $scope.addressNotation.value = 'Not available';
                 }
@@ -195,13 +196,33 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.addressNotation.value = res;
                 })
 
-                $scope.requestedSAN = true;
-                await $scope.getShortAddressNotation();
+                if (!$scope.account) {
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
+                }
+                await web3.fsntx.buildGenNotationTx({
+                    from: walletAddress
+                }).then((tx) => {
+                    let input = tx.input;
+                    let rawTx = Object.assign(tx, {});
+                    let signedMessage = '';
 
-                $scope.$apply(function () {
-                    $scope.addressNotation.value = 'USAN Requested';
-                    $scope.addressNotation.value = 'USAN Requested';
-                });
+                    return $scope.account.signTransaction(tx).then(function (res) {
+                        signedMessage = res;
+                        let {r, s, v} = signedMessage;
+                        rawTx.r = r;
+                        rawTx.s = s;
+                        rawTx.v = v;
+                        rawTx.input = input;
+                        return web3.fsntx.sendRawTransaction(rawTx).then(txHash => {
+                            $scope.requestedSAN = true;
+                            $scope.$apply(function () {
+                                $scope.addressNotation.value = 'USAN Requested';
+                                $scope.addressNotation.value = 'USAN Requested';
+                            });
+                        })
+                    });
+                })
+                await $scope.getShortAddressNotation();
             }
         }
 
