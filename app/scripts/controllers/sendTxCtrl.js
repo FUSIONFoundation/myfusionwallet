@@ -372,32 +372,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     value: amount,
                     asset: asset
                 }).then((tx) => {
-                    let input = tx.input;
-                    let rawTx = Object.assign(tx, {});
-                    let signedMessage = '';
-
-                    return $scope.account.signTransaction(tx).then(function (res) {
-                        signedMessage = res;
-                        let {r, s, v} = signedMessage;
-                        rawTx.r = r;
-                        rawTx.s = s;
-                        rawTx.v = v;
-                        rawTx.input = input;
-                        return web3.fsntx.sendRawTransaction(rawTx).then(txHash => {
+                    return web3.fsn.signAndTransmit( tx, $scope.account.signTransaction).then( txHash =>{
+                        $scope.$apply(function () {
+                            hash = txHash;
+                            $scope.$apply(function () {
                                 $scope.successHash = txHash;
-                                hash = res;
-                                if ($scope.succesHash = '') {
-                                    $scope.successHash = txHash;
-                                } else {
-                                    $scope.successHash = txHash;
-                                }
-                        })
-                    });
-
-                    $scope.$apply(function () {
-                        $scope.successHash = hash;
-                    });
-                })
+                            });
+                        });
+                    })
+                });
 
                 $scope.$apply(function () {
                     $scope.successHash = hash;
@@ -422,32 +405,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     end: tillTime,
                     value: amount
                 }).then((tx) => {
-                    let input = tx.input;
-                    let rawTx = Object.assign(tx, {});
-                    let signedMessage = '';
-
-                    return $scope.account.signTransaction(tx).then(function (res) {
-                        signedMessage = res;
-                        let {r, s, v} = signedMessage;
-                        rawTx.r = r;
-                        rawTx.s = s;
-                        rawTx.v = v;
-                        rawTx.input = input;
-                        return web3.fsntx.sendRawTransaction(rawTx).then(txHash => {
-                            $scope.successHash = txHash;
-                            hash = res;
-                            if ($scope.succesHash = '') {
+                    return web3.fsn.signAndTransmit( tx, $scope.account.signTransaction).then( txHash =>{
+                        $scope.$apply(function () {
+                            hash = txHash;
+                            $scope.$apply(function () {
                                 $scope.successHash = txHash;
-                            } else {
-                                $scope.successHash = txHash;
-                            }
-                        })
-                    });
-
+                            });
+                        });
+                    })
                     $scope.$apply(function () {
                         $scope.successHash = hash;
                     });
-                })
+                });
 
             }
         }
@@ -491,28 +460,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 decimals: decimals,
                 total: totalSupply * power
             }).then((tx) => {
-                let input = tx.input;
-                let rawTx = Object.assign(tx, {});
-                let signedMessage = '';
-
-                return $scope.account.signTransaction(tx).then(function (res) {
-                    signedMessage = res;
-                    let {r, s, v} = signedMessage;
-                    rawTx.r = r;
-                    rawTx.s = s;
-                    rawTx.v = v;
-                    rawTx.input = input;
-                    return web3.fsntx.sendRawTransaction(rawTx).then(txHash => {
+                return web3.fsn.signAndTransmit( tx, $scope.account.signTransaction).then( txHash =>{
                         $scope.$apply(function () {
                             $scope.assetCreate.errorMessage = '';
                             $scope.assetCreate.assetHash = txHash;
                         });
                     })
                 });
-
-            })
-
-
         }
         setInterval(function () {
             if (!$scope.tx || !$scope.wallet) {
