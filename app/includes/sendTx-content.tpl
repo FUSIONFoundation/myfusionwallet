@@ -748,27 +748,31 @@
                     what this will say together. </p>
                 <section class="row form-group">
                     <div class="col-sm-12 clearfix">
-                        <label>
+                        <span class="small-gray-text">
                             Asset Name:
-                        </label>
+                        </span>
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetName"
                                placeholder="Enter an Asset Name"/>
+                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetName.length}}/35</span>
+
                     </div>
                     <div class="col-sm-6">
-                        <label>
+                        <span class="small-gray-text">
                             Asset Symbol:
-                        </label>
+                        </span>
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetSymbol"
                                placeholder="ABCDE"/>
+                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetSymbol.length}}/4</span>
                     </div>
                     <div class="col-sm-6">
-                        <label>
+                                               <span class="small-gray-text">
+
                             Decimals:
-                        </label>
+                        </span>
                         <input type="number"
                                min="0"
                                class="form-control"
@@ -776,9 +780,9 @@
                                placeholder="Up to 18 Decimal Points"/>
                     </div>
                     <div class="col-sm-12 clearfix">
-                        <label>
+                        <span class="small-gray-text">
                             Total Supply:
-                        </label>
+                        </span>
                         <input type="number"
                                min="0"
                                class="form-control"
