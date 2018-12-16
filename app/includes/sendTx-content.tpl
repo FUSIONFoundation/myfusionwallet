@@ -79,7 +79,8 @@
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td>{{asset.name}} ({{asset.symbol}}) <br>
                                 <div class="max-char">
-                                    <span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
+                                    <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
+                                          title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
                                 </div>
                             </td>
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
@@ -483,7 +484,8 @@
                         </div>
                         <div class="col-md-10 p-2">
                             <h4 class="text-fusion">Send Asset</h4>
-                            <p class="small-gray-text">Sending an asset will give the recipient full and permanent access of the asset.</p>
+                            <p class="small-gray-text">Sending an asset will give the recipient full and permanent
+                                access of the asset.</p>
                         </div>
                     </div>
                     <div class="col-md-6" ng-class="{'select-active': transactionType == 'timed'}">
@@ -493,7 +495,8 @@
                         </div>
                         <div class="col-md-10 p-2">
                             <h4 class="text-fusion">Time-Lock Asset</h4>
-                            <p class="small-gray-text">Time-locking an asset will give the recipient the asset for a time period you specify.</p>
+                            <p class="small-gray-text">Time-locking an asset will give the recipient the asset for a
+                                time period you specify.</p>
                         </div>
                     </div>
                 </div>
@@ -514,7 +517,8 @@
                             <span class="small-gray-text">
                                 Select Asset:
                             </span>
-                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()" placeholder="lol">
+                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()"
+                                    placeholder="lol">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
@@ -540,14 +544,16 @@
                                     From
                                 </span>
                                 <br>
-                                <input class="form-control" type="date" min="{{todayDate}}" ng-model="sendAsset.fromTime">
+                                <input class="form-control" type="date" min="{{todayDate}}"
+                                       ng-model="sendAsset.fromTime">
                             </div>
                             <div class="col-md-6">
                             <span class="small-gray-text">
                                     Till
                                 </span>
                                 <br>
-                                <input class="form-control" type="date" min="{{todayDate}}" ng-model="sendAsset.tillTime">
+                                <input class="form-control" type="date" min="{{todayDate}}"
+                                       ng-model="sendAsset.tillTime">
                             </div>
                         </div>
                     </section>
@@ -614,7 +620,8 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2" ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                        <div class="border-gray-bottom pb-2 pt-2"
+                             ng-show="transactionType == 'standard' || transactionType == 'timed'">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Send Type:
@@ -637,6 +644,20 @@
                             </div>
                             <br>
                         </div>
+                        <div class="border-gray-bottom pb-2 pt-2 inline w-100">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                Asset:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})
+                                    </span>
+                                <br>
+                                <span class="small-gray-text">{{sendAsset.assetHash}}</span>
+                            </div>
+                            <br>
+                        </div>
                         <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
                             <div class="float-left">
                                 <span class="small-gray-text">
@@ -644,10 +665,10 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span class="fusion-text-14">{{sendAsset.amountToSend}}</span>
-                                <span class="fusion-text-14">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})</span>
-                                <br>
-                                <span class="small-gray-text">{{sendAsset.assetHash}}</span>
+                                <span class="fusion-text-14">
+                                    <span class="mono wallet-balance">  {{sendAsset.amountToSend}} </span>
+                                    {{sendAsset.assetSymbol}}
+                                </span>
                             </div>
                             <br>
                         </div>
