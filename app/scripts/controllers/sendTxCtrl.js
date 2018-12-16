@@ -422,7 +422,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.createAsset = async function () {
-            $scope.assetCreate.errorMessage == '';
+            $scope.$eval(function(){
+                $scope.assetCreate.errorMessage = '';
+            })
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
