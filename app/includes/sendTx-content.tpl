@@ -537,7 +537,7 @@
                                    ng-class="{'is-invalid' : sendAsset.amountToSend > selectedAssetBalance}"
                                    placeholder="Enter an amount"/>
                             <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance">
-                                You entered a higher amount than you own.
+                                You don't have enough funds
                             </div>
                             <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
