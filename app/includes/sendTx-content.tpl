@@ -754,6 +754,7 @@
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetName"
+                               maxlength="35"
                                placeholder="Enter an Asset Name"/>
                         <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetName.length}}/35</span>
 
@@ -764,6 +765,7 @@
                         </span>
                         <input type="text"
                                class="form-control"
+                               maxlength="4"
                                ng-model="assetCreate.assetSymbol"
                                placeholder="ABCDE"/>
                         <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetSymbol.length}}/4</span>
@@ -775,9 +777,12 @@
                         </span>
                         <input type="number"
                                min="0"
+                               max="15"
                                class="form-control"
                                ng-model="assetCreate.decimals"
-                               placeholder="Up to 18 Decimal Points"/>
+                               placeholder="Up to 15 Decimal Points"/>
+                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.decimals}}/15</span>
+
                     </div>
                     <div class="col-sm-12 clearfix">
                         <span class="small-gray-text">
