@@ -804,10 +804,11 @@
                         </a>
                     </div>
                     <div class="col-xs-6 clearfix">
-                        <a class="btn btn-primary btn-block"
+                        <button class="btn btn-primary btn-block"
+                           ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
                            ng-click="createAsset()">
                             Generate Asset
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="assetCreate.assetHash != ''">
