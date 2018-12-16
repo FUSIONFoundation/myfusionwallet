@@ -475,25 +475,25 @@
                 <label>
                     Select Send Type:
                 </label>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="col-md-1 mt-3">
+                <div class="row col-md-12 mb-2">
+                    <div class="col-md-6" ng-class="{'select-active': transactionType == 'standard'}">
+                        <div class="col-md-1 mt-3 p-2">
                             <input type="radio" class="form-check-input" ng-model="transactionType"
                                    value="standard" checked>
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-10 p-2">
                             <h4 class="text-fusion">Send Asset</h4>
-                            Sending an asset will give the recipient full and permanent access of the asset.
+                            <p class="small-gray-text">Sending an asset will give the recipient full and permanent access of the asset.</p>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="col-md-1 mt-3">
+                    <div class="col-md-6" ng-class="{'select-active': transactionType == 'timed'}">
+                        <div class="col-md-1 mt-3 p-2">
                             <input type="radio" class="form-check-input" ng-model="transactionType"
                                    value="timed">
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-10 p-2">
                             <h4 class="text-fusion">Time-Lock Asset</h4>
-                            Time-locking an asset will give the recipient the asset for a time period you specify.
+                            <p class="small-gray-text">Time-locking an asset will give the recipient the asset for a time period you specify.</p>
                         </div>
                     </div>
                 </div>
@@ -502,18 +502,18 @@
                         <div class="col-sm-12 clearfix">
                         </div>
                         <div class="col-sm-12 clearfix">
-                            <label>
+                            <span class="small-gray-text">
                                 To Address:
-                            </label>
+                            </span>
                             <input type="text"
                                    class="form-control"
                                    ng-model="sendAsset.toAddress"
                                    placeholder="Enter a fusion address"/>
                         </div>
                         <div class="col-sm-12 clearfix">
-                            <label>
+                            <span class="small-gray-text">
                                 Select Asset:
-                            </label>
+                            </span>
                             <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()" placeholder="lol">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
@@ -524,9 +524,9 @@
                                 <span class="text-fusion">{{selectedAssetBalance}}</span> <span class="small-gray-text">available to send.</span>
                             </div>
 
-                            <label>
+                            <span class="small-gray-text">
                                 Amount To Send:
-                            </label>
+                            </span>
                             <input type="number"
                                    class="form-control"
                                    ng-model="sendAsset.amountToSend"
@@ -536,16 +536,16 @@
                         </div>
                         <div ng-hide="transactionType =='standard'">
                             <div class="col-md-6">
-                                <label>
+                            <span class="small-gray-text">
                                     From
-                                </label>
+                                </span>
                                 <br>
                                 <input class="form-control" type="date" min="{{todayDate}}" ng-model="sendAsset.fromTime">
                             </div>
                             <div class="col-md-6">
-                                <label>
+                            <span class="small-gray-text">
                                     Till
-                                </label>
+                                </span>
                                 <br>
                                 <input class="form-control" type="date" min="{{todayDate}}" ng-model="sendAsset.tillTime">
                             </div>
@@ -599,7 +599,7 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span>{{wallet.getChecksumAddressString()}}</span>
+                                <span class="fusion-text-14">{{wallet.getChecksumAddressString()}}</span>
                             </div>
                             <br>
                         </div>
@@ -610,7 +610,7 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span>{{sendAsset.toAddress}}</span>
+                                <span class="fusion-text-14">{{sendAsset.toAddress}}</span>
                             </div>
                             <br>
                         </div>
@@ -621,7 +621,7 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span>Standard Send</span>
+                                <span class="fusion-text-14">Standard Send</span>
                             </div>
                             <br>
                         </div>
@@ -633,7 +633,7 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span>Timed Send</span>
+                                <span class="fusion-text-14">Timed Send</span>
                             </div>
                             <br>
                         </div>
@@ -644,7 +644,7 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span>{{sendAsset.amountToSend}}</span>
+                                <span class="fusion-text-14">{{sendAsset.amountToSend}}</span>
                             </div>
                             <br>
                         </div>
@@ -655,14 +655,14 @@
                                     From
                                 </span>
                                 <br>
-                                <span>{{sendAsset.fromTime}}</span>
+                                <span class="fusion-text-14">{{sendAsset.fromTime}}</span>
                             </div>
                             <div class="col-md-6 border-gray-bottom pb-2 pt-2">
                                 <span class="small-gray-text">
                                     Till
                                 </span>
                                 <br>
-                                <span>{{sendAsset.tillTime}}</span>
+                                <span class="fusion-text-14">{{sendAsset.tillTime}}</span>
                             </div>
                         </div>
 
