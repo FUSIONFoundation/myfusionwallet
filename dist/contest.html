@@ -75,25 +75,27 @@
 ]
 }
 
+
+
     </script>
 </head>
 <body>
 <header ng-controller='tabsCtrl'>
-<header class="bg-white border-gray-bottom {{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
-        aria-label="header">
-    <div class="header-container p-0">
-        <section class="bg-white header-branding border-gray-bottom ">
-            <section class="container">
-                
-                <div class="align-self-center">
-                    <a class="brand" href="/" aria-label="Go to homepage">
-                        <img src="images/fsn-logo.svg" height="80px" width="125px" alt="MyFusionWallet"/>
-                    </a>
-                </div>
-                <div class="align-self-center p-2">
-                    <span class="hidden-xs text-fusion fusion-header-text">|</span>
-                </div>
-                <span class="dropdown dropdown-node">
+    <header class="bg-white border-gray-bottom {{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
+            aria-label="header">
+        <div class="header-container p-0">
+            <section class="bg-white header-branding border-gray-bottom ">
+                <section class="container">
+                    
+                    <div class="align-self-center">
+                        <a class="brand" href="/" aria-label="Go to homepage">
+                            <img src="images/fsn-logo.svg" height="80px" width="125px" alt="MyFusionWallet"/>
+                        </a>
+                    </div>
+                    <div class="align-self-center p-2">
+                        <span class="hidden-xs text-fusion fusion-header-text">|</span>
+                    </div>
+                    <span class="dropdown dropdown-node">
                         <a tabindex="0"
                            aria-haspopup="true"
                            class="dropdown-toggle  btn btn-white text-16"
@@ -106,70 +108,65 @@
                               <div class="col-md-12 p-2">
                              <span class="small-gray-text">Apps</span>
                             </div>
-                            <div class="col-md-12 p-2 app-select-active">
-                                <a href="">
+                            <a href="" target="_blank" class="col-md-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                   <img src="images/group-5.svg"
                                        class="Group-6">
                                       My Wallet
                                     </span>
-                                </a>
-                            </div>
-                            <div class="col-md-12 p-2 app-select-active">
-                                <a href="">
+                            </a>
+                            <a href="" target="_blank" class="col-md-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-6.svg"
                                          class="Group-6">
                                       Asset Locking
                                     </span>
-                                </a>
-                            </div>
-                               <div class="col-md-12 p-2 app-select-active">
-                                <a href="">
+                            </a>
+                               <a href="" target="_blank" class="col-md-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-7.svg"
                                          class="Group-6">
                                       Autobuy Stake
                                     </span>
-                                </a>
-                            </div>
-                               <div class="col-md-12 p-2 app-select-active">
-                                <a href="http://blocks.fusionnetwork.io/" target="_blank">
+                            </a>
+                               <a href="http://blocks.fusionnetwork.io/" target="_blank"
+                                  class="col-md-12 p-2 app-select-active">
+
                                     <span class="fusion-text-14">
                                     <img src="images/group-8.svg"
                                          class="Group-6">
                                       Block Explorer
                                     </span>
-                                </a>
-                            </div>
-                               <div class="col-md-12 p-2 app-select-active">
-                                <a href="http://node.fusionnetwork.io">
+                            </a>
+                               <a href="http://node.fusionnetwork.io" target="_blank"
+                                  class="col-md-12 p-2 app-select-active">
+
                                     <span class="fusion-text-14">
                                     <img src="images/monitor.svg"
                                          class="Group-6">
                                       Network Monitor
                                     </span>
-                                </a>
-                            </div>
-                               <div class="col-md-12 p-2 app-select-active">
-                                <a href="">
+                            </a>
+                               <a href="" target="_blank"
+                                  class="col-md-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-9.svg"
                                          class="Group-6">
                                       Swap Exchange
                                     </span>
-                                </a>
-                            </div>
+                            </a>
                         </div>
                     </span>
-                <div class="align-self-center">
-                    <span class="badge badge-secondary text-fusion ml-4">1.00.00</span>
-                </div>
+                    <div class="align-self-center">
+                        <span class="badge badge-secondary text-fusion ml-4">1.00.00</span>
+                    </div>
 
-                <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
-                <div class="tagline hidden-xs">
-                    <a class="dropdown-toggle btn btn-gray m-3" href="https://forms.office.com/Pages/ResponsePage.aspx?id=EW3s-wk4CEOiM1Aj1P3e9ATvewrXjsFAmw64pIT0-PhUMjhVNFRCMVZLU0ZFTFU2MTZGWUdENjkyRy4u" target="_blank">Feedback</a>
-                                    <span class="dropdown dropdown-node" ng-cloak>
+                    <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
+                    <div class="tagline hidden-xs">
+                        <a class="dropdown-toggle btn btn-gray m-3"
+                           href="https://forms.office.com/Pages/ResponsePage.aspx?id=EW3s-wk4CEOiM1Aj1P3e9ATvewrXjsFAmw64pIT0-PhUMjhVNFRCMVZLU0ZFTFU2MTZGWUdENjkyRy4u"
+                           target="_blank">Feedback</a>
+                        <span class="dropdown dropdown-node" ng-cloak>
       <a tabindex="0"
          aria-haspopup="true"
          aria-label="change node. current node {{curNode.name}} node by {{curNode.service}}"
@@ -197,12 +194,12 @@
       </ul>
     </span>
 
-                </div>
-                
+                    </div>
+                    
+                </section>
             </section>
-        </section>
 
-         <article class="modal fade" id="customNodeModal" tabindex="-1">
+             <article class="modal fade" id="customNodeModal" tabindex="-1">
   <section class="modal-dialog">
     <section class="modal-content">
 
@@ -283,9 +280,9 @@
   </section>
 </article>
  
-        
-    </div>
-</header>
+            
+        </div>
+    </header>
     <article class="clearfix container-small">
         <nav role="navigation" aria-label="main navigation" class="nav-container overflowing">
             <a aria-hidden="true" ng-show="showLeftArrow" class="nav-arrow-left" ng-click="scrollLeft(100);"

@@ -75,21 +75,23 @@
 ]
 }
 
+
+
     </script>
 </head>
 <body>
 <header ng-controller='tabsCtrl'>
-<header class="bg-white border-gray-bottom {{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
-        aria-label="header">
-    <div class="header-container p-0">
-        <section class="bg-white header-branding border-gray-bottom ">
-            <section class="container">
-                
+    <header class="bg-white border-gray-bottom {{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
+            aria-label="header">
+        <div class="header-container p-0">
+            <section class="bg-white header-branding border-gray-bottom ">
+                <section class="container">
+                    
+                </section>
             </section>
-        </section>
 
-        
-         <article class="modal fade" id="customNodeModal" tabindex="-1">
+            
+             <article class="modal fade" id="customNodeModal" tabindex="-1">
   <section class="modal-dialog">
     <section class="modal-content">
 
@@ -170,8 +172,8 @@
   </section>
 </article>
  
-    </div>
-</header>
+        </div>
+    </header>
     <article class="clearfix container-small">
         <nav role="navigation" aria-label="main navigation" class="nav-container overflowing">
             <a aria-hidden="true" ng-show="showLeftArrow" class="nav-arrow-left" ng-click="scrollLeft(100);"
