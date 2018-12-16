@@ -435,6 +435,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetCreate.assetSymbol = '';
                 $scope.assetCreate.decimals = '';
                 $scope.assetCreate.totalSupply = '';
+                $scope.assetCreate.errorMessage = '';
             })
             $scope.createAssetModal.open();
         }
