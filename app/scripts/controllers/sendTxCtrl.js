@@ -449,11 +449,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     });
                 })
 
-                $scope.$apply(function () {
-                    $scope.successHash = hash;
-                });
-
-
             }
         }
 
@@ -486,18 +481,38 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return null;
             }
 
-            await web3.fsn.genAsset({
+            if (!$scope.account) {
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
+            }
+            await web3.fsntx.buildGenAssetTx({
                 from: walletAddress,
                 name: assetName,
                 symbol: assetSymbol,
                 decimals: decimals,
                 total: totalSupply * power
-            }, password).then(function (res) {
-                $scope.$apply(function () {
-                    $scope.assetCreate.errorMessage = '';
-                    $scope.assetCreate.assetHash = res;
+            }).then((tx) => {
+                let input = tx.input;
+                let rawTx = Object.assign(tx, {});
+                let signedMessage = '';
+
+                return $scope.account.signTransaction(tx).then(function (res) {
+                    signedMessage = res;
+                    let {r, s, v} = signedMessage;
+                    rawTx.r = r;
+                    rawTx.s = s;
+                    rawTx.v = v;
+                    rawTx.input = input;
+                    return web3.fsntx.sendRawTransaction(rawTx).then(txHash => {
+                        $scope.$apply(function () {
+                            $scope.assetCreate.errorMessage = '';
+                            $scope.assetCreate.assetHash = txHash;
+                        });
+                    })
                 });
+
             })
+
+
         }
         setInterval(function () {
             if (!$scope.tx || !$scope.wallet) {
