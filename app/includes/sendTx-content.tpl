@@ -561,7 +561,7 @@
                     </div>
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-primary btn-block"
-                                ng-click="sendAssetConfirm.open()"
+                                ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="transactionType == 'standard' || transactionType == 'timed'">
                             Next
                         </button>
@@ -637,14 +637,17 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
                             <div class="float-left">
                                 <span class="small-gray-text">
-                                Sending:
+                                Amount:
                                 </span>
                             </div>
                             <div class="float-right">
                                 <span class="fusion-text-14">{{sendAsset.amountToSend}}</span>
+                                <span class="fusion-text-14">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})</span>
+                                <br>
+                                <span class="small-gray-text">{{sendAsset.assetHash}}</span>
                             </div>
                             <br>
                         </div>

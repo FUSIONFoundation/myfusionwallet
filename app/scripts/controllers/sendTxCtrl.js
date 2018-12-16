@@ -285,6 +285,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return parseInt(returnDecimals);
         }
 
+        $scope.sendAssetModalConfirm = function (asset) {
+            return web3.fsn.getAsset(asset).then(function (res) {
+                $scope.$eval(function () {
+                    $scope.sendAsset.assetName = res["Name"];
+                    $scope.sendAsset.assetSymbol = res["Symbol"];
+                    $scope.sendAsset.assetHash = asset;
+                });
+                $scope.sendAssetConfirm.open();
+            });
+        }
 
 
         $scope.sendAssetModalOpen = function () {
