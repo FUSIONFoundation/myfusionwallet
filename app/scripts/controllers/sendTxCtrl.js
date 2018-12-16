@@ -484,7 +484,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             $scope.getAllFsnAssets();
             $scope.getTimeLockAssets();
-
         }, 7500);
 
         $scope.getTimeLockAssets = async function () {

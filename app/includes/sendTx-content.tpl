@@ -590,65 +590,91 @@
                     Please carefully read the details of your transaction below before sending the transaction.
                 </p>
 
-                <div ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                <div class="col-md-12" ng-show="transactionType == 'standard' || transactionType == 'timed'">
                     <section class="row form-group">
-                        <div class="col-sm-12 clearfix">
-                        </div>
-                        <div class="col-sm-12 clearfix">
-                            <label>
-                                Your Address:
-                            </label>
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Your Address:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span>{{wallet.getChecksumAddressString()}}</span>
+                            </div>
                             <br>
-                            <span>{{wallet.getChecksumAddressString()}}</span>
-
                         </div>
-                        <div class="col-sm-12 clearfix">
-                            <label>
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
                                 Recepient Address:
-                            </label>
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span>{{sendAsset.toAddress}}</span>
+                            </div>
                             <br>
-                            <span>{{sendAsset.toAddress}}</span>
                         </div>
-                        <div class="col-sm-12 clearfix" ng-show="transactionType == 'standard' || transactionType == 'timed'">
-                            <label>
+                        <div class="border-gray-bottom pb-2 pt-2" ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                            <div class="float-left">
+                                <span class="small-gray-text">
                                 Send Type:
-                            </label>
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span>Standard Send</span>
+                            </div>
                             <br>
-                            <span>Standard Send</span>
                         </div>
-                        <div class="col-sm-12 clearfix" ng-show="transactionType == 'timed'">
-                            <label>
+
+                        <div class="border-gray-bottom pb-2 pt-2" ng-show="transactionType == 'timed'">
+                            <div class="float-left">
+                                <span class="small-gray-text">
                                 Send Type:
-                            </label>
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span>Timed Send</span>
+                            </div>
                             <br>
-                            <span>Timed Send</span>
                         </div>
-                        <div class="col-sm-12 clearfix">
-                            <label>
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
                                 Sending:
-                            </label>
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span>{{sendAsset.amountToSend}}</span>
+                            </div>
                             <br>
-                            <span>{{sendAsset.amountToSend}}</span>
                         </div>
+
                         <div ng-hide="transactionType =='standard'">
-                            <div class="col-md-6">
-                                <label>
+                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                                <span class="small-gray-text">
                                     From
-                                </label>
+                                </span>
                                 <br>
                                 <span>{{sendAsset.fromTime}}</span>
                             </div>
-                            <div class="col-md-6">
-                                <label>
+                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                                <span class="small-gray-text">
                                     Till
-                                </label>
+                                </span>
                                 <br>
                                 <span>{{sendAsset.tillTime}}</span>
                             </div>
                         </div>
+
                         <div class="row form-group">
-                            <div class="col-xs-12 clearfix">
-                                <button class="btn btn-info btn-block"
+                            <div class="col-xs-6 clearfix">
+                                <button class="btn btn-white btn-block"
+                                        ng-click="sendAssetModal.open()">
+                                    Edit Transaction
+                                </button>
+                            </div>
+                            <div class="col-xs-6 clearfix">
+                                <button class="btn btn-primary btn-block"
                                         ng-click="sendAsset()">
                                     Send Asset
                                 </button>
