@@ -34,14 +34,14 @@
         </ul>
         <h5>Short Address</h5>
         <ul class="account-info point">
-            <li>
-                <span class="small-gray-text text-fusion fusion-text-14 gray-bg p-1"
-                      ng-bind="addressNotation.value"></span>
+            <li class="gray-bg break-word">
+                <span class="small-gray-text text-fusion fusion-text-14 p-1"
+                      ng-bind="addressNotation.value" ng-bind="addressNotation.value"></span>
             </li>
         </ul>
         <div ng-if="addressNotation.state === false">
             <button class="btn btn-sm btn-primary" ng-click="setShortAddressNotation()"
-                    ng-disabled="addressNotation.value != 'Not available' || web3WalletBalance == '0'">
+                    ng-disabled="addressNotation.value != 'It looks like you don’t have a Short Account Number (SAN) yet. Fusion’s SAN is an 8 character version of your wallet address that’s as easy to remember as your phone number. Click the button below to generate one.' || web3WalletBalance == '0'">
                 Generate SAN
             </button>
         </div>

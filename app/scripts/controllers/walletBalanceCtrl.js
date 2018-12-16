@@ -164,7 +164,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
                 if ($scope.requestedSAN == false) {
-                    $scope.addressNotation.value = 'Not available';
+                    $scope.addressNotation.value = 'It looks like you don’t have a Short Account Number (SAN) yet. Fusion’s SAN is an 8 character version of your wallet address that’s as easy to remember as your phone number. Click the button below to generate one.';
                 }
 
                 if ($scope.requestedSAN == true) {
