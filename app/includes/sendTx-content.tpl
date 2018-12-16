@@ -15,7 +15,7 @@
                 <a class="btn btn-sm btn-secondary"
                    data-toggle="modal"
                    data-target="#createAsset"
-                   ng-click="createAssetModal()"
+                   ng-click="createAssetInit()"
                 >
                     <i class="fa fa-plus"></i> Create Asset
                 </a>

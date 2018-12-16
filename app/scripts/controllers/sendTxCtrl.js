@@ -22,6 +22,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
         $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
         $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
+        $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
+
 
         function formatDate() {
             let d = new Date(),
@@ -284,10 +286,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
 
-        $scope.createAssetModal = function () {
-            $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
-            $scope.createAssetModal.open();
-        }
 
         $scope.sendAssetModalOpen = function () {
             $scope.sendAssetModal.open();
@@ -372,7 +370,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     value: amount,
                     asset: asset
                 }).then((tx) => {
-                    return web3.fsn.signAndTransmit( tx, $scope.account.signTransaction).then( txHash =>{
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         $scope.$apply(function () {
                             hash = txHash;
                             $scope.$apply(function () {
@@ -405,7 +403,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     end: tillTime,
                     value: amount
                 }).then((tx) => {
-                    return web3.fsn.signAndTransmit( tx, $scope.account.signTransaction).then( txHash =>{
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         $scope.$apply(function () {
                             hash = txHash;
                             $scope.$apply(function () {
@@ -421,8 +419,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
+        $scope.createAssetInit = function () {
+            $scope.$eval(function () {
+                $scope.assetCreate.assetName = '';
+                $scope.assetCreate.assetSymbol = '';
+                $scope.assetCreate.decimals = '';
+                $scope.assetCreate.totalSupply = '';
+            })
+            $scope.createAssetModal.open();
+        }
+
         $scope.createAsset = async function () {
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.assetCreate.errorMessage = '';
             })
             let password = walletService.password;
@@ -462,13 +470,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 decimals: decimals,
                 total: totalSupply * power
             }).then((tx) => {
-                return web3.fsn.signAndTransmit( tx, $scope.account.signTransaction).then( txHash =>{
-                        $scope.$apply(function () {
-                            $scope.assetCreate.errorMessage = '';
-                            $scope.assetCreate.assetHash = txHash;
-                        });
-                    })
-                });
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    $scope.$apply(function () {
+                        $scope.assetCreate.errorMessage = '';
+                        $scope.assetCreate.assetHash = txHash;
+                    });
+                })
+            });
         }
         setInterval(function () {
             if (!$scope.tx || !$scope.wallet) {
