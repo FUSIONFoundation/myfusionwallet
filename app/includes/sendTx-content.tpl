@@ -482,9 +482,8 @@
                                    value="standard" checked>
                         </div>
                         <div class="col-md-10">
-                            <h4 class="text-fusion">Standard Send</h4>
-                            Standard sending an asset will give the recipient full and permanent access to
-                            the asset.
+                            <h4 class="text-fusion">Send Asset</h4>
+                            Sending an asset will give the recipient full and permanent access of the asset.
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -493,9 +492,8 @@
                                    value="timed">
                         </div>
                         <div class="col-md-10">
-                            <h4 class="text-fusion">Timed Send</h4>
-                            Time Sending an asset will give the recipient the asset for a time period you
-                            determine.
+                            <h4 class="text-fusion">Time-Lock Asset</h4>
+                            Time-locking an asset will give the recipient the asset for a time period you specify.
                         </div>
                     </div>
                 </div>
@@ -553,19 +551,20 @@
                             </div>
                         </div>
                     </section>
-                    <div class="row form-group">
-                        <div class="col-xs-6 clearfix">
-                            <button class="btn btn-white btn-block"
-                                    ng-click="sendAssetModal.close()">
-                                Cancel
-                            </button>
-                        </div>
-                        <div class="col-xs-6 clearfix">
-                            <button class="btn btn-primary btn-block"
-                                    ng-click="sendAssetConfirm.open()">
-                                Next
-                            </button>
-                        </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-6 clearfix">
+                        <button class="btn btn-white btn-block"
+                                ng-click="sendAssetModal.close()">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-xs-6 clearfix">
+                        <button class="btn btn-primary btn-block"
+                                ng-click="sendAssetConfirm.open()"
+                                ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                            Next
+                        </button>
                     </div>
                 </div>
             </article>
