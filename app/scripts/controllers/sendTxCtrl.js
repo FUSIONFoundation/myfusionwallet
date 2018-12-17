@@ -23,7 +23,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
         $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
         $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
-
+        $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
 
         function formatDate() {
             let d = new Date(),
@@ -470,6 +470,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetCreate.errorMessage = 'Asset Symbols maximum characters is 4.';
                 return null;
             }
+
+            $scope.createAssetFinal.open();
 
             if (!$scope.account) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());

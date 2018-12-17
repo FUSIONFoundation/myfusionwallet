@@ -730,7 +730,6 @@
         </section>
     </section>
 </article>
-
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content">
@@ -819,6 +818,118 @@
                 <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
                     <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
                     Please, review and try again!
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="createAssetFinal" tabindex="-1">
+    <section class="modal-dialog send-asset-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetFinal.close(); createAsset.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center p-2">
+                    <img src="images/check-circle.svg" class="text-center" height="80px" width="80px" alt="">
+                </div>
+
+                <h3 class="text-center">Asset Created!</h3>
+                <p class="text-center">
+                    The asset will show up in your wallet within the next 15 seconds
+                </p>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Transaction ID
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetHash}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Name
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetName}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Symbol
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetSymbol}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Decimal Points
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.decimals}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.totalSupply}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-xs-12 clearfix">
+                                <button class="btn btn-white btn-block"
+                                        ng-click="createAssetFinal.close(); createAsset.close()">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 clearfix text-center">
+                            <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool">
+                                <strong>Congratulations!</strong>
+                                <br>
+                                Your transaction was emitted and is now pending!
+                                <br>
+                                <button class="btn btn-primary">
+                                    <a href="linktoexplorer/{{successHash}}">
+                                        View on Explorer
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </article>
 
