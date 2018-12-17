@@ -554,7 +554,7 @@
                             </div>
                             <div class="col-md-6">
                             <span class="small-gray-text">
-                                    Till
+                                    Until
                                 </span>
                                 <br>
                                 <input class="form-control" type="date" min="{{todayDate}}"
@@ -689,7 +689,7 @@
                             </div>
                             <div class="col-md-6 border-gray-bottom pb-2 pt-2">
                                 <span class="small-gray-text">
-                                    Till
+                                    Until
                                 </span>
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.tillTime}}</span>
