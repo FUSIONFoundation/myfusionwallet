@@ -12,7 +12,7 @@ var angularAnimate = require("angular-animate");
 var Web3 = require("web3");
 var web3FusionExtend = require('web3-fusion-extend');
 var web3 = new Web3();
-web3 = new Web3(new Web3.providers.HttpProvider("http://35.236.213.79:9000"));
+web3 = new Web3(new Web3.providers.WebsocketProvider("wss://gateway.fusionnetwork.io:10001"));
 web3 = web3FusionExtend.extend(web3)
 console.log(web3.fsn.consts.FSNToken);
 window.web3 = web3;
