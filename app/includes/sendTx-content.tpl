@@ -590,7 +590,7 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="sendAssetModal.open();">                    <i
+                                  <span class="gray-text" ng-click="sendAssetConfirm.close(); sendAsset.close()">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
