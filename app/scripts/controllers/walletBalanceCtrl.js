@@ -1,7 +1,7 @@
 'use strict';
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
-            if ( !$scope.tx || !$scope.wallet ) {
+            if (!$scope.tx || !$scope.wallet) {
                 return
             }
             $scope.getShortAddressNotation();
@@ -126,12 +126,20 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         setInterval(function () {
-            if ( !$scope.tx || !$scope.wallet ) {
+            if (!$scope.tx || !$scope.wallet) {
                 return
             }
             $scope.getBalance();
             $scope.getShortAddressNotation();
         }, 15000);
+
+        $scope.toHexString = function (byteArray) {
+            var s = '0x';
+            byteArray.forEach(function (byte) {
+                s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
+            });
+            return s;
+        }
 
         $scope.getBalance = async function () {
             if ($scope.mayRunState = true) {
@@ -188,17 +196,18 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.setShortAddressNotation = async function () {
             if ($scope.mayRunState = true) {
-                let password = walletService.password;
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
 
                 if (!$scope.account) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
+
                 await web3.fsntx.buildGenNotationTx({
                     from: walletAddress
                 }).then((tx) => {
-                    return web3.fsn.signAndTransmit( tx, $scope.account.signTransaction).then( txHash =>{
+                    console.log(tx);
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         $scope.requestedSAN = true;
                         $scope.$apply(function () {
                             $scope.addressNotation.value = 'USAN Requested';
@@ -206,7 +215,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         });
                     })
                 });
-
                 await $scope.getShortAddressNotation();
             }
         }

@@ -747,7 +747,7 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span class="fusion-text-14">{{sendAsset.assetHash}}</span>
+                                <span class="fusion-text-14">{{successHash}}</span>
                             </div>
                             <br>
                         </div>

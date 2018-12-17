@@ -345,6 +345,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
         }
 
+        $scope.toHexString = function (byteArray) {
+            var s = '0x';
+            byteArray.forEach(function (byte) {
+                s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
+            });
+            return s;
+        }
+
         $scope.sendAsset = async function () {
             $scope.successMessagebool = true;
             let password = walletService.password;
@@ -375,20 +383,23 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             if ($scope.transactionType == "standard") {
 
                 if (!$scope.account) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
+
+                let hexAmount = web3.utils.numberToHex(amount);
+
                 await web3.fsntx.buildSendAssetTx({
                     from: from,
                     to: to,
-                    value: amount,
+                    value: hexAmount,
                     asset: asset
                 }).then((tx) => {
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        $scope.$apply(function () {
-                            hash = txHash;
-                            $scope.$apply(function () {
-                                $scope.successHash = txHash;
-                            });
+
+                        hash = txHash;
+                        $scope.$eval(function () {
+                            $scope.successHash = hash;
+                            $scope.successHash = hash;
                         });
                     })
                 });

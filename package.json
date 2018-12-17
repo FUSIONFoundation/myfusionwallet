@@ -40,8 +40,8 @@
     "u2f-api": "^1.0.9",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "web3": "^1.0.0-beta.37",
-    "web3-fusion-extend": "^1.0.0-beta.11",
+    "web3": "1.0.0-beta.36",
+    "web3-fusion-extend": "^1.0.0-beta.14",
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {
