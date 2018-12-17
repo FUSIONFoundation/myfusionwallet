@@ -626,8 +626,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2"
-                             ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                        <div class="border-gray-bottom pb-2 pt-2" ng-show="transactionType == 'standard'">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Send Type:
@@ -680,14 +679,14 @@
                         </div>
 
                         <div ng-hide="transactionType =='standard'">
-                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50">
                                 <span class="small-gray-text">
                                     From
                                 </span>
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
-                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50">
                                 <span class="small-gray-text">
                                     Until
                                 </span>
@@ -814,14 +813,14 @@
                             <br>
                         </div>
                         <div ng-hide="transactionType =='standard'">
-                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                            <div class="float-left border-gray-bottom pb-2 pt-2 w-50">
                                 <span class="small-gray-text">
                                     From
                                 </span>
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
-                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50">
                                 <span class="small-gray-text">
                                     Until
                                 </span>
