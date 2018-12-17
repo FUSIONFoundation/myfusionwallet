@@ -710,19 +710,6 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-sm-12 clearfix text-center">
-                            <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="successMessagebool">
-                                <strong>Congratulations!</strong>
-                                <br>
-                                Your transaction was emitted and is now pending!
-                                <br>
-                                <button class="btn btn-primary">
-                                    <a href="linktoexplorer/{{successHash}}">
-                                        View on Explorer
-                                    </a>
-                                </button>
-                            </div>
-                        </div>
                     </section>
                 </div>
             </article>
