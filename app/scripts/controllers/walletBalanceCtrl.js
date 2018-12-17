@@ -191,10 +191,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let password = walletService.password;
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
-                await web3.fsn.genNotation({from: walletAddress}, password).then(function (res) {
-                    console.log(res);
-                    $scope.addressNotation.value = res;
-                })
 
                 if (!$scope.account) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
