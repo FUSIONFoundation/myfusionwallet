@@ -458,7 +458,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.$eval(function () {
                 $scope.assetCreate.errorMessage = '';
             })
-            let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             let assetSymbol = '';
@@ -488,8 +487,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.createAssetFinal.open();
 
             if (!$scope.account) {
-                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
+
             await web3.fsntx.buildGenAssetTx({
                 from: walletAddress,
                 name: assetName,
@@ -570,8 +570,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await web3.fsn.allAssets().then(function (res) {
                     assetList = res;
                 });
-
-                // IMPLEMENT GET_BALANCE
 
                 for (let asset in assetList) {
                     let id = assetList[asset]["ID"];
