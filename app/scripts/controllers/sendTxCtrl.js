@@ -22,6 +22,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
         $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
         $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
+        $scope.sendAssetFinal = new Modal(document.getElementById('sendAssetFinal'));
         $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
         $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
 
@@ -368,6 +369,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
 
             let amount = parseInt($scope.sendAsset.amountToSend) * $scope.countDecimals(decimals);
+
+            $scope.sendAssetFinal.open();
 
             if ($scope.transactionType == "standard") {
 

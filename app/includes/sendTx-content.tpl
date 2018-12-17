@@ -730,6 +730,134 @@
         </section>
     </section>
 </article>
+<article class="modal fade" id="sendAssetFinal" tabindex="-1">
+    <section class="modal-dialog send-asset-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="sendAssetFinal.close(); sendAssetConfirm.close(); sendAsset.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center p-2">
+                    <img src="images/check-circle.svg" class="text-center" height="80px" width="80px" alt="">
+                </div>
+
+                <h3 class="text-center">Asset Sent!</h3>
+                <p class="text-center">
+                    The transaction will be reflected in your account within the next 15 seconds.</p>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Transaction ID
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{sendAsset.assetHash}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Type:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{sendAsset.assetName}}</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Your Address:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{wallet.getChecksumAddressString()}}</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                Recepient Address:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{sendAsset.toAddress}}</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-2 pt-2 inline w-100">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                Asset:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})
+                                    </span>
+                                <br>
+                                <span class="small-gray-text">{{sendAsset.assetHash}}</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                Amount:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">
+                                    <span class="mono wallet-balance">  {{sendAsset.amountToSend}} </span>
+                                    {{sendAsset.assetSymbol}}
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div ng-hide="transactionType =='standard'">
+                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                                <span class="small-gray-text">
+                                    From
+                                </span>
+                                <br>
+                                <span class="fusion-text-14">{{sendAsset.fromTime}}</span>
+                            </div>
+                            <div class="col-md-6 border-gray-bottom pb-2 pt-2">
+                                <span class="small-gray-text">
+                                    Until
+                                </span>
+                                <br>
+                                <span class="fusion-text-14">{{sendAsset.tillTime}}</span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-12 clearfix">
+                                <button class="btn btn-white btn-block"
+                                        ng-click="sendAssetFinal.close(); sendAssetConfirm.close(); sendAsset.close()">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content">
