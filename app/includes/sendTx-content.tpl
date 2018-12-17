@@ -685,14 +685,14 @@
                                     From
                                 </span>
                                 <br>
-                                <span class="fusion-text-14">{{sendAsset.fromTime}}</span>
+                                <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
                             <div class="col-md-6 border-gray-bottom pb-2 pt-2">
                                 <span class="small-gray-text">
                                     Until
                                 </span>
                                 <br>
-                                <span class="fusion-text-14">{{sendAsset.tillTime}}</span>
+                                <span class="fusion-text-14">{{sendAsset.tillTimeString}}</span>
                             </div>
                         </div>
 
@@ -819,14 +819,14 @@
                                     From
                                 </span>
                                 <br>
-                                <span class="fusion-text-14">{{sendAsset.fromTime}}</span>
+                                <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
                             <div class="col-md-6 border-gray-bottom pb-2 pt-2">
                                 <span class="small-gray-text">
                                     Until
                                 </span>
                                 <br>
-                                <span class="fusion-text-14">{{sendAsset.tillTime}}</span>
+                                <span class="fusion-text-14">{{sendAsset.tillTimeString}}</span>
                             </div>
                         </div>
                         <div class="row form-group">

@@ -287,11 +287,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAssetModalConfirm = function (asset) {
+            let fromTimeString = new Date($scope.sendAsset.fromTime).toLocaleDateString();
+            let tillTimeString = new Date($scope.sendAsset.tillTime).toLocaleDateString();
+
             return web3.fsn.getAsset(asset).then(function (res) {
                 $scope.$eval(function () {
                     $scope.sendAsset.assetName = res["Name"];
                     $scope.sendAsset.assetSymbol = res["Symbol"];
                     $scope.sendAsset.assetHash = asset;
+                    $scope.sendAsset.fromTimeString = fromTimeString;
+                    $scope.sendAsset.tillTimeString = tillTimeString;
                 });
                 $scope.sendAssetConfirm.open();
             });
@@ -410,14 +415,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             if ($scope.transactionType == "timed") {
 
-
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
 
-                console.log(fromTime, tillTime);
-
                 if (!$scope.account) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.wallet.getPrivateKey());
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
                 await web3.fsntx.buildAssetToTimeLockTx({
                     asset: asset,
@@ -428,16 +430,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     value: amount
                 }).then((tx) => {
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        $scope.$apply(function () {
-                            hash = txHash;
-                            $scope.$apply(function () {
+                            $scope.$eval(function () {
+                                $scope.successHash = txHash;
                                 $scope.successHash = txHash;
                             });
-                        });
                     })
-                    $scope.$apply(function () {
-                        $scope.successHash = hash;
-                    });
                 });
 
             }
