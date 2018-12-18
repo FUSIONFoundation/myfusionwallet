@@ -391,16 +391,17 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
-                let hexAmount = web3.utils.numberToHex(amount);
+                debugger
 
                 await web3.fsntx.buildSendAssetTx({
                     from: from,
                     to: to,
-                    value: hexAmount,
+                    value: amount,
                     asset: asset
                 }).then((tx) => {
+                    debugger
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-
+debugger
                         hash = txHash;
                         $scope.$eval(function () {
                             $scope.successHash = hash;
@@ -511,7 +512,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }, 7500);
 
         $scope.getTimeLockAssets = async function () {
-            if (walletService.password !== '') {
+            if (!$scope.tx || !$scope.wallet) {
+                return
+            }
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
                 let timeLockList = {};
@@ -553,12 +556,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.timeLockList = timeLockListSave;
                     $scope.timeLockList = timeLockListSave;
                 });
-            }
         }
 
 
         $scope.getAllFsnAssets = async function () {
-            if (walletService.password !== '') {
+            if (!$scope.tx || !$scope.wallet) {
+                return
+            }
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
                 let assetList = {};
@@ -600,7 +604,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.assetListOwns = assetList2;
                     $scope.assetListLoading = false;
                 });
-            }
         }
 
         $scope.getAllErcTokens = function () {
