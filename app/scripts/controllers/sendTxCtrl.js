@@ -391,8 +391,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
-                debugger
-
                 await web3.fsntx.buildSendAssetTx({
                     from: from,
                     to: to,
@@ -401,7 +399,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }).then((tx) => {
                     debugger
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-debugger
+
                         hash = txHash;
                         $scope.$eval(function () {
                             $scope.successHash = hash;
