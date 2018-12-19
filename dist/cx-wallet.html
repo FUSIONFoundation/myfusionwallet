@@ -1463,7 +1463,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <br>
+                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
@@ -1496,15 +1496,16 @@
                         <tr class="small-gray-text text-left">
                             <th scope="col">Status</th>
                             <th scope="col">Asset Name</th>
-                            <th scope="col">Timelock Period</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col"></th>
+                            <th scope="col">Time-lock Period</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
-                            <td> {{asset.name}} ({{asset.symbol}}) <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
+                            <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span>
+                                <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
                             <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
                             <td><button class="btn-sm btn-white">Send</button></td>
@@ -2962,7 +2963,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <br>
+                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
@@ -2995,15 +2996,16 @@
                         <tr class="small-gray-text text-left">
                             <th scope="col">Status</th>
                             <th scope="col">Asset Name</th>
-                            <th scope="col">Timelock Period</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col"></th>
+                            <th scope="col">Time-lock Period</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
-                            <td> {{asset.name}} ({{asset.symbol}}) <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
+                            <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span>
+                                <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
                             <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
                             <td><button class="btn-sm btn-white">Send</button></td>
@@ -7745,7 +7747,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <br>
+                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
@@ -7778,15 +7780,16 @@
                         <tr class="small-gray-text text-left">
                             <th scope="col">Status</th>
                             <th scope="col">Asset Name</th>
-                            <th scope="col">Timelock Period</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col"></th>
+                            <th scope="col">Time-lock Period</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
-                            <td> {{asset.name}} ({{asset.symbol}}) <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
+                            <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span>
+                                <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
                             <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
                             <td><button class="btn-sm btn-white">Send</button></td>
