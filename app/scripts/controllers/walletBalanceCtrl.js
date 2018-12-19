@@ -204,20 +204,22 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let app = new ledgerEth($scope.wallet.getHWTransport());
                 let rawTx = {};
                 await web3.fsntx.buildGenNotationTx({from: walletAddress}).then((tx) => {
-                    console.log(tx);
+                    tx.from = "324B25259562B679Ea0fa8b71d4B38CF5dB0b7E4";
                     rawTx.chainId = 1;
                     rawTx.gasPrice = parseInt(21000);
-                rawTx.data = rawTx.data == '' ? '0x' : rawTx.data;
+                    rawTx.data = rawTx.data == '' ? '0x' : rawTx.data;
                     tx.gasLimit = parseInt(21000);
                     var eTx = new ethUtil.Tx(tx);
-                let txData = {
-                    path: $scope.wallet.getPath(),
-                    hwType: $scope.wallet.getHWType(),
-                    hwTransport: $scope.wallet.getHWTransport()
-                }
-                    uiFuncs.signTxLedger(app, eTx, tx, txData, function (res) {
+                    let txData = {
+                        path: $scope.wallet.path,
+                    }
+                    debugger
+                    uiFuncs.signTxLedger(app, eTx, tx, txData, function (res, error) {
                         console.log(res);
-                    })
+                        console.log(error);
+                    });
+                    debugger
+
                 })
 
             } else {
