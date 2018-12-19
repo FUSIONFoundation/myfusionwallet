@@ -112,6 +112,7 @@
                             <th class="col">Timelock Type</th>
                             <th scope="col">Timelock Period</th>
                             <th scope="col">Quantity</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -127,6 +128,7 @@
                                 Until
                             </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
+                            <td><button class="btn-sm btn-white">Send</button></td>
                         </tr>
                         </tbody>
                     </table>
