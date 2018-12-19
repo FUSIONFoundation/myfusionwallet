@@ -397,6 +397,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     value: amount,
                     asset: asset
                 }).then((tx) => {
+                    let hexAmount = web3.utils.numberToHex(amount);
+                    tx.value = hexAmount;
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
 
                         hash = txHash;

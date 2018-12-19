@@ -42,6 +42,7 @@
     "vinyl-source-stream": "^1.1.0",
     "web3": "1.0.0-beta.36",
     "web3-fusion-extend": "^1.0.0-beta.14",
+    "websocket": "^1.0.28",
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {
