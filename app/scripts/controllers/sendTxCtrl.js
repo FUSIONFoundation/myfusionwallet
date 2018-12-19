@@ -545,6 +545,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     divider = $scope.countDecimals(res["Decimals"]);
                 });
                 for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
+                    let startTimePosix = timeLockList[asset]["Items"][i]["StartTime"];
+                    let endTimePosix = timeLockList[asset]["Items"][i]["EndTime"];
                     let startTime = timeLockList[asset]["Items"][i]["StartTime"] * 1000;
                     let endTime = timeLockList[asset]["Items"][i]["EndTime"] * 1000;
                     let currentDate = Math.floor(new Date().getTime()/1000.0);
@@ -553,19 +555,32 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     console.log(startTime);
                     console.log(endTime);
 
+                    // Calculate the status of the Time Lock
+
+                    // if the start and endtime are now and forever
+                    if (startTimePosix === 0 && endTimePosix === 18446744073709552000 ){
+                        status = 'Available';
+                    // if the start and end date in range of the current date
+                    } else if (startTimePosix >= currentDate && endTimePosix >= currentDate){
+                        status = 'Active';
+                    } else if (startTimePosix <= currentDate && endTimePosix >= currentDate){
+                        status = 'Active';
+                    } else if (startTimePosix <= currentDate && endTimePosix <= currentDate){
+                        status = 'Expired'
+                    }
+
+
                     // Set strings for dates
-                    if (startTime === 0) {
+                    if (startTimePosix === 0) {
                         startTime = 'Now'
                     } else {
                         startTime = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000).toLocaleDateString();
                     }
-                    if (endTime = 18446744073709552000) {
+                    if (endTimePosix === 18446744073709552000) {
                         endTime = '∞ Forever';
                     } else {
                         endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000).toLocaleDateString();
                     }
-
-                    // Calculate the status of the Time Lock
 
 
                     let data = {
@@ -580,10 +595,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                     }
 
+                    console.log(data);
+
                     await timeLockListSave.push(data);
                 }
                 x++;
             }
+            console.log(timeLockListSave);
             $scope.$eval(function () {
                 $scope.timeLockList = timeLockListSave;
             });

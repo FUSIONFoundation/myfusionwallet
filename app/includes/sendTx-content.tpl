@@ -117,7 +117,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index">
-                            <td>Available</td>
+                            <td class="color-{{asset.status}}">● {{asset.status}}</td>
                             <td> {{asset.name}} ({{asset.symbol}}) <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
                             <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
