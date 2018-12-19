@@ -536,6 +536,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let assetSymbol = '';
                 let assetDecimals = '';
                 let divider = '';
+                let status = '';
 
                 await web3.fsn.getAsset(assetId[x]).then(function (res) {
                     assetName = res["Name"];
@@ -546,10 +547,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
                     let startTime = timeLockList[asset]["Items"][i]["StartTime"] * 1000;
                     let endTime = timeLockList[asset]["Items"][i]["EndTime"] * 1000;
+                    let currentDate = Math.floor(new Date().getTime()/1000.0);
 
 
                     console.log(startTime);
                     console.log(endTime);
+
+                    // Set strings for dates
                     if (startTime === 0) {
                         startTime = 'Now'
                     } else {
@@ -561,9 +565,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000).toLocaleDateString();
                     }
 
+                    // Calculate the status of the Time Lock
+
 
                     let data = {
                         "id": i,
+                        "status" : status,
                         "name": assetName,
                         "asset": assetId[x],
                         "symbol": assetSymbol,

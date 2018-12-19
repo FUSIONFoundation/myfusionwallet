@@ -108,8 +108,8 @@
                     <table class="table">
                         <thead>
                         <tr class="small-gray-text text-left">
+                            <th scope="col">Status</th>
                             <th scope="col">Asset Name</th>
-                            <th class="col">Timelock Type</th>
                             <th scope="col">Timelock Period</th>
                             <th scope="col">Quantity</th>
                             <th scope="col"></th>
@@ -117,16 +117,9 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index">
-                            <td> {{asset.name}} ({{asset.symbol}}) <br>
-                                <span class="small-gray-text"> ID: {{asset.asset}}</span></td>
-                            <td><span class="badge badge-secondary">Time Locked</span></td>
-                            <td>
-                        <span class="small-gray-text">
-                                From
-                            </span> {{asset.startTime}} <br>
-                                <span class="small-gray-text">
-                                Until
-                            </span> {{asset.endTime}}</td>
+                            <td>Available</td>
+                            <td> {{asset.name}} ({{asset.symbol}}) <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
+                            <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
                             <td><button class="btn-sm btn-white">Send</button></td>
                         </tr>
