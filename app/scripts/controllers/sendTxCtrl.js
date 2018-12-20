@@ -26,6 +26,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
         $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
         let timeLockListSave = [];
+        let BN = web3.utils.BN;
 
 
         function formatDate() {
@@ -370,6 +371,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let asset = $scope.assetToSend;
             let hash = '';
 
+            if (to.length < 42){
+                web3.fsn.getAddressByNotation(parseInt(to)).then(function(address){
+                    to = address;
+                });
+            }
+
             $scope.$watch('transactionType', function () {
                 if ($scope.transactionType == "standard") {
                     console.log($scope.transactionType);
@@ -383,7 +390,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 decimals = parseInt(res[asset]["Decimals"]);
             });
 
-            let amount = parseInt($scope.sendAsset.amountToSend) * $scope.countDecimals(decimals);
+            let amount = parseInt($scope.sendAsset.amountToSend);
+
+            console.log(amount);
+
+            amount = new BN(amount + "0".repeat(parseInt(decimals)));
+
+            console.log(amount);
 
             $scope.sendAssetFinal.open();
 
@@ -430,6 +443,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     end: tillTime,
                     value: amount
                 }).then((tx) => {
+                    tx.from = from;
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         $scope.$eval(function () {
                             $scope.successHash = txHash;
@@ -551,10 +565,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let endTime = timeLockList[asset]["Items"][i]["EndTime"] * 1000;
                     let currentDate = Math.floor(new Date().getTime()/1000.0);
 
-
-                    console.log(startTime);
-                    console.log(endTime);
-
                     // Calculate the status of the Time Lock
 
                     // if the start and endtime are now and forever
@@ -595,13 +605,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                     }
 
-                    console.log(data);
-
                     await timeLockListSave.push(data);
                 }
                 x++;
             }
-            console.log(timeLockListSave);
             $scope.$eval(function () {
                 $scope.timeLockList = timeLockListSave;
             });

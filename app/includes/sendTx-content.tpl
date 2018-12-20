@@ -131,11 +131,11 @@
                             <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span
                                         class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
-                            <td>
-                                <button class="btn-sm btn-white" ng-show="asset.status === 'Available'"><img
+                            <td class="text-right">
+                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.status === 'Available'"><img
                                             src="images/group-5.svg" class="Group-6 m-0"></button>
-                                <button class="btn-sm btn-white" ng-hide="asset.status === 'Expired'">Send</button>
-                                <button class="btn-sm btn-white" ng-show="asset.status === 'Expired'">Remove</button>
+                                <button class="btn-sm btn-white action-button p-0" ng-hide="asset.status === 'Expired'">Send</button>
+                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.status === 'Expired'">Remove</button>
                             </td>
                         </tr>
                         </tbody>
