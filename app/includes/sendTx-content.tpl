@@ -704,7 +704,7 @@
 
 
                         <div ng-hide="transactionType =='standard'">
-                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50">
+                            <div class="float-left border-gray-bottom pb-2 pt-2 w-50">
                                 <span class="small-gray-text">
                                     From
                                 </span>
