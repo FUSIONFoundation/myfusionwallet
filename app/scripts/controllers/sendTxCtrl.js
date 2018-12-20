@@ -372,8 +372,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let asset = $scope.assetToSend;
             let hash = '';
 
-            if (to.length < 42){
-                web3.fsn.getAddressByNotation(parseInt(to)).then(function(address){
+            if (to.length < 42) {
+                web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
                     to = address;
                 });
             }
@@ -562,19 +562,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let endTimePosix = timeLockList[asset]["Items"][i]["EndTime"];
                     let startTime = timeLockList[asset]["Items"][i]["StartTime"] * 1000;
                     let endTime = timeLockList[asset]["Items"][i]["EndTime"] * 1000;
-                    let currentDate = Math.floor(new Date().getTime()/1000.0);
+                    let currentDate = Math.floor(new Date().getTime() / 1000.0);
 
                     // Calculate the status of the Time Lock
 
                     // if the start and endtime are now and forever
-                    if (startTimePosix === 0 && endTimePosix === 18446744073709552000 ){
+                    if (startTimePosix === 0 && endTimePosix === 18446744073709552000) {
                         status = 'Available';
-                    // if the start and end date in range of the current date
-                    } else if (startTimePosix >= currentDate && endTimePosix >= currentDate){
+                        // if the start and end date in range of the current date
+                    } else if (startTimePosix >= currentDate && endTimePosix >= currentDate) {
                         status = 'Active';
-                    } else if (startTimePosix <= currentDate && endTimePosix >= currentDate){
+                    } else if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
                         status = 'Active';
-                    } else if (startTimePosix <= currentDate && endTimePosix <= currentDate){
+                    } else if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
                         status = 'Expired'
                     }
 
@@ -594,7 +594,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     let data = {
                         "id": i,
-                        "status" : status,
+                        "status": status,
                         "name": assetName,
                         "asset": assetId[x],
                         "symbol": assetSymbol,

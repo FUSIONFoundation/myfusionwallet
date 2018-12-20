@@ -583,7 +583,7 @@
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance"
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime === '' || sendAsset.fromTime === '' || sendAsset.amountToSend === '' || sendAsset.toAddress === ''; "
                                 ng-show="transactionType == 'standard' || transactionType == 'timed'">
                             Next
                         </button>
