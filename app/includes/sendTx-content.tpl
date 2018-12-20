@@ -77,7 +77,9 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span> <br>
+                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                        ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                            class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
@@ -118,11 +120,20 @@
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
-                            <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge" ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i class="fa fa-check-circle"></i> FSN Official</span>
-                                <br><div class="max-char"><span class="small-gray-text" data-toggle="tooltip" data-placement="top" title="{{asset.asset}}">ID: {{asset.asset}}</span></div></td>
-                            <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span class="small-gray-text">Until </span> {{asset.endTime}}</td>
+                            <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                         ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                            class="fa fa-check-circle"></i> FSN Official</span>
+                                <br>
+                                <div class="max-char"><span class="small-gray-text" data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="{{asset.asset}}">ID: {{asset.asset}}</span></div>
+                            </td>
+                            <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span
+                                        class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
-                            <td><button class="btn-sm btn-white" ng-show="asset.status === 'Available'"><img src="images/group-5.svg" class="Group-6 m-0"></button>
+                            <td>
+                                <button class="btn-sm btn-white" ng-show="asset.status === 'Available'"><img
+                                            src="images/group-5.svg" class="Group-6 m-0"></button>
                                 <button class="btn-sm btn-white" ng-hide="asset.status === 'Expired'">Send</button>
                                 <button class="btn-sm btn-white" ng-show="asset.status === 'Expired'">Remove</button>
                             </td>
@@ -721,7 +732,8 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="sendAssetFinal.close(); sendAssetConfirm.close(); sendAsset.close()">                    <i
+                                  <span class="gray-text"
+                                        ng-click="sendAssetFinal.close(); sendAssetConfirm.close(); sendAsset.close()">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
@@ -741,11 +753,12 @@
                         <div class="border-gray-bottom pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
-                                    Transaction ID
+                                Transaction ID
                                 </span>
                             </div>
-                            <div class="float-right">
-                                <span class="fusion-text-14">{{successHash}}</span>
+                            <div class="float-right max-char">
+   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+         title="{{successHash}}">{{successHash}}
                             </div>
                             <br>
                         </div>
@@ -868,7 +881,8 @@
                                ng-model="assetCreate.assetName"
                                maxlength="35"
                                placeholder="Enter an Asset Name"/>
-                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetName.length}}/35</span>
+                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetName.length}}
+                            /35</span>
 
                     </div>
                     <div class="col-sm-6">
@@ -880,7 +894,8 @@
                                maxlength="4"
                                ng-model="assetCreate.assetSymbol"
                                placeholder="ABCDE"/>
-                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetSymbol.length}}/4</span>
+                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetSymbol.length}}
+                            /4</span>
                     </div>
                     <div class="col-sm-6">
                                                <span class="small-gray-text">
@@ -917,8 +932,8 @@
                     </div>
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-primary btn-block"
-                           ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
-                           ng-click="createAsset()">
+                                ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
+                                ng-click="createAsset()">
                             Generate Asset
                         </button>
                     </div>
@@ -967,8 +982,10 @@
                                     Transaction ID
                                 </span>
                             </div>
-                            <div class="float-right">
-                                <span class="fusion-text-14">{{assetCreate.assetHash}}</span>
+                            <div class="float-right max-char">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="{{assetCreate.assetHash}}">{{assetCreate.assetHash}}
+                                </span>
                             </div>
                             <br>
                         </div>
