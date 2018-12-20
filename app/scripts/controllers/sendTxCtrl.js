@@ -392,11 +392,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let amount = parseInt($scope.sendAsset.amountToSend);
 
-            console.log(amount);
-
             amount = new BN(amount + "0".repeat(parseInt(decimals)));
 
-            console.log(amount);
+            console.log(amount)
 
             $scope.sendAssetFinal.open();
 

@@ -687,6 +687,21 @@
                             </div>
                             <br>
                         </div>
+                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                Gas Price:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">
+                                    <span class="mono wallet-balance">0.000021</span>
+                                    FSN
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+
 
                         <div ng-hide="transactionType =='standard'">
                             <div class="float-right border-gray-bottom pb-2 pt-2 w-50">
@@ -820,6 +835,20 @@
                                 <span class="fusion-text-14">
                                     <span class="mono wallet-balance">  {{sendAsset.amountToSend}} </span>
                                     {{sendAsset.assetSymbol}}
+                                </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                Gas Price:
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">
+                                    <span class="mono wallet-balance">0.000021</span>
+                                    FSN
                                 </span>
                             </div>
                             <br>
