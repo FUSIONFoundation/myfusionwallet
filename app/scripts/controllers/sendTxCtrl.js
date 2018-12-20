@@ -391,13 +391,35 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 decimals = parseInt(res[asset]["Decimals"]);
             });
 
-            let amount = parseInt($scope.sendAsset.amountToSend);
+            let amount = $scope.sendAsset.amountToSend.toString();
 
-            amount = new BN(amount + "0".repeat(parseInt(decimals)));
-
-            console.log(amount)
-
-            $scope.sendAssetFinal.open();
+            let pieces = amount.split( "." )
+            let d = parseInt(decimals)
+            if ( pieces.length === 1 ) {
+                amount = parseInt( amount )
+                if ( isNaN(amount) || amount < 0 ) {
+                    // error message
+                    return
+                }
+                amount = new BN( amount + "0".repeat(parseInt(decimals)));
+            } else if ( pieces.length > 2 ) {
+                // error message
+                return
+            } else if ( pieces[1].length >= d ) {
+                return // error
+            } else {
+                let dec = parseInt( pieces[1])
+                if (  isNaN( pieces[1] ) || dec < 0 ) {
+                    // return error
+                }
+                let declen = d- dec.toString().length
+                amount = parseInt( pieces[0] )
+                if ( isNaN(amount) || amount < 0 ) {
+                    // error message
+                    return
+                }
+                amount = new BN( amount + dec + "0".repeat(parseInt(declen)));
+            }
 
             if ($scope.transactionType == "standard") {
 
@@ -415,6 +437,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         hash = txHash;
+                        $scope.sendAssetFinal.open();
                         $scope.$eval(function () {
                             $scope.successHash = hash;
                             $scope.successHash = hash;
