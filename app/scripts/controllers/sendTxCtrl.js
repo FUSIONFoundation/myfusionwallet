@@ -307,6 +307,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.sendAssetModalOpen = function () {
+            $scope.getAssetBalance();
             $scope.sendAssetModal.open();
             $scope.$applyAsync(function () {
                 $scope.sendAsset.toAddress = '';

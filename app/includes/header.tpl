@@ -166,11 +166,12 @@
                         <a class="dropdown-toggle btn btn-gray m-3"
                            href="https://forms.office.com/Pages/ResponsePage.aspx?id=EW3s-wk4CEOiM1Aj1P3e9ATvewrXjsFAmw64pIT0-PhUMjhVNFRCMVZLU0ZFTFU2MTZGWUdENjkyRy4u"
                            target="_blank">Feedback</a>
+                        <a class="dropdown-toggle btn btn-gray m-3">Network: FUSION PSN</a>
                         <span class="dropdown dropdown-node" ng-cloak>
       <a tabindex="0"
          aria-haspopup="true"
          aria-label="change node. current node {{curNode.name}} node by {{curNode.service}}"
-         class="dropdown-toggle btn btn-gray"
+         class="dropdown-toggle btn btn-gray hidden"
          ng-click="dropdownNode = !dropdownNode">
            <span translate="X_Network">Network:</span>
           {{curNode.name}}

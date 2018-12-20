@@ -922,7 +922,7 @@
                                class="form-control"
                                maxlength="4"
                                ng-model="assetCreate.assetSymbol"
-                               placeholder="ABCDE"/>
+                               placeholder="4 Characters or less"/>
                         <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetSymbol.length}}
                             /4</span>
                     </div>
@@ -937,7 +937,6 @@
                                class="form-control"
                                ng-model="assetCreate.decimals"
                                placeholder="Up to 15 Decimal Points"/>
-                        <span class="small-gray-text text-right w-100 float-right">{{assetCreate.decimals}}/15</span>
 
                     </div>
                     <div class="col-sm-12 clearfix">
