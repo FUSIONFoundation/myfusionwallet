@@ -606,7 +606,7 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="sendAssetModal.close();">                    <i
+                                  <span class="gray-text" ng-click="sendBackToAssetsModal.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
@@ -639,7 +639,7 @@
                 <div class="row form-group">
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-white btn-block"
-                                ng-click="sendBackToAssetsModal.close(timeLockToAssetId)">
+                                ng-click="sendBackToAssetsModal.close()">
                             Cancel
                         </button>
                     </div>
