@@ -1,7 +1,7 @@
-<article class="block decrypt-drtv clearfix container-small" ng-controller='decryptWalletCtrl as $crtl'>
+<article class="block decrypt-drtv clearfix container-small" style="max-width:800px !important" ng-controller='decryptWalletCtrl as $crtl'>
 
     <!-- Column 1 - Select Type of Key -->
-    <section class="col-md-12 col-sm-6">
+    <section class="col-md-5 col-sm-6">
 
         <h4 class="text-fusion">Access Existing Wallet</h4>
         <p class="text-fusion" translate="decrypt_Access">
@@ -162,8 +162,7 @@
 
 
     <!-- Column 2 - Unlock That Key -->
-    <section class="col-md-12 col-sm-6">
-        <hr>
+    <section class="col-md-7 col-sm-6">
         <!-- View Only -->
         <div id="selectedTypeKey" ng-if="walletType=='addressOnly'">
             <h4 translate="x_Address">
