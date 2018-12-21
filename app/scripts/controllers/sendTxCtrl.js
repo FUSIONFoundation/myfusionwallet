@@ -366,20 +366,39 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return s;
         }
 
-        $scope.sendBackToAssets = async function (asset,amount) {
-            $scope.assetToSend = asset;
-            $scope.selectedAssetBalance = amount;
-
-            await web3.fsn.getAsset(asset).then(function(res){
-                $scope.$eval(function(){
-                    $scope.sendAsset.assetName = res["Name"];
-                    $scope.sendAsset.assetSymbol = res["Symbol"];
-                })
+        $scope.sendBackToAssets = async function (id) {
+            let tlData = $scope.timeLockList[id];
+            console.log(tlData);
+            $scope.sendAsset.assetName = tlData.name;
+            $scope.sendAsset.assetSymbol = tlData.symbol;
+            $scope.assetToSend = tlData.asset;
+            $scope.selectedAssetBalance = tlData.value;
                 $scope.sendBackToAssetsModal.open();
-            })
+        }
 
-            console.log(`${asset} ${$scope.sendAsset.assetName} ${$scope.sendAsset.assetSymbol}`);
-            console.log(amount);
+        $scope.sendBackToAssetsFunction = async function (){
+            if (!$scope.account) {
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+            }
+
+            await web3.fsntx.buildTimeLockToAssetTx({
+                from: from,
+                to: to,
+                value: amount,
+                asset: asset
+            }).then((tx) => {
+                tx.from = from;
+
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    hash = txHash;
+                    $scope.sendAssetFinal.open();
+                    $scope.$eval(function () {
+                        $scope.successHash = hash;
+                        $scope.successHash = hash;
+                    });
+                })
+            });
+
         }
 
         $scope.sendAsset = async function () {
@@ -636,7 +655,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
                     let data = {
-                        "id": i,
+                        "id": timeLockListSave.length,
                         "status": status,
                         "name": assetName,
                         "asset": assetId[x],
@@ -644,6 +663,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "decimals": assetDecimals,
                         "startTime": startTime,
                         "endTime": endTime,
+                        "posixStartTime" : startTimePosix,
+                        "posixEndTime" : endTimePosix,
+                        "rawValue" : timeLockList[asset]["Items"][i]["Value"],
                         "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                     }
 

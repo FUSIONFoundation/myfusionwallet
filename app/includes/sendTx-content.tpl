@@ -132,7 +132,7 @@
                                         data-toggle="tooltip"
                                         data-placement="top"
                                         title="Send back to Assets"
-                                        ng-click="sendBackToAssets(asset.asset , asset.value)">
+                                        ng-click="sendBackToAssets(asset.id)">
                                     <img src="images/group-5.svg" class="Group-6 m-0">
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0" ng-hide="asset.status === 'Expired'">
@@ -645,7 +645,7 @@
                     </div>
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-primary btn-block"
-                                ng-click="sendAssetModalConfirm(assetToSend)">
+                                ng-click="">
                             Send to Assets
                         </button>
                     </div>
