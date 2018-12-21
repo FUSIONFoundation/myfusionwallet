@@ -73,7 +73,9 @@
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">{{asset.total}}</td>
-                            <td class="text-right"><button class="btn-sm btn-white action-button p-0">Send</button></td>
+                            <td class="text-right">
+                                <button class="btn-sm btn-white action-button p-0">Send</button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -125,10 +127,20 @@
                                         class="small-gray-text">Until </span> {{asset.endTime}}</td>
                             <td>{{asset.value}}</td>
                             <td class="text-right">
-                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.status === 'Available'"><img
-                                            src="images/group-5.svg" class="Group-6 m-0"></button>
-                                <button class="btn-sm btn-white action-button p-0" ng-hide="asset.status === 'Expired'">Send</button>
-                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.status === 'Expired'">Remove</button>
+                                <button class="btn-sm btn-white action-button p-0"
+                                        ng-show="asset.status === 'Available'"
+                                        data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="Send back to Assets"
+                                        ng-click="sendBackToAssets(asset.asset , asset.value)">
+                                    <img src="images/group-5.svg" class="Group-6 m-0">
+                                </button>
+                                <button class="btn-sm btn-white action-button p-0" ng-hide="asset.status === 'Expired'">
+                                    Send
+                                </button>
+                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.status === 'Expired'">
+                                    Remove
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -579,6 +591,62 @@
                                 ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime === '' || sendAsset.fromTime === '' || sendAsset.amountToSend === '' || sendAsset.toAddress === ''; "
                                 ng-show="transactionType == 'standard' || transactionType == 'timed'">
                             Next
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+
+<article class="modal fade" id="sendBackToAssetsModal" tabindex="-1">
+    <section class="modal-dialog send-asset-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="sendAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <h3>Send Time-Lock to Asset</h3>
+
+                <p class="small-gray-text">Send your time-locked asset and send it back to your assets.</p>
+                <section class="row form-group">
+                        <div class="col-sm-8">
+                            <span class="small-gray-text">
+                                Asset:
+                            </span>
+                            <div class="gray-bg p-1">
+                                <span class="mono wallet-balance">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})</span>
+                                <br>
+                                <span class="small-gray-text text-fusion fusion-text-14">{{assetToSend}}</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <span class="small-gray-text">
+                                Amount:
+                            </span>
+                            <div class="gray-bg p-1">
+                                <span class="mono wallet-balance">{{selectedAssetBalance}}</span> <span class="small-gray-text text-fusion fusion-text-14">{{sendAsset.assetSymbol}}</span>
+                            </div>
+                        </div>
+                </section>
+                <div class="row form-group">
+                    <div class="col-xs-6 clearfix">
+                        <button class="btn btn-white btn-block"
+                                ng-click="sendBackToAssetsModal.close()">
+                            Cancel
+                        </button>
+                    </div>
+                    <div class="col-xs-6 clearfix">
+                        <button class="btn btn-primary btn-block"
+                                ng-click="sendAssetModalConfirm(assetToSend)">
+                            Send to Assets
                         </button>
                     </div>
                 </div>

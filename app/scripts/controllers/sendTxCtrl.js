@@ -25,6 +25,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendAssetFinal = new Modal(document.getElementById('sendAssetFinal'));
         $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
         $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
+        $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
+
+
+
         let timeLockListSave = [];
         let BN = web3.utils.BN;
 
@@ -360,6 +364,22 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
             });
             return s;
+        }
+
+        $scope.sendBackToAssets = async function (asset,amount) {
+            $scope.assetToSend = asset;
+            $scope.selectedAssetBalance = amount;
+
+            await web3.fsn.getAsset(asset).then(function(res){
+                $scope.$eval(function(){
+                    $scope.sendAsset.assetName = res["Name"];
+                    $scope.sendAsset.assetSymbol = res["Symbol"];
+                })
+                $scope.sendBackToAssetsModal.open();
+            })
+
+            console.log(`${asset} ${$scope.sendAsset.assetName} ${$scope.sendAsset.assetSymbol}`);
+            console.log(amount);
         }
 
         $scope.sendAsset = async function () {

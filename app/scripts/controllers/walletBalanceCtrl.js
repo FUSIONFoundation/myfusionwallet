@@ -87,7 +87,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.showPkState = false;
             })
         }
-        console.log($scope.wallet.hwType);
     }
 
     $scope.viewDetailsModalClose = function () {
