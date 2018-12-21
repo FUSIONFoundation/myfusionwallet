@@ -29,23 +29,7 @@
         </div>
     </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">
-        <div class="col-md-12 p-0">
-            <nav class="nav-container" style="background-color: white!important;">
-                <div class="nav-scroll">
-                    <ul class="nav-inner">
-                        <li class="nav-item Swaps" ng-class="{active: showAllAssets==true}">
-                            <a class="ng-scope" ng-click="showAllAssets = true ; showTimeLockedAssets = false">
-                                All Assets <span ng-model="assetListOwns">({{assetListOwns.length}})</span></a>
-                        </li>
-                        <li class="nav-item Swaps" ng-class="{active: showTimeLockedAssets==true}">
-                            <a class="ng-scope" ng-click="showAllAssets = false ; showTimeLockedAssets = true">
-                                Time-locked Assets <span ng-model="timeLockList">({{timeLockList.length}})</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <section class="row form-group" ng-show="showAllAssets === true">
+        <section class="row form-group">
             <div class="col-sm-12 clearfix">
                 <p class="p-2">The “All Assets” tab gives you an overview of assets in your fusion wallet Assets can be
                     created, sent, timelocked or swapped.</p>
@@ -96,7 +80,14 @@
                 </div>
             </div>
         </section>
-        <section class="row form-group" ng-show="showTimeLockedAssets === true">
+    </article>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Time-Locked Assets</h3>
+        </div>
+    </div>
+    <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="row form-group">
             <div class="col-sm-12 clearfix">
                 <p class="p-2">The Time-locked Assets tab gives you more details on timelocks, their length, and their
                     type.</p>
@@ -886,7 +877,6 @@
         </section>
     </section>
 </article>
-
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content">
