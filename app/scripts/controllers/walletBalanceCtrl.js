@@ -72,23 +72,30 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.showPk = function (set) {
         if (set === 'show') {
             if ($scope.inputPassword === walletService.password) {
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.showPkState = true;
                 })
             } else {
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.showPkState = false;
                 })
             }
         }
-        if (set === 'hide'){
-            $scope.$eval(function(){
+        if (set === 'hide') {
+            $scope.$eval(function () {
                 $scope.inputPassword = '';
                 $scope.showPkState = false;
             })
         }
         console.log($scope.wallet.hwType);
     }
+
+    $scope.viewDetailsModalClose = function () {
+        $scope.inputPassword = '';
+        $scope.showPk('hide');
+        $scope.viewDetailsModal.close();
+
+    };
 
 
     $scope.$watch('wallet', function () {
