@@ -73,6 +73,7 @@
                             <th scope="col">Asset Info</th>
                             <th scope="col" class="text-right">Available</th>
                             <th scope="col" class="text-right">Total Quantity</th>
+                            <th scope="col" class="text-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -88,6 +89,7 @@
                             <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">{{asset.total}}</td>
+                            <td class="text-right"><button class="btn-sm btn-white action-button p-0">Send</button></td>
                         </tr>
                         </tbody>
                     </table>

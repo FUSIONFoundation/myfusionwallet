@@ -11,9 +11,12 @@
                 </div>
                 <hr>
                 <div class="col-md-12 col-xs-12 text-center p-0">
-                    <button class="btn btn-white btn-block p-1 pt-2 pb-2" ng-click="viewDetailsModal.open()">View Details</button>
+                    <button class="btn btn-white btn-block p-1 pt-2 pb-2" ng-click="viewDetailsModal.open()">View
+                        Details
+                    </button>
                     <a href="./index.html#generate-wallet">
-                        <button class="balance-id btn btn-white btn-block p-1 pt-2 pb-2 text-red btn-sm">Close Wallet</button>
+                        <button class="balance-id btn btn-white btn-block p-1 pt-2 pb-2 text-red btn-sm">Close Wallet
+                        </button>
                     </a>
                 </div>
             </div>
@@ -96,9 +99,28 @@
                                 <span class="small-gray-text text-fusion fusion-text-14"
                                       ng-bind="addressNotation.value"></span>
                             </div>
-                            <span class="small-gray-text inline mb-2 mt-2">Private Key (Unencrypted)</span>
-                            <div class="gray-bg p-1">
-                                <span class="small-gray-text text-fusion fusion-text-14">{{wallet.getPrivateKeyString()}}</span>
+                            <div class="col-md-12">
+                                <div class="row form-group" ng-show="showPkState">
+                                    <span class="small-gray-text inline mb-2 mt-2">Private Key (Unencrypted)</span>
+                                    <div class="col-md-10 pl-1 pr-1">
+                                        <div class="gray-bg p-1 break-word">
+                                            <span class="small-gray-text text-fusion fusion-text-14">{{wallet.getPrivateKeyString()}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 pl-1 pr-1">
+                                        <button class="btn btn-sm btn-white m-0" ng-click="showPk('hide')">Hide</button>
+                                    </div>
+                                </div>
+                                <div class="row form-group" ng-hide="showPkState">
+                                    <span class="small-gray-text inline mb-2 mt-2">Private Key (Unencrypted)</span>
+                                    <div class="col-md-10 pl-1 pr-1">
+                                        <input type="password" class="form-control" placeholder="Your Password"
+                                               ng-model="inputPassword">
+                                    </div>
+                                    <div class="col-md-2 pl-1 pr-1">
+                                        <button class="btn btn-sm btn-primary" ng-click="showPk('show')">View Key</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

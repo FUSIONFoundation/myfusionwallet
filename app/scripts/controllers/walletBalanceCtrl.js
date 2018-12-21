@@ -16,6 +16,8 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     walletService.password = '';
     $scope.tokensLoaded = false;
     $scope.showAllTokens = false;
+    $scope.inputPassword = '';
+    $scope.showPkState = false;
     $scope.localToken = {
         contractAdd: "",
         symbol: "",
@@ -65,6 +67,27 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             });
         }
+    }
+
+    $scope.showPk = function (set) {
+        if (set === 'show') {
+            if ($scope.inputPassword === walletService.password) {
+                $scope.$eval(function(){
+                    $scope.showPkState = true;
+                })
+            } else {
+                $scope.$eval(function(){
+                    $scope.showPkState = false;
+                })
+            }
+        }
+        if (set === 'hide'){
+            $scope.$eval(function(){
+                $scope.inputPassword = '';
+                $scope.showPkState = false;
+            })
+        }
+        console.log($scope.wallet.hwType);
     }
 
 
