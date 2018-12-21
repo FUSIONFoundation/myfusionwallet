@@ -19,6 +19,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.signedTx = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
+        $scope.timeLockToAssetId = '';
         $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
         $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
         $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
@@ -368,24 +369,59 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.sendBackToAssets = async function (id) {
             let tlData = $scope.timeLockList[id];
-            console.log(tlData);
+
             $scope.sendAsset.assetName = tlData.name;
             $scope.sendAsset.assetSymbol = tlData.symbol;
             $scope.assetToSend = tlData.asset;
             $scope.selectedAssetBalance = tlData.value;
-                $scope.sendBackToAssetsModal.open();
+            $scope.timeLockToAssetId = tlData.id;
+
+            console.log($scope.timeLockToAssetId)
+
+            $scope.$eval(function(){
+                $scope.timeLockToAssetId = tlData.id;
+            })
+
+            $scope.sendBackToAssetsModal.open();
         }
 
-        $scope.sendBackToAssetsFunction = async function (){
+        $scope.sendBackToAssetsFunction = async function (id){
+            let accountData = uiFuncs.getTxData($scope);
+
+            id = $scope.timeLockToAssetId;
+            let tlData = $scope.timeLockList[id];
+
+            let from = accountData.from;
+
+            console.log(tlData);
+
             if (!$scope.account) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
+            // fsn.timeLockToAsset(
+            //     {asset:"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+            //      from:fsn.coinbase
+            //      to:fsn.coinbase
+            //      start:"0x0"
+            //      end:"0x0"
+            //      value:"0x100"}
+            //
+
+            let startTime = getHexDate(convertDate(tlData.posixStartTime));
+            let endTime = getHexDate(convertDate(tlData.posixEndTime));
+
+            console.log(`${tlData.posixStartTime} ${startTime}`);
+            console.log(`${tlData.posixEndTime} ${endTime}`);
+
+
             await web3.fsntx.buildTimeLockToAssetTx({
+                asset:tlData.asset,
                 from: from,
-                to: to,
-                value: amount,
-                asset: asset
+                to: from,
+                start: startTime,
+                end : endTime,
+                value: tlData.rawValue
             }).then((tx) => {
                 tx.from = from;
 

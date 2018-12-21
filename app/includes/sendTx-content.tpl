@@ -639,13 +639,13 @@
                 <div class="row form-group">
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-white btn-block"
-                                ng-click="sendBackToAssetsModal.close()">
+                                ng-click="sendBackToAssetsModal.close(timeLockToAssetId)">
                             Cancel
                         </button>
                     </div>
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-primary btn-block"
-                                ng-click="">
+                                ng-click="sendBackToAssetsFunction()">
                             Send to Assets
                         </button>
                     </div>
