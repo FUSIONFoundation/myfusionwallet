@@ -376,7 +376,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.selectedAssetBalance = tlData.value;
             $scope.timeLockToAssetId = tlData.id;
 
-            console.log($scope.timeLockToAssetId)
+            console.log($scope.timeLockToAssetId);
 
             $scope.$eval(function(){
                 $scope.timeLockToAssetId = tlData.id;
@@ -408,8 +408,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             //      value:"0x100"}
             //
 
-            let startTime = getHexDate(convertDate(tlData.posixStartTime));
-            let endTime = getHexDate(convertDate(tlData.posixEndTime));
+            let startTime = web3.utils.numberToHex(tlData.posixStartTime);
+            let endTime = web3.utils.numberToHex(tlData.posixEndTime);
+
 
             console.log(`${tlData.posixStartTime} ${startTime}`);
             console.log(`${tlData.posixEndTime} ${endTime}`);
@@ -426,12 +427,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 tx.from = from;
 
                 return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                    hash = txHash;
-                    $scope.sendAssetFinal.open();
-                    $scope.$eval(function () {
-                        $scope.successHash = hash;
-                        $scope.successHash = hash;
-                    });
+                    console.log(txHash);
                 })
             });
 
