@@ -22,7 +22,7 @@
                 <a class="btn btn-sm btn-primary"
                    data-toggle="modal"
                    data-target="#sendAsset"
-                   ng-click="sendAssetModalOpen()"
+                   ng-click="sendAssetModalOpen(); transactionType = 'none'"
                 >
                     Send Assets
                 </a></div>
@@ -74,7 +74,9 @@
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">{{asset.total}}</td>
                             <td class="text-right">
-                                <button class="btn-sm btn-white action-button p-0">Send</button>
+                                <button class="btn-sm btn-white action-button p-0"
+                                        ng-click=" sendAssetModalOpen(asset.id)">Send
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -501,12 +503,22 @@
                                    ng-model="sendAsset.toAddress"
                                    placeholder="Enter a fusion address"/>
                         </div>
+
+                        <div class="col-sm-12 mb-2" ng-show="showStaticAsset">
+                            <div class="sendAssetBalanceAvailable">
+                                <span class="text-fusion">{{assetName}}</span>
+                                <div class="break-word">
+                                    <span class="small-gray-text">{{assetToSend}}</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-sm-12 clearfix">
-                            <span class="small-gray-text">
+                            <span class="small-gray-text" ng-hide="showStaticAsset">
                                 Select Asset:
                             </span>
                             <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()"
-                                    placeholder="lol">
+                                    placeholder="lol" ng-hide="showStaticAsset">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
@@ -537,13 +549,18 @@
                                 </span>
                             <br>
                             <div class="col-md-4 p-0">
-                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='none'">None</button>
+                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='none'">None
+                                </button>
                             </div>
                             <div class="col-md-4 p-0">
-                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='scheduled'">Schedule Send Date</button>
+                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='scheduled'">
+                                    Schedule Send Date
+                                </button>
                             </div>
                             <div class="col-md-4 p-0">
-                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='daterange'">Date Range</button>
+                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='daterange'">Date
+                                    Range
+                                </button>
                             </div>
                         </div>
                         <div ng-hide="transactionType =='none'">
@@ -604,24 +621,25 @@
 
                 <p class="small-gray-text">Send your time-locked asset and send it back to your assets.</p>
                 <section class="row form-group">
-                        <div class="col-sm-8">
+                    <div class="col-sm-8">
                             <span class="small-gray-text">
                                 Asset:
                             </span>
-                            <div class="gray-bg p-1">
-                                <span class="mono wallet-balance">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})</span>
-                                <br>
-                                <span class="small-gray-text text-fusion fusion-text-14">{{assetToSend}}</span>
-                            </div>
+                        <div class="gray-bg p-1">
+                            <span class="mono wallet-balance">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})</span>
+                            <br>
+                            <span class="small-gray-text text-fusion fusion-text-14">{{assetToSend}}</span>
                         </div>
-                        <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
                           <span class="small-gray-text">
                                 Amount:
                             </span>
-                            <div class="gray-bg p-1">
-                                <span class="mono wallet-balance">{{selectedAssetBalance}}</span> <span class="small-gray-text text-fusion fusion-text-14">{{sendAsset.assetSymbol}}</span>
-                            </div>
+                        <div class="gray-bg p-1">
+                            <span class="mono wallet-balance">{{selectedAssetBalance}}</span> <span
+                                    class="small-gray-text text-fusion fusion-text-14">{{sendAsset.assetSymbol}}</span>
                         </div>
+                    </div>
                 </section>
                 <div class="row form-group">
                     <div class="col-xs-6 clearfix">
@@ -753,7 +771,7 @@
 
                         <div ng-hide="transactionType =='none'">
                             <div class="float-left border-gray-bottom pb-2 pt-2 w-50"
-                                 ng-class="{'w-100' : transactionType == 'scheduled'}" >
+                                 ng-class="{'w-100' : transactionType == 'scheduled'}">
                                 <span class="small-gray-text">
                                     From
                                 </span>

@@ -311,12 +311,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
 
-        $scope.sendAssetModalOpen = function () {
-            $scope.getAssetBalance();
+        $scope.sendAssetModalOpen = async function (id) {
+            if (id){
+                let assetData = $scope.assetListOwns[id];
+                $scope.$eval(function(){
+                    $scope.assetToSend = assetData.contractaddress;
+                    $scope.assetName = assetData.name;
+                    $scope.showStaticAsset = true;
+                    $scope.getAssetBalance();
+                })
+            } else {
+                $scope.$eval(function(){
+                    $scope.showStaticAsset = false;
+                })
+            }
             $scope.sendAssetModal.open();
             $scope.$applyAsync(function () {
                 $scope.sendAsset.toAddress = '';
                 $scope.sendAsset.amountToSend = '';
+                $scope.transactionType = 'none';
                 $scope.successMessagebool = false;
             });
         }
@@ -716,6 +729,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (assetBalance > 0.000000000001) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                     let data = {
+                        "id" : assetList2.length,
                         "name": assetList[asset]["Name"],
                         "symbol": assetList[asset]["Symbol"],
                         "decimals": assetList[asset]["Decimals"],
