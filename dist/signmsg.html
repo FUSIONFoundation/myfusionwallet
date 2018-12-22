@@ -2,9 +2,9 @@
 <html lang="en" ng-app="mewApp">
 <head>
   <meta charset="utf-8">
-  <title>MyEtherWallet.com</title>
-  <link rel="canonical" href="https://www.myetherwallet.com" />
-  <meta name="description" content="MyEtherWallet.com is a free, open-source, client-side interface for generating Ethereum wallets &amp; more. Interact with the Ethereum blockchain easily &amp; securely. Double-check the URL ( myetherwallet.com ) before unlocking your wallet.">
+  <title>MyFusionWallet.com</title>
+  <link rel="canonical" href="https://www.myfusionwallet.com" />
+  <meta name="description" content="Fusion Wallet is a free client-side interface for creating and using wallets. The Fusion wallet allows for asset creation/ management and uninhibited interoperability.">
   <meta name="author" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/etherwallet-master.min.css">
