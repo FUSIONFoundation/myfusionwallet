@@ -399,22 +399,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
-            // fsn.timeLockToAsset(
-            //     {asset:"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-            //      from:fsn.coinbase
-            //      to:fsn.coinbase
-            //      start:"0x0"
-            //      end:"0x0"
-            //      value:"0x100"}
-            //
-
             let startTime = web3.utils.numberToHex(tlData.posixStartTime);
             let endTime = web3.utils.numberToHex(tlData.posixEndTime);
-
-
-            console.log(`${tlData.posixStartTime} ${startTime}`);
-            console.log(`${tlData.posixEndTime} ${endTime}`);
-
 
             await web3.fsntx.buildTimeLockToAssetTx({
                 asset:tlData.asset,
@@ -435,7 +421,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.sendAsset = async function () {
             $scope.successMessagebool = true;
-            let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
             let from = accountData.from;
             let to = $scope.sendAsset.toAddress;
@@ -449,14 +434,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
 
-            $scope.$watch('transactionType', function () {
-                if ($scope.transactionType == "standard") {
-                    console.log($scope.transactionType);
-                }
-                if ($scope.transactionType == "timed") {
-                    console.log($scope.transactionType);
-                }
-            })
 
             await web3.fsn.allAssets().then(function (res) {
                 decimals = parseInt(res[asset]["Decimals"]);
@@ -492,7 +469,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 amount = new BN( amount + dec + "0".repeat(parseInt(declen)));
             }
 
-            if ($scope.transactionType == "standard") {
+            if ($scope.transactionType == "none") {
 
                 if (!$scope.account) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
@@ -520,7 +497,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.successHash = hash;
                 });
             }
-            if ($scope.transactionType == "timed") {
+            if ($scope.transactionType == "daterange") {
 
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));

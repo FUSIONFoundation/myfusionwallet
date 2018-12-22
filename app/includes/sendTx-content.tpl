@@ -488,34 +488,7 @@
 
                 <h3>Send Asset</h3>
 
-                <label>
-                    Select Send Type:
-                </label>
-                <div class="row col-md-12 mb-2">
-                    <div class="col-md-6" ng-class="{'select-active': transactionType == 'standard'}">
-                        <div class="col-md-1 mt-3 p-2">
-                            <input type="radio" class="form-check-input" ng-model="transactionType"
-                                   value="standard" checked>
-                        </div>
-                        <div class="col-md-10 p-2">
-                            <h4 class="text-fusion">Send Asset</h4>
-                            <p class="small-gray-text">Sending an asset will give the recipient full and permanent
-                                access of the asset.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6" ng-class="{'select-active': transactionType == 'timed'}">
-                        <div class="col-md-1 mt-3 p-2">
-                            <input type="radio" class="form-check-input" ng-model="transactionType"
-                                   value="timed">
-                        </div>
-                        <div class="col-md-10 p-2">
-                            <h4 class="text-fusion">Time-Lock Asset</h4>
-                            <p class="small-gray-text">Time-locking an asset will give the recipient the asset for a
-                                time period you specify.</p>
-                        </div>
-                    </div>
-                </div>
-                <div ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                <div>
                     <section class="row form-group">
                         <div class="col-sm-12 clearfix">
                         </div>
@@ -558,7 +531,22 @@
                             <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
-                        <div ng-hide="transactionType =='standard'">
+                        <div class="col-md-12">
+                            <span class="small-gray-text">
+                                    Time-Lock
+                                </span>
+                            <br>
+                            <div class="col-md-4 p-0">
+                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='none'">None</button>
+                            </div>
+                            <div class="col-md-4 p-0">
+                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='scheduled'">Schedule Send Date</button>
+                            </div>
+                            <div class="col-md-4 p-0">
+                                <button class="btn btn-sm btn-white w-100" ng-click="transactionType ='daterange'">Date Range</button>
+                            </div>
+                        </div>
+                        <div ng-hide="transactionType =='none'">
                             <div class="col-md-6">
                             <span class="small-gray-text">
                                     From
@@ -567,7 +555,7 @@
                                 <input class="form-control" type="date" min="{{todayDate}}"
                                        ng-model="sendAsset.fromTime">
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" ng-hide="transactionType == 'scheduled'">
                             <span class="small-gray-text">
                                     Until
                                 </span>
@@ -588,8 +576,7 @@
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime === '' || sendAsset.fromTime === '' || sendAsset.amountToSend === '' || sendAsset.toAddress === ''; "
-                                ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime === '' || sendAsset.fromTime === '' || sendAsset.amountToSend === '' || sendAsset.toAddress === '';">
                             Next
                         </button>
                     </div>
@@ -673,7 +660,7 @@
                     Please carefully read the details of your transaction below before sending the transaction.
                 </p>
 
-                <div class="col-md-12" ng-show="transactionType == 'standard' || transactionType == 'timed'">
+                <div class="col-md-12">
                     <section class="row form-group">
                         <div class="border-gray-bottom pb-2 pt-2">
                             <div class="float-left">
