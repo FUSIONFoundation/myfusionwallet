@@ -29,7 +29,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
 
 
-
         let timeLockListSave = [];
         let BN = web3.utils.BN;
 
@@ -312,10 +311,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.sendAssetModalOpen = async function (id, timelockonly) {
-            if (id >= 0 && timelockonly == true){
+            $scope.$eval(function(){
+                $scope.showStaticTimeLockAsset = false;
+            })
+            if (id >= 0 && timelockonly == true) {
                 let assetData = $scope.timeLockList[id];
                 console.log(assetData);
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.assetToSend = assetData.asset;
                     $scope.assetName = assetData.name;
                     $scope.timeLockStartTime = assetData.startTime;
@@ -325,14 +327,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.showStaticAsset = true;
                 })
             } else {
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.showStaticTimeLockAsset = false;
                     $scope.showStaticAsset = false;
                 })
             }
-            if (id >= 0 && timelockonly == false){
+            if (id >= 0 && timelockonly == false) {
+
                 let assetData = $scope.assetListOwns[id];
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.showStaticTimeLockAsset = false;
                     $scope.assetToSend = assetData.contractaddress;
                     $scope.assetName = assetData.name;
@@ -340,14 +343,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.getAssetBalance();
                 })
             } else {
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.showStaticAsset = false;
                 })
             }
 
             $scope.sendAssetModal.open();
             $scope.$applyAsync(function () {
-                if (timelockonly == true){
+                if (timelockonly == true) {
                     $scope.showStaticAsset = true;
                     $scope.showStaticTimeLockAsset = true;
 
@@ -418,14 +421,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             console.log($scope.timeLockToAssetId);
 
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.timeLockToAssetId = tlData.id;
             })
 
             $scope.sendBackToAssetsModal.open();
         }
 
-        $scope.sendBackToAssetsFunction = async function (id){
+        $scope.sendBackToAssetsFunction = async function (id) {
             let accountData = uiFuncs.getTxData($scope);
 
             id = $scope.timeLockToAssetId;
@@ -439,22 +442,21 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
-            debugger
             let startTime = web3.utils.numberToHex(tlData.posixStartTime);
             let endTime = web3.utils.numberToHex(tlData.posixEndTime);
 
             // JavaScript / Go incompatibility -1 error
-            if (tlData.posixEndTime === 18446744073709552000){
+            if (tlData.posixEndTime === 18446744073709552000) {
                 endTime = web3.fsn.TimeForeverStr;
             }
 
 
             await web3.fsntx.buildTimeLockToAssetTx({
-                asset:tlData.asset,
+                asset: tlData.asset,
                 from: from,
                 to: from,
                 start: startTime,
-                end : endTime,
+                end: endTime,
                 value: tlData.rawValue
             }).then((tx) => {
                 debugger
@@ -483,38 +485,38 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
 
-            await web3.fsn.allAssets().then(function (res) {
-                decimals = parseInt(res[asset]["Decimals"]);
+            await web3.fsn.getAsset(asset).then(function (res) {
+                decimals = parseInt(res["Decimals"]);
             });
 
             let amount = $scope.sendAsset.amountToSend.toString();
 
-            let pieces = amount.split( "." )
+            let pieces = amount.split(".")
             let d = parseInt(decimals)
-            if ( pieces.length === 1 ) {
-                amount = parseInt( amount )
-                if ( isNaN(amount) || amount < 0 ) {
+            if (pieces.length === 1) {
+                amount = parseInt(amount)
+                if (isNaN(amount) || amount < 0) {
                     // error message
                     return
                 }
-                amount = new BN( amount + "0".repeat(parseInt(decimals)));
-            } else if ( pieces.length > 2 ) {
+                amount = new BN(amount + "0".repeat(parseInt(decimals)));
+            } else if (pieces.length > 2) {
                 // error message
                 return
-            } else if ( pieces[1].length >= d ) {
+            } else if (pieces[1].length >= d) {
                 return // error
             } else {
-                let dec = parseInt( pieces[1])
-                if (  isNaN( pieces[1] ) || dec < 0 ) {
+                let dec = parseInt(pieces[1])
+                if (isNaN(pieces[1]) || dec < 0) {
                     // return error
                 }
-                let declen = d- dec.toString().length
-                amount = parseInt( pieces[0] )
-                if ( isNaN(amount) || amount < 0 ) {
+                let declen = d - dec.toString().length
+                amount = parseInt(pieces[0])
+                if (isNaN(amount) || amount < 0) {
                     // error message
                     return
                 }
-                amount = new BN( amount + dec + "0".repeat(parseInt(declen)));
+                amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
             }
 
             if ($scope.transactionType == "none") {
@@ -563,6 +565,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }).then((tx) => {
                     tx.from = from;
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        $scope.sendAssetFinal.open();
                         $scope.$eval(function () {
                             $scope.successHash = txHash;
                             $scope.successHash = txHash;
@@ -572,32 +575,80 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        $scope.timeLockToTimeLock = async function (){
-            if ($scope.transactionType == "daterange") {
+        $scope.timeLockToTimeLock = async function () {
+            debugger
+            $scope.successMessagebool = true;
+            let accountData = uiFuncs.getTxData($scope);
+            let from = accountData.from;
+            let to = $scope.sendAsset.toAddress;
+            let decimals = '';
+            let asset = $scope.assetToSend;
+            let hash = '';
+            let fromTime = getHexDate(convertDate($scope.timeLockStartTime));
+            let tillTime = getHexDate(convertDate($scope.timeLockEndTime));
 
-                let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
-                let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
-
-                if (!$scope.account) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-                }
-                await web3.fsntx.buildAssetToTimeLockTx({
-                    asset: asset,
-                    from: from,
-                    to: to,
-                    start: fromTime,
-                    end: tillTime,
-                    value: amount
-                }).then((tx) => {
-                    tx.from = from;
-                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        $scope.$eval(function () {
-                            $scope.successHash = txHash;
-                            $scope.successHash = txHash;
-                        });
-                    })
+            if (to.length < 42) {
+                web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
+                    to = address;
                 });
             }
+
+            await web3.fsn.getAsset(asset).then(function (res) {
+                decimals = parseInt(res["Decimals"]);
+            });
+
+            let amount = $scope.sendAsset.amountToSend.toString();
+
+            let pieces = amount.split(".")
+            let d = parseInt(decimals)
+            if (pieces.length === 1) {
+                amount = parseInt(amount)
+                if (isNaN(amount) || amount < 0) {
+                    // error message
+                    return
+                }
+                amount = new BN(amount + "0".repeat(parseInt(decimals)));
+            } else if (pieces.length > 2) {
+                // error message
+                return
+            } else if (pieces[1].length >= d) {
+                return // error
+            } else {
+                let dec = parseInt(pieces[1])
+                if (isNaN(pieces[1]) || dec < 0) {
+                    // return error
+                }
+                let declen = d - dec.toString().length
+                amount = parseInt(pieces[0])
+                if (isNaN(amount) || amount < 0) {
+                    // error message
+                    return
+                }
+                amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
+            }
+
+            if (!$scope.account) {
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+            }
+
+            console.log(amount.toNumber());
+
+
+            await web3.fsntx.buildTimeLockToAssetTx({
+                asset: asset,
+                from: from,
+                to: to,
+                start: fromTime,
+                end: tillTime,
+                value: amount
+            }).then((tx) => {
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    $scope.$eval(function () {
+                        $scope.successHash = txHash;
+                        $scope.successHash = txHash;
+                    });
+                })
+            });
         }
 
         $scope.createAssetInit = function () {
@@ -742,9 +793,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "decimals": assetDecimals,
                         "startTime": startTime,
                         "endTime": endTime,
-                        "posixStartTime" : startTimePosix,
-                        "posixEndTime" : endTimePosix,
-                        "rawValue" : timeLockList[asset]["Items"][i]["Value"],
+                        "posixStartTime": startTimePosix,
+                        "posixEndTime": endTimePosix,
+                        "rawValue": timeLockList[asset]["Items"][i]["Value"],
                         "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                     }
 
@@ -786,7 +837,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (assetBalance > 0.000000000001) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                     let data = {
-                        "id" : assetList2.length,
+                        "id": assetList2.length,
                         "name": assetList[asset]["Name"],
                         "symbol": assetList[asset]["Symbol"],
                         "decimals": assetList[asset]["Decimals"],

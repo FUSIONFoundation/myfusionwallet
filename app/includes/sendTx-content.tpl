@@ -843,9 +843,15 @@
                                     Edit Transaction
                                 </button>
                             </div>
-                            <div class="col-xs-6 clearfix">
+                            <div class="col-xs-6 clearfix"  ng-hide="showStaticTimeLockAsset">
                                 <button class="btn btn-primary btn-block"
                                         ng-click="sendAsset()">
+                                    Send Asset
+                                </button>
+                            </div>
+                            <div class="col-xs-6 clearfix" ng-show="showStaticTimeLockAsset">
+                                <button class="btn btn-primary btn-block"
+                                        ng-click="timeLockToTimeLock()">
                                     Send Asset
                                 </button>
                             </div>
@@ -969,7 +975,7 @@
                             </div>
                             <br>
                         </div>
-                        <div ng-hide="transactionType =='standard'">
+                        <div ng-hide="transactionType =='none'">
                             <div class="float-left border-gray-bottom pb-2 pt-2 w-50">
                                 <span class="small-gray-text">
                                     From
