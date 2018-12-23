@@ -142,7 +142,9 @@
                                 >
                                     Send
                                 </button>
-                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.status === 'Expired'">
+                                <button class="btn-sm btn-white action-button p-0"
+                                        ng-show="asset.status === 'Expired'"
+                                        ng-click="sendBackToAssets(asset.id)">
                                     Remove
                                 </button>
                             </td>
