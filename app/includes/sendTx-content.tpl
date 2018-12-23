@@ -518,7 +518,7 @@
                                 Select Asset:
                             </span>
                             <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()"
-                                    placeholder="lol" ng-hide="showStaticAsset">
+                                    ng-hide="showStaticAsset">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}

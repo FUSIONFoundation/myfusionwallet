@@ -412,8 +412,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
+            debugger
             let startTime = web3.utils.numberToHex(tlData.posixStartTime);
             let endTime = web3.utils.numberToHex(tlData.posixEndTime);
+
+            // JavaScript / Go incompatibility -1 error
+            if (tlData.posixEndTime === 18446744073709552000){
+                endTime = web3.fsn.TimeForeverStr;
+            }
+
 
             await web3.fsntx.buildTimeLockToAssetTx({
                 asset:tlData.asset,
@@ -423,6 +430,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 end : endTime,
                 value: tlData.rawValue
             }).then((tx) => {
+                debugger
                 tx.from = from;
 
                 return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -674,7 +682,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     } else {
                         endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000).toLocaleDateString();
                     }
-
 
                     let data = {
                         "id": timeLockListSave.length,
