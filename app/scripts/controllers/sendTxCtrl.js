@@ -429,6 +429,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendBackToAssetsFunction = async function (id) {
+            debugger
             let accountData = uiFuncs.getTxData($scope);
 
             id = $scope.timeLockToAssetId;
@@ -447,7 +448,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             // JavaScript / Go incompatibility -1 error
             if (tlData.posixEndTime === 18446744073709552000) {
-                endTime = web3.fsn.TimeForeverStr;
+                endTime = web3.fsn.consts.TimeForeverStr;
             }
 
 
