@@ -311,8 +311,24 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
 
-        $scope.sendAssetModalOpen = async function (id) {
-            if (id){
+        $scope.sendAssetModalOpen = async function (id, timelockonly) {
+            debugger
+            if (id >= 0 && timelockonly == true){
+                let assetData = $scope.timeLockList[id];
+                console.log(assetData);
+                $scope.showStaticAsset = true;
+                $scope.$eval(function(){
+                    $scope.assetToSend = assetData.asset;
+                    $scope.assetName = assetData.name;
+                    $scope.selectedAssetBalance = assetData.value;
+                    $scope.showStaticAsset = true;
+                })
+            } else {
+                $scope.$eval(function(){
+                    $scope.showStaticAsset = false;
+                })
+            }
+            if (id >= 0 && timelockonly == false){
                 let assetData = $scope.assetListOwns[id];
                 $scope.$eval(function(){
                     $scope.assetToSend = assetData.contractaddress;
@@ -325,6 +341,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.showStaticAsset = false;
                 })
             }
+
             $scope.sendAssetModal.open();
             $scope.$applyAsync(function () {
                 $scope.sendAsset.toAddress = '';

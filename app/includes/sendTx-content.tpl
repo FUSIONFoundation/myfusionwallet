@@ -75,7 +75,7 @@
                             <td class="text-right">{{asset.total}}</td>
                             <td class="text-right">
                                 <button class="btn-sm btn-white action-button p-0"
-                                        ng-click=" sendAssetModalOpen(asset.id)">Send
+                                        ng-click=" sendAssetModalOpen(asset.id, false)">Send
                                 </button>
                             </td>
                         </tr>
@@ -137,7 +137,9 @@
                                         ng-click="sendBackToAssets(asset.id)">
                                     <img src="images/group-5.svg" class="Group-6 m-0">
                                 </button>
-                                <button class="btn-sm btn-white action-button p-0" ng-hide="asset.status === 'Expired'">
+                                <button class="btn-sm btn-white action-button p-0" ng-hide="asset.status === 'Expired'"
+                                        ng-click="sendAssetModalOpen(asset.id, true)"
+                                >
                                     Send
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0" ng-show="asset.status === 'Expired'">
