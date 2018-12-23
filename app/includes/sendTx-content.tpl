@@ -574,9 +574,12 @@
                         </div>
                         <div ng-hide="transactionType =='none'">
                             <div class="col-md-6">
-                            <span class="small-gray-text">
+                            <span class="small-gray-text" ng-hide="transactionType == 'scheduled'">
                                     From
-                                </span>
+                            </span>
+                            <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
+                                    Send on
+                            </span>
                                 <br>
                                 <input class="form-control" type="date" min="{{todayDate}}"
                                        ng-model="sendAsset.fromTime">
