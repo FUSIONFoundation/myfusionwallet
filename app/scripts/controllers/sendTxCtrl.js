@@ -312,11 +312,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.sendAssetModalOpen = async function (id, timelockonly) {
-            debugger
             if (id >= 0 && timelockonly == true){
                 let assetData = $scope.timeLockList[id];
                 console.log(assetData);
-                $scope.showStaticAsset = true;
                 $scope.$eval(function(){
                     $scope.assetToSend = assetData.asset;
                     $scope.assetName = assetData.name;
@@ -325,12 +323,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             } else {
                 $scope.$eval(function(){
+                    $scope.showStaticTimeLockAsset = false;
                     $scope.showStaticAsset = false;
                 })
             }
             if (id >= 0 && timelockonly == false){
                 let assetData = $scope.assetListOwns[id];
                 $scope.$eval(function(){
+                    $scope.showStaticTimeLockAsset = false;
                     $scope.assetToSend = assetData.contractaddress;
                     $scope.assetName = assetData.name;
                     $scope.showStaticAsset = true;
@@ -344,6 +344,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             $scope.sendAssetModal.open();
             $scope.$applyAsync(function () {
+                if (timelockonly == true){
+                    $scope.showStaticAsset = true;
+                    $scope.showStaticTimeLockAsset = true;
+
+                } else {
+                    $scope.showStaticTimeLockAsset = false;
+                }
                 $scope.sendAsset.toAddress = '';
                 $scope.sendAsset.amountToSend = '';
                 $scope.transactionType = 'none';
@@ -632,10 +639,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getAllFsnAssets();
             $scope.getTimeLockAssets();
         }, 7500);
-
-        $scope.forwardTimeLockedAsset = async function () {
-            timeLockListSave
-        }
 
         $scope.getTimeLockAssets = async function () {
             if (!$scope.tx || !$scope.wallet) {

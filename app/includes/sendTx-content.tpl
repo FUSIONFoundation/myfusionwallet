@@ -490,7 +490,8 @@
                     </div>
                 </div>
 
-                <h3>Send Asset</h3>
+                <h3 ng-hide="showStaticTimeLockAsset === true">Send Asset</h3>
+                <h3 ng-show="showStaticTimeLockAsset === true">Send Time-lock</h3>
 
                 <div>
                     <section class="row form-group">
@@ -506,7 +507,7 @@
                                    placeholder="Enter a fusion address"/>
                         </div>
 
-                        <div class="col-sm-12 mb-2" ng-show="showStaticAsset">
+                        <div class="col-sm-12 mb-2" ng-show="showStaticAsset === true">
                             <div class="sendAssetBalanceAvailable">
                                 <span class="text-fusion">{{assetName}}</span>
                                 <div class="break-word">
@@ -516,11 +517,11 @@
                         </div>
 
                         <div class="col-sm-12 clearfix">
-                            <span class="small-gray-text" ng-hide="showStaticAsset">
+                            <span class="small-gray-text" ng-hide="showStaticAsset === true">
                                 Select Asset:
                             </span>
                             <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()"
-                                    ng-hide="showStaticAsset">
+                                    ng-hide="showStaticAsset === true">
                                 <option ng-repeat="asset in assetListOwns" value="{{asset.contractaddress}}">
                                     {{asset.symbol}}
                                     - {{asset.contractaddress}}
