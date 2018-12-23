@@ -546,7 +546,23 @@
                             <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12" ng-show="showStaticTimeLockAsset">
+                            <div class="col-md-6 p-0">
+                                <span class="small-gray-text">
+                                        From
+                                </span>
+                                    <br>
+                                    {{timeLockEndTime}}
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <span class="small-gray-text">
+                                        Until
+                                    </span>
+                                    <br>
+                                    {{timeLockStartTime}}
+                            </div>
+                        </div>
+                        <div class="col-md-12" ng-hide="showStaticTimeLockAsset">
                             <span class="small-gray-text">
                                     Time-Lock
                                 </span>
@@ -800,6 +816,23 @@
                                 </span>
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.tillTimeString}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 p-0" ng-show="showStaticTimeLockAsset">
+                            <div class="col-md-6 p-0">
+                                <span class="small-gray-text">
+                                        From
+                                </span>
+                                <br>
+                                {{timeLockEndTime}}
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <span class="small-gray-text">
+                                        Until
+                                    </span>
+                                <br>
+                                {{timeLockStartTime}}
                             </div>
                         </div>
 

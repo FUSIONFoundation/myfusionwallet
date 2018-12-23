@@ -318,6 +318,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.$eval(function(){
                     $scope.assetToSend = assetData.asset;
                     $scope.assetName = assetData.name;
+                    $scope.timeLockStartTime = assetData.startTime;
+                    $scope.timeLockEndTime = assetData.endTime;
+
                     $scope.selectedAssetBalance = assetData.value;
                     $scope.showStaticAsset = true;
                 })
@@ -566,7 +569,34 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         });
                     })
                 });
+            }
+        }
 
+        $scope.timeLockToTimeLock = async function (){
+            if ($scope.transactionType == "daterange") {
+
+                let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+                let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
+
+                if (!$scope.account) {
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+                }
+                await web3.fsntx.buildAssetToTimeLockTx({
+                    asset: asset,
+                    from: from,
+                    to: to,
+                    start: fromTime,
+                    end: tillTime,
+                    value: amount
+                }).then((tx) => {
+                    tx.from = from;
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        $scope.$eval(function () {
+                            $scope.successHash = txHash;
+                            $scope.successHash = txHash;
+                        });
+                    })
+                });
             }
         }
 
