@@ -761,7 +761,7 @@
                             </div>
                             <div class="float-right">
                                 <span class="fusion-text-14">
-                                    <span class="mono wallet-balance">0.000021</span>
+                                    <span class="mono wallet-balance">0.00002</span>
                                     FSN
                                 </span>
                             </div>

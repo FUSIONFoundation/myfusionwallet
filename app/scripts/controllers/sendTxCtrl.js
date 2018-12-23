@@ -364,7 +364,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
 
             $scope.$apply(function () {
-                $scope.selectedAssetBalance = balance;
+                $scope.selectedAssetBalance = balance - 0.00002;
             });
         }
 
