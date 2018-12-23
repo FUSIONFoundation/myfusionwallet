@@ -152,7 +152,7 @@
                                     <span class="fusion-text-14">
                                     <img src="images/group-9.svg"
                                          class="Group-6">
-                                      Swap Exchange
+                                      Quantum Swap
                                     </span>
                             </a>
                         </div>
