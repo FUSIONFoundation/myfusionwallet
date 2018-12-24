@@ -1,7 +1,8 @@
-<article class="block decrypt-drtv clearfix container-small" style="max-width:800px !important" ng-controller='decryptWalletCtrl as $crtl'>
+<article class="block decrypt-drtv clearfix container-small" style="max-width:800px !important"
+         ng-controller='decryptWalletCtrl as $crtl'>
 
     <!-- Column 1 - Select Type of Key -->
-    <section class="col-md-5 col-sm-6">
+    <section class="col-md-5 col-sm-6" style="border-right: 1px solid #ebebeb;">
 
         <h4 class="text-fusion">Access Existing Wallet</h4>
         <p class="text-fusion" translate="decrypt_Access">
@@ -47,14 +48,18 @@
 
         <!-- Ledger -->
         <label aria-flowto="aria3"
-        class="radio"
-        ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ESN'||ajaxReq.type=='AKA'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ATH'||ajaxReq.type=='MUSIC'||ajaxReq.type=='EOSC'||ajaxReq.type=='GO'||ajaxReq.type=='MIX'||ajaxReq.type=='ILT'">
-        <input aria-flowto="aria3"
-        type="radio"
-        aria-label="Ledger Hardware Wallet"
-        ng-model="walletType"
-        value="ledger"/>
-        Ledger Wallet
+               class="radio p-2 pr-4"
+               ng-class="{'selectWalletActive' : walletType == 'ledger'}"
+               ng-click="activeWallet == 'ledger'"
+               ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ESN'||ajaxReq.type=='AKA'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ATH'||ajaxReq.type=='MUSIC'||ajaxReq.type=='EOSC'||ajaxReq.type=='GO'||ajaxReq.type=='MIX'||ajaxReq.type=='ILT'">
+            <input aria-flowto="aria3"
+                   type="radio"
+                   class="ml-0"
+                   ng-click="activeWallet == 'ledger'"
+                   aria-label="Ledger Hardware Wallet"
+                   ng-model="walletType"
+                   value="ledger"/>
+            Ledger Wallet
         </label>
 
         <!--&lt;!&ndash; TREZOR &ndash;&gt;-->
@@ -95,35 +100,45 @@
 
         <!-- Keystore / JSON File -->
         <label aria-flowto="aria6"
-               class="radio">
+               class="radio p-2 pr-4"
+               ng-class="{'selectWalletActive' : walletType == 'fileupload'}"
+        >
             <input aria-flowto="aria6"
                    aria-label="Keystore JSON file"
                    type="radio"
+                   class="ml-0"
                    ng-model="walletType"
                    value="fileupload"
             />
             Keystore / JSON File
         </label>
 
+
         <!-- Mnemonic Phrase -->
         <label aria-flowto="aria7"
-        class="radio">
-        <input aria-flowto="aria7"
-        aria-label="mnemonic phrase"
-        type="radio"
-        ng-model="walletType"
-        value="pastemnemonic" />
-        <span translate="x_Mnemonic">
+               class="radio p-2 pr-4"
+               ng-class="{'selectWalletActive' : walletType == 'pastemnemonic'}"
+        >
+            <input aria-flowto="aria7"
+                   aria-label="mnemonic phrase"
+                   type="radio"
+                   class="ml-0"
+                   ng-model="walletType"
+                   value="pastemnemonic"/>
+            <span translate="x_Mnemonic">
         Mnemonic Phrase
         </span>
         </label>
 
         <!-- Private -->
         <label aria-flowto="aria8"
-               class="radio">
+               class="radio p-2 pr-4"
+               ng-class="{'selectWalletActive' : walletType == 'pasteprivkey'}"
+        >
             <input aria-flowto="aria8"
                    aria-label="private key"
                    type="radio"
+                   class="ml-0"
                    ng-model="walletType"
                    value="pasteprivkey"/>
             <span translate="x_PrivKey2">
@@ -601,7 +616,8 @@
                 </div>
                 <div class="col-md-11 col-xs-11">
                     <p>
-                        Entering your private key on a website dangerous. If our website is compromised or you accidentally
+                        Entering your private key on a website dangerous. If our website is compromised or you
+                        accidentally
                         visit a different website, your funds will be stolen. Please consider:
                     </p>
                     <p>
@@ -659,7 +675,8 @@
                 </div>
                 <div class="col-md-11 col-xs-11">
                     <p>
-                        Entering your private key on a website dangerous. If our website is compromised or you accidentally
+                        Entering your private key on a website dangerous. If our website is compromised or you
+                        accidentally
                         visit a different website, your funds will be stolen. Please consider:
                     </p>
                     <p>
@@ -722,7 +739,8 @@
                 </div>
                 <div class="col-md-11 col-xs-11">
                     <p>
-                        Entering your private key on a website dangerous. If our website is compromised or you accidentally
+                        Entering your private key on a website dangerous. If our website is compromised or you
+                        accidentally
                         visit a different website, your funds will be stolen. Please consider:
                     </p>
                     <p>
