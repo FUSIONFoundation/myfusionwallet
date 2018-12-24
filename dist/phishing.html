@@ -29,22 +29,14 @@
     <link href="images/fav/manifest.json" rel="manifest">
     <link href="images/fav/safari-pinned-tab.svg" rel="mask-icon" color="#2f99b0">
     <link href="images/fav/favicon.ico" rel="shortcut icon">
-    <meta name="apple-mobile-web-app-title" content="MyEtherWallet &middot; Your Key to Ethereum">
-    <meta name="application-name" content="MyEtherWallet">
+    <meta name="apple-mobile-web-app-title" content="MyFusionWallet">
+    <meta name="application-name" content="MyFusionWallet">
     <meta name="msapplication-config" content="images/fav/browserconfig.xml">
     <meta name="theme-color" content="#1d6986">
     <meta name="apple-mobile-web-app-status-bar-style" content="#1d6986">
     <meta property="og:url" content="https://www.myetherwallet.com"/>
-    <meta property="og:title" content="MyEtherWallet.com  &middot; Your Key to Ethereum"/>
+    <meta property="og:title" content="MyFusionWallet.com"/>
     <meta property="og:type" content="website">
-    <meta property="og:image" content="/images/myetherwallet-logo-banner.png"/>
-    <meta property="og:image" content="/images/myetherwallet-logo.png"/>
-    <meta property="og:image" content="/images/myetherwallet-logo-square.png"/>
-    <meta property="og:image" content="/images/myetherwallet-banner-fun.jpg"/>
-    <meta name="twitter:image" content="/images/myetherwallet-logo-twitter.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@MyEtherWallet">
-    <meta name="twitter:creator" content="@MyEtherWallet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
     <script type="application/ld+json">
