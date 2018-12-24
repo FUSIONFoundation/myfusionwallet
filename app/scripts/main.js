@@ -140,6 +140,7 @@ if (IS_CX) {
     var mainPopCtrl = require("./controllers/CX/mainPopCtrl");
     var quickSendCtrl = require("./controllers/CX/quickSendCtrl");
 }
+
 var app = angular.module("mewApp", [
     "pascalprecht.translate",
     "ngSanitize",

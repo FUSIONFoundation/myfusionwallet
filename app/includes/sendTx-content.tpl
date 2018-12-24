@@ -85,6 +85,7 @@
             </div>
         </section>
     </article>
+
     <div class="row">
         <div class="col-md-12">
             <h3>Time-Locked Assets</h3>
