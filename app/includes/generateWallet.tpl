@@ -25,6 +25,7 @@
                         role="button"
                         class="btn btn-primary w-100 mt-2 mb-0"
                         ng-click="genNewWallet()"
+                        ng-disabled="password.length < 9"
                         translate="NAV_GenerateWallet">
                     Generate Wallet
                 </button>
