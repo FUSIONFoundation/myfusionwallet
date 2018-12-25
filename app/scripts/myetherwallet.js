@@ -109,13 +109,22 @@ function removeAllTokenConflicts(conflictWithDefaultTokens, localTokens) {
   saveToLocalStorage("localTokens", deDuplicatedTokens)
 }
 
-Wallet.prototype.setBalance = function(callback) {
+Wallet.prototype.setBalance = async function(callback) {
     var parentObj = this;
+    var balance = 0;
     this.balance = this.usdBalance = this.eurBalance = this.btcBalance = this.chfBalance = this.repBalance =  this.gbpBalance = 'loading';
+    //GET FSN BALANCE INSTEAD OF ETHER
+    await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", parentObj.getAddressString()).then(function (res) {
+        balance = res;
+    });
+
+    balance = balance / 1000000000000000000;
+
     ajaxReq.getBalance(parentObj.getAddressString(), function(data) {
         if (data.error) parentObj.balance = data.msg;
         else {
-            parentObj.balance = etherUnits.toEther(data.data.balance, 'wei');
+            console.log(`The balance of this wallet is ${balance}`);
+            parentObj.balance = balance;
             ajaxReq.getETHvalue(function(data) {
                 parentObj.usdPrice   = etherUnits.toFiat('1', 'ether', data.usd);
                 parentObj.gbpPrice   = etherUnits.toFiat('1', 'ether', data.gbp);
