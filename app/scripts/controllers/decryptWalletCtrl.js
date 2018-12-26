@@ -335,7 +335,6 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
   };
   $scope.setHDAddressesHWWallet = function(start, limit, ledger) {
     $scope.HDWallet.wallets = [];
-    debugger
     for (var i = start; i < start + limit; i++) {
       var derivedKey = $scope.HDWallet.hdk.derive("m/" + i);
       if ($scope.walletType == "ledger") {
