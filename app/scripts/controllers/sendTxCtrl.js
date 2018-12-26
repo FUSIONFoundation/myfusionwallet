@@ -322,6 +322,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.assetName = assetData.name;
                     $scope.timeLockStartTime = assetData.startTime;
                     $scope.timeLockEndTime = assetData.endTime;
+                    $scope.timeLockStartTimePosix = assetData.posixStartTime;
+                    $scope.timeLockEndTimePosix = assetData.posixEndTime;
 
                     $scope.selectedAssetBalance = assetData.value;
                     $scope.showStaticAsset = true;
@@ -577,7 +579,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.timeLockToTimeLock = async function () {
-            debugger
             $scope.successMessagebool = true;
             let accountData = uiFuncs.getTxData($scope);
             let from = accountData.from;
@@ -585,8 +586,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let decimals = '';
             let asset = $scope.assetToSend;
             let hash = '';
-            let fromTime = getHexDate(convertDate($scope.timeLockStartTime));
-            let tillTime = getHexDate(convertDate($scope.timeLockEndTime));
+
+            let fromTime = web3.utils.numberToHex( $scope.timeLockStartTimePosix);
+            let tillTime = web3.utils.numberToHex($scope.timeLockEndTimePosix);
+
+            // JavaScript / Go incompatibility -1 error
+            if ($scope.timeLockEndTimePosix === 18446744073709552000) {
+                tillTime = web3.fsn.consts.TimeForeverStr;
+            }
 
             if (to.length < 42) {
                 web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
@@ -632,10 +639,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
-            // console.log(amount.toNumber());
-
-
-            await web3.fsntx.buildTimeLockToAssetTx({
+            await web3.fsntx.buildTimeLockToTimeLockTx({
                 asset: asset,
                 from: from,
                 to: to,
@@ -645,6 +649,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }).then((tx) => {
                 return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                     $scope.$eval(function () {
+                        $scope.sendAssetFinal.open();
                         $scope.successHash = txHash;
                         $scope.successHash = txHash;
                     });
