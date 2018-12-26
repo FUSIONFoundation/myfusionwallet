@@ -51,7 +51,6 @@
     "angular-translate": "^2.15.1",
     "angular-translate-handler-log": "^2.15.1",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
     "bignumber.js": "^4.0.2",
     "bip39": "^2.3.1",
     "browserify": "^14.3.0",
@@ -75,7 +74,7 @@
     "uuid": "^3.0.1",
     "wallet-address-validator": "^0.1.0"
   },
-  "dependencies" : {
+  "dependencies": {
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",

@@ -228,26 +228,98 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
 
-
             if ($scope.wallet.hwType === 'ledger') {
-                let app = new ledgerEth($scope.wallet.getHWTransport());
-                let rawTx = {};
-                await web3.fsntx.buildGenNotationTx({from: walletAddress}).then((tx) => {
-                    tx.from = "324B25259562B679Ea0fa8b71d4B38CF5dB0b7E4";
-                    rawTx.chainId = 1;
-                    rawTx.gasPrice = parseInt(21000);
-                    rawTx.data = rawTx.data == '' ? '0x' : rawTx.data;
-                    tx.gasLimit = parseInt(21000);
-                    var eTx = new ethUtil.Tx(tx);
-                    let txData = {
-                        path: $scope.wallet.path,
-                    }
-                    uiFuncs.signTxLedger(app, eTx, tx, txData, function (res, error) {
-                        console.log(res);
-                        console.log(error);
-                    });
+                // debugger
+                // var app = new ledgerEth($scope.wallet.getHWTransport());
+                //
+                // // app.getAddress($scope.wallet.path, function () {
+                // // }, true, false);
+                //
+                // await web3.fsntx.buildGenNotationTx(
+                //     {
+                //         from: walletAddress
+                //     }
+                // ).then((tx) => {
+                //     let txToSign = ethUtil.rlp.encode(tx);
+                //     console.log(tx);
+                //     console.log(txToSign);
+                //     app.signTransaction($scope.wallet.path, txToSign.toString('hex'), function () {
+                //     })
+                //
+                // })
+
+                debugger
+                let data = '';
+                await web3.fsntx.buildGenNotationTx(
+                    {from: walletAddress}
+                ).then((tx) => {
+                    data = tx;
+                    console.log(tx);
                 })
 
+                let txData = {
+                    to: data.to,
+                    value: data.value,
+                    gasLimit: "0x1E8480",
+                    from: $scope.wallet.getAddressString(),
+                    data: data.input,
+                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : '',
+                    path: $scope.wallet.getPath(),
+                    hwType: $scope.wallet.getHWType(),
+                    hwTransport: $scope.wallet.getHWTransport()}
+
+                var rawTx = {
+                    chainId : 1,
+                    nonce: ethFuncs.sanitizeHex(data.nonce),
+                    gasLimit: "0x1E8480",
+                    to: ethFuncs.sanitizeHex(txData.to),
+                    value:txData.value,
+                    data: ethFuncs.sanitizeHex(txData.data),
+                    input: ethFuncs.sanitizeHex(txData.data)
+                }
+                if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
+                rawTx.data = rawTx.data == '' ? '0x' : rawTx.data;
+                var eTx = new ethUtil.Tx(rawTx);
+                if (txData.hwType == "ledger") {
+                    var app = new ledgerEth(txData.hwTransport);
+                    var EIP155Supported = false;
+                    var localCallback = function (result, error) {
+                        if (typeof error != "undefined") {
+                            if (callback !== undefined) callback({
+                                isError: true,
+                                error: error
+                            });
+                            return;
+                        }
+                        var splitVersion = result['version'].split('.');
+                        if (parseInt(splitVersion[0]) > 1) {
+                            EIP155Supported = true;
+                        } else if (parseInt(splitVersion[1]) > 0) {
+                            EIP155Supported = true;
+                        } else if (parseInt(splitVersion[2]) > 2) {
+                            EIP155Supported = true;
+                        }
+
+                        uiFuncs.signTxLedger(app, eTx, rawTx, txData, !EIP155Supported, function(res){
+                            uiFuncs.sendTx(res.signedTx, function (resp) {
+                                if (!resp.isError) {
+                                    $scope.notifier.success('Working', 0);
+                                } else {
+                                    $scope.notifier.danger(resp.error);
+                                }
+                            })
+                        });
+
+
+
+                        console.log(app);
+                        console.log(eTx);
+                        console.log(rawTx);
+                        console.log(txData);
+
+                    }
+                    app.getAppConfiguration(localCallback);
+                }
             } else {
 
                 if (!$scope.account) {
