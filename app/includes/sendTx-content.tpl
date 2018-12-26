@@ -958,7 +958,7 @@
                             </div>
                             <div class="float-right max-char">
    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-         title="{{successHash}}">{{successHash}}
+         title="{{successHash}}"><a href="https://blocks.fusionnetwork.io/Transactions/{{successHash}}" target="_blank">{{successHash}}</a>
                             </div>
                             <br>
                         </div>
