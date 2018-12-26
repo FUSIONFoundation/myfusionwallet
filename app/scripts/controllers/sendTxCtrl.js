@@ -509,9 +509,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return // error
             } else {
                 let dec = parseInt(pieces[1])
-                if (isNaN(pieces[1]) || dec < 0) {
+                let reg = new RegExp('^\\d+$'); // numbers only
+                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1]) ) {
                     // return error
                 }
+                dec = pieces[1]
                 let declen = d - dec.toString().length
                 amount = parseInt(pieces[0])
                 if (isNaN(amount) || amount < 0) {
@@ -691,9 +693,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return // error
             } else {
                 let dec = parseInt(pieces[1])
-                if (isNaN(pieces[1]) || dec < 0) {
+                let reg = new RegExp('^\\d+$'); // numbers only
+                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1]) ) {
                     // return error
                 }
+                dec = pieces[1]
                 let declen = d - dec.toString().length
                 amount = parseInt(pieces[0])
                 if (isNaN(amount) || amount < 0) {
