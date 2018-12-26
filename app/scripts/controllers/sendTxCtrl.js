@@ -29,6 +29,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
         $scope.errorModal = new Modal(document.getElementById('errorModal'));
         $scope.successModal = new Modal(document.getElementById('successModal'));
+        $scope.hiddenTimeLockStates = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
 
         let timeLockListSave = [];
         let BN = web3.utils.BN;
@@ -615,7 +616,30 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.errorModal.open();
                 }
             }
+        }
 
+        $scope.hideExpired = function (id) {
+            let itemsArray = localStorage.getItem('hiddenTimeLocks');
+            if (itemsArray == "[]"){
+                let items = [];
+                let u = 0;
+                for (let id in $scope.timeLockList) {
+                    let data = {
+                        "id": u,
+                        "hidden": 0
+                    }
+                    items.push(data);
+                    u++
+                }
+                console.log(items);
+                localStorage.setItem('hiddenTimeLocks', JSON.stringify(items));
+            }
+
+            const data = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
+
+            data[id].hidden = 1;
+            
+            localStorage.setItem('hiddenTimeLocks', JSON.stringify(data));
         }
 
         $scope.timeLockToTimeLock = async function () {
@@ -777,6 +801,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }, 7500);
 
         $scope.getTimeLockAssets = async function () {
+            $scope.$eval(function(){
+                $scope.hiddenTimeLockStates = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
+            })
+
             if (!$scope.tx || !$scope.wallet) {
                 return
             }
