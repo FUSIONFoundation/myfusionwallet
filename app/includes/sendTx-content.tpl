@@ -808,8 +808,11 @@
                         <div ng-hide="transactionType =='none'">
                             <div class="float-left border-gray-bottom pb-2 pt-2 w-50"
                                  ng-class="{'w-100' : transactionType == 'scheduled'}">
-                                <span class="small-gray-text">
+                                <span class="small-gray-text" ng-hide="transactionType =='scheduled'">
                                     From
+                                </span>
+                                <span class="small-gray-text" ng-show="transactionType =='scheduled'">
+                                    Send On
                                 </span>
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
@@ -1036,13 +1039,16 @@
                         </div>
                         <div ng-hide="transactionType =='none'">
                             <div class="float-left border-gray-bottom pb-2 pt-2 w-50">
-                                <span class="small-gray-text">
+                                <span class="small-gray-text" ng-hide="transactionType =='scheduled'">
                                     From
+                                </span>
+                                <span class="small-gray-text" ng-show="transactionType =='scheduled'">
+                                    Send On
                                 </span>
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
-                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50">
+                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50" ng-hide="transactionType =='scheduled'">
                                 <span class="small-gray-text">
                                     Until
                                 </span>
