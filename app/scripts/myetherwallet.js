@@ -123,7 +123,6 @@ Wallet.prototype.setBalance = async function(callback) {
     ajaxReq.getBalance(parentObj.getAddressString(), function(data) {
         if (data.error) parentObj.balance = data.msg;
         else {
-            console.log(`The balance of this wallet is ${balance}`);
             parentObj.balance = balance;
             ajaxReq.getETHvalue(function(data) {
                 parentObj.usdPrice   = etherUnits.toFiat('1', 'ether', data.usd);
