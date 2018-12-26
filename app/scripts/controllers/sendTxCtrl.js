@@ -632,7 +632,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
-            console.log(amount.toNumber());
+            // console.log(amount.toNumber());
 
 
             await web3.fsntx.buildTimeLockToAssetTx({
