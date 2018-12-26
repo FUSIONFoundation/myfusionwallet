@@ -833,14 +833,14 @@
                                         From
                                 </span>
                                 <br>
-                                {{timeLockEndTime}}
+                                {{timeLockStartTime}}
                             </div>
                             <div class="col-md-6 p-0">
                                 <span class="small-gray-text">
                                         Until
                                     </span>
                                 <br>
-                                {{timeLockStartTime}}
+                                {{timeLockEndTime}}
                             </div>
                         </div>
 
