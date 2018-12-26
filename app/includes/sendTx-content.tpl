@@ -31,7 +31,8 @@
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The “All Assets” tab provides an overview of all the digital assets that are currently in your Fusion PSN wallet.</p>
+                <p class="p-2">The “All Assets” tab provides an overview of all the digital assets that are currently in
+                    your Fusion PSN wallet.</p>
             </div>
 
             <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
@@ -93,7 +94,8 @@
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The Time-lock Assets tab provides all relevant information about the time-locked digital assets in your wallet.</p>
+                <p class="p-2">The Time-lock Assets tab provides all relevant information about the time-locked digital
+                    assets in your wallet.</p>
             </div>
 
 
@@ -552,15 +554,17 @@
                                 <span class="small-gray-text">
                                         From
                                 </span>
-                                    <br>
-                                    {{timeLockEndTime}}
+                                <br>
+                                {{timeLockStartTime}}
+
                             </div>
                             <div class="col-md-6 p-0">
                                 <span class="small-gray-text">
                                         Until
                                     </span>
-                                    <br>
-                                    {{timeLockStartTime}}
+                                <br>
+                                {{timeLockEndTime}}
+
                             </div>
                         </div>
                         <div class="col-md-12" ng-hide="showStaticTimeLockAsset">
@@ -597,7 +601,7 @@
                             <span class="small-gray-text" ng-hide="transactionType == 'scheduled'">
                                     From
                             </span>
-                            <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
+                                <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
                                     Send on
                             </span>
                                 <br>
@@ -844,7 +848,7 @@
                                     Edit Transaction
                                 </button>
                             </div>
-                            <div class="col-xs-6 clearfix"  ng-hide="showStaticTimeLockAsset">
+                            <div class="col-xs-6 clearfix" ng-hide="showStaticTimeLockAsset">
                                 <button class="btn btn-primary btn-block"
                                         ng-click="sendAsset()">
                                     Send Asset
@@ -1021,7 +1025,8 @@
                 </div>
                 <h3 class="h3-title">Create Asset</h3>
                 <p>Seamlessly generate your own unique digital asset and set all your desired parameters. <br>
-                   Created assets can use all of the functions on the Fusion PSN including send, quantum swap, time-lock and more.
+                    Created assets can use all of the functions on the Fusion PSN including send, quantum swap,
+                    time-lock and more.
 
                 </p>
                 <section class="row form-group">
