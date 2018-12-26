@@ -585,7 +585,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if ($scope.transactionType == "scheduled") {
-                
+
+                let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+                let tillTime = web3.fsn.consts.TimeForeverStr;
+
                 if (!$scope.account) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
