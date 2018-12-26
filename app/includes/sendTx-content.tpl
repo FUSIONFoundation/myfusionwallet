@@ -895,7 +895,6 @@
         </section>
     </section>
 </article>
-
 <article class="modal fade" id="errorModal" tabindex="-1">
     <section class="modal-dialog send-asset-dialog">
         <section class="modal-content">

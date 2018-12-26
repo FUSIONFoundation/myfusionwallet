@@ -242,13 +242,10 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let txData = {
                         path: $scope.wallet.path,
                     }
-                    debugger
                     uiFuncs.signTxLedger(app, eTx, tx, txData, function (res, error) {
                         console.log(res);
                         console.log(error);
                     });
-                    debugger
-
                 })
 
             } else {
@@ -273,7 +270,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
     }
-
 };
 
 module.exports = walletBalanceCtrl;

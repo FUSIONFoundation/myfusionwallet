@@ -526,23 +526,27 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
-                await web3.fsntx.buildSendAssetTx({
-                    from: from,
-                    to: to,
-                    value: amount,
-                    asset: asset
-                }).then((tx) => {
-                    tx.from = from;
+                try {
+                    await web3.fsntx.buildSendAssetTx({
+                        from: from,
+                        to: to,
+                        value: amount,
+                        asset: asset
+                    }).then((tx) => {
+                        tx.from = from;
 
-                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        hash = txHash;
-                        $scope.sendAssetFinal.open();
-                        $scope.$eval(function () {
-                            $scope.successHash = hash;
-                            $scope.successHash = hash;
-                        });
-                    })
-                });
+                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                            hash = txHash;
+                            $scope.sendAssetFinal.open();
+                            $scope.$eval(function () {
+                                $scope.successHash = hash;
+                                $scope.successHash = hash;
+                            });
+                        })
+                    });
+                } catch (err) {
+                    $scope.errorModal.open();
+                }
 
                 $scope.$apply(function () {
                     $scope.successHash = hash;
@@ -556,24 +560,59 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (!$scope.account) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
-                await web3.fsntx.buildAssetToTimeLockTx({
-                    asset: asset,
-                    from: from,
-                    to: to,
-                    start: fromTime,
-                    end: tillTime,
-                    value: amount
-                }).then((tx) => {
-                    tx.from = from;
-                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        $scope.sendAssetFinal.open();
-                        $scope.$eval(function () {
-                            $scope.successHash = txHash;
-                            $scope.successHash = txHash;
-                        });
-                    })
-                });
+
+                try {
+                    await web3.fsntx.buildAssetToTimeLockTx({
+                        asset: asset,
+                        from: from,
+                        to: to,
+                        start: fromTime,
+                        end: tillTime,
+                        value: amount
+                    }).then((tx) => {
+                        tx.from = from;
+                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                            $scope.sendAssetFinal.open();
+                            $scope.$eval(function () {
+                                $scope.successHash = txHash;
+                                $scope.successHash = txHash;
+                            });
+                        })
+                    });
+                } catch (err) {
+                    $scope.errorModal.open();
+                }
             }
+
+            if ($scope.transactionType == "scheduled") {
+                
+                if (!$scope.account) {
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+                }
+
+                try {
+                    await web3.fsntx.buildAssetToTimeLockTx({
+                        asset: asset,
+                        from: from,
+                        to: to,
+                        start: fromTime,
+                        end: tillTime,
+                        value: amount
+                    }).then((tx) => {
+                        tx.from = from;
+                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                            $scope.sendAssetFinal.open();
+                            $scope.$eval(function () {
+                                $scope.successHash = txHash;
+                                $scope.successHash = txHash;
+                            });
+                        })
+                    });
+                } catch (err) {
+                    $scope.errorModal.open();
+                }
+            }
+
         }
 
         $scope.timeLockToTimeLock = async function () {
@@ -637,22 +676,26 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
-            await web3.fsntx.buildTimeLockToTimeLockTx({
-                asset: asset,
-                from: from,
-                to: to,
-                start: fromTime,
-                end: tillTime,
-                value: amount
-            }).then((tx) => {
-                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                    $scope.$eval(function () {
-                        $scope.sendAssetFinal.open();
-                        $scope.successHash = txHash;
-                        $scope.successHash = txHash;
-                    });
-                })
-            });
+            try {
+                await web3.fsntx.buildTimeLockToTimeLockTx({
+                    asset: asset,
+                    from: from,
+                    to: to,
+                    start: fromTime,
+                    end: tillTime,
+                    value: amount
+                }).then((tx) => {
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        $scope.$eval(function () {
+                            $scope.sendAssetFinal.open();
+                            $scope.successHash = txHash;
+                            $scope.successHash = txHash;
+                        });
+                    })
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+            }
         }
 
         $scope.createAssetInit = function () {
@@ -702,20 +745,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
-            await web3.fsntx.buildGenAssetTx({
-                from: walletAddress,
-                name: assetName,
-                symbol: assetSymbol,
-                decimals: decimals,
-                total: totalSupply * power
-            }).then((tx) => {
-                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                    $scope.$apply(function () {
-                        $scope.assetCreate.errorMessage = '';
-                        $scope.assetCreate.assetHash = txHash;
-                    });
-                })
-            });
+            try {
+                await web3.fsntx.buildGenAssetTx({
+                    from: walletAddress,
+                    name: assetName,
+                    symbol: assetSymbol,
+                    decimals: decimals,
+                    total: totalSupply * power
+                }).then((tx) => {
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        $scope.$apply(function () {
+                            $scope.assetCreate.errorMessage = '';
+                            $scope.assetCreate.assetHash = txHash;
+                        });
+                    })
+                });
+            }
+            catch (err) {
+                $scope.errorModal.open();
+            }
         }
         setInterval(function () {
             if (!$scope.tx || !$scope.wallet) {
