@@ -60,6 +60,13 @@ header {
   margin-bottom: 0;
 }
 
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  input[type=date].form-control, input[type=datetime-local].form-control, input[type=month].form-control, input[type=time].form-control {
+    line-height: -5rem !important;
+  }
+}
+
+
 .input-group > .form-control + .form-control,
 .input-group > .form-control + .custom-select,
 .input-group > .form-control + .custom-file,
