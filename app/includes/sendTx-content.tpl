@@ -29,8 +29,7 @@
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The “All Assets” tab provides an overview of all the digital assets that are currently in
-                    your Fusion PSN wallet.</p>
+                <p class="p-2">The Assets section provides an overview of all the digital assets that are currently in your Fusion PSN wallet.</p>
             </div>
 
             <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
@@ -94,8 +93,7 @@
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The Time-lock Assets tab provides all relevant information about the time-locked digital
-                    assets in your wallet.</p>
+                <p class="p-2">The Time-lock Assets section provides all relevant information about the time-locked digital assets in your wallet.</p>
             </div>
 
 
