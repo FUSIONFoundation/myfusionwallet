@@ -312,17 +312,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.checkDate = function (){
-            let today = new Date();
-            if($scope.sendAsset.tillTime < today){
-                $scope.$eval(function(){
-                    $scope.sendAsset.tillTime = today;
-                })
-            }
-
-            if($scope.sendAsset.tillTime < $scope.sendAsset.fromTime){
-                $scope.$eval(function(){
-                    $scope.sendAsset.fromTime = today;
-                })
+            if ($scope.transactionType == 'scheduled') {
+             return
+            } else {
+                let today = new Date();
+                if ($scope.sendAsset.tillTime < today) {
+                    $scope.$eval(function () {
+                        $scope.sendAsset.tillTime = today;
+                    })
+                }
+                if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
+                    $scope.$eval(function () {
+                        $scope.sendAsset.fromTime = today;
+                    })
+                }
             }
         }
 
