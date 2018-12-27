@@ -403,7 +403,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.setMaxBalance = function () {
-            $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
+            if($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
+                $scope.sendAsset.amountToSend = $scope.selectedAssetBalance - 0.000022;
+            } else {
+                $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
+            }
         }
 
         $scope.toHexString = function (byteArray) {
