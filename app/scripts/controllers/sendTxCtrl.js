@@ -506,7 +506,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.setMaxBalance = async function () {
-            debugger
             if ($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
                 let a = $scope.selectedAssetBalance.toString();
 
@@ -699,9 +698,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             if ($scope.transactionType == "daterange") {
 
+                if ($scope.sendAsset.fromTime == ''){
+                    $scope.sendAsset.fromTime = new Date();
+                }
+
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
-
                 if (!$scope.account) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }

@@ -29,7 +29,8 @@
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The Assets section provides an overview of all the digital assets that are currently in your Fusion PSN wallet.</p>
+                <p class="p-2">The Assets section provides an overview of all the digital assets that are currently in
+                    your Fusion PSN wallet.</p>
             </div>
 
             <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
@@ -93,7 +94,8 @@
     <article class="block" ng-hide="wallet.type=='addressOnly'">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
-                <p class="p-2">The Time-lock Assets section provides all relevant information about the time-locked digital assets in your wallet.</p>
+                <p class="p-2">The Time-lock Assets section provides all relevant information about the time-locked
+                    digital assets in your wallet.</p>
             </div>
 
 
@@ -114,7 +116,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in timeLockList track by $index" ng-hide="hiddenTimeLockStates[asset.id].hidden == 1">
+                        <tr ng-repeat="asset in timeLockList track by $index"
+                            ng-hide="hiddenTimeLockStates[asset.id].hidden == 1">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
                             <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                          ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
@@ -570,27 +573,27 @@
                                     Time-Lock
                                 </span>
                             <br>
-                            <div class="col-md-4 p-0">
+                            <div class="col-md-4 p-0 pb-2">
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="transactionType ='none'"
                                         ng-class="{'time-active' : transactionType == 'none'}"
                                 >None
                                 </button>
                             </div>
-                            <div class="col-md-4 p-0">
+                            <div class="col-md-4 p-0 pb-2">
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="transactionType ='scheduled'"
                                         ng-class="{'time-active' : transactionType == 'scheduled'}"
                                 >
-                                    Schedule Send Date
+                                    Date to Forever
                                 </button>
                             </div>
-                            <div class="col-md-4 p-0">
+                            <div class="col-md-4 p-0 pb-2">
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="transactionType ='daterange'"
                                         ng-class="{'time-active' : transactionType == 'daterange'}"
                                 >
-                                    Date Range
+                                    Now to Date
                                 </button>
                             </div>
                         </div>
@@ -600,7 +603,7 @@
                                     From
                             </span>
                                 <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
-                                    Send on
+                                    From
                             </span>
                                 <br>
                                 <input class="form-control"
@@ -608,7 +611,18 @@
                                        ng-change="checkDate()"
                                        min="{{todayDate}}"
                                        onkeydown="return false"
-                                       ng-model="sendAsset.fromTime">
+                                       ng-model="sendAsset.fromTime"
+                                       ng-show="transactionType == 'scheduled'"
+                                >
+                                <span class="b-form small-gray-text text-fusion fusion-text-14 p-1" ng-show="transactionType == 'daterange'">Now</span>
+
+                            </div>
+                            <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
+                                    Until
+                            </span>
+                            <br>
+                            <div class="col-md-6 p-0" ng-show="transactionType == 'scheduled'">
+                                <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
                             </div>
                             <div class="col-md-6" ng-hide="transactionType == 'scheduled'">
                             <span class="small-gray-text">
@@ -826,10 +840,11 @@
                                     From
                                 </span>
                                 <span class="small-gray-text" ng-show="transactionType =='scheduled'">
-                                    Send On
+                                    From
                                 </span>
                                 <br>
-                                <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
+                                <span class="fusion-text-14" ng-hide="transactionType == 'daterange'">{{sendAsset.fromTimeString}}</span>
+                                <span class="fusion-text-14" ng-show="transactionType == 'daterange'">Now</span>
                             </div>
                             <div class="float-right border-gray-bottom pb-2 pt-2 w-50"
                                  ng-hide="transactionType == 'scheduled'">
@@ -837,7 +852,9 @@
                                     Until
                                 </span>
                                 <br>
-                                <span class="fusion-text-14">{{sendAsset.tillTimeString}}</span>
+                                <span class="fusion-text-14" ng-hide="transactionType == 'scheduled'">{{sendAsset.tillTimeString}}</span>
+                                <span class="fusion-text-14" ng-show="transactionType == 'scheduled'">∞ Forever</span>
+
                             </div>
                         </div>
 
@@ -927,7 +944,8 @@
                 </div>
 
                 <div class="col-md-12 text-center p-2">
-                    <img src="images/exclamation-circle.svg" class="text-center" height="80px" width="80px" color="red" alt="">
+                    <img src="images/exclamation-circle.svg" class="text-center" height="80px" width="80px" color="red"
+                         alt="">
                 </div>
 
                 <h3 class="text-center">Oops</h3>
@@ -971,7 +989,8 @@
                             </div>
                             <div class="float-right max-char">
    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-         title="{{successHash}}"><a href="https://blocks.fusionnetwork.io/Transactions/{{successHash}}" target="_blank">{{successHash}}</a>
+         title="{{successHash}}"><a href="https://blocks.fusionnetwork.io/Transactions/{{successHash}}"
+                                    target="_blank">{{successHash}}</a>
                             </div>
                             <br>
                         </div>
@@ -1050,7 +1069,8 @@
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
-                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50" ng-hide="transactionType =='scheduled'">
+                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50"
+                                 ng-hide="transactionType =='scheduled'">
                                 <span class="small-gray-text">
                                     Until
                                 </span>
@@ -1201,7 +1221,8 @@
                             <div class="float-right max-char">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="{{assetCreate.assetHash}}">
-                                       <a href="https://blocks.fusionnetwork.io/Transactions/{{assetCreate.assetHash}}" target="_blank">
+                                       <a href="https://blocks.fusionnetwork.io/Transactions/{{assetCreate.assetHash}}"
+                                          target="_blank">
                                 </span>
                             </div>
                             <br>

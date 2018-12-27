@@ -15,7 +15,6 @@ window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
 function keepWeb3Alive(){
-    console.log('Triggered Keep Alive');
 //debugger
     provider = new Web3.providers.WebsocketProvider("wss://gateway.fusionnetwork.io:10001");
     provider.on("connect", function () {
@@ -29,8 +28,8 @@ function keepWeb3Alive(){
     provider.on("end", function (err) {
 //debugger
         web3._isConnected = false;
-        console.log("web3 connection error ", err);
-        console.log("will try to reconnect");
+        // console.log("web3 connection error ", err);
+        // console.log("will try to reconnect");
         setTimeout(() => {
             keepWeb3Alive();
         }, 2);
