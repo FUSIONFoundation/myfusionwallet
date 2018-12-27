@@ -73,8 +73,11 @@
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">{{asset.total}}</td>
                             <td class="text-right">
+
+                                <span  ng-init="f = $index"></span>
+                                {{f}}
                                 <button class="btn-sm btn-white action-button p-0"
-                                        ng-click=" sendAssetModalOpen(asset.id, false)">Send
+                                        ng-click="sendAssetModalOpen(f, false)">Send
                                 </button>
                             </td>
                         </tr>
