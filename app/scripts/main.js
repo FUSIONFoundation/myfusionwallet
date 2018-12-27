@@ -11,10 +11,35 @@ var angularSanitize = require("angular-sanitize");
 var angularAnimate = require("angular-animate");
 var Web3 = require("web3");
 var web3FusionExtend = require('web3-fusion-extend');
-var web3 = new Web3();
-web3 = new Web3(new Web3.providers.WebsocketProvider("wss://gateway.fusionnetwork.io:10001"));
-web3 = web3FusionExtend.extend(web3)
-window.web3 = web3;
+window.web3FusionExtend = web3FusionExtend;
+var provider;
+var web3;
+function keepWeb3Alive(){
+    console.log('Triggered Keep Alive');
+//debugger
+    provider = new Web3.providers.WebsocketProvider("wss://gateway.fusionnetwork.io:10001");
+    provider.on("connect", function () {
+//debugger
+        window.web3._isConnected = true;
+    });
+    provider.on("error", function (err) {
+//debugger
+        provider.disconnect();
+    });
+    provider.on("end", function (err) {
+//debugger
+        web3._isConnected = false;
+        console.log("web3 connection error ", err);
+        console.log("will try to reconnect");
+        setTimeout(() => {
+            keepWeb3Alive();
+        }, 2);
+    });
+    web3 = new Web3(provider);
+    web3 = window.web3FusionExtend.extend(web3);
+    window.web3 = web3;
+}
+keepWeb3Alive();
 var bip39 = require("bip39");
 var HDKey = require("hdkey");
 var xssFilters = require("xss-filters");

@@ -535,7 +535,7 @@
                             <span class="small-gray-text">
                                 Amount To Send:
                             </span>
-                            <input type="number"
+                            <input type="text"
                                    class="form-control"
                                    min="0"
                                    ng-model="sendAsset.amountToSend"

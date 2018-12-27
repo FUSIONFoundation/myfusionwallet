@@ -296,8 +296,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAssetModalConfirm = function (asset) {
-            let fromTimeString = new Date($scope.sendAsset.fromTime).toLocaleDateString();
-            let tillTimeString = new Date($scope.sendAsset.tillTime).toLocaleDateString();
+            let fromTimeString = new Date($scope.sendAsset.fromTime).toDateString();
+            let tillTimeString = new Date($scope.sendAsset.tillTime).toDateString();
 
             return web3.fsn.getAsset(asset).then(function (res) {
                 $scope.$eval(function () {
@@ -311,9 +311,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
         }
 
-        $scope.checkDate = function (){
+        $scope.checkDate = function () {
             if ($scope.transactionType == 'scheduled') {
-             return
+                return
             } else {
                 let today = new Date();
                 if ($scope.sendAsset.tillTime < today) {
@@ -337,14 +337,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let assetBalance = '';
             let decimals = '';
 
-            if(!id && !timelockonly){
-                $scope.$eval(function(){
+            if (!id && !timelockonly) {
+                $scope.$eval(function () {
                     $scope.sendAsset.fromTime = '';
                     $scope.sendAsset.tillTime = '';
                 })
             }
 
-            if (asset !== undefined){
+            if (asset !== undefined) {
                 await web3.fsn.getAsset(asset).then(function (res) {
                     decimals = res["Decimals"];
                 });
@@ -441,20 +441,94 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 assetBalance = res;
             });
 
-            let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
+
+            let balance = new BN(assetBalance) / $scope.countDecimals(decimals);
 
             $scope.$apply(function () {
                 $scope.selectedAssetBalance = balance;
             });
         }
 
-        $scope.setMaxBalance = function () {
-            if($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
-                $scope.sendAsset.amountToSend = eval($scope.selectedAssetBalance - 0.000025);
+        $scope.formatWei = function (val) {
+            if (typeof val === 'object') {
+                val = val.toString()
+            }
+            let len = val.length;
+            if (len < 18) {
+                val = "0".repeat(18 - len) + val
+                len = 18
+            }
+            if (len === 18) {
+                val = "." + val
+            } else {
+                val = $scope.insert(val, val.length - 18, ".")
+            }
+
+            val = $scope.removeZeros(val, true, true, true)
+
+            if (val.charAt(0) === '.') {
+                return "0" + val;
+            }
+            if (val.length === 0) {
+                return 0
+            }
+            return val;
+        }
+
+        $scope.removeZeros = function (val, trailing = true, leading = false, decimal = true) {
+            var regEx1 = /^[0]+/;
+            var regEx2 = /[0]+$/;
+            var regEx3 = /[.]$/;
+
+            var before = "";
+            var after = "";
+
+            before = val;
+
+            if (leading) {
+                after = before.replace(regEx1, ""); // Remove leading 0's
+            } else {
+                after = before;
+            }
+            if (trailing) {
+                if (after.indexOf(".") > -1) {
+                    after = after.replace(regEx2, ""); // Remove trailing 0's
+                }
+            }
+            if (decimal) {
+                after = after.replace(regEx3, ""); // Remove trailing decimal
+            }
+            return after;
+        }
+
+        $scope.insert = function (str, index, value) {
+            return str.substr(0, index) + value + str.substr(index);
+        }
+
+        $scope.setMaxBalance = async function () {
+            debugger
+            if ($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                let a = $scope.selectedAssetBalance.toString();
+
+                let amount = $scope.makeBigNumber(a, 18);
+
+                let gasPrice = await web3.eth.getGasPrice().then(function (res) {
+                    return new BN(res);
+                })
+
+                console.log(amount.toString());
+                console.log(gasPrice.toString());
+
+                amount = amount.sub(gasPrice);
+
+                console.log($scope.formatWei(amount.toString()));
+
+                $scope.sendAsset.amountToSend =  $scope.formatWei(amount.toString());
             } else {
                 $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
             }
         }
+
 
         $scope.toHexString = function (byteArray) {
             var s = '0x';
@@ -521,8 +595,45 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
+        $scope.makeBigNumber = function (amount, decimals) {
+            let pieces = amount.split(".")
+            let d = parseInt(decimals)
+            if (pieces.length === 1) {
+                amount = parseInt(amount)
+                if (isNaN(amount) || amount < 0) {
+                    // error message
+                    return
+                }
+                amount = new BN(amount + "0".repeat(parseInt(decimals)));
+            } else if (pieces.length > 2) {
+                console.log('error');
+                // error message
+                return
+            } else if (pieces[1].length >= d) {
+                console.log('error');
+                return // error
+            } else {
+                let dec = parseInt(pieces[1])
+                let reg = new RegExp('^\\d+$'); // numbers only
+                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
+                    console.log('error');
+                    return
+                    // return error
+                }
+                dec = pieces[1]
+                let declen = d - dec.toString().length
+                amount = parseInt(pieces[0])
+                if (isNaN(amount) || amount < 0) {
+                    console.log('error');
+                    // error message
+                    return
+                }
+                amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
+            }
+            return amount;
+        }
+
         $scope.sendAsset = async function () {
-            debugger
             $scope.successMessagebool = true;
             let accountData = uiFuncs.getTxData($scope);
             let from = accountData.from;
@@ -544,35 +655,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let amount = $scope.sendAsset.amountToSend.toString();
 
-            let pieces = amount.split(".")
-            let d = parseInt(decimals)
-            if (pieces.length === 1) {
-                amount = parseInt(amount)
-                if (isNaN(amount) || amount < 0) {
-                    // error message
-                    return
-                }
-                amount = new BN(amount + "0".repeat(parseInt(decimals)));
-            } else if (pieces.length > 2) {
-                // error message
-                return
-            } else if (pieces[1].length >= d) {
-                return // error
-            } else {
-                let dec = parseInt(pieces[1])
-                let reg = new RegExp('^\\d+$'); // numbers only
-                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1]) ) {
-                    // return error
-                }
-                dec = pieces[1]
-                let declen = d - dec.toString().length
-                amount = parseInt(pieces[0])
-                if (isNaN(amount) || amount < 0) {
-                    // error message
-                    return
-                }
-                amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
-            }
+            amount = $scope.makeBigNumber(amount, decimals);
 
             if ($scope.transactionType == "none") {
 
@@ -580,12 +663,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
+                console.log(amount.toString());
+
+                let gasPrice = await web3.eth.getGasPrice().then(function (res) {
+                    return new BN(res);
+                })
+
                 try {
                     await web3.fsntx.buildSendAssetTx({
                         from: from,
                         to: to,
-                        value: amount,
-                        asset: asset
+                        value: amount.toString(),
+                        asset: asset,
+                        gasPrice: gasPrice.toString()
                     }).then((tx) => {
                         tx.from = from;
 
@@ -746,7 +836,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } else {
                 let dec = parseInt(pieces[1])
                 let reg = new RegExp('^\\d+$'); // numbers only
-                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1]) ) {
+                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
                     // return error
                 }
                 dec = pieces[1]
@@ -924,12 +1014,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     if (startTimePosix === 0) {
                         startTime = 'Now'
                     } else {
-                        startTime = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000).toLocaleDateString();
+                        startTime = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000).toDateString();
                     }
                     if (endTimePosix === 18446744073709552000) {
                         endTime = '∞ Forever';
                     } else {
-                        endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000).toLocaleDateString();
+                        endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000).toDateString();
                     }
 
                     let data = {
@@ -951,6 +1041,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
                 x++;
             }
+
             $scope.$eval(function () {
                 $scope.timeLockList = timeLockListSave;
             });
@@ -997,7 +1088,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "balance": assetBalance / divider,
                         "owner": owned
                     }
-                    if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"){
+                    if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
                         await assetList3.push(data);
                     } else {
                         await assetList2.push(data);
@@ -1005,7 +1096,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
 
-            assetList2.sort( function(a, b) {
+            assetList2.sort(function (a, b) {
                 a = a.name;
                 b = b.name;
                 return a < b ? -1 : a > b ? 1 : 0;

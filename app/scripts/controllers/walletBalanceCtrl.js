@@ -8,6 +8,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getBalance();
     };
     $scope.mayRunState = false;
+    $scope.provider;
     $scope.addressNotation = {'value': '', 'state': ''};
     $scope.ajaxReq = ajaxReq;
     $scope.requestedSAN = false;
@@ -266,14 +267,15 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : '',
                     path: $scope.wallet.getPath(),
                     hwType: $scope.wallet.getHWType(),
-                    hwTransport: $scope.wallet.getHWTransport()}
+                    hwTransport: $scope.wallet.getHWTransport()
+                }
 
                 var rawTx = {
-                    chainId : 1,
+                    chainId: 1,
                     nonce: ethFuncs.sanitizeHex(data.nonce),
                     gasLimit: "0x1E8480",
                     to: ethFuncs.sanitizeHex(txData.to),
-                    value:txData.value,
+                    value: txData.value,
                     data: ethFuncs.sanitizeHex(txData.data),
                     input: ethFuncs.sanitizeHex(txData.data)
                 }
@@ -300,7 +302,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                             EIP155Supported = true;
                         }
 
-                        uiFuncs.signTxLedger(app, eTx, rawTx, txData, !EIP155Supported, function(res){
+                        uiFuncs.signTxLedger(app, eTx, rawTx, txData, !EIP155Supported, function (res) {
                             uiFuncs.sendTx(res.signedTx, function (resp) {
                                 if (!resp.isError) {
                                     $scope.notifier.success('Working', 0);
@@ -309,7 +311,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                                 }
                             })
                         });
-
 
 
                         console.log(app);
