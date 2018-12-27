@@ -675,16 +675,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             localStorage.setItem('hiddenTimeLocks', JSON.stringify(data));
         }
 
-        $scope.checkTotalSupply = function () {
-            // let str = $scope.assetCreate.totalSupply.toString();
-            // if (str.includes('.') == true){
-            //     let noPoint = $scope.assetCreate.totalSupply.replace('.', '');
-            //     $scope.$apply(function(){
-            //         $scope.assetCreate.totalSupply = noPoint;
-            //     })
-            // }
-        }
-
         $scope.timeLockToTimeLock = async function () {
             $scope.successMessagebool = true;
             let accountData = uiFuncs.getTxData($scope);
@@ -811,7 +801,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return null;
             }
 
-            $scope.createAssetFinal.open();
+            if (totalSupply < 1 || totalSupply == undefined) {
+                $scope.assetCreate.errorMessage = 'Please, fill in whole numbers for the total supply.';
+                return null;
+            }
 
             if (!$scope.account) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
@@ -830,6 +823,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             $scope.assetCreate.errorMessage = '';
                             $scope.assetCreate.assetHash = txHash;
                         });
+                        $scope.createAssetFinal.open();
                     })
                 });
             }
@@ -946,6 +940,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let assetList = {};
             let assetList2 = [];
+            let assetList3 = [];
+
 
             await web3.fsn.allAssets().then(function (res) {
                 assetList = res;
@@ -976,7 +972,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "balance": assetBalance / divider,
                         "owner": owned
                     }
-                    await assetList2.push(data);
+                    if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"){
+                        await assetList3.push(data);
+                    } else {
+                        await assetList2.push(data);
+                    }
                 }
             }
 
@@ -986,10 +986,23 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return a < b ? -1 : a > b ? 1 : 0;
             });
 
+            for (let asset in assetList2) {
+                let data = {
+                    "name": assetList2[asset]["name"],
+                    "symbol": assetList2[asset]["symbol"],
+                    "decimals": assetList2[asset]["decimals"],
+                    "total": assetList2[asset]["total"],
+                    "contractaddress": assetList2[asset]["contractaddress"],
+                    "balance": assetList2[asset]["balance"],
+                    "owner": assetList2[asset]["owner"]
+                }
+                await assetList3.push(data);
+            }
+
 
             $scope.$apply(function () {
-                $scope.assetListOwns = assetList2;
-                $scope.assetListOwns = assetList2;
+                $scope.assetListOwns = assetList3;
+                $scope.assetListOwns = assetList3;
                 $scope.assetListLoading = false;
             });
 
