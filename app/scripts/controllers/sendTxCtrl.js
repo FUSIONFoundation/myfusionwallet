@@ -425,7 +425,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.setMaxBalance = function () {
             if($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
-                $scope.sendAsset.amountToSend = $scope.selectedAssetBalance - 0.000022;
+                $scope.sendAsset.amountToSend = eval($scope.selectedAssetBalance - 0.000025);
             } else {
                 $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
             }
@@ -497,6 +497,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAsset = async function () {
+            debugger
             $scope.successMessagebool = true;
             let accountData = uiFuncs.getTxData($scope);
             let from = accountData.from;
@@ -573,6 +574,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         })
                     });
                 } catch (err) {
+                    console.log(err);
                     $scope.errorModal.open();
                 }
 
@@ -671,6 +673,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
 
             localStorage.setItem('hiddenTimeLocks', JSON.stringify(data));
+        }
+
+        $scope.checkTotalSupply = function () {
+            // let str = $scope.assetCreate.totalSupply.toString();
+            // if (str.includes('.') == true){
+            //     let noPoint = $scope.assetCreate.totalSupply.replace('.', '');
+            //     $scope.$apply(function(){
+            //         $scope.assetCreate.totalSupply = noPoint;
+            //     })
+            // }
         }
 
         $scope.timeLockToTimeLock = async function () {

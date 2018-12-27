@@ -1133,8 +1133,11 @@
                         </span>
                         <input type="number"
                                min="0"
+                               step="1"
                                class="form-control"
                                ng-model="assetCreate.totalSupply"
+                               ng-change="checkTotalSupply()"
+                               pattern="[0-9]"
                                placeholder="Enter the amount of this assets you want to create"/>
                     </div>
                 </section>
