@@ -313,12 +313,33 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.sendAssetModalOpen = async function (id, timelockonly) {
+            let asset = $scope.assetToSend;
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let assetBalance = '';
+            let decimals = '';
+
+            if (asset !== undefined){
+                await web3.fsn.getAsset(asset).then(function (res) {
+                    decimals = res["Decimals"];
+                });
+
+                await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
+                    assetBalance = res;
+                });
+
+                let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
+
+                $scope.$eval(function () {
+                    $scope.selectedAssetBalance = balance;
+                });
+            }
+
             $scope.$eval(function () {
                 $scope.showStaticTimeLockAsset = false;
             })
             if (id >= 0 && timelockonly == true) {
                 let assetData = $scope.timeLockList[id];
-                console.log(assetData);
                 $scope.$eval(function () {
                     $scope.assetToSend = assetData.asset;
                     $scope.assetName = assetData.name;
