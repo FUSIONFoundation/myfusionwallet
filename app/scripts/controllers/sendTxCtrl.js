@@ -30,6 +30,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.errorModal = new Modal(document.getElementById('errorModal'));
         $scope.successModal = new Modal(document.getElementById('successModal'));
         $scope.hiddenTimeLockStates = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
+        $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         let timeLockListSave = [];
         let BN = web3.utils.BN;
@@ -296,8 +297,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAssetModalConfirm = function (asset) {
-            let fromTimeString = new Date($scope.sendAsset.fromTime).toDateString();
-            let tillTimeString = new Date($scope.sendAsset.tillTime).toDateString();
+            let fromTimeString = new Date($scope.sendAsset.fromTime).toUTCString();
+            let tillTimeString = new Date($scope.sendAsset.tillTime).toUTCString();
 
             return web3.fsn.getAsset(asset).then(function (res) {
                 $scope.$eval(function () {
@@ -522,7 +523,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 console.log($scope.formatWei(amount.toString()));
 
-                $scope.sendAsset.amountToSend =  $scope.formatWei(amount.toString());
+                $scope.sendAsset.amountToSend = $scope.formatWei(amount.toString());
             } else {
                 $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
             }
@@ -698,7 +699,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             if ($scope.transactionType == "daterange") {
 
-                if ($scope.sendAsset.fromTime == ''){
+                if ($scope.sendAsset.fromTime == '') {
                     $scope.sendAsset.fromTime = new Date();
                 }
 
@@ -1016,12 +1017,26 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     if (startTimePosix === 0) {
                         startTime = 'Now'
                     } else {
-                        startTime = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000).toDateString();
+                        let a = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000);
+
+                        var month = a.getUTCMonth();
+                        var day = a.getUTCDate();
+                        var year = a.getUTCFullYear();
+
+                        startTime = $scope.months[month] + ' ' + day + ', ' + year;
+
                     }
                     if (endTimePosix === 18446744073709552000) {
                         endTime = '∞ Forever';
                     } else {
-                        endTime = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000).toDateString();
+                        
+                        let a = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000);
+
+                        var month = a.getUTCMonth();
+                        var day = a.getUTCDate();
+                        var year = a.getUTCFullYear();
+
+                        endTime = $scope.months[month] + ' ' + day + ', ' + year;
                     }
 
                     let data = {
