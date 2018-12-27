@@ -951,6 +951,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 assetList = res;
             });
 
+            let x = -1;
+
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
                 let owner = assetList[asset]["Owner"];
@@ -966,7 +968,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (assetBalance > 0.000000000001) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                     let data = {
-                        "id": assetList2.length,
+                        "id": ++x,
                         "name": assetList[asset]["Name"],
                         "symbol": assetList[asset]["Symbol"],
                         "decimals": assetList[asset]["Decimals"],
@@ -978,6 +980,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await assetList2.push(data);
                 }
             }
+
+            // assetList2.sort( function( a, b ) {
+            //     a = a.name;
+            //     b = b.name;
+            //
+            //     return a < b ? -1 : a > b ? 1 : 0;
+            // });
+            //
+            console.log(assetList2);
 
             $scope.$apply(function () {
                 $scope.assetListOwns = assetList2;

@@ -59,6 +59,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                         ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
@@ -1136,8 +1137,6 @@
                                step="1"
                                class="form-control"
                                ng-model="assetCreate.totalSupply"
-                               ng-change="checkTotalSupply()"
-                               pattern="[0-9]"
                                placeholder="Enter the amount of this assets you want to create"/>
                     </div>
                 </section>
