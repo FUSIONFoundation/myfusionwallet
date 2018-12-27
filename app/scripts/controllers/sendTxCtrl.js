@@ -311,6 +311,21 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
         }
 
+        $scope.checkDate = function (){
+            let today = new Date();
+            if($scope.sendAsset.tillTime < today){
+                $scope.$eval(function(){
+                    $scope.sendAsset.tillTime = today;
+                })
+            }
+
+            if($scope.sendAsset.tillTime < $scope.sendAsset.fromTime){
+                $scope.$eval(function(){
+                    $scope.sendAsset.fromTime = today;
+                })
+            }
+        }
+
 
         $scope.sendAssetModalOpen = async function (id, timelockonly) {
             let asset = $scope.assetToSend;

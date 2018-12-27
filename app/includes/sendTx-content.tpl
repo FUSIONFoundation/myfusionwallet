@@ -603,7 +603,11 @@
                                     Send on
                             </span>
                                 <br>
-                                <input class="form-control" type="date" min="{{todayDate}}"
+                                <input class="form-control"
+                                       type="date"
+                                       ng-change="checkDate()"
+                                       min="{{todayDate}}"
+                                       onkeydown="return false"
                                        ng-model="sendAsset.fromTime">
                             </div>
                             <div class="col-md-6" ng-hide="transactionType == 'scheduled'">
@@ -611,7 +615,11 @@
                                     Until
                                 </span>
                                 <br>
-                                <input class="form-control" type="date" min="{{todayDate}}"
+                                <input class="form-control"
+                                       type="date"
+                                       ng-change="checkDate()"
+                                       min="{{todayDate}}"
+                                       onkeydown="return false"
                                        ng-model="sendAsset.tillTime">
                             </div>
                         </div>
@@ -629,13 +637,13 @@
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime === '' || sendAsset.fromTime === '' || sendAsset.amountToSend === '' || sendAsset.toAddress === '';">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == '';">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; || sendAsset.amountToSend === '' || sendAsset.toAddress === '';">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.amountToSend == ''; sendAsset.toAddress == '';">
                             Next
                         </button>
                     </div>
