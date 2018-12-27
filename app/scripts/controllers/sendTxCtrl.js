@@ -313,6 +313,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.sendAssetModalOpen = async function (id, timelockonly) {
+            $scope.$eval(function(){
+                $scope.sendAsset.fromTime = '';
+                $scope.sendAsset.tillTime = '';
+            })
+
             let asset = $scope.assetToSend;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;

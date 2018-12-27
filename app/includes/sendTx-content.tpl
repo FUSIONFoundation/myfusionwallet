@@ -20,7 +20,7 @@
                     <i class="fa fa-plus"></i> Create Asset
                 </a>
                 <a class="btn btn-sm btn-primary"
-                   ng-click="sendAssetModalOpen(); transactionType = 'none'"
+                   ng-click="sendAssetModalOpen(); transactionType = 'none';"
                 >
                     Send Assets
                 </a></div>
