@@ -628,7 +628,14 @@
                     <div class="col-xs-6 clearfix" ng-hide="wallet.balance < 0.00002">
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
+                                ng-hide="showStaticTimeLockAsset"
                                 ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime === '' || sendAsset.fromTime === '' || sendAsset.amountToSend === '' || sendAsset.toAddress === '';">
+                            Next
+                        </button>
+                        <button class="btn btn-primary btn-block"
+                                ng-click="sendAssetModalConfirm(assetToSend)"
+                                ng-show="showStaticTimeLockAsset"
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; || sendAsset.amountToSend === '' || sendAsset.toAddress === '';">
                             Next
                         </button>
                     </div>
@@ -957,18 +964,6 @@
                             <div class="float-right max-char">
    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
          title="{{successHash}}"><a href="https://blocks.fusionnetwork.io/Transactions/{{successHash}}" target="_blank">{{successHash}}</a>
-                            </div>
-                            <br>
-                        </div>
-
-                        <div class="border-gray-bottom pb-2 pt-2">
-                            <div class="float-left">
-                                <span class="small-gray-text">
-                                    Type:
-                                </span>
-                            </div>
-                            <div class="float-right">
-                                <span class="fusion-text-14">{{sendAsset.assetName}}</span>
                             </div>
                             <br>
                         </div>
