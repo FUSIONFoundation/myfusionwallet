@@ -54,7 +54,6 @@
                             <th scope="col">Asset Name</th>
                             <th scope="col">Asset Info</th>
                             <th scope="col" class="text-right">Available</th>
-                            <th scope="col" class="text-right">Total Quantity</th>
                             <th scope="col" class="text-right">Actions</th>
                         </tr>
                         </thead>
@@ -69,9 +68,12 @@
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
                                 </div>
                             </td>
-                            <td><span class="badge badge-secondary">{{asset.owner}}</span></td>
+                            <td><span class="badge badge-secondary m-1">Fusion Asset</span>
+                                <br>
+                                <span class="created m-1" ng-hide="asset.owner == ''">{{asset.owner}}</span>
+
+                            </td>
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
-                            <td class="text-right">{{asset.total}}</td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
                                 <button class="btn-sm btn-white action-button p-0"

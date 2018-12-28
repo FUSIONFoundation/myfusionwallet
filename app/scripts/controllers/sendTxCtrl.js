@@ -1092,7 +1092,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     assetBalance = res;
                 });
 
-                owner === walletAddress ? owned = 'Owned Asset' : owned = 'Not Owned';
+                owner === walletAddress ? owned = 'Created' : owned = '';
 
                 if (assetBalance > 0.000000000001) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
