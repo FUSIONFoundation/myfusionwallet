@@ -119,7 +119,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList track by $index"
-                            ng-hide="hiddenTimeLockStates[asset.id].hidden == 1">
+                            ng-hide="asset.status === 'Expired'">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
                             <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                          ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
