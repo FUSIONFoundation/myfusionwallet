@@ -297,16 +297,29 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.sendAssetModalConfirm = function (asset) {
-            let fromTimeString = new Date($scope.sendAsset.fromTime).toUTCString();
-            let tillTimeString = new Date($scope.sendAsset.tillTime).toUTCString();
+            let fromTimeString = new Date($scope.sendAsset.fromTime);
+            let tillTimeString = new Date($scope.sendAsset.tillTime);
+
+            var fMonth = fromTimeString.getMonth();
+            var fDay = fromTimeString.getDate();
+            var fYear = fromTimeString.getFullYear();
+            var tMonth = tillTimeString.getMonth();
+            var tDay = tillTimeString.getDate();
+            var tYear = tillTimeString.getFullYear();
+
+            let startTime = $scope.months[fMonth] + ' ' + fDay + ', ' + fYear;
+            let endTime = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
+
+            $scope.$eval(function(){
+                $scope.sendAsset.fromTimeString = startTime;
+                $scope.sendAsset.tillTimeString = endTime;
+            })
 
             return web3.fsn.getAsset(asset).then(function (res) {
                 $scope.$eval(function () {
                     $scope.sendAsset.assetName = res["Name"];
                     $scope.sendAsset.assetSymbol = res["Symbol"];
                     $scope.sendAsset.assetHash = asset;
-                    $scope.sendAsset.fromTimeString = fromTimeString;
-                    $scope.sendAsset.tillTimeString = tillTimeString;
                 });
                 $scope.sendAssetConfirm.open();
             });
@@ -373,7 +386,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.timeLockEndTime = assetData.endTime;
                     $scope.timeLockStartTimePosix = assetData.posixStartTime;
                     $scope.timeLockEndTimePosix = assetData.posixEndTime;
-
                     $scope.selectedAssetBalance = assetData.value;
                     $scope.showStaticAsset = true;
                 })
