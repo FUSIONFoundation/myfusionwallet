@@ -656,7 +656,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let hash = '';
 
             if (to.length < 42) {
-                web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
+                await web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
                     to = address;
                 });
             }
