@@ -979,6 +979,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let timeLockList = {};
             let timeLockListSave = [];
+            let activeList = [];
+            let availableList = [];
 
 
             await web3.fsn.getAllTimeLockBalances(walletAddress).then(function (res) {
@@ -1000,6 +1002,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     assetDecimals = res["Decimals"];
                     divider = $scope.countDecimals(res["Decimals"]);
                 });
+
                 for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
                     let startTimePosix = timeLockList[asset]["Items"][i]["StartTime"];
                     let endTimePosix = timeLockList[asset]["Items"][i]["EndTime"];
@@ -1063,10 +1066,68 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                     }
 
-                    await timeLockListSave.push(data);
+                    if (status == 'Active'){
+                        await activeList.push(data);
+
+                    }
+                    if (status == 'Available'){
+                        await availableList.push(data);
+                    }
                 }
                 x++;
+
             }
+            availableList.sort(function (a, b) {
+                a = a.name;
+                b = b.name;
+                return a < b ? -1 : a > b ? 1 : 0;
+            });
+            activeList.sort(function (a, b) {
+                a = a.name;
+                b = b.name;
+                return a < b ? -1 : a > b ? 1 : 0;
+            });
+
+            let u = -1;
+            for (let asset in availableList) {
+                u++
+                let data = {
+                    "id": u,
+                    "status": availableList[asset]["status"],
+                    "name": availableList[asset]["name"],
+                    "asset": availableList[asset]["asset"],
+                    "symbol": availableList[asset]["symbol"],
+                    "decimals": availableList[asset]["decimals"],
+                    "startTime": availableList[asset]["startTime"],
+                    "endTime": availableList[asset]["endTime"],
+                    "posixStartTime": availableList[asset]["posixStartTime"],
+                    "posixEndTime": availableList[asset]["posixEndTime"],
+                    "rawValue": availableList[asset]["rawValue"],
+                    "value": availableList[asset]["value"]
+                }
+                await timeLockListSave.push(data);
+            }
+
+            for (let asset in activeList) {
+                u++
+                let data = {
+                    "id": u,
+                    "status": activeList[asset]["status"],
+                    "name": activeList[asset]["name"],
+                    "asset": activeList[asset]["asset"],
+                    "symbol": activeList[asset]["symbol"],
+                    "decimals": activeList[asset]["decimals"],
+                    "startTime": activeList[asset]["startTime"],
+                    "endTime": activeList[asset]["endTime"],
+                    "posixStartTime": activeList[asset]["posixStartTime"],
+                    "posixEndTime": activeList[asset]["posixEndTime"],
+                    "rawValue": activeList[asset]["rawValue"],
+                    "value": activeList[asset]["value"]
+                }
+                await timeLockListSave.push(data);
+            }
+
+            console.log(timeLockListSave);
 
             $scope.$eval(function () {
                 $scope.timeLockList = timeLockListSave;
