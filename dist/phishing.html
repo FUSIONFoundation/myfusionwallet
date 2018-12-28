@@ -108,7 +108,7 @@
                               <div class="col-md-12 col-xs-12 p-2">
                              <span class="small-gray-text">Apps</span>
                             </div>
-                            <a href="https://myfusionwallet.com" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
+                            <a href="https://www.myfusionwallet.com" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                   <img src="images/group-5.svg"
                                        class="Group-6">
