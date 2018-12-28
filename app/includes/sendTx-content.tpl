@@ -549,7 +549,7 @@
                             <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance">
                                 You don't have enough funds
                             </div>
-                            <a class="small-gray-text" ng-click="setMaxBalance()" ng-hide="selectedAssetBalance == ''">Send
+                            <a class="small-gray-text" ng-click="setMaxBalance()" style="display:none;" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
                         <div class="col-md-12" ng-show="showStaticTimeLockAsset">
