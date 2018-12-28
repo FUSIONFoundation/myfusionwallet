@@ -108,21 +108,21 @@
                               <div class="col-md-12 col-xs-12 p-2">
                              <span class="small-gray-text">Apps</span>
                             </div>
-                            <a href="" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
+                            <a href="https://myfusionwallet.com" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                   <img src="images/group-5.svg"
                                        class="Group-6">
                                       My Wallet
                                     </span>
                             </a>
-                            <a href="" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
+                            <a href="https://assetgateway.fusionnetwork.io" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-6.svg"
                                          class="Group-6">
                                       Asset Locking
                                     </span>
                             </a>
-                               <a href="" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
+                               <a href="https://tickets.fusionnetwork.io" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-7.svg"
                                          class="Group-6">
@@ -147,7 +147,7 @@
                                       Network Monitor
                                     </span>
                             </a>
-                               <a href="" target="_blank"
+                               <a href="https://swap.fusionnetwork.io" target="_blank"
                                   class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-9.svg"

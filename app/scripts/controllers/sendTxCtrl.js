@@ -1029,7 +1029,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     if (endTimePosix === 18446744073709552000) {
                         endTime = '∞ Forever';
                     } else {
-                        
+
                         let a = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000);
 
                         var month = a.getUTCMonth();
