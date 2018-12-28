@@ -513,7 +513,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let amount = $scope.makeBigNumber(a, 18);
 
                 let gasPrice = await web3.eth.getGasPrice().then(function (res) {
-                    return new BN(res);
+                    let gs = (res * 3).toString();
+                    return new BN(gs);
                 })
 
                 console.log(amount.toString());
@@ -665,17 +666,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 console.log(amount.toString());
 
-                let gasPrice = await web3.eth.getGasPrice().then(function (res) {
-                    return new BN(res);
-                })
-
                 try {
                     await web3.fsntx.buildSendAssetTx({
                         from: from,
                         to: to,
                         value: amount.toString(),
-                        asset: asset,
-                        gasPrice: gasPrice.toString()
+                        asset: asset
                     }).then((tx) => {
                         tx.from = from;
 

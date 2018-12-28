@@ -484,7 +484,7 @@
 
 </div>
 <article class="modal fade" id="sendAsset" tabindex="-1">
-    <section class="modal-dialog send-asset-dialog">
+    <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
@@ -671,7 +671,7 @@
 </article>
 
 <article class="modal fade" id="sendBackToAssetsModal" tabindex="-1">
-    <section class="modal-dialog send-asset-dialog">
+    <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
@@ -727,7 +727,7 @@
     </section>
 </article>
 <article class="modal fade" id="sendAssetConfirm" tabindex="-1">
-    <section class="modal-dialog send-asset-dialog">
+    <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
@@ -905,7 +905,7 @@
     </section>
 </article>
 <article class="modal fade" id="successModal" tabindex="-1">
-    <section class="modal-dialog send-asset-dialog">
+    <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
@@ -932,7 +932,7 @@
     </section>
 </article>
 <article class="modal fade" id="errorModal" tabindex="-1">
-    <section class="modal-dialog send-asset-dialog">
+    <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
@@ -960,7 +960,7 @@
     </section>
 </article>
 <article class="modal fade" id="sendAssetFinal" tabindex="-1">
-    <section class="modal-dialog send-asset-dialog">
+    <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
@@ -1166,13 +1166,13 @@
                 </section>
 
                 <div class="row form-group">
-                    <div class="col-xs-6 clearfix">
+                    <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-white btn-block"
                            ng-click="createAssetModal.close()">
                             Cancel
                         </a>
                     </div>
-                    <div class="col-xs-6 clearfix">
+                    <div class="col-md-6 col-xs-12 clearfix">
                         <button class="btn btn-primary btn-block"
                                 ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
                                 ng-click="createAsset()">
@@ -1191,7 +1191,7 @@
     </section>
 </article>
 <article class="modal fade" id="createAssetFinal" tabindex="-1">
-    <section class="modal-dialog send-asset-dialog">
+    <section class="modal-dialog">
         <section class="modal-content">
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
