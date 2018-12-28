@@ -776,22 +776,23 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.hideExpired = function (id) {
             let itemsArray = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : "[]";
             if (itemsArray == "[]") {
-                let items = [];
-                let u = 0;
-                for (let id in $scope.timeLockList) {
-                    let data = {
-                        "id": u,
-                        "hidden": 0
-                    }
-                    items.push(data);
-                    u++
-                }
-                localStorage.setItem('hiddenTimeLocks', JSON.stringify(items));
+                // let items = [];
+                // let u = 0;
+                // for (let id in $scope.timeLockList) {
+                //     let data = {
+                //         "id": u,
+                //         "hidden": 0
+                //     }
+                //     items.push(data);
+                //     u++
+                // }
+                let empty = [];
+                localStorage.setItem('hiddenTimeLocks', JSON.stringify(empty));
             }
 
             let data = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
 
-            data[id].hidden = 1;
+            // data[id].hidden = 1;
 
             $scope.$eval(function () {
                 $scope.hiddenTimeLockStates = data;
