@@ -112,7 +112,7 @@ ONBOARD_welcome_content__1      :  'Please take some time to understand this for
 ONBOARD_welcome_content__2      :  'Your funds will be stolen if you do not heed these warnings.',
 ONBOARD_welcome_content__3      :  'We know this click-through stuff is annoying. We are sorry.',
 ONBOARD_welcome_content__4      :  'What is MEW? ',
-ONBOARD_welcome_content__5      :  'MyEtherWallet is a free, open-source, client-side interface.',
+ONBOARD_welcome_content__5      :  'MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.',
 ONBOARD_welcome_content__6      :  'We allow you to interact directly with the blockchain while remaining in full control of your keys &amp; your funds.',
 ONBOARD_welcome_content__7      :  '**You** and **only you** are responsible for your security.',
 ONBOARD_welcome_content__8      :  'We cannot recover your funds or freeze your account if you visit a phishing site or lose your private key.',

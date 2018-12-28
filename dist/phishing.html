@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>My FUSION Wallet</title>
-    <meta property="og:title" content="MyEtherWallet.com: Your Key to Ethereum">
-    <meta property="og:site_name" content="MyEtherWallet.com: Your Key to Ethereum">
-    <meta name="twitter:title" content="MyEtherWallet.com: Your Key to Ethereum">
-    <meta name="apple-mobile-web-app-title" content="MyEtherWallet.com: Your Key to Ethereum">
+    <meta property="og:title" content="MyFusionWallet.com: The FUSION Wallet">
+    <meta property="og:site_name" content="MyFusionWallet.com: The FUSION Wallet">
+    <meta name="twitter:title" content="MyFusionWallet.com: The FUSION Wallet">
+    <meta name="apple-mobile-web-app-title" content="MyFusionWallet.com: The FUSION Wallet">
     <link href="https://www.myetherwallet.com" rel="canonical">
     <meta content="https://www.myetherwallet.com" property="og:url">
     <meta content="https://www.myetherwallet.com" name="twitter:url">
@@ -15,11 +15,11 @@
     <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
     <script type="text/javascript" src="js/etherwallet-master.js"></script>
     <meta name="description"
-          content="MyEtherWallet (MEW) is a free, open-source, client-side interface for generating Ethereum wallets & more. Interact with the Ethereum blockchain easily & securely.">
+          content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta property="og:description"
-          content="Free, open-source, client-side Ethereum wallet. Enabling you to interact with the blockchain easily & securely.">
+          content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta name="twitter:description"
-          content="Free, open-source, client-side Ethereum wallet. Enabling you to interact with the blockchain easily & securely.">
+          content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="google-site-verification" content="IpChQ00NYUQuNs_7Xs6xlnSdzalOlTUYbBsr8f7OpvM"/>
@@ -34,7 +34,7 @@
     <meta name="msapplication-config" content="images/fav/browserconfig.xml">
     <meta name="theme-color" content="#1d6986">
     <meta name="apple-mobile-web-app-status-bar-style" content="#1d6986">
-    <meta property="og:url" content="https://www.myetherwallet.com"/>
+    <meta property="og:url" content="https://www.myfusionwallet.com"/>
     <meta property="og:title" content="MyFusionWallet.com"/>
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
