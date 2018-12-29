@@ -560,8 +560,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.selectedAssetBalance = tlData.value;
             $scope.timeLockToAssetId = tlData.id;
 
-            console.log($scope.timeLockToAssetId);
-
             $scope.$eval(function () {
                 $scope.timeLockToAssetId = tlData.id;
             })
@@ -675,8 +673,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (!$scope.account) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
-
-                console.log(amount.toString());
 
                 try {
                     await web3.fsntx.buildSendAssetTx({
