@@ -16,7 +16,8 @@ var provider;
 var web3;
 function keepWeb3Alive(){
 //debugger
-    provider = new Web3.providers.WebsocketProvider("wss://gateway.fusionnetwork.io:10001");
+//     provider = new Web3.providers.WebsocketProvider("ws://localhost:9001");
+    provider = new Web3.providers.WebsocketProvider("wss://gatewayw.fusionnetwork.io:10001");
     provider.on("connect", function () {
 //debugger
         window.web3._isConnected = true;

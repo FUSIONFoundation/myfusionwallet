@@ -9,6 +9,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     };
     $scope.mayRunState = false;
     $scope.provider;
+    $scope.ajaxReq = ajaxReq;
     $scope.addressNotation = {'value': '', 'state': ''};
     $scope.ajaxReq = ajaxReq;
     $scope.requestedSAN = false;
@@ -249,7 +250,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 //
                 // })
 
-                debugger
                 let data = '';
                 await web3.fsntx.buildGenNotationTx(
                     {from: walletAddress}
@@ -280,7 +280,9 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     input: ethFuncs.sanitizeHex(txData.data)
                 }
                 if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
-                rawTx.data = rawTx.data == '' ? '0x' : rawTx.data;
+                rawTx.data = rawTx.data == '' ? '0x' : data.input;
+
+                console.log(rawTx);
                 var eTx = new ethUtil.Tx(rawTx);
                 if (txData.hwType == "ledger") {
                     var app = new ledgerEth(txData.hwTransport);
@@ -303,21 +305,20 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
 
                         uiFuncs.signTxLedger(app, eTx, rawTx, txData, !EIP155Supported, function (res) {
-                            uiFuncs.sendTx(res.signedTx, function (resp) {
-                                if (!resp.isError) {
-                                    $scope.notifier.success('Working', 0);
-                                } else {
-                                    $scope.notifier.danger(resp.error);
-                                }
-                            })
+                            // window.web3.eth.sendSignedTransaction(res.signedTx, function(res){
+                            //     console.log(res);
+                            // })
+                            console.log(res.signedTx);
+                            // ajaxReq.sendRawTx(res.signedTx, function(data) {
+                            //     if (data.error) {
+                            //         console.log(data);
+                            //         $scope.notifier.danger(data.msg);
+                            //     } else {
+                            //         console.log(`The TXID is ${data.data}`);
+                            //         $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='http://etherscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + "</a>");
+                            //     }
+                            // });
                         });
-
-
-                        console.log(app);
-                        console.log(eTx);
-                        console.log(rawTx);
-                        console.log(txData);
-
                     }
                     app.getAppConfiguration(localCallback);
                 }

@@ -82,9 +82,7 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
         rawTx.s = "0x" + result['s'];
         eTx = new ethUtil.Tx(rawTx);
         rawTx.rawTx = JSON.stringify(rawTx);
-        console.log(rawTx.rawTx)
         rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
-        console.log(rawTx.signedTx)
         rawTx.isError = false;
         if (callback !== undefined) callback(rawTx);
     }

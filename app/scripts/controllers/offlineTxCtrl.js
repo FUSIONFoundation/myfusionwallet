@@ -185,6 +185,7 @@ var offlineTxCtrl = function($scope, $sce, walletService) {
             if (data.error) {
                 $scope.notifier.danger(data.msg);
             } else {
+                console.log(`The txid is ${data.data}`);
                 $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='http://etherscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + "</a>");
             }
         });
