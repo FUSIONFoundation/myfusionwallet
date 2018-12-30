@@ -144,10 +144,10 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         ajaxReq.getCurrentBlock(function (data) {
             if (data.error) {
                 $scope.nodeIsConnected = false;
-                $scope.notifier.danger(globalFuncs.errorMsgs[32]);
+                // $scope.notifier.danger(globalFuncs.errorMsgs[32]);
             } else {
                 $scope.nodeIsConnected = true;
-                $scope.notifier.info(globalFuncs.successMsgs[5] + '<br /> URL: <strong>' + globalFuncs.stripTags(window.location.href) + '</strong> <br /> Network: <strong>' + $scope.nodeType + ' </strong> provided by <strong>' + $scope.nodeService + '</strong>', 10000);
+                // $scope.notifier.info(globalFuncs.successMsgs[5] + '<br /> URL: <strong>' + globalFuncs.stripTags(window.location.href) + '</strong> <br /> Network: <strong>' + $scope.nodeType + ' </strong> provided by <strong>' + $scope.nodeService + '</strong>', 10000);
             }
         });
         networkHasChanged && window.setTimeout(function () {
