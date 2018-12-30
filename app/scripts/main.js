@@ -9,37 +9,6 @@ var angularTranslate = require("angular-translate");
 var angularTranslateErrorLog = require("angular-translate-handler-log");
 var angularSanitize = require("angular-sanitize");
 var angularAnimate = require("angular-animate");
-var Web3 = require("web3");
-var web3FusionExtend = require('web3-fusion-extend');
-window.web3FusionExtend = web3FusionExtend;
-var provider;
-var web3;
-function keepWeb3Alive(){
-//debugger
-//     provider = new Web3.providers.WebsocketProvider("ws://localhost:9001");
-    provider = new Web3.providers.WebsocketProvider("wss://gatewayw.fusionnetwork.io:10001");
-    provider.on("connect", function () {
-//debugger
-        window.web3._isConnected = true;
-    });
-    provider.on("error", function (err) {
-//debugger
-        provider.disconnect();
-    });
-    provider.on("end", function (err) {
-//debugger
-        web3._isConnected = false;
-        // console.log("web3 connection error ", err);
-        // console.log("will try to reconnect");
-        setTimeout(() => {
-            keepWeb3Alive();
-        }, 2);
-    });
-    web3 = new Web3(provider);
-    web3 = window.web3FusionExtend.extend(web3);
-    window.web3 = web3;
-}
-keepWeb3Alive();
 var bip39 = require("bip39");
 var HDKey = require("hdkey");
 var xssFilters = require("xss-filters");
@@ -164,6 +133,64 @@ if (IS_CX) {
     var mainPopCtrl = require("./controllers/CX/mainPopCtrl");
     var quickSendCtrl = require("./controllers/CX/quickSendCtrl");
 }
+
+var Web3 = require("web3");
+var web3FusionExtend = require('web3-fusion-extend');
+window.web3FusionExtend = web3FusionExtend;
+var provider;
+var web3;
+var nodeUrl;
+let data = JSON.parse(localStorage.getItem('nodeUrl'));
+
+// Initialize cookie if there is non
+if (data === null){
+    let data = {
+        "url": ""
+    }
+    localStorage.setItem('nodeUrl', JSON.stringify(data));
+}
+
+
+function keepWeb3Alive(){
+    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    // if the url is empty set standard gateway
+    if (data.url == ""){
+        nodeUrl = "wss://gatewayw.fusionnetwork.io:10001";
+    } else {
+        nodeUrl = data.url;
+    }
+
+//     provider = new Web3.providers.WebsocketProvider("ws://localhost:9001");
+    try {
+        provider = new Web3.providers.WebsocketProvider(nodeUrl);
+    } catch (err){
+        alert(`Could not connect to node. Reverting back to default gateway.`);
+        let data = {
+            "url": "wss://gatewayw.fusionnetwork.io:10001"
+        }
+        localStorage.setItem('nodeUrl', JSON.stringify(data));
+        provider = new Web3.providers.WebsocketProvider(data.url);
+    }
+
+    provider.on("connect", function () {
+        window.web3._isConnected = true;
+    });
+    provider.on("error", function (err) {
+        provider.disconnect();
+    });
+    provider.on("end", function (err) {
+        web3._isConnected = false;
+        // console.log("web3 connection error ", err);
+        // console.log("will try to reconnect");
+        setTimeout(() => {
+            keepWeb3Alive();
+        }, 2);
+    });
+    web3 = new Web3(provider);
+    web3 = window.web3FusionExtend.extend(web3);
+    window.web3 = web3;
+}
+keepWeb3Alive();
 
 var app = angular.module("mewApp", [
     "pascalprecht.translate",

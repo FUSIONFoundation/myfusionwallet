@@ -39,13 +39,14 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112428858-2"></script> 
-<script> 
-  window.dataLayer = window.dataLayer || []; 
-  function gtag(){dataLayer.push(arguments);} 
-  gtag('js', new Date()); 
-  gtag('config', 'UA-112428858-2'); 
-</script> 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112428858-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-112428858-2');
+    </script>
 
     <script type="application/ld+json">
 {
@@ -74,6 +75,7 @@
   "https://kvhnuke.github.io/etherwallet/","https://myetherwallet.slack.com/"
 ]
 }
+
 
 
 
@@ -108,21 +110,24 @@
                               <div class="col-md-12 col-xs-12 p-2">
                              <span class="small-gray-text">Apps</span>
                             </div>
-                            <a href="https://www.myfusionwallet.com" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
+                            <a href="https://www.myfusionwallet.com" target="_blank"
+                               class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                   <img src="images/group-5.svg"
                                        class="Group-6">
                                       My Wallet
                                     </span>
                             </a>
-                            <a href="https://assetgateway.fusionnetwork.io" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
+                            <a href="https://assetgateway.fusionnetwork.io" target="_blank"
+                               class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-6.svg"
                                          class="Group-6">
                                       Asset Gateway
                                     </span>
                             </a>
-                               <a href="https://tickets.fusionnetwork.io" target="_blank" class="col-md-12 col-xs-12 p-2 app-select-active">
+                               <a href="https://tickets.fusionnetwork.io" target="_blank"
+                                  class="col-md-12 col-xs-12 p-2 app-select-active">
                                     <span class="fusion-text-14">
                                     <img src="images/group-7.svg"
                                          class="Group-6">
@@ -166,8 +171,23 @@
                         <a class="dropdown-toggle btn btn-gray m-3"
                            href="https://forms.office.com/Pages/ResponsePage.aspx?id=EW3s-wk4CEOiM1Aj1P3e9ATvewrXjsFAmw64pIT0-PhUMjhVNFRCMVZLU0ZFTFU2MTZGWUdENjkyRy4u"
                            target="_blank">Feedback</a>
-                        <a class="dropdown-toggle btn btn-gray m-3">Network: FUSION PSN</a>
-                        <span class="dropdown dropdown-node" ng-cloak>
+                        <div class="dropdown dropdown-node">
+                        <a tabindex="0"
+                           aria-haspopup="true"
+                           class="dropdown-toggle  btn btn-white text-16"
+                           ng-click="dropdownCustom = !dropdownCustom">
+
+                        {{nodeName}}
+                        </a>
+                        <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom">
+                             <span class="small-gray-text">Node URL:
+                             </span>
+                            <input type="text" class="form-control" ng-model="inputUrl" placeholder="URL">
+                            <button class="btn btn-sm btn-white w-100" ng-click="setNodeUrl(); window.location.reload();">Save</button>
+                        </div>
+                        </span>
+                    </div>
+                    <span class="dropdown dropdown-node" ng-cloak>
       <a tabindex="0"
          aria-haspopup="true"
          aria-label="change node. current node {{curNode.name}} node by {{curNode.service}}"
@@ -195,13 +215,13 @@
       </ul>
     </span>
 
-                    </div>
-                    }
-                </section>
-            </section>
+        </div>
+        }
+        </section>
+        </section>
 
-            @@if (site === 'mew' ) { @@include( './header-node-modal.tpl', { "site": "mew" } ) }
-            @@if (site === 'cx' ) { @@include( './header-node-modal.tpl', { "site": "cx" } ) }
+        @@if (site === 'mew' ) { @@include( './header-node-modal.tpl', { "site": "mew" } ) }
+        @@if (site === 'cx' ) { @@include( './header-node-modal.tpl', { "site": "cx" } ) }
         </div>
     </header>
     <article class="clearfix container-small">
