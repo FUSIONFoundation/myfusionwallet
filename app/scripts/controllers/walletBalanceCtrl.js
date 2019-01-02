@@ -224,7 +224,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-
     $scope.setShortAddressNotation = async function () {
         if ($scope.mayRunState = true) {
             let accountData = uiFuncs.getTxData($scope);
@@ -254,40 +253,33 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await web3.fsntx.buildGenNotationTx(
                     {from: walletAddress}
                 ).then((tx) => {
+                    tx.from = walletAddress;
+                    tx.chainId = 1;
                     data = tx;
+                    console.log('gen here')
                     console.log(tx);
+                    debugger
                 })
 
-                let txData = {
-                    to: data.to,
-                    value: data.value,
-                    gasLimit: "0x1E8480",
-                    from: $scope.wallet.getAddressString(),
-                    data: data.input,
-                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : '',
+                let txSigned = '';
+
+                let ledgerConfig = {
+                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
                     path: $scope.wallet.getPath(),
                     hwType: $scope.wallet.getHWType(),
                     hwTransport: $scope.wallet.getHWTransport()
                 }
 
-                var rawTx = {
-                    chainId: 1,
-                    nonce: ethFuncs.sanitizeHex(data.nonce),
-                    gasLimit: "0x1E8480",
-                    to: ethFuncs.sanitizeHex(txData.to),
-                    value: txData.value,
-                    data: ethFuncs.sanitizeHex(txData.data),
-                    input: ethFuncs.sanitizeHex(txData.data)
-                }
-                if (ajaxReq.eip155) rawTx.chainId = ajaxReq.chainId;
-                rawTx.data = rawTx.data == '' ? '0x' : data.input;
+                let rawTx = data;
 
                 console.log(rawTx);
                 var eTx = new ethUtil.Tx(rawTx);
-                if (txData.hwType == "ledger") {
-                    var app = new ledgerEth(txData.hwTransport);
-                    var EIP155Supported = false;
-                    var localCallback = function (result, error) {
+                console.log(eTx);
+                debugger
+                if (ledgerConfig.hwType == "ledger") {
+                    var app = new ledgerEth(ledgerConfig.hwTransport);
+                    var EIP155Supported = true;
+                    var localCallback = async function (result, error) {
                         if (typeof error != "undefined") {
                             if (callback !== undefined) callback({
                                 isError: true,
@@ -304,23 +296,25 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                             EIP155Supported = true;
                         }
 
-                        uiFuncs.signTxLedger(app, eTx, rawTx, txData, !EIP155Supported, function (res) {
-                            // window.web3.eth.sendSignedTransaction(res.signedTx, function(res){
-                            //     console.log(res);
-                            // })
-                            console.log(res.signedTx);
-                            // ajaxReq.sendRawTx(res.signedTx, function(data) {
-                            //     if (data.error) {
-                            //         console.log(data);
-                            //         $scope.notifier.danger(data.msg);
-                            //     } else {
-                            //         console.log(`The TXID is ${data.data}`);
-                            //         $scope.notifier.success(globalFuncs.successMsgs[2] + "<a href='http://etherscan.io/tx/" + data.data + "' target='_blank' rel='noopener'>" + data.data + "</a>");
-                            //     }
-                            // });
+                        debugger
+                        var oldTx = Object.assign(rawTx, {});
+                        await uiFuncs.signTxLedger(app, eTx, rawTx, ledgerConfig, !EIP155Supported, function (res) {
+                            oldTx.r = res.r;
+                            oldTx.s = res.s;
+                            oldTx.v = res.v;
+                            console.log(oldTx);
+                            console.log(res);
+                            debugger
+                            return web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                                console.log(txHash);
+                                return txHash;
+                            })
                         });
                     }
-                    app.getAppConfiguration(localCallback);
+                    await app.getAppConfiguration(localCallback);
+                    console.log(eTx)
+                    console.log(rawTx)
+                    console.log(ledgerConfig)
                 }
             } else {
 
@@ -332,6 +326,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     from: walletAddress
                 }).then((tx) => {
                     console.log(tx);
+                    debugger
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         $scope.requestedSAN = true;
                         $scope.$apply(function () {
