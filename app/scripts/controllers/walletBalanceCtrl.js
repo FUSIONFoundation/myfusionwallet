@@ -258,7 +258,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     data = tx;
                     console.log('gen here')
                     console.log(tx);
-                    debugger
                 })
 
                 let txSigned = '';
@@ -275,10 +274,9 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 console.log(rawTx);
                 var eTx = new ethUtil.Tx(rawTx);
                 console.log(eTx);
-                debugger
                 if (ledgerConfig.hwType == "ledger") {
                     var app = new ledgerEth(ledgerConfig.hwTransport);
-                    var EIP155Supported = true;
+                    var EIP155Supported = false;
                     var localCallback = async function (result, error) {
                         if (typeof error != "undefined") {
                             if (callback !== undefined) callback({
@@ -296,7 +294,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                             EIP155Supported = true;
                         }
 
-                        debugger
                         var oldTx = Object.assign(rawTx, {});
                         await uiFuncs.signTxLedger(app, eTx, rawTx, ledgerConfig, !EIP155Supported, function (res) {
                             oldTx.r = res.r;
@@ -304,7 +301,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                             oldTx.v = res.v;
                             console.log(oldTx);
                             console.log(res);
-                            debugger
                             return web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
                                 console.log(txHash);
                                 return txHash;
@@ -326,7 +322,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     from: walletAddress
                 }).then((tx) => {
                     console.log(tx);
-                    debugger
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         $scope.requestedSAN = true;
                         $scope.$apply(function () {

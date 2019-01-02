@@ -1,5 +1,10 @@
 'use strict';
 const u2f = require("u2f-api");
+const helpers = require('web3-core-helpers');
+const RLP = require("eth-lib/lib/rlp");
+const Bytes = require("eth-lib/lib/bytes");
+const utils = require('web3-utils');
+
 var uiFuncs = function() {}
 uiFuncs.getTxData = function($scope) {
     return {
@@ -54,12 +59,12 @@ uiFuncs.signTxTrezor = function(rawTx, { path }) {
     );
 }
 uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
-    eTx.raw[6] = rawTx.chainId;
+    eTx.raw[6] = 1; //rawTx.chainId;
     eTx.raw[7] = eTx.raw[8] = 0;
     var toHash = old ? eTx.raw.slice(0, 6) : eTx.raw;
     var txToSign = ethUtil.rlp.encode(toHash);
     var localCallback = function(result, error) {
-       debugger
+        debugger
         if (typeof error != "undefined") {
             error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
             if (callback !== undefined) callback({
@@ -72,7 +77,7 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
         if (!old) {
             // EIP155 support. check/recalc signature v value.
             var rv = parseInt(v, 16);
-            var cv = rawTx.chainId * 2 + 35;
+            var cv = 1 * 2 + 35;
             if (rv !== cv && (rv & cv) !== rv) {
                 cv += 1; // add signature v bit.
             }
@@ -89,6 +94,87 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
     }
     app.signTransaction(txData.path, txToSign.toString('hex'), localCallback);
 }
+
+uiFuncs.signed = function (app, tx, txData, old,  callback) {
+    let error;
+    debugger
+    if (!tx.gas && !tx.gasLimit) {
+        error = new Error('"gas" is missing');
+    }
+
+    if (tx.nonce  < 0 ||
+        tx.gas  < 0 ||
+        tx.gasPrice  < 0 ||
+        tx.chainId  < 0) {
+        error = new Error('Gas, gasPrice, nonce or chainId is lower than 0');
+    }
+
+    if (error) {
+        callback(error);
+        return Promise.reject(error);
+    }
+
+    try {
+        tx = helpers.formatters.inputCallFormatter(tx);
+
+        var transaction = tx;
+        transaction.to = tx.to || '0x';
+        transaction.data = tx.data || '0x';
+        transaction.value = tx.value || '0x';
+        transaction.chainId = utils.numberToHex(tx.chainId);
+
+        var rlpEncoded = RLP.encode([
+            Bytes.fromNat(transaction.nonce),
+            Bytes.fromNat(transaction.gasPrice),
+            Bytes.fromNat(transaction.gas),
+            transaction.to.toLowerCase(),
+            Bytes.fromNat(transaction.value),
+            transaction.data,
+            Bytes.fromNat(transaction.chainId || "0x1"),
+            "0x",
+            "0x"]);
+
+
+        var localCallback = function( result, error ) {
+            debugger
+            if (typeof error != "undefined") {
+                error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
+                if (callback !== undefined) callback({
+                    isError: true,
+                    error: error
+                });
+                return;
+            }
+            var v = result['v'].toString(16);
+            if (!old) {
+                // EIP155 support. check/recalc signature v value.
+                var rv = parseInt(v, 16);
+                var cv = rawTx.chainId * 2 + 35;
+                if (rv !== cv && (rv & cv) !== rv) {
+                    cv += 1; // add signature v bit.
+                }
+                v = cv.toString(16);
+            }
+            let rawTx = transaction;
+            rawTx.v = "0x" + v;
+            rawTx.r = "0x" + result['r'];
+            rawTx.s = "0x" + result['s'];
+            let eTx = new ethUtil.Tx(rawTx);
+            rawTx.rawTx = JSON.stringify(rawTx);
+            rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
+            rawTx.isError = false;
+            if (callback !== undefined) callback(rawTx);
+        }
+
+        app.signTransaction(txData.path, rlpEncoded.replace('0x', ''), localCallback);
+
+    } catch(e) {
+        console.log("ERROR" ,  e )
+        callback(e);
+        return Promise.reject(e);
+    }
+}
+
 uiFuncs.signTxDigitalBitbox = function(eTx, rawTx, txData, callback) {
     var localCallback = function(result, error) {
         if (typeof error != "undefined") {
