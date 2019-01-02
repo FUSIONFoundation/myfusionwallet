@@ -1,45 +1,11 @@
 'use strict';
 
-var testData = {
-    from: "0x324b25259562b679ea0fa8b71d4b38cf5db0b7e4",
-    gas: "0x15f90",
-    gasPrice: "0x77359400",
-    hash: "0xf8af9a98f62ddeaaad410cbc9bd30515bf738438d5a2432ee00394320924a67f",
-    input: "0xf84402b841f83fa0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff94324b25259562b679ea0fa8b71d4b38cf5db0b7e4880de0b6b3a7640000",
-    nonce: "0x15",
-    r: "0x0",
-    s: "0x0",
-    to: "0xffffffffffffffffffffffffffffffffffffffff",
-    v: "0x0",
-    value: "0x0"
-}
-
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
             if (!$scope.tx || !$scope.wallet) {
                 return
             }
             $scope.getAllFsnAssets();
-            if ($scope.wallet.hwType == "ledger"){
-
-                let ledgerConfig = {
-                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
-                    path: $scope.wallet.getPath(),
-                    hwType: $scope.wallet.getHWType(),
-                    hwTransport: $scope.wallet.getHWTransport()
-                }
-
-                if (ledgerConfig.hwType == "ledger") {
-                    var app = new ledgerEth(ledgerConfig.hwTransport);
-                    var localCallback = async function (result, error) {
-                        return uiFuncs.signed(app,testData, ledgerConfig, true, function (res){
-                            console.log(res);
-                            debugger
-                        })
-                    }
-                    app.getAppConfiguration(localCallback);
-                }
-            }
         };
         $scope.showAllAssets = true;
         $scope.showTimeLockedAssets = false;
