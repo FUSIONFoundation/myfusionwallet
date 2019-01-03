@@ -1003,6 +1003,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     hwTransport: $scope.wallet.getHWTransport()
                 }
                 let rawTx = data;
+                let txH = '';
                 console.log(rawTx);
                 var eTx = new ethUtil.Tx(rawTx);
                 console.log(eTx);
@@ -1038,10 +1039,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.isError;
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
-                            return web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                            web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                                txH = txHash;
+                                console.log('txh here');
+                                console.log(`${txH}`);
                                 $scope.$eval(function () {
                                     $scope.assetCreate.errorMessage = '';
-                                    $scope.assetCreate.assetHash = txHash;
+                                    $scope.assetCreate.assetHash = txH;
+                                    console.log($scope.assetCreate.assetHash);
                                 });
                                 $scope.createAssetFinal.open();
                             })

@@ -1225,6 +1225,7 @@
                                    target="_blank">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="{{assetCreate.assetHash}}">
+                                       {{assetCreate.assetHash}}
                                    </span>
                                 </a>
                             </div>
