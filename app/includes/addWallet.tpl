@@ -645,7 +645,7 @@
 
         <div class="modal-footer">
           <button aria-label="Cancel - Will close dialog"
-                  class="btn btn-default"
+                  class="btn btn-white"
                   data-dismiss="modal"
                   role="button"
                   tabindex="0"
