@@ -1221,11 +1221,12 @@
                                 </span>
                             </div>
                             <div class="float-right max-char">
+                                <a href="https://blocks.fusionnetwork.io/Transactions/{{assetCreate.assetHash}}"
+                                   target="_blank">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="{{assetCreate.assetHash}}">
-                                       <a href="https://blocks.fusionnetwork.io/Transactions/{{assetCreate.assetHash}}"
-                                          target="_blank">
-                                </span>
+                                   </span>
+                                </a>
                             </div>
                             <br>
                         </div>
