@@ -97,6 +97,7 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
 
 uiFuncs.signed = function (app, tx, txData, old,  callback) {
     let error;
+    console.log(tx);
     if (!tx.gas && !tx.gasLimit) {
         error = new Error('"gas" is missing');
     }

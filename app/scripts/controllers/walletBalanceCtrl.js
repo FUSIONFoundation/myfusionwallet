@@ -227,56 +227,42 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.setShortAddressNotation = async function () {
         if ($scope.mayRunState = true) {
             let accountData = uiFuncs.getTxData($scope);
+            let data = {};
             let walletAddress = accountData.from;
+                if (!$scope.account  && ($scope.wallet.hwType !== "ledger")) {
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+                }
 
-            if ($scope.wallet.hwType === 'ledger') {
-                // debugger
-                // var app = new ledgerEth($scope.wallet.getHWTransport());
-                //
-                // // app.getAddress($scope.wallet.path, function () {
-                // // }, true, false);
-                //
-                // await web3.fsntx.buildGenNotationTx(
-                //     {
-                //         from: walletAddress
-                //     }
-                // ).then((tx) => {
-                //     let txToSign = ethUtil.rlp.encode(tx);
-                //     console.log(tx);
-                //     console.log(txToSign);
-                //     app.signTransaction($scope.wallet.path, txToSign.toString('hex'), function () {
-                //     })
-                //
-                // })
-
-                let data = '';
-                await web3.fsntx.buildGenNotationTx(
-                    {from: walletAddress}
-                ).then((tx) => {
-                    tx.from = walletAddress;
-                    tx.chainId = 1;
-                    data = tx;
-                    console.log('gen here')
+                await web3.fsntx.buildGenNotationTx({
+                    from: walletAddress
+                }).then((tx) => {
                     console.log(tx);
-                })
-
-                let txSigned = '';
-
+                    data = tx;
+                    tx.from = walletAddress;
+                    if ($scope.wallet.hwType == "ledger"){
+                        return;
+                    }
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        console.log(tx);
+                        $scope.requestedSAN = true;
+                        $scope.$apply(function () {
+                            $scope.addressNotation.value = 'USAN Requested';
+                            $scope.addressNotation.value = 'USAN Requested';
+                        });
+                    })
+                });
+            if ($scope.wallet.hwType == "ledger"){
                 let ledgerConfig = {
                     privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
                     path: $scope.wallet.getPath(),
                     hwType: $scope.wallet.getHWType(),
                     hwTransport: $scope.wallet.getHWTransport()
                 }
-
                 let rawTx = data;
-
-                console.log(rawTx);
                 var eTx = new ethUtil.Tx(rawTx);
-                console.log(eTx);
                 if (ledgerConfig.hwType == "ledger") {
                     var app = new ledgerEth(ledgerConfig.hwTransport);
-                    var EIP155Supported = false;
+                    var EIP155Supported = true;
                     var localCallback = async function (result, error) {
                         if (typeof error != "undefined") {
                             if (callback !== undefined) callback({
@@ -295,43 +281,32 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
 
                         var oldTx = Object.assign(rawTx, {});
-                        await uiFuncs.signTxLedger(app, eTx, rawTx, ledgerConfig, !EIP155Supported, function (res) {
+
+                        let input = oldTx.input;
+                        return uiFuncs.signed(app,rawTx, ledgerConfig, true, function (res){
                             oldTx.r = res.r;
                             oldTx.s = res.s;
                             oldTx.v = res.v;
-                            console.log(oldTx);
-                            console.log(res);
-                            return web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
-                                console.log(txHash);
-                                return txHash;
+                            oldTx.input = input;
+                            oldTx.chainId = "0x1";
+                            delete oldTx.isError;
+                            delete oldTx.rawTx;
+                            delete oldTx.signedTx;
+                            web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                                console.log(txHash)
+                                $scope.requestedSAN = true;
+                                $scope.$apply(function () {
+                                    $scope.addressNotation.value = 'USAN Requested';
+                                    $scope.addressNotation.value = 'USAN Requested';
+                                })
                             })
-                        });
+                        })
                     }
+                    $scope.notifier.info('Please, confirm transaction on Ledger.');
                     await app.getAppConfiguration(localCallback);
-                    console.log(eTx)
-                    console.log(rawTx)
-                    console.log(ledgerConfig)
                 }
-            } else {
-
-                if (!$scope.account) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-                }
-
-                await web3.fsntx.buildGenNotationTx({
-                    from: walletAddress
-                }).then((tx) => {
-                    console.log(tx);
-                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        $scope.requestedSAN = true;
-                        $scope.$apply(function () {
-                            $scope.addressNotation.value = 'USAN Requested';
-                            $scope.addressNotation.value = 'USAN Requested';
-                        });
-                    })
-                });
-                await $scope.getShortAddressNotation();
             }
+                await $scope.getShortAddressNotation();
         }
     }
 };
