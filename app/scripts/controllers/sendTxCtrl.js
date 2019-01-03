@@ -1,12 +1,12 @@
 'use strict';
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
-        $scope.init = function () {
-            if (!$scope.tx || !$scope.wallet) {
-                return
-            }
+
+        $scope.$watch('wallet', function () {
             $scope.getAllFsnAssets();
-        };
+            $scope.getTimeLockAssets();
+        })
+
         $scope.showAllAssets = true;
         $scope.showTimeLockedAssets = false;
         $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
@@ -122,8 +122,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null ? true : false;
             $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
             if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true // if there is a query string, show an warning at top of page
-            $scope.init();
-
         }
         $scope.$watch(function () {
             if (walletService.wallet == null) return null;
@@ -310,7 +308,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let startTime = $scope.months[fMonth] + ' ' + fDay + ', ' + fYear;
             let endTime = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
 
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.sendAsset.fromTimeString = startTime;
                 $scope.sendAsset.tillTimeString = endTime;
             })
@@ -684,7 +682,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         console.log(tx);
                         tx.from = from;
                         data = tx;
-                        if ($scope.wallet.hwType == "ledger"){
+                        if ($scope.wallet.hwType == "ledger") {
                             return;
                         }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -728,7 +726,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }).then((tx) => {
                         data = tx;
                         tx.from = from;
-                        if($scope.wallet.hwType == "ledger"){
+                        if ($scope.wallet.hwType == "ledger") {
                             return;
                         }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -764,7 +762,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }).then((tx) => {
                         tx.from = from;
                         data = tx;
-                        if ($scope.wallet.hwType == "ledger"){
+                        if ($scope.wallet.hwType == "ledger") {
                             return;
                         }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -779,7 +777,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.errorModal.open();
                 }
             }
-            if ($scope.wallet.hwType == "ledger"){
+            if ($scope.wallet.hwType == "ledger") {
                 let ledgerConfig = {
                     privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
                     path: $scope.wallet.getPath(),
@@ -809,7 +807,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
                         var oldTx = Object.assign(rawTx, {});
                         let input = oldTx.input;
-                        return uiFuncs.signed(app,rawTx, ledgerConfig, true, function (res){
+                        return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
                             oldTx.r = res.r;
                             oldTx.s = res.s;
                             oldTx.v = res.v;
@@ -818,7 +816,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.isError;
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
-                            web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                            web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                                 $scope.sendAssetFinal.open();
                                 $scope.$eval(function () {
                                     $scope.successHash = txHash;
@@ -1008,7 +1006,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     total: totalSupply * power
                 }).then((tx) => {
                     data = tx;
-                    if ($scope.wallet.hwType == "ledger"){
+                    if ($scope.wallet.hwType == "ledger") {
                         return;
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -1026,7 +1024,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.errorModal.open();
             }
 
-            if ($scope.wallet.hwType == "ledger"){
+            if ($scope.wallet.hwType == "ledger") {
                 let ledgerConfig = {
                     privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
                     path: $scope.wallet.getPath(),
@@ -1059,7 +1057,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         var oldTx = Object.assign(rawTx, {});
 
                         let input = oldTx.input;
-                        return uiFuncs.signed(app,rawTx, ledgerConfig, true, function (res){
+                        return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
                             oldTx.r = res.r;
                             oldTx.s = res.s;
                             oldTx.v = res.v;
@@ -1068,7 +1066,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.isError;
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
-                            web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                            web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                                 txH = txHash;
                                 console.log('txh here');
                                 console.log(`${txH}`);
@@ -1193,11 +1191,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                     }
 
-                    if (status == 'Active'){
+                    if (status == 'Active') {
                         await activeList.push(data);
 
                     }
-                    if (status == 'Available'){
+                    if (status == 'Available') {
                         await availableList.push(data);
                     }
                 }
