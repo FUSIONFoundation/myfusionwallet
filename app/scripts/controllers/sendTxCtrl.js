@@ -1052,6 +1052,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             })
                         })
                     }
+                    $scope.notifier.info('Please, confirm transaction on Ledger.');
                     await app.getAppConfiguration(localCallback);
                 }
             }
