@@ -243,7 +243,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         return;
                     }
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        console.log(tx);
                         $scope.requestedSAN = true;
                         $scope.$apply(function () {
                             $scope.addressNotation.value = 'USAN Requested';
@@ -293,7 +292,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
                             web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
-                                console.log(txHash)
                                 $scope.requestedSAN = true;
                                 $scope.$apply(function () {
                                     $scope.addressNotation.value = 'USAN Requested';

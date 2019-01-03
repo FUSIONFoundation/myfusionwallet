@@ -694,7 +694,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
 
-
             await web3.fsn.getAsset(asset).then(function (res) {
                 decimals = parseInt(res["Decimals"]);
             });
@@ -716,9 +715,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         value: amount.toString(),
                         asset: asset
                     }).then((tx) => {
-                        data = tx;
                         console.log(tx);
                         tx.from = from;
+                        data = tx;
                         if ($scope.wallet.hwType == "ledger"){
                             return;
                         }
@@ -735,62 +734,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     console.log(err);
                     $scope.errorModal.open();
                 }
-                if ($scope.wallet.hwType == "ledger"){
-                    let ledgerConfig = {
-                        privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
-                        path: $scope.wallet.getPath(),
-                        hwType: $scope.wallet.getHWType(),
-                        hwTransport: $scope.wallet.getHWTransport()
-                    }
-                    let rawTx = data;
-                    var eTx = new ethUtil.Tx(rawTx);
-                    if (ledgerConfig.hwType == "ledger") {
-                        var app = new ledgerEth(ledgerConfig.hwTransport);
-                        var EIP155Supported = true;
-                        var localCallback = async function (result, error) {
-                            if (typeof error != "undefined") {
-                                if (callback !== undefined) callback({
-                                    isError: true,
-                                    error: error
-                                });
-                                return;
-                            }
-                            var splitVersion = result['version'].split('.');
-                            if (parseInt(splitVersion[0]) > 1) {
-                                EIP155Supported = true;
-                            } else if (parseInt(splitVersion[1]) > 0) {
-                                EIP155Supported = true;
-                            } else if (parseInt(splitVersion[2]) > 2) {
-                                EIP155Supported = true;
-                            }
-
-                            var oldTx = Object.assign(rawTx, {});
-
-                            let input = oldTx.input;
-                            debugger
-                            return uiFuncs.signed(app,rawTx, ledgerConfig, true, function (res){
-                                oldTx.r = res.r;
-                                oldTx.s = res.s;
-                                oldTx.v = res.v;
-                                oldTx.input = input;
-                                oldTx.chainId = "0x1";
-                                delete oldTx.isError;
-                                delete oldTx.rawTx;
-                                delete oldTx.signedTx;
-                                web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
-                                    $scope.sendAssetFinal.open();
-                                    $scope.$eval(function () {
-                                        $scope.successHash = txHash;
-                                        $scope.successHash = txHash;
-                                    });
-                                })
-                            })
-                        }
-                        $scope.notifier.info('Please, confirm transaction on Ledger.');
-                        await app.getAppConfiguration(localCallback);
-                    }
-                }
-
 
                 $scope.$apply(function () {
                     $scope.successHash = hash;
@@ -804,7 +747,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
-                if (!$scope.account) {
+                if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
@@ -817,7 +760,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         end: tillTime,
                         value: amount
                     }).then((tx) => {
+                        data = tx;
                         tx.from = from;
+                        if($scope.wallet.hwType == "ledger"){
+                            return;
+                        }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             $scope.sendAssetFinal.open();
                             $scope.$eval(function () {
@@ -836,7 +783,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = web3.fsn.consts.TimeForeverStr;
 
-                if (!$scope.account) {
+                if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
@@ -850,6 +797,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         value: amount
                     }).then((tx) => {
                         tx.from = from;
+                        data = tx;
+                        if ($scope.wallet.hwType == "ledger"){
+                            return;
+                        }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             $scope.sendAssetFinal.open();
                             $scope.$eval(function () {
@@ -860,6 +811,58 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     });
                 } catch (err) {
                     $scope.errorModal.open();
+                }
+            }
+            if ($scope.wallet.hwType == "ledger"){
+                let ledgerConfig = {
+                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
+                    path: $scope.wallet.getPath(),
+                    hwType: $scope.wallet.getHWType(),
+                    hwTransport: $scope.wallet.getHWTransport()
+                }
+                let rawTx = data;
+                var eTx = new ethUtil.Tx(rawTx);
+                if (ledgerConfig.hwType == "ledger") {
+                    var app = new ledgerEth(ledgerConfig.hwTransport);
+                    var EIP155Supported = true;
+                    var localCallback = async function (result, error) {
+                        if (typeof error != "undefined") {
+                            if (callback !== undefined) callback({
+                                isError: true,
+                                error: error
+                            });
+                            return;
+                        }
+                        var splitVersion = result['version'].split('.');
+                        if (parseInt(splitVersion[0]) > 1) {
+                            EIP155Supported = true;
+                        } else if (parseInt(splitVersion[1]) > 0) {
+                            EIP155Supported = true;
+                        } else if (parseInt(splitVersion[2]) > 2) {
+                            EIP155Supported = true;
+                        }
+                        var oldTx = Object.assign(rawTx, {});
+                        let input = oldTx.input;
+                        return uiFuncs.signed(app,rawTx, ledgerConfig, true, function (res){
+                            oldTx.r = res.r;
+                            oldTx.s = res.s;
+                            oldTx.v = res.v;
+                            oldTx.input = input;
+                            oldTx.chainId = "0x1";
+                            delete oldTx.isError;
+                            delete oldTx.rawTx;
+                            delete oldTx.signedTx;
+                            web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                                $scope.sendAssetFinal.open();
+                                $scope.$eval(function () {
+                                    $scope.successHash = txHash;
+                                    $scope.successHash = txHash;
+                                });
+                            })
+                        })
+                    }
+                    $scope.notifier.info('Please, confirm transaction on Ledger.');
+                    await app.getAppConfiguration(localCallback);
                 }
             }
         }
