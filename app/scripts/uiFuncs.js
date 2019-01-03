@@ -97,7 +97,6 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
 
 uiFuncs.signed = function (app, tx, txData, old,  callback) {
     let error;
-    debugger
     if (!tx.gas && !tx.gasLimit) {
         error = new Error('"gas" is missing');
     }
@@ -136,7 +135,6 @@ uiFuncs.signed = function (app, tx, txData, old,  callback) {
 
 
         var localCallback = function( result, error ) {
-            debugger
             if (typeof error != "undefined") {
                 error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
                 if (callback !== undefined) callback({
@@ -165,7 +163,6 @@ uiFuncs.signed = function (app, tx, txData, old,  callback) {
             rawTx.isError = false;
             if (callback !== undefined) callback(rawTx);
         }
-
         app.signTransaction(txData.path, rlpEncoded.replace('0x', ''), localCallback);
 
     } catch(e) {
