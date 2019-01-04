@@ -46,21 +46,6 @@
         <!--</span>-->
         <!--</label>-->
 
-         <!--Ledger -->
-        <label aria-flowto="aria3"
-               class="radio p-2 pr-4"
-               ng-class="{'selectWalletActive' : walletType == 'ledger'}"
-               ng-click="activeWallet == 'ledger'"
-               ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ESN'||ajaxReq.type=='AKA'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ATH'||ajaxReq.type=='MUSIC'||ajaxReq.type=='EOSC'||ajaxReq.type=='GO'||ajaxReq.type=='MIX'||ajaxReq.type=='ILT'">
-            <input aria-flowto="aria3"
-                   type="radio"
-                   class="ml-0"
-                   ng-click="activeWallet == 'ledger'"
-                   aria-label="Ledger Hardware Wallet"
-                   ng-model="walletType"
-                   value="ledger"/>
-            Ledger Wallet
-        </label>
 
         <!--&lt;!&ndash; TREZOR &ndash;&gt;-->
         <!--<label class="radio"-->
@@ -144,6 +129,22 @@
             <span translate="x_PrivKey2">
         Private Key
       </span>
+        </label>
+
+        <!--Ledger -->
+        <label aria-flowto="aria3"
+               class="radio p-2 pr-4"
+               ng-class="{'selectWalletActive' : walletType == 'ledger'}"
+               ng-click="activeWallet == 'ledger'"
+               ng-show="ajaxReq.type=='ETH'||ajaxReq.type=='ETC'||ajaxReq.type=='ROPSTEN ETH'||ajaxReq.type=='RINKEBY ETH'||ajaxReq.type=='KOVAN ETH'||ajaxReq.type=='EXP'||ajaxReq.type=='UBQ'||ajaxReq.type=='POA'||ajaxReq.type=='TOMO'||ajaxReq.type=='ESN'||ajaxReq.type=='AKA'||ajaxReq.type=='PIRL'||ajaxReq.type=='ETHO'||ajaxReq.type=='EGEM'||ajaxReq.type=='CLO'||ajaxReq.type=='ATH'||ajaxReq.type=='MUSIC'||ajaxReq.type=='EOSC'||ajaxReq.type=='GO'||ajaxReq.type=='MIX'||ajaxReq.type=='ILT'">
+            <input aria-flowto="aria3"
+                   type="radio"
+                   class="ml-0"
+                   ng-click="activeWallet == 'ledger'"
+                   aria-label="Ledger Hardware Wallet"
+                   ng-model="walletType"
+                   value="ledger"/>
+            Ledger Wallet <span class="badge badge-primary">BETA</span>
         </label>
 
         <!--&lt;!&ndash; Parity &ndash;&gt;-->
@@ -287,17 +288,15 @@
             <h4>
                 Ledger Hardware Wallet
             </h4>
-            <h5>
+            <h5 class="ledger-message p-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 79.536 79.536">
                     <path fill="#5dba5a"
                           d="M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z"/>
                 </svg>
                 This is a recommended way to access your wallet.
             </h5>
-            <div class="form-group">
-                A hardware wallet is a small USB device that allows you to access your wallet quickly, safely &amp;
-                easily. It is more secure because your private key <u>never leaves the hardware wallet</u>. It protects
-                you from phishing, malware, and more.
+            <div class="form-group text-ledger">
+                A hardware wallet is a small USB device that allows you to access your wallet quickly, safely & easily. It is more secure because your private key never leaves the hardware wallet. It protects you from phishing, malware, and more.
             </div>
             <div class="form-group">
                 <a class="btn btn-primary"

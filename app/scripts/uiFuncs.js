@@ -64,7 +64,6 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
     var toHash = old ? eTx.raw.slice(0, 6) : eTx.raw;
     var txToSign = ethUtil.rlp.encode(toHash);
     var localCallback = function(result, error) {
-        debugger
         if (typeof error != "undefined") {
             error = error.errorCode ? u2f.getErrorByCode(error.errorCode) : error;
             if (callback !== undefined) callback({
@@ -97,7 +96,6 @@ uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
 
 uiFuncs.signed = function (app, tx, txData, old,  callback) {
     let error;
-    console.log(tx);
     if (!tx.gas && !tx.gasLimit) {
         error = new Error('"gas" is missing');
     }
