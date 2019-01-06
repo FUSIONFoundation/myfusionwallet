@@ -60,6 +60,48 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.init();
 
         }
+
+        $scope.copyToClipboard = function (text) {
+            let clipboardAvailable;
+            if (clipboardAvailable === undefined) {
+                clipboardAvailable =
+                    typeof document.queryCommandSupported === 'function' &&
+                    document.queryCommandSupported('copy');
+            }
+            let success = false;
+            const body = document.body;
+
+            if (body) {
+                // add the text to a hidden node
+                const node = document.createElement('span');
+                node.textContent = text;
+                node.style.opacity = '0';
+                node.style.position = 'absolute';
+                node.style.whiteSpace = 'pre-wrap';
+                body.appendChild(node);
+
+                // select the text
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                const range = document.createRange();
+                range.selectNodeContents(node);
+                selection.addRange(range);
+
+                // attempt to copy
+                try {
+                    document.execCommand('copy');
+                    success = true;
+                } catch (e) {
+                }
+
+                // remove selection and node
+                selection.removeAllRanges();
+                body.removeChild(node);
+            }
+
+            return success;
+        }
+
         $scope.$watch(function () {
             if (walletService.wallet == null) return null;
             return walletService.wallet.getAddressString();

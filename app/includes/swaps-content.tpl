@@ -2,13 +2,13 @@
     <div class="col-md-5 float-left">
         <div class="gray-bg p-1">
             <span class="small-gray-text">Public Address </span><span
-                    class="small-gray-text text-fusion fusion-text-14">{{walletAddress}}</span>
+                    class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(walletAddress)">{{walletAddress}}</span>
         </div>
     </div>
     <div class="col-md-5 float-left">
         <div class="gray-bg p-1">
             <span class="small-gray-text">Short Address </span><span
-                    class="small-gray-text text-fusion fusion-text-14">{{addressNotation}}</span>
+                    class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(addressNotation)">{{addressNotation}}</span>
         </div>
     </div>
 </div>
