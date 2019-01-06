@@ -14,7 +14,7 @@
 </div>
 <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
     <div class="col-md-12 p-2 swap-border">
-        <nav class="nav-container">
+        <nav class="nav-container bg-white">
             <div class="nav-scroll">
                 <ul class="nav-inner">
                     <li class="nav-item Swaps" ng-class="{active: showSwapMarket==true}">
@@ -73,7 +73,6 @@
     </div>
     <div class="col-md-12 pl-0 pr-0">
         <div class="panel panel-default" ng-show="showSwapMarket === false">
-            <div class="panel-heading">My Open Swaps</div>
             <div class="panel-body">
                 <div class="text-center" ng-hide="mySwapList.length != 0"><span
                             class="small-gray-text">No Open Swaps</span></div>
@@ -99,11 +98,11 @@
                         <td> {{asset.minswap}}</td>
                         <td>
                             <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-primary" ng-click="recallModal(asset.id)">Recall Swap
+                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.id)">Recall Swap
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-primary" ng-click="takeSwap(asset.id)">Take Swap</button>
+                                <button class="btn btn-sm btn-white m-0" ng-click="takeSwap(asset.id)">Take Swap</button>
                             </div>
                         </td>
                     </tr>
@@ -112,7 +111,6 @@
             </div>
         </div>
         <div class="panel panel-default" ng-show="showSwapMarket === true">
-            <div class="panel-heading">Swap Market</div>
             <div class="panel-body">
                 <table class="table">
                     <thead>
@@ -136,11 +134,11 @@
                         <td> {{asset.minswap}}</td>
                         <td>
                             <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-primary" ng-click="recallModal(asset.id)">Recall Swap
+                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.id)">Recall Swap
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-primary" ng-click="takeModal(asset.id)">Take Swap</button>
+                                <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap</button>
                             </div>
                         </td>
                     </tr>
