@@ -90,7 +90,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h3>Time-Locked Assets</h3>
+            <h3 ng-click="copyToClipboard('89347213980470912379')">Time-Locked Assets</h3>
         </div>
     </div>
     <article class="block" ng-hide="wallet.type=='addressOnly'">

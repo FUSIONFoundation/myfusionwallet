@@ -2,8 +2,15 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.init = function () {
-
+            $scope.getAllAssets();
+            $scope.getShortAddressNotation();
+            $scope.allSwaps();
         };
+
+        $scope.$watch('wallet', function () {
+            $scope.init();
+        })
+
         $scope.tx = {};
         $scope.takeDataFront = {
             'fromAssetSymbol': '',
@@ -312,9 +319,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
             });
 
-            if (end === 'end'){
+            if (end === 'end') {
                 $scope.makeSwapConfirmEndModal.open()
-            } else if (end === 'notend'){
+            } else if (end === 'notend') {
                 $scope.makeSwapConfirmModal.open()
             }
         }

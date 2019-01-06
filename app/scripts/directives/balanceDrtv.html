@@ -32,7 +32,9 @@
         <h5>Public Address</h5>
         <ul class="account-info">
             <div class="gray-bg p-1 break-word">
-                <span class="small-gray-text text-fusion fusion-text-14">{{wallet.getChecksumAddressString()}}</span>
+                    <span class="small-gray-text text-fusion fusion-text-14 copy"
+                    ng-click="copyToClipboard(wallet.getChecksumAddressString())"
+                    >{{wallet.getChecksumAddressString()}}</span>
             </div>
             <label class="ens-response" ng-show="showEns()">
                 ↳ <span class="mono ng-binding"> {{ensAddress}} </span>
@@ -41,7 +43,8 @@
         <h5>Short Address</h5>
         <ul class="account-info point">
             <li class="gray-bg break-word">
-                <span class="small-gray-text text-fusion fusion-text-14 p-1"
+                <span class="small-gray-text text-fusion fusion-text-14 p-1 copy"
+                      ng-click="copyToClipboard(addressNotation.value)"
                       ng-bind="addressNotation.value" ng-bind="addressNotation.value"></span>
             </li>
         </ul>

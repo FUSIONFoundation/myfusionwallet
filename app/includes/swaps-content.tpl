@@ -13,7 +13,6 @@
     </div>
 </div>
 <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
-    <button class="btn btn-primary" ng-click="allSwaps()">I want to be clicked</button>
     <div class="col-md-12 p-2 swap-border">
         <nav class="nav-container">
             <div class="nav-scroll">
