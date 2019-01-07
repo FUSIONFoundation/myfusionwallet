@@ -398,14 +398,20 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 Targes: targes,
             };
 
-            console.log(data);
 
-            await web3.fsn.makeSwap(data, password).then(function (res) {
-                if (res.toString() > 5) {
-                    console.log(res);
-                    $scope.makeSwapConfirmation('end');
-                }
-            })
+            try {
+                await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
+                    tx.from = from;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        $scope.makeSwapConfirmation('end');
+                    })
+                })
+            } catch (err){
+            }
         }
 
         $scope.recallModal = function (swap_id) {
