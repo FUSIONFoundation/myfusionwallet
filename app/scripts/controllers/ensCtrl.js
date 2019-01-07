@@ -321,13 +321,25 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let take = amount * $scope.countDecimals(toAsset["Decimals"]);
             console.log(`This is Size -> ${take}`);
 
-            await web3.fsn.takeSwap({
+            let data = {
                 from: walletAddress,
                 SwapID: swap_id,
                 Size: parseInt(take)
-            }, password).then(function (res) {
-                console.log(res);
-            })
+            };
+
+            try {
+                await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
+                    tx.from = from;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        console.log(txHash);
+                    })
+                })
+            } catch (err){
+            }
         }
 
         $scope.switchAsset = function () {
