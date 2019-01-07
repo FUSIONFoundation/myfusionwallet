@@ -439,13 +439,28 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let password = walletService.password;
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
-                await web3.fsn.recallSwap({from: walletAddress, SwapID: swap_id}, password).then(function (res) {
 
-                })
+                let data = {
+                    from: walletAddress,
+                    SwapID: swap_id
+                };
 
-                $scope.$eval(function () {
-                    $scope.swapRecallSuccess = true;
-                });
+                try {
+                    await web3.fsntx.buildRecallSwapTx(data).then(function (tx) {
+                        tx.from = from;
+                        data = tx;
+                        if ($scope.wallet.hwType == "ledger") {
+                            return;
+                        }
+                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                            console.log(txHash);
+                            $scope.$eval(function () {
+                                $scope.swapRecallSuccess = true;
+                            });
+                        })
+                    })
+                } catch (err){
+                }
             }
         }
 
