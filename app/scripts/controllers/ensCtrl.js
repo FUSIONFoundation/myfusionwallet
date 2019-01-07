@@ -169,7 +169,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (notation === 0) {
                 $scope.addressNotation = 'Not available';
             } else {
-                $scope.$apply(function () {
+                $scope.$eval(function () {
                     $scope.addressNotation = notation;
                     $scope.addressNotation = notation;
                 });
@@ -230,7 +230,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
 
                 }
-                $scope.$apply(function () {
+                $scope.$eval(function () {
                     $scope.assetList = assetList2;
                     $scope.assetListOwned = assetListOwned;
                 });
@@ -286,7 +286,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
             let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]));
 
-            $scope.$apply(function () {
+            $scope.$eval(function () {
                 $scope.takeDataFront.swapId = swapList[swap_id]["ID"];
                 $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
                 $scope.takeDataFront.fromAssetId = fromAsset["ID"];
@@ -356,7 +356,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
                 receiveAsset = res;
             });
-            $scope.$apply(function () {
+            $scope.$eval(function () {
                 $scope.assetToSendConfirm = sendAsset["Symbol"];
                 $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
             });
@@ -425,7 +425,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 })
 
-                $scope.$apply(function () {
+                $scope.$eval(function () {
                     $scope.swapRecallSuccess = true;
                 });
             }
@@ -447,7 +447,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
 
-            $scope.$apply(function () {
+            $scope.$eval(function () {
                 $scope.selectedAssetBalance = balance;
             });
         }
@@ -522,7 +522,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await swapListFront.push(data);
                 }
             }
-            $scope.$apply(function () {
+            $scope.$eval(function () {
                 console.log(swapListFront)
                 $scope.swapsList = swapListFront;
             });
@@ -594,7 +594,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await mySwapListFront.push(data);
                 }
             }
-            $scope.$apply(function () {
+            $scope.$eval(function () {
                 console.log(mySwapListFront);
                 $scope.mySwapList = mySwapListFront;
             });
