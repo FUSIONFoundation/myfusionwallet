@@ -2,11 +2,14 @@
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.init = function () {
         if (!$scope.tx || !$scope.wallet) {
-            return
+            return;
         }
         $scope.getShortAddressNotation();
         $scope.getBalance();
     };
+
+    setInterval($scope.init(), 7500);
+
     $scope.mayRunState = false;
     $scope.provider;
     $scope.ajaxReq = ajaxReq;
