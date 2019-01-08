@@ -467,7 +467,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.recallSwap = async function (swap_id) {
             if (walletService.password !== '') {
-                console.log(swap_id);
                 let password = walletService.password;
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;

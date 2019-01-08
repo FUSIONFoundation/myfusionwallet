@@ -112,7 +112,7 @@
         </div>
         <div class="panel panel-default" ng-show="showSwapMarket === true">
             <div class="panel-body">
-                <div class="col-md-12">
+                <div class="col-md-12 p-0">
                     <div class="col-md-3">
                         <form class="form-inline">
                             <div class="form-group">
@@ -122,10 +122,8 @@
                         </form>
                     </div>
                     <div class="col-md-3">
-                        Sort
                     </div>
                     <div class="col-md-3">
-
                     </div>
                 </div>
                 <table class="table">
