@@ -112,20 +112,36 @@
         </div>
         <div class="panel panel-default" ng-show="showSwapMarket === true">
             <div class="panel-body">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label >Search</label>
+                                <input type="text" ng-model="searchSwapMarket" class="form-control" placeholder="Search">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3">
+                        Sort
+                    </div>
+                    <div class="col-md-3">
+
+                    </div>
+                </div>
                 <table class="table">
                     <thead>
                     <tr class="small-gray-table">
                         <th scope="col"></th>
-                        <th scope="col">Time Initiated</th>
-                        <th scope="col">Send</th>
-                        <th scope="col">Receive</th>
-                        <th scope="col">Swap Rate</th>
-                        <th scope="col">Minimum Swap</th>
+                        <th scope="col" ng-click="sortSwapMarket('time')">Time Initiated</th>
+                        <th scope="col" ng-click="sortSwapMarket('fromAmount')">Send</th>
+                        <th scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
+                        <th scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
+                        <th scope="col" ng-click="sortSwapMarket('minswap')">Minimum Swap</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList track by $index">
+                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket track by $index">
                         <td>{{asset.targes}}</td>
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>

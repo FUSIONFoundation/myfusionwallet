@@ -13,7 +13,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let BN = web3.utils.BN;
 
-    $scope.tx = {};
+        $scope.tx = {};
         $scope.takeDataFront = {
             'fromAssetSymbol': '',
             'toAssetSymbol': '',
@@ -25,6 +25,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             'swapId': '',
             'fromAssetId': ''
         };
+
+        $scope.sortSwapMarket = function (keyname) {
+            $scope.sortKey = keyname;   //set the sortKey to the param passed
+            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+        }
+
 
         $scope.takeAmountSwap = '';
         $scope.showSwapMarket = true;
