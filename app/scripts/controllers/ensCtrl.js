@@ -13,8 +13,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let BN = web3.utils.BN;
 
-
-        $scope.tx = {};
+    $scope.tx = {};
         $scope.takeDataFront = {
             'fromAssetSymbol': '',
             'toAssetSymbol': '',
@@ -49,7 +48,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
 
         $scope.privateAccess = false;
-
 
         $scope.swapRecallSuccess = false;
 
@@ -341,6 +339,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 Size: parseInt(take)
             };
 
+            if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+            }
+
             try {
                 await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
                     tx.from = from;
@@ -353,6 +355,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 })
             } catch (err) {
+                console.log(err);
             }
         }
 
@@ -468,9 +471,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     SwapID: swap_id
                 };
 
+                if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+                }
+
                 try {
                     await web3.fsntx.buildRecallSwapTx(data).then(function (tx) {
-                        tx.from = from;
+                        tx.from = walletAddress;
                         data = tx;
                         if ($scope.wallet.hwType == "ledger") {
                             return;
@@ -483,6 +490,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         })
                     })
                 } catch (err) {
+                    console.log(err);
                 }
             }
         }
