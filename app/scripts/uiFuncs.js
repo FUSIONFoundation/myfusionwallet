@@ -6,19 +6,21 @@ const Bytes = require("eth-lib/lib/bytes");
 const utils = require('web3-utils');
 
 var uiFuncs = function() {}
+
+
 uiFuncs.getTxData = function($scope) {
-    return {
-        to: $scope.tx.to,
-        value: $scope.tx.value,
-        unit: $scope.tx.unit,
-        gasLimit: $scope.tx.gasLimit,
-        data: $scope.tx.data,
-        from: $scope.wallet.getAddressString(),
-        privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : '',
-        path: $scope.wallet.getPath(),
-        hwType: $scope.wallet.getHWType(),
-        hwTransport: $scope.wallet.getHWTransport()
-    };
+        return {
+            to: $scope.tx.to,
+            value: $scope.tx.value,
+            unit: $scope.tx.unit,
+            gasLimit: $scope.tx.gasLimit,
+            data: $scope.tx.data,
+            from: $scope.wallet.getAddressString(),
+            privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : '',
+            path: $scope.wallet.getPath(),
+            hwType: $scope.wallet.getHWType(),
+            hwTransport: $scope.wallet.getHWTransport()
+        };
 }
 uiFuncs.isTxDataValid = function(txData) {
     if (txData.to != "0xCONTRACT" && !ethFuncs.validateEtherAddress(txData.to)) throw globalFuncs.errorMsgs[5];
