@@ -11,6 +11,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.init();
         })
 
+        let BN = web3.utils.BN;
+
+
         $scope.tx = {};
         $scope.takeDataFront = {
             'fromAssetSymbol': '',
@@ -62,6 +65,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.init();
 
         }
+
+        $scope.toHexString = function (byteArray) {
+            var s = '0x';
+            byteArray.forEach(function (byte) {
+                s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
+            });
+            return s;
+        }
+
 
         $scope.copyToClipboard = function (text) {
             let clipboardAvailable;
@@ -340,7 +352,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         console.log(txHash);
                     })
                 })
-            } catch (err){
+            } catch (err) {
             }
         }
 
@@ -402,29 +414,38 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             $scope.makeTarges !== '' ? targes = [$scope.makeTarges] : targes = [];
 
+            let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(fromAsset["Decimals"]));
+            let minFromAmountHex = web3.utils.numberToHex($scope.makeSendAmount * $scope.countDecimals(toAsset["Decimals"]));
+
             let data = {
                 from: walletAddress,
                 FromAssetID: $scope.assetToSend,
                 ToAssetID: $scope.assetToReceive,
-                MinToAmount: $scope.makeReceiveAmount * $scope.countDecimals(fromAsset["Decimals"]),
-                MinFromAmount: $scope.makeSendAmount * $scope.countDecimals(toAsset["Decimals"]),
+                MinToAmount: minToAmountHex,
+                MinFromAmount: minFromAmountHex,
                 SwapSize: 1,
-                Targes: targes,
+                Targes: targes
             };
 
+            if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+            }
 
             try {
                 await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
-                    tx.from = from;
+                    console.log(tx);
+                    tx.from = walletAddress;
                     data = tx;
                     if ($scope.wallet.hwType == "ledger") {
                         return;
                     }
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        console.log(txHash);
                         $scope.makeSwapConfirmation('end');
                     })
                 })
-            } catch (err){
+            } catch (err) {
+                console.log(err);
             }
         }
 
@@ -461,7 +482,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             });
                         })
                     })
-                } catch (err){
+                } catch (err) {
                 }
             }
         }
