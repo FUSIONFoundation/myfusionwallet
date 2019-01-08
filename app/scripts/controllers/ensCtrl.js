@@ -45,6 +45,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.makeSwapConfirmModal = new Modal(document.getElementById('makeSwapConfirm'));
         $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
 
+        $scope.privateAccess = false;
+
 
         $scope.swapRecallSuccess = false;
 

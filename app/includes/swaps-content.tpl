@@ -338,6 +338,14 @@
                     </div>
                     <h3 class="h3-blue">Set Access</h3>
                     <div class="col-md-12 p-0">
+                        <span class="small-gray-text">Available to</span>
+                        <br>
+                            <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="false" checked>
+                            Public
+                            <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="true">
+                            Private
+                    </div>
+                    <div class="col-md-12 p-0" ng-show="privateAccess == true">
                         <span class="small-gray-text">Seperate addresses with commas.</span>
                         <input type="text" class="form-control m-0 mt-1" ng-model="makeTarges"
                                placeholder="Addresses">
