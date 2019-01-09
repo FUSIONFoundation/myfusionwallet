@@ -280,13 +280,6 @@
                             <i class="fa fa-exclamation" aria-hidden="true"></i> <span class="small-gray-text">You are unable to take this swap. You do not have enough funds.</span>
                         </div>
                     </div>
-                    <div class="col-sm-12 clearfix">
-                        <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
-                            Success! Your swap was recalled and will be confirmed next block!
-
-                            <strong>{{successHash}}</strong>
-                        </div>
-                    </div>
                 </article>
             </section>
         </section>
@@ -324,8 +317,6 @@
                             </option>
                         </select>
                     </div>
-                    <h3 class="h3-blue">Enter a Swap Rate</h3>
-
                     <h3 class="h3-blue">Enter Swap Details</h3>
 
                     <div class="col-md-12 p-0">
@@ -347,7 +338,7 @@
 
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">Minimum Swap Amount</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makeMinumumSwap"
+                        <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
                                placeholder="Amount">
                     </div>
                     <h3 class="h3-blue">Set Access</h3>
@@ -510,6 +501,23 @@
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapConfirmEndModal.close()">Close</button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </article>
+    <article class="modal fade" id="recallSwapSuccess" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog">
+            <section class="modal-content">
+                <article class="block" ng-hide="wallet.type=='addressOnly'">
+                    <div class="col-md-12">
+                        <h3 class="h3-blue">Recall Success!</h3>
+                        <p>It will soon be reflected to the chain.</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-offset-6 float-right">
+                            <button class="btn btn-sm btn-secondary" ng-click="recallSwapSuccess.close()">Close</button>
                         </div>
                     </div>
                 </article>

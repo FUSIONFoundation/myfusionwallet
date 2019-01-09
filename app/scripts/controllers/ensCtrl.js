@@ -9,7 +9,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.$watch('wallet', function () {
             $scope.init();
+            $scope.interval();
         })
+
+        $scope.interval = function () {
+            setInterval($scope.init(),6000);
+        }
 
         let BN = web3.utils.BN;
 
@@ -52,6 +57,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.makeSwapModal = new Modal(document.getElementById('makeSwap'));
         $scope.makeSwapConfirmModal = new Modal(document.getElementById('makeSwapConfirm'));
         $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
+        $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
+
 
         $scope.privateAccess = false;
 
@@ -489,9 +496,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             console.log(txHash);
-                            $scope.$eval(function () {
-                                $scope.swapRecallSuccess = true;
-                            });
+                            $scope.recallSwapSuccess.open()
                         })
                     })
                 } catch (err) {
