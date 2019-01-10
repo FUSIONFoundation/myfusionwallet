@@ -6719,24 +6719,14 @@
 </span>
                         </div>
                     </div>
-                    <h3>Recall Asset Confirmation</h3>
+                    <h3 class="h3-blue">Recall Swap</h3>
 
-                    <p>Are you sure you want to recall this swap? It will be removed from the swap market the next
-                        block.</p>
+                    <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the swap market with the next block.</p>
 
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-primary" ng-click="recallSwap(recallAssetId)"
-                                    ng-disabled="swapRecallSuccess">Confirm
-                            </button>
-                            <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Cancel</button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 clearfix">
-                        <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
-                            Success! Your swap was recalled and will be confirmed next block!
-
-                            <strong>{{successHash}}</strong>
+                            <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Keep Swap</button>
+                            <button class="btn btn-sm btn-primary btn-red" ng-click="recallSwap(recallAssetId)">Recall Swap</button>
                         </div>
                     </div>
                 </article>
