@@ -161,7 +161,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     setTxObj();
                 }, true);
             }
-            $scope.setTokenSendMode();
             defaultInit();
         });
 
@@ -582,7 +581,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
                     let targes = '';
 
-                    swapList[asset]["Targes"] === [] ? targes == 'Public' : targes == 'Private';
+                    console.log(swapList[asset]["Targes"]);
+
+                    swapList[asset]["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
 
 
                     let data = {
