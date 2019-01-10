@@ -94,7 +94,7 @@
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td>{{asset.swaprate}}</td>
+                        <td><strong>{{asset.swaprate}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.minswap}}</strong> {{asset.toAssetSymbol}}</td>
                         <td>
                             <div ng-hide="asset.owned == false">
@@ -144,7 +144,7 @@
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td>{{asset.swaprate}}</td>
+                        <td><strong>{{asset.swaprate}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.minswap}}</strong> {{asset.toAssetSymbol}}</td>
                         <td>
                             <div ng-hide="asset.owned == false">
