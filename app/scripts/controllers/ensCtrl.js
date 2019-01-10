@@ -75,14 +75,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (!$scope.$$phase) $scope.$apply();
         }
 
-        var defaultInit = function () {
-            globalFuncs.urlGet('sendMode') == null ? $scope.setSendMode('ether') : $scope.setSendMode(globalFuncs.urlGet('sendMode'));
-            $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null ? true : false;
-            $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
-            if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true // if there is a query string, show an warning at top of page
-            $scope.init();
 
-        }
 
         $scope.toHexString = function (byteArray) {
             var s = '0x';
@@ -161,7 +154,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     setTxObj();
                 }, true);
             }
-            defaultInit();
         });
 
         $scope.$watch('ajaxReq.key', function () {
