@@ -7,7 +7,6 @@ const utils = require('web3-utils');
 
 var uiFuncs = function() {}
 
-
 uiFuncs.getTxData = function($scope) {
         return {
             to: $scope.tx.to,

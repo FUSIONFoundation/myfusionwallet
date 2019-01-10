@@ -1,19 +1,26 @@
 'use strict';
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
+
         $scope.init = function () {
+            if (!$scope.wallet) {
+                return;
+            }
             $scope.getAllAssets();
             $scope.getShortAddressNotation();
             $scope.allSwaps();
         };
 
+        $scope.mayRun = false;
+
         $scope.$watch('wallet', function () {
             $scope.init();
-            $scope.interval();
+            $scope.mayRun = true;
         })
 
-        $scope.interval = function () {
-            setInterval($scope.init(),6000);
+        if ($scope.mayRun) {
+            setInterval($scope.init(), 6000);
+            console.log('triggered');
         }
 
         let BN = web3.utils.BN;
