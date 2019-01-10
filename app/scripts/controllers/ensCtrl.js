@@ -647,7 +647,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let minimumswap = fromAmount / parseInt(mySwapList[asset]["SwapSize"]);
                     let targes = '';
 
-                    mySwapList[asset]["Targes"] === [] ? targes == 'public' : targes == 'private';
+                    mySwapList[asset]["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
 
 
                     let data = {
