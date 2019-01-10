@@ -1005,6 +1005,23 @@ tbody tr:hover{
   background-color: #f2f7fc;
 }
 
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  padding: .5rem;
+  line-height: 1.4;
+  vertical-align: top;
+  border-top: 0px solid #ddd;
+}
+
+.table>thead>tr>th {
+  vertical-align: bottom;
+  border-bottom: 0px solid #ddd;
+}
+
+.table>tbody>tr {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
 .btn-red{
   background-color: #d0021b !important;
   border-color: #d0021a!important;
