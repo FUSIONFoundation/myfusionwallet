@@ -6636,7 +6636,9 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="asset in mySwapList track by $index">
-                        <td>{{asset.targes}}</td>
+                        <td><i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
+                            <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
+                            {{asset.targes}}</td>
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
@@ -6686,7 +6688,9 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket track by $index">
-                        <td>{{asset.targes}}</td>
+                        <td><i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
+                            <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
+                            {{asset.targes}}</td>
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
