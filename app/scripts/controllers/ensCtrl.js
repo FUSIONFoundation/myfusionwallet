@@ -69,6 +69,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
         $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
 
+        $scope.receiveDropDown = false;
+
 
         $scope.privateAccess = false;
 
@@ -85,6 +87,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
             });
             return s;
+        }
+
+        $scope.setReceiveAsset = function (){
+            $scope.$eval(function(){
+                $scope.receiveDropDown = false;
+            })
         }
 
 

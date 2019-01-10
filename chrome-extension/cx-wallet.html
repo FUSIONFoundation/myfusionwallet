@@ -6585,11 +6585,11 @@
                 {{selectedSendAsset}}
                 <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
                     <div class="col-md-12 col-xs-12 p-2 asset-dropdown" ng-repeat="asset in assetListOwned">
-                       <span class="fusion-text-14" ng-click="!sendDropDown ;" ">
-                           {{asset.name}} ({{asset.symbol}})
-                           <br>
-                           <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
-                       </span>
+                        <span class="fusion-text-14" ng-click="!sendDropDown ;" ">
+                        {{asset.name}} ({{asset.symbol}})
+                        <br>
+                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -6616,22 +6616,25 @@
                 {{selectedSendAsset}}
             </div>
             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
-                    <form class="form-inline">
-                        <div class="form-group m-0">
-                            <span class="small-gray-text">Search</span>
-                            <input type="text" class="form-control"
-                                   ng-model="searchSendAsset"
-                                   placeholder="Search">
-                        </div>
-                    </form>
-                    <div class="col-md-12 col-xs-12 p-2 asset-dropdown" ng-repeat="asset in assetList | filter:searchSendAsset" ng-click="!receiveDropDown">
+                <form class="form-inline">
+                    <div class="form-group m-0">
+                        <span class="small-gray-text">Search</span>
+                        <input type="text" class="form-control"
+                               ng-model="searchReceiveAsset"
+                               placeholder="Search">
+                    </div>
+                </form>
+                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                     ng-repeat="asset in assetList | filter:searchReceiveAsset">
+                    <a ng-click="setReceiveAsset()">
                         <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}})
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
-                    </div>
+                    </a>
                 </div>
+            </div>
             <select class="form-control" ng-model="assetToReceive">
                 <option ng-repeat="asset in assetList" value="{{asset.contractaddress}}">
                     {{asset.symbol}}
