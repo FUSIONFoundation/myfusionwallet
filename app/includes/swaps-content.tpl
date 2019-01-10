@@ -2,19 +2,22 @@
     <div class="col float-left pl-0">
         <div class="gray-bg p-1 display-inline">
             <span class="small-gray-text">Public Address </span><span
-                    class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(walletAddress)">{{walletAddress}}</span>
+                    class="small-gray-text text-fusion fusion-text-14 copy"
+                    ng-click="copyToClipboard(walletAddress)">{{walletAddress}}</span>
         </div>
     </div>
     <div class="col float-left">
         <div class="gray-bg p-1 display-inline">
             <span class="small-gray-text">Short Address </span><span
-                    class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(addressNotation)">{{addressNotation}}</span>
+                    class="small-gray-text text-fusion fusion-text-14 copy"
+                    ng-click="copyToClipboard(addressNotation)">{{addressNotation}}</span>
         </div>
     </div>
     <div class="col float-left">
         <div class="gray-bg p-1 display-inline">
             <span class="small-gray-text">FSN Balance </span><span
-                    class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(web3WalletBalance)">{{web3WalletBalance}}</span>
+                    class="small-gray-text text-fusion fusion-text-14 copy"
+                    ng-click="copyToClipboard(web3WalletBalance)">{{web3WalletBalance}}</span>
         </div>
     </div>
 </div>
@@ -24,10 +27,11 @@
             <div class="nav-scroll">
                 <ul class="nav-inner">
                     <li class="nav-item Swaps" ng-class="{active: showSwapMarket==true}">
-                        <a class="ng-scope"ng-click="showSwapMarket = true ; showOpenMakes = false">Swap Market</a>
+                        <a class="ng-scope" ng-click="showSwapMarket = true ; showOpenMakes = false">Swap Market</a>
                     </li>
                     <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes <span ng-model="mySwapList">({{mySwapList.length}})</span></a>
+                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes <span
+                                    ng-model="mySwapList">({{mySwapList.length}})</span></a>
                     </li>
                 </ul>
             </div>
@@ -36,6 +40,19 @@
     <div class="col-md-12 p-2 swap-border">
         <div class="col-md-3 text-left mr-0">
             <span class="small-gray-text">Send Assets</span>
+            <br>
+            <div class="btn btn-white dropdown w-100 btn-sm" ng-click="sendDropDown = !sendDropDown">
+                {{selectedSendAsset}}
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
+                    <div class="col-md-12 col-xs-12 p-2 asset-dropdown" ng-repeat="asset in assetListOwned">
+                       <span class="fusion-text-14" ng-click="!sendDropDown ;" ">
+                           {{asset.name}} ({{asset.symbol}})
+                           <br>
+                           <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                       </span>
+                    </div>
+                </div>
+            </div>
             <div class="form-group">
                 <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
                     <option ng-repeat="asset in assetListOwned" value="{{asset.contractaddress}}">
@@ -54,6 +71,19 @@
         </div>
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Receive Asset</span>
+            <br>
+            <div class="btn btn-white dropdown w-100 btn-sm" ng-click="receiveDropDown = !receiveDropDown">
+                {{selectedSendAsset}}
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
+                    <div class="col-md-12 col-xs-12 p-2 asset-dropdown" ng-repeat="asset in assetList">
+                        <span class="fusion-text-14" ng-click="!receiveDropDown ;" ">
+                        {{asset.name}} ({{asset.symbol}})
+                        <br>
+                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
             <select class="form-control" ng-model="assetToReceive">
                 <option ng-repeat="asset in assetList" value="{{asset.contractaddress}}">
                     {{asset.symbol}}
@@ -112,7 +142,8 @@
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0" ng-click="takeSwap(asset.id)">Take Swap</button>
+                                <button class="btn btn-sm btn-white m-0" ng-click="takeSwap(asset.id)">Take Swap
+                                </button>
                                 <button class="btn btn-sm btn-white m-0"><i class="fa fa-info" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -128,8 +159,9 @@
                     <div class="col-md-3">
                         <form class="form-inline">
                             <div class="form-group">
-                                <label >Search</label>
-                                <input type="text" ng-model="searchSwapMarket" class="form-control" placeholder="Search">
+                                <label>Search</label>
+                                <input type="text" ng-model="searchSwapMarket" class="form-control"
+                                       placeholder="Search">
                             </div>
                         </form>
                     </div>
@@ -168,7 +200,8 @@
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap</button>
+                                <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
+                                </button>
                                 <button class="btn btn-sm btn-white m-0"><i class="fa fa-info" aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -194,12 +227,16 @@
                     </div>
                     <h3 class="h3-blue">Recall Swap</h3>
 
-                    <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the swap market with the next block.</p>
+                    <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the swap
+                        market with the next block.</p>
 
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Keep Swap</button>
-                            <button class="btn btn-sm btn-primary btn-red" ng-click="recallSwap(recallAssetId)">Recall Swap</button>
+                            <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Keep Swap
+                            </button>
+                            <button class="btn btn-sm btn-primary btn-red" ng-click="recallSwap(recallAssetId)">Recall
+                                Swap
+                            </button>
                         </div>
                     </div>
                 </article>
@@ -354,10 +391,10 @@
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">Available to</span>
                         <br>
-                            <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="false" checked>
-                            Public
-                            <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="true">
-                            Private
+                        <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="false" checked>
+                        Public
+                        <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="true">
+                        Private
                     </div>
                     <div class="col-md-12 p-0" ng-show="privateAccess == true">
                         <span class="small-gray-text">Seperate addresses with commas.</span>
@@ -370,7 +407,9 @@
                         <div class="col-lg-offset-6 float-right">
                             <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel
                             </button>
-                            <button class="btn btn-sm btn-primary" ng-click="makeSwapConfirmation('notend')">Review Make Swap</button>
+                            <button class="btn btn-sm btn-primary" ng-click="makeSwapConfirmation('notend')">Review Make
+                                Swap
+                            </button>
                         </div>
                     </div>
                     <div class="col-sm-12 clearfix">
@@ -502,14 +541,15 @@
                         <div class="col-md-12">
                             <div class="text-center">
                                 <h1 class="text-green">
-                                <i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i>
+                                    <i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i>
                                 </h1>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapConfirmEndModal.close()">Close</button>
+                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapConfirmEndModal.close()">Close
+                            </button>
                         </div>
                     </div>
                 </article>

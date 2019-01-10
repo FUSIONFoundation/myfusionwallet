@@ -56,6 +56,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.makeReceiveAmount = '';
         $scope.makeTarges = '';
         $scope.web3WalletBalance = 'Loading...'
+        $scope.selectedSendAsset = 'Select asset'
         $scope.addressNotation = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
