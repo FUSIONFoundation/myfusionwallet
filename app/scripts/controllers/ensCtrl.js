@@ -70,6 +70,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
 
         $scope.receiveDropDown = false;
+        $scope.selectedReceiveAsset = 'Select asset';
 
 
         $scope.privateAccess = false;
@@ -91,6 +92,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.setReceiveAsset = function (){
             $scope.$eval(function(){
+                $scope.selectedReceiveAsset = 'Working'
                 $scope.receiveDropDown = false;
             })
         }

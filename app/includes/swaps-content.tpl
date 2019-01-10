@@ -73,7 +73,7 @@
             <span class="small-gray-text">Receive Asset</span>
             <br>
             <div class="btn btn-white dropdown w-100 btn-sm" ng-click="receiveDropDown = !receiveDropDown">
-                {{selectedSendAsset}}
+                {{selectedReceiveAsset}}
             </div>
             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
                 <form class="form-inline">
