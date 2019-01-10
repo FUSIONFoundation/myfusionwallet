@@ -1,14 +1,20 @@
 <div class="block-transparent p-0">
-    <div class="col-md-5 float-left pl-0">
-        <div class="gray-bg p-1">
+    <div class="col float-left pl-0">
+        <div class="gray-bg p-1 display-inline">
             <span class="small-gray-text">Public Address </span><span
                     class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(walletAddress)">{{walletAddress}}</span>
         </div>
     </div>
-    <div class="col-md-5 float-left">
-        <div class="gray-bg p-1">
+    <div class="col float-left">
+        <div class="gray-bg p-1 display-inline">
             <span class="small-gray-text">Short Address </span><span
                     class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(addressNotation)">{{addressNotation}}</span>
+        </div>
+    </div>
+    <div class="col float-left">
+        <div class="gray-bg p-1 display-inline">
+            <span class="small-gray-text">FSN Balance </span><span
+                    class="small-gray-text text-fusion fusion-text-14 copy" ng-click="copyToClipboard(web3WalletBalance)">{{web3WalletBalance}}</span>
         </div>
     </div>
 </div>

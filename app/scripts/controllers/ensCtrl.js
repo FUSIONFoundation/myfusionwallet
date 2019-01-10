@@ -9,6 +9,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getAllAssets();
             $scope.getShortAddressNotation();
             $scope.allSwaps();
+            $scope.getBalance();
         };
 
         $scope.mayRun = false;
@@ -54,6 +55,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.makeSendAmount = '';
         $scope.makeReceiveAmount = '';
         $scope.makeTarges = '';
+        $scope.web3WalletBalance = 'Loading...'
         $scope.addressNotation = '';
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
@@ -74,7 +76,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         var applyScope = function () {
             if (!$scope.$$phase) $scope.$apply();
         }
-
 
 
         $scope.toHexString = function (byteArray) {
@@ -600,6 +601,24 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 console.log(swapListFront)
                 $scope.swapsList = swapListFront;
             });
+        }
+
+        $scope.getBalance = async function () {
+            if ($scope.mayRunState = true) {
+                let accountData = uiFuncs.getTxData($scope);
+                let walletAddress = accountData.from;
+                let balance = '';
+
+                await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress).then(function (res) {
+                    balance = res;
+                });
+
+                balance = balance / $scope.countDecimals(18);
+                $scope.$apply(function () {
+                    $scope.web3WalletBalance = balance;
+                    $scope.web3WalletBalance = balance;
+                });
+            }
         }
 
 
