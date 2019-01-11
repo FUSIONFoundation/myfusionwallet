@@ -6903,24 +6903,66 @@
                     </div>
                     <h3 class="h3-blue">Make Swap</h3>
                     <div class="col-md-12 text-left p-0">
-                        <span class="small-gray-text">Send Asset</span>
-                        <div class="form-group">
-                            <select class="form-control" ng-model="assetToSend" ng-change="getAssetBalance()">
-                                <option ng-repeat="asset in assetListOwned" value="{{asset.contractaddress}}">
-                                    {{asset.symbol}}
-                                    - {{asset.contractaddress}}
-                                </option>
-                            </select>
+                        <span class="small-gray-text">Send Assets</span>
+                        <br>
+                        <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                             ng-click="sendDropDown = !sendDropDown">
+                            <a>
+                                {{selectedSendAsset}}
+                                <span class="small-gray-text max-char">{{selectedSendContract}}</span>
+                            </a>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
+                            <form class="form-inline">
+                                <div class="form-group m-0">
+                                    <span class="small-gray-text">Search</span>
+                                    <input type="text" class="form-control"
+                                           ng-model="searchSendAsset"
+                                           placeholder="Search by Symbol, Name, or ID">
+                                </div>
+                            </form>
+                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                 ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
+                                <a ng-click="setSendAsset(asset.id)">
+                        <span class="fusion-text-14">
+                        {{asset.name}} ({{asset.symbol}})
+                        <br>
+                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-12 p-0 text-left">
                         <span class="small-gray-text">Receive Asset</span>
-                        <select class="form-control" ng-model="assetToReceive">
-                            <option ng-repeat="asset in assetList" value="{{asset.contractaddress}}">
-                                {{asset.symbol}}
-                                - {{asset.contractaddress}}
-                            </option>
-                        </select>
+                        <br>
+                        <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                             ng-click="receiveDropDown = !receiveDropDown">
+                            <a>
+                                {{selectedReceiveAsset}}
+                                <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
+                            </a>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
+                            <form class="form-inline">
+                                <div class="form-group m-0">
+                                    <span class="small-gray-text">Search</span>
+                                    <input type="text" class="form-control"
+                                           ng-model="searchReceiveAsset"
+                                           placeholder="Search by Symbol, Name, or ID">
+                                </div>
+                            </form>
+                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                 ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
+                                <a ng-click="setReceiveAsset(asset.id)">
+                        <span class="fusion-text-14">
+                        {{asset.name}} ({{asset.symbol}})
+                        <br>
+                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        </span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <h3 class="h3-blue">Enter Swap Details</h3>
 
