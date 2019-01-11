@@ -78,10 +78,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.$watch('assetList', function(){
             $scope.$eval(function(){
-                $scope.selectedSendAsset = $scope.assetListOwned[0].name;
+                $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
                 $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
                 $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-                $scope.selectedReceiveAsset = $scope.assetList[0].name;
+                $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
                 $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
                 $scope.assetToReceive = $scope.assetList[0].contractaddress;
             })
@@ -106,7 +106,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.setReceiveAsset = function (id) {
             $scope.$eval(function () {
-                $scope.selectedReceiveAsset = $scope.assetList[id].name;
+                $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${$scope.assetList[id].symbol})`;
                 $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
                 $scope.assetToReceive = $scope.assetList[id].contractaddress;
                 $scope.receiveDropDown = false;
@@ -114,9 +114,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.setSendAsset = function (id) {
-            console.log($scope.assetList[id]);
             $scope.$eval(function () {
-                $scope.selectedSendAsset = $scope.assetListOwned[id].name;
+                $scope.selectedSendAsset = `${$scope.assetListOwned[id].name} (${$scope.assetListOwned[id].symbol})`;
                 $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
                 $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
                 $scope.getAssetBalance();
