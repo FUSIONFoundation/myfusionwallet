@@ -71,9 +71,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.receiveDropDown = false;
         $scope.selectedReceiveAsset = 'Select asset';
+        $scope.selectedReceiveContract = '-'
 
 
-        $scope.privateAccess = false;
+
+    $scope.privateAccess = false;
 
         $scope.swapRecallSuccess = false;
 
@@ -91,9 +93,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.setReceiveAsset = function (id){
-            console.log(id);
+            console.log($scope.assetList[id]);
             $scope.$eval(function(){
-                $scope.selectedReceiveAsset = 'Working'
+                $scope.selectedReceiveAsset = $scope.assetList[id].name;
+                $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
+                $scope.assetToReceive = $scope.assetList[id].contractaddress;
                 $scope.receiveDropDown = false;
             })
         }
@@ -222,8 +226,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let assetListOwned = [];
                 let assetList2 = [];
 
-                console.log(walletAddress);
-
                 await web3.fsn.allAssets().then(function (res) {
                     assetList = res;
                 });
@@ -252,7 +254,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                     await assetList2.push(data);
 
-                    if (assetBalance >= 0) {
+                    if (assetBalance > 0.000000000000000001) {
                         let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                         let data = {
                             "id": assetListOwned.length,
