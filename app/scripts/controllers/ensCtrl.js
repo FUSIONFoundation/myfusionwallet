@@ -72,10 +72,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.receiveDropDown = false;
         $scope.selectedReceiveAsset = 'Select asset';
         $scope.selectedReceiveContract = '-'
+        $scope.selectedSendAsset = 'Select asset';
+        $scope.selectedSendContract = '-';
 
 
-
-    $scope.privateAccess = false;
+        $scope.privateAccess = false;
 
         $scope.swapRecallSuccess = false;
 
@@ -92,13 +93,23 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             return s;
         }
 
-        $scope.setReceiveAsset = function (id){
+        $scope.setReceiveAsset = function (id) {
             console.log($scope.assetList[id]);
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.selectedReceiveAsset = $scope.assetList[id].name;
                 $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
                 $scope.assetToReceive = $scope.assetList[id].contractaddress;
                 $scope.receiveDropDown = false;
+            })
+        }
+
+        $scope.setSendAsset = function (id) {
+            console.log($scope.assetList[id]);
+            $scope.$eval(function () {
+                $scope.selectedSendAsset = $scope.assetListOwned[id].name;
+                $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
+                $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
+                $scope.sendDropDown = false;
             })
         }
 
