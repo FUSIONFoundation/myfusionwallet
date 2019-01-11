@@ -90,7 +90,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             return s;
         }
 
-        $scope.setReceiveAsset = function (){
+        $scope.setReceiveAsset = function (id){
+            console.log(id);
             $scope.$eval(function(){
                 $scope.selectedReceiveAsset = 'Working'
                 $scope.receiveDropDown = false;
@@ -240,6 +241,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
 
                     let data = {
+                        "id": assetList2.length,
                         "name": assetList[asset]["Name"],
                         "symbol": assetList[asset]["Symbol"],
                         "decimals": assetList[asset]["Decimals"],
@@ -250,9 +252,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                     await assetList2.push(data);
 
-                    if (assetBalance > 0.000000000000001) {
+                    if (assetBalance >= 0) {
                         let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                         let data = {
+                            "id": assetListOwned.length,
                             "name": assetList[asset]["Name"],
                             "symbol": assetList[asset]["Symbol"],
                             "decimals": assetList[asset]["Decimals"],
