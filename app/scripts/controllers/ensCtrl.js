@@ -76,6 +76,17 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.selectedSendContract = '-';
 
 
+        $scope.$watch('assetList', function(){
+            $scope.$eval(function(){
+                $scope.selectedSendAsset = $scope.assetListOwned[0].name;
+                $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+                $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
+                $scope.selectedReceiveAsset = $scope.assetList[0].name;
+                $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
+                $scope.assetToReceive = $scope.assetList[0].contractaddress;
+            })
+        })
+
         $scope.privateAccess = false;
 
         $scope.swapRecallSuccess = false;
@@ -94,7 +105,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.setReceiveAsset = function (id) {
-            console.log($scope.assetList[id]);
             $scope.$eval(function () {
                 $scope.selectedReceiveAsset = $scope.assetList[id].name;
                 $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
@@ -109,6 +119,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.selectedSendAsset = $scope.assetListOwned[id].name;
                 $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
                 $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
+                $scope.getAssetBalance();
                 $scope.sendDropDown = false;
             })
         }
