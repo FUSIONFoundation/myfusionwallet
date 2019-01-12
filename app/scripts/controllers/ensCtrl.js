@@ -2,6 +2,39 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
+        $scope.currentPage = 0;
+        $scope.pageSize = 5;
+        $scope.endPage = 0;
+
+
+        // Sets the last page for pagination
+        $scope.$watch('swapsList', function () {
+            if (typeof $scope.swapsList === 'undefined') {
+                return;
+            } else {
+                $scope.$eval(function () {
+                    $scope.endPage = Math.ceil($scope.swapsList.length / $scope.pageSize);
+                })
+            }
+        })
+
+        $scope.nextPage = function () {
+            if ($scope.currentPage !== $scope.endPage-1) {
+                $scope.$eval(function () {
+                    $scope.currentPage = $scope.currentPage + 1
+                })
+            }
+        }
+
+        $scope.previousPage = function () {
+            console.log($scope.currentPage);
+            if ($scope.currentPage !== 0) {
+                $scope.$eval(function () {
+                    $scope.currentPage = $scope.currentPage - 1
+                })
+            }
+        }
+
         $scope.init = function () {
             if (!$scope.wallet) {
                 return;
@@ -79,7 +112,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$watch('assetList', function () {
             if (typeof $scope.assetList === 'undefined') {
                 return;
-            } else{
+            } else {
                 $scope.$eval(function () {
                     $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
                     $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
@@ -91,7 +124,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$watch('assetListOwned', function () {
             if (typeof $scope.assetListOwned === 'undefined') {
                 return;
-            } else{
+            } else {
                 $scope.$eval(function () {
                     $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
                     $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;

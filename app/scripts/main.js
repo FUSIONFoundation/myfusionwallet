@@ -197,6 +197,18 @@ var app = angular.module("mewApp", [
     "ngSanitize",
     "ngAnimate"
 ]);
+
+app.filter('startFrom', function() {
+        return function (input, start) {
+            if (typeof input === 'undefined') {
+                return;
+            } else {
+                start = +start; //parse to int
+                return input.slice(start);
+            }
+        }
+});
+
 app.config([
     "$compileProvider",
     function ($compileProvider) {

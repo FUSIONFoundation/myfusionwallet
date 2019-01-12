@@ -190,476 +190,485 @@
                     <div class="float-right">
                         <div class="col-md-12">
                             <form class="form-inline">
-                                    <span class="small-gray-text">Pagination</span>
+                                <span class="small-gray-text">Pagination</span>
                                 <br>
-                                <div class="btn btn-sm btn-white"><</div>
-                                <div class="btn btn-sm btn-white">></div>
-
-                        </div>
+                                <div class="btn btn-sm btn-white" ng-click="previousPage()"><</div>
+                                <span class="small-gray-text">{{currentPage+1}}/{{endPage}}</span>
+                                <div class="btn btn-sm btn-white"
+                                     ng-class="{'disabled' : currentPage >= endPage}"
+                                     ng-click="nextPage()">>
+                                </div>
                             </form>
                         </div>
                     </div>
-                </div>
-                <table class="table">
-                    <thead>
-                    <tr class="small-gray-table">
-                        <th scope="col"></th>
-                        <th scope="col" ng-click="sortSwapMarket('time')">Time Initiated</th>
-                        <th scope="col" ng-click="sortSwapMarket('fromAmount')">Send</th>
-                        <th scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
-                        <th scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
-                        <th scope="col" ng-click="sortSwapMarket('minswap')">Minimum Swap</th>
-                        <th scope="col" class="float-right">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket track by $index">
-                        <td><i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
-                            <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
-                            {{asset.targes}}</td>
-                        <td>{{asset.time}}</td>
-                        <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
-                        <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td><strong>{{asset.swaprate}}</strong> {{asset.toAssetSymbol}}</td>
-                        <td><strong>{{asset.minswap}}</strong> {{asset.toAssetSymbol}}</td>
-                        <td class="float-right">
-                            <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.id)">Recall Swap
-                                </button>
-                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                            <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
-                                </button>
-                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info" aria-hidden="true"></i>
-                                </button>
-                            </div>
+                    <table class="table">
+                        <thead>
+                        <tr class="small-gray-table">
+                            <th scope="col"></th>
+                            <th scope="col" ng-click="sortSwapMarket('time')">Time Initiated</th>
+                            <th scope="col" ng-click="sortSwapMarket('fromAmount')">Send</th>
+                            <th scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
+                            <th scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
+                            <th scope="col" ng-click="sortSwapMarket('minswap')">Minimum Swap</th>
+                            <th scope="col" class="float-right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
+                            <td><i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
+                                <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
+                                {{asset.targes}}</td>
+                            <td>{{asset.time}}</td>
+                            <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                            <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
+                            <td><strong>{{asset.swaprate}}</strong> {{asset.toAssetSymbol}}</td>
+                            <td><strong>{{asset.minswap}}</strong> {{asset.toAssetSymbol}}</td>
+                            <td class="float-right">
+                                <div ng-hide="asset.owned == false">
+                                    <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.id)">Recall
+                                        Swap
+                                    </button>
+                                    <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                                                                aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div ng-hide="asset.owned == true">
+                                    <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
+                                    </button>
+                                    <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                                                                aria-hidden="true"></i>
+                                    </button>
+                                </div>
 
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-    <article class="modal fade" id="recallAsset" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
+        <article class="modal fade" id="recallAsset" tabindex="-1">
+            <section class="modal-dialog send-asset-dialog">
+                <section class="modal-content">
+                    <article class="block" ng-hide="wallet.type=='addressOnly'">
+                        <div class="col-md-12 p-0">
+                            <div class="float-right">
                                   <span class="gray-text" ng-click="recallAssetModal.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
+                            </div>
                         </div>
-                    </div>
-                    <h3 class="h3-blue">Recall Swap</h3>
+                        <h3 class="h3-blue">Recall Swap</h3>
 
-                    <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the swap
-                        market with the next block.</p>
+                        <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the
+                            swap
+                            market with the next block.</p>
 
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Keep Swap
-                            </button>
-                            <button class="btn btn-sm btn-primary btn-red" ng-click="recallSwap(recallAssetId)">Recall
-                                Swap
-                            </button>
+                        <div class="row">
+                            <div class="col-lg-offset-6 float-right">
+                                <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Keep Swap
+                                </button>
+                                <button class="btn btn-sm btn-primary btn-red" ng-click="recallSwap(recallAssetId)">
+                                    Recall
+                                    Swap
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </section>
             </section>
-        </section>
-    </article>
-    <article class="modal fade" id="takeSwap" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
+        </article>
+        <article class="modal fade" id="takeSwap" tabindex="-1">
+            <section class="modal-dialog send-asset-dialog">
+                <section class="modal-content">
+                    <article class="block" ng-hide="wallet.type=='addressOnly'">
+                        <div class="col-md-12 p-0">
+                            <div class="float-right">
                                   <span class="gray-text" ng-click="takeSwapModal.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
-                        </div>
-                    </div>
-                    <h3>Take Swap</h3>
-                    <div class="row">
-                        <div class="col-md-6 small-gray-text">
-                            Funds Available
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{takeDataFront.fromAssetBalance}} {{takeDataFront.fromAssetSymbol}}
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6 small-gray-text">
-                            Send
+                        <h3>Take Swap</h3>
+                        <div class="row">
+                            <div class="col-md-6 small-gray-text">
+                                Funds Available
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{takeDataFront.fromAssetBalance}} {{takeDataFront.fromAssetSymbol}}
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6 small-gray-text">
+                                Send
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
                                 <span class="mr-1"><span
                                             class="small-gray-text">Min Amount</span> {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}</span>
-                                <span class="ml-1"><span
-                                            class="small-gray-text">Max Amount</span> {{takeDataFront.maxAmount}}  {{takeDataFront.fromAssetSymbol}}</span>
+                                    <span class="ml-1"><span
+                                                class="small-gray-text">Max Amount</span> {{takeDataFront.maxAmount}}  {{takeDataFront.fromAssetSymbol}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="float-right">
+                                    <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
+                                           ng-change="setReceive()" placeholder="Amount">
+                                    <a class="small-gray-text" ng-click="setMaxTakeSwap()">Max Amount</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="float-right">
-                                <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
-                                       ng-change="setReceive()" placeholder="Amount">
-                                <a class="small-gray-text" ng-click="setMaxTakeSwap()">Max Amount</a>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6 small-gray-text">
+                                Receive
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{receiveTokens}} {{takeDataFront.toAssetSymbol}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6 small-gray-text">
-                            Receive
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{receiveTokens}} {{takeDataFront.toAssetSymbol}}
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6 small-gray-text">
+                                Swap Rate
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{takeDataFront.swapRate}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6 small-gray-text">
-                            Swap Rate
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{takeDataFront.swapRate}}
+                        <hr>
+                        <div class="row">
+                            <div class="col-lg-offset-6 float-right">
+                                <button class="btn btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
+                                <button class="btn btn-primary"
+                                        ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
+                                        ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
-                            <button class="btn btn-primary"
-                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
-                                    ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
-                            </button>
+                        <div class="col-sm-12 clearfix">
+                            <div class="col-lg-12 col-sm-12 col-xs-12 text-center"
+                                 ng-show="takeDataFront.fromAssetBalance <= 0">
+                                <hr>
+                                <i class="fa fa-exclamation" aria-hidden="true"></i> <span class="small-gray-text">You are unable to take this swap. You do not have enough funds.</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-12 clearfix">
-                        <div class="col-lg-12 col-sm-12 col-xs-12 text-center"
-                             ng-show="takeDataFront.fromAssetBalance <= 0">
-                            <hr>
-                            <i class="fa fa-exclamation" aria-hidden="true"></i> <span class="small-gray-text">You are unable to take this swap. You do not have enough funds.</span>
-                        </div>
-                    </div>
-                </article>
+                    </article>
+                </section>
             </section>
-        </section>
-    </article>
-    <article class="modal fade" id="makeSwap" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
+        </article>
+        <article class="modal fade" id="makeSwap" tabindex="-1">
+            <section class="modal-dialog send-asset-dialog">
+                <section class="modal-content">
+                    <article class="block" ng-hide="wallet.type=='addressOnly'">
+                        <div class="col-md-12 p-0">
+                            <div class="float-right">
                                   <span class="gray-text" ng-click="makeSwapModal.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
+                            </div>
                         </div>
-                    </div>
-                    <h3 class="h3-blue">Make Swap</h3>
-                    <div class="col-md-12 text-left p-0">
-                        <span class="small-gray-text">Send Assets</span>
-                        <br>
-                        <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
-                             ng-click="sendDropDown = !sendDropDown">
-                            <a>
-                                {{selectedSendAsset}}
-                                <span class="small-gray-text max-char">{{selectedSendContract}}</span>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                             ng-show="sendDropDown">
-                            <form class="form-inline">
-                                <div class="form-group m-0">
-                                    <span class="small-gray-text">Search</span>
-                                    <input type="text" class="form-control"
-                                           ng-model="searchSendAsset"
-                                           placeholder="Search by Symbol, Name, or ID">
-                                </div>
-                            </form>
-                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                 ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
-                                <a ng-click="setSendAsset(asset.id)">
+                        <h3 class="h3-blue">Make Swap</h3>
+                        <div class="col-md-12 text-left p-0">
+                            <span class="small-gray-text">Send Assets</span>
+                            <br>
+                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                                 ng-click="sendDropDown = !sendDropDown">
+                                <a>
+                                    {{selectedSendAsset}}
+                                    <span class="small-gray-text max-char">{{selectedSendContract}}</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                                 ng-show="sendDropDown">
+                                <form class="form-inline">
+                                    <div class="form-group m-0">
+                                        <span class="small-gray-text">Search</span>
+                                        <input type="text" class="form-control"
+                                               ng-model="searchSendAsset"
+                                               placeholder="Search by Symbol, Name, or ID">
+                                    </div>
+                                </form>
+                                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                     ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
+                                    <a ng-click="setSendAsset(asset.id)">
                         <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}})
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 p-0 text-left">
-                        <span class="small-gray-text">Receive Asset</span>
-                        <br>
-                        <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
-                             ng-click="receiveDropDown = !receiveDropDown">
-                            <a>
-                                {{selectedReceiveAsset}}
-                                <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                             ng-show="receiveDropDown">
-                            <form class="form-inline">
-                                <div class="form-group m-0">
-                                    <span class="small-gray-text">Search</span>
-                                    <input type="text" class="form-control"
-                                           ng-model="searchReceiveAsset"
-                                           placeholder="Search by Symbol, Name, or ID">
-                                </div>
-                            </form>
-                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                 ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
-                                <a ng-click="setReceiveAsset(asset.id)">
+                        <div class="col-md-12 p-0 text-left">
+                            <span class="small-gray-text">Receive Asset</span>
+                            <br>
+                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                                 ng-click="receiveDropDown = !receiveDropDown">
+                                <a>
+                                    {{selectedReceiveAsset}}
+                                    <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                                 ng-show="receiveDropDown">
+                                <form class="form-inline">
+                                    <div class="form-group m-0">
+                                        <span class="small-gray-text">Search</span>
+                                        <input type="text" class="form-control"
+                                               ng-model="searchReceiveAsset"
+                                               placeholder="Search by Symbol, Name, or ID">
+                                    </div>
+                                </form>
+                                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                     ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
+                                    <a ng-click="setReceiveAsset(asset.id)">
                         <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}})
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 p-0">
-                        <h3 class="h3-blue">Enter Swap Details</h3>
-                        <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
-                            <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span
-                                    class="small-gray-text"> available.</span>
+                        <div class="col-md-12 p-0">
+                            <h3 class="h3-blue">Enter Swap Details</h3>
+                            <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
+                                <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span
+                                        class="small-gray-text"> available.</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row m-0">
-                        <div class="col-md-6 p-0">
-                            <span class="small-gray-text">Send Amount</span>
-                            <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                        <div class="row m-0">
+                            <div class="col-md-6 p-0">
+                                <span class="small-gray-text">Send Amount</span>
+                                <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                                       placeholder="Amount">
+                            </div>
+                            <div class="col-md-6 pl-2">
+                                <span class="small-gray-text" style="color:white;">_<br></span>
+                                <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-md-6 p-0">
+                                <span class="small-gray-text">Receive Amount</span>
+                                <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
+                                       placeholder="Amount">
+                            </div>
+                            <div class="col-md-6 pl-2">
+                                <span class="small-gray-text" style="color:white;">_<br></span>
+                                <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 p-0">
+                            <span class="small-gray-text">Minimum Swap Amount</span>
+                            <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
                                    placeholder="Amount">
                         </div>
-                        <div class="col-md-6 pl-2">
-                            <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
+                        <div class="col-md-12 p-0">
+                            <h3 class="h3-blue">Set Access</h3>
+                            <span class="small-gray-text">Available to</span>
+                            <br>
+                            <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="false" checked>
+                            <span class="small-gray-text pr-3">Public</span>
+                            <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="true">
+                            <span class="small-gray-text">Wallet Addresses</span>
                         </div>
-                    </div>
-                    <div class="row m-0">
-                        <div class="col-md-6 p-0">
-                            <span class="small-gray-text">Receive Amount</span>
-                            <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                                   placeholder="Amount">
+                        <div class="col-md-12 p-0" ng-show="privateAccess == true">
+                            <span class="small-gray-text">Seperate addresses with commas.</span>
+                            <input type="text" class="form-control m-0 mt-1" ng-model="makeTarges"
+                                   placeholder="Addresses">
                         </div>
-                        <div class="col-md-6 pl-2">
-                            <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 p-0">
-                        <span class="small-gray-text">Minimum Swap Amount</span>
-                        <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
-                               placeholder="Amount">
-                    </div>
-                    <div class="col-md-12 p-0">
-                        <h3 class="h3-blue">Set Access</h3>
-                        <span class="small-gray-text">Available to</span>
-                        <br>
-                        <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="false" checked>
-                        <span class="small-gray-text pr-3">Public</span>
-                        <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="true">
-                        <span class="small-gray-text">Wallet Addresses</span>
-                    </div>
-                    <div class="col-md-12 p-0" ng-show="privateAccess == true">
-                        <span class="small-gray-text">Seperate addresses with commas.</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makeTarges"
-                               placeholder="Addresses">
-                    </div>
 
 
-                    <div class="row pt-2">
-                        <div class="col-md-6 col-xs-12">
-                            <button class="btn btn-secondary w-100" ng-click="makeSwapModal.close()">Cancel
-                            </button>
+                        <div class="row pt-2">
+                            <div class="col-md-6 col-xs-12">
+                                <button class="btn btn-secondary w-100" ng-click="makeSwapModal.close()">Cancel
+                                </button>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <button class="btn btn-primary w-100" ng-click="makeSwapConfirmation('notend')">Review
+                                    Make
+                                    Swap
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-6 col-xs-12">
-                            <button class="btn btn-primary w-100" ng-click="makeSwapConfirmation('notend')">Review Make
-                                Swap
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 clearfix">
-                        <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
-                            Success! Your swap was recalled and will be confirmed next block!
+                        <div class="col-sm-12 clearfix">
+                            <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
+                                Success! Your swap was recalled and will be confirmed next block!
 
-                            <strong>{{successHash}}</strong>
+                                <strong>{{successHash}}</strong>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </section>
             </section>
-        </section>
-    </article>
-    <article class="modal fade" id="makeSwapConfirm" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
+        </article>
+        <article class="modal fade" id="makeSwapConfirm" tabindex="-1">
+            <section class="modal-dialog send-asset-dialog">
+                <section class="modal-content">
+                    <article class="block" ng-hide="wallet.type=='addressOnly'">
+                        <div class="col-md-12 p-0">
+                            <div class="float-right">
                                   <span class="gray-text" ng-click="makeSwapModal.open()">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
+                            </div>
                         </div>
-                    </div>
-                    <h3>Review Make Swap</h3>
+                        <h3>Review Make Swap</h3>
 
-                    <p>Please review the following details carefully before making your swap.</p>
+                        <p>Please review the following details carefully before making your swap.</p>
 
-                    <div class="row p-2">
-                        <div class="col-md-6 small-gray-text">
-                            You will be sending
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeSendAmount}} {{assetToSendConfirm}}
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text">
+                                You will be sending
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{makeSendAmount}} {{assetToSendConfirm}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md-6 small-gray-text">
-                            You will be receiving
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeReceiveAmount}} {{assetToReceiveConfirm}}
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text">
+                                You will be receiving
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{makeReceiveAmount}} {{assetToReceiveConfirm}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md-6 small-gray-text">
-                            Swap Rate
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeSendAmount}} : {{makeReceiveAmount}}
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text">
+                                Swap Rate
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{makeSendAmount}} : {{makeReceiveAmount}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md-6 small-gray-text">
-                            Minimum Swap Amount
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeMinumumSwap}}
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text">
+                                Minimum Swap Amount
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{makeMinumumSwap}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2" ng-show="makeTarges != ''">
-                        <div class="col-md-6 small-gray-text">
-                            Available To
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeTarges}}
+                        <div class="row p-2" ng-show="makeTarges != ''">
+                            <div class="col-md-6 small-gray-text">
+                                Available To
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{makeTarges}}
+                                </div>
                             </div>
                         </div>
-                    </div>
 
 
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-primary" ng-click="makeSwap()"
-                                    ng-disabled="swapRecallSuccess">Confirm
-                            </button>
-                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.open()">Cancel</button>
+                        <div class="row">
+                            <div class="col-lg-offset-6 float-right">
+                                <button class="btn btn-sm btn-primary" ng-click="makeSwap()"
+                                        ng-disabled="swapRecallSuccess">Confirm
+                                </button>
+                                <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.open()">Cancel</button>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </section>
             </section>
-        </section>
-    </article>
-    <article class="modal fade" id="makeSwapEndConfirm" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
+        </article>
+        <article class="modal fade" id="makeSwapEndConfirm" tabindex="-1">
+            <section class="modal-dialog send-asset-dialog">
+                <section class="modal-content">
+                    <article class="block" ng-hide="wallet.type=='addressOnly'">
+                        <div class="col-md-12 p-0">
+                            <div class="float-right">
                                   <span class="gray-text" ng-click="makeSwapConfirmEndModal.close()">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
+                            </div>
                         </div>
-                    </div>
-                    <h3>Success</h3>
+                        <h3>Success</h3>
 
-                    <div class="row p-2">
-                        <div class="col-md-6 small-gray-text">
-                            Sent
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeSendAmount}} {{assetToSendConfirm}}
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text">
+                                Sent
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{makeSendAmount}} {{assetToSendConfirm}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2">
-                        <div class="col-md-6 small-gray-text">
-                            Receiving
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeReceiveAmount}} {{assetToReceiveConfirm}}
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text">
+                                Receiving
+                            </div>
+                            <div class="col-md-6">
+                                <div class="float-right">
+                                    {{makeReceiveAmount}} {{assetToReceiveConfirm}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2">
+                        <div class="row p-2">
+                            <div class="col-md-12">
+                                <div class="text-center">
+                                    <h1 class="text-green">
+                                        <i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-6 float-right">
+                                <button class="btn btn-sm btn-secondary" ng-click="makeSwapConfirmEndModal.close()">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </section>
+        </article>
+        <article class="modal fade" id="recallSwapSuccess" tabindex="-1">
+            <section class="modal-dialog send-asset-dialog">
+                <section class="modal-content">
+                    <article class="block" ng-hide="wallet.type=='addressOnly'">
                         <div class="col-md-12">
-                            <div class="text-center">
-                                <h1 class="text-green">
-                                    <i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i>
-                                </h1>
+                            <h3 class="h3-blue">Recall Success!</h3>
+                            <p>It will soon be reflected to the chain.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-offset-6 float-right">
+                                <button class="btn btn-sm btn-secondary" ng-click="recallSwapSuccess.close()">Close
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapConfirmEndModal.close()">Close
-                            </button>
-                        </div>
-                    </div>
-                </article>
+                    </article>
+                </section>
             </section>
-        </section>
-    </article>
-    <article class="modal fade" id="recallSwapSuccess" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12">
-                        <h3 class="h3-blue">Recall Success!</h3>
-                        <p>It will soon be reflected to the chain.</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="recallSwapSuccess.close()">Close</button>
-                        </div>
-                    </div>
-                </article>
-            </section>
-        </section>
-    </article>
+        </article>
 
 </article>
