@@ -24,7 +24,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (typeof $scope.swapsList === 'undefined') {
                 return;
             }
-            console.log($scope.currentPage);
             if ($scope.currentPage == 0) {
                 $scope.$eval(function () {
                     $scope.shownRows = $scope.currentPage + 1 * $scope.pageSize;
@@ -49,6 +48,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             }
         }
+
+        $scope.firstPage = function () {
+            $scope.$eval(function () {
+                $scope.currentPage = 0
+            })
+        }
+        $scope.lastPage = function () {
+            $scope.$eval(function () {
+                $scope.currentPage = $scope.endPage -1;
+            })
+        }
+
 
         $scope.previousPage = function () {
             if ($scope.currentPage !== 0) {

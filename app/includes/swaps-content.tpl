@@ -190,12 +190,19 @@
                             <div class="col-md-12">
                                 <form class="form-group form-inline">
                                     <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}} of {{swapsList.length}}</span>
-                                    <span class="small-gray-text">{{currentPage+1}} of {{endPage}}</span>
+                                    <span class="small-gray-text">
+                                        {{currentPage+1}} of {{endPage}}</span>
+                                    <span class="small-gray-text m-1"
+                                          ng-click="firstPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                </span>
                                     <span class="small-gray-text pl-1 pr-1 m-1"
                                           ng-click="previousPage()"><i class="fa fa-angle-left" aria-hidden="true"></i>
                                 </span>
                                     <span class="small-gray-text pl-1 pr-1 m-1"
                                           ng-click="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </span>
+                                    <span class="small-gray-text m-1"
+                                          ng-click="lastPage()"><i class="fa fa-angle-double-right" aria-hidden="true"></i>
                                 </span>
                                 </form>
                             </div>
