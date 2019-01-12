@@ -79,7 +79,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$watch('assetList', function () {
             if (typeof $scope.assetList === 'undefined') {
                 return;
-            } else {
+            } else{
                 $scope.$eval(function () {
                     $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
                     $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
@@ -91,7 +91,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$watch('assetListOwned', function () {
             if (typeof $scope.assetListOwned === 'undefined') {
                 return;
-            } else {
+            } else{
                 $scope.$eval(function () {
                     $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
                     $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
@@ -648,7 +648,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
             $scope.$eval(function () {
-                console.log(swapListFront)
+                $scope.swapsList = swapListFront;
                 $scope.swapsList = swapListFront;
             });
         }
