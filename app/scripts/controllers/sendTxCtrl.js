@@ -637,7 +637,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }).then((tx) => {
                     tx.from = from;
                     data = tx;
-                    if ($scope.wallet.hwType == "ledger") {
+                    if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                         return;
                     }
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -697,7 +697,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
             if ($scope.wallet.hwType == "trezor"){
-                
+
             }
         }
 
@@ -765,7 +765,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             if ($scope.transactionType == "none") {
 
-                if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+                if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
@@ -779,7 +779,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         console.log(tx);
                         tx.from = from;
                         data = tx;
-                        if ($scope.wallet.hwType == "ledger") {
+                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                             return;
                         }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -924,6 +924,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                     $scope.notifier.info('Please, confirm transaction on Ledger.');
                     await app.getAppConfiguration(localCallback);
+                }
+
+                if ($scope.wallet.hwType == "trezor"){
+                    
                 }
             }
         }
