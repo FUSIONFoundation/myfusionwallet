@@ -6715,30 +6715,30 @@
         <div class="panel panel-default" ng-show="showSwapMarket === true">
             <div class="panel-body">
                 <div class="col-md-12 p-0">
-                    <div class="float-left">
-                        <div class="col-md-12">
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <span class="small-gray-text">Search</span>
-                                    <br>
-                                    <input type="text" ng-model="searchSwapMarket" class="form-control"
-                                           placeholder="Search">
-                                </div>
-                            </form>
+                    <div class="col-md-12 p-0">
+                        <div class="float-left">
+                            <div class="col-md-12">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
+                                               placeholder="Search">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                    <div class="float-right">
-                        <div class="col-md-12">
-                            <form class="form-inline">
-                                <span class="small-gray-text">Pagination</span>
-                                <br>
-                                <div class="btn btn-sm btn-white" ng-click="previousPage()"><</div>
-                                <span class="small-gray-text">{{currentPage+1}}/{{endPage}}</span>
-                                <div class="btn btn-sm btn-white"
-                                     ng-class="{'disabled' : currentPage >= endPage}"
-                                     ng-click="nextPage()">>
-                                </div>
-                            </form>
+                        <div class="float-right">
+                            <div class="col-md-12">
+                                <form class="form-group form-inline">
+                                    <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}} of {{swapsList.length}}</span>
+                                    <span class="small-gray-text">{{currentPage+1}} of {{endPage}}</span>
+                                    <span class="small-gray-text pl-1 pr-1 m-1"
+                                          ng-click="previousPage()"><i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </span>
+                                    <span class="small-gray-text pl-1 pr-1 m-1"
+                                          ng-click="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </span>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <table class="table">

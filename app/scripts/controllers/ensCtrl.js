@@ -2,9 +2,11 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
+
         $scope.currentPage = 0;
         $scope.pageSize = 5;
         $scope.endPage = 0;
+        $scope.shownRows = 0;
 
 
         // Sets the last page for pagination
@@ -18,19 +20,49 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         })
 
+        $scope.$watch('swapsList', function () {
+            if (typeof $scope.swapsList === 'undefined') {
+                return;
+            }
+            console.log($scope.currentPage);
+            if ($scope.currentPage == 0) {
+                $scope.$eval(function () {
+                    $scope.shownRows = $scope.currentPage + 1 * $scope.pageSize;
+                })
+            }
+        })
+
+
         $scope.nextPage = function () {
-            if ($scope.currentPage !== $scope.endPage-1) {
+            if ($scope.currentPage !== $scope.endPage - 1) {
                 $scope.$eval(function () {
                     $scope.currentPage = $scope.currentPage + 1
+                })
+            }
+            if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
+                $scope.$eval(function () {
+                    $scope.shownRows = $scope.swapsList.length;
+                })
+            } else {
+                $scope.$eval(function () {
+                    $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
                 })
             }
         }
 
         $scope.previousPage = function () {
-            console.log($scope.currentPage);
             if ($scope.currentPage !== 0) {
                 $scope.$eval(function () {
                     $scope.currentPage = $scope.currentPage - 1
+                })
+            }
+            if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
+                $scope.$eval(function () {
+                    $scope.shownRows = $scope.swapsList.length;
+                })
+            } else {
+                $scope.$eval(function () {
+                    $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
                 })
             }
         }
