@@ -36,15 +36,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if ($scope.currentPage !== $scope.endPage - 1) {
                 $scope.$eval(function () {
                     $scope.currentPage = $scope.currentPage + 1
+                    $scope.searchSwapMarket = '';
                 })
             }
             if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
                 $scope.$eval(function () {
                     $scope.shownRows = $scope.swapsList.length;
+                    $scope.searchSwapMarket = '';
                 })
             } else {
                 $scope.$eval(function () {
                     $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                    $scope.searchSwapMarket = '';
                 })
             }
         }
@@ -52,11 +55,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.firstPage = function () {
             $scope.$eval(function () {
                 $scope.currentPage = 0
+                $scope.searchSwapMarket = '';
             })
         }
         $scope.lastPage = function () {
             $scope.$eval(function () {
                 $scope.currentPage = $scope.endPage -1;
+                $scope.searchSwapMarket = '';
             })
         }
 
@@ -65,15 +70,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if ($scope.currentPage !== 0) {
                 $scope.$eval(function () {
                     $scope.currentPage = $scope.currentPage - 1
+                    $scope.searchSwapMarket = '';
                 })
             }
             if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
                 $scope.$eval(function () {
                     $scope.shownRows = $scope.swapsList.length;
+                    $scope.searchSwapMarket = '';
                 })
             } else {
                 $scope.$eval(function () {
                     $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                    $scope.searchSwapMarket = '';
                 })
             }
         }
