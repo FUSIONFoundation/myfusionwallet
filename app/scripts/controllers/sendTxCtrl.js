@@ -612,7 +612,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let from = accountData.from;
 
-            if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+            if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
@@ -696,7 +696,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await app.getAppConfiguration(localCallback);
                 }
             }
-
+            if ($scope.wallet.hwType == "trezor"){
+                
+            }
         }
 
         $scope.makeBigNumber = function (amount, decimals) {
