@@ -6223,7 +6223,8 @@
                                 <span class="small-gray-text max-char">{{selectedSendContract}}</span>
                             </a>
                         </div>
-                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
+                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                             ng-show="sendDropDown">
                             <form class="form-inline">
                                 <div class="form-group m-0">
                                     <span class="small-gray-text">Search</span>
@@ -6254,7 +6255,8 @@
                                 <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
                             </a>
                         </div>
-                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
+                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                             ng-show="receiveDropDown">
                             <form class="form-inline">
                                 <div class="form-group m-0">
                                     <span class="small-gray-text">Search</span>
@@ -6275,23 +6277,35 @@
                             </div>
                         </div>
                     </div>
-                    <h3 class="h3-blue">Enter Swap Details</h3>
-
                     <div class="col-md-12 p-0">
+                        <h3 class="h3-blue">Enter Swap Details</h3>
                         <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
                             <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span
                                     class="small-gray-text"> available.</span>
                         </div>
                     </div>
 
-                    <div class="col-md-12 p-0">
-                        <span class="small-gray-text">Send Amount</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount" placeholder="Amount">
+                    <div class="row m-0">
+                        <div class="col-md-6 p-0">
+                            <span class="small-gray-text">Send Amount</span>
+                            <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                                   placeholder="Amount">
+                        </div>
+                        <div class="col-md-6 pl-2">
+                            <span class="small-gray-text" style="color:white;">_<br></span>
+                            <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
+                        </div>
                     </div>
-                    <div class="col-md-12 p-0">
-                        <span class="small-gray-text">Receive Amount</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                               placeholder="Amount">
+                    <div class="row m-0">
+                        <div class="col-md-6 p-0">
+                            <span class="small-gray-text">Receive Amount</span>
+                            <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
+                                   placeholder="Amount">
+                        </div>
+                        <div class="col-md-6 pl-2">
+                            <span class="small-gray-text" style="color:white;">_<br></span>
+                            <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
+                        </div>
                     </div>
 
                     <div class="col-md-12 p-0">
@@ -6299,14 +6313,14 @@
                         <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
                                placeholder="Amount">
                     </div>
-                    <h3 class="h3-blue">Set Access</h3>
                     <div class="col-md-12 p-0">
+                        <h3 class="h3-blue">Set Access</h3>
                         <span class="small-gray-text">Available to</span>
                         <br>
                         <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="false" checked>
-                        Public
+                        <span class="small-gray-text pr-3">Public</span>
                         <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="true">
-                        Private
+                        <span class="small-gray-text">Wallet Addresses</span>
                     </div>
                     <div class="col-md-12 p-0" ng-show="privateAccess == true">
                         <span class="small-gray-text">Seperate addresses with commas.</span>
@@ -6315,11 +6329,13 @@
                     </div>
 
 
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.close()">Cancel
+                    <div class="row pt-2">
+                        <div class="col-md-6 col-xs-12">
+                            <button class="btn btn-secondary w-100" ng-click="makeSwapModal.close()">Cancel
                             </button>
-                            <button class="btn btn-sm btn-primary" ng-click="makeSwapConfirmation('notend')">Review Make
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <button class="btn btn-primary w-100" ng-click="makeSwapConfirmation('notend')">Review Make
                                 Swap
                             </button>
                         </div>
