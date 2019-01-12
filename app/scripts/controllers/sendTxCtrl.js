@@ -1106,7 +1106,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if ($scope.wallet.hwType == "trezor"){
-                
+
             }
 
         }
@@ -1157,7 +1157,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return null;
             }
 
-            if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+            if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
@@ -1172,7 +1172,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     total: totalSupply * power
                 }).then((tx) => {
                     data = tx;
-                    if ($scope.wallet.hwType == "ledger") {
+                    if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                         return;
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -1248,6 +1248,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await app.getAppConfiguration(localCallback);
                 }
             }
+
+            if ($scope.wallet.hwType == "trezor"){
+                
+            }
+
         }
         setInterval(function () {
             if (!$scope.tx || !$scope.wallet) {
