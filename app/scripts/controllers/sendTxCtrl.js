@@ -808,7 +808,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
-                if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+                if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
@@ -823,7 +823,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }).then((tx) => {
                         data = tx;
                         tx.from = from;
-                        if ($scope.wallet.hwType == "ledger") {
+                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                             return;
                         }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -844,7 +844,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 let tillTime = web3.fsn.consts.TimeForeverStr;
 
-                if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+                if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezpr")) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
 
@@ -859,7 +859,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }).then((tx) => {
                         tx.from = from;
                         data = tx;
-                        if ($scope.wallet.hwType == "ledger") {
+                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                             return;
                         }
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -1250,7 +1250,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if ($scope.wallet.hwType == "trezor"){
-                
+
             }
 
         }
