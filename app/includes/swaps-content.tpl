@@ -226,10 +226,10 @@
                                 <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
                                 {{asset.targes}}</td>
                             <td>{{asset.time}}</td>
-                            <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
-                            <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                            <td><strong>{{asset.swaprate}}</strong> {{asset.toAssetSymbol}}</td>
-                            <td><strong>{{asset.minswap}}</strong> {{asset.toAssetSymbol}}</td>
+                            <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
+                            <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                            <td><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
+                            <td><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
                             <td class="float-right">
                                 <div ng-hide="asset.owned == false">
                                     <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.id)">Recall
@@ -351,7 +351,7 @@
                             <div class="col-md-6">
                                 <div class="float-right">
                                     <span class="fusion-text-18"><strong>{{receiveTokens}}</strong></span>
-                                    <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span>
+                                    <span class="fusion-text-12">{{takeDataFront.toAssetSymbol}}</span>
                                 </div>
                             </div>
                         </div>

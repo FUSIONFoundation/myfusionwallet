@@ -563,8 +563,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             $scope.makeTarges !== '' ? targes = [$scope.makeTarges] : targes = [];
 
-            let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(fromAsset["Decimals"]));
-            let minFromAmountHex = web3.utils.numberToHex($scope.makeSendAmount * $scope.countDecimals(toAsset["Decimals"]));
+            let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]));
+            let minFromAmountHex = web3.utils.numberToHex($scope.makeSendAmount * $scope.countDecimals(fromAsset["Decimals"]));
 
             let data = {
                 from: walletAddress,
@@ -575,6 +575,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 SwapSize: 1,
                 Targes: targes
             };
+
+            console.log(data);
 
             if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
@@ -691,18 +693,25 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let fromAsset = [];
                     let toAsset = [];
 
-                    await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
+                    await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
                         fromAsset = res;
                     });
 
-                    await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
+                    await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
                         toAsset = res;
                     });
 
                     owner === walletAddress ? owned = true : owned = false;
 
-                    let fromAmount = swapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
-                    let toAmount = swapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+                    let fromAmount = (swapList[asset].MinFromAmount / $scope.countDecimals(fromAsset.Decimals));
+
+                    console.log(swapList[asset].MinFromAmount);
+                    console.log(`$scope.countDecimals(${fromAsset.Decimals})`);
+                    console.log($scope.countDecimals(fromAsset.Decimals));
+                    console.log(`The answer is ${fromAmount}`);
+
+
+                    let toAmount = swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
                     let swapRate = fromAmount / toAmount;
                     let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
                     let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
@@ -736,6 +745,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.swapsList = swapListFront;
                 $scope.swapsList = swapListFront;
             });
+
+            console.log($scope.swapsList);
         }
 
         $scope.getBalance = async function () {
