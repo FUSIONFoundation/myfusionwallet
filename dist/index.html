@@ -5881,8 +5881,8 @@
                         <a class="ng-scope" ng-click="showSwapMarket = true ; showOpenMakes = false">Swap Market</a>
                     </li>
                     <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes <span
-                                    ng-model="mySwapList">({{mySwapList.length}})</span></a>
+                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes
+                            <span></span></a>
                     </li>
                 </ul>
             </div>
@@ -6044,11 +6044,13 @@
                         <div class="float-right">
                             <div class="col-md-12">
                                 <form class="form-group form-inline">
-                                    <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}} of {{swapsList.length}}</span>
+                                    <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
+                                        of {{swapsList.length}}</span>
                                     <span class="small-gray-text">
                                         {{currentPage+1}} of {{endPage}}</span>
                                     <span class="small-gray-text m-1"
-                                          ng-click="firstPage()"><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                                          ng-click="firstPage()"><i class="fa fa-angle-double-left"
+                                                                    aria-hidden="true"></i>
                                 </span>
                                     <span class="small-gray-text pl-1 pr-1 m-1"
                                           ng-click="previousPage()"><i class="fa fa-angle-left" aria-hidden="true"></i>
@@ -6057,7 +6059,8 @@
                                           ng-click="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i>
                                 </span>
                                     <span class="small-gray-text m-1"
-                                          ng-click="lastPage()"><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                                          ng-click="lastPage()"><i class="fa fa-angle-double-right"
+                                                                   aria-hidden="true"></i>
                                 </span>
                                 </form>
                             </div>
@@ -6087,7 +6090,8 @@
                             <td><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
                             <td class="float-right">
                                 <div ng-hide="asset.owned == false">
-                                    <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
+                                    <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
+                                        Recall
                                         Swap
                                     </button>
                                     <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
@@ -6123,8 +6127,10 @@
                         </div>
                         <h3 class="h3-blue">Recall Swap</h3>
 
-                        <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3" ng-show="web3WalletBalance <= 0">
-                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
+                        <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3"
+                             ng-show="web3WalletBalance <= 0">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span
+                                    class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
                         </div>
 
                         <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the
@@ -6158,8 +6164,10 @@
                             </div>
                         </div>
                         <h3 class="h3-blue">Take Swap</h3>
-                        <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3" ng-show="web3WalletBalance <= 0">
-                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
+                        <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3"
+                             ng-show="web3WalletBalance <= 0">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span
+                                    class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
                         </div>
                         <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
                             <div class="col-md-6 small-gray-text">
@@ -6194,7 +6202,8 @@
                                 <div class="float-right">
                                     <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
                                            ng-change="setReceive()" placeholder="Amount">
-                                    <a class="small-gray-text float-right text-lightblue mt-1" ng-click="setMaxTakeSwap()">Max Amount</a>
+                                    <a class="small-gray-text float-right text-lightblue mt-1"
+                                       ng-click="setMaxTakeSwap()">Max Amount</a>
                                 </div>
                             </div>
                         </div>
@@ -6330,7 +6339,58 @@
                             </div>
                             <div class="col-md-6 pl-2">
                                 <span class="small-gray-text" style="color:white;">_<br></span>
-                                <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
+                                <button class="btn btn-sm btn-primary m-0 mt-1" ng-click="showTimeLockSend = true">Set
+                                    Time-lock
+                                </button>
+                                <div ng-show="showTimeLockSend">
+                                    <div class="col-md-6 p-0 pb-2">
+                                        <button class="btn btn-sm btn-white w-100"
+                                                ng-click="sendTimeLock ='scheduled'"
+                                                ng-class="{'time-active' : sendTimeLock == 'scheduled'}"
+                                        >
+                                            Date to Forever
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6 p-0 pb-2">
+                                        <button class="btn btn-sm btn-white w-100"
+                                                ng-click="sendTimeLock ='daterange'"
+                                                ng-class="{'time-active' : sendTimeLock == 'daterange'}"
+                                        >
+                                            Now to Date
+                                        </button>
+                                    </div>
+                                </div>
+                                <div ng-show="sendTimeLock == 'scheduled' || sendTimeLock == 'daterange'">
+                                    <div class="col-md-12 p-0">
+                                        <span class="small-gray-text">
+                                    From
+                            </span>
+                                        <br>
+                                        <input class="form-control"
+                                               type="date"
+                                               ng-change="checkDate()"
+                                               min="{{todayDate}}"
+                                               onkeydown="return false"
+                                               ng-model="fromStartTime">
+                                    </div>
+                                    <div class="col-md-12 p-0">
+                                        <span class="small-gray-text" ng-show="sendTimeLock == 'scheduled'">Until</span>
+                                        <div class="col-md-12 p-0" ng-show="sendTimeLock == 'scheduled'">
+                                            <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
+                                        </div>
+                                        <div class="col-md-12 p-0" ng-hide="sendTimeLock == 'scheduled'">
+                                            <span class="small-gray-text">
+                                                 Until
+                                            </span>
+                                            <input class="form-control"
+                                                   type="date"
+                                                   ng-change="checkDate()"
+                                                   min="{{todayDate}}"
+                                                   onkeydown="return false"
+                                                   ng-model="fromEndTime">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row m-0">
@@ -6525,10 +6585,10 @@
                         <div class="col-md-12 text-center">
                             <h3 class="h3-blue">Success!</h3>
                             <div class="pt-2 pb-2">
-                            <img src="images/check-circle.svg" width="120px" height="120px">
+                                <img src="images/check-circle.svg" width="120px" height="120px">
                             </div>
                             <p>
-                            Swap Successful! Assets are now available in your wallet.</p>
+                                Swap Successful! Assets are now available in your wallet.</p>
                             <button class="btn btn-white pt-2" ng-click="recallSwapSuccess.close()">Back to Swap Market
                             </button>
                         </div>
