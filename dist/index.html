@@ -5995,28 +5995,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in mySwapList track by $index">
+                    <tr ng-repeat="asset in swapsList | filter: { owned: 'true' } track by $index">
                         <td><i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
                             <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
                             {{asset.targes}}</td>
                         <td>{{asset.time}}</td>
-                        <td><strong>{{asset.fromAmount}}</strong> {{asset.toAssetSymbol}}</td>
-                        <td><strong>{{asset.toAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td><strong>{{asset.swaprate}}</strong> {{asset.toAssetSymbol}}</td>
-                        <td><strong>{{asset.minswap}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
+                        <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
+                        <td><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td class="float-right">
                             <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.id)">Recall Swap
+                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
+                                    Swap
                                 </button>
-                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info" aria-hidden="true"></i>
+                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                                                            aria-hidden="true"></i>
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0" ng-click="takeSwap(asset.id)">Take Swap
+                                <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
                                 </button>
-                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info" aria-hidden="true"></i>
+                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                                                            aria-hidden="true"></i>
                                 </button>
                             </div>
+
                         </td>
                     </tr>
                     </tbody>

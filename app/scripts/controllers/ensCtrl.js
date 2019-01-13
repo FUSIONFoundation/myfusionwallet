@@ -119,6 +119,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getShortAddressNotation();
             $scope.allSwaps();
             $scope.getBalance();
+            $scope.setWalletAddress();
         };
 
         $scope.mayRun = false;
@@ -667,11 +668,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.allSwaps = async function () {
-
-            $scope.getAllAssets();
-            $scope.mySwaps();
-            $scope.setWalletAddress();
-            $scope.getShortAddressNotation();
             let swapList = [];
             let swapListFront = [];
 
@@ -777,87 +773,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
         }
-
-
-        $scope.mySwaps = async function () {
-            let mySwapList = [];
-            let mySwapListFront = [];
-
-            if (walletService.password !== '') {
-                let accountData = uiFuncs.getTxData($scope);
-                let walletAddress = accountData.from;
-                console.log(walletAddress);
-
-                await web3.fsn.allSwapsByAddress(walletAddress).then(function (res) {
-                    mySwapList = res;
-                });
-
-                for (let asset in mySwapList) {
-                    let id = mySwapList[asset]["ID"];
-                    let owner = mySwapList[asset]["Owner"];
-                    let owned = false;
-                    let assetBalance = '';
-
-                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                        assetBalance = res;
-                    });
-
-                    let fromAsset = [];
-                    let toAsset = [];
-
-                    await web3.fsn.getAsset(mySwapList[asset]["ToAssetID"]).then(function (res) {
-                        fromAsset = res;
-                    });
-
-                    await web3.fsn.getAsset(mySwapList[asset]["FromAssetID"]).then(function (res) {
-                        toAsset = res;
-                    });
-
-                    owner === walletAddress ? owned = true : owned = false;
-
-                    let fromAmount = mySwapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
-                    let toAmount = mySwapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
-                    let swapRate = fromAmount / toAmount;
-
-                    let time = new Date(parseInt(mySwapList[asset]["Time"]) * 1000);
-
-                    let tMonth = time.getMonth();
-                    let tDay = time.getDate();
-                    let tYear = time.getFullYear();
-
-                    time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
-
-                    let minimumswap = fromAmount / parseInt(mySwapList[asset]["SwapSize"]);
-                    let targes = '';
-
-                    mySwapList[asset]["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
-
-
-                    let data = {
-                        "id": mySwapList[asset]["ID"],
-                        "fromAssetId": mySwapList[asset]["FromAssetID"],
-                        "fromAssetSymbol": fromAsset["Symbol"],
-                        "fromAmount": mySwapList[asset]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]),
-                        "toAssetId": mySwapList[asset]["ToAssetID"],
-                        "toAmount": mySwapList[asset]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]),
-                        "toAssetSymbol": toAsset["Symbol"],
-                        "minswap": minimumswap,
-                        "swaprate": swapRate,
-                        "time": time.toLocaleString(),
-                        "targes": targes,
-                        "owner": mySwapList[asset]["Owner"],
-                        "owned": owned
-                    }
-                    await mySwapListFront.push(data);
-                }
-            }
-            $scope.$eval(function () {
-                console.log(mySwapListFront);
-                $scope.mySwapList = mySwapListFront;
-            });
-        }
-
-
     }
 ;
 module.exports = ensCtrl;
