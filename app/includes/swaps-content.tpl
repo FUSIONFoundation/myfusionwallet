@@ -268,6 +268,10 @@
                         </div>
                         <h3 class="h3-blue">Recall Swap</h3>
 
+                        <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3" ng-show="web3WalletBalance <= 0">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
+                        </div>
+
                         <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the
                             swap
                             market with the next block.</p>
@@ -298,7 +302,7 @@
 </span>
                             </div>
                         </div>
-                        <h3>Take Swap</h3>
+                        <h3 class="h3-blue">Take Swap</h3>
                         <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3" ng-show="web3WalletBalance <= 0">
                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
                         </div>
@@ -513,11 +517,6 @@
                             </div>
                         </div>
                         <div class="col-sm-12 clearfix">
-                            <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-success" ng-show="swapRecallSuccess">
-                                Success! Your swap was recalled and will be confirmed next block!
-
-                                <strong>{{successHash}}</strong>
-                            </div>
                         </div>
                     </article>
                 </section>
@@ -535,7 +534,7 @@
 </span>
                             </div>
                         </div>
-                        <h3>Review Make Swap</h3>
+                        <h3 class="h3-blue">Review Make Swap</h3>
 
                         <p>Please review the following details carefully before making your swap.</p>
 

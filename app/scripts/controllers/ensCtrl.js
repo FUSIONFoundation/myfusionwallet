@@ -431,52 +431,30 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.setReceive();
         }
 
-        $scope.takeModal = async function (swap_id) {
+        $scope.takeModal = async function (id) {
             let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            let swapList = [];
-            let balance = '';
+            let walletAddress = accountData.from;let balance = '';
 
-            await web3.fsn.allSwaps().then(function (res) {
-                swapList = res;
-            })
+            console.log($scope.swapsList[id]);
 
             let fromAsset = [];
-            let toAsset = [];
 
-            await web3.fsn.getBalance(swapList[swap_id]["FromAssetID"], walletAddress).then(function (res) {
+            await web3.fsn.getBalance($scope.swapsList[id].fromAssetId, walletAddress).then(function (res) {
                 balance = res;
             });
 
-            await web3.fsn.getAsset(swapList[swap_id]["FromAssetID"]).then(function (res) {
-                fromAsset = res;
-            });
-
-            await web3.fsn.getAsset(swapList[swap_id]["ToAssetID"]).then(function (res) {
-                toAsset = res;
-            });
-
-            let fromAmount = swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(toAsset["Decimals"]);
-            let toAmount = swapList[swap_id]["MinToAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
-            let swapRate = fromAmount / toAmount;
-
-            console.log(fromAmount);
-            console.log(toAmount);
-            console.log(swapRate);
-
             balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
-            let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]));
 
-            await $scope.$eval(function () {
-                $scope.takeDataFront.swapId = swapList[swap_id]["ID"];
-                $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
-                $scope.takeDataFront.fromAssetId = fromAsset["ID"];
-                $scope.takeDataFront.fromAssetMin = swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
-                $scope.takeDataFront.toAssetSymbol = toAsset["Symbol"];
-                $scope.takeDataFront.toAssetMin = swapList[swap_id]["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
-                $scope.takeDataFront.fromAssetBalance = balance;
-                $scope.takeDataFront.swapRate = swapRate;
-                $scope.takeDataFront.maxAmount = maximumsize;
+            $scope.$eval(function () {
+                $scope.takeDataFront.swapId = $scope.swapsList[id];
+                $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
+                $scope.takeDataFront.fromAssetId = $scope.swapsList[id].fromAssetId;
+                $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswap;
+                $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].toAssetSymbol;
+                $scope.takeDataFront.toAssetMin = $scope.swapsList[id].toAssetId;
+                $scope.takeDataFront.fromAssetBalance = $scope.swapsList[id].minswap;
+                $scope.takeDataFront.swapRate = $scope.swapsList[id].swaprate;
+                $scope.takeDataFront.maxAmount = $scope.swapsList[id].swaprate;
             })
 
             $scope.takeSwapModal.open();
@@ -736,7 +714,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
                     let data = {
-                        "id": swapList[asset]["ID"],
+                        "id" : swapListFront.length,
+                        "swap_id": swapList[asset]["ID"],
                         "fromAssetId": swapList[asset]["FromAssetID"],
                         "fromAssetSymbol": fromAsset["Symbol"],
                         "fromAmount": fromAmount,
@@ -770,7 +749,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
 
                 balance = balance / $scope.countDecimals(18);
-                $scope.$apply(function () {
+                $scope.$eval(function () {
                     $scope.web3WalletBalance = balance;
                     $scope.web3WalletBalance = balance;
                 });
