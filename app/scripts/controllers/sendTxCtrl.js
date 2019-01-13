@@ -364,9 +364,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.checkDate = function () {
-            if ($scope.transactionType == 'scheduled') {
-                return
-            } else {
                 let today = new Date();
                 if ($scope.sendAsset.tillTime < today) {
                     $scope.$eval(function () {
@@ -378,7 +375,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         $scope.sendAsset.fromTime = today;
                     })
                 }
-            }
         }
 
 

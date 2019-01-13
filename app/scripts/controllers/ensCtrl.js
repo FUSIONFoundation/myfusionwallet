@@ -25,6 +25,24 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.endPage = 0;
         $scope.shownRows = 0;
 
+        $scope.checkDate = function () {
+            if ($scope.transactionType == 'scheduled') {
+                return
+            } else {
+                let today = new Date();
+                if ($scope.fromEndTime < today) {
+                    $scope.$eval(function () {
+                        $scope.fromStartTime = today;
+                    })
+                }
+                if ($scope.fromEndTime < $scope.fromStartTime) {
+                    $scope.$eval(function () {
+                        $scope.fromEndTime = today;
+                    })
+                }
+            }
+        }
+
 
         // Sets the last page for pagination
         $scope.$watch('swapsList', function () {
