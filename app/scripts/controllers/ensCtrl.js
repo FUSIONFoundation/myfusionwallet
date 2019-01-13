@@ -3,6 +3,9 @@
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
+        $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+
         $scope.currentPage = 0;
         $scope.pageSize = 5;
         $scope.endPage = 0;
@@ -71,7 +74,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         $scope.lastPage = function () {
             $scope.$eval(function () {
-                $scope.currentPage = $scope.endPage -1;
+                $scope.currentPage = $scope.endPage - 1;
                 $scope.searchSwapMarket = '';
             })
             if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
@@ -433,7 +436,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.takeModal = async function (id) {
             let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;let balance = '';
+            let walletAddress = accountData.from;
+            let balance = '';
 
             console.log($scope.swapsList[id]);
 
@@ -714,6 +718,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let toAmount = swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
                     let swapRate = fromAmount / toAmount;
                     let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
+
+                    let tMonth = time.getMonth();
+                    let tDay = time.getDate();
+                    let tYear = time.getFullYear();
+
+                    time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
+
                     let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
                     let targes = '';
 
@@ -723,7 +734,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
                     let data = {
-                        "id" : swapListFront.length,
+                        "id": swapListFront.length,
                         "swap_id": swapList[asset]["ID"],
                         "fromAssetId": swapList[asset]["FromAssetID"],
                         "fromAssetSymbol": fromAsset["Symbol"],
