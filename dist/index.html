@@ -6514,15 +6514,15 @@
             <section class="modal-dialog send-asset-dialog">
                 <section class="modal-content">
                     <article class="block" ng-hide="wallet.type=='addressOnly'">
-                        <div class="col-md-12">
-                            <h3 class="h3-blue">Recall Success!</h3>
-                            <p>It will soon be reflected to the chain.</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-offset-6 float-right">
-                                <button class="btn btn-sm btn-secondary" ng-click="recallSwapSuccess.close()">Close
-                                </button>
+                        <div class="col-md-12 text-center">
+                            <h3 class="h3-blue">Success!</h3>
+                            <div class="pt-2 pb-2">
+                            <img src="images/check-circle.svg" width="120px" height="120px">
                             </div>
+                            <p>
+                            Swap Successful! Assets are now available in your wallet.</p>
+                            <button class="btn btn-white pt-2" ng-click="recallSwapSuccess.close()">Back to Swap Market
+                            </button>
                         </div>
                     </article>
                 </section>
