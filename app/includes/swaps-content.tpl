@@ -306,7 +306,7 @@
                         <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3" ng-show="web3WalletBalance <= 0">
                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
                         </div>
-                        <div class="row">
+                        <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
                             <div class="col-md-6 small-gray-text">
                                 Funds Available
                             </div>
@@ -316,40 +316,47 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-2 small-gray-text">
-                                Send
+
+                        <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
+                            <div class="col-md-4 small-gray-text">
+                                You will be sending
                             </div>
-                            <div class="col-md-10">
+                            <div class="col-md-8">
                                 <div class="float-right">
                                 <span class="mr-1"><span
-                                            class="small-gray-text">Min Amount</span> {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}</span>
+                                            class="small-gray-text">Min Amount</span>
+                                    <span class="fusion-text-18">{{takeDataFront.fromAssetMin}}</span>
+                                    <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span>
+                                </span>
                                     <span class="ml-1"><span
-                                                class="small-gray-text">Max Amount</span> {{takeDataFront.maxAmount}}  {{takeDataFront.fromAssetSymbol}}</span>
+                                                class="small-gray-text">Max Amount</span>
+                                                <span class="fusion-text-18">{{takeDataFront.maxAmount}}</span>
+                                        <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span>
+                                        </span>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="float-right">
                                     <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
                                            ng-change="setReceive()" placeholder="Amount">
-                                    <a class="small-gray-text" ng-click="setMaxTakeSwap()">Max Amount</a>
+                                    <a class="small-gray-text float-right text-lightblue mt-1" ng-click="setMaxTakeSwap()">Max Amount</a>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
+
+                        <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
                             <div class="col-md-6 small-gray-text">
-                                Receive
+                                You will be receiving
                             </div>
                             <div class="col-md-6">
                                 <div class="float-right">
-                                    {{receiveTokens}} {{takeDataFront.toAssetSymbol}}
+                                    <span class="fusion-text-18"><strong>{{receiveTokens}}</strong></span>
+                                    <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="row">
+
+                        <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
                             <div class="col-md-6 small-gray-text">
                                 Swap Rate
                             </div>
@@ -359,12 +366,12 @@
                                 </div>
                             </div>
                         </div>
-                        <hr>
+
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 p-0 pr-2">
                                 <button class="btn btn-white w-100" ng-click="takeSwapModal.close()">Cancel</button>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 p-0 pl-2">
                                 <button class="btn btn-primary w-100"
                                         ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
                                         ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
