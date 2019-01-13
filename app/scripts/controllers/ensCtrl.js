@@ -820,6 +820,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let swapRate = fromAmount / toAmount;
 
                     let time = new Date(parseInt(mySwapList[asset]["Time"]) * 1000);
+
+                    let tMonth = time.getMonth();
+                    let tDay = time.getDate();
+                    let tYear = time.getFullYear();
+
+                    time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
+
                     let minimumswap = fromAmount / parseInt(mySwapList[asset]["SwapSize"]);
                     let targes = '';
 
