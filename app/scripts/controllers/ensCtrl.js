@@ -25,6 +25,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.endPage = 0;
         $scope.shownRows = 0;
 
+        $scope.transactionType = 'none';
+
         $scope.checkDate = function () {
             if ($scope.transactionType == 'scheduled') {
                 return
@@ -32,12 +34,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let today = new Date();
                 if ($scope.fromEndTime < today) {
                     $scope.$eval(function () {
-                        $scope.fromStartTime = today;
+                        $scope.fromEndTime = today;
                     })
                 }
                 if ($scope.fromEndTime < $scope.fromStartTime) {
                     $scope.$eval(function () {
-                        $scope.fromEndTime = today;
+                        $scope.fromStartTime = today;
                     })
                 }
             }
@@ -580,6 +582,20 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
+        function convertDate(inputFormat) {
+            function pad(s) {
+                return (s < 10) ? '0' + s : s;
+            }
+
+            var d = new Date(inputFormat);
+            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
+        }
+
+        function getHexDate(d) {
+            return "0x" + (new Date(d).getTime() / 1000).toString(16);
+        }
+
+
         $scope.makeSwap = async function () {
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
@@ -612,6 +628,23 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 SwapSize: 1,
                 Targes: targes
             };
+
+            if ($scope.transactionType = 'scheduled') {
+                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
+                let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
+
+                data = {
+                    from: walletAddress,
+                    FromAssetID: $scope.assetToSend,
+                    ToAssetID: $scope.assetToReceive,
+                    MinToAmount: minToAmountHex,
+                    MinFromAmount: minFromAmountHex,
+                    SwapSize: 1,
+                    Targes: targes,
+                    FromStartTime: fromStartTime,
+                    FromEndTime: fromEndTime
+                };
+            }
 
             console.log(data);
 
