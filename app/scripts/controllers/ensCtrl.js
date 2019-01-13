@@ -467,7 +467,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
             let maximumsize = parseInt(swapList[swap_id]["SwapSize"]) * parseInt(swapList[swap_id]["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]));
 
-            $scope.$eval(function () {
+            await $scope.$eval(function () {
                 $scope.takeDataFront.swapId = swapList[swap_id]["ID"];
                 $scope.takeDataFront.fromAssetSymbol = fromAsset["Symbol"];
                 $scope.takeDataFront.fromAssetId = fromAsset["ID"];
@@ -477,7 +477,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.takeDataFront.fromAssetBalance = balance;
                 $scope.takeDataFront.swapRate = swapRate;
                 $scope.takeDataFront.maxAmount = maximumsize;
-
             })
 
             $scope.takeSwapModal.open();

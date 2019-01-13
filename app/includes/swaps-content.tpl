@@ -311,10 +311,10 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-6 small-gray-text">
+                            <div class="col-md-2 small-gray-text">
                                 Send
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-10">
                                 <div class="float-right">
                                 <span class="mr-1"><span
                                             class="small-gray-text">Min Amount</span> {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}</span>
@@ -354,9 +354,11 @@
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-lg-offset-6 float-right">
-                                <button class="btn btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
-                                <button class="btn btn-primary"
+                            <div class="col-md-6">
+                                <button class="btn btn-white w-100" ng-click="takeSwapModal.close()">Cancel</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary w-100"
                                         ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
                                         ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
                                 </button>
