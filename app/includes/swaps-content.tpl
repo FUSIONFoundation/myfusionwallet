@@ -299,6 +299,9 @@
                             </div>
                         </div>
                         <h3>Take Swap</h3>
+                        <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3" ng-show="takeDataFront.fromAssetBalance <= 0">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
+                        </div>
                         <div class="row">
                             <div class="col-md-6 small-gray-text">
                                 Funds Available
@@ -362,13 +365,6 @@
                                         ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
                                         ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
                                 </button>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 clearfix">
-                            <div class="col-lg-12 col-sm-12 col-xs-12 text-center"
-                                 ng-show="takeDataFront.fromAssetBalance <= 0">
-                                <hr>
-                                <i class="fa fa-exclamation" aria-hidden="true"></i> <span class="small-gray-text">You are unable to take this swap. You do not have enough funds.</span>
                             </div>
                         </div>
                     </article>
