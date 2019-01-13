@@ -5,6 +5,20 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+        $scope.todayDate = formatDate();
+
+        function formatDate() {
+            let d = new Date(),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [year, month, day].join('-');
+        }
+
 
         $scope.currentPage = 0;
         $scope.pageSize = 5;
