@@ -3,426 +3,440 @@
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
-        $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-        $scope.todayDate = formatDate();
+    $scope.todayDate = formatDate();
 
-        function formatDate() {
-            let d = new Date(),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
+    function formatDate() {
+        let d = new Date(),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
 
-            return [year, month, day].join('-');
-        }
-
-
-        $scope.currentPage = 0;
-        $scope.pageSize = 5;
-        $scope.endPage = 0;
-        $scope.shownRows = 0;
-
-        $scope.transactionType = 'none';
-
-        $scope.checkDate = function () {
-            if ($scope.transactionType == 'scheduled') {
-                return
-            } else {
-                let today = new Date();
-                if ($scope.fromEndTime < today) {
-                    $scope.$eval(function () {
-                        $scope.fromEndTime = today;
-                    })
-                }
-                if ($scope.fromEndTime < $scope.fromStartTime) {
-                    $scope.$eval(function () {
-                        $scope.fromStartTime = today;
-                    })
-                }
-            }
-        }
+        return [year, month, day].join('-');
+    }
 
 
-        // Sets the last page for pagination
-        $scope.$watch('swapsList', function () {
-            if (typeof $scope.swapsList === 'undefined') {
-                return;
-            } else {
+    $scope.currentPage = 0;
+    $scope.pageSize = 5;
+    $scope.endPage = 0;
+    $scope.shownRows = 0;
+
+    $scope.transactionType = 'none';
+
+    $scope.checkDate = function () {
+        if ($scope.transactionType == 'scheduled') {
+            return
+        } else {
+            let today = new Date();
+            if ($scope.fromEndTime < today) {
                 $scope.$eval(function () {
-                    $scope.endPage = Math.ceil($scope.swapsList.length / $scope.pageSize);
+                    $scope.fromEndTime = today;
                 })
             }
-        })
-
-        $scope.$watch('swapsList', function () {
-            if (typeof $scope.swapsList === 'undefined') {
-                return;
-            }
-            if ($scope.currentPage == 0) {
+            if ($scope.fromEndTime < $scope.fromStartTime) {
                 $scope.$eval(function () {
-                    $scope.shownRows = $scope.currentPage + 1 * $scope.pageSize;
-                })
-            }
-        })
-
-
-        $scope.nextPage = function () {
-            if ($scope.currentPage !== $scope.endPage - 1) {
-                $scope.$eval(function () {
-                    $scope.currentPage = $scope.currentPage + 1
-                    $scope.searchSwapMarket = '';
-                })
-            }
-            if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-                $scope.$eval(function () {
-                    $scope.shownRows = $scope.swapsList.length;
-                    $scope.searchSwapMarket = '';
-                })
-            } else {
-                $scope.$eval(function () {
-                    $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                    $scope.searchSwapMarket = '';
+                    $scope.fromStartTime = today;
                 })
             }
         }
+    }
 
-        $scope.firstPage = function () {
+
+    // Sets the last page for pagination
+    $scope.$watch('swapsList', function () {
+        if (typeof $scope.swapsList === 'undefined') {
+            return;
+        } else {
             $scope.$eval(function () {
-                $scope.currentPage = 0
+                $scope.endPage = Math.ceil($scope.swapsList.length / $scope.pageSize);
+            })
+        }
+    })
+
+    $scope.$watch('swapsList', function () {
+        if (typeof $scope.swapsList === 'undefined') {
+            return;
+        }
+        if ($scope.currentPage == 0) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.currentPage + 1 * $scope.pageSize;
+            })
+        }
+    })
+
+
+    $scope.nextPage = function () {
+        if ($scope.currentPage !== $scope.endPage - 1) {
+            $scope.$eval(function () {
+                $scope.currentPage = $scope.currentPage + 1
                 $scope.searchSwapMarket = '';
             })
-            if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-                $scope.$eval(function () {
-                    $scope.shownRows = $scope.swapsList.length;
-                    $scope.searchSwapMarket = '';
-                })
-            } else {
-                $scope.$eval(function () {
-                    $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                    $scope.searchSwapMarket = '';
-                })
-            }
         }
-        $scope.lastPage = function () {
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
             $scope.$eval(function () {
-                $scope.currentPage = $scope.endPage - 1;
+                $scope.shownRows = $scope.swapsList.length;
                 $scope.searchSwapMarket = '';
             })
-            if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-                $scope.$eval(function () {
-                    $scope.shownRows = $scope.swapsList.length;
-                    $scope.searchSwapMarket = '';
-                })
-            } else {
-                $scope.$eval(function () {
-                    $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                    $scope.searchSwapMarket = '';
-                })
-            }
-        }
-
-
-        $scope.previousPage = function () {
-            if ($scope.currentPage !== 0) {
-                $scope.$eval(function () {
-                    $scope.currentPage = $scope.currentPage - 1
-                    $scope.searchSwapMarket = '';
-                })
-            }
-            if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-                $scope.$eval(function () {
-                    $scope.shownRows = $scope.swapsList.length;
-                    $scope.searchSwapMarket = '';
-                })
-            } else {
-                $scope.$eval(function () {
-                    $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                    $scope.searchSwapMarket = '';
-                })
-            }
-        }
-
-        $scope.init = function () {
-            if (!$scope.wallet) {
-                return;
-            }
-            $scope.getAllAssets();
-            $scope.getShortAddressNotation();
-            $scope.allSwaps();
-            $scope.getBalance();
-            $scope.setWalletAddress();
-        };
-
-        $scope.mayRun = false;
-
-        $scope.$watch('wallet', function () {
-            $scope.init();
-            $scope.mayRun = true;
-        })
-
-        if ($scope.mayRun) {
-            setInterval($scope.init(), 6000);
-            console.log('triggered');
-        }
-
-        let BN = web3.utils.BN;
-
-        $scope.tx = {};
-        $scope.takeDataFront = {
-            'fromAssetSymbol': '',
-            'toAssetSymbol': '',
-            'fromAssetBalance': '',
-            'swapRate': '',
-            'toAssetMin': '',
-            'fromAssetMin': '',
-            'maxAmount': '',
-            'swapId': '',
-            'fromAssetId': ''
-        };
-
-        $scope.sortSwapMarket = function (keyname) {
-            $scope.sortKey = keyname;   //set the sortKey to the param passed
-            $scope.reverse = !$scope.reverse; //if true make it false and vice versa
-        }
-
-
-        $scope.takeAmountSwap = '';
-        $scope.showSwapMarket = true;
-        $scope.showOpenMakes = false;
-        $scope.receiveTokens = '';
-        $scope.walletAddress = '';
-        $scope.assetToSendConfirm = '';
-        $scope.assetToReceiveConfirm = '';
-        $scope.makeSendAmount = '';
-        $scope.makeReceiveAmount = '';
-        $scope.makeTarges = '';
-        $scope.web3WalletBalance = 'Loading...'
-        $scope.selectedSendAsset = 'Select asset'
-        $scope.addressNotation = '';
-        $scope.ajaxReq = ajaxReq;
-        $scope.unitReadable = ajaxReq.type;
-        walletService.wallet = null;
-        walletService.password = '';
-        $scope.recallAssetModal = new Modal(document.getElementById('recallAsset'));
-        $scope.takeSwapModal = new Modal(document.getElementById('takeSwap'));
-        $scope.makeSwapModal = new Modal(document.getElementById('makeSwap'));
-        $scope.makeSwapConfirmModal = new Modal(document.getElementById('makeSwapConfirm'));
-        $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
-        $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
-
-        $scope.receiveDropDown = false;
-        $scope.selectedReceiveAsset = 'Select asset';
-        $scope.selectedReceiveContract = '-'
-        $scope.selectedSendAsset = 'Select asset';
-        $scope.selectedSendContract = '-';
-
-
-        $scope.$watch('assetList', function () {
-            if (typeof $scope.assetList === 'undefined') {
-                return;
-            } else {
-                $scope.$eval(function () {
-                    $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
-                    $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
-                    $scope.assetToReceive = $scope.assetList[0].contractaddress;
-                })
-            }
-        })
-
-        $scope.$watch('assetListOwned', function () {
-            if (typeof $scope.assetListOwned === 'undefined') {
-                return;
-            } else {
-                $scope.$eval(function () {
-                    $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
-                    $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
-                    $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-                    $scope.getAssetBalance();
-                })
-            }
-        })
-
-        $scope.privateAccess = false;
-
-        $scope.swapRecallSuccess = false;
-
-        var applyScope = function () {
-            if (!$scope.$$phase) $scope.$apply();
-        }
-
-
-        $scope.toHexString = function (byteArray) {
-            var s = '0x';
-            byteArray.forEach(function (byte) {
-                s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
-            });
-            return s;
-        }
-
-        $scope.setReceiveAsset = function (id) {
+        } else {
             $scope.$eval(function () {
-                $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${$scope.assetList[id].symbol})`;
-                $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
-                $scope.assetToReceive = $scope.assetList[id].contractaddress;
-                $scope.receiveDropDown = false;
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchSwapMarket = '';
             })
         }
+    }
 
-        $scope.setSendAsset = function (id) {
+    $scope.firstPage = function () {
+        $scope.$eval(function () {
+            $scope.currentPage = 0
+            $scope.searchSwapMarket = '';
+        })
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
             $scope.$eval(function () {
-                $scope.selectedSendAsset = `${$scope.assetListOwned[id].name} (${$scope.assetListOwned[id].symbol})`;
-                $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
-                $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
+                $scope.shownRows = $scope.swapsList.length;
+                $scope.searchSwapMarket = '';
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchSwapMarket = '';
+            })
+        }
+    }
+    $scope.lastPage = function () {
+        $scope.$eval(function () {
+            $scope.currentPage = $scope.endPage - 1;
+            $scope.searchSwapMarket = '';
+        })
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.swapsList.length;
+                $scope.searchSwapMarket = '';
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchSwapMarket = '';
+            })
+        }
+    }
+
+
+    $scope.previousPage = function () {
+        if ($scope.currentPage !== 0) {
+            $scope.$eval(function () {
+                $scope.currentPage = $scope.currentPage - 1
+                $scope.searchSwapMarket = '';
+            })
+        }
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.swapsList.length;
+                $scope.searchSwapMarket = '';
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchSwapMarket = '';
+            })
+        }
+    }
+
+    $scope.init = function () {
+        if (!$scope.wallet) {
+            return;
+        }
+        $scope.getAllAssets();
+        $scope.getShortAddressNotation();
+        $scope.allSwaps();
+        $scope.getBalance();
+        $scope.setWalletAddress();
+    };
+
+    $scope.mayRun = false;
+
+    $scope.$watch('wallet', function () {
+        $scope.init();
+        $scope.mayRun = true;
+    })
+
+    if ($scope.mayRun) {
+        setInterval($scope.init(), 6000);
+        console.log('triggered');
+    }
+
+    let BN = web3.utils.BN;
+
+    $scope.tx = {};
+    $scope.takeDataFront = {
+        'fromAssetSymbol': '',
+        'toAssetSymbol': '',
+        'fromAssetBalance': '',
+        'swapRate': '',
+        'toAssetMin': '',
+        'fromAssetMin': '',
+        'maxAmount': '',
+        'swapId': '',
+        'fromAssetId': ''
+    };
+
+    $scope.sortSwapMarket = function (keyname) {
+        $scope.sortKey = keyname;   //set the sortKey to the param passed
+        $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    }
+
+
+    $scope.takeAmountSwap = '';
+    $scope.showSwapMarket = true;
+    $scope.showOpenMakes = false;
+    $scope.receiveTokens = '';
+    $scope.walletAddress = '';
+    $scope.assetToSendConfirm = '';
+    $scope.assetToReceiveConfirm = '';
+    $scope.makeSendAmount = '';
+    $scope.makeReceiveAmount = '';
+    $scope.makeTarges = '';
+    $scope.web3WalletBalance = 'Loading...'
+    $scope.selectedSendAsset = 'Select asset'
+    $scope.addressNotation = '';
+    $scope.ajaxReq = ajaxReq;
+    $scope.unitReadable = ajaxReq.type;
+    walletService.wallet = null;
+    walletService.password = '';
+    $scope.recallAssetModal = new Modal(document.getElementById('recallAsset'));
+    $scope.takeSwapModal = new Modal(document.getElementById('takeSwap'));
+    $scope.makeSwapModal = new Modal(document.getElementById('makeSwap'));
+    $scope.makeSwapConfirmModal = new Modal(document.getElementById('makeSwapConfirm'));
+    $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
+    $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
+
+    $scope.receiveDropDown = false;
+    $scope.selectedReceiveAsset = 'Select asset';
+    $scope.selectedReceiveContract = '-'
+    $scope.selectedSendAsset = 'Select asset';
+    $scope.selectedSendContract = '-';
+
+
+    $scope.$watch('assetList', function () {
+        if (typeof $scope.assetList === 'undefined') {
+            return;
+        } else {
+            $scope.$eval(function () {
+                $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
+                $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
+                $scope.assetToReceive = $scope.assetList[0].contractaddress;
+            })
+        }
+    })
+
+    $scope.$watch('assetListOwned', function () {
+        if (typeof $scope.assetListOwned === 'undefined') {
+            return;
+        } else {
+            $scope.$eval(function () {
+                $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
+                $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+                $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
                 $scope.getAssetBalance();
-                $scope.sendDropDown = false;
             })
         }
+    })
+
+    $scope.privateAccess = false;
+
+    $scope.swapRecallSuccess = false;
+
+    var applyScope = function () {
+        if (!$scope.$$phase) $scope.$apply();
+    }
 
 
-        $scope.copyToClipboard = function (text) {
-            let clipboardAvailable;
-            if (clipboardAvailable === undefined) {
-                clipboardAvailable =
-                    typeof document.queryCommandSupported === 'function' &&
-                    document.queryCommandSupported('copy');
+    $scope.toHexString = function (byteArray) {
+        var s = '0x';
+        byteArray.forEach(function (byte) {
+            s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
+        });
+        return s;
+    }
+
+    $scope.setReceiveAsset = function (id) {
+        $scope.$eval(function () {
+            $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${$scope.assetList[id].symbol})`;
+            $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
+            $scope.assetToReceive = $scope.assetList[id].contractaddress;
+            $scope.receiveDropDown = false;
+        })
+    }
+
+    $scope.setSendAsset = function (id) {
+        $scope.$eval(function () {
+            $scope.selectedSendAsset = `${$scope.assetListOwned[id].name} (${$scope.assetListOwned[id].symbol})`;
+            $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
+            $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
+            $scope.getAssetBalance();
+            $scope.sendDropDown = false;
+        })
+    }
+
+
+    $scope.copyToClipboard = function (text) {
+        let clipboardAvailable;
+        if (clipboardAvailable === undefined) {
+            clipboardAvailable =
+                typeof document.queryCommandSupported === 'function' &&
+                document.queryCommandSupported('copy');
+        }
+        let success = false;
+        const body = document.body;
+
+        if (body) {
+            // add the text to a hidden node
+            const node = document.createElement('span');
+            node.textContent = text;
+            node.style.opacity = '0';
+            node.style.position = 'absolute';
+            node.style.whiteSpace = 'pre-wrap';
+            body.appendChild(node);
+
+            // select the text
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            selection.addRange(range);
+
+            // attempt to copy
+            try {
+                document.execCommand('copy');
+                success = true;
+            } catch (e) {
             }
-            let success = false;
-            const body = document.body;
 
-            if (body) {
-                // add the text to a hidden node
-                const node = document.createElement('span');
-                node.textContent = text;
-                node.style.opacity = '0';
-                node.style.position = 'absolute';
-                node.style.whiteSpace = 'pre-wrap';
-                body.appendChild(node);
-
-                // select the text
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-                const range = document.createRange();
-                range.selectNodeContents(node);
-                selection.addRange(range);
-
-                // attempt to copy
-                try {
-                    document.execCommand('copy');
-                    success = true;
-                } catch (e) {
-                }
-
-                // remove selection and node
-                selection.removeAllRanges();
-                body.removeChild(node);
-            }
-
-            return success;
+            // remove selection and node
+            selection.removeAllRanges();
+            body.removeChild(node);
         }
 
-        $scope.$watch(function () {
-            if (walletService.wallet == null) return null;
-            return walletService.wallet.getAddressString();
-        }, function () {
-            if (walletService.wallet == null) return;
-            $scope.wallet = walletService.wallet;
-            $scope.wd = true;
+        return success;
+    }
+
+    $scope.$watch(function () {
+        if (walletService.wallet == null) return null;
+        return walletService.wallet.getAddressString();
+    }, function () {
+        if (walletService.wallet == null) return;
+        $scope.wallet = walletService.wallet;
+        $scope.wd = true;
+        $scope.wallet.setBalance(applyScope);
+        if ($scope.parentTxConfig) {
+            var setTxObj = function () {
+                $scope.addressDrtv.ensAddressField = $scope.parentTxConfig.to;
+                $scope.tx.value = $scope.parentTxConfig.value;
+                $scope.tx.sendMode = $scope.parentTxConfig.sendMode ? $scope.parentTxConfig.sendMode : 'ether';
+                $scope.tx.tokensymbol = $scope.parentTxConfig.tokensymbol ? $scope.parentTxConfig.tokensymbol : '';
+                $scope.tx.gasPrice = $scope.parentTxConfig.gasPrice ? $scope.parentTxConfig.gasPrice : null;
+                $scope.tx.nonce = $scope.parentTxConfig.nonce ? $scope.parentTxConfig.nonce : null;
+                $scope.tx.data = $scope.parentTxConfig.data ? $scope.parentTxConfig.data : $scope.tx.data;
+                $scope.tx.readOnly = $scope.addressDrtv.readOnly = $scope.parentTxConfig.readOnly ? $scope.parentTxConfig.readOnly : false;
+                if ($scope.parentTxConfig.gasLimit) {
+                    $scope.tx.gasLimit = $scope.parentTxConfig.gasLimit;
+                    $scope.gasLimitChanged = true;
+                }
+            }
+            $scope.$watch('parentTxConfig', function () {
+                setTxObj();
+            }, true);
+        }
+    });
+
+    $scope.$watch('ajaxReq.key', function () {
+        if ($scope.wallet) {
+            $scope.setSendMode('ether');
             $scope.wallet.setBalance(applyScope);
-            if ($scope.parentTxConfig) {
-                var setTxObj = function () {
-                    $scope.addressDrtv.ensAddressField = $scope.parentTxConfig.to;
-                    $scope.tx.value = $scope.parentTxConfig.value;
-                    $scope.tx.sendMode = $scope.parentTxConfig.sendMode ? $scope.parentTxConfig.sendMode : 'ether';
-                    $scope.tx.tokensymbol = $scope.parentTxConfig.tokensymbol ? $scope.parentTxConfig.tokensymbol : '';
-                    $scope.tx.gasPrice = $scope.parentTxConfig.gasPrice ? $scope.parentTxConfig.gasPrice : null;
-                    $scope.tx.nonce = $scope.parentTxConfig.nonce ? $scope.parentTxConfig.nonce : null;
-                    $scope.tx.data = $scope.parentTxConfig.data ? $scope.parentTxConfig.data : $scope.tx.data;
-                    $scope.tx.readOnly = $scope.addressDrtv.readOnly = $scope.parentTxConfig.readOnly ? $scope.parentTxConfig.readOnly : false;
-                    if ($scope.parentTxConfig.gasLimit) {
-                        $scope.tx.gasLimit = $scope.parentTxConfig.gasLimit;
-                        $scope.gasLimitChanged = true;
-                    }
-                }
-                $scope.$watch('parentTxConfig', function () {
-                    setTxObj();
-                }, true);
-            }
-        });
-
-        $scope.$watch('ajaxReq.key', function () {
-            if ($scope.wallet) {
-                $scope.setSendMode('ether');
-                $scope.wallet.setBalance(applyScope);
-                $scope.wallet.setTokens();
-            }
-        });
-
-        $scope.countDecimals = function (decimals) {
-            let returnDecimals = '1';
-            for (let i = 0; i < decimals; i++) {
-                returnDecimals += '0';
-            }
-            return parseInt(returnDecimals);
+            $scope.wallet.setTokens();
         }
+    });
 
-        $scope.setWalletAddress = function () {
-            if (walletService.password !== '') {
-                let accountData = uiFuncs.getTxData($scope);
-                let walletAddress = accountData.from;
-                $scope.walletAddress = walletAddress;
-            }
+    $scope.countDecimals = function (decimals) {
+        let returnDecimals = '1';
+        for (let i = 0; i < decimals; i++) {
+            returnDecimals += '0';
         }
+        return parseInt(returnDecimals);
+    }
 
-        $scope.getShortAddressNotation = async function () {
+    $scope.setWalletAddress = function () {
+        if (walletService.password !== '') {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
-            let notation = '';
+            $scope.walletAddress = walletAddress;
+        }
+    }
 
-            await web3.fsn.getNotation(walletAddress).then(function (res) {
-                notation = res;
+    $scope.getShortAddressNotation = async function () {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let notation = '';
+
+        await web3.fsn.getNotation(walletAddress).then(function (res) {
+            notation = res;
+        });
+
+        if (notation === 0) {
+            $scope.addressNotation = 'Not available';
+        } else {
+            $scope.$eval(function () {
+                $scope.addressNotation = notation;
+                $scope.addressNotation = notation;
+            });
+        }
+        return notation;
+    }
+
+
+    $scope.getAllAssets = async function () {
+        if (walletService.password !== '') {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let assetList = {};
+            let assetListOwned = [];
+            let assetList2 = [];
+
+            await web3.fsn.allAssets().then(function (res) {
+                assetList = res;
             });
 
-            if (notation === 0) {
-                $scope.addressNotation = 'Not available';
-            } else {
-                $scope.$eval(function () {
-                    $scope.addressNotation = notation;
-                    $scope.addressNotation = notation;
-                });
-            }
-            return notation;
-        }
+            for (let asset in assetList) {
+                let id = assetList[asset]["ID"];
+                let owner = assetList[asset]["Owner"];
+                let owned = false;
+                let assetBalance = '';
 
-
-        $scope.getAllAssets = async function () {
-            if (walletService.password !== '') {
-                let accountData = uiFuncs.getTxData($scope);
-                let walletAddress = accountData.from;
-                let assetList = {};
-                let assetListOwned = [];
-                let assetList2 = [];
-
-                await web3.fsn.allAssets().then(function (res) {
-                    assetList = res;
+                await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                    assetBalance = res;
                 });
 
-                for (let asset in assetList) {
-                    let id = assetList[asset]["ID"];
-                    let owner = assetList[asset]["Owner"];
-                    let owned = false;
-                    let assetBalance = '';
+                let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
 
-                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                        assetBalance = res;
-                    });
+                let data = {
+                    "id": assetList2.length,
+                    "name": assetList[asset]["Name"],
+                    "symbol": assetList[asset]["Symbol"],
+                    "decimals": assetList[asset]["Decimals"],
+                    "total": assetList[asset]["Total"] / divider,
+                    "contractaddress": id,
+                    "balance": assetBalance / divider,
+                    "owner": owned
+                }
+                await assetList2.push(data);
 
+                if (assetBalance > 0.000000000000000001) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
-
                     let data = {
-                        "id": assetList2.length,
+                        "id": assetListOwned.length,
                         "name": assetList[asset]["Name"],
                         "symbol": assetList[asset]["Symbol"],
                         "decimals": assetList[asset]["Decimals"],
@@ -431,230 +445,256 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "balance": assetBalance / divider,
                         "owner": owned
                     }
-                    await assetList2.push(data);
-
-                    if (assetBalance > 0.000000000000000001) {
-                        let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
-                        let data = {
-                            "id": assetListOwned.length,
-                            "name": assetList[asset]["Name"],
-                            "symbol": assetList[asset]["Symbol"],
-                            "decimals": assetList[asset]["Decimals"],
-                            "total": assetList[asset]["Total"] / divider,
-                            "contractaddress": id,
-                            "balance": assetBalance / divider,
-                            "owner": owned
-                        }
-                        await assetListOwned.push(data);
-                    }
-
+                    await assetListOwned.push(data);
                 }
-                $scope.$eval(function () {
-                    $scope.assetList = assetList2;
-                    $scope.assetListOwned = assetListOwned;
-                });
+
             }
-        }
-
-        $scope.setMaxTakeSwap = function () {
-            let amount = '';
-            if ($scope.takeDataFront.fromAssetBalance >= $scope.takeDataFront.maxAmount) {
-                amount = $scope.takeDataFront.maxAmount;
-            } else {
-                $scope.makeTarges;
-                amount = $scope.takeDataFront.fromAssetBalance;
-            }
-            $scope.takeAmountSwap = amount;
-
-            $scope.setReceive();
-        }
-
-        $scope.takeModal = async function (id) {
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            let balance = '';
-
-            console.log($scope.swapsList[id]);
-
-            let fromAsset = [];
-
-            await web3.fsn.getBalance($scope.swapsList[id].fromAssetId, walletAddress).then(function (res) {
-                balance = res;
-            });
-
-            balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
-
             $scope.$eval(function () {
-                $scope.takeDataFront.swapId = $scope.swapsList[id];
-                $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
-                $scope.takeDataFront.fromAssetId = $scope.swapsList[id].fromAssetId;
-                $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswap;
-                $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].toAssetSymbol;
-                $scope.takeDataFront.toAssetMin = $scope.swapsList[id].toAssetId;
-                $scope.takeDataFront.fromAssetBalance = $scope.swapsList[id].minswap;
-                $scope.takeDataFront.swapRate = $scope.swapsList[id].swaprate;
-                $scope.takeDataFront.maxAmount = $scope.swapsList[id].swaprate;
-            })
-
-            $scope.takeSwapModal.open();
-        }
-
-        $scope.setReceive = function () {
-            $scope.receiveTokens = $scope.takeAmountSwap / $scope.takeDataFront.swapRate;
-        }
-
-        $scope.takeSwap = async function (asset_id, swap_id, amount) {
-            console.log(asset_id);
-            console.log(swap_id);
-            let password = walletService.password;
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            let toAsset = [];
-
-            await web3.fsn.getAsset(asset_id).then(function (res) {
-                toAsset = res;
+                $scope.assetList = assetList2;
+                $scope.assetListOwned = assetListOwned;
             });
+        }
+    }
 
-            let take = amount * $scope.countDecimals(toAsset["Decimals"]);
-            console.log(`This is Size -> ${take}`);
+    $scope.setMaxTakeSwap = function () {
+        let amount = '';
+        if ($scope.takeDataFront.fromAssetBalance >= $scope.takeDataFront.maxAmount) {
+            amount = $scope.takeDataFront.maxAmount;
+        } else {
+            $scope.makeTarges;
+            amount = $scope.takeDataFront.fromAssetBalance;
+        }
+        $scope.takeAmountSwap = amount;
 
-            let data = {
-                from: walletAddress,
-                SwapID: swap_id,
-                Size: parseInt(take)
-            };
+        $scope.setReceive();
+    }
 
-            if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
-                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-            }
+    $scope.takeModal = async function (id) {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let balance = '';
 
-            try {
-                await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
-                    tx.from = from;
-                    data = tx;
-                    if ($scope.wallet.hwType == "ledger") {
-                        return;
-                    }
-                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        console.log(txHash);
-                    })
+        console.log($scope.swapsList[id]);
+
+        let fromAsset = [];
+
+        await web3.fsn.getBalance($scope.swapsList[id].fromAssetId, walletAddress).then(function (res) {
+            balance = res;
+        });
+
+        balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
+
+        $scope.$eval(function () {
+            $scope.takeDataFront.swapId = $scope.swapsList[id];
+            $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
+            $scope.takeDataFront.fromAssetId = $scope.swapsList[id].fromAssetId;
+            $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswap;
+            $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].toAssetSymbol;
+            $scope.takeDataFront.toAssetMin = $scope.swapsList[id].toAssetId;
+            $scope.takeDataFront.fromAssetBalance = $scope.swapsList[id].minswap;
+            $scope.takeDataFront.swapRate = $scope.swapsList[id].swaprate;
+            $scope.takeDataFront.maxAmount = $scope.swapsList[id].swaprate;
+        })
+
+        $scope.takeSwapModal.open();
+    }
+
+    $scope.setReceive = function () {
+        $scope.receiveTokens = $scope.takeAmountSwap / $scope.takeDataFront.swapRate;
+    }
+
+    $scope.takeSwap = async function (asset_id, swap_id, amount) {
+        console.log(asset_id);
+        console.log(swap_id);
+        let password = walletService.password;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let toAsset = [];
+
+        await web3.fsn.getAsset(asset_id).then(function (res) {
+            toAsset = res;
+        });
+
+        let take = amount * $scope.countDecimals(toAsset["Decimals"]);
+        console.log(`This is Size -> ${take}`);
+
+        let data = {
+            from: walletAddress,
+            SwapID: swap_id,
+            Size: parseInt(take)
+        };
+
+        if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+            $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+        }
+
+        try {
+            await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
+                tx.from = from;
+                data = tx;
+                if ($scope.wallet.hwType == "ledger") {
+                    return;
+                }
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    console.log(txHash);
                 })
-            } catch (err) {
-                console.log(err);
-            }
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    $scope.switchAsset = function () {
+        console.log($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive));
+        if ($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive)) {
+            let t = $scope.assetToSend;
+            $scope.assetToSend = $scope.assetToReceive;
+            $scope.assetToReceive = t;
+            console.log('Correct, we can switch!');
+        } else {
+        }
+    }
+
+    $scope.makeModal = async function (send, receive) {
+        $scope.makeSwapModal.open();
+    }
+
+    $scope.makeSwapConfirmation = async function (end) {
+        let sendAsset = [];
+        let receiveAsset = [];
+
+        console.log('Make Swap Confirmation');
+
+        await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
+            sendAsset = res;
+        });
+        await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
+            receiveAsset = res;
+        });
+        $scope.$eval(function () {
+            $scope.assetToSendConfirm = sendAsset["Symbol"];
+            $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
+        });
+
+        if (end === 'end') {
+            $scope.makeSwapConfirmEndModal.open()
+        } else if (end === 'notend') {
+            $scope.makeSwapConfirmModal.open()
+        }
+    }
+
+    function convertDate(inputFormat) {
+        function pad(s) {
+            return (s < 10) ? '0' + s : s;
         }
 
-        $scope.switchAsset = function () {
-            if ($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive)) {
-                let t = $scope.assetToSend;
-                $scope.assetToSend = $scope.assetToReceive;
-                $scope.assetToReceive = t;
-                console.log('Correct, we can switch!');
-            } else {
-            }
-        }
+        var d = new Date(inputFormat);
+        return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
+    }
 
-        $scope.makeModal = async function (send, receive) {
-            $scope.makeSwapModal.open();
-        }
-
-        $scope.makeSwapConfirmation = async function (end) {
-            let sendAsset = [];
-            let receiveAsset = [];
-
-            console.log('Make Swap Confirmation');
-
-            await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
-                sendAsset = res;
-            });
-            await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
-                receiveAsset = res;
-            });
-            $scope.$eval(function () {
-                $scope.assetToSendConfirm = sendAsset["Symbol"];
-                $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
-            });
-
-            if (end === 'end') {
-                $scope.makeSwapConfirmEndModal.open()
-            } else if (end === 'notend') {
-                $scope.makeSwapConfirmModal.open()
-            }
-        }
-
-        function convertDate(inputFormat) {
-            function pad(s) {
-                return (s < 10) ? '0' + s : s;
-            }
-
-            var d = new Date(inputFormat);
-            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
-        }
-
-        function getHexDate(d) {
-            return "0x" + (new Date(d).getTime() / 1000).toString(16);
-        }
+    function getHexDate(d) {
+        return "0x" + (new Date(d).getTime() / 1000).toString(16);
+    }
 
 
-        $scope.makeSwap = async function () {
-            let password = walletService.password;
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
+    $scope.makeSwap = async function () {
+        let password = walletService.password;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
 
-            let fromAsset = [];
-            let toAsset = [];
+        let fromAsset = [];
+        let toAsset = [];
 
-            await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
-                fromAsset = res;
-            });
+        await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
+            fromAsset = res;
+        });
 
-            await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
-                toAsset = res;
-            });
+        await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
+            toAsset = res;
+        });
 
-            let targes = '';
+        let targes = '';
 
-            $scope.makeTarges !== '' ? targes = [$scope.makeTarges] : targes = [];
+        $scope.makeTarges !== '' ? targes = [$scope.makeTarges] : targes = [];
 
-            let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]));
-            let minFromAmountHex = web3.utils.numberToHex($scope.makeSendAmount * $scope.countDecimals(fromAsset["Decimals"]));
+        let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]));
+        let minFromAmountHex = web3.utils.numberToHex($scope.makeSendAmount * $scope.countDecimals(fromAsset["Decimals"]));
 
-            let data = {
+        let data = {
+            from: walletAddress,
+            FromAssetID: $scope.assetToSend,
+            ToAssetID: $scope.assetToReceive,
+            MinToAmount: minToAmountHex,
+            MinFromAmount: minFromAmountHex,
+            SwapSize: 1,
+            Targes: targes
+        };
+
+        if ($scope.transactionType = 'scheduled') {
+            let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
+            let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
+
+            data = {
                 from: walletAddress,
                 FromAssetID: $scope.assetToSend,
                 ToAssetID: $scope.assetToReceive,
                 MinToAmount: minToAmountHex,
                 MinFromAmount: minFromAmountHex,
                 SwapSize: 1,
-                Targes: targes
+                Targes: targes,
+                FromStartTime: fromStartTime,
+                FromEndTime: fromEndTime
             };
+        }
 
-            if ($scope.transactionType = 'scheduled') {
-                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
-                let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
+        console.log(data);
 
-                data = {
-                    from: walletAddress,
-                    FromAssetID: $scope.assetToSend,
-                    ToAssetID: $scope.assetToReceive,
-                    MinToAmount: minToAmountHex,
-                    MinFromAmount: minFromAmountHex,
-                    SwapSize: 1,
-                    Targes: targes,
-                    FromStartTime: fromStartTime,
-                    FromEndTime: fromEndTime
-                };
-            }
+        if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+            $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+        }
 
-            console.log(data);
+        try {
+            await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
+                console.log(tx);
+                tx.from = walletAddress;
+                data = tx;
+                if ($scope.wallet.hwType == "ledger") {
+                    return;
+                }
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    console.log(txHash);
+                    $scope.makeSwapConfirmation('end');
+                })
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    $scope.recallModal = function (swap_id) {
+        $scope.swapRecallSuccess = false;
+        $scope.recallAssetModal.open();
+        $scope.recallAssetId = swap_id;
+
+    }
+
+    $scope.recallSwap = async function (swap_id) {
+        if (walletService.password !== '') {
+            let password = walletService.password;
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+
+            let data = {
+                from: walletAddress,
+                SwapID: swap_id
+            };
 
             if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
             try {
-                await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
-                    console.log(tx);
+                await web3.fsntx.buildRecallSwapTx(data).then(function (tx) {
                     tx.from = walletAddress;
                     data = tx;
                     if ($scope.wallet.hwType == "ledger") {
@@ -662,182 +702,148 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                         console.log(txHash);
-                        $scope.makeSwapConfirmation('end');
+                        $scope.recallSwapSuccess.open()
                     })
                 })
             } catch (err) {
                 console.log(err);
             }
         }
+    }
 
-        $scope.recallModal = function (swap_id) {
-            $scope.swapRecallSuccess = false;
-            $scope.recallAssetModal.open();
-            $scope.recallAssetId = swap_id;
+    $scope.getAssetBalance = async function () {
+        let asset = $scope.assetToSend;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let assetBalance = '';
+        let decimals = '';
+        await web3.fsn.getAsset(asset).then(function (res) {
+            decimals = res["Decimals"];
+        });
 
-        }
+        await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
+            assetBalance = res;
+        });
 
-        $scope.recallSwap = async function (swap_id) {
-            if (walletService.password !== '') {
-                let password = walletService.password;
-                let accountData = uiFuncs.getTxData($scope);
-                let walletAddress = accountData.from;
+        let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
 
-                let data = {
-                    from: walletAddress,
-                    SwapID: swap_id
-                };
+        $scope.$eval(function () {
+            $scope.selectedAssetBalance = balance;
+        });
+    }
 
-                if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-                }
 
-                try {
-                    await web3.fsntx.buildRecallSwapTx(data).then(function (tx) {
-                        tx.from = walletAddress;
-                        data = tx;
-                        if ($scope.wallet.hwType == "ledger") {
-                            return;
-                        }
-                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                            console.log(txHash);
-                            $scope.recallSwapSuccess.open()
-                        })
-                    })
-                } catch (err) {
-                    console.log(err);
-                }
-            }
-        }
+    $scope.allSwaps = async function () {
+        let swapList = [];
+        let swapListFront = [];
 
-        $scope.getAssetBalance = async function () {
-            let asset = $scope.assetToSend;
+        if (walletService.password !== '') {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
-            let assetBalance = '';
-            let decimals = '';
-            await web3.fsn.getAsset(asset).then(function (res) {
-                decimals = res["Decimals"];
+            console.log(walletAddress);
+
+            await web3.fsn.allSwaps().then(function (res) {
+                swapList = res;
             });
 
-            await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
-                assetBalance = res;
-            });
+            for (let asset in swapList) {
+                let id = swapList[asset]["ID"];
+                let owner = swapList[asset]["Owner"];
+                let owned = false;
+                let assetBalance = '';
 
-            let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
-
-            $scope.$eval(function () {
-                $scope.selectedAssetBalance = balance;
-            });
-        }
-
-
-        $scope.allSwaps = async function () {
-            let swapList = [];
-            let swapListFront = [];
-
-            if (walletService.password !== '') {
-                let accountData = uiFuncs.getTxData($scope);
-                let walletAddress = accountData.from;
-                console.log(walletAddress);
-
-                await web3.fsn.allSwaps().then(function (res) {
-                    swapList = res;
+                await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                    assetBalance = res;
                 });
 
-                for (let asset in swapList) {
-                    let id = swapList[asset]["ID"];
-                    let owner = swapList[asset]["Owner"];
-                    let owned = false;
-                    let assetBalance = '';
+                let fromAsset = [];
+                let toAsset = [];
 
-                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                        assetBalance = res;
-                    });
+                await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
+                    fromAsset = res;
+                });
 
-                    let fromAsset = [];
-                    let toAsset = [];
+                await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
+                    toAsset = res;
+                });
 
-                    await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
-                        fromAsset = res;
-                    });
+                owner === walletAddress ? owned = true : owned = false;
 
-                    await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
-                        toAsset = res;
-                    });
+                let fromAmount = (swapList[asset].MinFromAmount / $scope.countDecimals(fromAsset.Decimals));
 
-                    owner === walletAddress ? owned = true : owned = false;
-
-                    let fromAmount = (swapList[asset].MinFromAmount / $scope.countDecimals(fromAsset.Decimals));
-
-                    console.log(swapList[asset].MinFromAmount);
-                    console.log(`$scope.countDecimals(${fromAsset.Decimals})`);
-                    console.log($scope.countDecimals(fromAsset.Decimals));
-                    console.log(`The answer is ${fromAmount}`);
+                console.log(swapList[asset].MinFromAmount);
+                console.log(`$scope.countDecimals(${fromAsset.Decimals})`);
+                console.log($scope.countDecimals(fromAsset.Decimals));
+                console.log(`The answer is ${fromAmount}`);
 
 
-                    let toAmount = swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
-                    let swapRate = fromAmount / toAmount;
-                    let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
+                let toAmount = swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
+                let swapRate = fromAmount / toAmount;
+                let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
 
-                    let tMonth = time.getMonth();
-                    let tDay = time.getDate();
-                    let tYear = time.getFullYear();
+                let tMonth = time.getMonth();
+                let tDay = time.getDate();
+                let tYear = time.getFullYear();
 
-                    time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
+                time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
 
-                    let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
-                    let targes = '';
+                let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
+                let targes = '';
 
-                    console.log(swapList[asset]["Targes"]);
+                console.log(swapList[asset]["Targes"]);
 
-                    swapList[asset]["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
+                swapList[asset]["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
 
+                let ownerAddr = '';
 
-                    let data = {
-                        "id": swapListFront.length,
-                        "swap_id": swapList[asset]["ID"],
-                        "fromAssetId": swapList[asset]["FromAssetID"],
-                        "fromAssetSymbol": fromAsset["Symbol"],
-                        "fromAmount": fromAmount,
-                        "toAssetId": swapList[asset]["ToAssetID"],
-                        "toAmount": toAmount,
-                        "toAssetSymbol": toAsset["Symbol"],
-                        "swaprate": swapRate,
-                        "minswap": minimumswap,
-                        "time": time.toLocaleString(),
-                        "targes": targes,
-                        "owner": swapList[asset]["Owner"],
-                        "owned": owned
-                    }
-                    await swapListFront.push(data);
+                // swapList[asset]["Owner"]
+
+                await web3.fsn.getNotation(swapList[asset]["Owner"]).then(function(res){
+                    ownerAddr = res;
+                })
+
+                if (ownerAddr == 0){
+                    ownerAddr = 'Owner has no USAN';
                 }
-            }
-            $scope.$eval(function () {
-                $scope.swapsList = swapListFront;
-                $scope.swapsList = swapListFront;
-            });
 
-            console.log($scope.swapsList);
+                let data = {
+                    "id": swapListFront.length,
+                    "swap_id": swapList[asset]["ID"],
+                    "fromAssetId": swapList[asset]["FromAssetID"],
+                    "fromAssetSymbol": fromAsset["Symbol"],
+                    "fromAmount": fromAmount,
+                    "toAssetId": swapList[asset]["ToAssetID"],
+                    "toAmount": toAmount,
+                    "toAssetSymbol": toAsset["Symbol"],
+                    "swaprate": swapRate,
+                    "minswap": minimumswap,
+                    "time": time.toLocaleString(),
+                    "targes": targes,
+                    "owner": ownerAddr,
+                    "owned": owned
+                }
+                await swapListFront.push(data);
+            }
         }
+        $scope.$eval(function () {
+            $scope.swapsList = swapListFront;
+            $scope.swapsList = swapListFront;
+        });
+        console.log($scope.swapsList);
+    }
 
-        $scope.getBalance = async function () {
-            if ($scope.mayRunState = true) {
-                let accountData = uiFuncs.getTxData($scope);
-                let walletAddress = accountData.from;
-                let balance = '';
+    $scope.getBalance = async function () {
+        if ($scope.mayRunState = true) {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let balance = await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress);
 
-                await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress).then(function (res) {
-                    balance = res;
-                });
-
-                balance = balance / $scope.countDecimals(18);
-                $scope.$eval(function () {
-                    $scope.web3WalletBalance = balance;
-                    $scope.web3WalletBalance = balance;
-                });
-            }
+            balance = balance / $scope.countDecimals(18);
+            $scope.$eval(function () {
+                $scope.web3WalletBalance = balance;
+                $scope.web3WalletBalance = balance;
+            });
         }
     }
-;
+};
 module.exports = ensCtrl;

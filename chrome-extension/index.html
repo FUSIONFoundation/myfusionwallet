@@ -5912,7 +5912,9 @@
                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                     <a ng-click="setSendAsset(asset.id)">
                         <span class="fusion-text-14">
-                        {{asset.name}} ({{asset.symbol}})
+                        {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
@@ -5991,6 +5993,7 @@
                         <th scope="col">Receive</th>
                         <th scope="col">Swap Rate</th>
                         <th scope="col">Minimum Swap</th>
+                        <th scope="col">Owner</th>
                         <th scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
@@ -6004,6 +6007,7 @@
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
+                        <td>{{asset.owner}}</td>
                         <td class="float-right">
                             <div ng-hide="asset.owned == false">
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
@@ -6075,6 +6079,7 @@
                             <th scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
                             <th scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
                             <th scope="col" ng-click="sortSwapMarket('minswap')">Minimum Swap</th>
+                            <th scope="col" ng-click="sortSwapMarket('owner')">Owner</th>
                             <th scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
@@ -6088,6 +6093,7 @@
                             <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
                             <td><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
                             <td><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
+                            <td>{{asset.owner}}</td>
                             <td class="float-right">
                                 <div ng-hide="asset.owned == false">
                                     <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
@@ -6406,9 +6412,13 @@
                         </div>
 
                         <div class="col-md-12 p-0">
-                            <span class="small-gray-text">Minimum Swap Amount</span>
+                            <span class="small-gray-text">Maximum Number of Swaps</span>
                             <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
                                    placeholder="Amount">
+                        </div>
+                        <div class="col-md-12 p-0">
+                            <h3 class="h3-blue">Swap Rate</h3>
+                            -----
                         </div>
                         <div class="col-md-12 p-0">
                             <h3 class="h3-blue">Set Access</h3>
