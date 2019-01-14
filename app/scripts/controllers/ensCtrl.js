@@ -797,8 +797,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let ownerAddr = '';
 
-                // swapList[asset]["Owner"]
-
                 await web3.fsn.getNotation(swapList[asset]["Owner"]).then(function(res){
                     ownerAddr = res;
                 })
