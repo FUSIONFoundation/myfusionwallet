@@ -726,7 +726,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             Targes: targes
         };
 
-        if ($scope.transactionType = 'scheduled') {
+        if ($scope.transactionType == 'scheduled') {
             let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
             let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
 
