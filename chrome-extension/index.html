@@ -6013,14 +6013,14 @@
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
                                     Swap
                                 </button>
-                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                <button class="btn btn-sm btn-white m-0" ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
                                                                             aria-hidden="true"></i>
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
                                 </button>
-                                <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                <button class="btn btn-sm btn-white m-0" ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
                                                                             aria-hidden="true"></i>
                                 </button>
                             </div>
@@ -6100,14 +6100,14 @@
                                         Recall
                                         Swap
                                     </button>
-                                    <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                    <button class="btn btn-sm btn-white m-0" ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
                                                                                 aria-hidden="true"></i>
                                     </button>
                                 </div>
                                 <div ng-hide="asset.owned == true">
                                     <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
                                     </button>
-                                    <button class="btn btn-sm btn-white m-0"><i class="fa fa-info"
+                                    <button class="btn btn-sm btn-white m-0" ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
                                                                                 aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -6601,6 +6601,133 @@
                                 Swap Successful! Assets are now available in your wallet.</p>
                             <button class="btn btn-white pt-2" ng-click="recallSwapSuccess.close()">Back to Swap Market
                             </button>
+                        </div>
+                    </article>
+                </section>
+            </section>
+        </article>
+
+        <article class="modal fade" id="swapInformationModal" tabindex="-1">
+            <section class="modal-dialog send-asset-dialog">
+                <section class="modal-content">
+                    <article class="block" ng-hide="wallet.type=='addressOnly'">
+                        <div class="col-md-12 p-0">
+                            <div class="float-right">
+                                  <span class="gray-text" ng-click="swapInformationModal.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-md-12 p-0">
+                                <h3 class="h3-blue m-0">Swap Details</h3>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                Swap ID
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.ID}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                Time Initiated
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.Time}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                You will be sending
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.FromAssetID}} {{swapInfo.MinFromAmount}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                Sending Time
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.FromEndTime}} {{swapInfo.FromStartTime}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                Swap Owner
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.Owner}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                Maximum Number of Swaps
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.SwapSize}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                You will be receiving
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.ToAssetID}} {{swapInfo.MinToAmount}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                Receiving Time
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.ToEndTime}} {{swapInfo.ToStartTime}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row p-2">
+                            <div class="col-md-6 small-gray-text p-0">
+                                Availability
+                            </div>
+                            <div class="col-md-6 p-0">
+                                <div class="float-right">
+                                    <span class="fusion-text-14">{{swapInfo.Targes}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-offset-6 float-right">
+                                <button class="btn btn-sm btn-secondary" ng-click="swapInformationModal.close()">
+                                    Close
+                                </button>
+                            </div>
                         </div>
                     </article>
                 </section>

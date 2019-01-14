@@ -212,6 +212,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.makeSwapConfirmModal = new Modal(document.getElementById('makeSwapConfirm'));
     $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
     $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
+    $scope.swapInformationModal = new Modal(document.getElementById('swapInformationModal'));
+
 
     $scope.receiveDropDown = false;
     $scope.selectedReceiveAsset = 'Select asset';
@@ -249,8 +251,41 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.swapRecallSuccess = false;
 
+    $scope.swapInfo = {};
+
     var applyScope = function () {
         if (!$scope.$$phase) $scope.$apply();
+    }
+
+
+    $scope.swapInformationModalOpen = async function (swap_id){
+        console.log(swap_id);
+        let data = {};
+
+        await web3.fsn.allSwaps().then(function(res){
+            data = res[swap_id];
+            $scope.$eval(function(){
+                $scope.swapInfo = {
+                    FromAssetID: data["FromAssetID"],
+                    FromEndTime: data["FromEndTime"],
+                    FromStartTime: data["FromStartTime"],
+                    ID:  data["ID"],
+                    MinFromAmount:  data["MinFromAmount"],
+                    MinToAmount:  data["MinToAmount"],
+                    Owner:  data["Owner"],
+                    SwapSize:  data["SwapSize"],
+                    Targes: data["Targes"],
+                    Time:  data["Time"],
+                    ToAssetID:  data["ToAssetID"],
+                    ToEndTime:  data["ToEndTime"],
+                    ToStartTime:  data["ToStartTime"]
+                };
+            })
+        })
+
+        console.log($scope.swapInfo);
+
+        $scope.swapInformationModal.open();
     }
 
 
