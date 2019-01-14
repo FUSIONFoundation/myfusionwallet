@@ -66,8 +66,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.shownRows = $scope.currentPage + 1 * $scope.pageSize;
             })
         }
+        let shownRows = 0;
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
+            shownRows = $scope.swapsList.length;
+        } else {
+            shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+        }
+        $scope.$eval(function () {
+            $scope.shownRows = shownRows;
+        })
     })
-
 
     $scope.nextPage = function () {
         if ($scope.currentPage !== $scope.endPage - 1) {
@@ -258,11 +266,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
 
-    $scope.swapInformationModalOpen = async function (swap_id){
+    $scope.swapInformationModalOpen = async function (swap_id) {
         console.log(swap_id);
         let data = {};
 
-        await web3.fsn.allSwaps().then(function(res){
+        await web3.fsn.allSwaps().then(function (res) {
             data = res[swap_id];
         })
 
@@ -279,23 +287,23 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let toStartTime = '';
         let toEndTime = '';
 
-        if (data["FromStartTime"] == 0){
+        if (data["FromStartTime"] == 0) {
             fromStartTime = 'Now';
         } else {
             fromStartTime = data["FromStartTime"];
         }
-        if (data["FromEndTime"] == 18446744073709552000){
+        if (data["FromEndTime"] == 18446744073709552000) {
             fromEndTime = 'Forever';
         } else {
             fromEndTime = data["FromEndTime"];
         }
 
-        if (data["ToStartTime"] == 0){
+        if (data["ToStartTime"] == 0) {
             toStartTime = 'Now';
         } else {
             toStartTime = data["ToStartTime"];
         }
-        if (data["ToEndTime"] == 18446744073709552000){
+        if (data["ToEndTime"] == 18446744073709552000) {
             toEndTime = 'Forever';
         } else {
             toEndTime = data["ToEndTime"];
@@ -322,25 +330,25 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         minToAmount = data["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
 
 
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.swapInfo = {
                 FromAssetName: fromAsset["Name"],
                 FromAssetSymbol: fromAsset["Symbol"],
                 FromAssetID: data["FromAssetID"],
                 FromEndTime: fromEndTime,
                 FromStartTime: fromStartTime,
-                ID:  data["ID"],
-                MinFromAmount:  minFromAmount,
-                MinToAmount:  minToAmount,
-                Owner:  data["Owner"],
-                SwapSize:  data["SwapSize"],
+                ID: data["ID"],
+                MinFromAmount: minFromAmount,
+                MinToAmount: minToAmount,
+                Owner: data["Owner"],
+                SwapSize: data["SwapSize"],
                 Targes: targes,
-                Time:  time,
+                Time: time,
                 ToAssetName: toAsset["Name"],
                 ToAssetSymbol: toAsset["Symbol"],
-                ToAssetID:  data["ToAssetID"],
-                ToEndTime:  toEndTime,
-                ToStartTime:  toStartTime
+                ToAssetID: data["ToAssetID"],
+                ToEndTime: toEndTime,
+                ToStartTime: toStartTime
             };
         })
 
@@ -893,15 +901,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let ownerAddr = '';
 
-                await web3.fsn.getNotation(swapList[asset]["Owner"]).then(function(res){
+                await web3.fsn.getNotation(swapList[asset]["Owner"]).then(function (res) {
                     ownerAddr = res;
                 })
 
-                if (ownerAddr == 0){
+                if (ownerAddr == 0) {
                     ownerAddr = 'Owner has no USAN';
                 }
 
-                if (owned == true){
+                if (owned == true) {
                     $scope.openMakeSwaps++;
                 }
 
