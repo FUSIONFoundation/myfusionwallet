@@ -264,23 +264,84 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         await web3.fsn.allSwaps().then(function(res){
             data = res[swap_id];
-            $scope.$eval(function(){
-                $scope.swapInfo = {
-                    FromAssetID: data["FromAssetID"],
-                    FromEndTime: data["FromEndTime"],
-                    FromStartTime: data["FromStartTime"],
-                    ID:  data["ID"],
-                    MinFromAmount:  data["MinFromAmount"],
-                    MinToAmount:  data["MinToAmount"],
-                    Owner:  data["Owner"],
-                    SwapSize:  data["SwapSize"],
-                    Targes: data["Targes"],
-                    Time:  data["Time"],
-                    ToAssetID:  data["ToAssetID"],
-                    ToEndTime:  data["ToEndTime"],
-                    ToStartTime:  data["ToStartTime"]
-                };
-            })
+        })
+
+        let time = new Date(parseInt(data["Time"]) * 1000);
+
+        let tMonth = time.getMonth();
+        let tDay = time.getDate();
+        let tYear = time.getFullYear();
+
+        time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
+
+        let fromStartTime = '';
+        let fromEndTime = '';
+        let toStartTime = '';
+        let toEndTime = '';
+
+        if (data["FromStartTime"] == 0){
+            fromStartTime = 'Now';
+        } else {
+            fromStartTime = data["FromStartTime"];
+        }
+        if (data["FromEndTime"] == 18446744073709552000){
+            fromEndTime = 'Forever';
+        } else {
+            fromEndTime = data["FromEndTime"];
+        }
+
+        if (data["ToStartTime"] == 0){
+            toStartTime = 'Now';
+        } else {
+            toStartTime = data["ToStartTime"];
+        }
+        if (data["ToEndTime"] == 18446744073709552000){
+            toEndTime = 'Forever';
+        } else {
+            toEndTime = data["ToEndTime"];
+        }
+
+        let targes;
+
+        data["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
+
+        let fromAsset = {};
+        let toAsset = {};
+
+        await web3.fsn.getAsset(data["FromAssetID"]).then(function (res) {
+            fromAsset = res;
+        });
+        await web3.fsn.getAsset(data["ToAssetID"]).then(function (res) {
+            toAsset = res;
+        });
+
+        let minFromAmount;
+        let minToAmount;
+
+        minFromAmount = data["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
+        minToAmount = data["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+
+
+        $scope.$eval(function(){
+            $scope.swapInfo = {
+                FromAssetName: fromAsset["Name"],
+                FromAssetSymbol: fromAsset["Symbol"],
+                FromAssetID: data["FromAssetID"],
+                FromEndTime: fromEndTime,
+                FromStartTime: fromStartTime,
+                ID:  data["ID"],
+                MinFromAmount:  minFromAmount,
+                MinToAmount:  minToAmount,
+                Owner:  data["Owner"],
+                SwapSize:  data["SwapSize"],
+                Targes: targes,
+                Time:  time,
+                ToAssetName: toAsset["Name"],
+                ToAssetSymbol: toAsset["Symbol"],
+                ToAssetID:  data["ToAssetID"],
+                ToEndTime:  toEndTime,
+                ToStartTime:  toStartTime
+            };
         })
 
         console.log($scope.swapInfo);

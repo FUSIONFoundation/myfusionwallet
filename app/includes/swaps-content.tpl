@@ -802,7 +802,13 @@
                             </div>
                             <div class="col-md-6 p-0">
                                 <div class="float-right">
-                                    <span class="fusion-text-14">{{swapInfo.FromAssetID}} {{swapInfo.MinFromAmount}}</span>
+                                    <span class="fusion-text-14">
+
+                                        <span class="fusion-text-18">{{swapInfo.MinFromAmount}}</span>
+                                        {{swapInfo.FromAssetName}} ({{swapInfo.FromAssetSymbol}})
+                                        <br>
+                                        <span class="small-gray-text">{{swapInfo.FromAssetID}}</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -812,7 +818,8 @@
                             </div>
                             <div class="col-md-6 p-0">
                                 <div class="float-right">
-                                    <span class="fusion-text-14">{{swapInfo.FromEndTime}} {{swapInfo.FromStartTime}}</span>
+                                    <span class="fusion-text-14">{{swapInfo.FromStartTime}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                        {{swapInfo.FromEndTime}} </span>
                                 </div>
                             </div>
                         </div>
@@ -845,7 +852,12 @@
                             </div>
                             <div class="col-md-6 p-0">
                                 <div class="float-right">
-                                    <span class="fusion-text-14">{{swapInfo.ToAssetID}} {{swapInfo.MinToAmount}}</span>
+                                    <span class="fusion-text-14">
+                                        <span class="fusion-text-18">{{swapInfo.MinToAmount}}</span>
+                                        {{swapInfo.ToAssetName}} ({{swapInfo.ToAssetSymbol}})
+                                        <br>
+                                        <span class="small-gray-text">{{swapInfo.ToAssetID}}</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -855,7 +867,8 @@
                             </div>
                             <div class="col-md-6 p-0">
                                 <div class="float-right">
-                                    <span class="fusion-text-14">{{swapInfo.ToEndTime}} {{swapInfo.ToStartTime}}</span>
+                                    <span class="fusion-text-14">{{swapInfo.ToStartTime}} <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                        {{swapInfo.ToEndTime}} </span>
                                 </div>
                             </div>
                         </div>
