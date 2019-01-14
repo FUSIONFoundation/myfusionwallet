@@ -6570,7 +6570,7 @@
                         <a class="ng-scope" ng-click="showSwapMarket = true ; showOpenMakes = false">Swap Market</a>
                     </li>
                     <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes
+                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true">Open Makes ({{openMakeSwaps}})
                             <span></span></a>
                     </li>
                 </ul>
@@ -6682,7 +6682,7 @@
                         <th scope="col">Receive</th>
                         <th scope="col">Swap Rate</th>
                         <th scope="col">Minimum Swap</th>
-                        <th scope="col">Owner</th>
+                        <th scope="col">Owner (USAN)</th>
                         <th scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
@@ -6768,7 +6768,7 @@
                             <th scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
                             <th scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
                             <th scope="col" ng-click="sortSwapMarket('minswap')">Minimum Swap</th>
-                            <th scope="col" ng-click="sortSwapMarket('owner')">Owner</th>
+                            <th scope="col" ng-click="sortSwapMarket('owner')">Owner (USAN)</th>
                             <th scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>

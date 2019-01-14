@@ -736,6 +736,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.allSwaps = async function () {
         let swapList = [];
         let swapListFront = [];
+        $scope.openMakeSwaps = 0;
 
         if (walletService.password !== '') {
             let accountData = uiFuncs.getTxData($scope);
@@ -804,6 +805,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 if (ownerAddr == 0){
                     ownerAddr = 'Owner has no USAN';
+                }
+
+                if (owned == true){
+                    $scope.openMakeSwaps++;
                 }
 
                 let data = {
