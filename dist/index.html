@@ -6656,7 +6656,9 @@
                                     <span class="fusion-text-14">
 
                                         <span class="fusion-text-18">{{swapInfo.MinFromAmount}}</span>
-                                        {{swapInfo.FromAssetName}} ({{swapInfo.FromAssetSymbol}})
+                                        {{swapInfo.FromAssetName}} ({{swapInfo.FromAssetSymbol}}) <span class="color-Active official-fusion-badge"
+                                                                                                        ng-show="swapInfo.FromAssetID === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                    class="fa fa-check-circle"></i> FSN Official</span>
                                         <br>
                                         <span class="small-gray-text">{{swapInfo.FromAssetID}}</span>
                                     </span>
@@ -6705,7 +6707,9 @@
                                 <div class="float-right">
                                     <span class="fusion-text-14">
                                         <span class="fusion-text-18">{{swapInfo.MinToAmount}}</span>
-                                        {{swapInfo.ToAssetName}} ({{swapInfo.ToAssetSymbol}})
+                                        {{swapInfo.ToAssetName}} ({{swapInfo.ToAssetSymbol}}) <span class="color-Active official-fusion-badge"
+                                                                                                    ng-show="swapInfo.ToAssetID === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                    class="fa fa-check-circle"></i> FSN Official</span>
                                         <br>
                                         <span class="small-gray-text">{{swapInfo.ToAssetID}}</span>
                                     </span>
