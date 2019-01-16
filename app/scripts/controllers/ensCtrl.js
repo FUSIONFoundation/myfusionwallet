@@ -210,6 +210,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.web3WalletBalance = 'Loading...'
     $scope.selectedSendAsset = 'Select asset'
     $scope.addressNotation = '';
+    $scope.makeMinumumSwap = 1;
     $scope.ajaxReq = ajaxReq;
     $scope.unitReadable = ajaxReq.type;
     walletService.wallet = null;
@@ -754,7 +755,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             ToAssetID: $scope.assetToReceive,
             MinToAmount: minToAmountHex,
             MinFromAmount: minFromAmountHex,
-            SwapSize: 1,
+            SwapSize: parseInt($scope.makeMinumumSwap),
             Targes: targes
         };
 
@@ -768,7 +769,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 ToAssetID: $scope.assetToReceive,
                 MinToAmount: minToAmountHex,
                 MinFromAmount: minFromAmountHex,
-                SwapSize: 1,
+                SwapSize: parseInt($scope.makeMinumumSwap),
                 Targes: targes,
                 FromStartTime: fromStartTime,
                 FromEndTime: fromEndTime
@@ -921,7 +922,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 console.log(swapList[asset]["Targes"]);
 
-                swapList[asset]["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
+                swapList[asset]["Targes"].length > 0 ? targes = 'Private' : targes = 'Public';
+
+                console.log(swapList[asset]["Targes"]);
 
                 let ownerAddr = '';
 
