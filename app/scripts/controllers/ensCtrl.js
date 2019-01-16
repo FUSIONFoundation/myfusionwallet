@@ -649,14 +649,38 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.switchAsset = function () {
-        console.log($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive));
-        if ($scope.assetListOwned.some(item => item.contractaddress = $scope.assetToReceive)) {
-            let t = $scope.assetToSend;
-            $scope.assetToSend = $scope.assetToReceive;
-            $scope.assetToReceive = t;
-            console.log('Correct, we can switch!');
-        } else {
+        let sendAsset = $scope.assetToSend;
+        let receiveAsset = $scope.assetToReceive;
+
+        let canSwitch = false;
+        let assetListOwnedId;
+        let assetListId;
+
+        for (let a = 0; a < $scope.assetListOwned.length; a++){
+            if($scope.assetListOwned[a].contractaddress == receiveAsset){
+                assetListOwnedId = $scope.assetListOwned[a].id;
+                canSwitch = true;
+                return;
+            } else {
+                canSwitch = false;
+            }
         }
+
+        for (let a = 0; a < $scope.assetList.length; a++){
+            if($scope.assetList[a].contractaddress == sendAsset){
+                assetListId = $scope.assetList[a].id;
+                canSwitch = true;
+                return;
+            } else {
+                canSwitch = false;
+            }
+        }
+
+        if(canSwitch){
+            $scope.setSendAsset(assetListOwnedId);
+            $scope.setReceiveAsset(assetListId);
+        }
+
     }
 
     $scope.makeModal = async function (send, receive) {
