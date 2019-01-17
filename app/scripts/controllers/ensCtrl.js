@@ -2,6 +2,24 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
+    $scope.init = function () {
+        if (!$scope.wallet) {
+            return;
+        }
+        $scope.getAllAssets();
+        $scope.getShortAddressNotation();
+        $scope.allSwaps();
+        $scope.getBalance();
+        $scope.setWalletAddress();
+    };
+
+    $scope.mayRun = false;
+
+    $scope.$watch('wallet', function () {
+        $scope.init();
+        $scope.mayRun = true;
+    })
+
 
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -153,24 +171,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-    $scope.init = function () {
-        if (!$scope.wallet) {
-            return;
-        }
-        $scope.getAllAssets();
-        $scope.getShortAddressNotation();
-        $scope.allSwaps();
-        $scope.getBalance();
-        $scope.setWalletAddress();
-    };
-
-    $scope.mayRun = false;
-
-    $scope.$watch('wallet', function () {
-        $scope.init();
-        $scope.mayRun = true;
-    })
-
     if ($scope.mayRun) {
         setInterval($scope.init(), 6000);
         console.log('triggered');
@@ -232,7 +232,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
     $scope.$watch('assetList', function () {
-        if (typeof $scope.assetList === 'undefined') {
+        if (typeof $scope.assetList === 'undefined' || $scope.assetList == []) {
             return;
         } else {
             $scope.$eval(function () {
@@ -244,7 +244,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     })
 
     $scope.$watch('assetListOwned', function () {
-        if (typeof $scope.assetListOwned === 'undefined') {
+        if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned == []) {
             return;
         } else {
             $scope.$eval(function () {
@@ -271,9 +271,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         console.log(swap_id);
         let data = {};
 
-        await web3.fsn.allSwaps().then(function (res) {
-            data = res[swap_id];
-        })
+        try {
+            await web3.fsn.allSwaps().then(function (res) {
+                data = res[swap_id];
+            })
+        } catch (err){
+            console.log(err);
+        }
+
 
         let time = new Date(parseInt(data["Time"]) * 1000);
 
@@ -317,12 +322,21 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let fromAsset = {};
         let toAsset = {};
 
-        await web3.fsn.getAsset(data["FromAssetID"]).then(function (res) {
-            fromAsset = res;
-        });
-        await web3.fsn.getAsset(data["ToAssetID"]).then(function (res) {
-            toAsset = res;
-        });
+        try {
+            await web3.fsn.getAsset(data["FromAssetID"]).then(function (res) {
+                fromAsset = res;
+            });
+        } catch (err){
+            console.log(err);
+        }
+
+        try {
+            await web3.fsn.getAsset(data["ToAssetID"]).then(function (res) {
+                toAsset = res;
+            });
+        } catch (err){
+            console.log(err);
+        }
 
         let minFromAmount;
         let minToAmount;
@@ -486,9 +500,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let notation = '';
 
+        try {
         await web3.fsn.getNotation(walletAddress).then(function (res) {
             notation = res;
-        });
+        }); } catch (err){
+            console.log(err);
+        }
 
         if (notation === 0) {
             $scope.addressNotation = 'Not available';
@@ -520,9 +537,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let owned = false;
                 let assetBalance = '';
 
-                await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                    assetBalance = res;
-                });
+                try {
+                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                        assetBalance = res;
+                    });
+                } catch (err){
+                    console.log(err);
+                }
 
                 let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
 
@@ -583,9 +604,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let fromAsset = [];
 
+        try {
         await web3.fsn.getBalance($scope.swapsList[id].fromAssetId, walletAddress).then(function (res) {
             balance = res;
-        });
+        }); } catch (err){
+            console.log(err);
+        }
 
         balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
 
@@ -616,9 +640,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let toAsset = [];
 
-        await web3.fsn.getAsset(asset_id).then(function (res) {
-            toAsset = res;
-        });
+        try {
+            await web3.fsn.getAsset(asset_id).then(function (res) {
+                toAsset = res;
+            });
+        } catch (err){
+            console.log(err);
+        }
 
         let take = amount * $scope.countDecimals(toAsset["Decimals"]);
         console.log(`This is Size -> ${take}`);
@@ -626,7 +654,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let data = {
             from: walletAddress,
             SwapID: swap_id,
-            Size: parseInt(take)
+            Size: take.toString()
         };
 
         if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
@@ -694,12 +722,22 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         console.log('Make Swap Confirmation');
 
-        await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
-            sendAsset = res;
-        });
-        await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
-            receiveAsset = res;
-        });
+        try {
+            await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
+                sendAsset = res;
+            });
+        } catch (err){
+            console.log(err);
+        }
+
+        try {
+            await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
+                receiveAsset = res;
+            });
+        } catch (err){
+            console.log(err);
+        }
+
         $scope.$eval(function () {
             $scope.assetToSendConfirm = sendAsset["Symbol"];
             $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
@@ -734,13 +772,21 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let fromAsset = [];
         let toAsset = [];
 
+
+        try {
         await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
             fromAsset = res;
-        });
+        }); } catch (err) {
+            console.log(err);
+        }
 
+
+        try {
         await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
             toAsset = res;
-        });
+        }); } catch (err){
+            console.log(err);
+        }
 
         let targes = '';
 
@@ -850,9 +896,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             decimals = res["Decimals"];
         });
 
-        await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
-            assetBalance = res;
-        });
+        try {
+            await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
+                assetBalance = res;
+            });
+        } catch (err){
+            console.log(err);
+        }
 
         let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
 
@@ -872,9 +922,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             console.log(walletAddress);
 
+            try {
             await web3.fsn.allSwaps().then(function (res) {
                 swapList = res;
-            });
+            }); } catch (err){
+                console.log(err);
+            }
 
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
@@ -882,20 +935,30 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let owned = false;
                 let assetBalance = '';
 
+                try {
                 await web3.fsn.getBalance(id, walletAddress).then(function (res) {
                     assetBalance = res;
-                });
+                }); } catch (err){
+                    console.log(err);
+                }
 
                 let fromAsset = [];
                 let toAsset = [];
 
-                await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
-                    fromAsset = res;
-                });
+                try {
+                    await web3.fsn.getAsset(swapList[asset]["FromAssetID"]).then(function (res) {
+                        fromAsset = res;
+                    });
+                } catch(err){
 
+                }
+
+                try {
                 await web3.fsn.getAsset(swapList[asset]["ToAssetID"]).then(function (res) {
                     toAsset = res;
-                });
+                }); } catch(err){
+
+                }
 
                 owner === walletAddress ? owned = true : owned = false;
 
@@ -928,9 +991,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let ownerAddr = '';
 
+                try {
                 await web3.fsn.getNotation(swapList[asset]["Owner"]).then(function (res) {
                     ownerAddr = res;
-                })
+                }) } catch (err){
+                    console.log(err);
+                }
 
                 if (ownerAddr == 0) {
                     ownerAddr = 'Owner has no USAN';
