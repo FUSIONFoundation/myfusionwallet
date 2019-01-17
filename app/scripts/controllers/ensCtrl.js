@@ -244,7 +244,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     })
 
     $scope.$watch('assetListOwned', function () {
-        if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned == []) {
+        debugger
+        if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
             return;
         } else {
             $scope.$eval(function () {
