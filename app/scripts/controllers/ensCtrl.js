@@ -608,16 +608,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         balance = balance / $scope.countDecimals(decimals);
 
+        console.log($scope.swapsList[id]);
+
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
             $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
             $scope.takeDataFront.fromAssetId = $scope.swapsList[id].fromAssetId;
-            $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswap;
+            $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswap / $scope.swapsList[id].swaprate;
             $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].toAssetSymbol;
             $scope.takeDataFront.toAssetMin = $scope.swapsList[id].toAssetId;
             $scope.takeDataFront.fromAssetBalance = balance;
             $scope.takeDataFront.swapRate = $scope.swapsList[id].swaprate;
-            $scope.takeDataFront.maxAmount = $scope.swapsList[id].swaprate;
+            $scope.takeDataFront.maxAmount = $scope.swapsList[id].minswap;
         })
 
         $scope.takeSwapModal.open();
