@@ -591,6 +591,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let balance = '';
+        let decimals = 0;
 
         let fromAsset = [];
 
@@ -598,11 +599,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             await web3.fsn.getBalance($scope.swapsList[id].fromAssetId, walletAddress).then(function (res) {
                 balance = res;
             });
+            await web3.fsn.getAsset($scope.swapsList[id].fromAssetId).then(function (res) {
+                decimals = res["Decimals"];
+            })
         } catch (err) {
             console.log(err);
         }
 
-        balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
+        balance = balance / $scope.countDecimals(decimals);
 
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
@@ -1012,11 +1016,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await swapListFront.push(data);
             }
         }
-            $scope.$apply(function () {
-                $scope.swapsList = swapListFront;
-                $scope.swapsList = swapListFront;
-                $scope.showLoader = false;
-            });
+        $scope.$apply(function () {
+            $scope.swapsList = swapListFront;
+            $scope.swapsList = swapListFront;
+            $scope.showLoader = false;
+        });
     }
 
     $scope.getBalance = async function () {
