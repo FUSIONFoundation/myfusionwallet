@@ -13,6 +13,19 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.setWalletAddress();
     };
 
+    setInterval(function () {
+        if ($scope.wallet == null) {
+            return
+        }
+        $scope.getAllAssets();
+        $scope.getShortAddressNotation();
+        $scope.allSwaps();
+        $scope.getBalance();
+        $scope.setWalletAddress();
+
+    }, 7500);
+
+
     $scope.mayRun = false;
 
     $scope.$watch('wallet', function () {
