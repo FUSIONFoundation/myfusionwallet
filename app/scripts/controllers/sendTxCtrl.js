@@ -49,8 +49,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
 
-        walletService.wallet = null;
-        walletService.password = '';
         $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
         $scope.dropdownEnabled = true;
         $scope.Validator = Validator;
