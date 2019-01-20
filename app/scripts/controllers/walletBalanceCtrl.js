@@ -9,7 +9,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     };
 
     setInterval($scope.init(), 7500);
-
+    $scope.reloadPage = function(){window.location.reload();}
     $scope.mayRunState = false;
     $scope.provider;
     $scope.ajaxReq = ajaxReq;
