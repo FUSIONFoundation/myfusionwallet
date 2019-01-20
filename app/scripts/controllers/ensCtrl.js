@@ -1023,7 +1023,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await swapListFront.push(data);
             }
         }
-        $scope.$eval(function () {
+        $scope.$apply(function () {
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
         });
