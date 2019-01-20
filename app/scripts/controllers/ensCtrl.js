@@ -345,7 +345,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         minToAmount = data["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
 
 
-        $scope.$eval(function () {
+        $scope.$apply(function () {
             $scope.swapInfo = {
                 FromAssetName: fromAsset["Name"],
                 FromAssetSymbol: fromAsset["Symbol"],
@@ -366,8 +366,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 ToStartTime: toStartTime
             };
         })
-
-        console.log($scope.swapInfo);
 
         $scope.swapInformationModal.open();
     }
