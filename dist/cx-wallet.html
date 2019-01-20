@@ -6585,8 +6585,11 @@
             <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
                  ng-click="sendDropDown = !sendDropDown">
                 <a>
-                    {{selectedSendAsset}}
+                    {{selectedSendAsset}} <span class="color-Active official-fusion-badge"
+                                                ng-show="selectedSendContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                class="fa fa-check-circle"></i> FSN Official</span>
                     <span class="small-gray-text max-char">{{selectedSendContract}}</span>
+
                 </a>
             </div>
             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
