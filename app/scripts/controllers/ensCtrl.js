@@ -39,7 +39,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
     $scope.currentPage = 0;
-    $scope.pageSize = 5;
+    $scope.pageSize = 10;
     $scope.endPage = 0;
     $scope.shownRows = 0;
 
