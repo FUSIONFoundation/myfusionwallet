@@ -222,6 +222,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
     $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
     $scope.swapInformationModal = new Modal(document.getElementById('swapInformationModal'));
+    $scope.showLoader = true;
 
 
     $scope.receiveDropDown = false;
@@ -1026,6 +1027,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$apply(function () {
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
+            $scope.showLoader = false;
         });
         console.log($scope.swapsList);
     }
