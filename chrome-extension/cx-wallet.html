@@ -6913,11 +6913,7 @@
                         </div>
                     </div>
                     <h3 class="h3-blue">Take Swap</h3>
-                    <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3"
-                         ng-show="web3WalletBalance <= 0">
-                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span
-                                class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
-                    </div>
+
                     <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
                         <div class="col-md-6 small-gray-text">
                             Funds Available
@@ -6978,6 +6974,12 @@
                                 {{takeDataFront.swapRate}}
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3"
+                         ng-show="takeDataFront.maxAmount > takeDataFront.fromAssetBalance || web3WalletBalance <= 0">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span
+                                class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
                     </div>
 
                     <div class="row">
