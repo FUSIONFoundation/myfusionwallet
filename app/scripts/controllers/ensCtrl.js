@@ -468,14 +468,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     });
 
-    $scope.$watch('ajaxReq.key', function () {
-        if ($scope.wallet) {
-            $scope.setSendMode('ether');
-            $scope.wallet.setBalance(applyScope);
-            $scope.wallet.setTokens();
-        }
-    });
-
     $scope.countDecimals = function (decimals) {
         let returnDecimals = '1';
         for (let i = 0; i < decimals; i++) {
