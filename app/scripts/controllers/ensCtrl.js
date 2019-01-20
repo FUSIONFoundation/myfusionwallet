@@ -210,6 +210,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
 
+    $scope.sortByString = 'Default';
     $scope.takeAmountSwap = '';
     $scope.showSwapMarket = true;
     $scope.showOpenMakes = false;
