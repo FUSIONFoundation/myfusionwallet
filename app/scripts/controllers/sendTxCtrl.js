@@ -94,22 +94,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.dropdownAmount = false;
         }
 
-        $scope.setTokenSendMode = function () {
-            if ($scope.tx.sendMode == 'token' && !$scope.tx.tokensymbol) {
-                $scope.tx.tokensymbol = $scope.wallet.tokenObjs[0].symbol;
-                $scope.wallet.tokenObjs[0].type = "custom";
-                $scope.setSendMode($scope.tx.sendMode, 0, $scope.tx.tokensymbol);
-            } else if ($scope.tx.tokensymbol) {
-                for (var i = 0; i < $scope.wallet.tokenObjs.length; i++) {
-                    if ($scope.wallet.tokenObjs[i].symbol.toLowerCase().indexOf($scope.tx.tokensymbol.toLowerCase()) !== -1) {
-                        $scope.wallet.tokenObjs[i].type = "custom";
-                        $scope.setSendMode('token', i, $scope.wallet.tokenObjs[i].symbol);
-                        break;
-                    } else $scope.tokenTx.id = -1;
-                }
-            }
-            if ($scope.tx.sendMode != 'token') $scope.tokenTx.id = -1;
-        }
 
         var applyScope = function () {
             if (!$scope.$$phase) $scope.$apply();
@@ -129,28 +113,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.wallet = walletService.wallet;
             $scope.wd = true;
 
-            $scope.wallet.setBalance(applyScope);
-            $scope.wallet.setTokens();
-            if ($scope.parentTxConfig) {
-                var setTxObj = function () {
-                    $scope.addressDrtv.ensAddressField = $scope.parentTxConfig.to;
-                    $scope.tx.value = $scope.parentTxConfig.value;
-                    $scope.tx.sendMode = $scope.parentTxConfig.sendMode ? $scope.parentTxConfig.sendMode : 'ether';
-                    $scope.tx.tokensymbol = $scope.parentTxConfig.tokensymbol ? $scope.parentTxConfig.tokensymbol : '';
-                    $scope.tx.gasPrice = $scope.parentTxConfig.gasPrice ? $scope.parentTxConfig.gasPrice : null;
-                    $scope.tx.nonce = $scope.parentTxConfig.nonce ? $scope.parentTxConfig.nonce : null;
-                    $scope.tx.data = $scope.parentTxConfig.data ? $scope.parentTxConfig.data : $scope.tx.data;
-                    $scope.tx.readOnly = $scope.addressDrtv.readOnly = $scope.parentTxConfig.readOnly ? $scope.parentTxConfig.readOnly : false;
-                    if ($scope.parentTxConfig.gasLimit) {
-                        $scope.tx.gasLimit = $scope.parentTxConfig.gasLimit;
-                        $scope.gasLimitChanged = true;
-                    }
-                }
-                $scope.$watch('parentTxConfig', function () {
-                    setTxObj();
-                }, true);
-            }
-            $scope.setTokenSendMode();
+            // $scope.setTokenSendMode();
             defaultInit();
         });
 
@@ -194,88 +157,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return success;
         }
 
-        $scope.$watch('ajaxReq.key', function () {
-            if ($scope.wallet) {
-                $scope.setSendMode('ether');
-                $scope.wallet.setBalance(applyScope);
-                $scope.wallet.setTokens();
-            }
-        });
-
-        $scope.$watch('tokenTx', function () {
-            if ($scope.wallet && $scope.wallet.tokenObjs !== undefined && $scope.wallet.tokenObjs[$scope.tokenTx.id] !== undefined && $scope.Validator.isValidAddress($scope.tokenTx.to) && $scope.Validator.isPositiveNumber($scope.tokenTx.value)) {
-                if ($scope.estimateTimer) clearTimeout($scope.estimateTimer);
-                $scope.estimateTimer = setTimeout(function () {
-                    $scope.estimateGasLimit();
-                }, 500);
-            }
-        }, true);
-
-        $scope.$watch('tx', function (newValue, oldValue) {
-            $rootScope.rootScopeShowRawTx = false;
-            if (oldValue.sendMode && oldValue.sendMode != newValue.sendMode && newValue.sendMode == 'ether') {
-                $scope.tx.data = globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data');
-                $scope.tx.gasLimit = globalFuncs.defaultTxGasLimit;
-            }
-            if (newValue.gasLimit == oldValue.gasLimit && $scope.wallet && $scope.Validator.isValidAddress($scope.tx.to) && $scope.Validator.isPositiveNumber($scope.tx.value) && $scope.Validator.isValidHex($scope.tx.data) && $scope.tx.sendMode != 'token') {
-                if ($scope.estimateTimer) clearTimeout($scope.estimateTimer);
-                $scope.estimateTimer = setTimeout(function () {
-                    $scope.estimateGasLimit();
-                }, 500);
-            }
-            if ($scope.tx.sendMode == 'token') {
-                $scope.tokenTx.to = $scope.tx.to;
-                $scope.tokenTx.value = $scope.tx.value;
-            }
-            if (newValue.to !== oldValue.to) {
-                for (var i in $scope.customGas) {
-                    if ($scope.tx.to.toLowerCase() == $scope.customGas[i].to.toLowerCase()) {
-                        $scope.customGasMsg = $scope.customGas[i].msg != '' ? $scope.customGas[i].msg : ''
-                        return;
-                    }
-                }
-                $scope.customGasMsg = ''
-            }
-        }, true);
-
-        $scope.estimateGasLimit = function () {
-            $scope.customGasMsg = ''
-            if ($scope.gasLimitChanged) return;
-            for (var i in $scope.customGas) {
-                if ($scope.tx.to.toLowerCase() == $scope.customGas[i].to.toLowerCase()) {
-                    $scope.showAdvance = $scope.tx.data != '' || $scope.customGas[i].data != '' ? true : false;
-                    $scope.tx.gasLimit = $scope.customGas[i].gasLimit;
-                    if ($scope.customGas[i].data != '') $scope.tx.data = $scope.customGas[i].data;
-                    $scope.customGasMsg = $scope.customGas[i].msg != '' ? $scope.customGas[i].msg : ''
-                    return;
-                }
-            }
-            if (globalFuncs.lightMode) {
-                $scope.tx.gasLimit = globalFuncs.defaultTokenGasLimit;
-                return;
-            }
-            var estObj = {
-                to: $scope.tx.to,
-                from: $scope.wallet.getAddressString(),
-                value: ethFuncs.sanitizeHex(ethFuncs.decimalToHex(etherUnits.toWei($scope.tx.value, $scope.tx.unit)))
-            }
-            if ($scope.tx.data != "") estObj.data = ethFuncs.sanitizeHex($scope.tx.data);
-            if ($scope.tx.sendMode == 'token') {
-                estObj.to = $scope.wallet.tokenObjs[$scope.tokenTx.id].getContractAddress();
-                estObj.data = $scope.wallet.tokenObjs[$scope.tokenTx.id].getData($scope.tokenTx.to, $scope.tokenTx.value).data;
-                estObj.value = '0x00';
-            }
-            ethFuncs.estimateGas(estObj, function (data) {
-
-                if (!data.error) {
-                    if (data.data == '-1') {
-                        console.log("sendTxCtrl:190 ERROR");
-                        $scope.notifier.danger(globalFuncs.errorMsgs[21]);
-                    }
-                    $scope.tx.gasLimit = data.data;
-                } else $scope.notifier.danger(data.msg);
-            });
-        }
 
         var isEnough = function (valA, valB) {
             return new BigNumber(valA).lte(new BigNumber(valB));
@@ -284,44 +165,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.hasEnoughBalance = function () {
             if ($scope.wallet.balance == 'loading') return false;
             return isEnough($scope.tx.value, $scope.wallet.balance);
-        }
-
-        $scope.generateTx = function () {
-            if (!$scope.Validator.isValidAddress($scope.tx.to)) {
-                $scope.notifier.danger(globalFuncs.errorMsgs[5]);
-                return;
-            }
-            var txData = uiFuncs.getTxData($scope);
-            txData.gasPrice = $scope.tx.gasPrice ? '0x' + new BigNumber($scope.tx.gasPrice).toString(16) : null;
-            txData.nonce = $scope.tx.nonce ? '0x' + new BigNumber($scope.tx.nonce).toString(16) : null;
-
-            // set to true for offline tab and txstatus tab
-            // on sendtx tab, it pulls gas price from the gasprice slider & nonce
-            // if its true the whole txData object is set - don't try to change it
-            // if false, replace gas price and nonce. gas price from slider. nonce from server.
-            if (txData.gasPrice && txData.nonce) txData.isOffline = true;
-
-            if ($scope.tx.sendMode == 'token') {
-                // if the amount of tokens you are trying to send > tokens you have, throw error
-                if (!isEnough($scope.tx.value, $scope.wallet.tokenObjs[$scope.tokenTx.id].balance)) {
-                    $scope.notifier.danger(globalFuncs.errorMsgs[0]);
-                    return;
-                }
-                txData.to = $scope.wallet.tokenObjs[$scope.tokenTx.id].getContractAddress();
-                txData.data = $scope.wallet.tokenObjs[$scope.tokenTx.id].getData($scope.tokenTx.to, $scope.tokenTx.value).data;
-                txData.value = '0x00';
-            }
-            uiFuncs.generateTx(txData, function (rawTx) {
-                if (!rawTx.isError) {
-                    $scope.rawTx = rawTx.rawTx;
-                    $scope.signedTx = rawTx.signedTx;
-                    $rootScope.rootScopeShowRawTx = true;
-                } else {
-                    $rootScope.rootScopeShowRawTx = false;
-                    $scope.notifier.danger(rawTx.error);
-                }
-                if (!$scope.$$phase) $scope.$apply();
-            });
         }
 
         $scope.countDecimals = function (decimals) {
