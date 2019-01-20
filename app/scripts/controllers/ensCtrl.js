@@ -184,11 +184,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-    if ($scope.mayRun) {
-        setInterval($scope.init(), 6000);
-        console.log('triggered');
-    }
-
     let BN = web3.utils.BN;
 
     $scope.tx = {};
@@ -276,7 +271,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.swapInfo = {};
 
     $scope.swapInformationModalOpen = async function (swap_id) {
-        console.log(swap_id);
         let data = {};
 
         try {
@@ -598,8 +592,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let balance = '';
 
-        console.log($scope.swapsList[id]);
-
         let fromAsset = [];
 
         try {
@@ -632,8 +624,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.takeSwap = async function (asset_id, swap_id, amount) {
-        console.log(asset_id);
-        console.log(swap_id);
         let password = walletService.password;
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
@@ -648,7 +638,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         let take = amount * $scope.countDecimals(toAsset["Decimals"]);
-        console.log(`This is Size -> ${take}`);
 
         let data = {
             from: walletAddress,
@@ -726,8 +715,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.makeSwapConfirmation = async function (end) {
         let sendAsset = [];
         let receiveAsset = [];
-
-        console.log('Make Swap Confirmation');
 
         try {
             await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
@@ -831,8 +818,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             };
         }
 
-        console.log(data);
-
         if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
         }
@@ -929,7 +914,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
-            console.log(walletAddress);
 
             try {
                 await web3.fsn.allSwaps().then(function (res) {
@@ -976,12 +960,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let fromAmount = (swapList[asset].MinFromAmount / $scope.countDecimals(fromAsset.Decimals));
 
-                console.log(swapList[asset].MinFromAmount);
-                console.log(`$scope.countDecimals(${fromAsset.Decimals})`);
-                console.log($scope.countDecimals(fromAsset.Decimals));
-                console.log(`The answer is ${fromAmount}`);
-
-
                 let toAmount = swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
                 let swapRate = fromAmount / toAmount;
                 let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
@@ -995,11 +973,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
                 let targes = '';
 
-                console.log(swapList[asset]["Targes"]);
-
                 swapList[asset]["Targes"].length > 0 ? targes = 'Private' : targes = 'Public';
-
-                console.log(swapList[asset]["Targes"]);
 
                 let ownerAddr = '';
 
