@@ -244,7 +244,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     })
 
     $scope.$watch('assetListOwned', function () {
-        debugger
         if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
             return;
         } else {
@@ -614,7 +613,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         balance = balance / $scope.countDecimals(fromAsset["Decimals"]);
 
-        $scope.$eval(function () {
+        await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
             $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
             $scope.takeDataFront.fromAssetId = $scope.swapsList[id].fromAssetId;
