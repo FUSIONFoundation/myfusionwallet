@@ -6630,7 +6630,10 @@
             <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
                  ng-click="receiveDropDown = !receiveDropDown">
                 <a>
-                    {{selectedReceiveAsset}}
+                    {{selectedReceiveAsset}} <span
+                            class="color-Active official-fusion-badge"
+                            ng-show="selectedReceiveContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                class="fa fa-check-circle"></i> FSN Official</span>
                     <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
                 </a>
             </div>
@@ -6646,7 +6649,10 @@
                      ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
                     <a ng-click="setReceiveAsset(asset.id)">
                         <span class="fusion-text-14">
-                        {{asset.name}} ({{asset.symbol}})
+                        {{asset.name}} ({{asset.symbol}}) <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
