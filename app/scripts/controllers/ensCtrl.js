@@ -712,6 +712,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeModal = async function (send, receive) {
+        $scope.$eval(function(){
+            $scope.makeSendAmount = '';
+            $scope.makeReceiveAmount = '';
+            $scope.makeMinumumSwap = '';
+            $scope.privateAccess = false;
+            $scope.makeTarges = '';
+
+        })
         $scope.makeSwapModal.open();
     }
 
