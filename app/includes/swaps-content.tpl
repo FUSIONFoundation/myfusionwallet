@@ -960,6 +960,8 @@
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
+                                <i class="fa fa-globe" aria-hidden="true" ng-hide="swapInfo.Targes=='Private'"></i>
+                                <i class="fa fa-lock" aria-hidden="true" ng-hide="swapInfo.Targes=='Public'"></i>
                                 <span class="fusion-text-14">{{swapInfo.Targes}}</span>
                             </div>
                         </div>

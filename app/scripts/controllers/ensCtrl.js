@@ -317,9 +317,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             toEndTime = data["ToEndTime"];
         }
 
-        let targes;
+        let targes = [];
 
-        data["Targes"].length >= 0 ? targes = 'Public' : targes = 'Private';
+        data["Targes"].length <= 0 ? targes = 'Public' : targes = 'Private';
 
         let fromAsset = {};
         let toAsset = {};
@@ -345,7 +345,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         minFromAmount = data["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
         minToAmount = data["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
-
 
         $scope.$apply(function () {
             $scope.swapInfo = {
