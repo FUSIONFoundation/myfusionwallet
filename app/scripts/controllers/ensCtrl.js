@@ -2,6 +2,7 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
+    const _CHAINID = 1;
     $scope.init = function () {
         if (!$scope.wallet) {
             return;
@@ -657,6 +658,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         try {
             await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
                 tx.from = from;
+                tx.chainId = _CHAINID;
                 data = tx;
                 if ($scope.wallet.hwType == "ledger") {
                     return;
@@ -670,18 +672,17 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-    $scope.switchAsset = function () {
+    $scope.switchAsset = async function () {
         let sendAsset = $scope.assetToSend;
         let receiveAsset = $scope.assetToReceive;
 
         let canSwitch = false;
-        let assetListOwnedId;
-        let assetListId;
+        let assetListOwnedId = "";
+        let assetListId = "";
 
         for (let a = 0; a < $scope.assetListOwned.length; a++) {
             if ($scope.assetListOwned[a].contractaddress == receiveAsset) {
                 assetListOwnedId = $scope.assetListOwned[a].id;
-                canSwitch = true;
                 return;
             } else {
                 canSwitch = false;
@@ -691,7 +692,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         for (let a = 0; a < $scope.assetList.length; a++) {
             if ($scope.assetList[a].contractaddress == sendAsset) {
                 assetListId = $scope.assetList[a].id;
-                canSwitch = true;
                 return;
             } else {
                 canSwitch = false;
@@ -831,6 +831,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
                 console.log(tx);
                 tx.from = walletAddress;
+                tx.chainId = _CHAINID;
                 data = tx;
                 if ($scope.wallet.hwType == "ledger") {
                     return;
@@ -870,6 +871,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             try {
                 await web3.fsntx.buildRecallSwapTx(data).then(function (tx) {
                     tx.from = walletAddress;
+                    tx.chainId = _CHAINID;
                     data = tx;
                     if ($scope.wallet.hwType == "ledger") {
                         return;
