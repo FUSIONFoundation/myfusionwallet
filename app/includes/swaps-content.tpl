@@ -82,12 +82,11 @@
         <div class="col-md-1 text-center">
             <span class="small-gray-text"> </span>
             <br>
-            <div class="stripe-rotated">
+            <div>
                 <button class="btn btn-sm btn-secondary btn-circle" ng-click="switchAsset()"><i class="fa fa-exchange"
                                                                                                 aria-hidden="true"></i>
                 </button>
             </div>
-
         </div>
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Receive Asset</span>

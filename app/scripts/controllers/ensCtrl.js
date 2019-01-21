@@ -1033,7 +1033,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "owner": ownerAddr,
                     "owned": owned
                 }
-                await swapListFront.push(data);
+                if(swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0){
+                    await swapListFront.push(data);
+                }
             }
         }
         $scope.$apply(function () {
