@@ -7,6 +7,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getTimeLockAssets();
         })
 
+        const _CHAINID = 1;
         $scope.showAllAssets = true;
         $scope.showTimeLockedAssets = false;
         $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
@@ -116,7 +117,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             defaultInit();
         });
 
-        $scope.copyToClipboard = function (text){
+        $scope.copyToClipboard = function (text) {
             let clipboardAvailable;
             if (clipboardAvailable === undefined) {
                 clipboardAvailable =
@@ -146,7 +147,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 try {
                     document.execCommand('copy');
                     success = true;
-                } catch (e) {}
+                } catch (e) {
+                }
 
                 // remove selection and node
                 selection.removeAllRanges();
@@ -204,17 +206,17 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.checkDate = function () {
-                let today = new Date();
-                if ($scope.sendAsset.tillTime < today) {
-                    $scope.$eval(function () {
-                        $scope.sendAsset.tillTime = today;
-                    })
-                }
-                if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
-                    $scope.$eval(function () {
-                        $scope.sendAsset.fromTime = today;
-                    })
-                }
+            let today = new Date();
+            if ($scope.sendAsset.tillTime < today) {
+                $scope.$eval(function () {
+                    $scope.sendAsset.tillTime = today;
+                })
+            }
+            if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
+                $scope.$eval(function () {
+                    $scope.sendAsset.fromTime = today;
+                })
+            }
         }
 
 
@@ -472,6 +474,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     value: tlData.rawValue
                 }).then((tx) => {
                     tx.from = from;
+                    tx.chainId = _CHAINID;
                     data = tx;
                     if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                         return;
@@ -532,7 +535,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await app.getAppConfiguration(localCallback);
                 }
             }
-            if ($scope.wallet.hwType == "trezor"){
+            if ($scope.wallet.hwType == "trezor") {
 
             }
         }
@@ -614,6 +617,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }).then((tx) => {
                         console.log(tx);
                         tx.from = from;
+                        tx.chainId = _CHAINID;
                         data = tx;
                         if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                             return;
@@ -657,8 +661,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         end: tillTime,
                         value: amount
                     }).then((tx) => {
-                        data = tx;
                         tx.from = from;
+                        tx.chainId = _CHAINID;
+                        data = tx;
                         if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                             return;
                         }
@@ -694,6 +699,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         value: amount
                     }).then((tx) => {
                         tx.from = from;
+                        tx.chainId = _CHAINID;
                         data = tx;
                         if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                             return;
@@ -762,7 +768,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await app.getAppConfiguration(localCallback);
                 }
 
-                if ($scope.wallet.hwType == "trezor"){
+                if ($scope.wallet.hwType == "trezor") {
 
                 }
             }
@@ -872,6 +878,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     value: amount
                 }).then((tx) => {
                     tx.from = from;
+                    tx.chainId = _CHAINID;
                     data = tx;
                     if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                         return;
@@ -941,7 +948,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
 
-            if ($scope.wallet.hwType == "trezor"){
+            if ($scope.wallet.hwType == "trezor") {
 
             }
 
@@ -1007,6 +1014,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     decimals: decimals,
                     total: totalSupply * power
                 }).then((tx) => {
+                    tx.chainId = _CHAINID;
                     data = tx;
                     if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                         return;
@@ -1085,7 +1093,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
 
-            if ($scope.wallet.hwType == "trezor"){
+            if ($scope.wallet.hwType == "trezor") {
 
             }
 
