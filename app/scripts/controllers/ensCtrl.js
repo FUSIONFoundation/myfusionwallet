@@ -247,31 +247,37 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.selectedSendAsset = 'Select asset';
     $scope.selectedSendContract = '-';
 
+    $scope.initializeSendandReceive = true;
 
-    $scope.$watch('assetList', function () {
-        if (typeof $scope.assetList === 'undefined' || $scope.assetList == []) {
-            return;
-        } else {
-            $scope.$eval(function () {
-                $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
-                $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
-                $scope.assetToReceive = $scope.assetList[0].contractaddress;
-            })
-        }
-    })
+        $scope.$watch('assetList', function () {
+            if (typeof $scope.assetList === 'undefined' || $scope.assetList == []) {
+                return;
+            } else {
+                if($scope.initializeSendandReceive) {
+                    $scope.$eval(function () {
+                        $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
+                        $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
+                        $scope.assetToReceive = $scope.assetList[0].contractaddress;
+                    })
+                }
+            }
+        })
 
-    $scope.$watch('assetListOwned', function () {
-        if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
-            return;
-        } else {
-            $scope.$eval(function () {
-                $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
-                $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
-                $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-                $scope.getAssetBalance();
-            })
-        }
-    })
+        $scope.$watch('assetListOwned', function () {
+            if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
+                return;
+            } else {
+                if($scope.initializeSendandReceive) {
+                    $scope.$eval(function () {
+                        $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
+                        $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+                        $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
+                        $scope.getAssetBalance();
+                    })
+                    $scope.initializeSendandReceive = false;
+                }
+            }
+        })
 
     $scope.privateAccess = false;
 
@@ -389,7 +395,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         return s;
     }
 
-    $scope.setReceiveAsset = function (id) {
+    $scope.setReceiveAsset = async function (id) {
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${$scope.assetList[id].symbol})`;
             $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
@@ -398,7 +404,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         })
     }
 
-    $scope.setSendAsset = function (id) {
+    $scope.setSendAsset = async function (id) {
         $scope.$eval(function () {
             $scope.selectedSendAsset = `${$scope.assetListOwned[id].name} (${$scope.assetListOwned[id].symbol})`;
             $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
@@ -691,19 +697,22 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         for (let a = 0; a < $scope.assetListOwned.length; a++) {
             if ($scope.assetListOwned[a].contractaddress == receiveAsset) {
                 assetListOwnedId = $scope.assetListOwned[a].id;
-                return;
-            } else {
-                canSwitch = false;
+                canSwitch = true;
             }
+        }
+
+        if ($scope.assetListOwned[assetListOwnedId].contractaddress !== receiveAsset) {
+            canSwitch = false;
         }
 
         for (let a = 0; a < $scope.assetList.length; a++) {
             if ($scope.assetList[a].contractaddress == sendAsset) {
                 assetListId = $scope.assetList[a].id;
-                return;
-            } else {
-                canSwitch = false;
+                canSwitch = true;
             }
+        }
+        if ($scope.assetList[assetListId].contractaddress !== sendAsset) {
+            canSwitch = false;
         }
 
         if (canSwitch) {

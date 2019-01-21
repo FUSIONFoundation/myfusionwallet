@@ -210,7 +210,7 @@
                                     <div class="col-md-6">
                                         <div class="btn btn-sm btn-white col-md-12 col-xs-12 p-1 asset-dropdown border-gray-dropdown higher-min-width"
                                              ng-click="sortByDropdown = !sortByDropdown">
-                                            <div class="float-left">
+                                            <div class="float-left w-75">
                                                 <span>Sort By: {{sortByString}}</span>
                                             </div>
                                             <div class="float-right text-right">
