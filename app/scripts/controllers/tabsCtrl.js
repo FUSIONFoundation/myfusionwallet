@@ -25,8 +25,8 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
     $scope.notifier.sce = $sce;
     $scope.notifier.scope = $scope;
     $scope.ajaxReq = ajaxReq;
+    $scope.chainId;
     let data = JSON.parse(localStorage.getItem('nodeUrl'));
-    console.log(data.url);
     if (data.url == ""){
         $scope.inputUrl = "wss://gatewayw.fusionnetwork.io:10001";
     } else {
@@ -43,6 +43,17 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             $scope.nodeName = "Custom Gateway"
         })
     }
+
+    if(data.chainid == ""){
+        $scope.$eval(function(){
+            $scope.chainId = 1;
+        })
+    } else {
+        $scope.$eval(function(){
+            $scope.chainId = data.chainid;
+        })
+    }
+
     $scope.nodeType = $scope.ajaxReq.type;
     $scope.nodeService = $scope.ajaxReq.service;
     $scope.$watch('ajaxReq.type', function () {
