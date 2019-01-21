@@ -2,7 +2,15 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
-    const _CHAINID = 1;
+    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    let _CHAINID = 1;
+
+    if (data.chainid !== ""){
+        _CHAINID = data.chainid;
+    } else {
+        _CHAINID = 1;
+    }
+
     $scope.init = function () {
         if (!$scope.wallet) {
             return;

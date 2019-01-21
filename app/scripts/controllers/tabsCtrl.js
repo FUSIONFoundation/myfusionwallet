@@ -113,16 +113,16 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
         $scope.setNodeUrl = function () {
             let url = {
-                "url": $scope.inputUrl
+                "url": $scope.inputUrl,
+                "chainid" : $scope.chainId
             };
             localStorage.setItem('nodeUrl', JSON.stringify(url));
             let data = JSON.parse(localStorage.getItem('nodeUrl'));
 
             $scope.$eval(function () {
                 $scope.inputUrl = data.url;
+                $scope.chainId = data.chainid;
             })
-
-            console.log(`Switched to ${data.url}`);
 
             window.location.reload();
         }

@@ -7,7 +7,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getTimeLockAssets();
         })
 
-        const _CHAINID = 1;
+        let data = JSON.parse(localStorage.getItem('nodeUrl'));
+        let _CHAINID = 1;
+
+        if (data.chainid !== "") {
+            _CHAINID = data.chainid;
+        } else {
+            _CHAINID = 1;
+        }
         $scope.showAllAssets = true;
         $scope.showTimeLockedAssets = false;
         $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};

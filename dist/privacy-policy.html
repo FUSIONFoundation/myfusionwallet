@@ -183,6 +183,9 @@
                              <span class="small-gray-text">Node URL:
                              </span>
                             <input type="text" class="form-control" ng-model="inputUrl" placeholder="URL">
+                            <span class="small-gray-text">Chain ID:
+                             </span>
+                            <input type="text" class="form-control" ng-model="chainId" placeholder="ID / 1">
                             <button class="btn btn-sm btn-white w-100" ng-click="setNodeUrl(); window.location.reload();">Save</button>
                         </div>
                         </span>

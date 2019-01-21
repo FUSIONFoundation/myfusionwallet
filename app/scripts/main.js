@@ -145,7 +145,8 @@ let data = JSON.parse(localStorage.getItem('nodeUrl'));
 // Initialize cookie if there is non
 if (data === null){
     let data = {
-        "url": ""
+        "url": "",
+        "chainid" : ""
     }
     localStorage.setItem('nodeUrl', JSON.stringify(data));
 }
