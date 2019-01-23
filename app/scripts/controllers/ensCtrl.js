@@ -5,7 +5,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     let data = JSON.parse(localStorage.getItem('nodeUrl'));
     let _CHAINID = 1;
 
-    if (data.chainid !== ""){
+    if (data.chainid !== "") {
         _CHAINID = data.chainid;
     } else {
         _CHAINID = 1;
@@ -286,35 +286,35 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.initializeSendandReceive = true;
 
-        $scope.$watch('assetList', function () {
-            if (typeof $scope.assetList === 'undefined' || $scope.assetList == []) {
-                return;
-            } else {
-                if($scope.initializeSendandReceive) {
-                    $scope.$eval(function () {
-                        $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
-                        $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
-                        $scope.assetToReceive = $scope.assetList[0].contractaddress;
-                    })
-                }
+    $scope.$watch('assetList', function () {
+        if (typeof $scope.assetList === 'undefined' || $scope.assetList == []) {
+            return;
+        } else {
+            if ($scope.initializeSendandReceive) {
+                $scope.$eval(function () {
+                    $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
+                    $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
+                    $scope.assetToReceive = $scope.assetList[0].contractaddress;
+                })
             }
-        })
+        }
+    })
 
-        $scope.$watch('assetListOwned', function () {
-            if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
-                return;
-            } else {
-                if($scope.initializeSendandReceive) {
-                    $scope.$eval(function () {
-                        $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
-                        $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
-                        $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-                        $scope.getAssetBalance();
-                    })
-                    $scope.initializeSendandReceive = false;
-                }
+    $scope.$watch('assetListOwned', function () {
+        if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
+            return;
+        } else {
+            if ($scope.initializeSendandReceive) {
+                $scope.$eval(function () {
+                    $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
+                    $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+                    $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
+                    $scope.getAssetBalance();
+                })
+                $scope.initializeSendandReceive = false;
             }
-        })
+        }
+    })
 
     $scope.privateAccess = false;
 
@@ -845,9 +845,28 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             console.log(err);
         }
 
-        let targes = '';
-
-        $scope.makeTarges !== '' ? targes = [$scope.makeTarges] : targes = [];
+        let targes = [];
+        if ($scope.makeTarges !== '') {
+            let targesArr = $scope.makeTarges.split(',');
+            targesArr.forEach(async (targe) => {
+                if (targe.length < 42) {
+                    let usanAddr = '';
+                    console.log(targe)
+                    await web3.fsn.getAddressByNotation(targe.toString()).then(function(res){
+                        console.log(`This is res -> ${res}`)
+                        usanAddr = res;
+                    });
+                    targes.push(usanAddr);
+                    console.log(usanAddr);
+                } else {
+                    targes.push(targe);
+                    console.log(targe);
+                }
+            })
+            console.log(targes);
+        } else {
+            targes = [];
+        }
 
         let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]));
         let minFromAmountHex = web3.utils.numberToHex($scope.makeSendAmount * $scope.countDecimals(fromAsset["Decimals"]));
@@ -1072,7 +1091,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "owner": ownerAddr,
                     "owned": owned
                 }
-                if(swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0){
+                if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0) {
                     await swapListFront.push(data);
                 }
             }
