@@ -1468,6 +1468,5 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         globalFuncs.MEWconnectStatus.registerDecryptOpeners($scope.reOpenDecryptWalletMEWconnect.bind(this))
 
-    }
-;
+    };
 module.exports = sendTxCtrl;
