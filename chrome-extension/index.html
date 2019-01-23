@@ -1248,8 +1248,11 @@
                                    ng-model="sendAsset.amountToSend"
                                    ng-class="{'is-invalid' : sendAsset.amountToSend > selectedAssetBalance}"
                                    placeholder="Enter an amount"/>
-                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance">
+                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance;">
                                 You don't have enough funds
+                            </div>
+                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend < 0;">
+                                You can't enter an invalid amount
                             </div>
                             <a class="small-gray-text" ng-click="setMaxBalance()" style="display:none;" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
@@ -1355,7 +1358,7 @@
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == '';">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == ''; sendAsset.amountToSend < 0">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
@@ -2996,8 +2999,11 @@
                                    ng-model="sendAsset.amountToSend"
                                    ng-class="{'is-invalid' : sendAsset.amountToSend > selectedAssetBalance}"
                                    placeholder="Enter an amount"/>
-                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance">
+                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance;">
                                 You don't have enough funds
+                            </div>
+                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend < 0;">
+                                You can't enter an invalid amount
                             </div>
                             <a class="small-gray-text" ng-click="setMaxBalance()" style="display:none;" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
@@ -3103,7 +3109,7 @@
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == '';">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == ''; sendAsset.amountToSend < 0">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
@@ -8682,8 +8688,11 @@
                                    ng-model="sendAsset.amountToSend"
                                    ng-class="{'is-invalid' : sendAsset.amountToSend > selectedAssetBalance}"
                                    placeholder="Enter an amount"/>
-                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance">
+                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance;">
                                 You don't have enough funds
+                            </div>
+                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend < 0;">
+                                You can't enter an invalid amount
                             </div>
                             <a class="small-gray-text" ng-click="setMaxBalance()" style="display:none;" ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
@@ -8789,7 +8798,7 @@
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == '';">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == ''; sendAsset.amountToSend < 0">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
