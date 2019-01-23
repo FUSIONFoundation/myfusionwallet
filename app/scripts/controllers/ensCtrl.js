@@ -710,7 +710,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         try {
             await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
-                tx.from = from;
+                tx.from = walletAddress;
                 tx.chainId = _CHAINID;
                 data = tx;
                 if ($scope.wallet.hwType == "ledger") {
