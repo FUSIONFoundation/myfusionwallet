@@ -7328,41 +7328,46 @@
 </span>
                         </div>
                     </div>
-                    <h3>Success</h3>
+                    <h3 class="h3-blue text-center">Success</h3>
 
-                    <div class="row p-2">
+                    <div class="row p-2 gray-bg gray-bg-2 m-0">
                         <div class="col-md-6 small-gray-text">
                             Sent
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeSendAmount}} {{assetToSendConfirm}}
+                                <span class="fusion-text-18">{{makeSendAmount}}</span> {{assetToSendConfirm}}
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2">
+                    <div class="row p-2 gray-bg gray-bg-2 m-0 mt-2">
                         <div class="col-md-6 small-gray-text">
                             Receiving
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeReceiveAmount}} {{assetToReceiveConfirm}}
+                                <span class="fusion-text-18">{{makeReceiveAmount}}</span> {{assetToReceiveConfirm}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            <div class="text-center m-3">
+                                    <img src="images/check-circle.svg" width="120px" style="color:#7ed321;">
                             </div>
                         </div>
                     </div>
                     <div class="row p-2">
                         <div class="col-md-12">
                             <div class="text-center">
-                                <h1 class="text-green">
-                                    <i class="fa fa-check-circle-o fa-4x" aria-hidden="true"></i>
-                                </h1>
+                                <p>Make Swap Successful! This swap is now available in the swap market. You can track it’s progress or recall the swap in the “Open Makes” tab. </p>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapConfirmEndModal.close()">
-                                Close
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-white" ng-click="makeSwapConfirmEndModal.close()">
+                                Back to Swap Market
                             </button>
                         </div>
                     </div>
