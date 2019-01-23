@@ -8,6 +8,15 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getBalance();
     };
 
+    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    let _CHAINID = 1;
+
+    if (data.chainid !== "") {
+        _CHAINID = data.chainid;
+    } else {
+        _CHAINID = 1;
+    }
+
     setInterval($scope.init(), 7500);
     $scope.reloadPage = function(){window.location.reload();}
     $scope.mayRunState = false;
@@ -278,7 +287,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await web3.fsntx.buildGenNotationTx({
                     from: walletAddress
                 }).then((tx) => {
-                    console.log(tx);
+                    tx.chainId = _CHAINID;
                     data = tx;
                     tx.from = walletAddress;
                     if ($scope.wallet.hwType == "ledger"){

@@ -2,333 +2,246 @@
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
-        $scope.$watch('wallet', function () {
-            $scope.getAllFsnAssets();
-            $scope.getTimeLockAssets();
+    $scope.$watch('wallet', function () {
+        $scope.getAllFsnAssets();
+        $scope.getTimeLockAssets();
+    })
+
+    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    let _CHAINID = 1;
+
+    if (data.chainid !== "") {
+        _CHAINID = data.chainid;
+    } else {
+        _CHAINID = 1;
+    }
+    $scope.showAllAssets = true;
+    $scope.showTimeLockedAssets = false;
+    $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
+    $scope.assetListOwns = [];
+    $scope.assetListLoading = true;
+    $scope.showNoAssets = false;
+    $scope.selectedAssetBalance = '';
+    $scope.todayDate = formatDate();
+    $scope.tx = {};
+    $scope.signedTx = '';
+    $scope.ajaxReq = ajaxReq;
+    $scope.unitReadable = ajaxReq.type;
+    $scope.timeLockToAssetId = '';
+    $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
+    $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
+    $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
+    $scope.sendAssetFinal = new Modal(document.getElementById('sendAssetFinal'));
+    $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
+    $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
+    $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
+    $scope.errorModal = new Modal(document.getElementById('errorModal'));
+    $scope.successModal = new Modal(document.getElementById('successModal'));
+    $scope.hiddenTimeLockStates = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
+    $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    let timeLockListSave = [];
+    let BN = web3.utils.BN;
+
+
+    function formatDate() {
+        let d = new Date(),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+
+    $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
+    $scope.dropdownEnabled = true;
+    $scope.Validator = Validator;
+    $scope.gasLimitChanged = false;
+    $scope.tx.readOnly = globalFuncs.urlGet('readOnly') == null ? false : true;
+    var currentTab = $scope.globalService.currentTab;
+    var tabs = $scope.globalService.tabs;
+    $scope.tokenTx = {
+        to: '',
+        value: 0,
+        id: -1
+    };
+    $scope.customGasMsg = '';
+
+    $scope.customGas = CustomGasMessages;
+
+    $scope.tx = {
+        // if there is no gasLimit or gas key in the URI, use the default value. Otherwise use value of gas or gasLimit. gasLimit wins over gas if both present
+        gasLimit: globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null ? globalFuncs.urlGet('gaslimit') != null ? globalFuncs.urlGet('gaslimit') : globalFuncs.urlGet('gas') : globalFuncs.defaultTxGasLimit,
+        data: globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data'),
+        to: globalFuncs.urlGet('to') == null ? "" : globalFuncs.urlGet('to'),
+        unit: "ether",
+        value: globalFuncs.urlGet('value') == null ? "" : globalFuncs.urlGet('value'),
+        nonce: null,
+        gasPrice: globalFuncs.urlGet('gasprice') == null ? null : globalFuncs.urlGet('gasprice'),
+        donate: false,
+        tokensymbol: globalFuncs.urlGet('tokensymbol') == null ? false : globalFuncs.urlGet('tokensymbol'),
+    }
+
+
+    $scope.setSendMode = function (sendMode, tokenId = '', tokensymbol = '') {
+        $scope.tx.sendMode = sendMode;
+        $scope.unitReadable = '';
+        if (globalFuncs.urlGet('tokensymbol') != null) {
+            $scope.unitReadable = $scope.tx.tokensymbol;
+            $scope.tx.sendMode = 'token';
+        } else if (sendMode == 'ether') {
+            $scope.unitReadable = ajaxReq.type;
+        } else {
+            $scope.unitReadable = tokensymbol;
+            $scope.tokenTx.id = tokenId;
+        }
+        $scope.dropdownAmount = false;
+    }
+
+
+    var applyScope = function () {
+        if (!$scope.$$phase) $scope.$apply();
+    }
+
+    var defaultInit = function () {
+        $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null ? true : false;
+        $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
+        if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true // if there is a query string, show an warning at top of page
+    }
+    $scope.$watch(function () {
+        if (walletService.wallet == null) return null;
+        return walletService.wallet.getAddressString();
+    }, function () {
+        if (walletService.wallet == null) return;
+        $scope.wallet = walletService.wallet;
+        $scope.wd = true;
+
+        // $scope.setTokenSendMode();
+        defaultInit();
+    });
+
+    $scope.copyToClipboard = function (text) {
+        let clipboardAvailable;
+        if (clipboardAvailable === undefined) {
+            clipboardAvailable =
+                typeof document.queryCommandSupported === 'function' &&
+                document.queryCommandSupported('copy');
+        }
+        let success = false;
+        const body = document.body;
+
+        if (body) {
+            // add the text to a hidden node
+            const node = document.createElement('span');
+            node.textContent = text;
+            node.style.opacity = '0';
+            node.style.position = 'absolute';
+            node.style.whiteSpace = 'pre-wrap';
+            body.appendChild(node);
+
+            // select the text
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            const range = document.createRange();
+            range.selectNodeContents(node);
+            selection.addRange(range);
+
+            // attempt to copy
+            try {
+                document.execCommand('copy');
+                success = true;
+            } catch (e) {
+            }
+
+            // remove selection and node
+            selection.removeAllRanges();
+            body.removeChild(node);
+        }
+
+        return success;
+    }
+
+
+    var isEnough = function (valA, valB) {
+        return new BigNumber(valA).lte(new BigNumber(valB));
+    }
+
+    $scope.hasEnoughBalance = function () {
+        if ($scope.wallet.balance == 'loading') return false;
+        return isEnough($scope.tx.value, $scope.wallet.balance);
+    }
+
+    $scope.countDecimals = function (decimals) {
+        let returnDecimals = '1';
+        for (let i = 0; i < decimals; i++) {
+            returnDecimals += '0';
+        }
+        return parseInt(returnDecimals);
+    }
+
+    $scope.sendAssetModalConfirm = function (asset) {
+        let fromTimeString = new Date($scope.sendAsset.fromTime);
+        let tillTimeString = new Date($scope.sendAsset.tillTime);
+
+        var fMonth = fromTimeString.getMonth();
+        var fDay = fromTimeString.getDate();
+        var fYear = fromTimeString.getFullYear();
+        var tMonth = tillTimeString.getMonth();
+        var tDay = tillTimeString.getDate();
+        var tYear = tillTimeString.getFullYear();
+
+        let startTime = $scope.months[fMonth] + ' ' + fDay + ', ' + fYear;
+        let endTime = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
+
+        $scope.$eval(function () {
+            $scope.sendAsset.fromTimeString = startTime;
+            $scope.sendAsset.tillTimeString = endTime;
         })
 
-        let data = JSON.parse(localStorage.getItem('nodeUrl'));
-        let _CHAINID = 1;
-
-        if (data.chainid !== "") {
-            _CHAINID = data.chainid;
-        } else {
-            _CHAINID = 1;
-        }
-        $scope.showAllAssets = true;
-        $scope.showTimeLockedAssets = false;
-        $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
-        $scope.assetListOwns = [];
-        $scope.assetListLoading = true;
-        $scope.showNoAssets = false;
-        $scope.selectedAssetBalance = '';
-        $scope.todayDate = formatDate();
-        $scope.tx = {};
-        $scope.signedTx = '';
-        $scope.ajaxReq = ajaxReq;
-        $scope.unitReadable = ajaxReq.type;
-        $scope.timeLockToAssetId = '';
-        $scope.sendTxModal = new Modal(document.getElementById('sendTransaction'));
-        $scope.sendAssetModal = new Modal(document.getElementById('sendAsset'));
-        $scope.sendAssetConfirm = new Modal(document.getElementById('sendAssetConfirm'));
-        $scope.sendAssetFinal = new Modal(document.getElementById('sendAssetFinal'));
-        $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
-        $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
-        $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
-        $scope.errorModal = new Modal(document.getElementById('errorModal'));
-        $scope.successModal = new Modal(document.getElementById('successModal'));
-        $scope.hiddenTimeLockStates = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
-        $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-        let timeLockListSave = [];
-        let BN = web3.utils.BN;
-
-
-        function formatDate() {
-            let d = new Date(),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            return [year, month, day].join('-');
-        }
-
-
-        $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
-        $scope.dropdownEnabled = true;
-        $scope.Validator = Validator;
-        $scope.gasLimitChanged = false;
-        $scope.tx.readOnly = globalFuncs.urlGet('readOnly') == null ? false : true;
-        var currentTab = $scope.globalService.currentTab;
-        var tabs = $scope.globalService.tabs;
-        $scope.tokenTx = {
-            to: '',
-            value: 0,
-            id: -1
-        };
-        $scope.customGasMsg = '';
-
-        $scope.customGas = CustomGasMessages;
-
-        $scope.tx = {
-            // if there is no gasLimit or gas key in the URI, use the default value. Otherwise use value of gas or gasLimit. gasLimit wins over gas if both present
-            gasLimit: globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null ? globalFuncs.urlGet('gaslimit') != null ? globalFuncs.urlGet('gaslimit') : globalFuncs.urlGet('gas') : globalFuncs.defaultTxGasLimit,
-            data: globalFuncs.urlGet('data') == null ? "" : globalFuncs.urlGet('data'),
-            to: globalFuncs.urlGet('to') == null ? "" : globalFuncs.urlGet('to'),
-            unit: "ether",
-            value: globalFuncs.urlGet('value') == null ? "" : globalFuncs.urlGet('value'),
-            nonce: null,
-            gasPrice: globalFuncs.urlGet('gasprice') == null ? null : globalFuncs.urlGet('gasprice'),
-            donate: false,
-            tokensymbol: globalFuncs.urlGet('tokensymbol') == null ? false : globalFuncs.urlGet('tokensymbol'),
-        }
-
-
-        $scope.setSendMode = function (sendMode, tokenId = '', tokensymbol = '') {
-            $scope.tx.sendMode = sendMode;
-            $scope.unitReadable = '';
-            if (globalFuncs.urlGet('tokensymbol') != null) {
-                $scope.unitReadable = $scope.tx.tokensymbol;
-                $scope.tx.sendMode = 'token';
-            } else if (sendMode == 'ether') {
-                $scope.unitReadable = ajaxReq.type;
-            } else {
-                $scope.unitReadable = tokensymbol;
-                $scope.tokenTx.id = tokenId;
-            }
-            $scope.dropdownAmount = false;
-        }
-
-
-        var applyScope = function () {
-            if (!$scope.$$phase) $scope.$apply();
-        }
-
-        var defaultInit = function () {
-            $scope.gasLimitChanged = globalFuncs.urlGet('gaslimit') != null ? true : false;
-            $scope.showAdvance = globalFuncs.urlGet('gaslimit') != null || globalFuncs.urlGet('gas') != null || globalFuncs.urlGet('data') != null;
-            if (globalFuncs.urlGet('data') || globalFuncs.urlGet('value') || globalFuncs.urlGet('to') || globalFuncs.urlGet('gaslimit') || globalFuncs.urlGet('sendMode') || globalFuncs.urlGet('gas') || globalFuncs.urlGet('tokensymbol')) $scope.hasQueryString = true // if there is a query string, show an warning at top of page
-        }
-        $scope.$watch(function () {
-            if (walletService.wallet == null) return null;
-            return walletService.wallet.getAddressString();
-        }, function () {
-            if (walletService.wallet == null) return;
-            $scope.wallet = walletService.wallet;
-            $scope.wd = true;
-
-            // $scope.setTokenSendMode();
-            defaultInit();
+        return web3.fsn.getAsset(asset).then(function (res) {
+            $scope.$eval(function () {
+                $scope.sendAsset.assetName = res["Name"];
+                $scope.sendAsset.assetSymbol = res["Symbol"];
+                $scope.sendAsset.assetHash = asset;
+            });
+            $scope.sendAssetConfirm.open();
         });
+    }
 
-        $scope.copyToClipboard = function (text) {
-            let clipboardAvailable;
-            if (clipboardAvailable === undefined) {
-                clipboardAvailable =
-                    typeof document.queryCommandSupported === 'function' &&
-                    document.queryCommandSupported('copy');
-            }
-            let success = false;
-            const body = document.body;
-
-            if (body) {
-                // add the text to a hidden node
-                const node = document.createElement('span');
-                node.textContent = text;
-                node.style.opacity = '0';
-                node.style.position = 'absolute';
-                node.style.whiteSpace = 'pre-wrap';
-                body.appendChild(node);
-
-                // select the text
-                const selection = window.getSelection();
-                selection.removeAllRanges();
-                const range = document.createRange();
-                range.selectNodeContents(node);
-                selection.addRange(range);
-
-                // attempt to copy
-                try {
-                    document.execCommand('copy');
-                    success = true;
-                } catch (e) {
-                }
-
-                // remove selection and node
-                selection.removeAllRanges();
-                body.removeChild(node);
-            }
-
-            return success;
-        }
-
-
-        var isEnough = function (valA, valB) {
-            return new BigNumber(valA).lte(new BigNumber(valB));
-        }
-
-        $scope.hasEnoughBalance = function () {
-            if ($scope.wallet.balance == 'loading') return false;
-            return isEnough($scope.tx.value, $scope.wallet.balance);
-        }
-
-        $scope.countDecimals = function (decimals) {
-            let returnDecimals = '1';
-            for (let i = 0; i < decimals; i++) {
-                returnDecimals += '0';
-            }
-            return parseInt(returnDecimals);
-        }
-
-        $scope.sendAssetModalConfirm = function (asset) {
-            let fromTimeString = new Date($scope.sendAsset.fromTime);
-            let tillTimeString = new Date($scope.sendAsset.tillTime);
-
-            var fMonth = fromTimeString.getMonth();
-            var fDay = fromTimeString.getDate();
-            var fYear = fromTimeString.getFullYear();
-            var tMonth = tillTimeString.getMonth();
-            var tDay = tillTimeString.getDate();
-            var tYear = tillTimeString.getFullYear();
-
-            let startTime = $scope.months[fMonth] + ' ' + fDay + ', ' + fYear;
-            let endTime = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
-
+    $scope.checkDate = function () {
+        let today = new Date();
+        if ($scope.sendAsset.tillTime < today) {
             $scope.$eval(function () {
-                $scope.sendAsset.fromTimeString = startTime;
-                $scope.sendAsset.tillTimeString = endTime;
+                $scope.sendAsset.tillTime = today;
             })
-
-            return web3.fsn.getAsset(asset).then(function (res) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.assetName = res["Name"];
-                    $scope.sendAsset.assetSymbol = res["Symbol"];
-                    $scope.sendAsset.assetHash = asset;
-                });
-                $scope.sendAssetConfirm.open();
-            });
         }
-
-        $scope.checkDate = function () {
-            let today = new Date();
-            if ($scope.sendAsset.tillTime < today) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.tillTime = today;
-                })
-            }
-            if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.fromTime = today;
-                })
-            }
-        }
-
-
-        $scope.sendAssetModalOpen = async function (id, timelockonly) {
-            let asset = $scope.assetToSend;
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            let assetBalance = '';
-            let decimals = '';
-
-            if (!id && !timelockonly) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.fromTime = '';
-                    $scope.sendAsset.tillTime = '';
-                })
-            }
-
-            if (asset !== undefined) {
-                await web3.fsn.getAsset(asset).then(function (res) {
-                    decimals = res["Decimals"];
-                });
-
-                await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
-                    assetBalance = res;
-                });
-
-                let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
-
-                $scope.$eval(function () {
-                    $scope.selectedAssetBalance = balance;
-                });
-            }
-
+        if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
             $scope.$eval(function () {
-                $scope.showStaticTimeLockAsset = false;
+                $scope.sendAsset.fromTime = today;
             })
-            if (id >= 0 && timelockonly == true) {
-                let assetData = $scope.timeLockList[id];
-                $scope.$eval(function () {
-                    $scope.assetToSend = assetData.asset;
-                    $scope.assetName = assetData.name;
-                    $scope.timeLockStartTime = assetData.startTime;
-                    $scope.timeLockEndTime = assetData.endTime;
-                    $scope.timeLockStartTimePosix = assetData.posixStartTime;
-                    $scope.timeLockEndTimePosix = assetData.posixEndTime;
-                    $scope.selectedAssetBalance = assetData.value;
-                    $scope.showStaticAsset = true;
-                })
-            } else {
-                $scope.$eval(function () {
-                    $scope.showStaticTimeLockAsset = false;
-                    $scope.showStaticAsset = false;
-                })
-            }
-            if (id >= 0 && timelockonly == false) {
+        }
+    }
 
-                let assetData = $scope.assetListOwns[id];
-                $scope.$eval(function () {
-                    $scope.showStaticTimeLockAsset = false;
-                    $scope.assetToSend = assetData.contractaddress;
-                    $scope.assetName = assetData.name;
-                    $scope.showStaticAsset = true;
-                    $scope.getAssetBalance();
-                })
-            } else {
-                $scope.$eval(function () {
-                    $scope.showStaticAsset = false;
-                })
-            }
 
-            $scope.sendAssetModal.open();
-            $scope.$applyAsync(function () {
-                if (timelockonly == true) {
-                    $scope.showStaticAsset = true;
-                    $scope.showStaticTimeLockAsset = true;
+    $scope.sendAssetModalOpen = async function (id, timelockonly) {
+        let asset = $scope.assetToSend;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let assetBalance = '';
+        let decimals = '';
 
-                } else {
-                    $scope.showStaticTimeLockAsset = false;
-                }
-                $scope.sendAsset.toAddress = '';
-                $scope.sendAsset.amountToSend = '';
-                $scope.transactionType = 'none';
-                $scope.successMessagebool = false;
-            });
+        if (!id && !timelockonly) {
+            $scope.$eval(function () {
+                $scope.sendAsset.fromTime = '';
+                $scope.sendAsset.tillTime = '';
+            })
         }
 
-        function convertDate(inputFormat) {
-            function pad(s) {
-                return (s < 10) ? '0' + s : s;
-            }
-
-            var d = new Date(inputFormat);
-            return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
-        }
-
-        function getHexDate(d) {
-            return "0x" + (new Date(d).getTime() / 1000).toString(16);
-        }
-
-        $scope.getAssetBalance = async function () {
-            let asset = $scope.assetToSend;
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            let assetBalance = '';
-            let decimals = '';
+        if (asset !== undefined) {
             await web3.fsn.getAsset(asset).then(function (res) {
                 decimals = res["Decimals"];
             });
@@ -337,149 +250,379 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 assetBalance = res;
             });
 
+            let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
 
-            let balance = new BN(assetBalance) / $scope.countDecimals(decimals);
-
-            $scope.$apply(function () {
+            $scope.$eval(function () {
                 $scope.selectedAssetBalance = balance;
             });
         }
 
-        $scope.formatWei = function (val) {
-            if (typeof val === 'object') {
-                val = val.toString()
-            }
-            let len = val.length;
-            if (len < 18) {
-                val = "0".repeat(18 - len) + val
-                len = 18
-            }
-            if (len === 18) {
-                val = "." + val
-            } else {
-                val = $scope.insert(val, val.length - 18, ".")
-            }
-
-            val = $scope.removeZeros(val, true, true, true)
-
-            if (val.charAt(0) === '.') {
-                return "0" + val;
-            }
-            if (val.length === 0) {
-                return 0
-            }
-            return val;
-        }
-
-        $scope.removeZeros = function (val, trailing = true, leading = false, decimal = true) {
-            var regEx1 = /^[0]+/;
-            var regEx2 = /[0]+$/;
-            var regEx3 = /[.]$/;
-
-            var before = "";
-            var after = "";
-
-            before = val;
-
-            if (leading) {
-                after = before.replace(regEx1, ""); // Remove leading 0's
-            } else {
-                after = before;
-            }
-            if (trailing) {
-                if (after.indexOf(".") > -1) {
-                    after = after.replace(regEx2, ""); // Remove trailing 0's
-                }
-            }
-            if (decimal) {
-                after = after.replace(regEx3, ""); // Remove trailing decimal
-            }
-            return after;
-        }
-
-        $scope.insert = function (str, index, value) {
-            return str.substr(0, index) + value + str.substr(index);
-        }
-
-        $scope.setMaxBalance = async function () {
-            if ($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
-                let a = $scope.selectedAssetBalance.toString();
-
-                let amount = $scope.makeBigNumber(a, 18);
-
-                let gasPrice = await web3.eth.getGasPrice().then(function (res) {
-                    let gs = (res * 3).toString();
-                    return new BN(gs);
-                })
-
-                console.log(amount.toString());
-                console.log(gasPrice.toString());
-
-                amount = amount.sub(gasPrice);
-
-                console.log($scope.formatWei(amount.toString()));
-
-                $scope.sendAsset.amountToSend = $scope.formatWei(amount.toString());
-            } else {
-                $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
-            }
-        }
-
-
-        $scope.toHexString = function (byteArray) {
-            var s = '0x';
-            byteArray.forEach(function (byte) {
-                s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
-            });
-            return s;
-        }
-
-        $scope.sendBackToAssets = async function (id) {
-            let tlData = $scope.timeLockList[id];
-
-            $scope.sendAsset.assetName = tlData.name;
-            $scope.sendAsset.assetSymbol = tlData.symbol;
-            $scope.assetToSend = tlData.asset;
-            $scope.selectedAssetBalance = tlData.value;
-            $scope.timeLockToAssetId = tlData.id;
-
+        $scope.$eval(function () {
+            $scope.showStaticTimeLockAsset = false;
+        })
+        if (id >= 0 && timelockonly == true) {
+            let assetData = $scope.timeLockList[id];
             $scope.$eval(function () {
-                $scope.timeLockToAssetId = tlData.id;
+                $scope.assetToSend = assetData.asset;
+                $scope.assetName = assetData.name;
+                $scope.timeLockStartTime = assetData.startTime;
+                $scope.timeLockEndTime = assetData.endTime;
+                $scope.timeLockStartTimePosix = assetData.posixStartTime;
+                $scope.timeLockEndTimePosix = assetData.posixEndTime;
+                $scope.selectedAssetBalance = assetData.value;
+                $scope.showStaticAsset = true;
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.showStaticTimeLockAsset = false;
+                $scope.showStaticAsset = false;
+            })
+        }
+        if (id >= 0 && timelockonly == false) {
+
+            let assetData = $scope.assetListOwns[id];
+            $scope.$eval(function () {
+                $scope.showStaticTimeLockAsset = false;
+                $scope.assetToSend = assetData.contractaddress;
+                $scope.assetName = assetData.name;
+                $scope.showStaticAsset = true;
+                $scope.getAssetBalance();
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.showStaticAsset = false;
+            })
+        }
+
+        $scope.sendAssetModal.open();
+        $scope.$applyAsync(function () {
+            if (timelockonly == true) {
+                $scope.showStaticAsset = true;
+                $scope.showStaticTimeLockAsset = true;
+
+            } else {
+                $scope.showStaticTimeLockAsset = false;
+            }
+            $scope.sendAsset.toAddress = '';
+            $scope.sendAsset.amountToSend = '';
+            $scope.transactionType = 'none';
+            $scope.successMessagebool = false;
+        });
+    }
+
+    function convertDate(inputFormat) {
+        function pad(s) {
+            return (s < 10) ? '0' + s : s;
+        }
+
+        var d = new Date(inputFormat);
+        return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
+    }
+
+    function getHexDate(d) {
+        return "0x" + (new Date(d).getTime() / 1000).toString(16);
+    }
+
+    $scope.getAssetBalance = async function () {
+        let asset = $scope.assetToSend;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let assetBalance = '';
+        let decimals = '';
+        await web3.fsn.getAsset(asset).then(function (res) {
+            decimals = res["Decimals"];
+        });
+
+        await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
+            assetBalance = res;
+        });
+
+
+        let balance = new BN(assetBalance) / $scope.countDecimals(decimals);
+
+        $scope.$apply(function () {
+            $scope.selectedAssetBalance = balance;
+        });
+    }
+
+    $scope.formatWei = function (val) {
+        if (typeof val === 'object') {
+            val = val.toString()
+        }
+        let len = val.length;
+        if (len < 18) {
+            val = "0".repeat(18 - len) + val
+            len = 18
+        }
+        if (len === 18) {
+            val = "." + val
+        } else {
+            val = $scope.insert(val, val.length - 18, ".")
+        }
+
+        val = $scope.removeZeros(val, true, true, true)
+
+        if (val.charAt(0) === '.') {
+            return "0" + val;
+        }
+        if (val.length === 0) {
+            return 0
+        }
+        return val;
+    }
+
+    $scope.removeZeros = function (val, trailing = true, leading = false, decimal = true) {
+        var regEx1 = /^[0]+/;
+        var regEx2 = /[0]+$/;
+        var regEx3 = /[.]$/;
+
+        var before = "";
+        var after = "";
+
+        before = val;
+
+        if (leading) {
+            after = before.replace(regEx1, ""); // Remove leading 0's
+        } else {
+            after = before;
+        }
+        if (trailing) {
+            if (after.indexOf(".") > -1) {
+                after = after.replace(regEx2, ""); // Remove trailing 0's
+            }
+        }
+        if (decimal) {
+            after = after.replace(regEx3, ""); // Remove trailing decimal
+        }
+        return after;
+    }
+
+    $scope.insert = function (str, index, value) {
+        return str.substr(0, index) + value + str.substr(index);
+    }
+
+    $scope.setMaxBalance = async function () {
+        if ($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+            let a = $scope.selectedAssetBalance.toString();
+
+            let amount = $scope.makeBigNumber(a, 18);
+
+            let gasPrice = await web3.eth.getGasPrice().then(function (res) {
+                let gs = (res * 3).toString();
+                return new BN(gs);
             })
 
-            $scope.sendBackToAssetsModal.open();
+            console.log(amount.toString());
+            console.log(gasPrice.toString());
+
+            amount = amount.sub(gasPrice);
+
+            console.log($scope.formatWei(amount.toString()));
+
+            $scope.sendAsset.amountToSend = $scope.formatWei(amount.toString());
+        } else {
+            $scope.sendAsset.amountToSend = $scope.selectedAssetBalance;
+        }
+    }
+
+
+    $scope.toHexString = function (byteArray) {
+        var s = '0x';
+        byteArray.forEach(function (byte) {
+            s += ('0' + (byte & 0xFF).toString(16)).slice(-2);
+        });
+        return s;
+    }
+
+    $scope.sendBackToAssets = async function (id) {
+        let tlData = $scope.timeLockList[id];
+
+        $scope.sendAsset.assetName = tlData.name;
+        $scope.sendAsset.assetSymbol = tlData.symbol;
+        $scope.assetToSend = tlData.asset;
+        $scope.selectedAssetBalance = tlData.value;
+        $scope.timeLockToAssetId = tlData.id;
+
+        $scope.$eval(function () {
+            $scope.timeLockToAssetId = tlData.id;
+        })
+
+        $scope.sendBackToAssetsModal.open();
+    }
+
+    $scope.sendBackToAssetsFunction = async function (id) {
+        let accountData = uiFuncs.getTxData($scope);
+        id = $scope.timeLockToAssetId;
+        let tlData = $scope.timeLockList[id];
+
+        let from = accountData.from;
+
+        if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
+            $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
         }
 
-        $scope.sendBackToAssetsFunction = async function (id) {
-            let accountData = uiFuncs.getTxData($scope);
-            id = $scope.timeLockToAssetId;
-            let tlData = $scope.timeLockList[id];
+        let startTime = web3.utils.numberToHex(tlData.posixStartTime);
+        let endTime = web3.utils.numberToHex(tlData.posixEndTime);
 
-            let from = accountData.from;
+        // JavaScript / Go incompatibility -1 error
+        if (tlData.posixEndTime === 18446744073709552000) {
+            endTime = web3.fsn.consts.TimeForeverStr;
+        }
+
+        let data = {};
+
+        try {
+            await web3.fsntx.buildTimeLockToAssetTx({
+                asset: tlData.asset,
+                from: from,
+                to: from,
+                start: startTime,
+                end: endTime,
+                value: tlData.rawValue
+            }).then((tx) => {
+                tx.from = from;
+                tx.chainId = _CHAINID;
+                data = tx;
+                if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
+                    return;
+                }
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    $scope.successModal.open();
+                })
+            });
+        } catch (err) {
+            $scope.errorModal.open();
+        }
+
+        if ($scope.wallet.hwType == "ledger") {
+            let ledgerConfig = {
+                privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
+                path: $scope.wallet.getPath(),
+                hwType: $scope.wallet.getHWType(),
+                hwTransport: $scope.wallet.getHWTransport()
+            }
+            let rawTx = data;
+            var eTx = new ethUtil.Tx(rawTx);
+            if (ledgerConfig.hwType == "ledger") {
+                var app = new ledgerEth(ledgerConfig.hwTransport);
+                var EIP155Supported = true;
+                var localCallback = async function (result, error) {
+                    if (typeof error != "undefined") {
+                        if (callback !== undefined) callback({
+                            isError: true,
+                            error: error
+                        });
+                        return;
+                    }
+                    var splitVersion = result['version'].split('.');
+                    if (parseInt(splitVersion[0]) > 1) {
+                        EIP155Supported = true;
+                    } else if (parseInt(splitVersion[1]) > 0) {
+                        EIP155Supported = true;
+                    } else if (parseInt(splitVersion[2]) > 2) {
+                        EIP155Supported = true;
+                    }
+                    var oldTx = Object.assign(rawTx, {});
+                    let input = oldTx.input;
+                    return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
+                        oldTx.r = res.r;
+                        oldTx.s = res.s;
+                        oldTx.v = res.v;
+                        oldTx.input = input;
+                        oldTx.chainId = "0x1";
+                        delete oldTx.isError;
+                        delete oldTx.rawTx;
+                        delete oldTx.signedTx;
+                        web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
+                            $scope.successModal.open();
+                        })
+                    })
+                }
+                $scope.notifier.info('Please, confirm transaction on Ledger.');
+                await app.getAppConfiguration(localCallback);
+            }
+        }
+        if ($scope.wallet.hwType == "trezor") {
+
+        }
+    }
+
+    $scope.makeBigNumber = function (amount, decimals) {
+        let pieces = amount.split(".")
+        let d = parseInt(decimals)
+        if (pieces.length === 1) {
+            amount = parseInt(amount)
+            if (isNaN(amount) || amount < 0) {
+                // error message
+                return
+            }
+            amount = new BN(amount + "0".repeat(parseInt(decimals)));
+        } else if (pieces.length > 2) {
+            console.log('error');
+            // error message
+            return
+        } else if (pieces[1].length >= d) {
+            console.log('error');
+            return // error
+        } else {
+            let dec = parseInt(pieces[1])
+            let reg = new RegExp('^\\d+$'); // numbers only
+            if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
+                console.log('error');
+                return
+                // return error
+            }
+            dec = pieces[1]
+            let declen = d - dec.toString().length
+            amount = parseInt(pieces[0])
+            if (isNaN(amount) || amount < 0) {
+                console.log('error');
+                // error message
+                return
+            }
+            amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
+        }
+        return amount;
+    }
+
+    $scope.sendAsset = async function () {
+        $scope.successMessagebool = true;
+        let accountData = uiFuncs.getTxData($scope);
+        let from = accountData.from;
+        let to = $scope.sendAsset.toAddress;
+        let decimals = '';
+        let asset = $scope.assetToSend;
+        let hash = '';
+        let data = {};
+
+        if (to.length < 42) {
+            await web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
+                to = address;
+            });
+        }
+
+        await web3.fsn.getAsset(asset).then(function (res) {
+            decimals = parseInt(res["Decimals"]);
+        });
+
+        let amount = $scope.sendAsset.amountToSend.toString();
+
+        amount = $scope.makeBigNumber(amount, decimals);
+
+        if ($scope.transactionType == "none") {
 
             if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
-            let startTime = web3.utils.numberToHex(tlData.posixStartTime);
-            let endTime = web3.utils.numberToHex(tlData.posixEndTime);
-
-            // JavaScript / Go incompatibility -1 error
-            if (tlData.posixEndTime === 18446744073709552000) {
-                endTime = web3.fsn.consts.TimeForeverStr;
-            }
-
-            let data = {};
-
             try {
-                await web3.fsntx.buildTimeLockToAssetTx({
-                    asset: tlData.asset,
+                await web3.fsntx.buildSendAssetTx({
                     from: from,
-                    to: from,
-                    start: startTime,
-                    end: endTime,
-                    value: tlData.rawValue
+                    to: to,
+                    value: amount.toString(),
+                    asset: asset
                 }).then((tx) => {
+                    console.log(tx);
                     tx.from = from;
                     tx.chainId = _CHAINID;
                     data = tx;
@@ -487,396 +630,37 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         return;
                     }
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        $scope.successModal.open();
+                        hash = txHash;
+                        $scope.sendAssetFinal.open();
+                        $scope.$eval(function () {
+                            $scope.successHash = hash;
+                            $scope.successHash = hash;
+                        });
                     })
                 });
             } catch (err) {
+                console.log(err);
                 $scope.errorModal.open();
             }
 
-            if ($scope.wallet.hwType == "ledger") {
-                let ledgerConfig = {
-                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
-                    path: $scope.wallet.getPath(),
-                    hwType: $scope.wallet.getHWType(),
-                    hwTransport: $scope.wallet.getHWTransport()
-                }
-                let rawTx = data;
-                var eTx = new ethUtil.Tx(rawTx);
-                if (ledgerConfig.hwType == "ledger") {
-                    var app = new ledgerEth(ledgerConfig.hwTransport);
-                    var EIP155Supported = true;
-                    var localCallback = async function (result, error) {
-                        if (typeof error != "undefined") {
-                            if (callback !== undefined) callback({
-                                isError: true,
-                                error: error
-                            });
-                            return;
-                        }
-                        var splitVersion = result['version'].split('.');
-                        if (parseInt(splitVersion[0]) > 1) {
-                            EIP155Supported = true;
-                        } else if (parseInt(splitVersion[1]) > 0) {
-                            EIP155Supported = true;
-                        } else if (parseInt(splitVersion[2]) > 2) {
-                            EIP155Supported = true;
-                        }
-                        var oldTx = Object.assign(rawTx, {});
-                        let input = oldTx.input;
-                        return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
-                            oldTx.r = res.r;
-                            oldTx.s = res.s;
-                            oldTx.v = res.v;
-                            oldTx.input = input;
-                            oldTx.chainId = "0x1";
-                            delete oldTx.isError;
-                            delete oldTx.rawTx;
-                            delete oldTx.signedTx;
-                            web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
-                                $scope.successModal.open();
-                            })
-                        })
-                    }
-                    $scope.notifier.info('Please, confirm transaction on Ledger.');
-                    await app.getAppConfiguration(localCallback);
-                }
-            }
-            if ($scope.wallet.hwType == "trezor") {
-
-            }
-        }
-
-        $scope.makeBigNumber = function (amount, decimals) {
-            let pieces = amount.split(".")
-            let d = parseInt(decimals)
-            if (pieces.length === 1) {
-                amount = parseInt(amount)
-                if (isNaN(amount) || amount < 0) {
-                    // error message
-                    return
-                }
-                amount = new BN(amount + "0".repeat(parseInt(decimals)));
-            } else if (pieces.length > 2) {
-                console.log('error');
-                // error message
-                return
-            } else if (pieces[1].length >= d) {
-                console.log('error');
-                return // error
-            } else {
-                let dec = parseInt(pieces[1])
-                let reg = new RegExp('^\\d+$'); // numbers only
-                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
-                    console.log('error');
-                    return
-                    // return error
-                }
-                dec = pieces[1]
-                let declen = d - dec.toString().length
-                amount = parseInt(pieces[0])
-                if (isNaN(amount) || amount < 0) {
-                    console.log('error');
-                    // error message
-                    return
-                }
-                amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
-            }
-            return amount;
-        }
-
-        $scope.sendAsset = async function () {
-            $scope.successMessagebool = true;
-            let accountData = uiFuncs.getTxData($scope);
-            let from = accountData.from;
-            let to = $scope.sendAsset.toAddress;
-            let decimals = '';
-            let asset = $scope.assetToSend;
-            let hash = '';
-            let data = {};
-
-            if (to.length < 42) {
-                await web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
-                    to = address;
-                });
-            }
-
-            await web3.fsn.getAsset(asset).then(function (res) {
-                decimals = parseInt(res["Decimals"]);
+            $scope.$apply(function () {
+                $scope.successHash = hash;
             });
-
-            let amount = $scope.sendAsset.amountToSend.toString();
-
-            amount = $scope.makeBigNumber(amount, decimals);
-
-            if ($scope.transactionType == "none") {
-
-                if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-                }
-
-                try {
-                    await web3.fsntx.buildSendAssetTx({
-                        from: from,
-                        to: to,
-                        value: amount.toString(),
-                        asset: asset
-                    }).then((tx) => {
-                        console.log(tx);
-                        tx.from = from;
-                        tx.chainId = _CHAINID;
-                        data = tx;
-                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
-                            return;
-                        }
-                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                            hash = txHash;
-                            $scope.sendAssetFinal.open();
-                            $scope.$eval(function () {
-                                $scope.successHash = hash;
-                                $scope.successHash = hash;
-                            });
-                        })
-                    });
-                } catch (err) {
-                    console.log(err);
-                    $scope.errorModal.open();
-                }
-
-                $scope.$apply(function () {
-                    $scope.successHash = hash;
-                });
-            }
-            if ($scope.transactionType == "daterange") {
-
-                if ($scope.sendAsset.fromTime == '') {
-                    $scope.sendAsset.fromTime = new Date();
-                }
-
-                let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
-                let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
-                if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-                }
-
-                try {
-                    await web3.fsntx.buildAssetToTimeLockTx({
-                        asset: asset,
-                        from: from,
-                        to: to,
-                        start: fromTime,
-                        end: tillTime,
-                        value: amount
-                    }).then((tx) => {
-                        tx.from = from;
-                        tx.chainId = _CHAINID;
-                        data = tx;
-                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
-                            return;
-                        }
-                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                            $scope.sendAssetFinal.open();
-                            $scope.$eval(function () {
-                                $scope.successHash = txHash;
-                                $scope.successHash = txHash;
-                            });
-                        })
-                    });
-                } catch (err) {
-                    $scope.errorModal.open();
-                }
-            }
-
-            if ($scope.transactionType == "scheduled") {
-
-                let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
-                let tillTime = web3.fsn.consts.TimeForeverStr;
-
-                if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezpr")) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-                }
-
-                try {
-                    await web3.fsntx.buildAssetToTimeLockTx({
-                        asset: asset,
-                        from: from,
-                        to: to,
-                        start: fromTime,
-                        end: tillTime,
-                        value: amount
-                    }).then((tx) => {
-                        tx.from = from;
-                        tx.chainId = _CHAINID;
-                        data = tx;
-                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
-                            return;
-                        }
-                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                            $scope.sendAssetFinal.open();
-                            $scope.$eval(function () {
-                                $scope.successHash = txHash;
-                                $scope.successHash = txHash;
-                            });
-                        })
-                    });
-                } catch (err) {
-                    $scope.errorModal.open();
-                }
-            }
-            if ($scope.wallet.hwType == "ledger") {
-                let ledgerConfig = {
-                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
-                    path: $scope.wallet.getPath(),
-                    hwType: $scope.wallet.getHWType(),
-                    hwTransport: $scope.wallet.getHWTransport()
-                }
-                let rawTx = data;
-                var eTx = new ethUtil.Tx(rawTx);
-                if (ledgerConfig.hwType == "ledger") {
-                    var app = new ledgerEth(ledgerConfig.hwTransport);
-                    var EIP155Supported = true;
-                    var localCallback = async function (result, error) {
-                        if (typeof error != "undefined") {
-                            if (callback !== undefined) callback({
-                                isError: true,
-                                error: error
-                            });
-                            return;
-                        }
-                        var splitVersion = result['version'].split('.');
-                        if (parseInt(splitVersion[0]) > 1) {
-                            EIP155Supported = true;
-                        } else if (parseInt(splitVersion[1]) > 0) {
-                            EIP155Supported = true;
-                        } else if (parseInt(splitVersion[2]) > 2) {
-                            EIP155Supported = true;
-                        }
-                        var oldTx = Object.assign(rawTx, {});
-                        let input = oldTx.input;
-                        return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
-                            oldTx.r = res.r;
-                            oldTx.s = res.s;
-                            oldTx.v = res.v;
-                            oldTx.input = input;
-                            oldTx.chainId = "0x1";
-                            delete oldTx.isError;
-                            delete oldTx.rawTx;
-                            delete oldTx.signedTx;
-                            web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
-                                $scope.sendAssetFinal.open();
-                                $scope.$eval(function () {
-                                    $scope.successHash = txHash;
-                                    $scope.successHash = txHash;
-                                });
-                            })
-                        })
-                    }
-                    $scope.notifier.info('Please, confirm transaction on Ledger.');
-                    await app.getAppConfiguration(localCallback);
-                }
-
-                if ($scope.wallet.hwType == "trezor") {
-
-                }
-            }
         }
+        if ($scope.transactionType == "daterange") {
 
-        $scope.hideExpired = function (id) {
-            let itemsArray = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : "[]";
-            if (itemsArray == "[]") {
-                // let items = [];
-                // let u = 0;
-                // for (let id in $scope.timeLockList) {
-                //     let data = {
-                //         "id": u,
-                //         "hidden": 0
-                //     }
-                //     items.push(data);
-                //     u++
-                // }
-                let empty = [];
-                localStorage.setItem('hiddenTimeLocks', JSON.stringify(empty));
+            if ($scope.sendAsset.fromTime == '') {
+                $scope.sendAsset.fromTime = new Date();
             }
 
-            let data = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
-
-            // data[id].hidden = 1;
-
-            $scope.$eval(function () {
-                $scope.hiddenTimeLockStates = data;
-                $scope.hiddenTimeLockStates = data;
-            })
-
-            localStorage.setItem('hiddenTimeLocks', JSON.stringify(data));
-        }
-
-        $scope.timeLockToTimeLock = async function () {
-            $scope.successMessagebool = true;
-            let accountData = uiFuncs.getTxData($scope);
-            let from = accountData.from;
-            let to = $scope.sendAsset.toAddress;
-            let decimals = '';
-            let asset = $scope.assetToSend;
-            let hash = '';
-
-            let fromTime = web3.utils.numberToHex($scope.timeLockStartTimePosix);
-            let tillTime = web3.utils.numberToHex($scope.timeLockEndTimePosix);
-
-            // JavaScript / Go incompatibility -1 error
-            if ($scope.timeLockEndTimePosix === 18446744073709552000) {
-                tillTime = web3.fsn.consts.TimeForeverStr;
-            }
-
-            if (to.length < 42) {
-                web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
-                    to = address;
-                });
-            }
-
-            await web3.fsn.getAsset(asset).then(function (res) {
-                decimals = parseInt(res["Decimals"]);
-            });
-
-            let amount = $scope.sendAsset.amountToSend.toString();
-
-            let pieces = amount.split(".")
-            let d = parseInt(decimals)
-            if (pieces.length === 1) {
-                amount = parseInt(amount)
-                if (isNaN(amount) || amount < 0) {
-                    // error message
-                    return
-                }
-                amount = new BN(amount + "0".repeat(parseInt(decimals)));
-            } else if (pieces.length > 2) {
-                // error message
-                return
-            } else if (pieces[1].length >= d) {
-                return // error
-            } else {
-                let dec = parseInt(pieces[1])
-                let reg = new RegExp('^\\d+$'); // numbers only
-                if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
-                    // return error
-                }
-                dec = pieces[1]
-                let declen = d - dec.toString().length
-                amount = parseInt(pieces[0])
-                if (isNaN(amount) || amount < 0) {
-                    // error message
-                    return
-                }
-                amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
-            }
-
-            let data = {};
-
+            let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+            let tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
             if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
             }
 
             try {
-                await web3.fsntx.buildTimeLockToTimeLockTx({
+                await web3.fsntx.buildAssetToTimeLockTx({
                     asset: asset,
                     from: from,
                     to: to,
@@ -891,8 +675,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         return;
                     }
                     return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        $scope.sendAssetFinal.open();
                         $scope.$eval(function () {
-                            $scope.sendAssetFinal.open();
                             $scope.successHash = txHash;
                             $scope.successHash = txHash;
                         });
@@ -901,64 +685,277 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 $scope.errorModal.open();
             }
+        }
 
-            if ($scope.wallet.hwType == "ledger") {
-                let ledgerConfig = {
-                    privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
-                    path: $scope.wallet.getPath(),
-                    hwType: $scope.wallet.getHWType(),
-                    hwTransport: $scope.wallet.getHWTransport()
-                }
-                let rawTx = data;
-                var eTx = new ethUtil.Tx(rawTx);
-                if (ledgerConfig.hwType == "ledger") {
-                    var app = new ledgerEth(ledgerConfig.hwTransport);
-                    var EIP155Supported = true;
-                    var localCallback = async function (result, error) {
-                        if (typeof error != "undefined") {
-                            if (callback !== undefined) callback({
-                                isError: true,
-                                error: error
-                            });
-                            return;
-                        }
-                        var splitVersion = result['version'].split('.');
-                        if (parseInt(splitVersion[0]) > 1) {
-                            EIP155Supported = true;
-                        } else if (parseInt(splitVersion[1]) > 0) {
-                            EIP155Supported = true;
-                        } else if (parseInt(splitVersion[2]) > 2) {
-                            EIP155Supported = true;
-                        }
-                        var oldTx = Object.assign(rawTx, {});
-                        let input = oldTx.input;
-                        return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
-                            oldTx.r = res.r;
-                            oldTx.s = res.s;
-                            oldTx.v = res.v;
-                            oldTx.input = input;
-                            oldTx.chainId = "0x1";
-                            delete oldTx.isError;
-                            delete oldTx.rawTx;
-                            delete oldTx.signedTx;
-                            web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
-                                $scope.$eval(function () {
-                                    $scope.sendAssetFinal.open();
-                                    $scope.successHash = txHash;
-                                    $scope.successHash = txHash;
-                                });
-                            })
-                        })
+        if ($scope.transactionType == "scheduled") {
+
+            let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+            let tillTime = web3.fsn.consts.TimeForeverStr;
+
+            if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezpr")) {
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+            }
+
+            try {
+                await web3.fsntx.buildAssetToTimeLockTx({
+                    asset: asset,
+                    from: from,
+                    to: to,
+                    start: fromTime,
+                    end: tillTime,
+                    value: amount
+                }).then((tx) => {
+                    tx.from = from;
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
+                        return;
                     }
-                    $scope.notifier.info('Please, confirm transaction on Ledger.');
-                    await app.getAppConfiguration(localCallback);
+                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                        $scope.sendAssetFinal.open();
+                        $scope.$eval(function () {
+                            $scope.successHash = txHash;
+                            $scope.successHash = txHash;
+                        });
+                    })
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+            }
+        }
+        if ($scope.wallet.hwType == "ledger") {
+            let ledgerConfig = {
+                privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
+                path: $scope.wallet.getPath(),
+                hwType: $scope.wallet.getHWType(),
+                hwTransport: $scope.wallet.getHWTransport()
+            }
+            let rawTx = data;
+            var eTx = new ethUtil.Tx(rawTx);
+            if (ledgerConfig.hwType == "ledger") {
+                var app = new ledgerEth(ledgerConfig.hwTransport);
+                var EIP155Supported = true;
+                var localCallback = async function (result, error) {
+                    if (typeof error != "undefined") {
+                        if (callback !== undefined) callback({
+                            isError: true,
+                            error: error
+                        });
+                        return;
+                    }
+                    var splitVersion = result['version'].split('.');
+                    if (parseInt(splitVersion[0]) > 1) {
+                        EIP155Supported = true;
+                    } else if (parseInt(splitVersion[1]) > 0) {
+                        EIP155Supported = true;
+                    } else if (parseInt(splitVersion[2]) > 2) {
+                        EIP155Supported = true;
+                    }
+                    var oldTx = Object.assign(rawTx, {});
+                    let input = oldTx.input;
+                    return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
+                        oldTx.r = res.r;
+                        oldTx.s = res.s;
+                        oldTx.v = res.v;
+                        oldTx.input = input;
+                        oldTx.chainId = "0x1";
+                        delete oldTx.isError;
+                        delete oldTx.rawTx;
+                        delete oldTx.signedTx;
+                        web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
+                            $scope.sendAssetFinal.open();
+                            $scope.$eval(function () {
+                                $scope.successHash = txHash;
+                                $scope.successHash = txHash;
+                            });
+                        })
+                    })
                 }
+                $scope.notifier.info('Please, confirm transaction on Ledger.');
+                await app.getAppConfiguration(localCallback);
             }
 
             if ($scope.wallet.hwType == "trezor") {
 
             }
+        }
+    }
 
+    $scope.hideExpired = function (id) {
+        let itemsArray = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : "[]";
+        if (itemsArray == "[]") {
+            // let items = [];
+            // let u = 0;
+            // for (let id in $scope.timeLockList) {
+            //     let data = {
+            //         "id": u,
+            //         "hidden": 0
+            //     }
+            //     items.push(data);
+            //     u++
+            // }
+            let empty = [];
+            localStorage.setItem('hiddenTimeLocks', JSON.stringify(empty));
+        }
+
+        let data = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
+
+        // data[id].hidden = 1;
+
+        $scope.$eval(function () {
+            $scope.hiddenTimeLockStates = data;
+            $scope.hiddenTimeLockStates = data;
+        })
+
+        localStorage.setItem('hiddenTimeLocks', JSON.stringify(data));
+    }
+
+    $scope.timeLockToTimeLock = async function () {
+        $scope.successMessagebool = true;
+        let accountData = uiFuncs.getTxData($scope);
+        let from = accountData.from;
+        let to = $scope.sendAsset.toAddress;
+        let decimals = '';
+        let asset = $scope.assetToSend;
+        let hash = '';
+
+        let fromTime = web3.utils.numberToHex($scope.timeLockStartTimePosix);
+        let tillTime = web3.utils.numberToHex($scope.timeLockEndTimePosix);
+
+        // JavaScript / Go incompatibility -1 error
+        if ($scope.timeLockEndTimePosix === 18446744073709552000) {
+            tillTime = web3.fsn.consts.TimeForeverStr;
+        }
+
+        if (to.length < 42) {
+            web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
+                to = address;
+            });
+        }
+
+        await web3.fsn.getAsset(asset).then(function (res) {
+            decimals = parseInt(res["Decimals"]);
+        });
+
+        let amount = $scope.sendAsset.amountToSend.toString();
+
+        let pieces = amount.split(".")
+        let d = parseInt(decimals)
+        if (pieces.length === 1) {
+            amount = parseInt(amount)
+            if (isNaN(amount) || amount < 0) {
+                // error message
+                return
+            }
+            amount = new BN(amount + "0".repeat(parseInt(decimals)));
+        } else if (pieces.length > 2) {
+            // error message
+            return
+        } else if (pieces[1].length >= d) {
+            return // error
+        } else {
+            let dec = parseInt(pieces[1])
+            let reg = new RegExp('^\\d+$'); // numbers only
+            if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
+                // return error
+            }
+            dec = pieces[1]
+            let declen = d - dec.toString().length
+            amount = parseInt(pieces[0])
+            if (isNaN(amount) || amount < 0) {
+                // error message
+                return
+            }
+            amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
+        }
+
+        let data = {};
+
+        if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
+            $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+        }
+
+        try {
+            await web3.fsntx.buildTimeLockToTimeLockTx({
+                asset: asset,
+                from: from,
+                to: to,
+                start: fromTime,
+                end: tillTime,
+                value: amount
+            }).then((tx) => {
+                tx.from = from;
+                tx.chainId = _CHAINID;
+                data = tx;
+                if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
+                    return;
+                }
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    $scope.$eval(function () {
+                        $scope.sendAssetFinal.open();
+                        $scope.successHash = txHash;
+                        $scope.successHash = txHash;
+                    });
+                })
+            });
+        } catch (err) {
+            $scope.errorModal.open();
+        }
+
+        if ($scope.wallet.hwType == "ledger") {
+            let ledgerConfig = {
+                privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
+                path: $scope.wallet.getPath(),
+                hwType: $scope.wallet.getHWType(),
+                hwTransport: $scope.wallet.getHWTransport()
+            }
+            let rawTx = data;
+            var eTx = new ethUtil.Tx(rawTx);
+            if (ledgerConfig.hwType == "ledger") {
+                var app = new ledgerEth(ledgerConfig.hwTransport);
+                var EIP155Supported = true;
+                var localCallback = async function (result, error) {
+                    if (typeof error != "undefined") {
+                        if (callback !== undefined) callback({
+                            isError: true,
+                            error: error
+                        });
+                        return;
+                    }
+                    var splitVersion = result['version'].split('.');
+                    if (parseInt(splitVersion[0]) > 1) {
+                        EIP155Supported = true;
+                    } else if (parseInt(splitVersion[1]) > 0) {
+                        EIP155Supported = true;
+                    } else if (parseInt(splitVersion[2]) > 2) {
+                        EIP155Supported = true;
+                    }
+                    var oldTx = Object.assign(rawTx, {});
+                    let input = oldTx.input;
+                    return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
+                        oldTx.r = res.r;
+                        oldTx.s = res.s;
+                        oldTx.v = res.v;
+                        oldTx.input = input;
+                        oldTx.chainId = "0x1";
+                        delete oldTx.isError;
+                        delete oldTx.rawTx;
+                        delete oldTx.signedTx;
+                        web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
+                            $scope.$eval(function () {
+                                $scope.sendAssetFinal.open();
+                                $scope.successHash = txHash;
+                                $scope.successHash = txHash;
+                            });
+                        })
+                    })
+                }
+                $scope.notifier.info('Please, confirm transaction on Ledger.');
+                await app.getAppConfiguration(localCallback);
+            }
+        }
+
+        if ($scope.wallet.hwType == "trezor") {
         }
 
         $scope.createAssetInit = function () {
@@ -1467,6 +1464,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         globalFuncs.MEWconnectStatus.registerDecryptOpeners($scope.reOpenDecryptWalletMEWconnect.bind(this))
 
-    }
-;
+    };
+}
 module.exports = sendTxCtrl;

@@ -661,9 +661,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let data = {
             from: walletAddress,
-            SwapID: swap_id,
-            Size: take.toString()
+            SwapID: swap_id.swap_id,
+            Size: 1
         };
+
+        console.log(data);
 
         if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
