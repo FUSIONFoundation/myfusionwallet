@@ -885,7 +885,7 @@
 
                     <div class="row p-2">
                         <div class="col-md-6 small-gray-text p-0">
-                            You will be sending
+                            Taker Sends
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
@@ -904,7 +904,7 @@
                     </div>
                     <div class="row p-2">
                         <div class="col-md-6 small-gray-text p-0">
-                            Sending Time
+                            Taker Sends From
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
@@ -917,7 +917,7 @@
 
                     <div class="row p-2">
                         <div class="col-md-6 small-gray-text p-0">
-                            Swap Owner
+                            Swap initiated by
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
@@ -928,7 +928,7 @@
 
                     <div class="row p-2">
                         <div class="col-md-6 small-gray-text p-0">
-                            Maximum Number of Swaps
+                            Max Swaps
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
@@ -939,7 +939,7 @@
 
                     <div class="row p-2">
                         <div class="col-md-6 small-gray-text p-0">
-                            You will be receiving
+                            Taker will be receiving
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
@@ -957,7 +957,7 @@
                     </div>
                     <div class="row p-2">
                         <div class="col-md-6 small-gray-text p-0">
-                            Receiving Time
+                            Taker Receives From
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">

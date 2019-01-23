@@ -213,6 +213,43 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
     }
 
+    $scope.makeBigNumber = function (amount, decimals) {
+        let pieces = amount.split(".")
+        let d = parseInt(decimals)
+        if (pieces.length === 1) {
+            amount = parseInt(amount)
+            if (isNaN(amount) || amount < 0) {
+                // error message
+                return
+            }
+            amount = new BN(amount + "0".repeat(parseInt(decimals)));
+        } else if (pieces.length > 2) {
+            console.log('error');
+            // error message
+            return
+        } else if (pieces[1].length >= d) {
+            console.log('error');
+            return // error
+        } else {
+            let dec = parseInt(pieces[1])
+            let reg = new RegExp('^\\d+$'); // numbers only
+            if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
+                console.log('error');
+                return
+                // return error
+            }
+            dec = pieces[1]
+            let declen = d - dec.toString().length
+            amount = parseInt(pieces[0])
+            if (isNaN(amount) || amount < 0) {
+                console.log('error');
+                // error message
+                return
+            }
+            amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
+        }
+        return amount;
+    }
 
     $scope.sortByString = 'Default';
     $scope.takeAmountSwap = '';
