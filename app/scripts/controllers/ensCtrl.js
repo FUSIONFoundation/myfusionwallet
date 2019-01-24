@@ -20,6 +20,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.allSwaps();
         $scope.getBalance();
         $scope.setWalletAddress();
+        $scope.getAllAssetsList();
     };
 
     setInterval(function () {
@@ -819,6 +820,49 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     let targesArray = [];
+
+    $scope.allAssetsAddresses = [];
+    $scope.myAssets = [];
+    $scope.allBalance = {};
+
+    $scope.getAllAssetsList = async function () {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        await web3.fsn.allAssets().then(function (res) {
+            for (let contractaddress in res) {
+                $scope.allAssetsAddresses.push(contractaddress);
+            }
+        })
+        await web3.fsn.getAllBalances(walletAddress).then(function (res) {
+            for (let contractaddress in res) {
+                $scope.myAssets.push(contractaddress);
+            }
+        })
+        $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
+    }
+
+    $scope.takeGetAllBalances = async function (allAssetsList, index) {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let decimals = 0;
+        let assetBalance = 0;
+        if (index == $scope.allAssetsAddresses.length) {
+            return;
+        }
+        if ($scope.myAssets.includes($scope.allAssetsAddresses[index])) {
+            await web3.fsn.getBalance($scope.allAssetsAddresses[index], walletAddress).then(function (res) {
+                assetBalance = res;
+            });
+            await web3.fsn.getAsset($scope.allAssetsAddresses[index]).then(function (res) {
+                decimals = res["Decimals"];
+            })
+            let balance = assetBalance / $scope.countDecimals(decimals);
+            $scope.allBalance[$scope.allAssetsAddresses[index]] = balance;
+        } else {
+            $scope.allBalance[$scope.allAssetsAddresses[index]] = 0;
+        }
+        return $scope.takeGetAllBalances(allAssetsList, index + 1)
+    }
 
     $scope.makeSwap = async function () {
         targesArray = [];
