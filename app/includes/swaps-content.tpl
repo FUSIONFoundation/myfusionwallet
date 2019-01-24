@@ -165,9 +165,13 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="asset in swapsList | filter: { owned: 'true' } track by $index">
-                        <td><i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
-                            <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
-                            {{asset.targes}}</td>
+                        <td>
+                            <span class="gray-bg-2 font-size-12 p-1 targes-border">
+                              <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
+                              <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
+                                {{asset.targes}}
+                            </span>
+                        </td>
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
@@ -304,9 +308,13 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="asset in swapsList | filter: { owned: 'false' } |orderBy:sortKey:reverse |filter:searchSwapMarket | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
-                        <td><i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
-                            <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
-                            {{asset.targes}}</td>
+                        <td>
+                            <span class="gray-bg-2 font-size-12 p-1 targes-border">
+                              <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
+                              <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
+                                {{asset.targes}}
+                            </span>
+                            </td>
                         <td>{{asset.time}}</td>
                         <td><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
