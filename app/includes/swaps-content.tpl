@@ -185,7 +185,10 @@
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
+                                <button class="btn btn-sm btn-white m-0"
+                                        ng-click="takeModal(asset.id)"
+                                        ng-disabled="allBalance[asset.id] < asset.minswap"
+                                >Take Swap
                                 </button>
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
@@ -322,7 +325,10 @@
                                 </button>
                             </div>
                             <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0" ng-click="takeModal(asset.id)">Take Swap
+                                <button class="btn btn-sm btn-white m-0"
+                                        ng-click="takeModal(asset.id)"
+                                        ng-disabled="allBalance[asset.fromAssetId] < asset.minswap"
+                                >Take Swap
                                 </button>
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"

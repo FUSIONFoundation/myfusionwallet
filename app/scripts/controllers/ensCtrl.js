@@ -32,6 +32,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.allSwaps();
         $scope.getBalance();
         $scope.setWalletAddress();
+        $scope.getAllAssetsList();
 
     }, 7500);
 
