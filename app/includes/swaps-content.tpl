@@ -159,7 +159,6 @@
                         <th scope="col">Receive</th>
                         <th scope="col">Swap Rate</th>
                         <th scope="col">Minimum Swap</th>
-                        <th scope="col">Owner (USAN)</th>
                         <th scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
@@ -177,7 +176,6 @@
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td>{{asset.owner}}</td>
                         <td class="float-right">
                             <div ng-hide="asset.owned == false">
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
@@ -302,7 +300,6 @@
                         <th scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
                         <th scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
                         <th scope="col" ng-click="sortSwapMarket('minswap')">Minimum Swap</th>
-                        <th scope="col" ng-click="sortSwapMarket('owner')">Owner (USAN)</th>
                         <th scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
@@ -320,7 +317,6 @@
                         <td><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
                         <td><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td>{{asset.owner}}</td>
                         <td class="float-right">
                             <div ng-hide="asset.owned == false">
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
