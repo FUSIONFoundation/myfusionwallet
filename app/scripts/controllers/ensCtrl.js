@@ -65,7 +65,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.endPage = 0;
     $scope.shownRows = 0;
 
-    $scope.transactionType = 'none';
+    $scope.sendTimeLock = 'none';
 
     $scope.checkDate = function () {
         if ($scope.transactionType == 'scheduled') {
@@ -869,7 +869,24 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             Targes: targesArray
         };
 
-        if ($scope.transactionType == 'scheduled') {
+        // Send part
+        if ($scope.sendTimeLock == 'scheduled') {
+            let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
+            let fromEndTime = web3.fsn.consts.TimeForeverStr;
+
+            data = {
+                from: walletAddress,
+                FromAssetID: $scope.assetToSend,
+                ToAssetID: $scope.assetToReceive,
+                MinToAmount: minToAmountHex,
+                MinFromAmount: minFromAmountHex,
+                SwapSize: parseInt($scope.makeMinumumSwap),
+                Targes: targesArray,
+                FromStartTime: fromStartTime,
+                FromEndTime: fromEndTime
+            };
+        }
+        if ($scope.sendTimeLock == 'daterange') {
             let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
             let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
 
@@ -885,6 +902,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 FromEndTime: fromEndTime
             };
         }
+
+        console.log(data);
 
         if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
