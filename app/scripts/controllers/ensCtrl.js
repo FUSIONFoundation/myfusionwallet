@@ -818,8 +818,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         return "0x" + (new Date(d).getTime() / 1000).toString(16);
     }
 
+    let targesArray = [];
 
     $scope.makeSwap = async function () {
+        targesArray = [];
         let password = walletService.password;
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
@@ -845,27 +847,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             console.log(err);
         }
 
-        let targes = [];
         if ($scope.makeTarges !== '') {
             let targesArr = $scope.makeTarges.split(',');
-            targesArr.forEach(async (targe) => {
-                if (targe.length < 42) {
-                    let usanAddr = '';
-                    console.log(targe)
-                    await web3.fsn.getAddressByNotation(targe.toString()).then(function(res){
-                        console.log(`This is res -> ${res}`)
-                        usanAddr = res;
-                    });
-                    targes.push(usanAddr);
-                    console.log(usanAddr);
-                } else {
-                    targes.push(targe);
-                    console.log(targe);
-                }
-            })
-            console.log(targes);
+            await $scope.processAllTarges(targesArr, 0);
+
+            console.log(targesArray);
         } else {
-            targes = [];
+            targesArray = [];
         }
 
         let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]));
@@ -878,7 +866,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             MinToAmount: minToAmountHex,
             MinFromAmount: minFromAmountHex,
             SwapSize: parseInt($scope.makeMinumumSwap),
-            Targes: targes
+            Targes: targesArray
         };
 
         if ($scope.transactionType == 'scheduled') {
@@ -892,7 +880,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 MinToAmount: minToAmountHex,
                 MinFromAmount: minFromAmountHex,
                 SwapSize: parseInt($scope.makeMinumumSwap),
-                Targes: targes,
+                Targes: targesArray,
                 FromStartTime: fromStartTime,
                 FromEndTime: fromEndTime
             };
@@ -961,6 +949,25 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
     }
+
+    $scope.processAllTarges = async function (targes, index) {
+        if (index == targes.length) {
+            return true
+        }
+        let target = targes[index];
+        if (target.length < 42) {
+            await web3.fsn.getAddressByNotation(parseInt(target)).then(function (res) {
+                if (res) {
+                    targesArray.push(res);
+                }
+                return $scope.processAllTarges(targes, index + 1)
+            });
+        } else {
+            targesArray.push(target);
+            return $scope.processAllTarges(targes, index + 1)
+        }
+    }
+
 
     $scope.getAssetBalance = async function () {
         let asset = $scope.assetToSend;
