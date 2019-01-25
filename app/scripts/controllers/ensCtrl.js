@@ -262,6 +262,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.assetToSendConfirm = '';
     $scope.assetToReceiveConfirm = '';
     $scope.makeSendAmount = '';
+    $scope.openMakeSwaps = 0;
     $scope.makeReceiveAmount = '';
     $scope.makeTarges = '';
     $scope.web3WalletBalance = 'Loading...'
