@@ -1062,7 +1062,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.allSwaps = async function () {
         let swapList = [];
         let swapListFront = [];
-        $scope.openMakeSwaps = 0;
+        let openMakeSwaps = 0;
 
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
@@ -1143,7 +1143,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
 
                 if (owned == true) {
-                    $scope.openMakeSwaps++;
+                    openMakeSwaps++;
                 }
 
                 let data = {
@@ -1170,6 +1170,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$apply(function () {
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
+            $scope.openMakeSwaps = openMakeSwaps;
             $scope.showLoader = false;
         });
     }
