@@ -38,7 +38,7 @@
             </div>
         </nav>
     </div>
-    <div class="col-md-12 p-2 swap-border">
+    <div class="col-md-12 p-2 swap-border" ng-show="showSwapMarket === true">
         <div class="col-md-3 text-left mr-0">
             <span class="small-gray-text">Send Assets</span>
             <br>
