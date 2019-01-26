@@ -60,7 +60,7 @@ var globalService = function ($http, $httpParamSerializerJQLike) {
         ens: {
             id: 7,
             name: "Swaps",
-            url: "ens",
+            url: "swaps",
             mew: true,
             cx: false
         },
