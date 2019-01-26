@@ -148,9 +148,14 @@
     <div class="col-md-12 pl-0 pr-0">
         <div class="panel panel-default" ng-show="showSwapMarket === false">
             <div class="panel-body">
-                <div class="text-center" ng-hide="openMakeSwaps != 0"><span
+                <div class="text-center" ng-show="openMakeSwaps == 0 && !showLoader"><span
                             class="small-gray-text">No Open Swaps</span></div>
-                <table class="table" ng-show="openMakeSwaps != 0">
+                <div class="col-md-12 text-center p-5" ng-show="showLoader">
+                    <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                    <br>
+                    <span class="small-gray-text">Loading Swaps...</span>
+                </div>
+                <table class="table" ng-show="openMakeSwaps != 0 && !showLoader">
                     <thead>
                     <tr class="small-gray-table">
                         <th class="text-left" scope="col"></th>
