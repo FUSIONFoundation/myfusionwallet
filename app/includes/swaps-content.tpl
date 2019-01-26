@@ -903,7 +903,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text p-0">
                             Swap ID
                         </div>
@@ -914,7 +914,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text p-0">
                             Time Initiated
                         </div>
@@ -925,7 +925,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text p-0">
                             Taker Sends
                         </div>
@@ -944,7 +944,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text p-0">
                             Taker Sends From
                         </div>
@@ -957,7 +957,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text p-0">
                             Swap initiated by
                         </div>
@@ -968,7 +968,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text p-0">
                             Max Swaps
                         </div>
@@ -979,7 +979,7 @@
                         </div>
                     </div>
 
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text p-0">
                             Taker will be receiving
                         </div>
@@ -997,7 +997,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text p-0">
                             Taker Receives From
                         </div>
@@ -1023,9 +1023,9 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="swapInformationModal.close()">
+                    <div class="row mt-2 text-center">
+                        <div class="col-md-12">
+                            <button class="btn btn-white" ng-click="swapInformationModal.close()">
                                 Close
                             </button>
                         </div>
