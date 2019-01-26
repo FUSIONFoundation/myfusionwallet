@@ -136,7 +136,7 @@
                 <span class="small-gray-text ng-binding">Select asset first</span>
             </div>
             <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
-                <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span>
+                <span class="text-fusion ng-binding"><strong class="font-size-16">{{selectedAssetBalance}}</strong> <span class="font-size-12">{{selectedAssetSymbol}}</span></span>
             </div>
         </div>
         <div class="col-md-2 text-left">
@@ -326,21 +326,21 @@
                             </span>
                             </td>
                         <td class="text-left">{{asset.time}}</td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> <span>{{asset.fromAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i> FSN Official</span>
                             <br>
                         </td>
-                        <td class="text-right"><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.toAmount}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i> FSN Official</span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td class="text-right"><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
+                        <td class="text-right"><strong>{{asset.swaprate}}</strong> <span class="font-size-12">{{asset.fromAssetSymbol}}</span></td>
+                        <td class="text-right"><strong>{{asset.minswap}}</strong> <span class="font-size-12">{{asset.fromAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">

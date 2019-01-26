@@ -1040,8 +1040,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let assetBalance = '';
         let decimals = '';
+        let assetSymbol = ''
         await web3.fsn.getAsset(asset).then(function (res) {
             decimals = res["Decimals"];
+            assetSymbol = res["Symbol"]
         });
 
         try {
@@ -1056,6 +1058,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.$eval(function () {
             $scope.selectedAssetBalance = balance;
+            $scope.selectedAssetSymbol = assetSymbol;
         });
     }
 
