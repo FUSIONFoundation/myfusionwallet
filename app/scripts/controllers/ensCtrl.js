@@ -503,25 +503,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (walletService.wallet == null) return;
         $scope.wallet = walletService.wallet;
         $scope.wd = true;
-        if ($scope.parentTxConfig) {
-            var setTxObj = function () {
-                $scope.addressDrtv.ensAddressField = $scope.parentTxConfig.to;
-                $scope.tx.value = $scope.parentTxConfig.value;
-                $scope.tx.sendMode = $scope.parentTxConfig.sendMode ? $scope.parentTxConfig.sendMode : 'ether';
-                $scope.tx.tokensymbol = $scope.parentTxConfig.tokensymbol ? $scope.parentTxConfig.tokensymbol : '';
-                $scope.tx.gasPrice = $scope.parentTxConfig.gasPrice ? $scope.parentTxConfig.gasPrice : null;
-                $scope.tx.nonce = $scope.parentTxConfig.nonce ? $scope.parentTxConfig.nonce : null;
-                $scope.tx.data = $scope.parentTxConfig.data ? $scope.parentTxConfig.data : $scope.tx.data;
-                $scope.tx.readOnly = $scope.addressDrtv.readOnly = $scope.parentTxConfig.readOnly ? $scope.parentTxConfig.readOnly : false;
-                if ($scope.parentTxConfig.gasLimit) {
-                    $scope.tx.gasLimit = $scope.parentTxConfig.gasLimit;
-                    $scope.gasLimitChanged = true;
-                }
-            }
-            $scope.$watch('parentTxConfig', function () {
-                setTxObj();
-            }, true);
-        }
     });
 
     $scope.countDecimals = function (decimals) {
