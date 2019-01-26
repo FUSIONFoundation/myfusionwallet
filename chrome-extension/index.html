@@ -6037,8 +6037,16 @@
                             </span>
                         </td>
                         <td class="text-left">{{asset.time}}</td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td class="text-right" ><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}} <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span></td>
+                        <td class="text-right" ><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}
+                            <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span>
+                        </td>
                         <td class="text-right" ><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td class="text-right" ><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td class="float-right text-right">
@@ -6178,9 +6186,19 @@
                             </span>
                             </td>
                         <td class="text-left">{{asset.time}}</td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}} <br>
+                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}}
+                            <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span>
+                            <br>
                         </td>
-                        <td class="text-right"><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}</td>
+                        <td class="text-right"><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}
+                            <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span>
+                        </td>
                         <td class="text-right"><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td class="text-right"><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
                         <td class="float-right text-right">
