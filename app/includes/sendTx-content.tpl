@@ -496,8 +496,8 @@
                     </div>
                 </div>
 
-                <h3 ng-hide="showStaticTimeLockAsset === true">Send Asset</h3>
-                <h3 ng-show="showStaticTimeLockAsset === true">Send Time-lock</h3>
+                <h3 class="h3-blue" ng-hide="showStaticTimeLockAsset === true">Send Asset</h3>
+                <h3 class="h3-blue" ng-show="showStaticTimeLockAsset === true">Send Time-lock</h3>
 
                 <div>
                     <section class="row form-group">
@@ -510,7 +510,17 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="sendAsset.toAddress"
+                                   ng-change="verifyWalletAddress()"
                                    placeholder="Enter a fusion address"/>
+                            <div class="invalid-feedback" ng-show="walletAddressError">
+                                Please, enter a valid wallet address.
+                            </div>
+                            <div class="neutral-feedback" ng-show="checkingUSAN">
+                                Checking Short Account Number, please wait.
+                            </div>
+                            <div class="valid-feedback" ng-show="validWalletAddress">
+                                Wallet address is valid.
+                            </div>
                         </div>
 
                         <div class="col-sm-12 mb-2" ng-show="showStaticAsset === true">
@@ -656,13 +666,13 @@
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.tillTime == ''; sendAsset.fromTime == '' ; sendAsset.amountToSend == ''; sendAsset.toAddress == ''; sendAsset.amountToSend < 0">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || sendAsset.amountToSend < 0">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance; sendAsset.amountToSend == ''; sendAsset.toAddress == '';">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '';">
                             Next
                         </button>
                     </div>
