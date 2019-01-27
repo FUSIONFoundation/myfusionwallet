@@ -762,38 +762,32 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeSwapConfirmation = async function (end) {
-        let sendAsset = [];
-        let receiveAsset = [];
 
-        try {
-            await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
-                sendAsset = res;
-            });
-        } catch (err) {
-            console.log(err);
-        }
-
-        try {
-            await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
-                receiveAsset = res;
-                if (end === 'end') {
-                    $scope.makeSwapConfirmEndModal.open()
-                } else if (end === 'notend') {
-                    $scope.makeSwapConfirmModal.open()
-                }
-            });
-        } catch (err) {
-            console.log(err);
+        let sendAssetSymbol = '';
+        let receiveAssetSymbol = '';
+        for(let asset in $scope.assetList){
+            if($scope.assetToSend == $scope.assetList[asset].contractaddress){
+               sendAssetSymbol = $scope.assetList[asset].symbol;
+            }
+            if($scope.assetToReceive == $scope.assetList[asset].contractaddress){
+                receiveAssetSymbol = $scope.assetList[asset].symbol;
+            }
         }
 
         $scope.$eval(function () {
-            $scope.assetToSendConfirm = sendAsset["Symbol"];
-            $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
+            $scope.assetToSendConfirm = sendAssetSymbol;
+            $scope.assetToReceiveConfirm = receiveAssetSymbol;
             $scope.fromStartTimeString = $scope.returnDateString(new Date($scope.fromStartTime).getTime() / 1000.0);
             $scope.fromEndTimeString = $scope.returnDateString(new Date($scope.fromEndTime).getTime() / 1000.0);
             $scope.toStartTimeString = $scope.returnDateString(new Date($scope.ToStartTime).getTime() / 1000.0);
             $scope.toEndTimeString = $scope.returnDateString(new Date($scope.ToEndTime).getTime() / 1000.0);
         });
+
+        if (end === 'end') {
+            $scope.makeSwapConfirmEndModal.open()
+        } else if (end === 'notend') {
+            $scope.makeSwapConfirmModal.open()
+        }
     }
 
     function convertDate(inputFormat) {
@@ -1198,7 +1192,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
         $scope.$apply(function () {
-            console.log(swapListFront);
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
             $scope.openMakeSwaps = openMakeSwaps;
