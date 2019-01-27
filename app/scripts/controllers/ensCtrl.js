@@ -772,20 +772,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         try {
             await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
                 receiveAsset = res;
+                $scope.$eval(function () {
+                    $scope.assetToSendConfirm = sendAsset["Symbol"];
+                    $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
+                });
+                if (end === 'end') {
+                    $scope.makeSwapConfirmEndModal.open()
+                } else if (end === 'notend') {
+                    $scope.makeSwapConfirmModal.open()
+                }
             });
         } catch (err) {
             console.log(err);
-        }
-
-        $scope.$eval(function () {
-            $scope.assetToSendConfirm = sendAsset["Symbol"];
-            $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
-        });
-
-        if (end === 'end') {
-            $scope.makeSwapConfirmEndModal.open()
-        } else if (end === 'notend') {
-            $scope.makeSwapConfirmModal.open()
         }
     }
 
