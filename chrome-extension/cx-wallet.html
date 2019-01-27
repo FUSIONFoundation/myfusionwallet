@@ -7361,8 +7361,12 @@
                             You will be sending
                         </div>
                         <div class="col-md-6">
-                            <div class="float-right">
+                            <div class="float-right text-right">
                                 <span class="fusion-text-18">{{makeSendAmount}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
+                                <br>
+                                <span class="small-gray-text" ng-show="showTimeLockSend">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - {{fromEndTimeString}}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -7371,8 +7375,12 @@
                             You will be receiving
                         </div>
                         <div class="col-md-6">
-                            <div class="float-right">
+                            <div class="float-right text-right">
                                 <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span class="fusion-text-14">{{assetToReceiveConfirm}}</span>
+                                <br>
+                                <span class="small-gray-text" ng-show="showTimeLockReceive">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - {{toEndTimeString}}
+                                </span>
                             </div>
                         </div>
                     </div>

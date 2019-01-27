@@ -776,10 +776,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         try {
             await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
                 receiveAsset = res;
-                $scope.$eval(function () {
-                    $scope.assetToSendConfirm = sendAsset["Symbol"];
-                    $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
-                });
                 if (end === 'end') {
                     $scope.makeSwapConfirmEndModal.open()
                 } else if (end === 'notend') {
@@ -789,6 +785,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log(err);
         }
+
+        $scope.$eval(function () {
+            $scope.assetToSendConfirm = sendAsset["Symbol"];
+            $scope.assetToReceiveConfirm = receiveAsset["Symbol"];
+            $scope.fromStartTimeString = $scope.returnDateString(new Date($scope.fromStartTime).getTime() / 1000.0);
+            $scope.fromEndTimeString = $scope.returnDateString(new Date($scope.fromEndTime).getTime() / 1000.0);
+            $scope.toStartTimeString = $scope.returnDateString(new Date($scope.ToStartTime).getTime() / 1000.0);
+            $scope.toEndTimeString = $scope.returnDateString(new Date($scope.ToEndTime).getTime() / 1000.0);
+        });
     }
 
     function convertDate(inputFormat) {
