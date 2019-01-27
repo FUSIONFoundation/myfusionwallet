@@ -68,6 +68,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.shownRows = 0;
 
     $scope.sendTimeLock = 'none';
+    $scope.showTimeLockSend = false;
+    $scope.showTimeLockReceive = false;
 
     $scope.checkDate = function () {
         if ($scope.transactionType == 'scheduled') {
@@ -753,7 +755,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.makeMinumumSwap = '';
             $scope.privateAccess = false;
             $scope.makeTarges = '';
-
+            $scope.showTimeLockSend = false;
+            $scope.showTimeLockReceive = false;
         })
         $scope.makeSwapModal.open();
     }
@@ -896,53 +899,40 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         };
 
         // Send part
-        if ($scope.sendTimeLock == 'scheduled') {
-            let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
-            let fromEndTime = web3.fsn.consts.TimeForeverStr;
+        if($scope.showTimeLockSend == true) {
+            if ($scope.sendTimeLock == 'scheduled') {
+                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
+                let fromEndTime = web3.fsn.consts.TimeForeverStr;
 
-            data = {
-                from: walletAddress,
-                FromAssetID: $scope.assetToSend,
-                ToAssetID: $scope.assetToReceive,
-                MinToAmount: minToAmountHex,
-                MinFromAmount: minFromAmountHex,
-                SwapSize: parseInt($scope.makeMinumumSwap),
-                Targes: targesArray,
-                FromStartTime: fromStartTime,
-                FromEndTime: fromEndTime
-            };
-        }
-        if ($scope.sendTimeLock == 'daterange') {
-            let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
-            let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
+                data.FromStartTime = fromStartTime;
+                data.FromEndTime = fromEndTime;
+            }
+            if ($scope.sendTimeLock == 'daterange') {
+                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
+                let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
 
-            data = {
-                from: walletAddress,
-                FromAssetID: $scope.assetToSend,
-                ToAssetID: $scope.assetToReceive,
-                MinToAmount: minToAmountHex,
-                MinFromAmount: minFromAmountHex,
-                SwapSize: parseInt($scope.makeMinumumSwap),
-                Targes: targesArray,
-                FromStartTime: fromStartTime,
-                FromEndTime: fromEndTime
-            };
+                data.FromStartTime = fromStartTime;
+                data.FromEndTime = fromEndTime;
+            }
         }
 
-        if ($scope.receiveTimeLock == 'scheduled'){
-            let toStartTime = getHexDate(convertDate($scope.ToStartTime));
-            let toEndTime = web3.fsn.consts.TimeForeverStr;
+        // Receive part
+        if ($scope.showTimeLockReceive == true) {
+            if ($scope.receiveTimeLock == 'scheduled') {
+                let toStartTime = getHexDate(convertDate($scope.ToStartTime));
+                let toEndTime = web3.fsn.consts.TimeForeverStr;
 
-            data.ToStartTime = toStartTime;
-            data.ToEndTime = toEndTime;
-        }
+                data.ToStartTime = toStartTime;
+                data.ToEndTime = toEndTime;
+            }
 
-        if ($scope.receiveTimeLock == 'daterange'){
-            let toStartTime = getHexDate(convertDate($scope.ToStartTime));
-            let toEndTime = getHexDate(convertDate($scope.ToEndTime));
+            if ($scope.receiveTimeLock == 'daterange') {
+                let toStartTime = getHexDate(convertDate($scope.ToStartTime));
+                let toEndTime = getHexDate(convertDate($scope.ToEndTime));
 
-            data.ToStartTime = toStartTime;
-            data.ToEndTime = toEndTime;
+                data.ToStartTime = toStartTime;
+                data.ToEndTime = toEndTime;
+            }
         }
 
         if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
