@@ -676,7 +676,58 @@
                         </div>
                         <div class="col-md-6 pl-2">
                             <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary m-0 mt-1">Set Time-lock</button>
+                            <button class="btn btn-sm btn-primary m-0 mt-1" ng-click="showTimeLockReceive = !showTimeLockReceive">Set
+                                Time-lock
+                            </button>
+                            <div ng-show="showTimeLockReceive">
+                                <div class="col-md-6 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white w-100"
+                                            ng-click="receiveTimeLock ='scheduled'"
+                                            ng-class="{'time-active' : receiveTimeLock == 'scheduled'}"
+                                    >
+                                        Date to Forever
+                                    </button>
+                                </div>
+                                <div class="col-md-6 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white w-100"
+                                            ng-click="receiveTimeLock ='daterange'"
+                                            ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
+                                    >
+                                        Now to Date
+                                    </button>
+                                </div>
+                            </div>
+                            <div ng-show="receiveTimeLock == 'scheduled' || receiveTimeLock == 'daterange'">
+                                <div class="col-md-12 p-0">
+                                        <span class="small-gray-text">
+                                    From
+                            </span>
+                                    <br>
+                                    <input class="form-control"
+                                           type="date"
+                                           ng-change="checkDate()"
+                                           min="{{todayDate}}"
+                                           onkeydown="return false"
+                                           ng-model="ToStartTime">
+                                </div>
+                                <div class="col-md-12 p-0">
+                                    <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
+                                    <div class="col-md-12 p-0" ng-show="receiveTimeLock == 'scheduled'">
+                                        <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
+                                    </div>
+                                    <div class="col-md-12 p-0" ng-hide="receiveTimeLock == 'scheduled'">
+                                            <span class="small-gray-text">
+                                                 Until
+                                            </span>
+                                        <input class="form-control"
+                                               type="date"
+                                               ng-change="checkDate()"
+                                               min="{{todayDate}}"
+                                               onkeydown="return false"
+                                               ng-model="ToEndTime">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
