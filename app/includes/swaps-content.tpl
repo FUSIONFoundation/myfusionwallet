@@ -743,47 +743,49 @@
 
                     <p>Please review the following details carefully before making your swap.</p>
 
-                    <div class="row p-2">
+                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text">
                             You will be sending
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeSendAmount}} {{assetToSendConfirm}}
+                                <span class="fusion-text-18">{{makeSendAmount}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2">
+                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text">
                             You will be receiving
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeReceiveAmount}} {{assetToReceiveConfirm}}
+                                <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span class="fusion-text-14">{{assetToReceiveConfirm}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text">
                             Swap Rate
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeSendAmount}} : {{makeReceiveAmount}}
+                                <span class="fusion-text-18">{{makeSendAmount}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
+                                : <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span class="fusion-text-14">{{assetToReceiveConfirm}}</span>
+
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text">
                             Minimum Swap Amount
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{makeMinumumSwap}}
+                                <span class="fusion-text-18">{{makeMinumumSwap}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2" ng-show="makeTarges != ''">
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom" ng-show="makeTarges != ''">
                         <div class="col-md-6 small-gray-text">
                             Available To
                         </div>
