@@ -1178,8 +1178,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "FromStartTimeString": $scope.returnDateString(swapList[asset]["FromStartTime"]),
                     "ToEndTime": swapList[asset]["ToEndTime"],
                     "ToStartTime": swapList[asset]["ToStartTime"],
-                    "ToEndTimeTimeString": $scope.returnDateString(swapList[asset]["ToEndTime"]),
-                    "ToStartTimeTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"])
+                    "ToEndTimeString": $scope.returnDateString(swapList[asset]["ToEndTime"]),
+                    "ToStartTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"])
 
                 }
                 if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0) {
