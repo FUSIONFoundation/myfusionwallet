@@ -666,13 +666,13 @@
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || sendAsset.amountToSend < 0">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || sendAsset.amountToSend < 0 || walletAddressError">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '';">
+                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || walletAddressError">
                             Next
                         </button>
                     </div>
