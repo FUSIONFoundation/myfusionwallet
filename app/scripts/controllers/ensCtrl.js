@@ -269,6 +269,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.selectedSendAsset = 'Select asset'
     $scope.addressNotation = '';
     $scope.makeMinumumSwap = 1;
+    $scope.receiveTimeLock = 'none';
     $scope.ajaxReq = ajaxReq;
     $scope.unitReadable = ajaxReq.type;
     $scope.recallAssetModal = new Modal(document.getElementById('recallAsset'));
@@ -928,7 +929,21 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             };
         }
 
-        console.log(data);
+        if ($scope.receiveTimeLock == 'scheduled'){
+            let toStartTime = getHexDate(convertDate($scope.ToStartTime));
+            let toEndTime = web3.fsn.consts.TimeForeverStr;
+
+            data.ToStartTime = toStartTime;
+            data.ToEndTime = toEndTime;
+        }
+
+        if ($scope.receiveTimeLock == 'daterange'){
+            let toStartTime = getHexDate(convertDate($scope.ToStartTime));
+            let toEndTime = getHexDate(convertDate($scope.ToEndTime));
+
+            data.ToStartTime = toStartTime;
+            data.ToEndTime = toEndTime;
+        }
 
         if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
