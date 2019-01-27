@@ -356,23 +356,23 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (data["FromStartTime"] == 0) {
             fromStartTime = 'Now';
         } else {
-            fromStartTime = data["FromStartTime"];
+            fromStartTime = $scope.returnDateString(data["FromStartTime"]);
         }
         if (data["FromEndTime"] == 18446744073709552000) {
             fromEndTime = 'Forever';
         } else {
-            fromEndTime = data["FromEndTime"];
+            fromEndTime = $scope.returnDateString(data["FromEndTime"]);
         }
 
         if (data["ToStartTime"] == 0) {
             toStartTime = 'Now';
         } else {
-            toStartTime = data["ToStartTime"];
+            toStartTime = $scope.returnDateString(data["ToStartTime"]);
         }
         if (data["ToEndTime"] == 18446744073709552000) {
             toEndTime = 'Forever';
         } else {
-            toEndTime = data["ToEndTime"];
+            toEndTime = $scope.returnDateString(data["ToEndTime"]);
         }
 
         let targes = [];
