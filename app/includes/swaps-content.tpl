@@ -332,7 +332,7 @@
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i> FSN Official</span>
                             <br>
-                            <span class="small-gray-text">
+                            <span class="small-gray-text" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
                             </span>
                         </td>
