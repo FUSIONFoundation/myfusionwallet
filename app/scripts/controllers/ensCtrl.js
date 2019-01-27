@@ -1041,6 +1041,22 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
     }
 
+    $scope.returnDateString = function (posixtime) {
+        if (posixtime == 18446744073709552000) {
+            return 'Forever';
+        }
+        if (posixtime == 0){
+            return 'Now';
+        }
+        let time = new Date(parseInt(posixtime) * 1000);
+
+        let tMonth = time.getMonth();
+        let tDay = time.getDate();
+        let tYear = time.getFullYear();
+
+        return $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
+    }
+
 
     $scope.allSwaps = async function () {
         let swapList = [];
@@ -1107,6 +1123,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
 
                 let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
+
+                // Targes section
+
                 let targes = '';
 
                 swapList[asset]["Targes"].length > 0 ? targes = 'Private' : targes = 'Public';
@@ -1129,6 +1148,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     openMakeSwaps++;
                 }
 
+                // Time Lock Section
+                // Send TL
+
+                if (swapList[asset]["FromEndTime"]) {
+
+                }
+
+                // Receive TL
+
                 let data = {
                     "id": swapListFront.length,
                     "swap_id": swapList[asset]["ID"],
@@ -1143,7 +1171,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "time": time.toLocaleString(),
                     "targes": targes,
                     "owner": ownerAddr,
-                    "owned": owned
+                    "owned": owned,
+                    "FromEndTime": swapList[asset]["FromEndTime"],
+                    "FromStartTime": swapList[asset]["FromStartTime"],
+                    "FromEndTimeString": $scope.returnDateString(swapList[asset]["FromEndTime"]),
+                    "FromStartTimeString": $scope.returnDateString(swapList[asset]["FromStartTime"]),
+                    "ToEndTime": swapList[asset]["ToEndTime"],
+                    "ToStartTime": swapList[asset]["ToStartTime"],
+                    "ToEndTimeTimeString": $scope.returnDateString(swapList[asset]["ToEndTime"]),
+                    "ToStartTimeTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"])
+
                 }
                 if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0) {
                     await swapListFront.push(data);
@@ -1151,6 +1188,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
         $scope.$apply(function () {
+            console.log(swapListFront);
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
             $scope.openMakeSwaps = openMakeSwaps;
