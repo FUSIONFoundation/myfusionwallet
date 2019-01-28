@@ -1127,6 +1127,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
 
                 let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
+                let swapratetaker = toAmount / fromAmount;
 
                 // Targes section
 
@@ -1171,6 +1172,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "toAmount": toAmount,
                     "toAssetSymbol": toAsset["Symbol"],
                     "swaprate": swapRate,
+                    "swapratetaker" : swapratetaker,
                     "minswap": minimumswap,
                     "time": time.toLocaleString(),
                     "targes": targes,

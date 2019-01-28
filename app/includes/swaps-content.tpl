@@ -335,16 +335,6 @@
                             </span>
                             </td>
                         <td class="text-left">{{asset.time}}</td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> <span>{{asset.fromAssetSymbol}}</span>
-                            <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
-                            <br>
-                            <span class="small-gray-text" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
-                            </span>
-                        </td>
                         <td class="text-right"><strong>{{asset.toAmount}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
@@ -355,7 +345,17 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swaprate}}</strong> <span class="font-size-12">{{asset.fromAssetSymbol}}</span></td>
+                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> <span>{{asset.fromAssetSymbol}}</span>
+                            <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span>
+                            <br>
+                            <span class="small-gray-text" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
+                            </span>
+                        </td>
+                        <td class="text-right"><strong>{{asset.swapratetaker}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="text-right"><strong>{{asset.minswap}}</strong> <span class="font-size-12">{{asset.fromAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
@@ -444,7 +444,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                {{takeDataFront.fromAssetBalance}} {{takeDataFront.fromAssetSymbol}}
+                                <span class="fusion-text-18">{{takeDataFront.fromAssetBalance}}</span>
+                                <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span>
                             </div>
                         </div>
                     </div>

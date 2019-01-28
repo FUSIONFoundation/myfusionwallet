@@ -516,7 +516,7 @@
                                 Please, enter a valid wallet address.
                             </div>
                             <div class="neutral-feedback" ng-show="checkingUSAN">
-                                Checking Short Account Number, please wait.
+                                Checking Short Account Number, please wait..
                             </div>
                             <div class="valid-feedback" ng-show="validWalletAddress">
                                 Wallet address is valid.
