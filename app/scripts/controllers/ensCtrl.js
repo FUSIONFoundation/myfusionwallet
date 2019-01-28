@@ -634,10 +634,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let fromAsset = [];
 
         try {
-            await web3.fsn.getBalance($scope.swapsList[id].fromAssetId, walletAddress).then(function (res) {
+            await web3.fsn.getBalance($scope.swapsList[id].toAssetId, walletAddress).then(function (res) {
                 balance = res;
             });
-            await web3.fsn.getAsset($scope.swapsList[id].fromAssetId).then(function (res) {
+            await web3.fsn.getAsset($scope.swapsList[id].toAssetId).then(function (res) {
                 decimals = res["Decimals"];
             })
         } catch (err) {
@@ -650,15 +650,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
-            $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
-            $scope.takeDataFront.fromAssetId = $scope.swapsList[id].fromAssetId;
-            $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswap / $scope.swapsList[id].swaprate;
-            $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].toAssetSymbol;
-            $scope.takeDataFront.toAssetMin = $scope.swapsList[id].toAssetId;
+            $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].toAssetSymbol;
+            $scope.takeDataFront.fromAssetId = $scope.swapsList[id].toAssetId;
+            $scope.takeDataFront.toAssetMin = $scope.swapsList[id].minswap / $scope.swapsList[id].swapratetaker;
+            $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
+            $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswaptaker;
             $scope.takeDataFront.fromAssetBalance = balance;
-            $scope.takeDataFront.swapRate = $scope.swapsList[id].swaprate;
-            $scope.takeDataFront.maxAmount = $scope.swapsList[id].minswap;
+            $scope.takeDataFront.swapRate = $scope.swapsList[id].swapratetaker;
+            $scope.takeDataFront.maxAmount = $scope.swapsList[id].toAmount;
         })
+
+        console.log($scope.takeDataFront);
+
 
         $scope.takeSwapModal.open();
     }

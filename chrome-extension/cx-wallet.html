@@ -7036,7 +7036,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="float-right">
-                                <input type="text" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
+                                <input type="number" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
+                                       max="{{takeDataFront.maxAmount}}"
                                        ng-change="setReceive()" placeholder="Amount">
                                 <a class="small-gray-text float-right text-lightblue mt-1"
                                    ng-click="setMaxTakeSwap()">Max Amount</a>
@@ -7068,7 +7069,7 @@
                     </div>
 
                     <div class="col-sm-12 clearfix error-red pt-2 pb-2 text-white text-center mb-3"
-                         ng-show="takeDataFront.maxAmount > takeDataFront.fromAssetBalance || web3WalletBalance <= 0">
+                         ng-show="takeAmountSwap > takeDataFront.fromAssetBalance || takeDataFront.maxAmount > takeDataFront.fromAssetBalance || web3WalletBalance <= 0">
                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span
                                 class="font-size-12 text-white">You are unable to take this swap. You do not have enough funds.</span>
                     </div>
@@ -7080,7 +7081,7 @@
                         <div class="col-md-6 p-0 pl-2">
                             <button class="btn btn-primary w-100"
                                     ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
-                                    ng-disabled="takeDataFront.fromAssetBalance <= 0">Take Swap
+                                    ng-disabled="takeAmountSwap > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">Take Swap
                             </button>
                         </div>
                     </div>
