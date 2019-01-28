@@ -670,6 +670,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.receiveTokens = $scope.takeAmountSwap / $scope.takeDataFront.swapRate;
     }
 
+    $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
+        let percentage = amount / maxamount
+        let calculatedSwapSize = swap_size * percentage;
+        return calculatedSwapSize;
+    }
+
     $scope.takeSwap = async function (asset_id, swap_id, amount) {
         let password = walletService.password;
         let accountData = uiFuncs.getTxData($scope);
@@ -683,13 +689,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log(err);
         }
-
+        // 0x722692797b550944c6bc497dfb21875bb650db8bbef86416b3a198f9f4c42bce
         let take = amount * $scope.countDecimals(toAsset["Decimals"]);
+
+        let swapSize = $scope.calculateSwapSize(amount, swap_id.maxswaps, swap_id.toAmount)
 
         let data = {
             from: walletAddress,
             SwapID: swap_id.swap_id,
-            Size: 1
+            Size:swapSize
         };
 
         console.log(data);
@@ -941,6 +949,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
         }
 
+        console.log(data);
+
         try {
             await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
                 console.log(tx);
@@ -1181,6 +1191,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "toAmount": toAmount,
                     "toAssetSymbol": toAsset["Symbol"],
                     "swaprate": swapRate,
+                    "maxswaps" : swapList[asset]["SwapSize"],
                     "swapratetaker" : swapratetaker,
                     "minswap": minimumswap,
                     "minswaptaker" : minimumswaptaker,
