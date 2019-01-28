@@ -6251,7 +6251,7 @@
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
-                                        ng-disabled="allBalance[asset.fromAssetId] < asset.minswap"
+                                        ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker"
                                 >Take Swap
                                 </button>
                                 <button class="btn btn-sm btn-white m-0"
