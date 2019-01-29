@@ -218,6 +218,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeBigNumber = function (amount, decimals) {
+        debugger
         let pieces = amount.split(".")
         let d = parseInt(decimals)
         if (pieces.length === 1) {
@@ -895,9 +896,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             targesArray = [];
         }
 
-        let minToAmountHex = web3.utils.numberToHex($scope.makeReceiveAmount * $scope.countDecimals(toAsset["Decimals"]));
-        let minFromAmountHex = web3.utils.numberToHex($scope.makeSendAmount * $scope.countDecimals(fromAsset["Decimals"]));
+        let makeReceiveAmountString = $scope.makeReceiveAmount.toString();
+        let makeSendAmountString = $scope.makeSendAmount.toString();
 
+        let minToAmount = $scope.makeBigNumber(makeReceiveAmountString, toAsset["Decimals"]);
+        let minFromAmount = $scope.makeBigNumber(makeSendAmountString, fromAsset["Decimals"]);
+
+        let minToAmountHex = "0x" + minToAmount.toString(16);
+        let minFromAmountHex = "0x" + minFromAmount.toString(16);
+
+        debugger
         let data = {
             from: walletAddress,
             FromAssetID: $scope.assetToSend,
