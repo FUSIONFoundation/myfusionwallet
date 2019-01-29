@@ -6892,7 +6892,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList | filter: { owned: 'false' } |orderBy:sortKey:reverse |filter:searchSwapMarket | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
+                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
                         <td class="text-left">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
