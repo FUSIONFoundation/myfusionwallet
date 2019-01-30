@@ -180,7 +180,7 @@
                         <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}} <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
+                                        class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
@@ -190,7 +190,7 @@
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
+                                        class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text" ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}
@@ -339,7 +339,7 @@
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
+                                        class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text" ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}
@@ -349,7 +349,7 @@
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
+                                        class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
@@ -774,7 +774,8 @@
                     </div>
                     <div class="col-md-12 p-0" ng-show="privateAccess == true">
                         <span class="small-gray-text">Seperate addresses with commas.</span>
-                        <input type="text" class="form-control m-0 mt-1" ng-model="makeTarges"
+                        <input type="text" class="form-control m-0 mt-1"
+                               ng-model="makeTarges"
                                placeholder="Addresses">
                     </div>
 
