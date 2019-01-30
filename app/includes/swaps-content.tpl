@@ -518,7 +518,7 @@
                         </div>
                         <div class="col-md-6 p-0 pl-2">
                             <button class="btn btn-primary w-100"
-                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
+                                    ng-click="takeSwapConfirm.open()"
                                     ng-disabled="takeAmountSwap > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">Take Swap
                             </button>
                         </div>
@@ -967,7 +967,6 @@
             </section>
         </section>
     </article>
-
     <article class="modal fade" id="swapInformationModal" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
             <section class="modal-content">
@@ -1111,6 +1110,77 @@
                             <button class="btn btn-white" ng-click="swapInformationModal.close()">
                                 Close
                             </button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </article>
+    <article class="modal fade" id="takeSwapConfirm" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog">
+            <section class="modal-content">
+                <article class="block" ng-hide="wallet.type=='addressOnly'">
+                    <div class="col-md-12 p-0">
+                        <div class="float-right">
+                                  <span class="gray-text" ng-click="makeSwapModal.open()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                        </div>
+                    </div>
+                    <h3 class="h3-blue">Review Take Swap</h3>
+
+                    <p>Please review the following details carefully before taking the swap.</p>
+
+                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
+                        <div class="col-md-6 small-gray-text">
+                            You will be sending
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right text-right">
+                                <span class="fusion-text-18">{{takeAmountSwap}}</span>
+                                <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
+                                <br>
+                                <span class="small-gray-text" ng-show="showTimeLockSend">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - {{fromEndTimeString}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
+                        <div class="col-md-6 small-gray-text">
+                            You will be receiving
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right text-right">
+                                <span class="fusion-text-18">{{receiveTokens}}</span> <span class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
+                                <br>
+                                <span class="small-gray-text" ng-show="showTimeLockReceive">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - {{toEndTimeString}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
+                        <div class="col-md-6 small-gray-text">
+                            Swap Rate
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                <span class="fusion-text-18"><strong>{{takeDataFront.swapRate}}</strong></span>
+                                <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span> :
+                                <span class="fusion-text-18"><strong>1</strong></span>
+                                <span class="fusion-text-12">{{takeDataFront.toAssetSymbol}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-offset-6 float-right">
+                            <button class="btn btn-sm btn-primary"
+                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)">
+                                Confirm
+                            </button>
+                            <button class="btn btn-sm btn-secondary" ng-click="takeSwapConfirm.close()">Cancel</button>
                         </div>
                     </div>
                 </article>

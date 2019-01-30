@@ -218,7 +218,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeBigNumber = function (amount, decimals) {
-        debugger
         let pieces = amount.split(".")
         let d = parseInt(decimals)
         if (pieces.length === 1) {
@@ -282,6 +281,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.makeSwapConfirmEndModal = new Modal(document.getElementById('makeSwapEndConfirm'));
     $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
     $scope.swapInformationModal = new Modal(document.getElementById('swapInformationModal'));
+    $scope.takeSwapConfirm = new Modal(document.getElementById('takeSwapConfirm'));
     $scope.showLoader = true;
 
 
@@ -905,7 +905,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let minToAmountHex = "0x" + minToAmount.toString(16);
         let minFromAmountHex = "0x" + minFromAmount.toString(16);
 
-        debugger
         let data = {
             from: walletAddress,
             FromAssetID: $scope.assetToSend,
