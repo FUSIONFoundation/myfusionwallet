@@ -1187,5 +1187,65 @@
             </section>
         </section>
     </article>
+    <article class="modal fade" id="takeSwapEndConfirm" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog">
+            <section class="modal-content">
+                <article class="block" ng-hide="wallet.type=='addressOnly'">
+                    <div class="col-md-12 p-0">
+                        <div class="float-right">
+                                  <span class="gray-text" ng-click="takeSwapEndConfirm.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                        </div>
+                    </div>
+                    <h3 class="h3-blue text-center">Success</h3>
+
+
+                    <div class="row p-2 gray-bg gray-bg-2 m-0">
+                        <div class="col-md-6 small-gray-text">
+                            Sent
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                <span class="fusion-text-18">{{takeAmountSwap}}</span> {{takeDataFront.fromAssetSymbol}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2 gray-bg gray-bg-2 m-0 mt-2">
+                        <div class="col-md-6 small-gray-text">
+                            Receiving
+                        </div>
+                        <div class="col-md-6">
+                            <div class="float-right">
+                                <span class="fusion-text-18">{{receiveTokens}}</span> {{takeDataFront.toAssetSymbol}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            <div class="text-center m-3">
+                                <img src="images/check-circle.svg" width="120px" style="color:#7ed321;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <p>Take Swap Successful! The funds should be available in your wallet within the next 15 seconds.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button class="btn btn-white" ng-click="takeSwapEndConfirm.close()">
+                                Back to Swap Market
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </article>
 
 </article>

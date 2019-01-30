@@ -282,6 +282,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
     $scope.swapInformationModal = new Modal(document.getElementById('swapInformationModal'));
     $scope.takeSwapConfirm = new Modal(document.getElementById('takeSwapConfirm'));
+    $scope.takeSwapEndConfirm = new Modal(document.getElementById('takeSwapEndConfirm'));
     $scope.showLoader = true;
 
 
@@ -690,7 +691,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log(err);
         }
-        // 0x722692797b550944c6bc497dfb21875bb650db8bbef86416b3a198f9f4c42bce
         let take = amount * $scope.countDecimals(toAsset["Decimals"]);
 
         let swapSize = $scope.calculateSwapSize(amount, swap_id.maxswaps, swap_id.toAmount)
@@ -715,9 +715,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if ($scope.wallet.hwType == "ledger") {
                     return;
                 }
-                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                     console.log(txHash);
                 })
+
+                return $scope.takeSwapEndConfirm.open();
             })
         } catch (err) {
             console.log(err);
@@ -727,7 +729,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.switchAsset = async function () {
         let sendAsset = $scope.assetToSend;
         let receiveAsset = $scope.assetToReceive;
-
         let canSwitch = false;
         let assetListOwnedId = "";
         let assetListId = "";
