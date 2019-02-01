@@ -606,6 +606,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeBigNumber = function (amount, decimals) {
+        debugger
         let pieces = amount.split(".")
         let d = parseInt(decimals)
         if (pieces.length === 1) {
@@ -1069,16 +1070,21 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
         }
 
-        let data = {};
+        let totalSupplyString = totalSupply.toString()
+
+        let totalSupplyBN = $scope.makeBigNumber(totalSupplyString, decimals);
+        let totalSupplyBNHex = "0x" + totalSupplyBN.toString(16);
+
+        let data = {
+            from: walletAddress,
+            name: assetName,
+            symbol: assetSymbol,
+            decimals: decimals,
+            total: totalSupplyBNHex
+        };
 
         try {
-            await web3.fsntx.buildGenAssetTx({
-                from: walletAddress,
-                name: assetName,
-                symbol: assetSymbol,
-                decimals: decimals,
-                total: totalSupply * power
-            }).then((tx) => {
+            await web3.fsntx.buildGenAssetTx(data).then((tx) => {
                 tx.chainId = _CHAINID;
                 data = tx;
                 if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
