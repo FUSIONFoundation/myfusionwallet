@@ -670,7 +670,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.setReceive = function () {
-        $scope.receiveTokens = $scope.takeAmountSwap / $scope.takeDataFront.swapRate;
+        if($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) { return; }
+        let perc = $scope.takeAmountSwap  / $scope.takeDataFront.swapSize;
+        $scope.receiveTokens = $scope.takeDataFront.toAssetMin * perc;
     }
 
     $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
@@ -692,14 +694,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log(err);
         }
-        let take = amount * $scope.countDecimals(toAsset["Decimals"]);
-
-        let swapSize = $scope.calculateSwapSize(amount, swap_id.maxswaps, swap_id.toAmount)
 
         let data = {
             from: walletAddress,
             SwapID: swap_id.swap_id,
-            Size:swapSize
+            Size:$scope.takeAmountSwap
         };
 
         console.log(data);

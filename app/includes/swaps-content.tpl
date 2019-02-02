@@ -484,10 +484,9 @@
                         <div class="col-md-12">
                             <div class="float-right">
                                 <input type="number" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
-                                       max="{{takeDataFront.maxAmount}}"
-                                       ng-change="setReceive()" placeholder="Amount">
-                                <a class="small-gray-text float-right text-lightblue mt-1"
-                                   ng-click="setMaxTakeSwap()">Max Amount</a>
+                                       min="1"
+                                       max="{{takeDataFront.swapSize}}"
+                                       ng-change="setReceive()" placeholder="Fills"> Fills : 900 FSN
                             </div>
                         </div>
                     </div>
