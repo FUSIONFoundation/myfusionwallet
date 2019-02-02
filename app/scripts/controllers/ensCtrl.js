@@ -654,6 +654,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
             $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].toAssetSymbol;
             $scope.takeDataFront.fromAssetId = $scope.swapsList[id].toAssetId;
+            $scope.takeDataFront.swapSize = $scope.swapsList[id].maxswaps;
             $scope.takeDataFront.toAssetMin = $scope.swapsList[id].minswap / $scope.swapsList[id].swapratetaker;
             $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
             $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswaptaker;
