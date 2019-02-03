@@ -606,7 +606,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeBigNumber = function (amount, decimals) {
-        debugger
         let pieces = amount.split(".")
         let d = parseInt(decimals)
         if (pieces.length === 1) {
