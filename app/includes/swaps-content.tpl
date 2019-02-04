@@ -600,7 +600,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div ng-show="sendTimeLock == 'scheduled' || sendTimeLock == 'daterange'">
+                            <div ng-show="sendTimeLock == 'scheduled' || sendTimeLock == 'daterange' && showTimeLockSend">
                                 <div class="col-md-12 p-0">
                                         <span class="small-gray-text">
                                     From
@@ -689,7 +689,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div ng-show="receiveTimeLock == 'scheduled' || receiveTimeLock == 'daterange'">
+                            <div ng-show="receiveTimeLock == 'scheduled' || receiveTimeLock == 'daterange'  && showTimeLockReceive">
                                 <div class="col-md-12 p-0">
                                         <span class="small-gray-text">
                                     From
