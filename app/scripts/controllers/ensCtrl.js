@@ -900,8 +900,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             targesArray = [];
         }
 
-        let makeReceiveAmountString = $scope.makeReceiveAmount.toString();
-        let makeSendAmountString = $scope.makeSendAmount.toString();
+        debugger;
+
+        let makeReceiveAmountString = ($scope.makeReceiveAmount / parseInt($scope.makeMinumumSwap)).toString();
+        let makeSendAmountString = ($scope.makeSendAmount / parseInt($scope.makeMinumumSwap)).toString();
 
         let minToAmount = $scope.makeBigNumber(makeReceiveAmountString, toAsset["Decimals"]);
         let minFromAmount = $scope.makeBigNumber(makeSendAmountString, fromAsset["Decimals"]);
@@ -1197,9 +1199,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "swap_id": swapList[asset]["ID"],
                     "fromAssetId": swapList[asset]["FromAssetID"],
                     "fromAssetSymbol": fromAsset["Symbol"],
-                    "fromAmount": fromAmount,
+                    "fromAmount": fromAmount * parseInt(swapList[asset]["SwapSize"]),
                     "toAssetId": swapList[asset]["ToAssetID"],
-                    "toAmount": toAmount,
+                    "toAmount": toAmount * parseInt(swapList[asset]["SwapSize"]),
                     "toAssetSymbol": toAsset["Symbol"],
                     "swaprate": swapRate,
                     "maxswaps" : swapList[asset]["SwapSize"],
