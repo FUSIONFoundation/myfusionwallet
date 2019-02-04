@@ -1161,8 +1161,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
 
                 // Taker specific parts
-                let minimumswaptaker = toAmount / parseInt(swapList[asset]["SwapSize"]);
                 let swapratetaker = toAmount / fromAmount;
+                let minimumswaptaker = fromAmount * swapratetaker;
 
                 // Targes section
 
