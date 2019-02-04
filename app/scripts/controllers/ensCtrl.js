@@ -663,7 +663,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeDataFront.maxAmount = $scope.swapsList[id].toAmount;
             $scope.takeDataFront.fromAmount = $scope.swapsList[id].fromAmount;
             $scope.takeDataFront.toAmount = $scope.swapsList[id].toAmount;
-
+            $scope.takeAmountSwap = 1;
         })
 
         console.log($scope.takeDataFront);
