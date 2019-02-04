@@ -1224,7 +1224,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                <span class="fusion-text-18">{{takeAmountSwap}}</span> {{takeDataFront.fromAssetSymbol}}
+                                <span class="fusion-text-18">{{sendTokens}}</span> {{takeDataFront.fromAssetSymbol}}
                             </div>
                         </div>
                     </div>
