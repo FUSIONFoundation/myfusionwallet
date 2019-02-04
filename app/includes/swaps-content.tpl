@@ -579,7 +579,7 @@
                     </div>
                     <div class="col-md-6 pl-2">
                             <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary p-2 mt-2" ng-click="showTimeLockSend = !showTimeLockSend">Set
+                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2" ng-click="showTimeLockSend = !showTimeLockSend">Set
                                 Time-lock
                             </button>
                             <div ng-show="showTimeLockSend">
@@ -668,7 +668,7 @@
                         </div>
                         <div class="col-md-6 pl-2">
                             <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary p-2 mt-2" ng-click="showTimeLockReceive = !showTimeLockReceive">Set
+                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2" ng-click="showTimeLockReceive = !showTimeLockReceive">Set
                                 Time-lock
                             </button>
                             <div ng-show="showTimeLockReceive">
