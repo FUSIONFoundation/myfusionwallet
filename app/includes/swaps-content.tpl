@@ -544,7 +544,8 @@
                         </div>
                     </div>
                     <h3 class="h3-blue">Make Swap</h3>
-                    <div class="col-md-12 text-left p-0">
+                    <div class="row m-0">
+                    <div class="col-md-6 text-left p-0">
                         <span class="small-gray-text">Send Assets</span>
                         <br>
                         <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
@@ -576,55 +577,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 p-0 text-left">
-                        <span class="small-gray-text">Receive Asset</span>
-                        <br>
-                        <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
-                             ng-click="receiveDropDown = !receiveDropDown">
-                            <a>
-                                {{selectedReceiveAsset}}
-                                <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                             ng-show="receiveDropDown">
-                            <form class="form-inline">
-                                <div class="form-group m-0">
-                                    <span class="small-gray-text">Search</span>
-                                    <input type="text" class="form-control"
-                                           ng-model="searchReceiveAsset"
-                                           placeholder="Search by Symbol, Name, or ID">
-                                </div>
-                            </form>
-                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                 ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
-                                <a ng-click="setReceiveAsset(asset.id)">
-                        <span class="fusion-text-14">
-                        {{asset.name}} ({{asset.symbol}})
-                        <br>
-                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
-                        </span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 p-0">
-                        <h3 class="h3-blue">Enter Swap Details</h3>
-                        <div class="sendAssetBalanceAvailable w-50" ng-show="selectedAssetBalance >= 0">
-                            <span class="text-fusion ng-binding">{{selectedAssetBalance}}</span><span
-                                    class="small-gray-text"> available.</span>
-                        </div>
-                    </div>
-
-                    <div class="row m-0">
-                        <div class="col-md-6 p-0">
-                            <span class="small-gray-text">Send Amount</span>
-                            <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
-                                   placeholder="Amount">
-                        </div>
-                        <div class="col-md-6 pl-2">
+                    <div class="col-md-6 pl-2">
                             <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary m-0 mt-1" ng-click="showTimeLockSend = !showTimeLockSend">Set
+                            <button class="btn btn-sm btn-primary p-2 mt-2" ng-click="showTimeLockSend = !showTimeLockSend">Set
                                 Time-lock
                             </button>
                             <div ng-show="showTimeLockSend">
@@ -679,14 +634,41 @@
                         </div>
                     </div>
                     <div class="row m-0">
-                        <div class="col-md-6 p-0">
-                            <span class="small-gray-text">Receive Amount</span>
-                            <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                                   placeholder="Amount">
+                        <div class="col-md-6 p-0 text-left">
+                            <span class="small-gray-text">Receive Asset</span>
+                            <br>
+                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                                 ng-click="receiveDropDown = !receiveDropDown">
+                                <a>
+                                    {{selectedReceiveAsset}}
+                                    <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                                 ng-show="receiveDropDown">
+                                <form class="form-inline">
+                                    <div class="form-group m-0">
+                                        <span class="small-gray-text">Search</span>
+                                        <input type="text" class="form-control"
+                                               ng-model="searchReceiveAsset"
+                                               placeholder="Search by Symbol, Name, or ID">
+                                    </div>
+                                </form>
+                                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                     ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
+                                    <a ng-click="setReceiveAsset(asset.id)">
+                        <span class="fusion-text-14">
+                        {{asset.name}} ({{asset.symbol}})
+                        <br>
+                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        </span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6 pl-2">
                             <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary m-0 mt-1" ng-click="showTimeLockReceive = !showTimeLockReceive">Set
+                            <button class="btn btn-sm btn-primary p-2 mt-2" ng-click="showTimeLockReceive = !showTimeLockReceive">Set
                                 Time-lock
                             </button>
                             <div ng-show="showTimeLockReceive">
@@ -740,12 +722,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-12 p-0">
-                        <span class="small-gray-text">Maximum Number of Swaps</span>
-                        <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
-                               placeholder="Amount">
-                    </div>
                     <div class="col-md-12 p-0">
                         <h3 class="h3-blue">Swap Rate</h3>
                         <div class="col-md-6 p-0">
@@ -768,7 +744,42 @@
                         </div>
                     </div>
                     <div class="col-md-12 p-0">
-                        <h3 class="h3-blue">Set Access</h3>
+                        <h3 class="h3-blue">Swap Totals</h3>
+                        <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
+                            <strong class="font-size-16">{{selectedAssetBalance}}</strong><span
+                                    class="small-gray-text"> available.</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 p-0 pt-2">
+                        <div class="col-md-6 p-0">
+                            <div class="row">
+                        <div class="col-md-5">
+                            <span class="small-gray-text">Send Amount</span>
+                            <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                                   placeholder="Amount">
+                        </div>
+                        <div class="col-md-1 pt-2">
+                            <span class="text-white">-</span>
+                            <h3 class="h3-blue p-0 m-0 text-center">:</h3>
+                        </div>
+                        <div class="col-md-5">
+                            <span class="small-gray-text">Receive Amount</span>
+                            <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
+                                   placeholder="Amount">
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 p-0">
+                        <h3 class="h3-blue">Swap Minimums</h3>
+                        <span class="small-gray-text">Number of Fills</span>
+                        <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
+                               placeholder="Amount">
+                    </div>
+                    <div class="col-md-12 p-0">
+                        <h3 class="h3-blue">Access</h3>
                         <span class="small-gray-text">Available to</span>
                         <br>
                         <input type="radio" class="ml-0" ng-model="privateAccess" ng-value="false" checked>
