@@ -674,8 +674,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.setReceive = function () {
         if($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) { return; }
-        $scope.receiveTokens = $scope.takeAmountSwap * $scope.takeDataFront.fromAmount;
-        $scope.sendTokens = $scope.takeAmountSwap * $scope.takeDataFront.toAmount;
+
+        let perc1 = $scope.takeAmountSwap;
+        let perc2 = $scope.takeDataFront.swapSize ;
+        let perc3 = perc1 / perc2;
+
+        $scope.receiveTokens = $scope.takeDataFront.fromAmount * perc3;
+        $scope.sendTokens = $scope.takeDataFront.toAmount * perc3;
     }
 
     $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
