@@ -841,7 +841,8 @@
                                 <span class="fusion-text-18">{{makeSendAmount}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - {{fromEndTimeString}}
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - <span ng-show="sendTimeLock == 'scheduled'">Forever</span>
+                                    <span ng-show="sendTimeLock == 'daterange'">{{fromEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
@@ -855,7 +856,8 @@
                                 <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span class="fusion-text-14">{{assetToReceiveConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - {{toEndTimeString}}
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - <span ng-show="receiveTimeLock == 'scheduled'">Forever</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">{{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
