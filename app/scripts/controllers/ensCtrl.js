@@ -905,8 +905,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             targesArray = [];
         }
 
-        debugger;
-
         let makeReceiveAmountString = ($scope.makeReceiveAmount / parseInt($scope.makeMinumumSwap)).toString();
         let makeSendAmountString = ($scope.makeSendAmount / parseInt($scope.makeMinumumSwap)).toString();
 
