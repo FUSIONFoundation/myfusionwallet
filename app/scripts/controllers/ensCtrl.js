@@ -1230,11 +1230,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "ToStartTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"])
 
                 }
-                if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0) {
+                if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0 || walletAddress == swapList[asset]["Owner"]) {
                     await swapListFront.push(data);
                 }
             }
         }
+
         $scope.$apply(function () {
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
