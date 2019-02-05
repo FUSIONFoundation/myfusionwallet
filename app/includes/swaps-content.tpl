@@ -457,7 +457,7 @@
                             <div class="float-right">
                                 <span class="small-gray-text">Fills Available</span>
                                 <span class="fusion-text-14">{{takeDataFront.swapSize}}</span>
-                                <span class="small-gray-text">Lot Size</span>
+                                <span class="small-gray-text">Fill Size</span>
                                 <span class="fusion-text-14">{{takeDataFront.maxAmount}} {{takeDataFront.fromAssetSymbol}}</span>
                             </div>
                         </div>
@@ -746,7 +746,7 @@
                     <div class="col-md-12 p-0">
                         <h3 class="h3-blue">Swap Totals</h3>
                         <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
-                            <strong class="font-size-16">{{selectedAssetBalance}}</strong><span
+                            <strong class="font-size-16 text-fusion">{{selectedAssetBalance}}</strong><span
                                     class="small-gray-text"> available.</span>
                         </div>
                     </div>
