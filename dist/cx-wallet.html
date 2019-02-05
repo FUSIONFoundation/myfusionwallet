@@ -6921,8 +6921,8 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(3)}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(3)}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
