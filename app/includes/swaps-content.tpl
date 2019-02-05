@@ -136,7 +136,9 @@
                 <span class="small-gray-text ng-binding">Select asset first</span>
             </div>
             <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
-                <span class="text-fusion ng-binding"><strong class="font-size-16">{{selectedAssetBalance}}</strong> <span class="font-size-12">{{selectedAssetSymbol}}</span></span>
+                <span class="text-fusion ng-binding"><strong
+                            class="font-size-16">{{selectedAssetBalance}}</strong> <span
+                            class="font-size-12">{{selectedAssetSymbol}}</span></span>
             </div>
         </div>
         <div class="col-md-2 text-left">
@@ -163,7 +165,7 @@
                         <th class="text-right" scope="col">Send</th>
                         <th class="text-right" scope="col">Receive</th>
                         <th class="text-right" scope="col">Swap Rate</th>
-                        <th class="text-right" scope="col">Minimum Swap</th>
+                        <th class="text-right" scope="col">Minimum Fill</th>
                         <th class="text-right" scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
@@ -182,22 +184,28 @@
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
-                            <span class="small-gray-text" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
+                            <span class="small-gray-text"
+                                  ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
+                                - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right" ><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
-                            <span class="small-gray-text" ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}
+                            <span class="small-gray-text"
+                                  ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}}
+                                - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right" ><strong>{{asset.swaprate}}</strong> {{asset.fromAssetSymbol}}</td>
-                        <td class="text-right" ><strong>{{asset.minswap}}</strong> {{asset.fromAssetSymbol}}</td>
+                        <td class="text-right"><strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                        </td>
+                        <td class="text-right"><strong>{{asset.minswap.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                        </td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
@@ -321,7 +329,7 @@
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmount')">Send</th>
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">Minimum Swap</th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">Minimum Fill</th>
                         <th class="text-right" scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
@@ -333,30 +341,38 @@
                               <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
                                 {{asset.targes}}
                             </span>
-                            </td>
+                        </td>
                         <td class="text-left">{{asset.time}}</td>
-                        <td class="text-right"><strong>{{asset.toAmount}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span>
+                        <td class="text-right"><strong>{{asset.toAmount}}</strong> <span
+                                    class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
-                            <span class="small-gray-text" ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}
+                            <span class="small-gray-text"
+                                  ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}}
+                                - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> <span>{{asset.fromAssetSymbol}}</span>
+                        <td class="text-right"><strong>{{asset.fromAmount}}</strong>
+                            <span>{{asset.fromAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
-                            <span class="small-gray-text" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}
+                            <span class="small-gray-text"
+                                  ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
+                                - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
+                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
+                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
@@ -469,10 +485,11 @@
                         </div>
                         <div class="col-md-8">
                             <div class="float-right">
-                                <span class="float-left"><input type="number" class="form-control m-0 mt-1" ng-model="takeAmountSwap"
-                                                          min="1"
-                                                          max="{{takeDataFront.swapSize}}"
-                                                          ng-change="setReceive()" placeholder="Fills">
+                                <span class="float-left"><input type="number" class="form-control m-0 mt-1"
+                                                                ng-model="takeAmountSwap"
+                                                                min="1"
+                                                                max="{{takeDataFront.swapSize}}"
+                                                                ng-change="setReceive()" placeholder="Fills">
                                 </span>
                                 <span class="float-right p-2">
                                     <span class="small-gray-text">Fills : </span>
@@ -523,7 +540,8 @@
                         <div class="col-md-6 p-0 pl-2">
                             <button class="btn btn-primary w-100"
                                     ng-click="takeSwapConfirm.open()"
-                                    ng-disabled="takeAmountSwap > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">Take Swap
+                                    ng-disabled="takeAmountSwap > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">
+                                Take Swap
                             </button>
                         </div>
                     </div>
@@ -545,41 +563,44 @@
                     </div>
                     <h3 class="h3-blue">Make Swap</h3>
                     <div class="row m-0">
-                    <div class="col-md-6 text-left p-0">
-                        <span class="small-gray-text">Send Assets</span>
-                        <br>
-                        <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
-                             ng-click="sendDropDown = !sendDropDown">
-                            <a>
-                                {{selectedSendAsset}}
-                                <span class="small-gray-text max-char">{{selectedSendContract}}</span>
-                            </a>
-                        </div>
-                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                             ng-show="sendDropDown">
-                            <form class="form-inline">
-                                <div class="form-group m-0">
-                                    <span class="small-gray-text">Search</span>
-                                    <input type="text" class="form-control"
-                                           ng-model="searchSendAsset"
-                                           placeholder="Search by Symbol, Name, or ID">
-                                </div>
-                            </form>
-                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                 ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
-                                <a ng-click="setSendAsset(asset.id)">
+                        <div class="col-md-6 text-left p-0">
+                            <span class="small-gray-text">Send Assets</span>
+                            <br>
+                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                                 ng-click="sendDropDown = !sendDropDown">
+                                <a>
+                                    {{selectedSendAsset}}
+                                    <span class="small-gray-text max-char">{{selectedSendContract}}</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                                 ng-show="sendDropDown">
+                                <form class="form-inline">
+                                    <div class="form-group m-0">
+                                        <span class="small-gray-text">Search</span>
+                                        <input type="text" class="form-control"
+                                               ng-model="searchSendAsset"
+                                               placeholder="Search by Symbol, Name, or ID">
+                                    </div>
+                                </form>
+                                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                     ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
+                                    <a ng-click="setSendAsset(asset.id)">
                         <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}})
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6 pl-2">
+                        <div class="col-md-6 pl-2">
                             <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2" ng-click="showTimeLockSend = !showTimeLockSend">Set
+                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
+                                    ng-click="showTimeLockSend = !showTimeLockSend"
+                                    ng-hide="showTimeLockSend"
+                            >Set
                                 Time-lock
                             </button>
                             <div ng-show="showTimeLockSend">
@@ -591,7 +612,7 @@
                                         Date to Forever
                                     </button>
                                 </div>
-                                <div class="col-md-6 p-0 pb-2">
+                                <div class="col-md-5 p-0 pb-2">
                                     <button class="btn btn-sm btn-white w-100"
                                             ng-click="sendTimeLock ='daterange'"
                                             ng-class="{'time-active' : sendTimeLock == 'daterange'}"
@@ -599,12 +620,19 @@
                                         Now to Date
                                     </button>
                                 </div>
+                                <div class="col-md-1 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white"
+                                            ng-click="showTimeLockSend = !showTimeLockSend"
+                                    >
+                                        X
+                                    </button>
+                                </div>
                             </div>
                             <div ng-show="sendTimeLock == 'scheduled' || sendTimeLock == 'daterange' && showTimeLockSend">
-                                <div class="col-md-12 p-0">
+                                <div class="col-md-12 p-0"  ng-show="showTimeLockSend">
                                         <span class="small-gray-text">
                                     From
-                            </span>
+                                        </span>
                                     <br>
                                     <input class="form-control"
                                            type="date"
@@ -613,7 +641,7 @@
                                            onkeydown="return false"
                                            ng-model="fromStartTime">
                                 </div>
-                                <div class="col-md-12 p-0">
+                                <div class="col-md-12 p-0" ng-show="showTimeLockSend">
                                     <span class="small-gray-text" ng-show="sendTimeLock == 'scheduled'">Until</span>
                                     <div class="col-md-12 p-0" ng-show="sendTimeLock == 'scheduled'">
                                         <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
@@ -668,8 +696,10 @@
                         </div>
                         <div class="col-md-6 pl-2">
                             <span class="small-gray-text" style="color:white;">_<br></span>
-                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2" ng-click="showTimeLockReceive = !showTimeLockReceive">Set
-                                Time-lock
+                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
+                                    ng-click="showTimeLockReceive = !showTimeLockReceive"
+                                    ng-hide="showTimeLockReceive"
+                            >Set Time-lock
                             </button>
                             <div ng-show="showTimeLockReceive">
                                 <div class="col-md-6 p-0 pb-2">
@@ -680,7 +710,7 @@
                                         Date to Forever
                                     </button>
                                 </div>
-                                <div class="col-md-6 p-0 pb-2">
+                                <div class="col-md-5 p-0 pb-2">
                                     <button class="btn btn-sm btn-white w-100"
                                             ng-click="receiveTimeLock ='daterange'"
                                             ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
@@ -688,9 +718,16 @@
                                         Now to Date
                                     </button>
                                 </div>
+                                <div class="col-md-1 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white"
+                                            ng-click="showTimeLockReceive = !showTimeLockReceive"
+                                    >
+                                        X
+                                    </button>
+                                </div>
                             </div>
                             <div ng-show="receiveTimeLock == 'scheduled' || receiveTimeLock == 'daterange'  && showTimeLockReceive">
-                                <div class="col-md-12 p-0">
+                                <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
                                         <span class="small-gray-text">
                                     From
                             </span>
@@ -702,7 +739,7 @@
                                            onkeydown="return false"
                                            ng-model="ToStartTime">
                                 </div>
-                                <div class="col-md-12 p-0">
+                                <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
                                     <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
                                     <div class="col-md-12 p-0" ng-show="receiveTimeLock == 'scheduled'">
                                         <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
@@ -745,7 +782,8 @@
                     </div>
                     <div class="col-md-12 p-0">
                         <h3 class="h3-blue">Swap Totals</h3>
-                        <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
+                        <div class="sendAssetBalanceAvailable display-web-inline-block"
+                             ng-show="selectedAssetBalance >= 0">
                             <strong class="font-size-16 text-fusion">{{selectedAssetBalance}}</strong><span
                                     class="small-gray-text"> available.</span>
                         </div>
@@ -754,20 +792,20 @@
                     <div class="col-md-12 p-0 pt-2">
                         <div class="col-md-6 p-0">
                             <div class="row">
-                        <div class="col-md-5">
-                            <span class="small-gray-text">Send Amount</span>
-                            <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
-                                   placeholder="Amount">
-                        </div>
-                        <div class="col-md-1 pt-2">
-                            <span class="text-white">-</span>
-                            <h3 class="h3-blue p-0 m-0 text-center">:</h3>
-                        </div>
-                        <div class="col-md-5">
-                            <span class="small-gray-text">Receive Amount</span>
-                            <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                                   placeholder="Amount">
-                        </div>
+                                <div class="col-md-5">
+                                    <span class="small-gray-text">Send Amount</span>
+                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                                           placeholder="Amount">
+                                </div>
+                                <div class="col-md-1 pt-2">
+                                    <span class="text-white">-</span>
+                                    <h3 class="h3-blue p-0 m-0 text-center">:</h3>
+                                </div>
+                                <div class="col-md-5">
+                                    <span class="small-gray-text">Receive Amount</span>
+                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
+                                           placeholder="Amount">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -838,10 +876,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right text-right">
-                                <span class="fusion-text-18">{{makeSendAmount}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
+                                <span class="fusion-text-18">{{makeSendAmount}}</span> <span
+                                        class="fusion-text-14">{{assetToSendConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - <span ng-show="sendTimeLock == 'scheduled'">Forever</span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - <span
+                                            ng-show="sendTimeLock == 'scheduled'">Forever</span>
                                     <span ng-show="sendTimeLock == 'daterange'">{{fromEndTimeString}}</span>
                                 </span>
                             </div>
@@ -853,10 +893,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right text-right">
-                                <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span class="fusion-text-14">{{assetToReceiveConfirm}}</span>
+                                <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span
+                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - <span ng-show="receiveTimeLock == 'scheduled'">Forever</span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - <span
+                                            ng-show="receiveTimeLock == 'scheduled'">Forever</span>
                                     <span ng-show="receiveTimeLock == 'daterange'">{{toEndTimeString}}</span>
                                 </span>
                             </div>
@@ -868,8 +910,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                <span class="fusion-text-18">{{makeSendAmount}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
-                                : <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span class="fusion-text-14">{{assetToReceiveConfirm}}</span>
+                                <span class="fusion-text-18">{{makeSendAmount}}</span> <span
+                                        class="fusion-text-14">{{assetToSendConfirm}}</span>
+                                : <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span
+                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span>
 
                             </div>
                         </div>
@@ -880,7 +924,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                <span class="fusion-text-18">{{makeMinumumSwap}}</span> <span class="fusion-text-14">{{assetToSendConfirm}}</span>
+                                <span class="fusion-text-18">{{makeMinumumSwap}}</span> <span
+                                        class="fusion-text-14">{{assetToSendConfirm}}</span>
                             </div>
                         </div>
                     </div>
@@ -945,14 +990,15 @@
                     <div class="row p-2">
                         <div class="col-md-12">
                             <div class="text-center m-3">
-                                    <img src="images/check-circle.svg" width="120px" style="color:#7ed321;">
+                                <img src="images/check-circle.svg" width="120px" style="color:#7ed321;">
                             </div>
                         </div>
                     </div>
                     <div class="row p-2">
                         <div class="col-md-12">
                             <div class="text-center">
-                                <p>Make Swap Successful! This swap is now available in the swap market. You can track it’s progress or recall the swap in the “Open Makes” tab. </p>
+                                <p>Make Swap Successful! This swap is now available in the swap market. You can track
+                                    it’s progress or recall the swap in the “Open Makes” tab. </p>
                             </div>
                         </div>
                     </div>
@@ -1160,7 +1206,8 @@
                                 <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - {{fromEndTimeString}}
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}}
+                                    - {{fromEndTimeString}}
                                 </span>
                             </div>
                         </div>
@@ -1171,10 +1218,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right text-right">
-                                <span class="fusion-text-18">{{receiveTokens}}</span> <span class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
+                                <span class="fusion-text-18">{{receiveTokens}}</span> <span
+                                        class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - {{toEndTimeString}}
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}}
+                                    - {{toEndTimeString}}
                                 </span>
                             </div>
                         </div>
@@ -1250,7 +1299,8 @@
                     <div class="row p-2">
                         <div class="col-md-12">
                             <div class="text-center">
-                                <p>Take Swap Successful! The funds should be available in your wallet within the next 15 seconds.</p>
+                                <p>Take Swap Successful! The funds should be available in your wallet within the next 15
+                                    seconds.</p>
                             </div>
                         </div>
                     </div>
