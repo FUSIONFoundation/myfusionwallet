@@ -915,6 +915,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let minToAmountHex = "0x" + minToAmount.toString(16);
         let minFromAmountHex = "0x" + minFromAmount.toString(16);
 
+        if($scope.makeMinumumSwap == "" || $scope.makeMinumumSwap <= 0){
+            $scope.makeMinumumSwap = 1;
+        }
+
         let data = {
             from: walletAddress,
             FromAssetID: $scope.assetToSend,
