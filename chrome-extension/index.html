@@ -5902,17 +5902,17 @@
     </div>
 </div>
 <article class="block p-0" ng-hide="wallet.type=='addressOnly'">
-    <div class="col-md-12 p-2 swap-border">
+    <div class="col-md-12 p-0 swap-border">
         <nav class="nav-container bg-white">
             <div class="nav-scroll">
                 <ul class="nav-inner">
-                    <li class="nav-item Swaps" ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
+                    <li class="nav-item Swaps pl-3 pr-2 mb-1px" ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
                         <a class="ng-scope" ng-click="showSwapMarket = true ; showOpenMakes = false; showOpenTakes = false">Swap Market</a>
                     </li>
-                    <li class="nav-item Swaps" ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
+                    <li class="nav-item Swaps pr-2 mb-1px" ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
                         <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes</a>
                     </li>
-                    <li class="nav-item Swaps" ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
+                    <li class="nav-item Swaps mb-1px" ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
                         <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">Open Makes
                             ({{openMakeSwaps}})
                             <span></span></a>
