@@ -1333,12 +1333,16 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-primary"
-                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)">
-                                Confirm
+                        <div class="col-md-6">
+                            <button class="btn btn-white w-100" ng-click="takeSwapConfirm.close()">
+                                Back
                             </button>
-                            <button class="btn btn-sm btn-secondary" ng-click="takeSwapConfirm.close()">Cancel</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary w-100"
+                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)">
+                                Take Swap
+                            </button>
                         </div>
                     </div>
                 </article>
