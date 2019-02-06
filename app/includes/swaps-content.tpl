@@ -942,11 +942,13 @@
 
 
                     <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-primary" ng-click="makeSwap()"
-                                    ng-disabled="swapRecallSuccess">Confirm
+                        <div class="col-md-6">
+                            <button class="btn btn-white w-100" ng-click="makeSwapModal.open()">Back</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary w-100" ng-click="makeSwap()"
+                                    ng-disabled="swapRecallSuccess">Make Swap
                             </button>
-                            <button class="btn btn-sm btn-secondary" ng-click="makeSwapModal.open()">Cancel</button>
                         </div>
                     </div>
                 </article>
