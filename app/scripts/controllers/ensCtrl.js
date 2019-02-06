@@ -17,7 +17,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         $scope.getAllAssets();
         $scope.getShortAddressNotation();
-        $scope.allSwaps();
+        $scope.allSwaps().then(function(){
+            $scope.sortSwapMarket("timePosix");
+            $scope.sortOpenMakes("timePosix");
+        });
         $scope.getBalance();
         $scope.setWalletAddress();
         $scope.getAllAssetsList().then(function(){
@@ -1327,12 +1330,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let hours = time.getHours();
                 let minutes = time.getMinutes();
-                let seconds = time.getSeconds();
-
                 // Global
 
                 time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
-                let timeHours = hours + ':' + minutes + ':' + seconds;
+                let timeHours = hours + ':' + minutes;
 
                 // Maker parts
                 let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
@@ -1394,6 +1395,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "minswap": minimumswap,
                     "minswaptaker" : minimumswaptaker,
                     "time": time.toLocaleString(),
+                    "timePosix" : swapList[asset]["Time"],
                     "timeHours": timeHours,
                     "targes": targes,
                     "owner": ownerAddr,
