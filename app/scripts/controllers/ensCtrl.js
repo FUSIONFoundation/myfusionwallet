@@ -293,6 +293,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.recallSwapSuccess = new Modal(document.getElementById('recallSwapSuccess'));
     $scope.swapInformationModal = new Modal(document.getElementById('swapInformationModal'));
     $scope.takeSwapConfirm = new Modal(document.getElementById('takeSwapConfirm'));
+    $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.takeSwapEndConfirm = new Modal(document.getElementById('takeSwapEndConfirm'));
     $scope.showLoader = true;
 
@@ -349,6 +350,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 data = res[swap_id];
             })
         } catch (err) {
+            $scope.errorModal.open();
             console.log(err);
         }
 
@@ -741,6 +743,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return $scope.takeSwapEndConfirm.open();
             })
         } catch (err) {
+            $scope.errorModal.open();
             console.log(err);
         }
     }
@@ -996,6 +999,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             })
         } catch (err) {
+            $scope.errorModal.open();
             console.log(err);
         }
     }
@@ -1036,6 +1040,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 })
             } catch (err) {
+                $scope.errorModal.open();
                 console.log(err);
             }
         }
