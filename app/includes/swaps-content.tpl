@@ -165,7 +165,7 @@
                         <th class="text-right" scope="col">Send</th>
                         <th class="text-right" scope="col">Receive</th>
                         <th class="text-right" scope="col">Swap Rate</th>
-                        <th class="text-right" scope="col">Minimum Fill</th>
+                        <th class="text-right" scope="col">Fill Size</th>
                         <th class="text-right" scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
@@ -329,7 +329,7 @@
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmount')">Send</th>
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">Minimum Fill</th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">Fill Size</th>
                         <th class="text-right" scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
