@@ -20,12 +20,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.allSwaps();
         $scope.getBalance();
         $scope.setWalletAddress();
-        $scope.getAllAssetsList();
+        $scope.getAllAssetsList().then(function(){
+            $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
+        });
     };
 
     setInterval(function () {
         if ($scope.wallet == null) {
-            return
+            return;
         }
         $scope.getAllAssets();
         $scope.getShortAddressNotation();
@@ -35,6 +37,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getAllAssetsList();
 
     }, 7500);
+
+    setInterval(function(){
+        if ($scope.wallet == null){
+            return;
+        }
+        $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
+
+    },25000)
 
 
     $scope.mayRun = false;
@@ -844,7 +854,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.myAssets.push(contractaddress);
             }
         })
-        $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
     }
 
     $scope.takeGetAllBalances = async function (allAssetsList, index) {
