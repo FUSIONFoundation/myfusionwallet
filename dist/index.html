@@ -6211,44 +6211,6 @@
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="btn btn-sm btn-white col-md-12 col-xs-12 p-1 asset-dropdown border-gray-dropdown higher-min-width"
-                                             ng-click="sortByDropdown = !sortByDropdown">
-                                            <div class="float-left w-75">
-                                                <span>Sort By: {{sortByString}}</span>
-                                            </div>
-                                            <div class="float-right text-right">
-                                                <img src="images/caret-down.svg" class="Group-6">
-                                            </div>
-                                        </div>
-                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width form-control-static"
-                                             ng-show="sortByDropdown">
-                                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('time'); sortByDropdown = !sortByDropdown; sortByString = 'Closest time initiated'">
-                                                Closest time initiated
-                                            </div>
-                                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('fromAmountCut'); sortByDropdown = !sortByDropdown; sortByString = 'Highest Send Amount'">
-                                                Highest Send Amount
-                                            </div>
-                                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('toAmountCut'); sortByDropdown = !sortByDropdown; sortByString = 'Highest Receive Amount'">
-                                                Highest Receive Amount
-                                            </div>
-                                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('swaprate'); sortByDropdown = !sortByDropdown; sortByString = 'Best Swap Rate'">
-                                                Best Swap Rate
-                                            </div>
-                                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('minswap'); sortByDropdown = !sortByDropdown; sortByString = 'Highest Min Swap'">
-                                                Highest Min Swap
-                                            </div>
-                                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('owner'); sortByDropdown = !sortByDropdown; sortByString = 'Swap Owner'">
-                                                Swap Owner
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
                                         <form class="form-inline">
                                             <div class="form-group">
                                                 <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
