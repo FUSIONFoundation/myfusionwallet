@@ -6130,16 +6130,16 @@
                     <thead>
                     <tr class="small-gray-table">
                         <th class="text-left" scope="col"></th>
-                        <th class="text-left" scope="col">Time Initiated</th>
-                        <th class="text-right" scope="col">Send</th>
-                        <th class="text-right" scope="col">Receive</th>
-                        <th class="text-right" scope="col">Swap Rate</th>
-                        <th class="text-right" scope="col">Fill Size</th>
+                        <th class="text-left" scope="col" ng-click="sortOpenMakes('time')">Time Initiated</th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">Send</th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">Receive</th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('swaprate')">Swap Rate</th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('minswap')">Fill Size</th>
                         <th class="text-right" scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList | filter: { owned: 'true' } track by $index">
+                    <tr ng-repeat="asset in swapsList | orderBy:sortKeyMake:reverseMake | filter: { owned: 'true' } track by $index">
                         <td class="text-left">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>

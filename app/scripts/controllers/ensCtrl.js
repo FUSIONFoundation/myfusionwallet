@@ -221,10 +221,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         'swapId': '',
         'fromAssetId': ''
     };
-
     $scope.sortSwapMarket = function (keyname) {
         $scope.sortKey = keyname;   //set the sortKey to the param passed
         $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    }
+    $scope.sortOpenMakes = function (keyname) {
+        $scope.sortKeyMake = keyname;   //set the sortKey to the param passed
+        $scope.reverseMake = !$scope.reverseMake; //if true make it false and vice versa
     }
 
     $scope.makeBigNumber = function (amount, decimals) {
