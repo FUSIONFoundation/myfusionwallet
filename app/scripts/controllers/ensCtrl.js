@@ -792,6 +792,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.makeTarges = '';
             $scope.showTimeLockSend = false;
             $scope.showTimeLockReceive = false;
+            $scope.ToStartTime = '';
+            $scope.ToEndTime = '';
+            $scope.fromStartTime = '';
+            $scope.fromEndTime = '';
         })
         $scope.makeSwapModal.open();
     }
