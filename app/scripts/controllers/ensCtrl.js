@@ -1371,14 +1371,19 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 // Receive TL
 
+                let toAmountF = toAmount * parseInt(swapList[asset]["SwapSize"]);
+                let fromAmountF = fromAmount * parseInt(swapList[asset]["SwapSize"])
+
                 let data = {
                     "id": swapListFront.length,
                     "swap_id": swapList[asset]["ID"],
                     "fromAssetId": swapList[asset]["FromAssetID"],
                     "fromAssetSymbol": fromAsset["Symbol"],
-                    "fromAmount": fromAmount * parseInt(swapList[asset]["SwapSize"]),
+                    "fromAmount": toAmountF,
+                    "fromAmountCut": +fromAmountF.toFixed(8),
                     "toAssetId": swapList[asset]["ToAssetID"],
-                    "toAmount": toAmount * parseInt(swapList[asset]["SwapSize"]),
+                    "toAmount": toAmountF,
+                    "toAmountCut": +toAmountF.toFixed(8),
                     "toAssetSymbol": toAsset["Symbol"],
                     "swaprate": swapRate,
                     "maxswaps" : swapList[asset]["SwapSize"],
@@ -1416,7 +1421,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.openTakeSwaps = openTakesList;
             $scope.showLoader = false;
         });
-        console.log($scope.openTakeSwaps);
+        console.log($scope.swapsList);
     }
 
     $scope.getBalance = async function () {

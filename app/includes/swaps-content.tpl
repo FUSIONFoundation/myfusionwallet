@@ -182,7 +182,7 @@
                             </span>
                         </td>
                         <td class="text-left">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</span></td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}} <span
+                        <td class="text-right"><strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i></span>
@@ -193,7 +193,7 @@
                                 - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
@@ -268,7 +268,7 @@
                             </span>
                         </td>
                         <td class="text-left">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</span></td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong> {{asset.fromAssetSymbol}} <span
+                        <td class="text-right"><strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                         class="fa fa-check-circle"></i></span>
@@ -279,7 +279,7 @@
                                 - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.toAmount}}</strong> {{asset.toAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
@@ -347,11 +347,11 @@
                                                 Closest time initiated
                                             </div>
                                             <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('fromAmount'); sortByDropdown = !sortByDropdown; sortByString = 'Highest Send Amount'">
+                                                 ng-click="sortSwapMarket('fromAmountCut'); sortByDropdown = !sortByDropdown; sortByString = 'Highest Send Amount'">
                                                 Highest Send Amount
                                             </div>
                                             <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
-                                                 ng-click="sortSwapMarket('toAmount'); sortByDropdown = !sortByDropdown; sortByString = 'Highest Receive Amount'">
+                                                 ng-click="sortSwapMarket('toAmountCut'); sortByDropdown = !sortByDropdown; sortByString = 'Highest Receive Amount'">
                                                 Highest Receive Amount
                                             </div>
                                             <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
@@ -415,8 +415,8 @@
                     <tr class="small-gray-table">
                         <th class="text-left" scope="col"></th>
                         <th class="text-left" scope="col" ng-click="sortSwapMarket('time')">Time Initiated</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmount')">Send</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmount')">Receive</th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmountCut')">Send</th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmountCut')">Receive</th>
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
                         <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">Fill Size</th>
                         <th class="text-right" scope="col" class="float-right">Actions</th>
@@ -432,7 +432,7 @@
                             </span>
                         </td>
                         <td class="text-left">{{asset.time}}  <br> <span class="small-gray-text">{{asset.timeHours}}</td>
-                        <td class="text-right"><strong>{{asset.toAmount}}</strong> <span
+                        <td class="text-right"><strong>{{asset.toAmountCut}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
@@ -445,7 +445,7 @@
                                 - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.fromAmount}}</strong>
+                        <td class="text-right"><strong>{{asset.fromAmountCut}}</strong>
                             <span>{{asset.fromAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
