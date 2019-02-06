@@ -228,7 +228,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeBigNumber = function (amount, decimals) {
-        debugger
         let pieces = amount.split(".")
         let d = parseInt(decimals)
         if (pieces.length === 1) {
@@ -268,6 +267,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.sortByString = 'Default';
     $scope.takeAmountSwap = '';
+    $scope.showOpenTakes = false;
     $scope.showSwapMarket = true;
     $scope.showOpenMakes = false;
     $scope.receiveTokens = '';
@@ -1113,6 +1113,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.allSwaps = async function () {
         let swapList = [];
         let swapListFront = [];
+        let openTakesList = [];
         let openMakeSwaps = 0;
 
         if (walletService.wallet !== null) {
@@ -1253,6 +1254,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0 || walletAddress == swapList[asset]["Owner"]) {
                     await swapListFront.push(data);
                 }
+                if (swapList[asset]["Targes"].includes(walletAddress)) {
+                    await openTakesList.push(data);
+                }
             }
         }
 
@@ -1260,8 +1264,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
             $scope.openMakeSwaps = openMakeSwaps;
+            $scope.openTakeSwaps = openTakesList;
             $scope.showLoader = false;
         });
+        console.log($scope.openTakeSwaps);
     }
 
     $scope.getBalance = async function () {
