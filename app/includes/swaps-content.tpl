@@ -728,7 +728,10 @@
                                            ng-change="checkDate()"
                                            min="{{todayDate}}"
                                            onkeydown="return false"
-                                           ng-model="fromStartTime">
+                                           ng-model="fromStartTime"
+                                           ng-hide="sendTimeLock == 'daterange'"
+                                    >
+                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1" ng-show="sendTimeLock == 'daterange'">Now</span>
                                 </div>
                                 <div class="col-md-12 p-0" ng-show="showTimeLockSend">
                                     <span class="small-gray-text" ng-show="sendTimeLock == 'scheduled'">Until</span>
@@ -826,7 +829,10 @@
                                            ng-change="checkDate()"
                                            min="{{todayDate}}"
                                            onkeydown="return false"
-                                           ng-model="ToStartTime">
+                                           ng-model="ToStartTime"
+                                           ng-hide="receiveTimeLock == 'daterange'"
+                                    >
+                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1" ng-show="receiveTimeLock == 'daterange'">Now</span>
                                 </div>
                                 <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
                                     <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
@@ -972,9 +978,9 @@
                                         class="fusion-text-14">{{assetToSendConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - <span
-                                            ng-show="sendTimeLock == 'scheduled'">Forever</span>
-                                    <span ng-show="sendTimeLock == 'daterange'">{{fromEndTimeString}}</span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                    <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}} - ∞ Forever</span>
                                 </span>
                             </div>
                         </div>
@@ -989,9 +995,9 @@
                                         class="fusion-text-14">{{assetToReceiveConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - <span
-                                            ng-show="receiveTimeLock == 'scheduled'">Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">{{toEndTimeString}}</span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                    <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}} - ∞ Forever</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
@@ -1071,9 +1077,9 @@
                                         class="fusion-text-14">{{assetToSendConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{fromStartTimeString}} - <span
-                                            ng-show="sendTimeLock == 'scheduled'">Forever</span>
-                                    <span ng-show="sendTimeLock == 'daterange'">{{fromEndTimeString}}</span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                    <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}} - ∞ Forever</span>
                                 </span>
                             </div>
                         </div>
@@ -1088,9 +1094,8 @@
                                         class="fusion-text-14">{{assetToReceiveConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{toStartTimeString}} - <span
-                                            ng-show="receiveTimeLock == 'scheduled'">Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">{{toEndTimeString}}</span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px"><span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}} - ∞ Forever</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>

@@ -1007,7 +1007,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 data.FromEndTime = fromEndTime;
             }
             if ($scope.sendTimeLock == 'daterange') {
-                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
+                let fromStartTime = getHexDate(convertDate($scope.todayDate));
                 let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
 
                 data.FromStartTime = fromStartTime;
@@ -1026,7 +1026,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if ($scope.receiveTimeLock == 'daterange') {
-                let toStartTime = getHexDate(convertDate($scope.ToStartTime));
+                let toStartTime = getHexDate(convertDate($scope.todayDate));
                 let toEndTime = getHexDate(convertDate($scope.ToEndTime));
 
                 data.ToStartTime = toStartTime;
