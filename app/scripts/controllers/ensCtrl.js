@@ -1421,7 +1421,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.openTakeSwaps = openTakesList;
             $scope.showLoader = false;
         });
-        console.log($scope.swapsList);
     }
 
     $scope.getBalance = async function () {
