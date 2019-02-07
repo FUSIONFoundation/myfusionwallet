@@ -1249,7 +1249,7 @@
                 <article class="block" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
-                                  <span class="gray-text" ng-click="makeSwapModal.open()">                    <i
+                                  <span class="gray-text" ng-click="takeSwapConfirm.close()">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
