@@ -1277,6 +1277,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let swapListFront = [];
         let openTakesList = [];
         let openMakeSwaps = 0;
+        $scope.openTakeSwapsTotal = 0;
 
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
