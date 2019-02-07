@@ -889,7 +889,7 @@
                         <div class="col-md-6 col-xs-12">
                             <button class="btn btn-primary w-100"
                                     ng-click="makeSwapConfirmation('notend')"
-                                    ng-disabled="makeSendAmount == ''; makeReceiveAmount == ''; makeMinumumSwap == ''; selectedReceiveAsset == selectedSendAsset; "
+                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == '' || selectedReceiveAsset == selectedSendAsset; "
                             >Review
                                 Make
                                 Swap
