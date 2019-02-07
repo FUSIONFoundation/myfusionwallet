@@ -1338,6 +1338,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let hours = time.getHours();
                 let minutes = time.getMinutes();
+
+                if (time.getMinutes() < 10){
+                    minutes = "0" + time.getMinutes();
+                }
                 // Global
 
                 time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
