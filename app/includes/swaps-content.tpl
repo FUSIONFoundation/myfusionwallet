@@ -29,13 +29,13 @@
                     <li class="nav-item Swaps pl-3 pr-2 mb-1px" ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
                         <a class="ng-scope" ng-click="showSwapMarket = true ; showOpenMakes = false; showOpenTakes = false">Swap Market</a>
                     </li>
-                    <li class="nav-item Swaps pr-2 mb-1px" ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes</a>
-                    </li>
                     <li class="nav-item Swaps mb-1px" ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
                         <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">Open Makes
                             ({{openMakeSwaps}})
                             <span></span></a>
+                    </li>
+                    <li class="nav-item Swaps pr-2 mb-1px" ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
+                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes</a>
                     </li>
                 </ul>
             </div>
