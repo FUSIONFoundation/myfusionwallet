@@ -183,19 +183,9 @@
                                 {{asset.targes}}
                             </span>
                         </td>
-                        <td class="text-left">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</span></td>
-                        <td class="text-right"><strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <br>
-                            <span class="small-gray-text"
-                                  ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
-                                - {{asset.FromEndTimeString}}
-                            </span>
-                        </td>
-                        <td class="text-right"><strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
+                        <td class="text-left">{{asset.time}}  <br> <span class="small-gray-text">{{asset.timeHours}}</td>
+                        <td class="text-right"><strong>{{asset.toAmountCut}}</strong> <span
+                                    class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
@@ -207,13 +197,27 @@
                                 - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.fromAmountCut}}</strong>
+                            <span>{{asset.fromAssetSymbol}}</span>
+                            <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i></span>
+                            <br>
+                            <span class="small-gray-text"
+                                  ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
+                                - {{asset.FromEndTimeString}}
+                            </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.minswap.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
-                        </td>
+                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
+                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
+                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
+                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
+                                    Recall
                                     Swap
                                 </button>
                                 <button class="btn btn-sm btn-white m-0"
@@ -224,7 +228,7 @@
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
-                                        ng-disabled="allBalance[asset.id] < asset.minswap"
+                                        ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker"
                                 >Take Swap
                                 </button>
                                 <button class="btn btn-sm btn-white m-0"
@@ -232,7 +236,6 @@
                                                                                               aria-hidden="true"></i>
                                 </button>
                             </div>
-
                         </td>
                     </tr>
                     </tbody>
