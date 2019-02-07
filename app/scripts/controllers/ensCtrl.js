@@ -282,6 +282,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.assetToReceiveConfirm = '';
     $scope.makeSendAmount = '';
     $scope.openMakeSwaps = 0;
+    $scope.openTakeSwapsTotal = 0;
     $scope.makeReceiveAmount = '';
     $scope.makeTarges = '';
     $scope.web3WalletBalance = 'Loading...'
@@ -1415,6 +1416,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
                 if (swapList[asset]["Targes"].includes(walletAddress)) {
                     await openTakesList.push(data);
+                    $scope.openTakeSwapsTotal++;
                 }
             }
         }
@@ -1424,6 +1426,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.swapsList = swapListFront;
             $scope.openMakeSwaps = openMakeSwaps;
             $scope.openTakeSwaps = openTakesList;
+            $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
             $scope.showLoader = false;
         });
     }

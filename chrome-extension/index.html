@@ -5915,7 +5915,9 @@
                             <span></span></a>
                     </li>
                     <li class="nav-item Swaps pr-2 mb-1px" ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes</a>
+                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes
+                            ({{openTakeSwapsTotal}})
+                        </a>
                     </li>
                 </ul>
             </div>
