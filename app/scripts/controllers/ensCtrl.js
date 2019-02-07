@@ -909,6 +909,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.allBalance = {};
 
     $scope.getAllAssetsList = async function () {
+        $scope.allAssetsAddresses = [];
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         await web3.fsn.allAssets().then(function (res) {
