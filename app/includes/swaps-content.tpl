@@ -680,7 +680,6 @@
                                     <br>
                                     <input class="form-control"
                                            type="date"
-                                           ng-change="checkDate()"
                                            min="{{todayDate}}"
                                            onkeydown="return false"
                                            ng-model="fromStartTime"
@@ -699,7 +698,6 @@
                                             </span>
                                         <input class="form-control"
                                                type="date"
-                                               ng-change="checkDate()"
                                                min="{{todayDate}}"
                                                onkeydown="return false"
                                                ng-model="fromEndTime">
@@ -781,7 +779,6 @@
                                     <br>
                                     <input class="form-control"
                                            type="date"
-                                           ng-change="checkDate()"
                                            min="{{todayDate}}"
                                            onkeydown="return false"
                                            ng-model="ToStartTime"
@@ -800,7 +797,6 @@
                                             </span>
                                         <input class="form-control"
                                                type="date"
-                                               ng-change="checkDate()"
                                                min="{{todayDate}}"
                                                onkeydown="return false"
                                                ng-model="ToEndTime">
