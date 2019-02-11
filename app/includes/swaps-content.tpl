@@ -26,16 +26,23 @@
         <nav class="nav-container bg-white">
             <div class="nav-scroll">
                 <ul class="nav-inner">
-                    <li class="nav-item Swaps pl-3 pr-2 mb-1px" ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = true ; showOpenMakes = false; showOpenTakes = false">Swap Market</a>
+                    <li class="nav-item Swaps pl-3 pr-2 mb-1px"
+                        ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
+                        <a class="ng-scope"
+                           ng-click="showSwapMarket = true ; showOpenMakes = false; showOpenTakes = false">Swap
+                            Market</a>
                     </li>
-                    <li class="nav-item Swaps mb-1px" ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">Open Makes
+                    <li class="nav-item Swaps mb-1px"
+                        ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
+                        <a class="ng-scope"
+                           ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">Open Makes
                             ({{openMakeSwaps}})
                             <span></span></a>
                     </li>
-                    <li class="nav-item Swaps pr-2 mb-1px" ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
-                        <a class="ng-scope" ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes
+                    <li class="nav-item Swaps pr-2 mb-1px"
+                        ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
+                        <a class="ng-scope"
+                           ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes
                             ({{openTakeSwapsTotal}})
                         </a>
                     </li>
@@ -183,7 +190,7 @@
                                 {{asset.targes}}
                             </span>
                         </td>
-                        <td class="text-left">{{asset.time}}  <br> <span class="small-gray-text">{{asset.timeHours}}</td>
+                        <td class="text-left">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</td>
                         <td class="text-right"><strong>{{asset.toAmountCut}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
@@ -272,7 +279,8 @@
                                 {{asset.targes}}
                             </span>
                         </td>
-                        <td class="text-left">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</span></td>
+                        <td class="text-left">{{asset.time}} <br> <span
+                                    class="small-gray-text">{{asset.timeHours}}</span></td>
                         <td class="text-right"><strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
@@ -331,18 +339,16 @@
         <div class="panel panel-default" ng-show="showSwapMarket === true && showOpenTakes === false">
             <div class="panel-body">
                 <tr class="col-md-12 p-0">
-                    <div class="col-md-12 p-0">
-                        <div class="float-left">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
-                                                       placeholder="Search Assets, Amounts">
-                                            </div>
-                                        </form>
-                                    </div>
+                    <div class="float-left">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-inline">
+                                        <div class="form-group">
+                                            <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
+                                                   placeholder="Search Assets, Amounts">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -398,7 +404,7 @@
                                 {{asset.targes}}
                             </span>
                         </td>
-                        <td class="text-left">{{asset.time}}  <br> <span class="small-gray-text">{{asset.timeHours}}</td>
+                        <td class="text-left">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</td>
                         <td class="text-right"><strong>{{asset.toAmountCut}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
@@ -673,7 +679,7 @@
                                 </div>
                             </div>
                             <div ng-show="sendTimeLock == 'scheduled' || sendTimeLock == 'daterange' && showTimeLockSend">
-                                <div class="col-md-12 p-0"  ng-show="showTimeLockSend">
+                                <div class="col-md-12 p-0" ng-show="showTimeLockSend">
                                         <span class="small-gray-text">
                                     From
                                         </span>
@@ -685,7 +691,8 @@
                                            ng-model="fromStartTime"
                                            ng-hide="sendTimeLock == 'daterange'"
                                     >
-                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1" ng-show="sendTimeLock == 'daterange'">Now</span>
+                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
+                                          ng-show="sendTimeLock == 'daterange'">Now</span>
                                 </div>
                                 <div class="col-md-12 p-0" ng-show="showTimeLockSend">
                                     <span class="small-gray-text" ng-show="sendTimeLock == 'scheduled'">Until</span>
@@ -784,7 +791,8 @@
                                            ng-model="ToStartTime"
                                            ng-hide="receiveTimeLock == 'daterange'"
                                     >
-                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1" ng-show="receiveTimeLock == 'daterange'">Now</span>
+                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
+                                          ng-show="receiveTimeLock == 'daterange'">Now</span>
                                 </div>
                                 <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
                                     <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
@@ -931,7 +939,8 @@
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
                                     <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
-                                    <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}} - ∞ Forever</span>
+                                    <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
+                                        - ∞ Forever</span>
                                 </span>
                             </div>
                         </div>
@@ -947,7 +956,8 @@
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}} - ∞ Forever</span>
+                                    <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
+                                        - ∞ Forever</span>
                                     <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
                                 </span>
                             </div>
@@ -1030,7 +1040,8 @@
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
                                     <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
-                                    <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}} - ∞ Forever</span>
+                                    <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
+                                        - ∞ Forever</span>
                                 </span>
                             </div>
                         </div>
@@ -1045,7 +1056,9 @@
                                         class="fusion-text-14">{{assetToReceiveConfirm}}</span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px"><span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}} - ∞ Forever</span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px"><span
+                                            ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
+                                        - ∞ Forever</span>
                                     <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
                                 </span>
                             </div>
@@ -1337,7 +1350,8 @@
                     </div>
 
                     <div class="col-md-12 text-center p-2">
-                        <img src="images/exclamation-circle.svg" class="text-center" height="80px" width="80px" color="red"
+                        <img src="images/exclamation-circle.svg" class="text-center" height="80px" width="80px"
+                             color="red"
                              alt="">
                     </div>
 
