@@ -985,8 +985,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             targesArray = [];
         }
 
-        let makeReceiveAmountString = ($scope.makeReceiveAmount / parseInt($scope.makeMinumumSwap)).toString();
-        let makeSendAmountString = ($scope.makeSendAmount / parseInt($scope.makeMinumumSwap)).toString();
+        let makeReceiveAmount = ($scope.makeReceiveAmount / parseInt($scope.makeMinumumSwap));
+        let makeSendAmount = ($scope.makeSendAmount / parseInt($scope.makeMinumumSwap));
+
+        let makeReceiveFixed = +makeReceiveAmount.toFixed(parseInt(toAsset["Decimals"]));
+        let makeSendFixed = +makeSendAmount.toFixed(parseInt(fromAsset["Decimals"]));
+
+        let makeReceiveAmountString = makeReceiveFixed.toString()
+        let makeSendAmountString = makeSendFixed.toString()
 
         let minToAmount = $scope.makeBigNumber(makeReceiveAmountString, toAsset["Decimals"]);
         let minFromAmount = $scope.makeBigNumber(makeSendAmountString, fromAsset["Decimals"]);
