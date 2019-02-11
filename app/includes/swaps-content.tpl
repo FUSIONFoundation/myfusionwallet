@@ -304,9 +304,9 @@
                                 - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
                         </td>
-                        <td class="text-right"><strong>{{asset.minswap.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
                         </td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
