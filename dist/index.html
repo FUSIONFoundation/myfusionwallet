@@ -6418,32 +6418,62 @@
                         </div>
                     </div>
 
-                    <div class="row gray-border-bottom p-2 mb-2 mt-2">
-                        <div class="col-md-6 small-gray-text">
-                            You will be receiving
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                <span class="fusion-text-18"><strong>{{receiveTokens}}</strong></span>
-                                <span class="fusion-text-12">{{takeDataFront.toAssetSymbol}}</span>
+                    <h3 class="h3-blue pt-2 inline">Take Amount</h3>
+
+                    <div class="col-md-12 p-0">
+                        <span class="small-gray-text">
+                           Swap Size
+                        </span>
+                        <br>
+                        <div class="col-md-4 mt-2 mb-2 p-0">
+                            <div class="gray-bg p-2 display-inline fusion-text-14">
+                                {{takeDataFront.swapRate}} {{takeDataFront.fromAssetSymbol}} :
+                                1 {{takeDataFront.toAssetSymbol}}
                             </div>
                         </div>
                     </div>
 
-                    <div class="row gray-border-bottom p-2 mb-2 mt-2">
-                        <div class="col-md-6 small-gray-text">
-                            Swap Rate
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                <span class="fusion-text-18"><strong>{{takeDataFront.swapRate}}</strong></span>
-                                <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span> :
-                                <span class="fusion-text-18"><strong>1</strong></span>
-                                <span class="fusion-text-12">{{takeDataFront.toAssetSymbol}}</span>
 
-                            </div>
+                    <div class="col-md-12 p-0">
+                        <span class="small-gray-text">
+                           Fill Quantity
+                        </span>
+                        <br>
+                        <div class="col-md-4 p-1">
+                            <input type="number" class="form-control m-0 mt-1"
+                                   ng-model="takeAmountSwap"
+                                   min="1"
+                                   max="{{takeDataFront.swapSize}}"
+                                   ng-change="setReceive()" placeholder="Fills"> <span
+                                    class="small-gray-text">of {{takeDataFront.swapSize}}</span>
                         </div>
                     </div>
+
+                    <div class="col-md-12 p-0">
+                            <div class="col-md-4 p-0">
+                                <div class="float-left"><span class="small-gray-text">
+                           Total Receive
+                        </span></div>
+                                <div class="float-right">
+                                <span class="small-gray-text">
+                           Total Send
+                        </span>
+                                </div>
+                                <br>
+                                <div class="col-md-12 mt-2 mb-2 p-0 text-center">
+                                    <div class="gray-bg p-2 fusion-text-14">
+                                        <div class="float-left"><strong
+                                                    class="font-size-16">{{sendTokens}}</strong> {{takeDataFront.fromAssetSymbol}}
+                                        </div>
+                                        :
+                                        <div class="float-right">
+                                            <strong class="font-size-16">{{receiveTokens}}</strong> {{takeDataFront.toAssetSymbol}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
 
                     <div class="row">
                         <div class="col-md-6 p-0 pr-2">

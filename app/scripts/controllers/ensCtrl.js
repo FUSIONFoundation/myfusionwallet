@@ -691,6 +691,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeDataFront.toAssetName = fromName;
             $scope.takeDataFront.toAssetMin = $scope.swapsList[id].minswap / $scope.swapsList[id].swapratetaker;
             $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
+            $scope.takeDataFront.toAssetId = $scope.swapsList[id].fromAssetId;
             $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswaptaker;
             $scope.takeDataFront.fromAssetBalance = balance;
             $scope.takeDataFront.swapRate = $scope.swapsList[id].swapratetaker;
