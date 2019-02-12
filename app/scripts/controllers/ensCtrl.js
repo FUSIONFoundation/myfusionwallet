@@ -1,8 +1,8 @@
 'use strict';
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
-
-    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    let nu = localStorage.getItem('nodeUrl')
+    let data = nu ?  JSON.parse(nu)  : {} 
     let _CHAINID = 1;
 
     if (data.chainid !== "") {

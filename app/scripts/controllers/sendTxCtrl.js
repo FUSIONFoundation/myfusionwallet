@@ -7,7 +7,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getTimeLockAssets();
     })
 
-    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    let nu =  localStorage.getItem('nodeUrl')
+    let data = nu ? JSON.parse(nu) : {}
     let _CHAINID = 1;
 
     if (data.chainid !== "") {
@@ -37,7 +38,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.successModal = new Modal(document.getElementById('successModal'));
-    $scope.hiddenTimeLockStates = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
+    $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')): [];
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     let timeLockListSave = [];
@@ -1179,7 +1180,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.getTimeLockAssets = async function () {
         $scope.$eval(function () {
-            $scope.hiddenTimeLockStates = JSON.parse(localStorage.getItem('hiddenTimeLocks'));
+            $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks')? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : [];
         })
 
         if (!$scope.tx || !$scope.wallet) {

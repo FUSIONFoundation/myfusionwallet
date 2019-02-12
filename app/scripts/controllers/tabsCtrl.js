@@ -27,7 +27,8 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
     $scope.notifier.scope = $scope;
     $scope.ajaxReq = ajaxReq;
     $scope.chainId;
-    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    let nu = localStorage.getItem('nodeUrl')
+    let data = nu ? JSON.parse(nu) : {}
     if (data.url == ""){
         $scope.inputUrl = "wss://gatewayw.fusionnetwork.io:10001";
     } else {

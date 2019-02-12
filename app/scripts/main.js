@@ -139,8 +139,8 @@ var web3FusionExtend = require('web3-fusion-extend');
 window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
-var nodeUrl;
-let data = JSON.parse(localStorage.getItem('nodeUrl'));
+var nodeUrl = localStorage.getItem('nodeUrl')
+let data = nodeUrl ? JSON.parse(nodeUrl) : null
 
 // Initialize cookie if there is non
 if (data === null){
@@ -153,7 +153,8 @@ if (data === null){
 
 
 function keepWeb3Alive(){
-    let data = JSON.parse(localStorage.getItem('nodeUrl'));
+    let nu = localStorage.getItem('nodeUrl')
+    let data = nu ? JSON.parse(nu) : {}
     // if the url is empty set standard gateway
     if (data.url == ""){
         nodeUrl = "wss://gatewayw.fusionnetwork.io:10001";

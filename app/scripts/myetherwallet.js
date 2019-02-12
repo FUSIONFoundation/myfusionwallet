@@ -423,7 +423,7 @@ Wallet.walletRequirePass = function(ethjson) {
         throw globalFuncs.errorMsgs[2];
 }
 Wallet.getWalletFromPrivKeyFile = function(strjson, password) {
-    var jsonArr = JSON.parse(strjson);
+    var jsonArr = strjson ?  JSON.parse(strjson) : {}
     if (jsonArr.encseed != null) return Wallet.fromEthSale(strjson, password);
     else if (jsonArr.Crypto != null || jsonArr.crypto != null) return Wallet.fromV3(strjson, password, true);
     else if (jsonArr.hash != null) return Wallet.fromMyEtherWallet(strjson, password);
