@@ -6451,6 +6451,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6 mt-2" ng-show="takeDataFront.fromAssetBalance < sendTokens">
+                            <span class="balanceinsufficiant p-1">You don’t have enough {{takeDataFront.fromAssetSymbol}}</span>
+                        </div>
                     </div>
 
                     <div class="col-md-12 p-0">
@@ -6486,7 +6489,7 @@
                         <div class="col-md-6 p-0 pl-2">
                             <button class="btn btn-primary w-100"
                                     ng-click="takeSwapConfirm.open()"
-                                    ng-disabled="takeAmountSwap > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">
+                                    ng-disabled="sendTokens > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">
                                 Review Take Swap
                             </button>
                         </div>
