@@ -7119,45 +7119,49 @@
                         </div>
                     </div>
 
-
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">
                            Fill Quantity
                         </span>
                         <br>
                         <div class="col-md-4 p-1">
-                            <input type="number" class="form-control m-0 mt-1"
-                                   ng-model="takeAmountSwap"
-                                   min="1"
-                                   max="{{takeDataFront.swapSize}}"
-                                   ng-change="setReceive()" placeholder="Fills"> <span
-                                    class="small-gray-text">of {{takeDataFront.swapSize}}</span>
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control m-0 mt-1"
+                                       ng-model="takeAmountSwap"
+                                       min="1"
+                                       max="{{takeDataFront.swapSize}}"
+                                       ng-change="setReceive()" placeholder="Fills">
+                                <div class="input-group-append">
+                                    <span class="input-group-text small-gray-text">
+                                        of {{takeDataFront.swapSize}}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="col-md-12 p-0">
-                            <div class="col-md-4 p-0">
-                                <div class="float-left"><span class="small-gray-text">
+                        <div class="col-md-4 p-0">
+                            <div class="float-left"><span class="small-gray-text">
                            Total Receive
                         </span></div>
-                                <div class="float-right">
+                            <div class="float-right">
                                 <span class="small-gray-text">
                            Total Send
                         </span>
-                                </div>
-                                <br>
-                                <div class="col-md-12 mt-2 mb-2 p-0 text-center">
-                                    <div class="gray-bg p-2 fusion-text-14">
-                                        <div class="float-left"><strong
-                                                    class="font-size-16">{{sendTokens}}</strong> {{takeDataFront.fromAssetSymbol}}
-                                        </div>
-                                        :
-                                        <div class="float-right">
-                                            <strong class="font-size-16">{{receiveTokens}}</strong> {{takeDataFront.toAssetSymbol}}
-                                        </div>
+                            </div>
+                            <br>
+                            <div class="col-md-12 mt-2 mb-2 p-0 text-center">
+                                <div class="gray-bg p-2 fusion-text-14">
+                                    <div class="float-left"><strong
+                                                class="font-size-16">{{sendTokens}}</strong> {{takeDataFront.fromAssetSymbol}}
+                                    </div>
+                                    :
+                                    <div class="float-right">
+                                        <strong class="font-size-16">{{receiveTokens}}</strong> {{takeDataFront.toAssetSymbol}}
                                     </div>
                                 </div>
                             </div>
+                        </div>
                     </div>
 
 
