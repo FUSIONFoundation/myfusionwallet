@@ -246,6 +246,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 amount = new BN(amount + "0".repeat(parseInt(decimals)));
             } else if (pieces.length > 2) {
                 console.log('error');
+                $scope.errorModal.open();
                 // error message
                 return
             } else if (pieces[1].length >= d) {
@@ -256,6 +257,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let reg = new RegExp('^\\d+$'); // numbers only
                 if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
                     console.log('error');
+                    $scope.errorModal.open();
                     return
                     // return error
                 }
@@ -264,6 +266,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 amount = parseInt(pieces[0])
                 if (isNaN(amount) || amount < 0) {
                     console.log('error');
+                    $scope.errorModal.open();
                     // error message
                     return
                 }
