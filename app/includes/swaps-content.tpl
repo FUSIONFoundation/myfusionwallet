@@ -54,7 +54,7 @@
         <div class="col-md-3 text-left mr-0">
             <span class="small-gray-text">Send Assets</span>
             <br>
-            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                  ng-click="sendDropDown = !sendDropDown">
                 <div class="float-left w-75">
                     <a>
@@ -77,7 +77,7 @@
                                placeholder="Search by Symbol, Name, or ID">
                     </div>
                 </form>
-                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                     <a ng-click="setSendAsset(asset.id)">
                         <span class="fusion-text-14">
@@ -103,7 +103,7 @@
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Receive Asset</span>
             <br>
-            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                  ng-click="receiveDropDown = !receiveDropDown">
                 <div class="float-left w-75">
                     <a>
@@ -126,7 +126,7 @@
                                placeholder="Search by Symbol, Name, or ID">
                     </div>
                 </form>
-                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                      ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
                     <a ng-click="setReceiveAsset(asset.id)">
                         <span class="fusion-text-14">
@@ -635,7 +635,7 @@
                         <div class="col-md-6 text-left p-0">
                             <span class="small-gray-text">Send Assets</span>
                             <br>
-                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="sendDropDown = !sendDropDown">
                                 <a>
                                     {{selectedSendAsset}}
@@ -652,7 +652,7 @@
                                                placeholder="Search by Symbol, Name, or ID">
                                     </div>
                                 </form>
-                                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                <div class="col-md-12 col-xs-12 p-1 mt-1  asset-dropdown"
                                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                                     <a ng-click="setSendAsset(asset.id)">
                         <span class="fusion-text-14">
@@ -736,7 +736,7 @@
                         <div class="col-md-6 p-0 text-left">
                             <span class="small-gray-text">Receive Asset</span>
                             <br>
-                            <div class="col-md-12 col-xs-12 p-2 asset-dropdown border-gray-dropdown"
+                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="receiveDropDown = !receiveDropDown">
                                 <a>
                                     {{selectedReceiveAsset}}
@@ -753,7 +753,7 @@
                                                placeholder="Search by Symbol, Name, or ID">
                                     </div>
                                 </form>
-                                <div class="col-md-12 col-xs-12 p-2 asset-dropdown"
+                                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                                      ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
                                     <a ng-click="setReceiveAsset(asset.id)">
                         <span class="fusion-text-14">
