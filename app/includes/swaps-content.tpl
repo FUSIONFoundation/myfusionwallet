@@ -304,9 +304,11 @@
                                 - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                        <td class="text-right">
+                            <strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
                         </td>
-                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                        <td class="text-right">
+                            <strong>{{asset.minswaptaker.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
                         </td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
@@ -510,49 +512,29 @@
                     </div>
                     <h3 class="h3-blue">Take Swap</h3>
 
-                    <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
-                        <div class="col-md-6 small-gray-text">
-                            Funds Available
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                <span class="fusion-text-18">{{takeDataFront.fromAssetBalance}}</span>
-                                <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row gray-bg-jumbo p-2 mb-2 mt-2">
-                        <div class="col-md-6 small-gray-text">
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                <span class="small-gray-text">Fills Available</span>
-                                <span class="fusion-text-14">{{takeDataFront.swapSize}}</span>
-                                <span class="small-gray-text">Fill Size</span>
-                                <span class="fusion-text-14">{{takeDataFront.maxAmount}} {{takeDataFront.fromAssetSymbol}}</span>
-                            </div>
+                    <div class="col-md-12 p-0">
+                        <span class="small-gray-text">
+                           Send Asset
+                        </span>
+                        <br>
+                        <div class="col-md-6 p-1 takeswapdrop">
+                            <span>
+                            {{takeDataFront.fromAssetName}} ({{takeDataFront.fromAssetSymbol}})
+                                <span class="small-gray-text max-char">{{takeDataFront.fromAssetId}}</span>
+                            </span>
                         </div>
                     </div>
 
-                    <div class="row gray-border-bottom p-2 mb-2 mt-2">
-                        <div class="col-md-4 small-gray-text">
-                            You will be sending
-                        </div>
-                        <div class="col-md-8">
-                            <div class="float-right">
-                                <span class="float-left"><input type="number" class="form-control m-0 mt-1"
-                                                                ng-model="takeAmountSwap"
-                                                                min="1"
-                                                                max="{{takeDataFront.swapSize}}"
-                                                                ng-change="setReceive()" placeholder="Fills">
-                                </span>
-                                <span class="float-right p-2">
-                                    <span class="small-gray-text">Fills : </span>
-                                        <span class="fusion-text-18"><strong>{{sendTokens}}</strong></span>
-                                <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span>
-                                </span>
-                            </div>
+                    <div class="col-md-12 p-0">
+                        <span class="small-gray-text">
+                           Receive Asset
+                        </span>
+                        <br>
+                        <div class="col-md-6 p-1 takeswapdrop">
+                            <span>
+                                {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}})
+                                <span class="small-gray-text max-char">{{takeDataFront.toAssetId}}</span>
+                            </span>
                         </div>
                     </div>
 
@@ -591,7 +573,7 @@
                             <button class="btn btn-primary w-100"
                                     ng-click="takeSwapConfirm.open()"
                                     ng-disabled="takeAmountSwap > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">
-                                Take Swap
+                                Review Take Swap
                             </button>
                         </div>
                     </div>

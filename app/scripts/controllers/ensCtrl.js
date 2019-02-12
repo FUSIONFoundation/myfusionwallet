@@ -656,6 +656,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let balance = '';
         let decimals = 0;
+        let toName = '';
+        let fromName = '';
 
         let fromAsset = [];
 
@@ -665,6 +667,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
             await web3.fsn.getAsset($scope.swapsList[id].toAssetId).then(function (res) {
                 decimals = res["Decimals"];
+            })
+            await web3.fsn.getAsset($scope.swapsList[id].toAssetId).then(function (res) {
+                toName = res["Name"];
+            })
+            await web3.fsn.getAsset($scope.swapsList[id].fromAssetId).then(function (res) {
+                fromName = res["Name"];
             })
         } catch (err) {
             console.log(err);
@@ -676,9 +684,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
+            $scope.takeDataFront.fromAssetName = toName;
             $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].toAssetSymbol;
             $scope.takeDataFront.fromAssetId = $scope.swapsList[id].toAssetId;
             $scope.takeDataFront.swapSize = $scope.swapsList[id].maxswaps;
+            $scope.takeDataFront.toAssetName = fromName;
             $scope.takeDataFront.toAssetMin = $scope.swapsList[id].minswap / $scope.swapsList[id].swapratetaker;
             $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
             $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswaptaker;
