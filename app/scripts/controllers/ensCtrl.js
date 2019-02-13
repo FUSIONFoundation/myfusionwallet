@@ -707,7 +707,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeAmountSwap = 1;
         })
 
-        await $scope.setReceive(1).then(function(){
+        await $scope.setReceive(1).then(function () {
             $scope.takeSwapModal.open();
         });
         console.log($scope.takeDataFront);
@@ -717,19 +717,26 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if ($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) {
             return;
         }
-        let perc1 = $scope.takeAmountSwap;
+
+        let perc1 = $scope.makeBigNumber($scope.takeAmountSwap.toString(), 18)
 
         if (amount >= 0) {
-            perc1 = 1;
+            perc1 = $scope.makeBigNumber("1", 18)
         }
 
-        let perc2 = $scope.takeDataFront.swapSize;
-        let perc3 = perc1 / perc2;
+        let perc2 = $scope.makeBigNumber($scope.takeDataFront.swapSize.toString(), 18)
+        let perc3 = perc1.div(perc2);
 
-        await $scope.$eval(function(){
-            $scope.receiveTokens = $scope.takeDataFront.fromAmountCut * perc3;
-            $scope.sendTokens = $scope.takeDataFront.toAmountCut * perc3;
+        let fromAmountBN = new BN($scope.takeDataFront.fromAmount.toString());
+        let fromFinal = fromAmountBN.mul(perc3);
+
+        console.log(fromFinal);
+
+        await $scope.$eval(function () {
+            $scope.receiveTokens = fromFinal.toString();
+            $scope.sendTokens = $scope.takeDataFront.toAmount * perc3;
         })
+
     }
 
     $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
@@ -1427,7 +1434,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "swap_id": swapList[asset]["ID"],
                     "fromAssetId": swapList[asset]["FromAssetID"],
                     "fromAssetSymbol": fromAsset["Symbol"],
-                    "fromAmount": toAmountF,
+                    "fromAmount": fromAmountF,
                     "fromAmountCut": +fromAmountF.toFixed(8),
                     "toAssetId": swapList[asset]["ToAssetID"],
                     "toAmount": toAmountF,
@@ -1472,6 +1479,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
             $scope.showLoader = false;
         });
+
+        console.log($scope.swapsList);
     }
 
     $scope.getBalance = async function () {
