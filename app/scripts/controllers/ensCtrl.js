@@ -688,6 +688,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
             $scope.takeDataFront.fromAssetName = toName;
+            $scope.takeDataFront.fromAmountCut = $scope.swapsList[id].fromAmountCut;
+            $scope.takeDataFront.toAmountCut = $scope.swapsList[id].toAmountCut;
             $scope.takeDataFront.fromAssetSymbol = $scope.swapsList[id].toAssetSymbol;
             $scope.takeDataFront.fromAssetId = $scope.swapsList[id].toAssetId;
             $scope.takeDataFront.swapSize = $scope.swapsList[id].maxswaps;
@@ -717,8 +719,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let perc2 = $scope.takeDataFront.swapSize ;
         let perc3 = perc1 / perc2;
 
-        $scope.receiveTokens = $scope.takeDataFront.fromAmount * perc3;
-        $scope.sendTokens = $scope.takeDataFront.toAmount * perc3;
+        $scope.receiveTokens = $scope.takeDataFront.fromAmountCut * perc3;
+        $scope.sendTokens = $scope.takeDataFront.toAmountCut * perc3;
     }
 
     $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
