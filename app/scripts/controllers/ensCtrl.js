@@ -2,7 +2,7 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     let nu = localStorage.getItem('nodeUrl')
-    let data = nu ?  JSON.parse(nu)  : {} 
+    let data = nu ? JSON.parse(nu) : {}
     let _CHAINID = 1;
 
     if (data.chainid !== "") {
@@ -17,13 +17,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         $scope.getAllAssets();
         $scope.getShortAddressNotation();
-        $scope.allSwaps().then(function(){
+        $scope.allSwaps().then(function () {
             $scope.sortSwapMarket("timePosix");
             $scope.sortOpenMakes("timePosix");
         });
         $scope.getBalance();
         $scope.setWalletAddress();
-        $scope.getAllAssetsList().then(function(){
+        $scope.getAllAssetsList().then(function () {
             $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
         });
     };
@@ -41,13 +41,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }, 7500);
 
-    setInterval(function(){
-        if ($scope.wallet == null){
+    setInterval(function () {
+        if ($scope.wallet == null) {
             return;
         }
         $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
 
-    },25000)
+    }, 25000)
 
 
     $scope.mayRun = false;
@@ -273,7 +273,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
             }
             return amount;
-        } catch (err){
+        } catch (err) {
             $scope.errorModal.open();
         }
     }
@@ -706,21 +706,29 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeAmountSwap = 1;
         })
 
+        await $scope.setReceive(1).then(function(){
+            $scope.takeSwapModal.open();
+        });
         console.log($scope.takeDataFront);
-
-
-        $scope.takeSwapModal.open();
     }
 
-    $scope.setReceive = function () {
-        if($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) { return; }
-
+    $scope.setReceive = async function (amount) {
+        if ($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) {
+            return;
+        }
         let perc1 = $scope.takeAmountSwap;
-        let perc2 = $scope.takeDataFront.swapSize ;
+
+        if (amount >= 0) {
+            perc1 = 1;
+        }
+
+        let perc2 = $scope.takeDataFront.swapSize;
         let perc3 = perc1 / perc2;
 
-        $scope.receiveTokens = $scope.takeDataFront.fromAmountCut * perc3;
-        $scope.sendTokens = $scope.takeDataFront.toAmountCut * perc3;
+        await $scope.$eval(function(){
+            $scope.receiveTokens = $scope.takeDataFront.fromAmountCut * perc3;
+            $scope.sendTokens = $scope.takeDataFront.toAmountCut * perc3;
+        })
     }
 
     $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
@@ -746,7 +754,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let data = {
             from: walletAddress,
             SwapID: swap_id.swap_id,
-            Size:$scope.takeAmountSwap
+            Size: $scope.takeAmountSwap
         };
 
         console.log(data);
@@ -880,11 +888,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let sendAssetSymbol = '';
         let receiveAssetSymbol = '';
-        for(let asset in $scope.assetList){
-            if($scope.assetToSend == $scope.assetList[asset].contractaddress){
-               sendAssetSymbol = $scope.assetList[asset].symbol;
+        for (let asset in $scope.assetList) {
+            if ($scope.assetToSend == $scope.assetList[asset].contractaddress) {
+                sendAssetSymbol = $scope.assetList[asset].symbol;
             }
-            if($scope.assetToReceive == $scope.assetList[asset].contractaddress){
+            if ($scope.assetToReceive == $scope.assetList[asset].contractaddress) {
                 receiveAssetSymbol = $scope.assetList[asset].symbol;
             }
         }
@@ -1016,7 +1024,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let minToAmountHex = "0x" + minToAmount.toString(16);
         let minFromAmountHex = "0x" + minFromAmount.toString(16);
 
-        if($scope.makeMinumumSwap == "" || $scope.makeMinumumSwap <= 0){
+        if ($scope.makeMinumumSwap == "" || $scope.makeMinumumSwap <= 0) {
             $scope.makeMinumumSwap = 1;
         }
 
@@ -1031,7 +1039,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         };
 
         // Send part
-        if($scope.showTimeLockSend == true) {
+        if ($scope.showTimeLockSend == true) {
             if ($scope.sendTimeLock == 'scheduled') {
                 let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
                 let fromEndTime = web3.fsn.consts.TimeForeverStr;
@@ -1282,7 +1290,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (posixtime == 18446744073709552000) {
             return 'Forever';
         }
-        if (posixtime == 0){
+        if (posixtime == 0) {
             return 'Now';
         }
         let time = new Date(parseInt(posixtime) * 1000);
@@ -1362,7 +1370,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let hours = time.getHours();
                 let minutes = time.getMinutes();
 
-                if (time.getMinutes() < 10){
+                if (time.getMinutes() < 10) {
                     minutes = "0" + time.getMinutes();
                 }
                 // Global
@@ -1425,12 +1433,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "toAmountCut": +toAmountF.toFixed(8),
                     "toAssetSymbol": toAsset["Symbol"],
                     "swaprate": swapRate,
-                    "maxswaps" : swapList[asset]["SwapSize"],
-                    "swapratetaker" : swapratetaker,
+                    "maxswaps": swapList[asset]["SwapSize"],
+                    "swapratetaker": swapratetaker,
                     "minswap": minimumswap,
-                    "minswaptaker" : minimumswaptaker,
+                    "minswaptaker": minimumswaptaker,
                     "time": time.toLocaleString(),
-                    "timePosix" : swapList[asset]["Time"],
+                    "timePosix": swapList[asset]["Time"],
                     "timeHours": timeHours,
                     "targes": targes,
                     "owner": ownerAddr,
