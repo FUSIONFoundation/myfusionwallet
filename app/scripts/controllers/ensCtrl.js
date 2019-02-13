@@ -251,6 +251,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return
             } else if (pieces[1].length >= d) {
                 console.log('error');
+                $scope.errorModal.open();
                 return // error
             } else {
                 let dec = parseInt(pieces[1])
