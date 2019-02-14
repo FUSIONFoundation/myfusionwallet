@@ -736,11 +736,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let fromAmountBN = new window.BigNumber( $scope.takeDataFront.fromAmount )
         let fromFinal = fromAmountBN.mul(perc3);
 
-        console.log(fromFinal);
+        let toAmountBN = new window.BigNumber( $scope.takeDataFront.toAmount )
+        let toFinal = toAmountBN.mul(perc3);
 
         await $scope.$eval(function () {
             $scope.receiveTokens = fromFinal.toString();
-            $scope.sendTokens = $scope.takeDataFront.toAmount * perc3;
+            $scope.sendTokens = toFinal.toString();
         })
 
     }
