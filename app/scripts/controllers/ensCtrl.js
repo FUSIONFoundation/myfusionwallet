@@ -343,6 +343,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.$eval(function () {
                     $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
                     $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
+                    $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
                     $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
                     $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
                     $scope.getAssetBalance();
