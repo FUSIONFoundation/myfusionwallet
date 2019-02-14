@@ -840,7 +840,7 @@
                         <div class="col-md-6 p-0">
                             <div class="row">
                                 <div class="col-md-5 pl-3">
-                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeSendSwapRate"
                                            placeholder="Amount"> <span
                                             class="small-gray-text">{{selectedSendAsset}}</span>
                                 </div>
@@ -848,8 +848,7 @@
                                     <h3 class="h3-blue p-0 m-0 text-center">:</h3>
                                 </div>
                                 <div class="col-md-5 pr-3">
-                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                                           placeholder="Amount"><span
+                                    1 <span
                                             class="small-gray-text">{{selectedReceiveAsset}}</span>
                                 </div>
                             </div>
@@ -870,7 +869,9 @@
                                 <div class="col-md-5">
                                     <span class="small-gray-text">Send Amount</span>
                                     <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
-                                           placeholder="Amount">
+                                           placeholder="Amount"
+                                           ng-change="setSwapRate()"
+                                    >
                                 </div>
                                 <div class="col-md-1 pt-2">
                                     <span class="text-white">-</span>
@@ -879,7 +880,9 @@
                                 <div class="col-md-5">
                                     <span class="small-gray-text">Receive Amount</span>
                                     <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                                           placeholder="Amount">
+                                           placeholder="Amount"
+                                           ng-change="setSwapRate()"
+                                    >
                                 </div>
                             </div>
                         </div>
