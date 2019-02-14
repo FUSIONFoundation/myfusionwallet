@@ -342,6 +342,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if ($scope.initializeSendandReceive) {
                 $scope.$eval(function () {
                     $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
+                    $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
                     $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
                     $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
                     $scope.getAssetBalance();
@@ -468,9 +469,26 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         return s;
     }
 
+    $scope.setMinimumMakes = function (){
+        if ($scope.makeMinumumSwap <= 0 || $scope.makeMinumumSwap == '' || $scope.makeSendAmount <= 0 || $scope.makeReceiveAmount <= 0) { return }
+
+        let makeMinBN = new window.BigNumber($scope.makeMinumumSwap);
+
+        //Send an receive
+        let makeSendBN = new window.BigNumber($scope.makeSendAmount);
+        let makeReceiveBN = new window.BigNumber($scope.makeReceiveAmount);
+
+        let makeSendFinal = makeSendBN.div(makeMinBN);
+        let makeReceiveFinal = makeReceiveBN.div(makeMinBN);
+
+        $scope.minimumMakeSend = makeSendFinal.toString();
+        $scope.minimumReceiveSend = makeReceiveFinal.toString();
+    }
+
     $scope.setReceiveAsset = async function (id) {
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${$scope.assetList[id].symbol})`;
+            $scope.selectedReceiveAssetSymbol = `${$scope.assetList[id].symbol}`;
             $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
             $scope.assetToReceive = $scope.assetList[id].contractaddress;
             $scope.receiveDropDown = false;
@@ -480,6 +498,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.setSendAsset = async function (id) {
         $scope.$eval(function () {
             $scope.selectedSendAsset = `${$scope.assetListOwned[id].name} (${$scope.assetListOwned[id].symbol})`;
+            $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[id].symbol}`;
             $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
             $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
             $scope.getAssetBalance();
