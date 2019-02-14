@@ -718,16 +718,22 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         }
 
-        let perc1 = $scope.makeBigNumber($scope.takeAmountSwap.toString(), 18)
+        window.BigNumber.config({ DECIMAL_PLACES: 18});
+
+
+        let perc1 = new window.BigNumber( $scope.takeAmountSwap )
+
 
         if (amount >= 0) {
-            perc1 = $scope.makeBigNumber("1", 18)
+            perc1 = new window.BigNumber( 1 )
         }
 
-        let perc2 = $scope.makeBigNumber($scope.takeDataFront.swapSize.toString(), 18)
+        let perc2 = new window.BigNumber($scope.takeDataFront.swapSize)
         let perc3 = perc1.div(perc2);
 
-        let fromAmountBN = new BN($scope.takeDataFront.fromAmount.toString());
+        console.log( perc1.toString(), perc2.toString() , perc3.toString() )
+
+        let fromAmountBN = new window.BigNumber( $scope.takeDataFront.fromAmount )
         let fromFinal = fromAmountBN.mul(perc3);
 
         console.log(fromFinal);
