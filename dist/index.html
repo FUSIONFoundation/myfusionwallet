@@ -6721,7 +6721,9 @@
                             <div class="row">
                                 <div class="col-md-5 pl-3">
                                     <input type="text" class="form-control m-0 mt-1" ng-model="makeSendSwapRate"
-                                           placeholder="Amount"> <span
+                                           placeholder="Amount"
+                                           ng-change="setSendAmountMakeSwap()"
+                                    > <span
                                             class="small-gray-text">{{selectedSendAsset}}</span>
                                 </div>
                                 <div class="col-md-1 pt-2">

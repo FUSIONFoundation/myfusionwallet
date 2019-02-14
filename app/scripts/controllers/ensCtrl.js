@@ -469,9 +469,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let swapRateFinal = makeSendAmountBN.div(makeReceiveAmountBN);
 
         $scope.makeSendSwapRate = swapRateFinal.toString();
+    }
 
-        console.log($scope.makeSendAmount / $scope.makeReceiveAmount);
+    $scope.setSendAmountMakeSwap = function (){
+        if($scope.makeReceiveAmount <= 0 || $scope.makeSendSwapRate <= 0){ return; }
+        let makeSendSwapRateBN = new BigNumber($scope.makeSendSwapRate);
+        let makeReceiveAmountBN = new BigNumber($scope.makeReceiveAmount);
 
+        let sendAmountFinal = makeSendSwapRateBN.mul(makeReceiveAmountBN);
+
+        $scope.makeSendAmount = sendAmountFinal.toString();
     }
 
     $scope.toHexString = function (byteArray) {
