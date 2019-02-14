@@ -538,11 +538,9 @@
                         </div>
                     </div>
 
-                    <h3 class="h3-blue pt-2 inline">Take Amount</h3>
-
-                    <div class="col-md-12 p-0">
+                    <div class="col-md-3 p-0">
                         <span class="small-gray-text">
-                           Swap Size
+                           Swap Rate
                         </span>
                         <br>
                         <div class="col-md-4 mt-2 mb-2 p-0">
@@ -552,6 +550,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-9 p-0">
+                        <span class="small-gray-text">
+                           Fill Size
+                        </span>
+                        <br>
+                        <div class="col-md-4 mt-2 mb-2 p-0">
+                            <div class="gray-bg p-2 display-inline fusion-text-14">
+                                {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <h3 class="h3-blue pt-2 inline">Take Amount</h3>
 
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">
