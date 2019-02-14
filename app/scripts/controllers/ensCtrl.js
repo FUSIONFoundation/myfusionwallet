@@ -720,7 +720,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         window.BigNumber.config({ DECIMAL_PLACES: 18});
 
-
         let perc1 = new window.BigNumber( $scope.takeAmountSwap )
 
 
@@ -730,8 +729,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let perc2 = new window.BigNumber($scope.takeDataFront.swapSize)
         let perc3 = perc1.div(perc2);
-
-        console.log( perc1.toString(), perc2.toString() , perc3.toString() )
 
         let fromAmountBN = new window.BigNumber( $scope.takeDataFront.fromAmount )
         let fromFinal = fromAmountBN.mul(perc3);
