@@ -388,13 +388,43 @@
                 <table class="table" ng-show="!showLoader">
                     <thead>
                     <tr class="small-gray-table">
-                        <th class="text-left" scope="col"></th>
-                        <th class="text-left" scope="col" ng-click="sortSwapMarket('time')">Time Initiated</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmountCut')">Send</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmountCut')">Receive</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('swaprate')">Swap Rate</th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">Fill Size</th>
-                        <th class="text-right" scope="col" class="float-right">Actions</th>
+                        <th class="text-left" scope="col">
+
+                        </th>
+                        <th class="text-left" scope="col" ng-click="sortSwapMarket('time')">
+                            Time Initiated
+
+                            <img src="images/Static.svg" ng-show="sortKey !== 'time'"/>
+                            <img src="images/Ascend.svg" ng-show="sortKey == 'time' && reverse == false"/>
+                            <img src="images/Descend.svg" ng-show="sortKey == 'time' && reverse == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmountCut')">
+                            Send
+                            <img src="images/Static.svg" ng-show="sortKey !== 'fromAmountCut'"/>
+                            <img src="images/Ascend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == false"/>
+                            <img src="images/Descend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmountCut')">
+                            Receive
+                            <img src="images/Static.svg" ng-show="sortKey !== 'toAmountCut'"/>
+                            <img src="images/Ascend.svg" ng-show="sortKey == 'toAmountCut' && reverse == false"/>
+                            <img src="images/Descend.svg" ng-show="sortKey == 'toAmountCut' && reverse == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('swaprate')">
+                            Swap Rate
+                            <img src="images/Static.svg" ng-show="sortKey !== 'swaprate'"/>
+                            <img src="images/Ascend.svg" ng-show="sortKey == 'swaprate' && reverse == false"/>
+                            <img src="images/Descend.svg" ng-show="sortKey == 'swaprate' && reverse == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">
+                            Fill Size
+                            <img src="images/Static.svg" ng-show="sortKey !== 'minswap'"/>
+                            <img src="images/Ascend.svg" ng-show="sortKey == 'minswap' && reverse == false"/>
+                            <img src="images/Descend.svg" ng-show="sortKey == 'minswap' && reverse == true"/>
+                        </th>
+                        <th class="text-right" scope="col" class="float-right">
+                            Actions
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
