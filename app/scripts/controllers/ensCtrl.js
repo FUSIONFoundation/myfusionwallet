@@ -1346,9 +1346,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         let time = new Date(parseInt(posixtime) * 1000);
 
-        let tMonth = time.getMonth();
-        let tDay = time.getDate();
-        let tYear = time.getFullYear();
+        let tMonth = time.getUTCMonth();
+        let tDay = time.getUTCDate();
+        let tYear = time.getUTCFullYear();
 
         return $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
     }
@@ -1414,15 +1414,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let swapRate = fromAmount / toAmount;
                 let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
 
-                let tMonth = time.getMonth();
-                let tDay = time.getDate();
-                let tYear = time.getFullYear();
+                let tMonth = time.getUTCMonth();
+                let tDay = time.getUTCDate();
+                let tYear = time.getUTCFullYear();
 
-                let hours = time.getHours();
-                let minutes = time.getMinutes();
+                let hours = time.getUTCHours();
+                let minutes = time.getUTCMinutes();
 
-                if (time.getMinutes() < 10) {
-                    minutes = "0" + time.getMinutes();
+                if (time.getUTCMinutes() < 10) {
+                    minutes = "0" + time.getUTCMinutes();
                 }
                 // Global
 
