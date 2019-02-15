@@ -6142,11 +6142,31 @@
                     <thead>
                     <tr class="small-gray-table">
                         <th class="text-left" scope="col"></th>
-                        <th class="text-left" scope="col" ng-click="sortOpenMakes('time')">Time Initiated</th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">Send</th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">Receive</th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('swaprate')">Swap Rate</th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('minswap')">Fill Size</th>
+                        <th class="text-left" scope="col" ng-click="sortOpenMakes('time')">Time Initiated
+                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'time'"/>
+                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'time' && reverseMake == false"/>
+                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'time' && reverseMake == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">Send
+                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'fromAmountCut'"/>
+                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == false"/>
+                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">Receive
+                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'toAmountCut'"/>
+                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == false"/>
+                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('swaprate')">Swap Rate
+                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'swaprate'"/>
+                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'swaprate' && reverseMake == false"/>
+                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'swaprate' && reverseMake == true"/>
+                        </th>
+                        <th class="text-right" scope="col" ng-click="sortOpenMakes('minswap')">Fill Size
+                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'minswap'"/>
+                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'minswap' && reverseMake == false"/>
+                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'minswap' && reverseMake == true"/>
+                        </th>
                         <th class="text-right" scope="col" class="float-right">Actions</th>
                     </tr>
                     </thead>
