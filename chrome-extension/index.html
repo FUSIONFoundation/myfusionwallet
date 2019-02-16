@@ -6454,6 +6454,15 @@
                             </span>
                         </div>
                     </div>
+                    <div class="col-md-12 p-0"
+                         ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                        <div class="col-md-6 pt-1 pb-1 pl-1 tl-takeswap">
+                            <span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
+                                - {{takeDataFront.swapId.ToEndTimeString}}
+                            </span>
+                        </div>
+                    </div>
 
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">
@@ -6464,6 +6473,15 @@
                             <span>
                                 {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}})
                                 <span class="small-gray-text max-char">{{takeDataFront.toAssetId}}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 p-0"
+                         ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
+                        <div class="col-md-6 pt-1 pb-1 pl-1 tl-takeswap">
+                            <span>
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
+                                - {{takeDataFront.swapId.FromEndTimeString}}
                             </span>
                         </div>
                     </div>
