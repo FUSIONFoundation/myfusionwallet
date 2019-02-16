@@ -1060,24 +1060,32 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             targesArray = [];
         }
 
-        let makeReceiveAmount = ($scope.makeReceiveAmount / parseInt($scope.makeMinumumSwap));
-        let makeSendAmount = ($scope.makeSendAmount / parseInt($scope.makeMinumumSwap));
-
-        let makeReceiveFixed = +makeReceiveAmount.toFixed(parseInt(toAsset["Decimals"]));
-        let makeSendFixed = +makeSendAmount.toFixed(parseInt(fromAsset["Decimals"]));
-
-        let makeReceiveAmountString = makeReceiveFixed.toString()
-        let makeSendAmountString = makeSendFixed.toString()
-
-        let minToAmount = $scope.makeBigNumber(makeReceiveAmountString, toAsset["Decimals"]);
-        let minFromAmount = $scope.makeBigNumber(makeSendAmountString, fromAsset["Decimals"]);
-
-        let minToAmountHex = "0x" + minToAmount.toString(16);
-        let minFromAmountHex = "0x" + minFromAmount.toString(16);
-
         if ($scope.makeMinumumSwap == "" || $scope.makeMinumumSwap <= 0) {
             $scope.makeMinumumSwap = 1;
         }
+
+        //Global
+        let makeMinimumSwapBN = new BigNumber($scope.makeMinumumSwap);
+
+        //Receive Part
+        BigNumber.config({ DECIMAL_PLACES: parseInt(toAsset["Decimals"]-1) });
+        let makeReceiveAmountBN = new BigNumber($scope.makeReceiveAmount);
+        let makeReceiveAmountDiv = makeReceiveAmountBN.div(makeMinimumSwapBN);
+        let makeReceiveString = makeReceiveAmountDiv.toString();
+        let makeReceiveFinal = $scope.makeBigNumber(makeReceiveString , parseInt(toAsset["Decimals"]));
+
+        //Send Part
+        BigNumber.config({ DECIMAL_PLACES: parseInt(fromAsset["Decimals"]-1) });
+        let makeSendAmountBN = new BigNumber($scope.makeSendAmount);
+        let makeSendAmountDiv = makeSendAmountBN.div(makeMinimumSwapBN);
+        let makeSendString = makeSendAmountDiv.toString();
+        let makeSendFinal = $scope.makeBigNumber(makeSendString , parseInt(fromAsset["Decimals"]));
+
+        //Convert to Hex
+
+        let minToAmountHex = "0x" + makeReceiveFinal.toString(16);
+        let minFromAmountHex = "0x" + makeSendFinal.toString(16);
+
 
         let data = {
             from: walletAddress,
