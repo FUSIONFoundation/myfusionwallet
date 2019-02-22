@@ -183,9 +183,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             "owner" : $scope.assetListOwns[$scope.lastId].owner,
             "balance" : $scope.assetListOwns[$scope.lastId].balance,
             "issuer" : $scope.assetListOwns[$scope.lastId].issuer,
-            "distributed" : distributed,
+            "distributed" : distributed
         };
-        console.log($scope.changeSupplyInfo);
+
         $scope.changeSupply.open();
     }
 

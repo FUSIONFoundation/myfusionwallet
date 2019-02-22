@@ -1295,17 +1295,18 @@
                             <br>
                         </div>
                         <div class="border-gray-bottom pb-3 pt-2">
-                            <div class="float-left">
-                                <span class="small-gray-text">
-                                    Issuer
-                                </span>
-                            </div>
-                            <div class="float-right text-right">
-                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-                                         title="gagaga">
-                                         {{manageAssetInfo.issuer}}
-                                   </span>
-                            </div>
+                            <span class="small-gray-text">
+                                Total Supply
+                            </span>
+                            <input type="number"
+                                   class="form-control"
+                                   min="0"
+                            />
+                            <br>
+                            <span class="small-gray-text">
+                                Note (Optional)
+                            </span>
+                            <textarea class="form-control" rows="3"></textarea>
                             <br>
                         </div>
                     </section>
