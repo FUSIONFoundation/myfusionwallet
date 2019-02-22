@@ -1130,7 +1130,7 @@
 </span>
                     </div>
                 </div>
-                <h3 class="h3-blue">Asset Info</h3>
+                <h3 class="h3-blue mb-3">Asset Info</h3>
 
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
@@ -1238,7 +1238,7 @@
 <article class="modal fade" id="changeSupply" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <article class="block">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="changeSupply.close();">                    <i
@@ -1247,7 +1247,7 @@
 </span>
                     </div>
                 </div>
-                <h3 class="h3-blue">Change Supply</h3>
+                <h3 class="h3-blue mb-3">Change Supply</h3>
 
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
@@ -1273,8 +1273,7 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-                                         title="gagaga">
+                                   <span class="fusion-text-14">
                                        {{changeSupplyInfo.total}}
                                    </span>
                             </div>
@@ -1287,8 +1286,7 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-                                         title="gagaga">
+                                   <span class="fusion-text-14">
                                         {{changeSupplyInfo.distributed}}
                                    </span>
                             </div>
@@ -1306,7 +1304,7 @@
                             <span class="small-gray-text">
                                 Note (Optional)
                             </span>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Enter a note..."></textarea>
                             <br>
                         </div>
                     </section>
@@ -1325,11 +1323,6 @@
                             Review
                         </a>
                     </div>
-                </div>
-
-                <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
-                    <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
-                    Please, review and try again!
                 </div>
             </article>
 
