@@ -1308,9 +1308,10 @@
                             <span class="small-gray-text">
                                 Note (Optional)
                             </span>
-                            <textarea class="form-control" rows="3" placeholder="Enter a note..."
-                            ng-model="transacData"
+                            <textarea class="form-control" rows="2" placeholder="Enter a note..."
+                                      ng-model="transacData" maxlength="80"
                             ></textarea>
+                            <span class="small-gray-text">{{transacData.length}}/80</span>
                             <br>
                         </div>
                     </section>
@@ -1325,13 +1326,14 @@
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
-                           ng-click="changeSupplyReviewOpen()">
+                           ng-click="changeSupplyReviewOpen()"
+                           ng-disabled="transacData.length > 80 || newTotalSupply == ''"
+                        >
                             Review
                         </a>
                     </div>
                 </div>
             </article>
-
         </section>
     </section>
 </article>
@@ -1393,6 +1395,17 @@
                                    <span class="fusion-text-14">
                                        {{newTotalSupply}} {{changeSupplyInfo.symbol}}
                                    </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2" ng-show="transacData !== ''">
+                            <div class="float-left">
+                                      <span class="small-gray-text">
+                                Note
+                            </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="small-gray-text">{{transacData}}</span>
                             </div>
                             <br>
                         </div>
@@ -1520,6 +1533,22 @@
                                    <span class="fusion-text-14">
                                        {{newTotalSupply}} {{changeSupplyInfo.symbol}}
                                    </span>
+                                    </div>
+                                    <br>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="col-md-12">
+                            <section class="row form-group">
+                                <div class="border-gray-bottom pb-3 pt-2" ng-show="transacData !== ''">
+                                    <div class="float-left">
+                                      <span class="small-gray-text">
+                                Note
+                            </span>
+                                    </div>
+                                    <div class="float-right">
+                                        <span class="small-gray-text">{{transacData}}</span>
                                     </div>
                                     <br>
                                 </div>
