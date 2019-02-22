@@ -1364,7 +1364,24 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                   Change in Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                       <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
+                                       >{{totalSupplyDiff}}</span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     New Total Supply
@@ -1373,9 +1390,6 @@
                             <div class="float-right text-right">
                                    <span class="fusion-text-14">
                                        {{newTotalSupply}}
-                                       <br>
-                                       <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
-                                       >{{totalSupplyDiff}}</span>
                                    </span>
                             </div>
                             <br>
@@ -1465,18 +1479,36 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                <span class="fusion-text-14">{{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})</span>
+                                <span class="fusion-text-14">{{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}}
+                                    )</span>
                                 <br>
-                                <span class="small-gray-text max-char text-right inline-block" data-toggle="tooltip" data-placement="top"
+                                <span class="small-gray-text max-char text-right inline-block" data-toggle="tooltip"
+                                      data-placement="top"
                                       title="{{changeSupplyInfo.contractaddress}}">{{changeSupplyInfo.contractaddress}}</span>
                             </div>
                             <br>
                         </div>
 
+                        <div class="col-md-12">
+                            <section class="row form-group">
+                                <div class="border-gray-bottom pb-3 pt-2">
+                                    <div class="float-left">
+                                <span class="small-gray-text">
+                                   Change in Supply
+                                </span>
+                                    </div>
+                                    <div class="float-right text-right">
+                                       <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
+                                       >{{totalSupplyDiff}}</span>
+                                    </div>
+                                    <br>
+                                </div>
+                            </section>
+                        </div>
 
                         <div class="col-md-12">
                             <section class="row form-group">
-                                <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                                <div class="border-gray-bottom pb-3 pt-2">
                                     <div class="float-left">
                                 <span class="small-gray-text">
                                     New Total Supply
@@ -1485,9 +1517,6 @@
                                     <div class="float-right text-right">
                                    <span class="fusion-text-14">
                                        {{newTotalSupply}}
-                                       <br>
-                                       <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
-                                       >{{totalSupplyDiff}}</span>
                                    </span>
                                     </div>
                                     <br>
