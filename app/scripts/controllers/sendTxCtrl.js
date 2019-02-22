@@ -250,7 +250,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             console.log(txHash);
-                            $scope.changeSupplyInfo.txhash = txHash;
+                            $scope.$apply(function(){
+                                $scope.changeSupplyInfo.txhash = txHash;
+                            })
                             $scope.changeSupplySuccess.open();
                         })
                     }
@@ -282,7 +284,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             console.log(txHash)
+                            $scope.$apply(function(){
                                 $scope.changeSupplyInfo.txhash = txHash;
+                            })
                             $scope.changeSupplySuccess.open();
                         })
                     }
