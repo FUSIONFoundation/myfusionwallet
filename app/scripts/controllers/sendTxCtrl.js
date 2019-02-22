@@ -215,6 +215,77 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.changeSupplyReview.open();
     }
 
+    $scope.changeSupplyTx = async function(){
+        let asset = $scope.assetListOwns[$scope.lastId];
+
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+
+        if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
+            $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+        }
+
+
+        if($scope.changeSupplyState == 'increment'){
+            // Get New Total Supply, create BN and create Hexadecimal
+            let bal = $scope.newTotalSupply - $scope.assetListOwns[$scope.lastId].total;
+            let newtotalSupplyString = bal.toString();
+            let newtotalSupplyBN = $scope.makeBigNumber(newtotalSupplyString, asset.decimals);
+            let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
+
+            let data = {
+                "asset" : asset.contractaddress,
+                "from" : walletAddress,
+                "to" : walletAddress,
+                "value" : newtotalSupplyBNHex
+            }
+            try {
+                await web3.fsntx.buildIncAssetTx(data).then((tx) => {
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
+                        return;
+                    } else {
+                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                            console.log(txHash);
+                        })
+                    }
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+            }
+        }
+        if($scope.changeSupplyState == 'decrement'){
+            // Get New Total Supply, create BN and create Hexadecimal
+            let bal = $scope.assetListOwns[$scope.lastId].total - $scope.newTotalSupply;
+            let newtotalSupplyString = bal.toString();
+            let newtotalSupplyBN = $scope.makeBigNumber(newtotalSupplyString, asset.decimals);
+            let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
+
+            let data = {
+                "asset" : asset.contractaddress,
+                "from" : walletAddress,
+                "to" : walletAddress,
+                "value" : newtotalSupplyBNHex
+            }
+            try {
+                await web3.fsntx.buildDecAssetTx(data).then((tx) => {
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
+                        return;
+                    } else {
+                        return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                            console.log(txHash);
+                        })
+                    }
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+            }
+        }
+    }
+
 
     $scope.setSendMode = function (sendMode, tokenId = '', tokensymbol = '') {
         $scope.tx.sendMode = sendMode;
@@ -1153,6 +1224,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetCreate.errorMessage = 'Please, fill in whole numbers for the total supply.';
             return null;
         }
+
 
         if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
