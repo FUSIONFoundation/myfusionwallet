@@ -1598,9 +1598,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListOwns = assetList3;
             $scope.assetListLoading = false;
         });
-
-        console.log($scope.assetListOwns)
-
     }
 
     $scope.getAllErcTokens = function () {
