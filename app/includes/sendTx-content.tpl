@@ -1364,7 +1364,7 @@
                         </div>
                         <div class="col-md-6 text-right">
                             <span class="badge badge-white"
-                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}})</span>
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
                         </div>
                     </div>
                     <br>
