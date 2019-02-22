@@ -1332,6 +1332,7 @@
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
                            ng-click="changeSupplyReviewOpen()"
+                           ng-class="{'disabled' : transacData.length > 255 || newTotalSupply == 0 || newTotalSupply <= changeSupplyInfo.distributed}"
                            ng-disabled="transacData.length > 255 || newTotalSupply == 0 || newTotalSupply <= changeSupplyInfo.distributed"
                         >
                             Review

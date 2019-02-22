@@ -166,7 +166,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             "balance": $scope.assetListOwns[id].balance,
             "issuer": $scope.assetListOwns[id].issuer,
         };
-        console.log($scope.manageAssetInfo);
         $scope.manageAsset.open();
     }
 
