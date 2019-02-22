@@ -1301,9 +1301,14 @@
                             </span>
                             <input type="number"
                                    class="form-control"
+                                   ng-class="{'is-invalid' : newTotalSupply <= changeSupplyInfo.distributed}"
                                    ng-model="newTotalSupply"
                                    min="0"
                             />
+                            <div class="invalid-feedback" ng-show="newTotalSupply <= changeSupplyInfo.distributed">
+                                Supply cannot be less than amount distributed.
+                            </div>
+
                             <br>
                             <span class="small-gray-text">
                                 Note (Optional)
@@ -1327,7 +1332,7 @@
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
                            ng-click="changeSupplyReviewOpen()"
-                           ng-disabled="transacData.length > 255 || newTotalSupply == 0"
+                           ng-disabled="transacData.length > 255 || newTotalSupply == 0 || newTotalSupply <= changeSupplyInfo.distributed"
                         >
                             Review
                         </a>
