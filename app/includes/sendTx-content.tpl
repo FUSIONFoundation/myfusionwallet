@@ -1308,10 +1308,10 @@
                             <span class="small-gray-text">
                                 Note (Optional)
                             </span>
-                            <textarea class="form-control" rows="2" placeholder="Enter a note..."
-                                      ng-model="transacData" maxlength="80"
+                            <textarea class="form-control" rows="3" placeholder="Enter a note..."
+                                      ng-model="transacData" maxlength="255"
                             ></textarea>
-                            <span class="small-gray-text">{{transacData.length}}/80</span>
+                            <span class="small-gray-text">{{transacData.length}}/255</span>
                             <br>
                         </div>
                     </section>
@@ -1327,7 +1327,7 @@
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
                            ng-click="changeSupplyReviewOpen()"
-                           ng-disabled="transacData.length > 80 || newTotalSupply == 0"
+                           ng-disabled="transacData.length > 255 || newTotalSupply == 0"
                         >
                             Review
                         </a>

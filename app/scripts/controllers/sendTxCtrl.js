@@ -178,7 +178,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.transacData = '';
         })
 
-
         if (id) {
             $scope.lastId = id
         };
