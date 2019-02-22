@@ -1327,7 +1327,7 @@
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
                            ng-click="changeSupplyReviewOpen()"
-                           ng-disabled="transacData.length > 80 || newTotalSupply == ''"
+                           ng-disabled="transacData.length > 80 || newTotalSupply == 0"
                         >
                             Review
                         </a>
