@@ -1464,7 +1464,10 @@
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
-                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.owner == 'Created' && asset.canChange == true">
+                                <button class="btn-sm btn-white action-button p-0"
+                                        ng-show="asset.owner == 'Created' && asset.canChange == true"
+                                        ng-click="manageAsset.open()"
+                                >
                                     C
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0"
@@ -2493,6 +2496,117 @@
                             </div>
                         </div>
                     </section>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="manageAsset" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue">Asset Info</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    hahahah
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       50000
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Available Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       100000
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Decimal Points
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issuer
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issued On
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="manageAsset.close()">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
+                    <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
+                    Please, review and try again!
                 </div>
             </article>
 
@@ -3245,7 +3359,10 @@
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
-                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.owner == 'Created' && asset.canChange == true">
+                                <button class="btn-sm btn-white action-button p-0"
+                                        ng-show="asset.owner == 'Created' && asset.canChange == true"
+                                        ng-click="manageAsset.open()"
+                                >
                                     C
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0"
@@ -4274,6 +4391,117 @@
                             </div>
                         </div>
                     </section>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="manageAsset" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue">Asset Info</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    hahahah
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       50000
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Available Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       100000
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Decimal Points
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issuer
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issued On
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="manageAsset.close()">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
+                    <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
+                    Please, review and try again!
                 </div>
             </article>
 
@@ -9362,7 +9590,10 @@
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
-                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.owner == 'Created' && asset.canChange == true">
+                                <button class="btn-sm btn-white action-button p-0"
+                                        ng-show="asset.owner == 'Created' && asset.canChange == true"
+                                        ng-click="manageAsset.open()"
+                                >
                                     C
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0"
@@ -10391,6 +10622,117 @@
                             </div>
                         </div>
                     </section>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="manageAsset" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue">Asset Info</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    hahahah
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       50000
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Available Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       100000
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Decimal Points
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issuer
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issued On
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       4
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="manageAsset.close()">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
+                    <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
+                    Please, review and try again!
                 </div>
             </article>
 

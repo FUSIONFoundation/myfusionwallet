@@ -36,6 +36,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
     $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
     $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
+    $scope.manageAsset = new Modal(document.getElementById('manageAsset'));
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.successModal = new Modal(document.getElementById('successModal'));
     $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')): [];
