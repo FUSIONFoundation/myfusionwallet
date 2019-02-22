@@ -1374,7 +1374,7 @@
                                    <span class="fusion-text-14">
                                        {{newTotalSupply}}
                                        <br>
-                                       <span  ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
+                                       <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
                                        >{{totalSupplyDiff}}</span>
                                    </span>
                             </div>
@@ -1415,6 +1415,103 @@
         </section>
     </section>
 </article>
+
+<article class="modal fade" id="changeSupplySuccess" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="changeSupplySuccess.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 text-center p-2">
+                    <img src="images/check-circle.svg" class="text-center" height="80px" width="80px" alt="">
+                </div>
+
+                <h3 class="h3-blue text-center">Supply Changed</h3>
+                <p class="text-center">
+                    This transaction will be reflected in your account within the next 15 seconds.
+                </p>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Transaction ID
+                                </span>
+                            </div>
+                            <div class="float-right max-char">
+                                <a href="https://blocks.fusionnetwork.io/Transactions/{{changeSupplyInfo.txhash}}"
+                                   target="_blank">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="{{changeSupplyInfo.txhash}}">
+                                       {{changeSupplyInfo.txhash}}
+                                   </span>
+                                </a>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2 flow-root">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                <span class="fusion-text-14">{{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})</span>
+                                <br>
+                                <span class="small-gray-text max-char text-right inline-block" data-toggle="tooltip" data-placement="top"
+                                      title="{{changeSupplyInfo.contractaddress}}">{{changeSupplyInfo.contractaddress}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <section class="row form-group">
+                                <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                                    <div class="float-left">
+                                <span class="small-gray-text">
+                                    New Total Supply
+                                </span>
+                                    </div>
+                                    <div class="float-right text-right">
+                                   <span class="fusion-text-14">
+                                       {{newTotalSupply}}
+                                       <br>
+                                       <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
+                                       >{{totalSupplyDiff}}</span>
+                                   </span>
+                                    </div>
+                                    <br>
+                                </div>
+                            </section>
+                        </div>
+
+
+                        <div class="row form-group">
+                            <div class="col-xs-12 clearfix">
+                                <button class="btn btn-white btn-block"
+                                        ng-click="changeSupplySuccess.close();">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+
 
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">

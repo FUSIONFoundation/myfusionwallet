@@ -37,6 +37,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
     $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
     $scope.changeSupplyReview = new Modal(document.getElementById('changeSupplyReview'));
+    $scope.changeSupplySuccess = new Modal(document.getElementById('changeSupplySuccess'));
     $scope.manageAsset = new Modal(document.getElementById('manageAsset'));
     $scope.changeSupply = new Modal(document.getElementById('changeSupply'));
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
@@ -189,7 +190,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             "owner": $scope.assetListOwns[$scope.lastId].owner,
             "balance": $scope.assetListOwns[$scope.lastId].balance,
             "issuer": $scope.assetListOwns[$scope.lastId].issuer,
-            "distributed": distributed
+            "distributed": distributed,
+            "txhash" : ""
         };
 
         $scope.changeSupply.open();
@@ -248,16 +250,23 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             console.log(txHash);
+                            $scope.$eval(function(){
+                                $scope.changeSupplyInfo.txhash = txHash;
+                            })
+                            $scope.changeSupplySuccess.open();
                         })
                     }
                 });
             } catch (err) {
+                console.log(err);
                 $scope.errorModal.open();
             }
         }
         if($scope.changeSupplyState == 'decrement'){
             // Get New Total Supply, create BN and create Hexadecimal
-            let bal = $scope.assetListOwns[$scope.lastId].total - $scope.newTotalSupply;
+            debugger
+            // let bal = $scope.totalSupplyDiff - $scope.newTotalSupply;
+            let bal = -10;
             let newtotalSupplyString = bal.toString();
             let newtotalSupplyBN = $scope.makeBigNumber(newtotalSupplyString, asset.decimals);
             let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
@@ -276,11 +285,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         return;
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                            console.log(txHash);
+                            console.log(txHash)
+                            $scope.$eval(function(){
+                                $scope.changeSupplyInfo.txhash = txHash;
+                            })
+                            $scope.changeSupplySuccess.open();
                         })
                     }
                 });
             } catch (err) {
+                console.log(err);
                 $scope.errorModal.open();
             }
         }
