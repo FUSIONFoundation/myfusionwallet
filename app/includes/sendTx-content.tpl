@@ -1272,7 +1272,7 @@
                         <div class="border-gray-bottom pb-3 pt-2 flow-root">
                             <div class="float-left">
                                 <span class="small-gray-text">
-                                    Total Supply
+                                    Current Total Supply
                                 </span>
                             </div>
                             <div class="float-right text-right">
@@ -1297,7 +1297,7 @@
                         </div>
                         <div class="border-gray-bottom pb-3 pt-2">
                             <span class="small-gray-text">
-                                Total Supply
+                                New Total Supply
                             </span>
                             <input type="number"
                                    class="form-control"

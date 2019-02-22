@@ -174,7 +174,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.changeSupplyOpen = async function (id) {
 
         $scope.$eval(function(){
-            $scope.newTotalSupply = 0;
+            $scope.newTotalSupply = $scope.assetListOwns[id].total;
             $scope.transacData = '';
         })
 
