@@ -762,7 +762,8 @@
                         <tbody>
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                            <td ng-click="manageAssetOpen(f)"
+                            >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                         ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                             class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
@@ -770,17 +771,19 @@
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
                                 </div>
                             </td>
-                            <td><span class="badge badge-secondary m-1">Fusion Asset</span>
+                            <td ng-click="manageAssetOpen(f)"
+                            ><span class="badge badge-secondary m-1">Fusion Asset</span>
                                 <br>
                                 <span class="created m-1" ng-hide="asset.owner == ''">{{asset.owner}}</span>
 
                             </td>
-                            <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
+                            <td class="text-right" ng-click="manageAssetOpen(f)">
+                                {{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
                                 <button class="btn-sm btn-white action-button p-0 w32"
                                         ng-show="asset.owner == 'Created' && asset.canChange == true"
-                                        ng-click="manageAssetOpen(f)"
+                                        ng-click="changeSupplyOpen(f)"
                                 >
                                     <img src="images/ChangeSupply.svg" class="Group-6 m-0">
                                 </button>
@@ -2762,7 +2765,8 @@
                         <tbody>
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                            <td ng-click="manageAssetOpen(f)"
+                            >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                         ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                             class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
@@ -2770,17 +2774,19 @@
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
                                 </div>
                             </td>
-                            <td><span class="badge badge-secondary m-1">Fusion Asset</span>
+                            <td ng-click="manageAssetOpen(f)"
+                            ><span class="badge badge-secondary m-1">Fusion Asset</span>
                                 <br>
                                 <span class="created m-1" ng-hide="asset.owner == ''">{{asset.owner}}</span>
 
                             </td>
-                            <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
+                            <td class="text-right" ng-click="manageAssetOpen(f)">
+                                {{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
                                 <button class="btn-sm btn-white action-button p-0 w32"
                                         ng-show="asset.owner == 'Created' && asset.canChange == true"
-                                        ng-click="manageAssetOpen(f)"
+                                        ng-click="changeSupplyOpen(f)"
                                 >
                                     <img src="images/ChangeSupply.svg" class="Group-6 m-0">
                                 </button>
@@ -9263,7 +9269,8 @@
                         <tbody>
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
-                            <td>{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                            <td ng-click="manageAssetOpen(f)"
+                            >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                         ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                             class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
@@ -9271,17 +9278,19 @@
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
                                 </div>
                             </td>
-                            <td><span class="badge badge-secondary m-1">Fusion Asset</span>
+                            <td ng-click="manageAssetOpen(f)"
+                            ><span class="badge badge-secondary m-1">Fusion Asset</span>
                                 <br>
                                 <span class="created m-1" ng-hide="asset.owner == ''">{{asset.owner}}</span>
 
                             </td>
-                            <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
+                            <td class="text-right" ng-click="manageAssetOpen(f)">
+                                {{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
                                 <button class="btn-sm btn-white action-button p-0 w32"
                                         ng-show="asset.owner == 'Created' && asset.canChange == true"
-                                        ng-click="manageAssetOpen(f)"
+                                        ng-click="changeSupplyOpen(f)"
                                 >
                                     <img src="images/ChangeSupply.svg" class="Group-6 m-0">
                                 </button>

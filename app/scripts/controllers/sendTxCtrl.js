@@ -169,7 +169,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
 
-    $scope.changeSupplyOpen = async function (){
+    $scope.changeSupplyOpen = async function (id){
+
+        if(id){$scope.lastId = id};
 
         let distributed = $scope.assetListOwns[$scope.lastId].total - $scope.assetListOwns[$scope.lastId].balance;
 
