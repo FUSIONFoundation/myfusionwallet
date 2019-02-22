@@ -156,6 +156,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             "canChange" : $scope.assetListOwns[id].canChange,
             "owner" : $scope.assetListOwns[id].owner,
             "balance" : $scope.assetListOwns[id].balance,
+            "issuer" : $scope.assetListOwns[id].issuer,
         };
         console.log($scope.manageAssetInfo);
         $scope.manageAsset.open();
@@ -1416,6 +1417,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "contractaddress": id,
                     "balance": assetBalance / divider,
                     "owner": owned,
+                    "issuer" : owner,
                     "canChange": assetList[asset]["CanChange"]
                 }
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
@@ -1441,6 +1443,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "contractaddress": assetList2[asset]["contractaddress"],
                 "balance": assetList2[asset]["balance"],
                 "owner": assetList2[asset]["owner"],
+                "issuer" : assetList2[asset]["issuer"],
                 "canChange": assetList2[asset]["canChange"]
             }
             await assetList3.push(data);

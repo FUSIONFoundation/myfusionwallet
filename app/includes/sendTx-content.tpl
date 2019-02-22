@@ -568,7 +568,8 @@
                             <div class="invalid-feedback" ng-show="sendAsset.amountToSend < 0;">
                                 You can't enter an invalid amount
                             </div>
-                            <a class="small-gray-text" ng-click="setMaxBalance()" style="display:none;" ng-hide="selectedAssetBalance == ''">Send
+                            <a class="small-gray-text" ng-click="setMaxBalance()" style="display:none;"
+                               ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
                         <div class="col-md-12" ng-show="showStaticTimeLockAsset">
@@ -635,7 +636,8 @@
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled'"
                                 >
-                                <span class="b-form small-gray-text text-fusion fusion-text-14 p-1" ng-show="transactionType == 'daterange'">Now</span>
+                                <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
+                                      ng-show="transactionType == 'daterange'">Now</span>
 
                             </div>
                             <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
@@ -864,7 +866,8 @@
                                     From
                                 </span>
                                 <br>
-                                <span class="fusion-text-14" ng-hide="transactionType == 'daterange'">{{sendAsset.fromTimeString}}</span>
+                                <span class="fusion-text-14"
+                                      ng-hide="transactionType == 'daterange'">{{sendAsset.fromTimeString}}</span>
                                 <span class="fusion-text-14" ng-show="transactionType == 'daterange'">Now</span>
                             </div>
                             <div class="float-right border-gray-bottom pb-2 pt-2 w-50"
@@ -873,7 +876,8 @@
                                     Until
                                 </span>
                                 <br>
-                                <span class="fusion-text-14" ng-hide="transactionType == 'scheduled'">{{sendAsset.tillTimeString}}</span>
+                                <span class="fusion-text-14"
+                                      ng-hide="transactionType == 'scheduled'">{{sendAsset.tillTimeString}}</span>
                                 <span class="fusion-text-14" ng-show="transactionType == 'scheduled'">∞ Forever</span>
 
                             </div>
@@ -1129,14 +1133,23 @@
                 <h3 class="h3-blue">Asset Info</h3>
 
                 <div class="col-md-12 p-3 blue-bg">
-                    {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}})
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}})
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <span  class="badge badge-white"
+                                    ng-show="manageAssetInfo.owner == 'Created'">{{manageAssetInfo.owner}}</span>
+                        </div>
+                    </div>
                     <br>
-                    {{manageAssetInfo.contractaddress}}
+                    <span style="font-size:11px;">{{manageAssetInfo.contractaddress}}</span>
                 </div>
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Total Supply
@@ -1147,6 +1160,19 @@
                                          title="gagaga">
                                        {{manageAssetInfo.total}}
                                    </span>
+                                <br>
+                                <span class="small-gray-text"
+                                      ng-show="manageAssetInfo.canChange == true && manageAssetInfo.owner == ''">
+                                    Changeable
+                                </span>
+                                <span class="small-gray-text"
+                                      ng-show="manageAssetInfo.canChange == false && manageAssetInfo.owner == ''">
+                                    Fixed Supply
+                                </span>
+                                <a class="small-gray-text" style="color:#2a65b0"
+                                   ng-show="manageAssetInfo.canChange == true && manageAssetInfo.owner == 'Created'">
+                                    Change Supply
+                                </a>
                             </div>
                             <br>
                         </div>
@@ -1187,21 +1213,7 @@
                             <div class="float-right text-right">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="gagaga">
-                                       4
-                                   </span>
-                            </div>
-                            <br>
-                        </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
-                            <div class="float-left">
-                                <span class="small-gray-text">
-                                    Issued On
-                                </span>
-                            </div>
-                            <div class="float-right text-right">
-                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-                                         title="gagaga">
-                                       4
+                                         {{manageAssetInfo.issuer}}
                                    </span>
                             </div>
                             <br>
@@ -1290,12 +1302,14 @@
                              </span>
                         <br>
                         <div class="col-md-6 p-0 pb-2">
-                            <button class="btn btn-sm btn-white w-100" ng-click="assetCreate.canChange = false" ng-class="{'time-active' : assetCreate.canChange == false}">
+                            <button class="btn btn-sm btn-white w-100" ng-click="assetCreate.canChange = false"
+                                    ng-class="{'time-active' : assetCreate.canChange == false}">
                                 Fixed
                             </button>
                         </div>
                         <div class="col-md-6 p-0 pb-2">
-                            <button class="btn btn-sm btn-white w-100" ng-click="assetCreate.canChange = true" ng-class="{'time-active' : assetCreate.canChange == true}">
+                            <button class="btn btn-sm btn-white w-100" ng-click="assetCreate.canChange = true"
+                                    ng-class="{'time-active' : assetCreate.canChange == true}">
                                 Changeable
                             </button>
                         </div>
