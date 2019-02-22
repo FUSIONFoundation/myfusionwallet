@@ -1153,7 +1153,7 @@
                             /4</span>
                     </div>
                     <div class="col-sm-6">
-                                               <span class="small-gray-text">
+                           <span class="small-gray-text">
 
                             Decimals:
                         </span>
@@ -1164,6 +1164,22 @@
                                ng-model="assetCreate.decimals"
                                placeholder="Up to 15 Decimal Points"/>
 
+                    </div>
+                    <div class="col-md-12">
+                            <span class="small-gray-text">
+                                    Supply Type
+                             </span>
+                        <br>
+                        <div class="col-md-6 p-0 pb-2">
+                            <button class="btn btn-sm btn-white w-100" ng-click="canChange = false" ng-class="{'time-active' : canChange == false}">
+                                Fixed
+                            </button>
+                        </div>
+                        <div class="col-md-6 p-0 pb-2">
+                            <button class="btn btn-sm btn-white w-100" ng-click="canChange = true" ng-class="{'time-active' : canChange == true}">
+                                Changeable
+                            </button>
+                        </div>
                     </div>
                     <div class="col-sm-12 clearfix">
                         <span class="small-gray-text">
