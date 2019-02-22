@@ -239,7 +239,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "asset" : asset.contractaddress,
                 "from" : walletAddress,
                 "to" : walletAddress,
-                "value" : newtotalSupplyBNHex
+                "value" : newtotalSupplyBNHex,
+                "transacData" : transacData
             }
             try {
                 await web3.fsntx.buildIncAssetTx(data).then((tx) => {
@@ -273,7 +274,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "asset" : asset.contractaddress,
                 "from" : walletAddress,
                 "to" : walletAddress,
-                "value" : newtotalSupplyBNHex
+                "value" : newtotalSupplyBNHex,
+                "transacData" : transacData
             }
             try {
                 await web3.fsntx.buildDecAssetTx(data).then((tx) => {

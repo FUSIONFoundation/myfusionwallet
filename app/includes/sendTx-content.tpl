@@ -1308,7 +1308,9 @@
                             <span class="small-gray-text">
                                 Note (Optional)
                             </span>
-                            <textarea class="form-control" rows="3" placeholder="Enter a note..."></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Enter a note..."
+                            ng-model="transacData"
+                            ></textarea>
                             <br>
                         </div>
                     </section>
@@ -1523,7 +1525,6 @@
                                 </div>
                             </section>
                         </div>
-
 
                         <div class="row form-group">
                             <div class="col-xs-12 clearfix">
