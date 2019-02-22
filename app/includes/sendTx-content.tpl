@@ -78,7 +78,7 @@
                                 <span ng-init="f = $index" style="display:none;"></span>
                                 <button class="btn-sm btn-white action-button p-0"
                                         ng-show="asset.owner == 'Created' && asset.canChange == true"
-                                        ng-click="manageAsset.open()"
+                                        ng-click="manageAssetOpen(f)"
                                 >
                                     C
                                 </button>
@@ -1129,7 +1129,9 @@
                 <h3 class="h3-blue">Asset Info</h3>
 
                 <div class="col-md-12 p-3 blue-bg">
-                    hahahah
+                    {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}})
+                    <br>
+                    {{manageAssetInfo.contractaddress}}
                 </div>
 
                 <div class="col-md-12">
@@ -1143,7 +1145,7 @@
                             <div class="float-right text-right">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="gagaga">
-                                       50000
+                                       {{manageAssetInfo.total}}
                                    </span>
                             </div>
                             <br>
@@ -1157,7 +1159,7 @@
                             <div class="float-right text-right">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="gagaga">
-                                       100000
+                                        {{manageAssetInfo.balance}}
                                    </span>
                             </div>
                             <br>
@@ -1171,7 +1173,7 @@
                             <div class="float-right text-right">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="gagaga">
-                                       4
+                                                                              {{manageAssetInfo.decimals}}
                                    </span>
                             </div>
                             <br>

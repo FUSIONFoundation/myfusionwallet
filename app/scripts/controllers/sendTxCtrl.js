@@ -146,6 +146,21 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         })
     }
 
+    $scope.manageAssetOpen = async function (id){
+        $scope.manageAssetInfo = {
+            "name" : $scope.assetListOwns[id].name,
+            "symbol" : $scope.assetListOwns[id].symbol,
+            "decimals" : $scope.assetListOwns[id].decimals,
+            "total" : $scope.assetListOwns[id].total,
+            "contractaddress" : $scope.assetListOwns[id].contractaddress,
+            "canChange" : $scope.assetListOwns[id].canChange,
+            "owner" : $scope.assetListOwns[id].owner,
+            "balance" : $scope.assetListOwns[id].balance,
+        };
+        console.log($scope.manageAssetInfo);
+        $scope.manageAsset.open();
+    }
+
 
     $scope.setSendMode = function (sendMode, tokenId = '', tokensymbol = '') {
         $scope.tx.sendMode = sendMode;
