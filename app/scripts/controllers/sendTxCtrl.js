@@ -264,9 +264,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         if($scope.changeSupplyState == 'decrement'){
             // Get New Total Supply, create BN and create Hexadecimal
-            debugger
-            // let bal = $scope.totalSupplyDiff - $scope.newTotalSupply;
-            let bal = -10;
+            let bal = $scope.assetListOwns[$scope.lastId].total - $scope.newTotalSupply;
             let newtotalSupplyString = bal.toString();
             let newtotalSupplyBN = $scope.makeBigNumber(newtotalSupplyString, asset.decimals);
             let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
