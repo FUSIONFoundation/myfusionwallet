@@ -1374,7 +1374,8 @@
                                    <span class="fusion-text-14">
                                        {{newTotalSupply}}
                                        <br>
-                                       {{totalSupplyDiff}}
+                                       <span  ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
+                                       >{{totalSupplyDiff}}</span>
                                    </span>
                             </div>
                             <br>
