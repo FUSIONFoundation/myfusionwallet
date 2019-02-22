@@ -22,7 +22,7 @@
                 <a class="btn btn-sm btn-primary"
                    ng-click="sendAssetModalOpen(); transactionType = 'none';"
                 >
-                    Send Assets
+                    Send/Time-lock Assets
                 </a></div>
         </div>
     </div>
@@ -1171,12 +1171,12 @@
                              </span>
                         <br>
                         <div class="col-md-6 p-0 pb-2">
-                            <button class="btn btn-sm btn-white w-100" ng-click="canChange = false" ng-class="{'time-active' : canChange == false}">
+                            <button class="btn btn-sm btn-white w-100" ng-click="assetCreate.canChange = false" ng-class="{'time-active' : assetCreate.canChange == false}">
                                 Fixed
                             </button>
                         </div>
                         <div class="col-md-6 p-0 pb-2">
-                            <button class="btn btn-sm btn-white w-100" ng-click="canChange = true" ng-class="{'time-active' : canChange == true}">
+                            <button class="btn btn-sm btn-white w-100" ng-click="assetCreate.canChange = true" ng-class="{'time-active' : assetCreate.canChange == true}">
                                 Changeable
                             </button>
                         </div>

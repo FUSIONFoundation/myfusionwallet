@@ -1039,6 +1039,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.createAssetInit = function () {
         $scope.$eval(function () {
+            $scope.assetCreate.canChange = false;
             $scope.assetCreate.assetName = '';
             $scope.assetCreate.assetSymbol = '';
             $scope.assetCreate.decimals = '';
@@ -1097,7 +1098,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             name: assetName,
             symbol: assetSymbol,
             decimals: decimals,
-            total: totalSupplyBNHex
+            total: totalSupplyBNHex,
+            canChange: $scope.assetCreate.canChange
         };
 
         try {
@@ -1116,9 +1118,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 }
             });
-        }
-
-        catch (err) {
+        } catch (err) {
             $scope.errorModal.open();
         }
 
