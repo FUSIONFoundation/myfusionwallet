@@ -7,7 +7,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getTimeLockAssets();
     })
 
-    let nu =  localStorage.getItem('nodeUrl')
+    let nu = localStorage.getItem('nodeUrl')
     let data = nu ? JSON.parse(nu) : {}
     let _CHAINID = 1;
 
@@ -36,6 +36,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
     $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
     $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
+    $scope.changeSupplyReview = new Modal(document.getElementById('changeSupplyReview'));
     $scope.manageAsset = new Modal(document.getElementById('manageAsset'));
     $scope.changeSupply = new Modal(document.getElementById('changeSupply'));
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
@@ -43,7 +44,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.lastId = 0;
 
 
-    $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')): [];
+    $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : [];
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     let timeLockListSave = [];
@@ -95,7 +96,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.verifyWalletAddress = async function () {
         let address = $scope.sendAsset.toAddress;
 
-        if(address == "" || address.length == 1){
+        if (address == "" || address.length == 1) {
             $scope.$eval(function () {
                 $scope.validWalletAddress = false;
                 $scope.walletAddressError = false;
@@ -150,45 +151,68 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         })
     }
 
-    $scope.manageAssetOpen = async function (id){
+    $scope.manageAssetOpen = async function (id) {
         $scope.lastId = id;
 
         $scope.manageAssetInfo = {
-            "name" : $scope.assetListOwns[id].name,
-            "symbol" : $scope.assetListOwns[id].symbol,
-            "decimals" : $scope.assetListOwns[id].decimals,
-            "total" : $scope.assetListOwns[id].total,
-            "contractaddress" : $scope.assetListOwns[id].contractaddress,
-            "canChange" : $scope.assetListOwns[id].canChange,
-            "owner" : $scope.assetListOwns[id].owner,
-            "balance" : $scope.assetListOwns[id].balance,
-            "issuer" : $scope.assetListOwns[id].issuer,
+            "name": $scope.assetListOwns[id].name,
+            "symbol": $scope.assetListOwns[id].symbol,
+            "decimals": $scope.assetListOwns[id].decimals,
+            "total": $scope.assetListOwns[id].total,
+            "contractaddress": $scope.assetListOwns[id].contractaddress,
+            "canChange": $scope.assetListOwns[id].canChange,
+            "owner": $scope.assetListOwns[id].owner,
+            "balance": $scope.assetListOwns[id].balance,
+            "issuer": $scope.assetListOwns[id].issuer,
         };
         console.log($scope.manageAssetInfo);
         $scope.manageAsset.open();
     }
 
 
-    $scope.changeSupplyOpen = async function (id){
+    $scope.changeSupplyOpen = async function (id) {
 
-        if(id){$scope.lastId = id};
+        if (id) {
+            $scope.lastId = id
+        }
+        ;
 
         let distributed = $scope.assetListOwns[$scope.lastId].total - $scope.assetListOwns[$scope.lastId].balance;
 
         $scope.changeSupplyInfo = {
-            "name" : $scope.assetListOwns[$scope.lastId].name,
-            "symbol" : $scope.assetListOwns[$scope.lastId].symbol,
-            "decimals" : $scope.assetListOwns[$scope.lastId].decimals,
-            "total" : $scope.assetListOwns[$scope.lastId].total,
-            "contractaddress" : $scope.assetListOwns[$scope.lastId].contractaddress,
-            "canChange" : $scope.assetListOwns[$scope.lastId].canChange,
-            "owner" : $scope.assetListOwns[$scope.lastId].owner,
-            "balance" : $scope.assetListOwns[$scope.lastId].balance,
-            "issuer" : $scope.assetListOwns[$scope.lastId].issuer,
-            "distributed" : distributed
+            "name": $scope.assetListOwns[$scope.lastId].name,
+            "symbol": $scope.assetListOwns[$scope.lastId].symbol,
+            "decimals": $scope.assetListOwns[$scope.lastId].decimals,
+            "total": $scope.assetListOwns[$scope.lastId].total,
+            "contractaddress": $scope.assetListOwns[$scope.lastId].contractaddress,
+            "canChange": $scope.assetListOwns[$scope.lastId].canChange,
+            "owner": $scope.assetListOwns[$scope.lastId].owner,
+            "balance": $scope.assetListOwns[$scope.lastId].balance,
+            "issuer": $scope.assetListOwns[$scope.lastId].issuer,
+            "distributed": distributed
         };
 
         $scope.changeSupply.open();
+    }
+
+    $scope.changeSupplyReviewOpen = function () {
+        let total = $scope.assetListOwns[$scope.lastId].total;
+        let newts = $scope.newTotalSupply;
+
+        if (newts > total) {
+            $scope.incDecr = '+'
+            $scope.changeSupplyState = 'increment';
+        } else {
+            $scope.incDecr = '';
+            $scope.changeSupplyState = 'decrement';
+        };
+        let diff = newts - total;
+
+        $scope.$eval(function () {
+            $scope.totalSupplyDiff = $scope.incDecr + diff;
+        })
+
+        $scope.changeSupplyReview.open();
     }
 
 
@@ -1243,7 +1267,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.getTimeLockAssets = async function () {
         $scope.$eval(function () {
-            $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks')? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : [];
+            $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : [];
         })
 
         if (!$scope.tx || !$scope.wallet) {
@@ -1446,7 +1470,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "contractaddress": id,
                     "balance": assetBalance / divider,
                     "owner": owned,
-                    "issuer" : owner,
+                    "issuer": owner,
                     "canChange": assetList[asset]["CanChange"]
                 }
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
@@ -1472,7 +1496,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "contractaddress": assetList2[asset]["contractaddress"],
                 "balance": assetList2[asset]["balance"],
                 "owner": assetList2[asset]["owner"],
-                "issuer" : assetList2[asset]["issuer"],
+                "issuer": assetList2[asset]["issuer"],
                 "canChange": assetList2[asset]["canChange"]
             }
             await assetList3.push(data);

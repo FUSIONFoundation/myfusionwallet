@@ -1450,7 +1450,7 @@
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                        ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                                     ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                             class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
@@ -2530,8 +2530,8 @@
 
                         </div>
                         <div class="col-md-6 text-right">
-                            <span  class="badge badge-white"
-                                    ng-show="manageAssetInfo.owner == 'Created'">{{manageAssetInfo.owner}}</span>
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{manageAssetInfo.owner}}</span>
                         </div>
                     </div>
                     <br>
@@ -2647,8 +2647,8 @@
 
                         </div>
                         <div class="col-md-6 text-right">
-                            <span  class="badge badge-white"
-                                   ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
                         </div>
                     </div>
                     <br>
@@ -2670,7 +2670,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Distributed Supply
@@ -2689,6 +2689,7 @@
                             </span>
                             <input type="number"
                                    class="form-control"
+                                   ng-model="newTotalSupply"
                                    min="0"
                             />
                             <br>
@@ -2710,7 +2711,7 @@
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
-                           ng-click="changeSupply.close()">
+                           ng-click="changeSupplyReviewOpen()">
                             Review
                         </a>
                     </div>
@@ -2720,6 +2721,88 @@
         </section>
     </section>
 </article>
+<article class="modal fade" id="changeSupplyReview" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="changeSupplyReview.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue mb-3">Review Changes</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <span style="font-size:11px;">{{changeSupplyInfo.contractaddress}}</span>
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    New Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14">
+                                       {{newTotalSupply}}
+                                       <br>
+                                       {{totalSupplyDiff}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Gas Price
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14">
+~0.00002 FSN
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="changeSupplyReview.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-primary btn-block"
+                           ng-click="changeSupplyTx()">
+                            Change Supply
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content">
@@ -3454,7 +3537,7 @@
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                        ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                                     ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                             class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
@@ -4534,8 +4617,8 @@
 
                         </div>
                         <div class="col-md-6 text-right">
-                            <span  class="badge badge-white"
-                                    ng-show="manageAssetInfo.owner == 'Created'">{{manageAssetInfo.owner}}</span>
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{manageAssetInfo.owner}}</span>
                         </div>
                     </div>
                     <br>
@@ -4651,8 +4734,8 @@
 
                         </div>
                         <div class="col-md-6 text-right">
-                            <span  class="badge badge-white"
-                                   ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
                         </div>
                     </div>
                     <br>
@@ -4674,7 +4757,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Distributed Supply
@@ -4693,6 +4776,7 @@
                             </span>
                             <input type="number"
                                    class="form-control"
+                                   ng-model="newTotalSupply"
                                    min="0"
                             />
                             <br>
@@ -4714,7 +4798,7 @@
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
-                           ng-click="changeSupply.close()">
+                           ng-click="changeSupplyReviewOpen()">
                             Review
                         </a>
                     </div>
@@ -4724,6 +4808,88 @@
         </section>
     </section>
 </article>
+<article class="modal fade" id="changeSupplyReview" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="changeSupplyReview.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue mb-3">Review Changes</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <span style="font-size:11px;">{{changeSupplyInfo.contractaddress}}</span>
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    New Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14">
+                                       {{newTotalSupply}}
+                                       <br>
+                                       {{totalSupplyDiff}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Gas Price
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14">
+~0.00002 FSN
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="changeSupplyReview.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-primary btn-block"
+                           ng-click="changeSupplyTx()">
+                            Change Supply
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content">
@@ -9794,7 +9960,7 @@
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                        ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                                     ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                             class="fa fa-check-circle"></i> FSN Official</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
@@ -10874,8 +11040,8 @@
 
                         </div>
                         <div class="col-md-6 text-right">
-                            <span  class="badge badge-white"
-                                    ng-show="manageAssetInfo.owner == 'Created'">{{manageAssetInfo.owner}}</span>
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{manageAssetInfo.owner}}</span>
                         </div>
                     </div>
                     <br>
@@ -10991,8 +11157,8 @@
 
                         </div>
                         <div class="col-md-6 text-right">
-                            <span  class="badge badge-white"
-                                   ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
                         </div>
                     </div>
                     <br>
@@ -11014,7 +11180,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Distributed Supply
@@ -11033,6 +11199,7 @@
                             </span>
                             <input type="number"
                                    class="form-control"
+                                   ng-model="newTotalSupply"
                                    min="0"
                             />
                             <br>
@@ -11054,7 +11221,7 @@
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-primary btn-block"
-                           ng-click="changeSupply.close()">
+                           ng-click="changeSupplyReviewOpen()">
                             Review
                         </a>
                     </div>
@@ -11064,6 +11231,88 @@
         </section>
     </section>
 </article>
+<article class="modal fade" id="changeSupplyReview" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="changeSupplyReview.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue mb-3">Review Changes</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <span class="badge badge-white"
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <span style="font-size:11px;">{{changeSupplyInfo.contractaddress}}</span>
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    New Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14">
+                                       {{newTotalSupply}}
+                                       <br>
+                                       {{totalSupplyDiff}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Gas Price
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14">
+~0.00002 FSN
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="changeSupplyReview.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-primary btn-block"
+                           ng-click="changeSupplyTx()">
+                            Change Supply
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content">
