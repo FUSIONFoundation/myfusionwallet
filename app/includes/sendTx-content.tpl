@@ -1355,7 +1355,7 @@
                         </div>
                         <div class="col-md-6 text-right">
                             <span class="badge badge-white"
-                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                                  ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}})</span>
                         </div>
                     </div>
                     <br>
@@ -1372,7 +1372,7 @@
                             </div>
                             <div class="float-right text-right">
                                        <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
-                                       >{{totalSupplyDiff}}</span>
+                                       >{{totalSupplyDiff}} {{changeSupplyInfo.symbol}}</span>
                             </div>
                             <br>
                         </div>
@@ -1389,7 +1389,7 @@
                             </div>
                             <div class="float-right text-right">
                                    <span class="fusion-text-14">
-                                       {{newTotalSupply}}
+                                       {{newTotalSupply}} {{changeSupplyInfo.symbol}}
                                    </span>
                             </div>
                             <br>
@@ -1499,7 +1499,7 @@
                                     </div>
                                     <div class="float-right text-right">
                                        <span ng-class="{'incAsset' : changeSupplyState == 'increment', 'decAsset' : changeSupplyState == 'decrement'}"
-                                       >{{totalSupplyDiff}}</span>
+                                       >{{totalSupplyDiff}} {{changeSupplyInfo.symbol}}</span>
                                     </div>
                                     <br>
                                 </div>
@@ -1516,7 +1516,7 @@
                                     </div>
                                     <div class="float-right text-right">
                                    <span class="fusion-text-14">
-                                       {{newTotalSupply}}
+                                       {{newTotalSupply}} {{changeSupplyInfo.symbol}}
                                    </span>
                                     </div>
                                     <br>
