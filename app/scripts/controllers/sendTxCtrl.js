@@ -37,8 +37,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
     $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
     $scope.manageAsset = new Modal(document.getElementById('manageAsset'));
+    $scope.changeSupply = new Modal(document.getElementById('changeSupply'));
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.successModal = new Modal(document.getElementById('successModal'));
+    $scope.lastId = 0;
+
+
     $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')): [];
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -147,6 +151,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.manageAssetOpen = async function (id){
+        $scope.lastId = id;
+
         $scope.manageAssetInfo = {
             "name" : $scope.assetListOwns[id].name,
             "symbol" : $scope.assetListOwns[id].symbol,
@@ -160,6 +166,27 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         };
         console.log($scope.manageAssetInfo);
         $scope.manageAsset.open();
+    }
+
+
+    $scope.changeSupplyOpen = async function (){
+
+        let distributed = $scope.assetListOwns[$scope.lastId].total - $scope.assetListOwns[$scope.lastId].balance;
+
+        $scope.changeSupplyInfo = {
+            "name" : $scope.assetListOwns[$scope.lastId].name,
+            "symbol" : $scope.assetListOwns[$scope.lastId].symbol,
+            "decimals" : $scope.assetListOwns[$scope.lastId].decimals,
+            "total" : $scope.assetListOwns[$scope.lastId].total,
+            "contractaddress" : $scope.assetListOwns[$scope.lastId].contractaddress,
+            "canChange" : $scope.assetListOwns[$scope.lastId].canChange,
+            "owner" : $scope.assetListOwns[$scope.lastId].owner,
+            "balance" : $scope.assetListOwns[$scope.lastId].balance,
+            "issuer" : $scope.assetListOwns[$scope.lastId].issuer,
+            "distributed" : distributed,
+        };
+        console.log($scope.changeSupplyInfo);
+        $scope.changeSupply.open();
     }
 
 

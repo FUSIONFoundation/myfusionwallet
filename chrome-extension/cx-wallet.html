@@ -2512,7 +2512,7 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                  <span class="gray-text" ng-click="manageAsset.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
@@ -2558,6 +2558,7 @@
                                     Fixed Supply
                                 </span>
                                 <a class="small-gray-text" style="color:#2a65b0"
+                                   ng-click="changeSupplyOpen()"
                                    ng-show="manageAssetInfo.canChange == true && manageAssetInfo.owner == 'Created'">
                                     Change Supply
                                 </a>
@@ -2614,6 +2615,101 @@
                         <a class="btn btn-white btn-block"
                            ng-click="manageAsset.close()">
                             Cancel
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="changeSupply" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="changeSupply.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue">Change Supply</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <span  class="badge badge-white"
+                                   ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <span style="font-size:11px;">{{changeSupplyInfo.contractaddress}}</span>
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       {{changeSupplyInfo.total}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Distributed Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                        {{changeSupplyInfo.distributed}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issuer
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                         {{manageAssetInfo.issuer}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="changeSupply.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-primary btn-block"
+                           ng-click="changeSupply.close()">
+                            Review
                         </a>
                     </div>
                 </div>
@@ -4423,7 +4519,7 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                  <span class="gray-text" ng-click="manageAsset.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
@@ -4469,6 +4565,7 @@
                                     Fixed Supply
                                 </span>
                                 <a class="small-gray-text" style="color:#2a65b0"
+                                   ng-click="changeSupplyOpen()"
                                    ng-show="manageAssetInfo.canChange == true && manageAssetInfo.owner == 'Created'">
                                     Change Supply
                                 </a>
@@ -4525,6 +4622,101 @@
                         <a class="btn btn-white btn-block"
                            ng-click="manageAsset.close()">
                             Cancel
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="changeSupply" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="changeSupply.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue">Change Supply</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <span  class="badge badge-white"
+                                   ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <span style="font-size:11px;">{{changeSupplyInfo.contractaddress}}</span>
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       {{changeSupplyInfo.total}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Distributed Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                        {{changeSupplyInfo.distributed}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issuer
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                         {{manageAssetInfo.issuer}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="changeSupply.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-primary btn-block"
+                           ng-click="changeSupply.close()">
+                            Review
                         </a>
                     </div>
                 </div>
@@ -10670,7 +10862,7 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                  <span class="gray-text" ng-click="manageAsset.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
@@ -10716,6 +10908,7 @@
                                     Fixed Supply
                                 </span>
                                 <a class="small-gray-text" style="color:#2a65b0"
+                                   ng-click="changeSupplyOpen()"
                                    ng-show="manageAssetInfo.canChange == true && manageAssetInfo.owner == 'Created'">
                                     Change Supply
                                 </a>
@@ -10772,6 +10965,101 @@
                         <a class="btn btn-white btn-block"
                            ng-click="manageAsset.close()">
                             Cancel
+                        </a>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="changeSupply" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="changeSupply.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-blue">Change Supply</h3>
+
+                <div class="col-md-12 p-3 blue-bg">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <span  class="badge badge-white"
+                                   ng-show="manageAssetInfo.owner == 'Created'">{{changeSupplyInfo.owner}}</span>
+                        </div>
+                    </div>
+                    <br>
+                    <span style="font-size:11px;">{{changeSupplyInfo.contractaddress}}</span>
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                       {{changeSupplyInfo.total}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Distributed Supply
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                        {{changeSupplyInfo.distributed}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="border-gray-bottom pb-3 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Issuer
+                                </span>
+                            </div>
+                            <div class="float-right text-right">
+                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
+                                         title="gagaga">
+                                         {{manageAssetInfo.issuer}}
+                                   </span>
+                            </div>
+                            <br>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="changeSupply.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-primary btn-block"
+                           ng-click="changeSupply.close()">
+                            Review
                         </a>
                     </div>
                 </div>
