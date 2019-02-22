@@ -1399,7 +1399,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "total": assetList[asset]["Total"] / divider,
                     "contractaddress": id,
                     "balance": assetBalance / divider,
-                    "owner": owned
+                    "owner": owned,
+                    "canChange": assetList[asset]["CanChange"]
                 }
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
                     await assetList3.push(data);
@@ -1423,7 +1424,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "total": assetList2[asset]["total"],
                 "contractaddress": assetList2[asset]["contractaddress"],
                 "balance": assetList2[asset]["balance"],
-                "owner": assetList2[asset]["owner"]
+                "owner": assetList2[asset]["owner"],
+                "canChange": assetList2[asset]["canChange"]
             }
             await assetList3.push(data);
         }
@@ -1434,6 +1436,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListOwns = assetList3;
             $scope.assetListLoading = false;
         });
+
+        console.log($scope.assetListOwns)
 
     }
 
