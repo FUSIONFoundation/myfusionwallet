@@ -76,7 +76,7 @@
                             <td class="text-right">{{asset.balance}} <br> <span class="small-gray-text"></span></td>
                             <td class="text-right">
                                 <span ng-init="f = $index" style="display:none;"></span>
-                                <button class="btn-sm btn-white action-button p-0" width="8px" height="8px">
+                                <button class="btn-sm btn-white action-button p-0" ng-show="asset.owner == 'Created' && asset.canChange == true">
                                     C
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0"
