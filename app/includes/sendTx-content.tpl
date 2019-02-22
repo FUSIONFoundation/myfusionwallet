@@ -83,7 +83,7 @@
                                         ng-show="asset.owner == 'Created' && asset.canChange == true"
                                         ng-click="changeSupplyOpen(f)"
                                 >
-                                    <img src="images/ChangeSupply.svg" class="Group-6 m-0">
+                                    <img src="images/ChangeSupply.svg" class="Group-6 m-0 mb-1">
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0"
                                         ng-click="sendAssetModalOpen(f, false)">Send
