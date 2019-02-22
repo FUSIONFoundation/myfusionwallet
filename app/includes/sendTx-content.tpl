@@ -39,7 +39,7 @@
 
             <div class="col-sm-12 clearfix text-center" ng-show="assetListLoading">
                 <h4 class="text-center">
-                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                    <i class="fa fa-circle-o-notch fa-spin fa-fw" aria-hidden="true"></i>
                 </h4>
                 <h4 class="small-gray-text text-center">Loading assets</h4>
 
