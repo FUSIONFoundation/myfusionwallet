@@ -49,10 +49,11 @@
             </li>
         </ul>
         <div ng-if="addressNotation.state === false">
-            <button class="btn btn-sm btn-primary" ng-click="setShortAddressNotation()"
+            <button class="btn btn-sm btn-primary w-100" ng-click="setShortAddressNotation()"
                     ng-disabled="addressNotation.value != 'It looks like you don’t have a Short Account Number (SAN) yet. Fusion’s SAN is an 8 character version of your wallet address that’s as easy to remember as your phone number. Click the button below to generate one.' || web3WalletBalance == '0'">
                 Generate SAN
             </button>
+            <span class="small-gray-text">Transaction fee ~0.00002 FSN</span>
         </div>
         <div ng-show="showDisplayOnTrezor()">
             <h5 translate="sidebar_DisplayOnTrezor">Display address on TREZOR</h5>
