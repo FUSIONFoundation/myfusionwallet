@@ -1406,6 +1406,27 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 divider = $scope.countDecimals(res["Decimals"]);
             });
 
+            let verifiedImage = '';
+            let hasImage = false;
+
+            for (let a in $scope.verifiedAssetsImages){
+                if ($scope.verifiedAssetsImages[a].assetID == assetId[x]) {
+                    // Set matched image name
+                    verifiedImage = $scope.verifiedAssetsImages[a].image;
+                    hasImage = true;
+                } else {
+                    // Place to set empty icon
+                    verifiedImage = '';
+                    hasImage = false;
+                }
+            }
+
+            // Set FSN icon for PSN as well
+            if (assetId[x] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
+                verifiedImage = 'EFSN_LIGHT.svg';
+                hasImage = true;
+            }
+
             for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
                 let startTimePosix = timeLockList[asset]["Items"][i]["StartTime"];
                 let endTimePosix = timeLockList[asset]["Items"][i]["EndTime"];
@@ -1467,6 +1488,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "posixEndTime": endTimePosix,
                     "rawValue": timeLockList[asset]["Items"][i]["Value"],
                     "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
+                    "image" : verifiedImage,
+                    "hasImage" : hasImage
                 }
 
                 if (status == 'Active') {
@@ -1506,7 +1529,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "posixStartTime": availableList[asset]["posixStartTime"],
                 "posixEndTime": availableList[asset]["posixEndTime"],
                 "rawValue": availableList[asset]["rawValue"],
-                "value": availableList[asset]["value"]
+                "value": availableList[asset]["value"],
+                "image": availableList[asset]["image"],
+                "hasImage": availableList[asset]["hasImage"]
+
             }
             await timeLockListSave.push(data);
         }
@@ -1525,7 +1551,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "posixStartTime": activeList[asset]["posixStartTime"],
                 "posixEndTime": activeList[asset]["posixEndTime"],
                 "rawValue": activeList[asset]["rawValue"],
-                "value": activeList[asset]["value"]
+                "value": activeList[asset]["value"],
+                "image": activeList[asset]["image"],
+                "hasImage": activeList[asset]["hasImage"]
             }
             await timeLockListSave.push(data);
         }
@@ -1533,6 +1561,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.timeLockList = timeLockListSave;
         });
+
+        console.log($scope.timeLockList);
     }
 
 
