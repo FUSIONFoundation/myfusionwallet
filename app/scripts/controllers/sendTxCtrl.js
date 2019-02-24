@@ -207,6 +207,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             "owner": $scope.assetListOwns[$scope.lastId].owner,
             "balance": $scope.assetListOwns[$scope.lastId].balance,
             "issuer": $scope.assetListOwns[$scope.lastId].issuer,
+            "image": $scope.assetListOwns[$scope.lastId].image,
+            "hasImage": $scope.assetListOwns[$scope.lastId].hasImage,
             "distributed": distributed,
             "txhash" : ""
         };

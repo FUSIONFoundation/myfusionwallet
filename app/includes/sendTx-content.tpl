@@ -1264,6 +1264,9 @@
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
                         <div class="col-md-6">
+                            <img    ng-if="changeSupplyInfo.hasImage"
+                                    class="round-bg-white mr-2"
+                                    ng-src="images/verifiedassets/{{changeSupplyInfo.image}}"/>
                             {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
 
                         </div>
@@ -1369,6 +1372,9 @@
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
                         <div class="col-md-6">
+                            <img    ng-if="changeSupplyInfo.hasImage"
+                                    class="round-bg-white mr-2"
+                                    ng-src="images/verifiedassets/{{changeSupplyInfo.image}}"/>
                             {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
 
                         </div>
