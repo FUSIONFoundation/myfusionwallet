@@ -57,10 +57,19 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.mayRun = true;
     })
 
-
     $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
+    $scope.verifiedAssetsImages = {};
     $scope.todayDate = formatDate();
+
+    $scope.getVerifiedAssets = async function () {
+        try {
+            await ajaxReq.http.get('https://api.fusionnetwork.io/assets/verified').then(function (r) {
+                $scope.verifiedAssetsImages = r.data;
+            })
+        } catch (err) { return; }
+    }
+
+    $scope.getVerifiedAssets();
 
     function formatDate() {
         let d = new Date(),
@@ -657,6 +666,27 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     console.log(err);
                 }
 
+                let verifiedImage = '';
+                let hasImage = false;
+
+                for (let a in $scope.verifiedAssetsImages){
+                    if ($scope.verifiedAssetsImages[a].assetID == id) {
+                        // Set matched image name
+                        verifiedImage = $scope.verifiedAssetsImages[a].image;
+                        hasImage = true;
+                    } else {
+                        // Place to set empty icon
+                        verifiedImage = '';
+                        hasImage = false;
+                    }
+                }
+
+                // Set FSN icon for PSN as well
+                if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
+                    verifiedImage = 'EFSN_LIGHT.svg';
+                    hasImage = true;
+                }
+
                 let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
 
                 let data = {
@@ -667,7 +697,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "total": assetList[asset]["Total"] / divider,
                     "contractaddress": id,
                     "balance": assetBalance / divider,
-                    "owner": owned
+                    "owner": owned,
+                    "image": verifiedImage,
+                    "hasImage": hasImage
                 }
                 await assetList2.push(data);
 
@@ -681,7 +713,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "total": assetList[asset]["Total"] / divider,
                         "contractaddress": id,
                         "balance": assetBalance / divider,
-                        "owner": owned
+                        "owner": owned,
+                        "image": verifiedImage,
+                        "hasImage": hasImage
                     }
                     await assetListOwned.push(data);
                 }
@@ -691,6 +725,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetList = assetList2;
                 $scope.assetListOwned = assetListOwned;
             });
+            console.log($scope.assetList);
         }
     }
 
@@ -1543,8 +1578,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
             $scope.showLoader = false;
         });
-
-        console.log($scope.swapsList);
     }
 
     $scope.getBalance = async function () {

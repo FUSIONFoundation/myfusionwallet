@@ -269,13 +269,17 @@
                         </th>
                         <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">Send
                             <img src="images/Static.svg" ng-show="sortOpenMakes !== 'fromAmountCut'"/>
-                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == false"/>
-                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == true"/>
+                            <img src="images/Ascend.svg"
+                                 ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == false"/>
+                            <img src="images/Descend.svg"
+                                 ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == true"/>
                         </th>
                         <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">Receive
                             <img src="images/Static.svg" ng-show="sortOpenMakes !== 'toAmountCut'"/>
-                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == false"/>
-                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == true"/>
+                            <img src="images/Ascend.svg"
+                                 ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == false"/>
+                            <img src="images/Descend.svg"
+                                 ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == true"/>
                         </th>
                         <th class="text-right" scope="col" ng-click="sortOpenMakes('swaprate')">Swap Rate
                             <img src="images/Static.svg" ng-show="sortOpenMakes !== 'swaprate'"/>
@@ -578,7 +582,8 @@
                          ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
                         <div class="col-md-6 pt-1 pb-1 pl-1 tl-takeswap">
                             <span>
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
+                                <img class="mr-2" src="images/sendtl.svg"
+                                     width="12px">{{takeDataFront.swapId.ToStartTimeString}}
                                 - {{takeDataFront.swapId.ToEndTimeString}}
                             </span>
                         </div>
@@ -600,7 +605,8 @@
                          ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
                         <div class="col-md-6 pt-1 pb-1 pl-1 tl-takeswap">
                             <span>
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
+                                <img class="mr-2" src="images/sendtl.svg"
+                                     width="12px">{{takeDataFront.swapId.FromStartTimeString}}
                                 - {{takeDataFront.swapId.FromEndTimeString}}
                             </span>
                         </div>
@@ -735,11 +741,14 @@
                                 <div class="col-md-12 col-xs-12 p-1 mt-1  asset-dropdown"
                                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                                     <a ng-click="setSendAsset(asset.id)">
-                        <span class="fusion-text-14">
+                                        <div class="col-md-2 p-0"><img src="images/verifiedassets/EFSN_LIGHT.svg"/></div>
+                                        <div class="col">
+                                                               <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}})
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
+                                        </div>
                                     </a>
                                 </div>
                             </div>
@@ -995,7 +1004,7 @@
                                     <div class="float-left"><strong
                                                 class="font-size-16">{{minimumMakeSend}}</strong> {{selectedSendAssetSymbol}}
                                     </div>
-                                        :
+                                    :
                                     <div class="float-right">
                                         <strong class="font-size-16">{{minimumReceiveSend}}</strong> {{selectedReceiveAssetSymbol}}
                                     </div>
