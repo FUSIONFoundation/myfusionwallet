@@ -1450,7 +1450,8 @@
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td ng-click="manageAssetOpen(f)">
-                                <img src="images/verifiedassets/{{asset.image}}" />
+                                <img    ng-if="asset.hasImage"
+                                        ng-src="images/verifiedassets/{{asset.image}}" />
                             </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
@@ -3704,7 +3705,8 @@
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td ng-click="manageAssetOpen(f)">
-                                <img src="images/verifiedassets/{{asset.image}}" />
+                                <img    ng-if="asset.hasImage"
+                                        ng-src="images/verifiedassets/{{asset.image}}" />
                             </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
@@ -10294,7 +10296,8 @@
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td ng-click="manageAssetOpen(f)">
-                                <img src="images/verifiedassets/{{asset.image}}" />
+                                <img    ng-if="asset.hasImage"
+                                        ng-src="images/verifiedassets/{{asset.image}}" />
                             </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"

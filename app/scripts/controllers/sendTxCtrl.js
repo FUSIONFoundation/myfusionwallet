@@ -1554,20 +1554,24 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let owned = false;
             let assetBalance = '';
             let verifiedImage = '';
+            let hasImage = false;
 
             for (let a in $scope.verifiedAssetsImages){
                 if ($scope.verifiedAssetsImages[a].assetID == id) {
                     // Set matched image name
                     verifiedImage = $scope.verifiedAssetsImages[a].image;
+                    hasImage = true;
                 } else {
                     // Place to set empty icon
                     verifiedImage = '';
+                    hasImage = false;
                 }
             }
 
             // Set FSN icon for PSN as well
             if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
                 verifiedImage = 'EFSN_LIGHT.svg';
+                hasImage = true;
             }
 
             await web3.fsn.getBalance(id, walletAddress).then(function (res) {
@@ -1588,7 +1592,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "owner": owned,
                     "issuer": owner,
                     "canChange": assetList[asset]["CanChange"],
-                    "image" : verifiedImage
+                    "image" : verifiedImage,
+                    "hasImage" : hasImage
                 }
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
                     await assetList3.push(data);
@@ -1615,7 +1620,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "owner": assetList2[asset]["owner"],
                 "issuer": assetList2[asset]["issuer"],
                 "canChange": assetList2[asset]["canChange"],
-                "image": assetList2[asset]["image"]
+                "image": assetList2[asset]["image"],
+                "hasImage": assetList2[asset]["hasImage"]
             }
             await assetList3.push(data);
         }
