@@ -733,7 +733,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetList = assetList2;
                 $scope.assetListOwned = assetListOwned;
             });
-            console.log($scope.assetList);
         }
     }
 
