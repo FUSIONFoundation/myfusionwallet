@@ -125,6 +125,7 @@
                         <thead>
                         <tr class="small-gray-text text-left">
                             <th scope="col">Status</th>
+                            <th scope="col"></th>
                             <th scope="col">Asset Name</th>
                             <th scope="col">Time-lock Period</th>
                             <th scope="col">Amount</th>
@@ -135,6 +136,10 @@
                         <tr ng-repeat="asset in timeLockList track by $index"
                             ng-hide="asset.status === 'Expired'">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
+                            <td>
+                                <img    ng-if="asset.hasImage"
+                                        ng-src="images/verifiedassets/{{asset.image}}" />
+                            </td>
                             <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                          ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                             class="fa fa-check-circle"></i> FSN Official</span>
