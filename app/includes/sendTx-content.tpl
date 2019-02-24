@@ -51,7 +51,7 @@
                     <table class="table">
                         <thead>
                         <tr class="small-gray-text text-left">
-                            <th scope="col">Icon</th>
+                            <th scope="col"></th>
                             <th scope="col">Asset Name</th>
                             <th scope="col">Asset Info</th>
                             <th scope="col" class="text-right">Available</th>
