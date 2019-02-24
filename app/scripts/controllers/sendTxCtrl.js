@@ -43,6 +43,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.successModal = new Modal(document.getElementById('successModal'));
     $scope.lastId = 0;
+    $scope.verifiedAssetsImages = {};
 
 
     $scope.hiddenTimeLockStates = localStorage.getItem('hiddenTimeLocks') ? JSON.parse(localStorage.getItem('hiddenTimeLocks')) : [];
@@ -170,17 +171,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.getVerifiedAssets = async function () {
-        let data = {};
         try {
             await ajaxReq.http.get('https://api.fusionnetwork.io/assets/verified').then(function (r) {
                 console.log(r.data);
-                data = r.data;
+                $scope.verifiedAssetsImages = r.data;
             })
         } catch (err) { return; }
-
-        for (let verified in data){
-            console.log(`${data[verified].assetID} ${data[verified].image}`);
-        }
     }
 
     $scope.getVerifiedAssets();
@@ -1558,6 +1554,22 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let owner = assetList[asset]["Owner"];
             let owned = false;
             let assetBalance = '';
+            let verifiedImage = '';
+
+            for (let a in $scope.verifiedAssetsImages){
+                if ($scope.verifiedAssetsImages[a].assetID == id) {
+                    // Set matched image name
+                    verifiedImage = $scope.verifiedAssetsImages[a].image;
+                } else {
+                    // Place to set empty icon
+                    verifiedImage = '';
+                }
+            }
+
+            // Set FSN icon for PSN as well
+            if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
+                verifiedImage = 'EFSN_LIGHT.svg';
+            }
 
             await web3.fsn.getBalance(id, walletAddress).then(function (res) {
                 assetBalance = res;
@@ -1576,7 +1588,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "balance": assetBalance / divider,
                     "owner": owned,
                     "issuer": owner,
-                    "canChange": assetList[asset]["CanChange"]
+                    "canChange": assetList[asset]["CanChange"],
+                    "image" : verifiedImage
                 }
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
                     await assetList3.push(data);
@@ -1602,7 +1615,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "balance": assetList2[asset]["balance"],
                 "owner": assetList2[asset]["owner"],
                 "issuer": assetList2[asset]["issuer"],
-                "canChange": assetList2[asset]["canChange"]
+                "canChange": assetList2[asset]["canChange"],
+                "image": assetList2[asset]["image"]
             }
             await assetList3.push(data);
         }
@@ -1613,6 +1627,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListOwns = assetList3;
             $scope.assetListLoading = false;
         });
+
+        console.log($scope.assetListOwns);
     }
 
     $scope.getAllErcTokens = function () {
