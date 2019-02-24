@@ -80,13 +80,21 @@
                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                     <a ng-click="setSendAsset(asset.id)">
-                        <span class="fusion-text-14">
+
+                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                            <img    ng-if="asset.hasImage"
+                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                        </div>
+                        <div class="col">
+                                <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                 ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
+                                                class="fa fa-check-circle"></i> FSN Official</span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
+                        </div>
+
                     </a>
                 </div>
             </div>
@@ -129,14 +137,19 @@
                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                      ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
                     <a ng-click="setReceiveAsset(asset.id)">
-                        <span class="fusion-text-14">
-                        {{asset.name}} ({{asset.symbol}}) <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
+                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                            <img    ng-if="asset.hasImage"
+                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                        </div>
+                        <div class="col">
+                                <span class="fusion-text-14">
+                        {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                class="fa fa-check-circle"></i> FSN Official</span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -741,10 +754,15 @@
                                 <div class="col-md-12 col-xs-12 p-1 mt-1  asset-dropdown"
                                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                                     <a ng-click="setSendAsset(asset.id)">
-                                        <div class="col-md-2 p-0"><img src="images/verifiedassets/EFSN_LIGHT.svg"/></div>
+                                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                            <img    ng-if="asset.hasImage"
+                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                        </div>
                                         <div class="col">
-                                                               <span class="fusion-text-14">
-                        {{asset.name}} ({{asset.symbol}})
+                                <span class="fusion-text-14">
+                        {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                class="fa fa-check-circle"></i> FSN Official</span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
@@ -845,11 +863,19 @@
                                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                                      ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
                                     <a ng-click="setReceiveAsset(asset.id)">
-                        <span class="fusion-text-14">
-                        {{asset.name}} ({{asset.symbol}})
+                                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                            <img    ng-if="asset.hasImage"
+                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                        </div>
+                                        <div class="col">
+                                <span class="fusion-text-14">
+                        {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                                class="fa fa-check-circle"></i> FSN Official</span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
+                                        </div>
                                     </a>
                                 </div>
                             </div>
