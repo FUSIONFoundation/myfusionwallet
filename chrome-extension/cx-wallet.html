@@ -7640,11 +7640,17 @@
                  ng-click="sendDropDown = !sendDropDown">
                 <div class="float-left w-75">
                     <a>
-                        {{selectedSendAsset}} <span class="color-Active official-fusion-badge"
-                                                    ng-show="selectedSendContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                    class="fa fa-check-circle"></i> FSN Official</span>
-                        <span class="small-gray-text max-char">{{selectedSendContract}}</span>
-
+                        <div class="col-md-2 p-0" ng-if="selectedSendHasImage">
+                            <img    ng-if="selectedSendHasImage"
+                                    ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                        </div>
+                        <div class="col">
+                            {{selectedSendAsset}} <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="selectedSendContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> FSN Official</span>
+                            <span class="small-gray-text max-char">{{selectedSendContract}}</span>
+                        </div>
                     </a>
                 </div>
                 <div class="float-right text-right">
@@ -7697,11 +7703,17 @@
                  ng-click="receiveDropDown = !receiveDropDown">
                 <div class="float-left w-75">
                     <a>
+                        <div class="col-md-2 p-0" ng-if="selectedReceiveHasImage">
+                            <img    ng-if="selectedReceiveHasImage"
+                                    ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                        </div>
+                    <div class="col">
                         {{selectedReceiveAsset}} <span
                                 class="color-Active official-fusion-badge"
                                 ng-show="selectedReceiveContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
                                     class="fa fa-check-circle"></i> FSN Official</span>
                         <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
+                    </div>
                     </a>
                 </div>
                 <div class="float-right text-right">

@@ -531,6 +531,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${$scope.assetList[id].symbol})`;
             $scope.selectedReceiveAssetSymbol = `${$scope.assetList[id].symbol}`;
+            $scope.selectedReceiveImage = `${$scope.assetList[id].image}`;
+            $scope.selectedReceiveHasImage = $scope.assetList[id].hasImage;
             $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
             $scope.assetToReceive = $scope.assetList[id].contractaddress;
             $scope.receiveDropDown = false;
@@ -542,6 +544,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.selectedSendAsset = `${$scope.assetListOwned[id].name} (${$scope.assetListOwned[id].symbol})`;
             $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[id].symbol}`;
             $scope.selectedSendContract = $scope.assetListOwned[id].contractaddress;
+            $scope.selectedSendImage = `${$scope.assetListOwned[id].image}`;
+            $scope.selectedSendHasImage = $scope.assetListOwned[id].hasImage;
             $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
             $scope.getAssetBalance();
             $scope.sendDropDown = false;
