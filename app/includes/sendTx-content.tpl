@@ -51,6 +51,7 @@
                     <table class="table">
                         <thead>
                         <tr class="small-gray-text text-left">
+                            <th scope="col">Icon</th>
                             <th scope="col">Asset Name</th>
                             <th scope="col">Asset Info</th>
                             <th scope="col" class="text-right">Available</th>
@@ -60,6 +61,9 @@
                         <tbody>
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
+                            <td ng-click="manageAssetOpen(f)">
+                                <img src="images/verifiedassets/{{asset.image}}" />
+                            </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                      ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
