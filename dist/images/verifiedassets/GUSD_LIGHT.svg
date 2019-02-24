@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>GUSD LIGHT</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4ABBCC" offset="0%"></stop>
+            <stop stop-color="#24869D" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="GUSD-LIGHT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M13.5,19.75 L7.9136836,19.75 C8.2212449,22.2164447 10.325239,24.125 12.875,24.125 C15.424761,24.125 17.5287551,22.2164447 17.8363164,19.75 L13.5,19.75 Z M12.25,17.875 L12.25,14.1636836 C10.2010759,14.4191808 8.53714863,15.9143875 8.03252186,17.875 L12.25,17.875 Z M23.9674781,14.125 L19.75,14.125 L19.75,17.8363164 C21.7989241,17.5808192 23.4628514,16.0856125 23.9674781,14.125 Z M24.0863164,12.25 C23.7787551,9.78355526 21.674761,7.875 19.125,7.875 C16.575239,7.875 14.4712449,9.78355526 14.1636836,12.25 L18.5,12.25 L24.0863164,12.25 Z M14.125,14.125 L14.125,17.875 L17.875,17.875 L17.875,14.125 L14.125,14.125 Z M12.2757546,12.2757546 C12.5793764,8.75940179 15.5299418,6 19.125,6 C22.9219577,6 26,9.07804235 26,12.875 C26,16.4700582 23.2405982,19.4206236 19.7242454,19.7242454 C19.4206236,23.2405982 16.4700582,26 12.875,26 C9.07804235,26 6,22.9219577 6,19.125 C6,15.5299418 8.75940179,12.5793764 12.2757546,12.2757546 Z" id="Combined-Shape" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+        <circle id="Oval-Copy-6" stroke="#E4E9F0" fill-rule="nonzero" cx="16" cy="16" r="15.5"></circle>
+    </g>
+</svg>

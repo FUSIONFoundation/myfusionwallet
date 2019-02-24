@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>EFSN LIGHT</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#549ED8" offset="0%"></stop>
+            <stop stop-color="#2A65B0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="EFSN-LIGHT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M15.3526857,12.2653349 C11.8130286,17.6875064 9.63885714,25.2175635 8.7904,27.7761921 C8.31314286,22.9505921 10.832,16.3750492 12.6747429,12.4907064 C11.8262857,12.5304778 7.3056,12.8486492 4.8,15.4337921 C4.8,15.4337921 6.15222857,11.2843064 13.9606857,10.0248778 L13.9872,9.97184921 C20.0987429,1.04979207 24.6857143,6.3791635 24.6857143,6.3791635 C21.9017143,5.9151635 19.4756571,7.3071635 17.4075429,9.57413492 C18.4150857,9.5343635 24.9376,9.45482064 26.8201143,14.6118492 C26.8201143,14.6118492 23.0418286,11.9073921 15.3526857,12.2653349 Z M19.7673143,18.4829349 C18.2029714,18.4829349 16.9302857,19.7556206 16.9302857,21.3199635 C16.9302857,22.8843064 18.2029714,24.1569921 19.7673143,24.1569921 C21.3316571,24.1569921 22.6043429,22.8843064 22.6043429,21.3199635 C22.6043429,19.7423635 21.3316571,18.4829349 19.7673143,18.4829349 Z" id="Shape" fill="url(#linearGradient-1)" fill-rule="nonzero"></path>
+        <circle id="Oval-Copy-5" stroke="#E4E9F0" fill-rule="nonzero" cx="16" cy="16" r="15.5"></circle>
+    </g>
+</svg>
