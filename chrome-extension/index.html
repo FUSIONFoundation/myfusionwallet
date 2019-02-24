@@ -451,6 +451,7 @@
                         role="button"
                         class="btn btn-primary w-100"
                         ng-class="fileDownloaded ? '' : 'disabled' "
+                        ng-disabled="fileDownloaded == false"
                         ng-click="continueToPaper()">
             <span>
               Confirm and Continue
