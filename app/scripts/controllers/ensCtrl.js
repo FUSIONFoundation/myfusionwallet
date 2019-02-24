@@ -339,6 +339,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
                     $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
                     $scope.assetToReceive = $scope.assetList[0].contractaddress;
+                    $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
+                    $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
                 })
             }
         }
@@ -354,6 +356,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
                     $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
                     $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+                    $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
+                    $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
                     $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
                     $scope.getAssetBalance();
                 })
