@@ -169,6 +169,22 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.manageAsset.open();
     }
 
+    $scope.getVerifiedAssets = async function () {
+        let data = {};
+        try {
+            await ajaxReq.http.get('https://api.fusionnetwork.io/assets/verified').then(function (r) {
+                console.log(r.data);
+                data = r.data;
+            })
+        } catch (err) { return; }
+
+        for (let verified in data){
+            console.log(`${data[verified].assetID} ${data[verified].image}`);
+        }
+    }
+
+    $scope.getVerifiedAssets();
+
 
     $scope.changeSupplyOpen = async function (id) {
 
