@@ -1143,6 +1143,10 @@
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
                         <div class="col-md-6">
+                            <img    ng-if="manageAssetInfo.hasImage"
+                                    class="round-bg-white mr-2"
+                                    ng-src="images/verifiedassets/{{manageAssetInfo.image}}"/>
+
                             {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}})
 
                         </div>
