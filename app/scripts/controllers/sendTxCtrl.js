@@ -44,6 +44,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.successModal = new Modal(document.getElementById('successModal'));
     $scope.totalAttributes = [0];
+    $scope.attributename = [];
+    $scope.attributevalue = [];
+    $scope.allAttributes = {};
 
 
     $scope.addAttribute = function (){
@@ -52,6 +55,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
 
         $scope.totalAttributes.push(max+1);
+        console.log($scope.totalAttributes)
         return;
     }
 
@@ -62,9 +66,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
         let filtered = $scope.totalAttributes.filter(item => item !== max);
         $scope.totalAttributes = filtered;
+        console.log($scope.totalAttributes)
         return;
     }
 
+    $scope.returnAttributesJSON = function () {
+        $scope.allAttributes = {};
+        for (let u in $scope.attributename){
+            $scope.allAttributes[$scope.attributename[u].toString()] = $scope.attributevalue[u].toString();
+        }
+    }
 
     $scope.lastId = 0;
     $scope.verifiedAssetsImages = {};

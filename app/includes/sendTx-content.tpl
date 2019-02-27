@@ -1783,28 +1783,31 @@
                         <div class="col-sm-6 clearfix">
                             <input type="text"
                                    class="form-control"
+                                   ng-model="attributename[attribute]"
                                    placeholder="Enter an attribute"/>
 
                         </div>
                         <div class="col-sm-6">
                             <input type="text"
                                    class="form-control"
+                                   ng-model="attributevalue[attribute]"
                             placeholder="Enter an attribute value"/>
                         </div>
                     </div>
                     <div class="text-left col-md-12">
                         <div class="float-left">
-                            <a class="small-gray-text"
+                            <a class="valid-feedback"
                                ng-click="addAttribute()"
                             >+ Add Attribute</a>
                         </div>
                         <div class="float-right">
-                            <a class="small-gray-text"
+                            <a class="invalid-feedback"
                                ng-click="removeAttribute()"
                             >- Remove Last Attribute</a>
                         </div>
-
                     </div>
+
+                    <button class="btn btn-primary" ng-click="generateAttributesJSON()">Show JSON</button>
                 </section>
 
                 <div class="row form-group">
