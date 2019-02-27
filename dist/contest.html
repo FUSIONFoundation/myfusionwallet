@@ -169,7 +169,7 @@
                     <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
                     <div class="tagline hidden-xs">
                         <a class="dropdown-toggle btn btn-gray m-3"
-                           href="https://forms.office.com/Pages/ResponsePage.aspx?id=EW3s-wk4CEOiM1Aj1P3e9ATvewrXjsFAmw64pIT0-PhUMjhVNFRCMVZLU0ZFTFU2MTZGWUdENjkyRy4u"
+                           href="https://fusionnetworks.zendesk.com/hc/en-us/requests/new"
                            target="_blank">Feedback</a>
                         <div class="dropdown dropdown-node">
                         <a tabindex="0"
