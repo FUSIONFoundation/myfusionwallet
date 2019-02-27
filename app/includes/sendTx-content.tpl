@@ -62,8 +62,8 @@
 
                         <tr ng-repeat="asset in assetListOwns track by $index">
                             <td ng-click="manageAssetOpen(f)">
-                                <img    ng-if="asset.hasImage"
-                                        ng-src="images/verifiedassets/{{asset.image}}" />
+                                <img ng-if="asset.hasImage"
+                                     ng-src="images/verifiedassets/{{asset.image}}"/>
                             </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
@@ -137,8 +137,8 @@
                             ng-hide="asset.status === 'Expired'">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
                             <td>
-                                <img    ng-if="asset.hasImage"
-                                        ng-src="images/verifiedassets/{{asset.image}}" />
+                                <img ng-if="asset.hasImage"
+                                     ng-src="images/verifiedassets/{{asset.image}}"/>
                             </td>
                             <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                          ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
@@ -1148,9 +1148,9 @@
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
                         <div class="col-md-6">
-                            <img    ng-if="manageAssetInfo.hasImage"
-                                    class="round-bg-white mr-2"
-                                    ng-src="images/verifiedassets/{{manageAssetInfo.image}}"/>
+                            <img ng-if="manageAssetInfo.hasImage"
+                                 class="round-bg-white mr-2"
+                                 ng-src="images/verifiedassets/{{manageAssetInfo.image}}"/>
 
                             {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}})
 
@@ -1242,7 +1242,7 @@
                 <div class="row form-group">
                     <div class="col-md-12 col-xs-12 clearfix text-center">
                         <button class="btn btn-white w-50"
-                           ng-click="manageAsset.close()">
+                                ng-click="manageAsset.close()">
                             Cancel
                         </button>
                     </div>
@@ -1269,9 +1269,9 @@
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
                         <div class="col-md-6">
-                            <img    ng-if="changeSupplyInfo.hasImage"
-                                    class="round-bg-white mr-2"
-                                    ng-src="images/verifiedassets/{{changeSupplyInfo.image}}"/>
+                            <img ng-if="changeSupplyInfo.hasImage"
+                                 class="round-bg-white mr-2"
+                                 ng-src="images/verifiedassets/{{changeSupplyInfo.image}}"/>
                             {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
 
                         </div>
@@ -1377,9 +1377,9 @@
                 <div class="col-md-12 p-3 blue-bg">
                     <div class="row">
                         <div class="col-md-6">
-                            <img    ng-if="changeSupplyInfo.hasImage"
-                                    class="round-bg-white mr-2"
-                                    ng-src="images/verifiedassets/{{changeSupplyInfo.image}}"/>
+                            <img ng-if="changeSupplyInfo.hasImage"
+                                 class="round-bg-white mr-2"
+                                 ng-src="images/verifiedassets/{{changeSupplyInfo.image}}"/>
                             {{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})
 
                         </div>
@@ -1696,6 +1696,113 @@
                                class="form-control"
                                ng-model="assetCreate.totalSupply"
                                placeholder="Enter the amount of this assets you want to create"/>
+                    </div>
+                </section>
+
+                <div class="row form-group">
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <a class="btn btn-white btn-block"
+                           ng-click="createAssetModal.close()">
+                            Cancel
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-xs-12 clearfix">
+                        <button class="btn btn-primary btn-block"
+                                ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
+                                ng-click="createAsset()">
+                            Generate Asset
+                        </button>
+
+                        <button ng-click="createAssetAttributes.open()"
+                                ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
+                                class="btn btn-primary btn-block">Attributes
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
+                    <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
+                    Please, review and try again!
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="createAssetAttributes" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+                <h3 class="h3-title text-center">Create Asset</h3>
+
+                <div class="row pt-2 pb-2">
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">1</button>
+                        <br>
+                        <span class="small-gray-text">Details</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">2</button>
+                        <br>
+                        <span class="small-gray-text">Attributes</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-white btn-circle w32">3</button>
+                        <br>
+                        <span class="small-gray-text">Review</span>
+                    </div>
+                </div>
+                <section class="row form-group">
+                    <div>
+                        <div class="col-sm-5 clearfix">
+                        <span class="small-gray-text">
+                            Attribute
+                        </span>
+                        </div>
+                        <div class="col-sm-5">
+                        <span class="small-gray-text">
+                            Attribute Field
+                        </span>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                        </div>
+                    </div>
+                </section>
+                <section class="row form-group">
+                    <div id="attributes"
+                         data-ng-repeat="i in totalAttributes"
+                    >
+                        <div class="col-sm-5 clearfix">
+                            <input type="text"
+                                   class="form-control"
+                                   ng-model="assetCreate.assetName"
+                                   maxlength="35"
+                                   placeholder="Enter an Asset Name"/>
+
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text"
+                                   class="form-control"
+                                   maxlength="4"
+                                   ng-model="assetCreate.assetSymbol"
+                                   placeholder="4 Characters or less"/>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <button class="btn btn-sm btn-primary">X</button>
+                        </div>
+                    </div>
+                    <div class="text-left col-md-12">
+                        <a class="small-gray-text"
+                           ng-click="addAttribute()"
+                        >+ Add Attribute</a>
                     </div>
                 </section>
 

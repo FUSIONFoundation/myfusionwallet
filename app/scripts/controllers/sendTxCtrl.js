@@ -35,6 +35,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.sendAssetFinal = new Modal(document.getElementById('sendAssetFinal'));
     $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
     $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
+    $scope.createAssetAttributes = new Modal(document.getElementById('createAssetAttributes'));
     $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
     $scope.changeSupplyReview = new Modal(document.getElementById('changeSupplyReview'));
     $scope.changeSupplySuccess = new Modal(document.getElementById('changeSupplySuccess'));
@@ -42,6 +43,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.changeSupply = new Modal(document.getElementById('changeSupply'));
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.successModal = new Modal(document.getElementById('successModal'));
+    $scope.totalAttributes = [1];
+
+    $scope.addAttribute = function (){
+        let a = $scope.totalAttributes + 1;
+        $scope.totalAttributes.push(a);
+        return;
+    }
+
+
     $scope.lastId = 0;
     $scope.verifiedAssetsImages = {};
 
