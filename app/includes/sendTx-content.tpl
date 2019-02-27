@@ -1610,12 +1610,25 @@
 </span>
                     </div>
                 </div>
-                <h3 class="h3-title">Create Asset</h3>
-                <p>Seamlessly generate your own unique digital asset and set all your desired parameters.
-                    Created assets can use all of the functions on the Fusion PSN including send, quantum swap,
-                    time-lock and more.
+                <h3 class="h3-title text-center">Create Asset</h3>
 
-                </p>
+                <div class="row pt-2 pb-2">
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle">1</button>
+                        <br>
+                        <span class="small-gray-text">Details</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-white btn-circle">2</button>
+                        <br>
+                        <span class="small-gray-text">Attributes</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-white btn-circle">3</button>
+                        <br>
+                        <span class="small-gray-text">Review</span>
+                    </div>
+                </div>
                 <section class="row form-group">
                     <div class="col-sm-12 clearfix">
                         <span class="small-gray-text">
