@@ -75,6 +75,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         for (let u in $scope.attributename){
             $scope.allAttributes[$scope.attributename[u].toString()] = $scope.attributevalue[u].toString();
         }
+
+        return $scope.allAttributes;
     }
 
     $scope.lastId = 0;
@@ -1360,14 +1362,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let totalSupplyBN = $scope.makeBigNumber(totalSupplyString, decimals);
         let totalSupplyBNHex = "0x" + totalSupplyBN.toString(16);
 
+        await $scope.returnAttributesJSON();
+
         let data = {
             from: walletAddress,
             name: assetName,
             symbol: assetSymbol,
             decimals: decimals,
             total: totalSupplyBNHex,
+            description: JSON.stringify($scope.allAttributes),
             canChange: $scope.assetCreate.canChange
         };
+
+        console.log(data);
 
         try {
             await web3.fsntx.buildGenAssetTx(data).then((tx) => {
@@ -1386,6 +1393,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             });
         } catch (err) {
+            console.log(err);
             $scope.errorModal.open();
         }
 

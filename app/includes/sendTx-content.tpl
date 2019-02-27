@@ -1762,17 +1762,15 @@
                 </div>
                 <section class="row form-group">
                     <div>
-                        <div class="col-sm-5 clearfix">
+                        <div class="col-sm-6 clearfix">
                         <span class="small-gray-text">
                             Attribute
                         </span>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                         <span class="small-gray-text">
                             Attribute Field
                         </span>
-                        </div>
-                        <div class="col-sm-2 text-right">
                         </div>
                     </div>
                 </section>
@@ -1806,7 +1804,6 @@
                             >- Remove Last Attribute</a>
                         </div>
                     </div>
-
                     <button class="btn btn-primary" ng-click="generateAttributesJSON()">Show JSON</button>
                 </section>
 
