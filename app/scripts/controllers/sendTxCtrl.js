@@ -43,11 +43,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.changeSupply = new Modal(document.getElementById('changeSupply'));
     $scope.errorModal = new Modal(document.getElementById('errorModal'));
     $scope.successModal = new Modal(document.getElementById('successModal'));
-    $scope.totalAttributes = [1];
+    $scope.totalAttributes = [0];
+
 
     $scope.addAttribute = function (){
-        let a = $scope.totalAttributes + 1;
-        $scope.totalAttributes.push(a);
+        let max = $scope.totalAttributes.reduce(function(a, b) {
+            return Math.max(a, b);
+        });
+
+        $scope.totalAttributes.push(max+1);
+        return;
+    }
+
+    $scope.removeAttribute = function (){
+        if($scope.totalAttributes.length == 1) return;
+        let max = $scope.totalAttributes.reduce(function(a, b) {
+            return Math.max(a, b);
+        });
+        let filtered = $scope.totalAttributes.filter(item => item !== max);
+        $scope.totalAttributes = filtered;
         return;
     }
 

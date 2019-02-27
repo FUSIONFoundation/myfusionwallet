@@ -2480,32 +2480,33 @@
                     </div>
                 </section>
                 <section class="row form-group">
-                    <div id="attributes"
-                         data-ng-repeat="i in totalAttributes"
+
+                    <div ng-repeat="attribute in totalAttributes track by $index"
                     >
-                        <div class="col-sm-5 clearfix">
+                        <div class="col-sm-6 clearfix">
                             <input type="text"
                                    class="form-control"
-                                   ng-model="assetCreate.assetName"
-                                   maxlength="35"
-                                   placeholder="Enter an Asset Name"/>
+                                   placeholder="Enter an attribute"/>
 
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <input type="text"
                                    class="form-control"
-                                   maxlength="4"
-                                   ng-model="assetCreate.assetSymbol"
-                                   placeholder="4 Characters or less"/>
-                        </div>
-                        <div class="col-sm-2 text-right">
-                            <button class="btn btn-sm btn-primary">X</button>
+                            placeholder="Enter an attribute value"/>
                         </div>
                     </div>
                     <div class="text-left col-md-12">
-                        <a class="small-gray-text"
-                           ng-click="addAttribute()"
-                        >+ Add Attribute</a>
+                        <div class="float-left">
+                            <a class="small-gray-text"
+                               ng-click="addAttribute()"
+                            >+ Add Attribute</a>
+                        </div>
+                        <div class="float-right">
+                            <a class="small-gray-text"
+                               ng-click="removeAttribute()"
+                            >- Remove Last Attribute</a>
+                        </div>
+
                     </div>
                 </section>
 
@@ -4869,32 +4870,33 @@
                     </div>
                 </section>
                 <section class="row form-group">
-                    <div id="attributes"
-                         data-ng-repeat="i in totalAttributes"
+
+                    <div ng-repeat="attribute in totalAttributes track by $index"
                     >
-                        <div class="col-sm-5 clearfix">
+                        <div class="col-sm-6 clearfix">
                             <input type="text"
                                    class="form-control"
-                                   ng-model="assetCreate.assetName"
-                                   maxlength="35"
-                                   placeholder="Enter an Asset Name"/>
+                                   placeholder="Enter an attribute"/>
 
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <input type="text"
                                    class="form-control"
-                                   maxlength="4"
-                                   ng-model="assetCreate.assetSymbol"
-                                   placeholder="4 Characters or less"/>
-                        </div>
-                        <div class="col-sm-2 text-right">
-                            <button class="btn btn-sm btn-primary">X</button>
+                            placeholder="Enter an attribute value"/>
                         </div>
                     </div>
                     <div class="text-left col-md-12">
-                        <a class="small-gray-text"
-                           ng-click="addAttribute()"
-                        >+ Add Attribute</a>
+                        <div class="float-left">
+                            <a class="small-gray-text"
+                               ng-click="addAttribute()"
+                            >+ Add Attribute</a>
+                        </div>
+                        <div class="float-right">
+                            <a class="small-gray-text"
+                               ng-click="removeAttribute()"
+                            >- Remove Last Attribute</a>
+                        </div>
+
                     </div>
                 </section>
 
@@ -11806,32 +11808,33 @@
                     </div>
                 </section>
                 <section class="row form-group">
-                    <div id="attributes"
-                         data-ng-repeat="i in totalAttributes"
+
+                    <div ng-repeat="attribute in totalAttributes track by $index"
                     >
-                        <div class="col-sm-5 clearfix">
+                        <div class="col-sm-6 clearfix">
                             <input type="text"
                                    class="form-control"
-                                   ng-model="assetCreate.assetName"
-                                   maxlength="35"
-                                   placeholder="Enter an Asset Name"/>
+                                   placeholder="Enter an attribute"/>
 
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <input type="text"
                                    class="form-control"
-                                   maxlength="4"
-                                   ng-model="assetCreate.assetSymbol"
-                                   placeholder="4 Characters or less"/>
-                        </div>
-                        <div class="col-sm-2 text-right">
-                            <button class="btn btn-sm btn-primary">X</button>
+                            placeholder="Enter an attribute value"/>
                         </div>
                     </div>
                     <div class="text-left col-md-12">
-                        <a class="small-gray-text"
-                           ng-click="addAttribute()"
-                        >+ Add Attribute</a>
+                        <div class="float-left">
+                            <a class="small-gray-text"
+                               ng-click="addAttribute()"
+                            >+ Add Attribute</a>
+                        </div>
+                        <div class="float-right">
+                            <a class="small-gray-text"
+                               ng-click="removeAttribute()"
+                            >- Remove Last Attribute</a>
+                        </div>
+
                     </div>
                 </section>
 
