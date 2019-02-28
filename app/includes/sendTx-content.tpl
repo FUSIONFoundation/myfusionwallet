@@ -1730,7 +1730,7 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="createAssetModal.close();">                    <i
+                                  <span class="gray-text" ng-click="createAssetAttributes.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
@@ -1810,7 +1810,7 @@
                 <div class="row form-group">
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-white btn-block"
-                           ng-click="createAssetModal.close()">
+                           ng-click="createAssetAttributes.close();createAsset.open();">
                             Cancel
                         </a>
                     </div>
@@ -1839,7 +1839,7 @@
             <article class="block" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
-                                  <span class="gray-text" ng-click="createAssetFinal.close(); createAsset.close()">                    <i
+                                  <span class="gray-text" ng-click="createAssetReview.close();">                    <i
                                               class="fa fa-times"
                                               aria-hidden="true"></i>
 </span>
