@@ -1810,6 +1810,7 @@
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
                         <button class="btn btn-primary btn-block"
+                                ng-disabled="assetCreate.totalSupply <= 0"
                                 ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
                                 ng-click="createAsset()">
                             Generate Asset
