@@ -1632,7 +1632,7 @@
                 <section class="row form-group">
                     <div class="col-sm-12 clearfix">
                         <span class="small-gray-text">
-                            Asset Name:
+                            Asset Name
                         </span>
                         <input type="text"
                                class="form-control"
@@ -1645,7 +1645,7 @@
                     </div>
                     <div class="col-sm-6">
                         <span class="small-gray-text">
-                            Asset Symbol:
+                            Asset Symbol
                         </span>
                         <input type="text"
                                class="form-control"
@@ -1658,7 +1658,7 @@
                     <div class="col-sm-6">
                            <span class="small-gray-text">
 
-                            Decimals:
+                            Decimals
                         </span>
                         <input type="number"
                                min="0"
@@ -1688,7 +1688,7 @@
                     </div>
                     <div class="col-sm-12 clearfix">
                         <span class="small-gray-text">
-                            Total Supply:
+                            Total Supply
                         </span>
                         <input type="number"
                                min="0"
@@ -1707,15 +1707,10 @@
                         </a>
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
-                        <button class="btn btn-primary btn-block"
-                                ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
-                                ng-click="createAsset()">
-                            Generate Asset
-                        </button>
-
                         <button ng-click="createAssetAttributes.open()"
                                 ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
-                                class="btn btn-primary btn-block">Attributes
+                                class="btn btn-primary btn-block">
+                            Next
                         </button>
                     </div>
                 </div>
@@ -1804,7 +1799,6 @@
                             >- Remove Last Attribute</a>
                         </div>
                     </div>
-                    <button class="btn btn-primary" ng-click="generateAttributesJSON()">Show JSON</button>
                 </section>
 
                 <div class="row form-group">
