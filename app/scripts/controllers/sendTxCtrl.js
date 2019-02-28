@@ -205,8 +205,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             "balance": $scope.assetListOwns[id].balance,
             "issuer": $scope.assetListOwns[id].issuer,
             "image": $scope.assetListOwns[id].image,
-            "hasImage": $scope.assetListOwns[id].hasImage
-
+            "hasImage": $scope.assetListOwns[id].hasImage,
+            "description" : $scope.assetListOwns[id].description,
         };
         $scope.manageAsset.open();
     }
@@ -1719,6 +1719,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             owner === walletAddress ? owned = 'Created' : owned = '';
 
+            let description = {};
+            try{
+               description = JSON.parse(assetList[asset]["Description"]);
+            } catch (err){
+                description = assetList[asset]["Description"];
+            }
+
             if (assetBalance > 0.000000000001) {
                 let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                 let data = {
@@ -1732,8 +1739,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "issuer": owner,
                     "canChange": assetList[asset]["CanChange"],
                     "image" : verifiedImage,
-                    "hasImage" : hasImage
+                    "hasImage" : hasImage,
+                    "description" : description
                 }
+
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
                     await assetList3.push(data);
                 } else {
@@ -1760,8 +1769,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "issuer": assetList2[asset]["issuer"],
                 "canChange": assetList2[asset]["canChange"],
                 "image": assetList2[asset]["image"],
-                "hasImage": assetList2[asset]["hasImage"]
-            }
+                "hasImage": assetList2[asset]["hasImage"],
+                "description" : assetList2[asset]["Description"]
+
+        }
             await assetList3.push(data);
         }
 
@@ -1771,6 +1782,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListOwns = assetList3;
             $scope.assetListLoading = false;
         });
+
+        console.log($scope.assetListOwns);
 
     }
 
