@@ -36,6 +36,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.createAssetModal = new Modal(document.getElementById('createAsset'));
     $scope.createAssetFinal = new Modal(document.getElementById('createAssetFinal'));
     $scope.createAssetAttributes = new Modal(document.getElementById('createAssetAttributes'));
+    $scope.createAssetReview = new Modal(document.getElementById('createAssetReview'));
     $scope.sendBackToAssetsModal = new Modal(document.getElementById('sendBackToAssetsModal'));
     $scope.changeSupplyReview = new Modal(document.getElementById('changeSupplyReview'));
     $scope.changeSupplySuccess = new Modal(document.getElementById('changeSupplySuccess'));

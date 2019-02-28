@@ -3142,6 +3142,12 @@
                         <br>
                         <span class="small-gray-text">Review</span>
                     </div>
+
+                    <div class="col-md-12">
+                        <span class="p-2 bg-assetcreate inline mt-3">
+                            Add attributes to your asset. These attributes can be edited at after the asset is created. (Optional)
+                        </span>
+                    </div>
                 </div>
                 <section class="row form-group">
                     <div>
@@ -3172,7 +3178,7 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="attributevalue[attribute]"
-                            placeholder="Enter an attribute value"/>
+                                   placeholder="Enter an attribute value"/>
                         </div>
                     </div>
                     <div class="text-left col-md-12">
@@ -3200,8 +3206,8 @@
                         <button class="btn btn-primary btn-block"
                                 ng-disabled="assetCreate.totalSupply <= 0"
                                 ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
-                                ng-click="createAsset()">
-                            Generate Asset
+                                ng-click="returnAttributesJSON();createAssetReview.open()">
+                            Review
                         </button>
                     </div>
                 </div>
@@ -3209,6 +3215,142 @@
                 <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
                     <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
                     Please, review and try again!
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="createAssetReview" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetFinal.close(); createAsset.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <h3 class="h3-title text-center">Create Asset</h3>
+
+                <div class="row pt-2 pb-2">
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">1</button>
+                        <br>
+                        <span class="small-gray-text">Details</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">2</button>
+                        <br>
+                        <span class="small-gray-text">Attributes</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">3</button>
+                        <br>
+                        <span class="small-gray-text">Review</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Name
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetName}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Symbol
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetSymbol}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Decimal Points
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.decimals}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.totalSupply}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="pb-2 pt-2" ng-show="allAttributes !== {}">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Attributes
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{totalAttributes.length}}</span>
+                                <a ng-hide="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Show</a>
+                                <a ng-show="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Hide</a>
+                            </div>
+                            <br>
+                            <div class="col-md-12 p-0">
+                                <div ng-show="showAttributes" class="gray-bg-new p-2">
+                                    <div ng-repeat="(key, value) in allAttributes">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 text-left p-0 text-gray">{{key}}</div>
+                                                <div class="col-md-6 text-right p-0 fusion-text-14">{{value}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6 col-xs-12 clearfix">
+                                <a class="btn btn-white btn-block"
+                                   ng-click="createAssetReview.close(); createAssetAttributes.open();">
+                                    Back
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-xs-12 clearfix">
+                                <button class="btn btn-primary btn-block"
+                                        ng-disabled="assetCreate.totalSupply <= 0"
+                                        ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
+                                        ng-click="createAsset()">
+                                    Review
+                                </button>
+                            </div>
+                        </div>
+
+                    </section>
                 </div>
             </article>
 
@@ -5528,6 +5670,12 @@
                         <br>
                         <span class="small-gray-text">Review</span>
                     </div>
+
+                    <div class="col-md-12">
+                        <span class="p-2 bg-assetcreate inline mt-3">
+                            Add attributes to your asset. These attributes can be edited at after the asset is created. (Optional)
+                        </span>
+                    </div>
                 </div>
                 <section class="row form-group">
                     <div>
@@ -5558,7 +5706,7 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="attributevalue[attribute]"
-                            placeholder="Enter an attribute value"/>
+                                   placeholder="Enter an attribute value"/>
                         </div>
                     </div>
                     <div class="text-left col-md-12">
@@ -5586,8 +5734,8 @@
                         <button class="btn btn-primary btn-block"
                                 ng-disabled="assetCreate.totalSupply <= 0"
                                 ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
-                                ng-click="createAsset()">
-                            Generate Asset
+                                ng-click="returnAttributesJSON();createAssetReview.open()">
+                            Review
                         </button>
                     </div>
                 </div>
@@ -5595,6 +5743,142 @@
                 <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
                     <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
                     Please, review and try again!
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="createAssetReview" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetFinal.close(); createAsset.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <h3 class="h3-title text-center">Create Asset</h3>
+
+                <div class="row pt-2 pb-2">
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">1</button>
+                        <br>
+                        <span class="small-gray-text">Details</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">2</button>
+                        <br>
+                        <span class="small-gray-text">Attributes</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">3</button>
+                        <br>
+                        <span class="small-gray-text">Review</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Name
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetName}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Symbol
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetSymbol}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Decimal Points
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.decimals}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.totalSupply}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="pb-2 pt-2" ng-show="allAttributes !== {}">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Attributes
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{totalAttributes.length}}</span>
+                                <a ng-hide="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Show</a>
+                                <a ng-show="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Hide</a>
+                            </div>
+                            <br>
+                            <div class="col-md-12 p-0">
+                                <div ng-show="showAttributes" class="gray-bg-new p-2">
+                                    <div ng-repeat="(key, value) in allAttributes">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 text-left p-0 text-gray">{{key}}</div>
+                                                <div class="col-md-6 text-right p-0 fusion-text-14">{{value}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6 col-xs-12 clearfix">
+                                <a class="btn btn-white btn-block"
+                                   ng-click="createAssetReview.close(); createAssetAttributes.open();">
+                                    Back
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-xs-12 clearfix">
+                                <button class="btn btn-primary btn-block"
+                                        ng-disabled="assetCreate.totalSupply <= 0"
+                                        ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
+                                        ng-click="createAsset()">
+                                    Review
+                                </button>
+                            </div>
+                        </div>
+
+                    </section>
                 </div>
             </article>
 
@@ -12297,6 +12581,12 @@
                         <br>
                         <span class="small-gray-text">Review</span>
                     </div>
+
+                    <div class="col-md-12">
+                        <span class="p-2 bg-assetcreate inline mt-3">
+                            Add attributes to your asset. These attributes can be edited at after the asset is created. (Optional)
+                        </span>
+                    </div>
                 </div>
                 <section class="row form-group">
                     <div>
@@ -12327,7 +12617,7 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="attributevalue[attribute]"
-                            placeholder="Enter an attribute value"/>
+                                   placeholder="Enter an attribute value"/>
                         </div>
                     </div>
                     <div class="text-left col-md-12">
@@ -12355,8 +12645,8 @@
                         <button class="btn btn-primary btn-block"
                                 ng-disabled="assetCreate.totalSupply <= 0"
                                 ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
-                                ng-click="createAsset()">
-                            Generate Asset
+                                ng-click="returnAttributesJSON();createAssetReview.open()">
+                            Review
                         </button>
                     </div>
                 </div>
@@ -12364,6 +12654,142 @@
                 <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
                     <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
                     Please, review and try again!
+                </div>
+            </article>
+
+        </section>
+    </section>
+</article>
+<article class="modal fade" id="createAssetReview" tabindex="-1">
+    <section class="modal-dialog">
+        <section class="modal-content">
+            <article class="block" ng-hide="wallet.type=='addressOnly'">
+                <div class="col-md-12 p-0">
+                    <div class="float-right">
+                                  <span class="gray-text" ng-click="createAssetFinal.close(); createAsset.close()">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                    </div>
+                </div>
+
+                <h3 class="h3-title text-center">Create Asset</h3>
+
+                <div class="row pt-2 pb-2">
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">1</button>
+                        <br>
+                        <span class="small-gray-text">Details</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">2</button>
+                        <br>
+                        <span class="small-gray-text">Attributes</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <button class="btn btn-sm btn-primary btn-circle w32">3</button>
+                        <br>
+                        <span class="small-gray-text">Review</span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+                    <section class="row form-group">
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Name
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetName}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Asset Symbol
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.assetSymbol}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Decimal Points
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.decimals}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="border-gray-bottom pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Total Supply
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{assetCreate.totalSupply}}</span>
+                            </div>
+                            <br>
+                        </div>
+
+                        <div class="pb-2 pt-2" ng-show="allAttributes !== {}">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Attributes
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{totalAttributes.length}}</span>
+                                <a ng-hide="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Show</a>
+                                <a ng-show="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Hide</a>
+                            </div>
+                            <br>
+                            <div class="col-md-12 p-0">
+                                <div ng-show="showAttributes" class="gray-bg-new p-2">
+                                    <div ng-repeat="(key, value) in allAttributes">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 text-left p-0 text-gray">{{key}}</div>
+                                                <div class="col-md-6 text-right p-0 fusion-text-14">{{value}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-md-6 col-xs-12 clearfix">
+                                <a class="btn btn-white btn-block"
+                                   ng-click="createAssetReview.close(); createAssetAttributes.open();">
+                                    Back
+                                </a>
+                            </div>
+                            <div class="col-md-6 col-xs-12 clearfix">
+                                <button class="btn btn-primary btn-block"
+                                        ng-disabled="assetCreate.totalSupply <= 0"
+                                        ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
+                                        ng-click="createAsset()">
+                                    Review
+                                </button>
+                            </div>
+                        </div>
+
+                    </section>
                 </div>
             </article>
 
