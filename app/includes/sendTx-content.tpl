@@ -1776,7 +1776,6 @@
                     </div>
                 </section>
                 <section class="row form-group">
-
                     <div ng-repeat="attribute in totalAttributes track by $index"
                     >
                         <div class="col-sm-6 clearfix">
@@ -2057,6 +2056,34 @@
                                 <span class="fusion-text-14">{{assetCreate.totalSupply}}</span>
                             </div>
                             <br>
+                        </div>
+
+                        <div class="pb-2 pt-2" ng-show="allAttributes !== {}">
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Attributes
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="fusion-text-14">{{totalAttributes.length}}</span>
+                                <a ng-hide="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Show</a>
+                                <a ng-show="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Hide</a>
+                            </div>
+                            <br>
+                            <div class="col-md-12 p-0">
+                                <div ng-show="showAttributes" class="gray-bg-new p-2">
+                                    <div ng-repeat="(key, value) in allAttributes">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-6 text-left p-0 text-gray">{{key}}</div>
+                                                <div class="col-md-6 text-right p-0 fusion-text-14">{{value}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row form-group">
