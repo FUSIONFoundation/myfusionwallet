@@ -1956,10 +1956,12 @@
                             </div>
                             <div class="float-right">
                                 <span class="fusion-text-14">{{totalAttributes.length}}</span>
-                                <a ng-hide="showAttributes"
-                                   ng-click="showAttributes = !showAttributes">Show</a>
-                                <a ng-show="showAttributes"
-                                   ng-click="showAttributes = !showAttributes">Hide</a>
+                                <a class="link-blue text-right"
+                                   ng-hide="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Show <img src="images/Down.svg"></a>
+                                <a class="link-blue text-right"
+                                   ng-show="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Hide  <img src="images/Up.svg"></a>
                             </div>
                             <br>
                             <div class="col-md-12 p-0">
@@ -2098,10 +2100,12 @@
                             </div>
                             <div class="float-right">
                                 <span class="fusion-text-14">{{totalAttributes.length}}</span>
-                                <a ng-hide="showAttributes"
-                                   ng-click="showAttributes = !showAttributes">Show</a>
-                                <a ng-show="showAttributes"
-                                   ng-click="showAttributes = !showAttributes">Hide</a>
+                                <a class="link-blue text-right"
+                                        ng-hide="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Show <img src="images/Down.svg"></a>
+                                <a class="link-blue text-right"
+                                        ng-show="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Hide  <img src="images/Up.svg"></a>
                             </div>
                             <br>
                             <div class="col-md-12 p-0">
