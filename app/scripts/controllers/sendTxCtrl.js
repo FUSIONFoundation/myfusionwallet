@@ -195,20 +195,22 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.lastId = id;
         $scope.showAttributes = false;
 
-        $scope.manageAssetInfo = {
-            "name": $scope.assetListOwns[id].name,
-            "symbol": $scope.assetListOwns[id].symbol,
-            "decimals": $scope.assetListOwns[id].decimals,
-            "total": $scope.assetListOwns[id].total,
-            "contractaddress": $scope.assetListOwns[id].contractaddress,
-            "canChange": $scope.assetListOwns[id].canChange,
-            "owner": $scope.assetListOwns[id].owner,
-            "balance": $scope.assetListOwns[id].balance,
-            "issuer": $scope.assetListOwns[id].issuer,
-            "image": $scope.assetListOwns[id].image,
-            "hasImage": $scope.assetListOwns[id].hasImage,
-            "description" : $scope.assetListOwns[id].description,
-        };
+        $scope.$eval(function(){
+            $scope.manageAssetInfo = {
+                "name": $scope.assetListOwns[id].name,
+                "symbol": $scope.assetListOwns[id].symbol,
+                "decimals": $scope.assetListOwns[id].decimals,
+                "total": $scope.assetListOwns[id].total,
+                "contractaddress": $scope.assetListOwns[id].contractaddress,
+                "canChange": $scope.assetListOwns[id].canChange,
+                "owner": $scope.assetListOwns[id].owner,
+                "balance": $scope.assetListOwns[id].balance,
+                "issuer": $scope.assetListOwns[id].issuer,
+                "image": $scope.assetListOwns[id].image,
+                "hasImage": $scope.assetListOwns[id].hasImage,
+                "description" : $scope.assetListOwns[id].description,
+            };
+        })
         $scope.manageAsset.open();
     }
 
