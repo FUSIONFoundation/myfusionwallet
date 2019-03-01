@@ -1165,12 +1165,12 @@
                 </div>
                 <nav class="nav-container inline">
                     <div class="nav-scroll">
-                        <div class="nav-inner">
-                            <li class="nav-item" ng-class="{active: !showAttributes}"
+                        <div class="nav-inner bg-white">
+                            <li class="nav-item bg-white p-2" ng-class="{'active-blue': !showAttributes}"
                                 ng-click="showAttributes = false">
                                 Overview
                             </li>
-                            <li class="nav-item" ng-class="{active: showAttributes}"
+                            <li class="nav-item bg-white p-2" ng-class="{'active-blue': showAttributes}"
                                 ng-click="showAttributes = true">
                                 Attributes
                             </li>
