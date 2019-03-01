@@ -1759,26 +1759,8 @@
                 <h3 class="h3-title text-center">Create Asset</h3>
 
                 <div class="row pt-2 pb-2">
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-primary btn-circle w32">1</button>
-                        <br>
-                        <span class="small-gray-text">Details</span>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-primary btn-circle w32">2</button>
-                        <br>
-                        <span class="small-gray-text">Attributes</span>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-white btn-circle w32">3</button>
-                        <br>
-                        <span class="small-gray-text">Review</span>
-                    </div>
-
-                    <div class="col-md-12">
-                        <span class="p-2 bg-assetcreate inline mt-3">
-                            Add attributes to your asset. These attributes can be edited at after the asset is created. (Optional)
-                        </span>
+                    <div class="col-md-12 text-center">
+                        <img src="images/createasset2.svg"/>
                     </div>
                 </div>
                 <section class="row form-group">
@@ -1868,22 +1850,9 @@
                 <h3 class="h3-title text-center">Create Asset</h3>
 
                 <div class="row pt-2 pb-2">
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-primary btn-circle w32">1</button>
-                        <br>
-                        <span class="small-gray-text">Details</span>
+                    <div class="col-md-12 text-center">
+                        <img src="images/createasset3.svg"/>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-primary btn-circle w32">2</button>
-                        <br>
-                        <span class="small-gray-text">Attributes</span>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-primary btn-circle w32">3</button>
-                        <br>
-                        <span class="small-gray-text">Review</span>
-                    </div>
-
                 </div>
 
                 <div class="col-md-12">
