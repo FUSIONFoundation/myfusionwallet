@@ -1697,16 +1697,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let assetBalance = '';
             let verifiedImage = '';
             let hasImage = false;
+            let verifiedAsset = false;
 
             for (let a in $scope.verifiedAssetsImages){
                 if ($scope.verifiedAssetsImages[a].assetID == id) {
                     // Set matched image name
                     verifiedImage = $scope.verifiedAssetsImages[a].image;
                     hasImage = true;
+                    verifiedAsset = true;
                 } else {
                     // Place to set empty icon
                     verifiedImage = '';
                     hasImage = false;
+                    verifiedAsset = false;
                 }
             }
 
@@ -1714,6 +1717,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
                 verifiedImage = 'EFSN_LIGHT.svg';
                 hasImage = true;
+                verifiedAsset = true;
             }
 
             await web3.fsn.getBalance(id, walletAddress).then(function (res) {
@@ -1744,7 +1748,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "canChange": assetList[asset]["CanChange"],
                     "image" : verifiedImage,
                     "hasImage" : hasImage,
-                    "description" : description
+                    "description" : description,
+                    "verified" : verifiedAsset
                 }
 
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
@@ -1774,9 +1779,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "canChange": assetList2[asset]["canChange"],
                 "image": assetList2[asset]["image"],
                 "hasImage": assetList2[asset]["hasImage"],
-                "description" : assetList2[asset]["description"]
+                "description" : assetList2[asset]["description"],
+                "verified" : assetList2[asset]["verified"]
 
-        }
+            }
             await assetList3.push(data);
         }
 
