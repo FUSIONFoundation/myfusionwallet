@@ -64,6 +64,8 @@
                             <td ng-click="manageAssetOpen(f)">
                                 <img ng-if="asset.hasImage"
                                      ng-src="images/verifiedassets/{{asset.image}}"/>
+                                <span   ng-if="!asset.hasImage"
+                                        class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                             </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
