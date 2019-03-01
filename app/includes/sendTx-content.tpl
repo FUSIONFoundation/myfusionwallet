@@ -1645,20 +1645,8 @@
                 <h3 class="h3-title text-center">Create Asset</h3>
 
                 <div class="row pt-2 pb-2">
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-primary btn-circle w32">1</button>
-                        <br>
-                        <span class="small-gray-text">Details</span>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-white btn-circle w32">2</button>
-                        <br>
-                        <span class="small-gray-text">Attributes</span>
-                    </div>
-                    <div class="col-md-4 text-center">
-                        <button class="btn btn-sm btn-white btn-circle w32">3</button>
-                        <br>
-                        <span class="small-gray-text">Review</span>
+                    <div class="col-md-12 text-center">
+                        <img src="images/createasset1.svg"/>
                     </div>
                 </div>
                 <section class="row form-group">
