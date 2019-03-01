@@ -1163,8 +1163,21 @@
                     <br>
                     <span style="font-size:11px;">{{manageAssetInfo.contractaddress}}</span>
                 </div>
-
-                <div class="col-md-12">
+                <nav class="nav-container inline">
+                    <div class="nav-scroll">
+                        <div class="nav-inner">
+                            <li class="nav-item" ng-class="{active: !showAttributes}"
+                                ng-click="showAttributes = false">
+                                Overview
+                            </li>
+                            <li class="nav-item" ng-class="{active: showAttributes}"
+                                ng-click="showAttributes = true">
+                                Attributes
+                            </li>
+                        </div>
+                    </div>
+                </nav>
+                <div class="col-md-12" ng-show="!showAttributes">
                     <section class="row form-group">
                         <div class="border-gray-bottom pb-3 pt-2 flow-root">
                             <div class="float-left">
@@ -1238,9 +1251,10 @@
                         </div>
                     </section>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12" ng-show="showAttributes">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2 flow-root" ng-repeat="(key,value) in manageAssetInfo.description">
+                        <div class="border-gray-bottom pb-3 pt-2 flow-root"
+                             ng-repeat="(key,value) in manageAssetInfo.description">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     {{key}}

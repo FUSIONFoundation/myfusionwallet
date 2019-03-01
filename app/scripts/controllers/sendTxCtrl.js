@@ -193,6 +193,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.manageAssetOpen = async function (id) {
         $scope.lastId = id;
+        $scope.showAttributes = false;
 
         $scope.manageAssetInfo = {
             "name": $scope.assetListOwns[id].name,
