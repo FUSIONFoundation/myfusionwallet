@@ -676,16 +676,19 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let verifiedImage = '';
                 let hasImage = false;
+                let verifiedAsset = false;
 
                 for (let a in $scope.verifiedAssetsImages){
                     if ($scope.verifiedAssetsImages[a].assetID == id) {
                         // Set matched image name
                         verifiedImage = $scope.verifiedAssetsImages[a].image;
                         hasImage = true;
+                        verifiedAsset = true;
                     } else {
                         // Place to set empty icon
                         verifiedImage = '';
                         hasImage = false;
+                        verifiedAsset = false;
                     }
                 }
 
@@ -693,6 +696,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
                     verifiedImage = 'EFSN_LIGHT.svg';
                     hasImage = true;
+                    verifiedAsset = true;
                 }
 
                 let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
@@ -707,7 +711,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "balance": assetBalance / divider,
                     "owner": owned,
                     "image": verifiedImage,
-                    "hasImage": hasImage
+                    "hasImage": hasImage,
+                    "verified" : verifiedAsset
                 }
                 await assetList2.push(data);
 
@@ -723,7 +728,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "balance": assetBalance / divider,
                         "owner": owned,
                         "image": verifiedImage,
-                        "hasImage": hasImage
+                        "hasImage": hasImage,
+                        "verified" : verifiedAsset
                     }
                     await assetListOwned.push(data);
                 }

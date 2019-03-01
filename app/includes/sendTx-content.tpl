@@ -69,8 +69,8 @@
                             </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                     ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                            class="fa fa-check-circle"></i> FSN Official</span> <br>
+                                                                     ng-show="asset.verified"><i
+                                            class="fa fa-check-circle"></i> Verified</span> <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
@@ -145,8 +145,8 @@
                                         class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                             </td>
                             <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                         ng-show="asset.asset === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                            class="fa fa-check-circle"></i> FSN Official</span>
+                                                                         ng-show="asset.verified"><i
+                                            class="fa fa-check-circle"></i> Verified</span>
                                 <br>
                                 <div class="max-char"><span class="small-gray-text" data-toggle="tooltip"
                                                             data-placement="top"
