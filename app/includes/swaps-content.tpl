@@ -88,8 +88,10 @@
                     <a ng-click="setSendAsset(asset.id)">
 
                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                            <img    ng-if="asset.hasImage"
-                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                            <img ng-if="asset.hasImage"
+                                 ng-src="images/verifiedassets/{{asset.image}}"/>
+                            <span   ng-if="!asset.hasImage"
+                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                         </div>
                         <div class="col">
                                 <span class="fusion-text-14">
@@ -150,8 +152,10 @@
                      ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
                     <a ng-click="setReceiveAsset(asset.id)">
                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                            <img    ng-if="asset.hasImage"
-                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                            <img ng-if="asset.hasImage"
+                                 ng-src="images/verifiedassets/{{asset.image}}"/>
+                            <span   ng-if="!asset.hasImage"
+                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                         </div>
                         <div class="col">
                                 <span class="fusion-text-14">
@@ -767,8 +771,10 @@
                                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                                     <a ng-click="setSendAsset(asset.id)">
                                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                            <img    ng-if="asset.hasImage"
-                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                            <img ng-if="asset.hasImage"
+                                                 ng-src="images/verifiedassets/{{asset.image}}"/>
+                                            <span   ng-if="!asset.hasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                                         </div>
                                         <div class="col">
                                 <span class="fusion-text-14">
@@ -876,8 +882,10 @@
                                      ng-repeat="asset in assetList | filter:searchReceiveAsset track by $index">
                                     <a ng-click="setReceiveAsset(asset.id)">
                                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                            <img    ng-if="asset.hasImage"
-                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                            <img ng-if="asset.hasImage"
+                                                 ng-src="images/verifiedassets/{{asset.image}}"/>
+                                            <span   ng-if="!asset.hasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                                         </div>
                                         <div class="col">
                                 <span class="fusion-text-14">
