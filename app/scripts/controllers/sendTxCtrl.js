@@ -1719,6 +1719,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             owner === walletAddress ? owned = 'Created' : owned = '';
 
+
             let description = {};
             try{
                description = JSON.parse(assetList[asset]["Description"]);
@@ -1770,7 +1771,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "canChange": assetList2[asset]["canChange"],
                 "image": assetList2[asset]["image"],
                 "hasImage": assetList2[asset]["hasImage"],
-                "description" : assetList2[asset]["Description"]
+                "description" : assetList2[asset]["description"]
 
         }
             await assetList3.push(data);
