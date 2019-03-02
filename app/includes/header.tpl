@@ -94,13 +94,13 @@
                             <img src="images/fsn-logo.svg" height="80px" width="125px" alt="MyFusionWallet"/>
                         </a>
                     </div>
-                    <div class="align-self-center p-2">
+                    <div class="align-self-center p-1">
                         <span class="hidden-xs text-fusion fusion-header-text"></span>
                     </div>
                     <span class="dropdown dropdown-node">
                         <a tabindex="0"
                            aria-haspopup="true"
-                           class="dropdown-toggle  btn btn-white text-16"
+                           class="dropdown-toggle  btn btn-white text-16 mr-2"
                            ng-click="dropdownMenu = !dropdownMenu">
                                        <img src="images/group-2-copy-4.svg"
                                             class="Group-2-Copy-4 Group-6">
@@ -162,21 +162,21 @@
                             </a>
                         </div>
                     </span>
-                    <div class="align-self-center">
+                    <div class="align-self-center hidden-xs">
                         <span class="badge badge-secondary text-fusion ml-4">2.00.00</span>
                     </div>
 
                     <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
-                    <div class="tagline hidden-xs">
-                        <a class="dropdown-toggle btn btn-gray m-3"
+                    <div class="tagline">
+                        <a class="dropdown-toggle btn btn-gray m-3 hidden-xs"
                            href="https://fusionnetworks.zendesk.com/hc/en-us/requests/new"
                            target="_blank">Feedback</a>
                         <div class="dropdown dropdown-node">
                         <a tabindex="0"
                            aria-haspopup="true"
                            class="dropdown-toggle  btn btn-white text-16"
+                           style="margin-top:3px"
                            ng-click="dropdownCustom = !dropdownCustom">
-
                         {{nodeName}}
                         </a>
                         <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom">
