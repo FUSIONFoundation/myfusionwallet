@@ -45,6 +45,7 @@ var etherUnits = require("./etherUnits");
 window.etherUnits = etherUnits;
 var ajaxReq = require("./ajaxReq");
 window.ajaxReq = ajaxReq;
+ajaxReq.type='ETH';
 var nodes = require("./nodes");
 window.nodes = nodes;
 var ethFuncs = require("./ethFuncs");

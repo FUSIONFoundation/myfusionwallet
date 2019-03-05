@@ -9,6 +9,7 @@ var footerCtrl = function($scope, globalService) {
         if (!$scope.showBlocks) return;
         ajaxReq.getCurrentBlock(function(data) { $scope.currentBlockNumber = data.data; });
     }
+    $scope.setBlockNumbers();
     $scope.globalService = globalService;
 
     $scope.curLang = globalFuncs.curLang;
