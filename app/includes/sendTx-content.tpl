@@ -759,6 +759,12 @@
                         </button>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-xs-12 clearfix">
+                        <span class="small-gray-text">Estimated Gas Price: 0.00002 FSN</span>
+                    </div>
+                </div>
             </article>
 
         </section>
