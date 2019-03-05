@@ -74,7 +74,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.returnAttributesJSON = function () {
         $scope.allAttributes = {};
         for (let u in $scope.attributename) {
-            if($scope.attributename[u] == ""){return};
+            if ($scope.attributename[u] == "") {
+                return
+            }
+            ;
             $scope.allAttributes[$scope.attributename[u].toString()] = $scope.attributevalue[u].toString();
         }
         return $scope.allAttributes;
@@ -131,6 +134,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         gasPrice: globalFuncs.urlGet('gasprice') == null ? null : globalFuncs.urlGet('gasprice'),
         donate: false,
         tokensymbol: globalFuncs.urlGet('tokensymbol') == null ? false : globalFuncs.urlGet('tokensymbol'),
+    }
+
+    $scope.checkDecimalsValue = function () {
+        if (parseInt($scope.assetCreate.decimals) > 15) {
+            $scope.$eval(function () {
+                $scope.assetCreate.decimals = 15
+            });
+        }
     }
 
     $scope.verifyWalletAddress = async function () {
@@ -204,7 +215,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (Validator.isJSON(description)) {
             description = $scope.assetListOwns[id].description;
         }
-        if(!Validator.isJSON(description) && hasUrlCondition) {
+        if (!Validator.isJSON(description) && hasUrlCondition) {
             description = {
                 "URL": $scope.assetListOwns[id].description.toString()
             }
@@ -1344,9 +1355,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.createAssetModal.open();
     }
 
-    $scope.createAssetReviewOpen = function (){
-        if(Object.keys($scope.allAttributes).length == 0){$scope.showAttributesTab = false;}
-        else {$scope.showAttributesTab = true};
+    $scope.createAssetReviewOpen = function () {
+        if (Object.keys($scope.allAttributes).length == 0) {
+            $scope.showAttributesTab = false;
+        }
+        else {
+            $scope.showAttributesTab = true
+        }
+        ;
         $scope.createAssetReview.open();
     }
 

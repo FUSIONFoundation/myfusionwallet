@@ -1685,9 +1685,9 @@
                         </span>
                         <input type="number"
                                min="0"
-                               max="15"
                                class="form-control"
                                ng-model="assetCreate.decimals"
+                               ng-change="checkDecimalsValue()"
                                placeholder="Up to 15 Decimal Points"/>
 
                     </div>
