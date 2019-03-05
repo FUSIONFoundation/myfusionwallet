@@ -99,28 +99,17 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
     $scope.gasChanged();
 
     function makeNewNode(key) {
-        var curNode;
         if ($scope.nodeList[key]) {
-            curNode = $scope.nodeList[key];
         } else {
-            curNode = $scope.nodeList[$scope.defaultNodeKey];
         }
-        return curNode;
     }
 
     var networkHasChanged = false;
     $scope.changeNode = function (key) {
         var newNode = makeNewNode(key);
         if (!$scope.curNode) {
-            networkHasChanged = false;
-            $scope.curNode = newNode;
+
         } else {
-            if ($scope.curNode.type !== newNode.type) {
-                networkHasChanged = true;
-            } else {
-                networkHasChanged = false;
-            }
-            $scope.curNode = newNode;
         }
 
 
@@ -173,7 +162,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         }, 250);
     };
     $scope.checkNodeUrl = function (nodeUrl) {
-        return $scope.Validator.isValidURL(nodeUrl);
+        // return $scope.Validator.isValidURL(nodeUrl);
     };
     $scope.setCurNodeFromStorage = function () {
         var node = globalFuncs.localStorage.getItem('curNode', null);
@@ -224,8 +213,8 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             for (var i = 0; i < localNodes.length; i++) $scope.addCustomNodeToList(localNodes[i]);
         }
     };
-    $scope.getCustomNodesFromStorage();
-    $scope.setCurNodeFromStorage();
+    // $scope.getCustomNodesFromStorage();
+    // $scope.setCurNodeFromStorage();
 
     $scope.saveCustomNode = function () {
         try {
