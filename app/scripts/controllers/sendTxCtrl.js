@@ -170,7 +170,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await web3.fsn.getAddressByNotation(parseInt(address)).then(function (res) {
                     console.log(res);
                 })
-                $scope.$eval(function () {
+                $scope.$apply(function () {
                     $scope.walletAddressError = false;
                     $scope.validWalletAddress = true;
                     $scope.checkingUSAN = false;
