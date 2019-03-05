@@ -1190,8 +1190,7 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-                                         title="gagaga">
+                                   <span class="fusion-text-14">
                                        {{manageAssetInfo.total}}
                                    </span>
                                 <br>
