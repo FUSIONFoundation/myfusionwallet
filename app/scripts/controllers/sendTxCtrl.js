@@ -56,7 +56,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
 
         $scope.totalAttributes.push(max + 1);
-        console.log($scope.totalAttributes)
+        $scope.checkAllAttributesLength()
         return;
     }
 
@@ -68,6 +68,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let filtered = $scope.totalAttributes.filter(item => item !== max);
         $scope.totalAttributes = filtered;
         console.log($scope.totalAttributes)
+        $scope.checkAllAttributesLength();
         return;
     }
 
@@ -76,8 +77,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         for (let u in $scope.attributename) {
             if ($scope.attributename[u] == "") {
                 return
-            }
-            ;
+            };
             $scope.allAttributes[$scope.attributename[u].toString()] = $scope.attributevalue[u].toString();
         }
         return $scope.allAttributes;
@@ -142,6 +142,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetCreate.decimals = 15
             });
         }
+    }
+
+    $scope.checkAllAttributesLength = function (){
+        $scope.returnAttributesJSON();
+        if($scope.allAttributes == {}){return;}
+
+        // Get how many fields there are since each attribute field consumes 7 chars
+        let maxChars = 1024;
+        let reservedChars = $scope.totalAttributes.length * 7;
+        $scope.usableChars = maxChars - reservedChars;
+
+        let a = JSON.stringify($scope.allAttributes);
+        $scope.usedChars = a.length;
+        let percentage = $scope.usedChars / $scope.usableChars;
+        if(percentage > 0.75){
+            $scope.$eval(function(){
+                $scope.showMaxCharacters = true
+            })
+        } else{$scope.$eval(function(){$scope.showMaxCharacters = false})};
     }
 
     $scope.verifyWalletAddress = async function () {

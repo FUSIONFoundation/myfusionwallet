@@ -759,7 +759,7 @@
                         </button>
                     </div>
                 </div>
-
+                <br>
                 <div class="row">
                     <div class="col-xs-12 clearfix">
                         <span class="small-gray-text">Estimated Gas Price: 0.00002 FSN</span>
@@ -1793,6 +1793,7 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="attributename[attribute]"
+                                   ng-change="checkAllAttributesLength()"
                                    placeholder="Enter an attribute"/>
 
                         </div>
@@ -1800,6 +1801,7 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="attributevalue[attribute]"
+                                   ng-change="checkAllAttributesLength()"
                                    placeholder="Enter an attribute value"/>
                         </div>
                     </div>
@@ -1813,6 +1815,12 @@
                             <a class="invalid-feedback"
                                ng-click="removeAttribute()"
                             >- Remove Last Attribute</a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2" ng-show="showMaxCharacters">
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                {{usedChars}}/{{usableChars}} total characters used
                         </div>
                     </div>
                 </section>
