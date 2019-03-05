@@ -50,19 +50,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.allAttributes = {};
 
 
-    $scope.addAttribute = function (){
-        let max = $scope.totalAttributes.reduce(function(a, b) {
+    $scope.addAttribute = function () {
+        let max = $scope.totalAttributes.reduce(function (a, b) {
             return Math.max(a, b);
         });
 
-        $scope.totalAttributes.push(max+1);
+        $scope.totalAttributes.push(max + 1);
         console.log($scope.totalAttributes)
         return;
     }
 
-    $scope.removeAttribute = function (){
-        if($scope.totalAttributes.length == 1) return;
-        let max = $scope.totalAttributes.reduce(function(a, b) {
+    $scope.removeAttribute = function () {
+        if ($scope.totalAttributes.length == 1) return;
+        let max = $scope.totalAttributes.reduce(function (a, b) {
             return Math.max(a, b);
         });
         let filtered = $scope.totalAttributes.filter(item => item !== max);
@@ -73,10 +73,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.returnAttributesJSON = function () {
         $scope.allAttributes = {};
-        for (let u in $scope.attributename){
+        for (let u in $scope.attributename) {
+            if($scope.attributename[u] == ""){return};
             $scope.allAttributes[$scope.attributename[u].toString()] = $scope.attributevalue[u].toString();
         }
-
         return $scope.allAttributes;
     }
 
@@ -195,7 +195,22 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.lastId = id;
         $scope.showAttributes = false;
 
-        $scope.$eval(function(){
+        let description = $scope.assetListOwns[id].description;
+
+        let urlconditions = ["http://", "https://", "ws://"];
+
+        let hasUrlCondition = urlconditions.some(el => $scope.assetListOwns[id].description.toString().includes(el));
+
+        if (Validator.isJSON(description)) {
+            description = $scope.assetListOwns[id].description;
+        }
+        if(!Validator.isJSON(description) && hasUrlCondition) {
+            description = {
+                "URL": $scope.assetListOwns[id].description.toString()
+            }
+        }
+
+        $scope.$eval(function () {
             $scope.manageAssetInfo = {
                 "name": $scope.assetListOwns[id].name,
                 "symbol": $scope.assetListOwns[id].symbol,
@@ -208,7 +223,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "issuer": $scope.assetListOwns[id].issuer,
                 "image": $scope.assetListOwns[id].image,
                 "hasImage": $scope.assetListOwns[id].hasImage,
-                "description" : $scope.assetListOwns[id].description,
+                "description": description,
             };
         })
         $scope.manageAsset.open();
@@ -219,7 +234,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             await ajaxReq.http.get('https://api.fusionnetwork.io/assets/verified').then(function (r) {
                 $scope.verifiedAssetsImages = r.data;
             })
-        } catch (err) { return; }
+        } catch (err) {
+            return;
+        }
     }
 
     $scope.getVerifiedAssets();
@@ -228,9 +245,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.changeSupplyOpen = async function (id) {
         if (id === undefined || id == "") {
             id = $scope.lastId
-        };
+        }
+        ;
 
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.newTotalSupply = $scope.assetListOwns[id].total;
             $scope.transacData = '';
         })
@@ -250,7 +268,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             "image": $scope.assetListOwns[$scope.lastId].image,
             "hasImage": $scope.assetListOwns[$scope.lastId].hasImage,
             "distributed": distributed,
-            "txhash" : ""
+            "txhash": ""
         };
 
         $scope.changeSupply.open();
@@ -266,7 +284,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } else {
             $scope.incDecr = '';
             $scope.changeSupplyState = 'decrement';
-        };
+        }
+        ;
         let diff = newts - total;
 
         $scope.$eval(function () {
@@ -276,7 +295,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.changeSupplyReview.open();
     }
 
-    $scope.changeSupplyTx = async function(){
+    $scope.changeSupplyTx = async function () {
         let asset = $scope.assetListOwns[$scope.lastId];
 
         let accountData = uiFuncs.getTxData($scope);
@@ -287,7 +306,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
 
-        if($scope.changeSupplyState == 'increment'){
+        if ($scope.changeSupplyState == 'increment') {
             // Get New Total Supply, create BN and create Hexadecimal
             let bal = $scope.newTotalSupply - $scope.assetListOwns[$scope.lastId].total;
             let newtotalSupplyString = bal.toString();
@@ -295,11 +314,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
 
             let data = {
-                "asset" : asset.contractaddress,
-                "from" : walletAddress,
-                "to" : walletAddress,
-                "value" : newtotalSupplyBNHex,
-                "transacData" : $scope.transacData
+                "asset": asset.contractaddress,
+                "from": walletAddress,
+                "to": walletAddress,
+                "value": newtotalSupplyBNHex,
+                "transacData": $scope.transacData
             }
             try {
                 await web3.fsntx.buildIncAssetTx(data).then((tx) => {
@@ -310,7 +329,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             console.log(txHash);
-                            $scope.$apply(function(){
+                            $scope.$apply(function () {
                                 $scope.changeSupplyInfo.txhash = txHash;
                             })
                             $scope.changeSupplySuccess.open();
@@ -322,7 +341,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.errorModal.open();
             }
         }
-        if($scope.changeSupplyState == 'decrement'){
+        if ($scope.changeSupplyState == 'decrement') {
             // Get New Total Supply, create BN and create Hexadecimal
             let bal = $scope.assetListOwns[$scope.lastId].total - $scope.newTotalSupply;
             let newtotalSupplyString = bal.toString();
@@ -330,11 +349,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
 
             let data = {
-                "asset" : asset.contractaddress,
-                "from" : walletAddress,
-                "to" : walletAddress,
-                "value" : newtotalSupplyBNHex,
-                "transacData" : $scope.transacData
+                "asset": asset.contractaddress,
+                "from": walletAddress,
+                "to": walletAddress,
+                "value": newtotalSupplyBNHex,
+                "transacData": $scope.transacData
             }
             try {
                 await web3.fsntx.buildDecAssetTx(data).then((tx) => {
@@ -345,7 +364,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     } else {
                         return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
                             console.log(txHash)
-                            $scope.$apply(function(){
+                            $scope.$apply(function () {
                                 $scope.changeSupplyInfo.txhash = txHash;
                             })
                             $scope.changeSupplySuccess.open();
@@ -398,7 +417,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         delete oldTx.signedTx;
                         web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                             console.log(txHash);
-                            $scope.$apply(function(){
+                            $scope.$apply(function () {
                                 $scope.changeSupplyInfo.txhash = txHash;
                             })
                             $scope.changeSupplySuccess.open();
@@ -1325,6 +1344,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.createAssetModal.open();
     }
 
+    $scope.createAssetReviewOpen = function (){
+        if(Object.keys($scope.allAttributes).length == 0){$scope.showAttributesTab = false;}
+        else {$scope.showAttributesTab = true};
+        $scope.createAssetReview.open();
+    }
+
     $scope.createAsset = async function () {
         $scope.$eval(function () {
             $scope.assetCreate.errorMessage = '';
@@ -1517,7 +1542,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let verifiedImage = '';
             let hasImage = false;
 
-            for (let a in $scope.verifiedAssetsImages){
+            for (let a in $scope.verifiedAssetsImages) {
                 if ($scope.verifiedAssetsImages[a].assetID == assetId[x]) {
                     // Set matched image name
                     verifiedImage = $scope.verifiedAssetsImages[a].image;
@@ -1530,7 +1555,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             // Set FSN icon for PSN as well
-            if (assetId[x] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
+            if (assetId[x] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
                 verifiedImage = 'EFSN_LIGHT.svg';
                 hasImage = true;
             }
@@ -1596,8 +1621,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "posixEndTime": endTimePosix,
                     "rawValue": timeLockList[asset]["Items"][i]["Value"],
                     "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
-                    "image" : verifiedImage,
-                    "hasImage" : hasImage
+                    "image": verifiedImage,
+                    "hasImage": hasImage
                 }
 
                 if (status == 'Active') {
@@ -1698,7 +1723,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let hasImage = false;
             let verifiedAsset = false;
 
-            for (let a in $scope.verifiedAssetsImages){
+            for (let a in $scope.verifiedAssetsImages) {
                 if ($scope.verifiedAssetsImages[a].assetID == id) {
                     // Set matched image name
                     verifiedImage = $scope.verifiedAssetsImages[a].image;
@@ -1713,7 +1738,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             // Set FSN icon for PSN as well
-            if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'){
+            if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
                 verifiedImage = 'EFSN_LIGHT.svg';
                 hasImage = true;
                 verifiedAsset = true;
@@ -1727,9 +1752,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
             let description = {};
-            try{
-               description = JSON.parse(assetList[asset]["Description"]);
-            } catch (err){
+            try {
+                description = JSON.parse(assetList[asset]["Description"]);
+            } catch (err) {
                 description = assetList[asset]["Description"];
             }
 
@@ -1745,10 +1770,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "owner": owned,
                     "issuer": owner,
                     "canChange": assetList[asset]["CanChange"],
-                    "image" : verifiedImage,
-                    "hasImage" : hasImage,
-                    "description" : description,
-                    "verified" : verifiedAsset
+                    "image": verifiedImage,
+                    "hasImage": hasImage,
+                    "description": description,
+                    "verified": verifiedAsset
                 }
 
                 if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
@@ -1778,8 +1803,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "canChange": assetList2[asset]["canChange"],
                 "image": assetList2[asset]["image"],
                 "hasImage": assetList2[asset]["hasImage"],
-                "description" : assetList2[asset]["description"],
-                "verified" : assetList2[asset]["verified"]
+                "description": assetList2[asset]["description"],
+                "verified": assetList2[asset]["verified"]
 
             }
             await assetList3.push(data);

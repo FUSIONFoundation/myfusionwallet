@@ -1822,7 +1822,7 @@
                         <button class="btn btn-primary btn-block"
                                 ng-disabled="assetCreate.totalSupply <= 0"
                                 ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
-                                ng-click="returnAttributesJSON();createAssetReview.open()">
+                                ng-click="returnAttributesJSON();createAssetReviewOpen()">
                             Review
                         </button>
                     </div>
@@ -1908,7 +1908,7 @@
                             <br>
                         </div>
 
-                        <div class="pb-2 pt-2" ng-show="allAttributes !== {}">
+                        <div class="pb-2 pt-2" ng-show="showAttributesTab">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Attributes
@@ -2052,7 +2052,7 @@
                             <br>
                         </div>
 
-                        <div class="pb-2 pt-2" ng-show="allAttributes !== {}">
+                        <div class="pb-2 pt-2" ng-show="showAttributesTab">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Attributes
