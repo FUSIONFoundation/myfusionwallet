@@ -1814,7 +1814,7 @@
                 <div class="row form-group">
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-white btn-block"
-                           ng-click="createAssetAttributes.close();createAsset.open();">
+                           ng-click="createAssetModal.open();">
                             Cancel
                         </a>
                     </div>
