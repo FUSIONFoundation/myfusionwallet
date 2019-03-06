@@ -1439,15 +1439,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             decimals: decimals,
             total: totalSupplyBNHex,
             description: JSON.stringify($scope.allAttributes),
-            canChange: $scope.assetCreate.canChange
+            canChange: $scope.assetCreate.canChange,
         };
-
-        console.log(data);
 
         try {
             await web3.fsntx.buildGenAssetTx(data).then((tx) => {
                 tx.chainId = _CHAINID;
+                // tx.gasPrice = web3.utils.toWei(new web3.utils.BN(80), "gwei");
                 data = tx;
+                console.log(tx);
                 if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                     return;
                 } else {

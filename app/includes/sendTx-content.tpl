@@ -1829,7 +1829,7 @@
                     <div class="col-md-6 col-xs-12 clearfix">
                         <a class="btn btn-white btn-block"
                            ng-click="createAssetModal.open();">
-                            Cancel
+                            Back
                         </a>
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
