@@ -1277,6 +1277,11 @@
                             </div>
                             <br>
                         </div>
+                        <div class="col-md-12" ng-show="showNoAvailableAttributes">
+                            <div class="warn alert-yellow text-center p-4 inline w-100 mt-2 gray-bg">
+                                <span class="small-gray-text">This asset doesn’t have any attributes.</span>
+                            </div>
+                        </div>
                     </section>
                 </div>
 

@@ -240,6 +240,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
+        console.log($scope.assetListOwns[id].description);
+
+        if($scope.assetListOwns[id].description == {} || $scope.assetListOwns[id] == '{"": ""}'){
+            $scope.$eval(function(){
+                $scope.showNoAvailableAttributes = true;
+            })
+        } else {
+            $scope.$eval(function(){
+                $scope.showNoAvailableAttributes = false;
+            })
+        }
+
         $scope.$eval(function () {
             $scope.manageAssetInfo = {
                 "name": $scope.assetListOwns[id].name,
@@ -314,8 +326,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } else {
             $scope.incDecr = '';
             $scope.changeSupplyState = 'decrement';
-        }
-        ;
+        };
         let diff = newts - total;
 
         $scope.$eval(function () {
