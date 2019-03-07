@@ -614,7 +614,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.checkDate = function () {
         let today = new Date();
-        debugger
         if ($scope.sendAsset.tillTime < today) {
             $scope.$eval(function () {
                 $scope.sendAsset.tillTime = today;
@@ -641,6 +640,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.sendAsset.fromTime = today;
                 })
             }
+        }
+    }
+
+    $scope.checkTotalSupply = function (){
+        let reg = new RegExp('^\\d+$');
+        if (!reg.test($scope.assetCreate.totalSupply)) {
+            $scope.$eval(function(){$scope.assetCreate.totalSupply = ''});
+            return;
+        }
+        let a = new BN($scope.assetCreate.totalSupply.toString());
+        if(a.toString() > "100000000000000000"){
+            $scope.$eval(function(){
+                $scope.assetCreate.totalSupply = 99999999999999999;
+            })
         }
     }
 
