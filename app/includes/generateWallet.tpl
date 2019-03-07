@@ -147,7 +147,7 @@
 
             <br/>
 
-            <a class="btn btn-primary w-100 mt-2 mb-1" ng-click="window.location.reload();" href="#">
+            <a class="btn btn-primary w-100 mt-2 mb-1" href="./index.html#send-transaction">
                 <span>Access My Wallet</span>
             </a>
 
