@@ -327,20 +327,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.changeSupplyReviewOpen = function () {
-        let total = $scope.assetListOwns[$scope.lastId].total;
-        let newts = $scope.newTotalSupply;
+        let totalBN = new BigNumber ($scope.assetListOwns[$scope.lastId].total);
+        let newtsBN = new BigNumber ($scope.newTotalSupply.toString());
 
-        if (newts > total) {
+        if (newtsBN > totalBN) {
             $scope.incDecr = '+'
             $scope.changeSupplyState = 'increment';
         } else {
             $scope.incDecr = '';
             $scope.changeSupplyState = 'decrement';
         };
-        let diff = newts - total;
+        let diffBN = newtsBN.sub(totalBN);
 
         $scope.$eval(function () {
-            $scope.totalSupplyDiff = $scope.incDecr + diff;
+            $scope.totalSupplyDiff = $scope.incDecr + diffBN.toString();
         })
 
         $scope.changeSupplyReview.open();
