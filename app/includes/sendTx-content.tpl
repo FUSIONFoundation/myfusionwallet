@@ -1778,6 +1778,11 @@
                         <img src="images/createasset2.svg"/>
                     </div>
                 </div>
+                <div class="col-md-12 p-0">
+                    <div class="warn alert-blue text-left p-2 inline w-100 mt-2 mb-2">
+                        Add attributes to your asset. These attributes can be edited at after the asset is created. (Optional)
+                    </div>
+                </div>
                 <section class="row form-group">
                     <div>
                         <div class="col-sm-6 clearfix">
