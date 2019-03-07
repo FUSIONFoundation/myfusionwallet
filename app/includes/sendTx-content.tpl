@@ -1823,9 +1823,14 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2" ng-show="showMaxCharacters">
+                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2"
+                             ng-show="showMaxCharacters">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                 {{usedChars}}/{{usableChars}} total characters used
+                        </div>
+                        <div class="warn alert-red-error text-left p-2 inline w-100 mt-2" ng-show="usedChars >= usableChars">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                            {{usedChars}}/{{usableChars}} total characters used
                         </div>
                     </div>
                 </section>

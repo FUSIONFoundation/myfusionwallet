@@ -511,7 +511,7 @@
 
             <br/>
 
-            <a class="btn btn-primary w-100 mt-2 mb-1" ng-click="window.location.reload();" href="#">
+            <a class="btn btn-primary w-100 mt-2 mb-1" href="./index.html#send-transaction">
                 <span>Access My Wallet</span>
             </a>
 
@@ -2526,9 +2526,14 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2" ng-show="showMaxCharacters">
+                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2"
+                             ng-show="showMaxCharacters">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                 {{usedChars}}/{{usableChars}} total characters used
+                        </div>
+                        <div class="warn alert-red-error text-left p-2 inline w-100 mt-2" ng-show="usedChars >= usableChars">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                            {{usedChars}}/{{usableChars}} total characters used
                         </div>
                     </div>
                 </section>
@@ -5095,9 +5100,14 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2" ng-show="showMaxCharacters">
+                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2"
+                             ng-show="showMaxCharacters">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                 {{usedChars}}/{{usableChars}} total characters used
+                        </div>
+                        <div class="warn alert-red-error text-left p-2 inline w-100 mt-2" ng-show="usedChars >= usableChars">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                            {{usedChars}}/{{usableChars}} total characters used
                         </div>
                     </div>
                 </section>
@@ -7556,8 +7566,8 @@
                 <div class="float-left w-75">
                     <a>
                         <div class="col-md-2 p-0" ng-if="selectedSendHasImage">
-                            <img    ng-if="selectedSendHasImage"
-                                    ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                            <img ng-if="selectedSendHasImage"
+                                 ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                         </div>
                         <div class="col">
                             {{selectedSendAsset}} <span
@@ -7587,8 +7597,8 @@
                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
                             <img ng-if="asset.hasImage"
                                  ng-src="images/verifiedassets/{{asset.image}}"/>
-                            <span   ng-if="!asset.hasImage"
-                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                            <span ng-if="!asset.hasImage"
+                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                         </div>
                         <div class="col">
                                 <span class="fusion-text-14">
@@ -7621,16 +7631,16 @@
                 <div class="float-left w-75">
                     <a>
                         <div class="col-md-2 p-0" ng-if="selectedReceiveHasImage">
-                            <img    ng-if="selectedReceiveHasImage"
-                                    ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                            <img ng-if="selectedReceiveHasImage"
+                                 ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                         </div>
-                    <div class="col">
-                        {{selectedReceiveAsset}} <span
-                                class="color-Active official-fusion-badge"
-                                ng-show="selectedReceiveContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                    class="fa fa-check-circle"></i> Verified</span>
-                        <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
-                    </div>
+                        <div class="col">
+                            {{selectedReceiveAsset}} <span
+                                    class="color-Active official-fusion-badge"
+                                    ng-show="selectedReceiveContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                        class="fa fa-check-circle"></i> Verified</span>
+                            <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
+                        </div>
                     </a>
                 </div>
                 <div class="float-right text-right">
@@ -7651,8 +7661,8 @@
                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
                             <img ng-if="asset.hasImage"
                                  ng-src="images/verifiedassets/{{asset.image}}"/>
-                            <span   ng-if="!asset.hasImage"
-                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                            <span ng-if="!asset.hasImage"
+                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                         </div>
                         <div class="col">
                                 <span class="fusion-text-14">
@@ -8270,8 +8280,8 @@
                                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
                                             <img ng-if="asset.hasImage"
                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
-                                            <span   ng-if="!asset.hasImage"
-                                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                            <span ng-if="!asset.hasImage"
+                                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                                         </div>
                                         <div class="col">
                                 <span class="fusion-text-14">
@@ -8381,8 +8391,8 @@
                                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
                                             <img ng-if="asset.hasImage"
                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
-                                            <span   ng-if="!asset.hasImage"
-                                                    class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                            <span ng-if="!asset.hasImage"
+                                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                                         </div>
                                         <div class="col">
                                 <span class="fusion-text-14">
@@ -8533,22 +8543,24 @@
                     </div>
                     <div class="col-md-12 p-0">
                         <div class="col-md-5 p-0">
-                            <div class="float-left"><span class="small-gray-text">
-                           Minimum Send
-                        </span></div>
+                            <div class="float-left">
+                                <span class="small-gray-text">
+                                    Minimum Send
+                                </span>
+                            </div>
                             <div class="float-right">
                                 <span class="small-gray-text">
-                           Minimum Receive
-                        </span>
+                                    Minimum Receive
+                                </span>
                             </div>
                             <br>
-                            <div class="col-md-12 mt-2 mb-2 p-0 text-center">
+                            <div class="flex-row mt-2 mb-2 p-0 text-center">
                                 <div class="gray-bg p-2 fusion-text-14">
-                                    <div class="float-left"><strong
+                                    <div class="float-left flex-column"><strong
                                                 class="font-size-16">{{minimumMakeSend}}</strong> {{selectedSendAssetSymbol}}
                                     </div>
                                     :
-                                    <div class="float-right">
+                                    <div class="float-right flex-column">
                                         <strong class="font-size-16">{{minimumReceiveSend}}</strong> {{selectedReceiveAssetSymbol}}
                                     </div>
                                 </div>
@@ -12220,9 +12232,14 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2" ng-show="showMaxCharacters">
+                        <div class="warn alert-yellow text-left p-2 inline w-100 mt-2"
+                             ng-show="showMaxCharacters">
                                 <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                 {{usedChars}}/{{usableChars}} total characters used
+                        </div>
+                        <div class="warn alert-red-error text-left p-2 inline w-100 mt-2" ng-show="usedChars >= usableChars">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                            {{usedChars}}/{{usableChars}} total characters used
                         </div>
                     </div>
                 </section>

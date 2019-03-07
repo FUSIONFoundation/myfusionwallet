@@ -137,10 +137,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.checkDecimalsValue = function () {
+        if($scope.assetCreate.decimals == ''){return;}
+        let reg = new RegExp('^\\d+$');
+        if (!reg.test($scope.assetCreate.decimals)) {
+            $scope.$eval(function(){$scope.assetCreate.decimals = ''});
+            return;
+        }
+
         if (parseInt($scope.assetCreate.decimals) > 15) {
-            $scope.$eval(function () {
-                $scope.assetCreate.decimals = 15
-            });
+            $scope.$eval(function () { $scope.assetCreate.decimals = 15 });
+            return;
+        }
+        if (parseInt($scope.assetCreate.decimals) < 1) {
+            $scope.$eval(function () { $scope.assetCreate.decimals = 1 });
+            return;
         }
     }
 
@@ -156,7 +166,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let a = JSON.stringify($scope.allAttributes);
         $scope.usedChars = a.length;
         let percentage = $scope.usedChars / $scope.usableChars;
-        if(percentage > 0.75){
+        if(percentage > 0.75 && percentage < 1){
             $scope.$eval(function(){
                 $scope.showMaxCharacters = true
             })
@@ -378,7 +388,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                 });
             } catch (err) {
-                console.log(err);
+                console.log("buildIncAssetTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -413,7 +423,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                 });
             } catch (err) {
-                console.log(err);
+                console.log("buildDecAssetTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -898,6 +908,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             });
         } catch (err) {
+            console.log("buildTimeLockToAssetTx", err);
             $scope.errorModal.open();
         }
 
@@ -1046,7 +1057,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 });
             } catch (err) {
-                console.log(err);
+                console.log("buildSendAssetTx", err);
                 $scope.errorModal.open();
             }
 
@@ -1090,6 +1101,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 });
             } catch (err) {
+                console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -1127,6 +1139,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 });
             } catch (err) {
+                console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -1306,6 +1319,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             });
         } catch (err) {
+            console.log("buildTimeLockToTimeLockTx", err);
             $scope.errorModal.open();
         }
 
@@ -1369,6 +1383,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.createAssetInit = function () {
+        let a = $scope.totalAttributes.length;
+        for(let b in a){
+            $scope.$eval(function(){
+                $scope.attributename[b] = '';
+                $scope.attributevalue[b] = '';
+            })
+        }
         $scope.$eval(function () {
             $scope.assetCreate.canChange = false;
             $scope.assetCreate.assetName = '';
@@ -1472,7 +1493,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             });
         } catch (err) {
-            console.log(err);
+            console.log("buildGenAssetTx", err);
             $scope.errorModal.open();
         }
 
