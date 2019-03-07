@@ -1379,6 +1379,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.createAssetInit = function () {
+        let a = $scope.totalAttributes.length;
+        for(let b in a){
+            $scope.$eval(function(){
+                $scope.attributename[b] = '';
+                $scope.attributevalue[b] = '';
+            })
+        }
         $scope.$eval(function () {
             $scope.assetCreate.canChange = false;
             $scope.assetCreate.assetName = '';
