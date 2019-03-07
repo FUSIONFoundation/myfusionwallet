@@ -166,7 +166,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let a = JSON.stringify($scope.allAttributes);
         $scope.usedChars = a.length;
         let percentage = $scope.usedChars / $scope.usableChars;
-        if(percentage > 0.75){
+        if(percentage > 0.75 && percentage < 1){
             $scope.$eval(function(){
                 $scope.showMaxCharacters = true
             })
