@@ -388,7 +388,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                 });
             } catch (err) {
-                console.log(err);
+                console.log("buildIncAssetTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -423,7 +423,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                 });
             } catch (err) {
-                console.log(err);
+                console.log("buildDecAssetTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -908,6 +908,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             });
         } catch (err) {
+            console.log("buildTimeLockToAssetTx", err);
             $scope.errorModal.open();
         }
 
@@ -1056,7 +1057,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 });
             } catch (err) {
-                console.log(err);
+                console.log("buildSendAssetTx", err);
                 $scope.errorModal.open();
             }
 
@@ -1100,6 +1101,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 });
             } catch (err) {
+                console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -1137,6 +1139,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 });
             } catch (err) {
+                console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
             }
         }
@@ -1316,6 +1319,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             });
         } catch (err) {
+            console.log("buildTimeLockToTimeLockTx", err);
             $scope.errorModal.open();
         }
 
@@ -1489,7 +1493,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             });
         } catch (err) {
-            console.log(err);
+            console.log("buildGenAssetTx", err);
             $scope.errorModal.open();
         }
 
