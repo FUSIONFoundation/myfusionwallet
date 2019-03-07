@@ -644,9 +644,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.checkTotalSupply = function (){
-        let reg = new RegExp('^\\d+$');
-        if (!reg.test($scope.assetCreate.totalSupply)) {
-            $scope.$eval(function(){$scope.assetCreate.totalSupply = ''});
+        if(parseInt($scope.assetCreate.totalSupply) < 100000000000000000){
             return;
         }
         let a = new BN($scope.assetCreate.totalSupply.toString());
