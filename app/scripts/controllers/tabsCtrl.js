@@ -111,6 +111,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
         } else {
         }
+        }
 
 
         $scope.setNodeUrl = function () {
@@ -129,29 +130,6 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             window.location.reload();
         }
 
-
-        $scope.dropdownNode = false;
-        Token.popTokens = $scope.curNode.tokenList;
-        ajaxReq['key'] = key;
-        for (var attrname in $scope.curNode.lib) ajaxReq[attrname] = $scope.curNode.lib[attrname];
-        for (var attrname in $scope.curNode)
-            if (attrname != 'name' && attrname != 'tokenList' && attrname != 'lib')
-                ajaxReq[attrname] = $scope.curNode[attrname];
-        globalFuncs.localStorage.setItem('curNode', JSON.stringify({
-            key: key
-        }));
-        if (nodes.ensNodeTypes.indexOf($scope.curNode.type) == -1) $scope.tabNames.ens.cx = $scope.tabNames.ens.mew = false;
-        if (nodes.domainsaleNodeTypes.indexOf($scope.curNode.type) == -1) $scope.tabNames.domainsale.cx = $scope.tabNames.domainsale.mew = false;
-        else $scope.tabNames.ens.cx = $scope.tabNames.ens.mew = true;
-        ajaxReq.getCurrentBlock(function (data) {
-            if (data.error) {
-                $scope.nodeIsConnected = false;
-                // $scope.notifier.danger(globalFuncs.errorMsgs[32]);
-            } else {
-                $scope.nodeIsConnected = true;
-                // $scope.notifier.info(globalFuncs.successMsgs[5] + '<br /> URL: <strong>' + globalFuncs.stripTags(window.location.href) + '</strong> <br /> Network: <strong>' + $scope.nodeType + ' </strong> provided by <strong>' + $scope.nodeService + '</strong>', 10000);
-            }
-        });
         networkHasChanged && window.setTimeout(function () {
             if (window.location.search.length > 0) {
                 window.location = window.location.href.replace(window.location.search, '');
@@ -160,7 +138,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             }
 
         }, 250);
-    };
+
     $scope.checkNodeUrl = function (nodeUrl) {
         // return $scope.Validator.isValidURL(nodeUrl);
     };
