@@ -996,7 +996,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             console.log('error');
             // error message
             return
-        } else if (pieces[1].length >= d) {
+        } else if (pieces[1].length > d) {
             console.log('error');
             return // error
         } else {
@@ -1015,7 +1015,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 // error message
                 return
             }
-            amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
+            amount = new BigNumber(amount + dec + "0".repeat(parseInt(declen)));
         }
         return amount;
     }
