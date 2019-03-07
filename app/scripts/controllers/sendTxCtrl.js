@@ -149,7 +149,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         }
         if (parseInt($scope.assetCreate.decimals) < 1) {
-            $scope.$eval(function () { $scope.assetCreate.decimals = 1 });
+            $scope.$eval(function () { $scope.assetCreate.decimals = 0 });
             return;
         }
     }
