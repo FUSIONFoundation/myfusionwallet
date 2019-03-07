@@ -651,6 +651,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let assetBalance = '';
         let decimals = '';
 
+        $scope.$eval(function(){
+            $scope.walletAddressError = false;
+            $scope.validWalletAddress = false;
+            $scope.checkingUSAN = false;
+        })
+
         if (!id && !timelockonly) {
             $scope.$eval(function () {
                 $scope.sendAsset.fromTime = '';
@@ -1401,7 +1407,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.allAttributes = {};
             $scope.attributename[0] = '';
             $scope.attributevalue[0] = '';
-
         })
         $scope.createAssetModal.open();
     }
