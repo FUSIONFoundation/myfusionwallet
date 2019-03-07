@@ -137,10 +137,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.checkDecimalsValue = function () {
+        if($scope.assetCreate.decimals == ''){return;}
+        let reg = new RegExp('^\\d+$');
+        if (!reg.test($scope.assetCreate.decimals)) {
+            $scope.$eval(function(){$scope.assetCreate.decimals = ''});
+            return;
+        }
+
         if (parseInt($scope.assetCreate.decimals) > 15) {
-            $scope.$eval(function () {
-                $scope.assetCreate.decimals = 15
-            });
+            $scope.$eval(function () { $scope.assetCreate.decimals = 15 });
+            return;
+        }
+        if (parseInt($scope.assetCreate.decimals) < 1) {
+            $scope.$eval(function () { $scope.assetCreate.decimals = 1 });
+            return;
         }
     }
 
