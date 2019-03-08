@@ -44,8 +44,12 @@
         <ul class="account-info point">
             <li class="gray-bg break-word">
                 <span class="small-gray-text text-fusion fusion-text-14 p-1 copy"
+                      ng-class="{'copy' : addressNotation.value != 'It looks like you don’t have a Short Account Number (SAN) yet. Fusion’s SAN is an 8 character version of your wallet address that’s as easy to remember as your phone number. Click the button below to generate one.'}"
                       ng-click="copyToClipboard(addressNotation.value)"
-                      ng-bind="addressNotation.value" ng-bind="addressNotation.value"></span>
+                      ng-bind="addressNotation.value">
+
+                </span>
+                </span>
             </li>
         </ul>
         <div ng-if="addressNotation.state === false">
