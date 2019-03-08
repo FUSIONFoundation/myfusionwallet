@@ -72,9 +72,10 @@
         <h5 translate="sidebar_TransHistory"> Transaction History</h5>
         <ul class="account-info">
             <li ng-show="ajaxReq.type == 'ETH'">
-                <a href="https://blocks.fusionnetwork.io/Addresses/{{wallet.getAddressString()}}" target="_blank"
+                <a class="blue-text"
+                        href="https://blocks.fusionnetwork.io/Addresses/{{wallet.getAddressString()}}" target="_blank"
                    rel="noopener noreferrer">
-                    FSN Block Explorer
+                    FSN Block Explorer <img class="mb-1" src="images/New_Window.svg"/>
                 </a>
             </li>
         </ul>
