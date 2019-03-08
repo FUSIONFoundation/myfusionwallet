@@ -1440,9 +1440,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }
 
-    $scope.createAssetInit = function () {
+    $scope.createAssetInit = async function () {
         let a = $scope.totalAttributes.length;
-        for (let b in a) {
+
+        $scope.$eval(function(){
+            $scope.totalAttributes = [0];
+            $scope.allAttributes = {};
+        })
+        for (let b = 0; b < 35; b++) {
+            console.log(b);
             $scope.$eval(function () {
                 $scope.attributename[b] = '';
                 $scope.attributevalue[b] = '';
@@ -1455,10 +1461,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetCreate.decimals = '';
             $scope.assetCreate.totalSupply = '';
             $scope.assetCreate.errorMessage = '';
-            $scope.totalAttributes = [0];
-            $scope.allAttributes = {};
-            $scope.attributename[0] = '';
-            $scope.attributevalue[0] = '';
         })
         $scope.createAssetModal.open();
     }
