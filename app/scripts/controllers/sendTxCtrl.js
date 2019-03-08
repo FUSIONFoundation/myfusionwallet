@@ -406,6 +406,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildIncAssetTx", err);
                 $scope.errorModal.open();
+                $scope.$eval(function(){
+                    $scope.errorMessage = err.message;
+                })
             }
         }
         if ($scope.changeSupplyState == 'decrement') {
@@ -441,6 +444,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildDecAssetTx", err);
                 $scope.errorModal.open();
+                $scope.$eval(function(){
+                    $scope.errorMessage = err.message;
+                })
             }
         }
         if ($scope.wallet.hwType == "ledger") {
@@ -942,6 +948,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log("buildTimeLockToAssetTx", err);
             $scope.errorModal.open();
+            $scope.$eval(function(){
+                $scope.errorMessage = err.message;
+            })
         }
 
         if ($scope.wallet.hwType == "ledger") {
@@ -1096,6 +1105,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildSendAssetTx", err);
                 $scope.errorModal.open();
+                $scope.$eval(function(){
+                    $scope.errorMessage = err.message;
+                })
             }
 
             $scope.$apply(function () {
@@ -1140,6 +1152,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
+                $scope.$eval(function(){
+                    $scope.errorMessage = err.message;
+                })
             }
         }
 
@@ -1178,6 +1193,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
+                $scope.$eval(function(){
+                    $scope.errorMessage = err.message;
+                })
             }
         }
         if ($scope.wallet.hwType == "ledger") {
@@ -1358,6 +1376,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log("buildTimeLockToTimeLockTx", err);
             $scope.errorModal.open();
+            $scope.$eval(function(){
+                $scope.errorMessage = err.message;
+            })
         }
 
         if ($scope.wallet.hwType == "ledger") {
@@ -1530,6 +1551,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log("buildGenAssetTx", err);
             $scope.errorModal.open();
+            $scope.$eval(function(){
+                $scope.errorMessage = err.message;
+            })
         }
 
         if ($scope.wallet.hwType == "ledger") {

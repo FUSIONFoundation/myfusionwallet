@@ -1004,7 +1004,10 @@
                 <h3 class="text-center">Oops</h3>
                 <p class="text-center">
                     Something went wrong, please retry..
+                    <br>
+                    <span class="small-gray-text">{{errorMessage}}</span>
                 </p>
+
             </article>
 
         </section>
