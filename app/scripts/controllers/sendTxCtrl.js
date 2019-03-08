@@ -1602,7 +1602,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         $scope.getAllFsnAssets();
         $scope.getTimeLockAssets();
-    }, 7500);
+        $scope.countdownTimer();
+    }, 7000);
+
+    $scope.countdownTimer = function (){
+        let timeleft = 7;
+         let timerInterval = setInterval(function(){
+            timeleft -= 1;
+            if(timeleft <= 0)
+                clearInterval(timerInterval);
+            $scope.$apply(function(){
+                $scope.refreshTimer = timeleft;
+            })
+        }, 1000);
+    }
 
 
     $scope.getTimeLockAssets = async function () {

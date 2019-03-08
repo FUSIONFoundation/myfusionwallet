@@ -26,11 +26,16 @@
                 </a></div>
         </div>
     </div>
-    <article class="block" ng-hide="wallet.type=='addressOnly'">
+    <article class="block">
         <section class="row form-group">
             <div class="col-sm-12 clearfix">
                 <p class="p-2">The Assets section provides an overview of all the digital assets that are currently in
                     your Fusion PSN wallet.</p>
+                <div class="float-right">
+                    <span class="small-gray-text">
+                        Refreshing in <strong>{{refreshTimer}}</strong>s
+                    </span>
+                </div>
             </div>
 
             <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
