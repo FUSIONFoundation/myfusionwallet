@@ -152,14 +152,6 @@
                                       Network Monitor
                                     </span>
                             </a>
-                               <a href="https://swap.fusionnetwork.io" target="_blank"
-                                  class="col-md-12 col-xs-12 p-2 app-select-active">
-                                    <span class="fusion-text-14">
-                                    <img src="images/group-9.svg"
-                                         class="Group-6">
-                                      Quantum Swap
-                                    </span>
-                            </a>
                         </div>
                     </span>
                     <div class="align-self-center hidden-xs">
