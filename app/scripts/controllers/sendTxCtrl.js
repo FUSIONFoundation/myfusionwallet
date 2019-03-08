@@ -1446,6 +1446,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function(){
             $scope.totalAttributes = [0];
             $scope.allAttributes = {};
+            $scope.showMaxCharacters = false;
         })
         for (let b = 0; b < 35; b++) {
             console.log(b);
