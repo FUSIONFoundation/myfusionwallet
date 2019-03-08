@@ -250,8 +250,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        console.log($scope.assetListOwns[id].description);
-
         if($scope.assetListOwns[id].description == {} || $scope.assetListOwns[id] == '{"": ""}'){
             $scope.$eval(function(){
                 $scope.showNoAvailableAttributes = true;
@@ -983,10 +981,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.makeBigNumber = function (amount, decimals) {
-        let pieces = amount.split(".")
-        let d = parseInt(decimals)
+        // Allow .0
+        if(amount.substr(0,1) == "."){
+            let a = "0" + amount;
+            amount = a;
+        }
+        let pieces = amount.split(".");
+        let d = parseInt(decimals);
         if (pieces.length === 1) {
-            amount = parseInt(amount)
+            amount = parseInt(amount);
             if (isNaN(amount) || amount < 0) {
                 // error message
                 return
@@ -1899,9 +1902,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListOwns = assetList3;
             $scope.assetListLoading = false;
         });
-
-        console.log($scope.assetListOwns);
-
     }
 
     $scope.getAllErcTokens = function () {
