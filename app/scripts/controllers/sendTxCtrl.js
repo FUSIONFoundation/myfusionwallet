@@ -77,7 +77,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         for (let u in $scope.attributename) {
             if ($scope.attributename[u] == "") {
                 return
-            };
+            }
+            ;
             $scope.allAttributes[$scope.attributename[u].toString()] = $scope.attributevalue[u].toString();
         }
         return $scope.allAttributes;
@@ -137,26 +138,36 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.checkDecimalsValue = function () {
-        if($scope.assetCreate.decimals == ''){return;}
+        if ($scope.assetCreate.decimals == '') {
+            return;
+        }
         let reg = new RegExp('^\\d+$');
         if (!reg.test($scope.assetCreate.decimals)) {
-            $scope.$eval(function(){$scope.assetCreate.decimals = ''});
+            $scope.$eval(function () {
+                $scope.assetCreate.decimals = ''
+            });
             return;
         }
 
         if (parseInt($scope.assetCreate.decimals) > 15) {
-            $scope.$eval(function () { $scope.assetCreate.decimals = 15 });
+            $scope.$eval(function () {
+                $scope.assetCreate.decimals = 15
+            });
             return;
         }
         if (parseInt($scope.assetCreate.decimals) < 1) {
-            $scope.$eval(function () { $scope.assetCreate.decimals = 0 });
+            $scope.$eval(function () {
+                $scope.assetCreate.decimals = 0
+            });
             return;
         }
     }
 
-    $scope.checkAllAttributesLength = function (){
+    $scope.checkAllAttributesLength = function () {
         $scope.returnAttributesJSON();
-        if($scope.allAttributes == {}){return;}
+        if ($scope.allAttributes == {}) {
+            return;
+        }
 
         // Get how many fields there are since each attribute field consumes 7 chars
         let maxChars = 1024;
@@ -166,11 +177,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let a = JSON.stringify($scope.allAttributes);
         $scope.usedChars = a.length;
         let percentage = $scope.usedChars / $scope.usableChars;
-        if(percentage > 0.75 && percentage < 1){
-            $scope.$eval(function(){
+        if (percentage > 0.75 && percentage < 1) {
+            $scope.$eval(function () {
                 $scope.showMaxCharacters = true
             })
-        } else{$scope.$eval(function(){$scope.showMaxCharacters = false})};
+        } else {
+            $scope.$eval(function () {
+                $scope.showMaxCharacters = false
+            })
+        }
+        ;
     }
 
     $scope.verifyWalletAddress = async function () {
@@ -250,12 +266,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        if($scope.assetListOwns[id].description == {} || $scope.assetListOwns[id] == '{"": ""}'){
-            $scope.$eval(function(){
+        if ($scope.assetListOwns[id].description == {} || $scope.assetListOwns[id] == '{"": ""}') {
+            $scope.$eval(function () {
                 $scope.showNoAvailableAttributes = true;
             })
         } else {
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.showNoAvailableAttributes = false;
             })
         }
@@ -295,8 +311,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.changeSupplyOpen = async function (id) {
         if (id === undefined || id == "") {
             id = $scope.lastId
+        } else {
+            $scope.lastId = id;
         }
-        ;
 
         $scope.$eval(function () {
             $scope.newTotalSupply = $scope.assetListOwns[id].total;
@@ -325,8 +342,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.changeSupplyReviewOpen = function () {
-        let totalBN = new BigNumber ($scope.assetListOwns[$scope.lastId].total);
-        let newtsBN = new BigNumber ($scope.newTotalSupply.toString());
+        let totalBN = new BigNumber($scope.assetListOwns[$scope.lastId].total);
+        let newtsBN = new BigNumber($scope.newTotalSupply.toString());
 
         if (newtsBN > totalBN) {
             $scope.incDecr = '+'
@@ -334,7 +351,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } else {
             $scope.incDecr = '';
             $scope.changeSupplyState = 'decrement';
-        };
+        }
+        ;
         let diffBN = newtsBN.sub(totalBN);
 
         $scope.$eval(function () {
@@ -581,7 +599,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         return parseInt(returnDecimals);
     }
 
-    $scope.sendAssetModalConfirm = function (asset) {
+    $scope.sendAssetModalConfirm = async function (asset) {
         let fromTimeString = new Date($scope.sendAsset.fromTime);
         let tillTimeString = new Date($scope.sendAsset.tillTime);
 
@@ -595,18 +613,17 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let startTime = $scope.months[fMonth] + ' ' + fDay + ', ' + fYear;
         let endTime = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
 
-        $scope.$eval(function () {
-            $scope.sendAsset.fromTimeString = startTime;
-            $scope.sendAsset.tillTimeString = endTime;
-        })
-
-        return web3.fsn.getAsset(asset).then(function (res) {
+        await web3.fsn.getAsset(asset).then(function (res) {
             $scope.$eval(function () {
                 $scope.sendAsset.assetName = res["Name"];
                 $scope.sendAsset.assetSymbol = res["Symbol"];
                 $scope.sendAsset.assetHash = asset;
+                $scope.sendAsset.fromTimeString = startTime;
+                $scope.sendAsset.tillTimeString = endTime;
             });
-            $scope.sendAssetConfirm.open();
+            if(res){
+                $scope.sendAssetConfirm.open();
+            }
         });
     }
 
@@ -641,13 +658,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-    $scope.checkTotalSupply = function (){
-        if(parseInt($scope.assetCreate.totalSupply) < 100000000000000000){
+    $scope.checkTotalSupply = function () {
+        if (parseInt($scope.assetCreate.totalSupply) < 100000000000000000) {
             return;
         }
         let a = new BN($scope.assetCreate.totalSupply.toString());
-        if(a.toString() > "100000000000000000"){
-            $scope.$eval(function(){
+        if (a.toString() > "100000000000000000") {
+            $scope.$eval(function () {
                 $scope.assetCreate.totalSupply = 99999999999999999;
             })
         }
@@ -660,7 +677,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let assetBalance = '';
         let decimals = '';
 
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.walletAddressError = false;
             $scope.validWalletAddress = false;
             $scope.checkingUSAN = false;
@@ -982,7 +999,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.makeBigNumber = function (amount, decimals) {
         // Allow .0
-        if(amount.substr(0,1) == "."){
+        if (amount.substr(0, 1) == ".") {
             let a = "0" + amount;
             amount = a;
         }
@@ -1404,8 +1421,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.createAssetInit = function () {
         let a = $scope.totalAttributes.length;
-        for(let b in a){
-            $scope.$eval(function(){
+        for (let b in a) {
+            $scope.$eval(function () {
                 $scope.attributename[b] = '';
                 $scope.attributevalue[b] = '';
             })
@@ -1428,8 +1445,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.createAssetReviewOpen = function () {
         if (Object.keys($scope.allAttributes).length == 0) {
             $scope.showAttributesTab = false;
-        }
-        else {
+        } else {
             $scope.showAttributesTab = true
         }
         ;
@@ -1933,8 +1949,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (result) {
                     var tokens = web3.utils.toBN(result).toString();
                     console.log('You own: ' + web3.utils.fromWei(tokens, 'ether') + ' of ' + token.symbol);
-                }
-                else {
+                } else {
                     console.log(err);
                 }
             });
