@@ -266,7 +266,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        if ($scope.assetListOwns[id].description == {} || $scope.assetListOwns[id] == '{"": ""}') {
+        if (Object.keys(description).length === 0) {
             $scope.$eval(function () {
                 $scope.showNoAvailableAttributes = true;
             })
