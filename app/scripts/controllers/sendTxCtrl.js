@@ -1440,6 +1440,22 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }
 
+    $scope.getBalance = async function () {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let balance = '';
+
+            await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress).then(function (res) {
+                balance = res;
+            });
+
+            balance = balance / $scope.countDecimals(18);
+            $scope.$apply(function () {
+                $scope.web3WalletBalance = balance;
+                $scope.web3WalletBalance = balance;
+            });
+    }
+
     $scope.createAssetInit = async function () {
         let a = $scope.totalAttributes.length;
 
@@ -1630,6 +1646,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getAllFsnAssets();
         $scope.getTimeLockAssets();
         $scope.countdownTimer();
+        $scope.getBalance();
     }, 7000);
 
     $scope.countdownTimer = function (){
