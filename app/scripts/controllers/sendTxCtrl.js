@@ -21,7 +21,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
     $scope.assetListOwns = [];
     $scope.assetListLoading = true;
-    $scope.showNoAssets = false;
+    $scope.showNoAssets = true;
     $scope.selectedAssetBalance = '';
     $scope.todayDate = formatDate();
     $scope.tx = {};
@@ -1969,12 +1969,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             await assetList3.push(data);
         }
 
-
         $scope.$apply(function () {
             $scope.assetListOwns = assetList3;
             $scope.assetListOwns = assetList3;
             $scope.assetListLoading = false;
         });
+
+        console.log($scope.assetListOwns);
+
+        if($scope.assetListOwns.length !== 0){
+            $scope.$eval(function(){
+                $scope.showNoAssets = false;
+            })
+        }
     }
 
     $scope.getAllErcTokens = function () {

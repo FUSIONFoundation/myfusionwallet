@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 clearfix text-center" ng-show="showNoAssets">
+            <div class="col-sm-12 clearfix text-center gray-bg p-2" ng-show="showNoAssets && !assetListLoading">
                 <h4 class="small-gray-text">No available assets</h4>
             </div>
 
