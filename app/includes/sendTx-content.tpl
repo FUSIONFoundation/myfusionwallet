@@ -1013,7 +1013,7 @@
                 </span>
                 </div>
 <div class="col-md-12 text-center">
-    <button class="btn btn-white w-100">Cancel</button>
+    <button class="btn btn-white w-100" ng-click="errorModal.close()">Cancel</button>
 </div>
             </article>
 
