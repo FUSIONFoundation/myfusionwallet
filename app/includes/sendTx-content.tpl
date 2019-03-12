@@ -71,8 +71,8 @@
                             <td ng-click="manageAssetOpen(f)">
                                 <img ng-if="asset.hasImage"
                                      ng-src="images/verifiedassets/{{asset.image}}"/>
-                                <span   ng-if="!asset.hasImage"
-                                        class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                <span ng-if="!asset.hasImage"
+                                      class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                             </td>
                             <td ng-click="manageAssetOpen(f)"
                             >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
@@ -148,8 +148,8 @@
                             <td>
                                 <img ng-if="asset.hasImage"
                                      ng-src="images/verifiedassets/{{asset.image}}"/>
-                                <span   ng-if="!asset.hasImage"
-                                        class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                <span ng-if="!asset.hasImage"
+                                      class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
                             </td>
                             <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                          ng-show="asset.verified"><i
@@ -998,18 +998,23 @@
                     </div>
                 </div>
 
+                <h3 class="text-center">Oops!</h3>
                 <div class="col-md-12 text-center p-2">
-                    <img src="images/exclamation-circle.svg" class="text-center" height="80px" width="80px" color="red"
+                    <img src="images/exclamation-circle.svg" class="text-center" height="32px" width="32px" color="red"
                          alt="">
                 </div>
-
-                <h3 class="text-center">Oops</h3>
                 <p class="text-center">
-                    Something went wrong, please retry..
+                    Looks like we ran into an issue…
                     <br>
-                    <span class="small-gray-text">{{errorMessage}}</span>
                 </p>
-
+                <div class="col-md-12 w-100 mb-3 mt-3 text-center">
+                      <span class="alert alert-red p-3">
+                    <span class="small-gray-text">{{errorMessage}}</span>
+                </span>
+                </div>
+<div class="col-md-12 text-center">
+    <button class="btn btn-white w-100">Cancel</button>
+</div>
             </article>
 
         </section>
@@ -1790,7 +1795,8 @@
                 </div>
                 <div class="col-md-12 p-0">
                     <div class="warn alert-blue text-left p-2 inline w-100 mt-2 mb-2">
-                        Add attributes to your asset. These attributes can be edited at after the asset is created. (Optional)
+                        Add attributes to your asset. These attributes can be edited at after the asset is created.
+                        (Optional)
                     </div>
                 </div>
                 <section class="row form-group">
@@ -1841,10 +1847,11 @@
                     <div class="col-md-12">
                         <div class="warn alert-yellow text-left p-2 inline w-100 mt-2"
                              ng-show="showMaxCharacters">
-                                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                                {{usedChars}}/{{usableChars}} total characters used
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                            {{usedChars}}/{{usableChars}} total characters used
                         </div>
-                        <div class="warn alert-red-error text-left p-2 inline w-100 mt-2" ng-show="usedChars >= usableChars">
+                        <div class="warn alert-red-error text-left p-2 inline w-100 mt-2"
+                             ng-show="usedChars >= usableChars">
                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             {{usedChars}}/{{usableChars}} total characters used
                         </div>
@@ -1961,7 +1968,7 @@
                                    ng-click="showAttributes = !showAttributes">Show <img src="images/Down.svg"></a>
                                 <a class="link-blue text-right"
                                    ng-show="showAttributes"
-                                   ng-click="showAttributes = !showAttributes">Hide  <img src="images/Up.svg"></a>
+                                   ng-click="showAttributes = !showAttributes">Hide <img src="images/Up.svg"></a>
                             </div>
                             <br>
                             <div class="col-md-12 p-0">
@@ -2101,11 +2108,11 @@
                             <div class="float-right">
                                 <span class="fusion-text-14">{{totalAttributes.length}}</span>
                                 <a class="link-blue text-right"
-                                        ng-hide="showAttributes"
+                                   ng-hide="showAttributes"
                                    ng-click="showAttributes = !showAttributes">Show <img src="images/Down.svg"></a>
                                 <a class="link-blue text-right"
-                                        ng-show="showAttributes"
-                                   ng-click="showAttributes = !showAttributes">Hide  <img src="images/Up.svg"></a>
+                                   ng-show="showAttributes"
+                                   ng-click="showAttributes = !showAttributes">Hide <img src="images/Up.svg"></a>
                             </div>
                             <br>
                             <div class="col-md-12 p-0">

@@ -375,7 +375,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         if ($scope.changeSupplyState == 'increment') {
             // Get New Total Supply, create BN and create Hexadecimal
-            let bal = $scope.newTotalSupply - $scope.assetListOwns[$scope.lastId].total;
+            let newTotalSupplyBN = new BigNumber($scope.newTotalSupply);
+            let currentTotalBN = new BigNumber($scope.assetListOwns[$scope.lastId].total);
+            let bal = newTotalSupplyBN.minus(currentTotalBN);
             let newtotalSupplyString = bal.toString();
             let newtotalSupplyBN = $scope.makeBigNumber(newtotalSupplyString, asset.decimals);
             let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
@@ -1020,7 +1022,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 // error message
                 return
             }
-            amount = new BN(amount + "0".repeat(parseInt(decimals)));
+            amount = new BigNumber(amount + "0".repeat(parseInt(decimals)));
         } else if (pieces.length > 2) {
             console.log('error');
             // error message
@@ -1465,7 +1467,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.showMaxCharacters = false;
         })
         for (let b = 0; b < 35; b++) {
-            console.log(b);
             $scope.$eval(function () {
                 $scope.attributename[b] = '';
                 $scope.attributevalue[b] = '';
