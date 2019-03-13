@@ -244,6 +244,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.makeBigNumber = function (amount, decimals) {
         try {
+            // Allow .0
+            if (amount.substr(0, 1) == ".") {
+                let a = "0" + amount;
+                amount = a;
+            }
             let pieces = amount.split(".")
             let d = parseInt(decimals)
             if (pieces.length === 1) {
