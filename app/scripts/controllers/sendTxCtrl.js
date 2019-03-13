@@ -1020,6 +1020,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
+    $scope.onlyLettersAndNumbersAssetSymbol = function (){
+        let reg = new RegExp('^[a-zA-Z0-9_. \'-]*$');
+        if (!reg.test($scope.assetCreate.assetSymbol)) {
+            $scope.$eval(function(){
+                $scope.assetCreate.assetSymbol = $scope.assetCreate.assetSymbol.replace(/[^a-z0-9 ,.?!]/ig, '');
+            })
+            return;
+        } else {
+            return;
+        }
+    }
+
     $scope.makeBigNumber = function (amount, decimals) {
         // Allow .0
         if (amount.substr(0, 1) == ".") {
