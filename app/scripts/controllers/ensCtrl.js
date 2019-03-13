@@ -981,9 +981,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.makeModal = async function (send, receive) {
         $scope.$eval(function () {
-            $scope.makeSendAmount = '';
-            $scope.makeReceiveAmount = '';
-            $scope.makeMinumumSwap = '';
+            $scope.makeSendAmount = 0;
+            $scope.makeReceiveAmount = 0;
+            $scope.makeMinumumSwap = 0;
             $scope.privateAccess = false;
             $scope.makeTarges = '';
             $scope.showTimeLockSend = false;
