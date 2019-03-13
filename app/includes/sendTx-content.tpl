@@ -1686,6 +1686,7 @@
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetName"
+                               ng-change="onlyLettersAndNumbersAssetName()"
                                maxlength="35"
                                placeholder="Enter an Asset Name"/>
                         <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetName.length}}
