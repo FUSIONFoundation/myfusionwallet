@@ -1008,7 +1008,7 @@
                     <br>
                 </p>
                 <div class="col-md-12 w-100 mb-3 mt-3 text-center">
-                      <span class="alert alert-red p-3">
+                      <span class="alert alert-red p-3 inline">
                     <span class="small-gray-text">{{errorMessage}}</span>
                 </span>
                 </div>
