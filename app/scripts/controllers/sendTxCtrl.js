@@ -866,7 +866,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let gasPrice = await web3.eth.getGasPrice().then(function (res) {
                 let gs = (res * 3).toString();
-                return new BN(gs);
+                return new BigNumber(gs);
             })
 
             console.log(amount.toString());
@@ -1022,7 +1022,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 // error message
                 return
             }
-            amount = new BigNumber(amount + "0".repeat(parseInt(decimals)));
+            amount = new BN(amount + "0".repeat(parseInt(decimals)));
         } else if (pieces.length > 2) {
             console.log('error');
             // error message
@@ -1046,7 +1046,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 // error message
                 return
             }
-            amount = new BigNumber(amount + dec + "0".repeat(parseInt(declen)));
+            amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
         }
         return amount;
     }
@@ -1071,9 +1071,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             decimals = parseInt(res["Decimals"]);
         });
 
-        let amount = $scope.sendAsset.amountToSend.toString();
+        let amount = new BigNumber($scope.sendAsset.amountToSend);
+        let amountBNString = amount.toString();
 
-        amount = $scope.makeBigNumber(amount, decimals);
+        amount = $scope.makeBigNumber(amountBNString, decimals);
+
 
         if ($scope.transactionType == "none") {
 
@@ -1324,7 +1326,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 // error message
                 return
             }
-            amount = new BN(amount + "0".repeat(parseInt(decimals)));
+            amount = new BigNumber(amount + "0".repeat(parseInt(decimals)));
         } else if (pieces.length > 2) {
             // error message
             return
@@ -1343,7 +1345,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 // error message
                 return
             }
-            amount = new BN(amount + dec + "0".repeat(parseInt(declen)));
+            amount = new BigNumber(amount + dec + "0".repeat(parseInt(declen)));
         }
 
         let data = {};
