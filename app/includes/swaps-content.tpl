@@ -211,7 +211,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in openTakeSwaps track by $index">
+                    <tr ng-repeat="asset in openTakeSwaps track by $index"
+                        ng-click="swapInformationModalOpen(asset.swap_id)"
+                    >
                         <td class="text-left">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
@@ -256,20 +258,12 @@
                                     Recall
                                     Swap
                                 </button>
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
-                                                                                              aria-hidden="true"></i>
-                                </button>
                             </div>
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
                                         ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker"
                                 >Take Swap
-                                </button>
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
-                                                                                              aria-hidden="true"></i>
                                 </button>
                             </div>
                         </td>
@@ -324,7 +318,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList | orderBy:sortKeyMake:reverseMake | filter: { owned: 'true' } track by $index">
+                    <tr ng-repeat="asset in swapsList | orderBy:sortKeyMake:reverseMake | filter: { owned: 'true' } track by $index"
+                        ng-click="swapInformationModalOpen(asset.swap_id)"
+                    >
                         <td class="text-left">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
@@ -368,20 +364,12 @@
                                 <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
                                     Swap
                                 </button>
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
-                                                                                              aria-hidden="true"></i>
-                                </button>
                             </div>
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
                                         ng-disabled="allBalance[asset.id] < asset.minswap"
                                 >Take Swap
-                                </button>
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
-                                                                                              aria-hidden="true"></i>
                                 </button>
                             </div>
 
@@ -481,7 +469,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
+                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket | startFrom:currentPage*pageSize | limitTo:pageSize track by $index"
+                        ng-click="swapInformationModalOpen(asset.swap_id)">
                         <td class="text-left">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
@@ -526,20 +515,12 @@
                                     Recall
                                     Swap
                                 </button>
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
-                                                                                              aria-hidden="true"></i>
-                                </button>
                             </div>
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
                                         ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker"
                                 >Take Swap
-                                </button>
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="swapInformationModalOpen(asset.swap_id)"><i class="fa fa-info"
-                                                                                              aria-hidden="true"></i>
                                 </button>
                             </div>
                         </td>
