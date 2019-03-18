@@ -963,9 +963,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        if ($scope.assetListOwned[assetListOwnedId].contractaddress !== receiveAsset) {
-            canSwitch = false;
-        }
+        try {
+            if ($scope.assetListOwned[assetListOwnedId].contractaddress !== receiveAsset) {
+                canSwitch = false;
+            }
+        } catch (err){}
 
         for (let a = 0; a < $scope.assetList.length; a++) {
             if ($scope.assetList[a].contractaddress == sendAsset) {
