@@ -1542,25 +1542,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let totalSupply = $scope.assetCreate.totalSupply;
         let power = $scope.countDecimals(decimals);
 
-        if (assetSymbol == '' || assetName == '' || decimals == '' || totalSupply == '') {
-            $scope.assetCreate.errorMessage = 'One or more required fields are missing.';
-            return null;
-        }
-        if (decimals > 15) {
-            $scope.assetCreate.errorMessage = 'Decimals must be below 16.';
-            return null;
-        }
-        if (assetSymbol.length > 4) {
-            $scope.assetCreate.errorMessage = 'Asset Symbols maximum characters is 4.';
-            return null;
-        }
-
-        if (totalSupply < 1 || totalSupply == undefined) {
-            $scope.assetCreate.errorMessage = 'Please, fill in whole numbers for the total supply.';
-            return null;
-        }
-
-
         if (!$scope.account && ($scope.wallet.hwType !== "ledger") && ($scope.wallet.hwType !== "trezor")) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
         }
