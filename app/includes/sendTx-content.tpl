@@ -1848,7 +1848,7 @@
                             {{usedChars}}/{{usableChars}} total characters used
                         </div>
                         <div class="warn alert-red-error text-left p-2 inline w-100 mt-2"
-                             ng-show="usedChars >= usableChars">
+                             ng-show="usedChars >= usableChars && !showMaxCharacters">
                             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                             {{usedChars}}/{{usableChars}} total characters used
                         </div>
