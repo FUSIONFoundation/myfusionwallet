@@ -1766,11 +1766,6 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
-                    <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
-                    Please, review and try again!
-                </div>
             </article>
 
         </section>
@@ -1875,11 +1870,6 @@
                             Review
                         </button>
                     </div>
-                </div>
-
-                <div class="col-lg-12 col-sm-12 col-xs-12 alert alert-danger" ng-show="assetCreate.errorMessage != ''">
-                    <strong>Error!</strong> {{assetCreate.errorMessage}} <br>
-                    Please, review and try again!
                 </div>
             </article>
 
