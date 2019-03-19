@@ -1566,7 +1566,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         try {
             await web3.fsntx.buildGenAssetTx(data).then((tx) => {
                 tx.chainId = _CHAINID;
-                // tx.gasPrice = web3.utils.toWei(new web3.utils.BN(80), "gwei");
+                let gasPrice = web3.utils.toWei(new web3.utils.BN(100), "gwei");
+                tx.gasPrice = gasPrice.toString()
                 data = tx;
                 console.log(tx);
                 if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
