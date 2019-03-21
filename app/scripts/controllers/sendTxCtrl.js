@@ -9,13 +9,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     let nu = localStorage.getItem('nodeUrl')
     let data = nu ? JSON.parse(nu) : {}
-    let _CHAINID = 1;
+    let _CHAINID = 88661;
 
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
     } else {
         _CHAINID = 1;
     }
+
     $scope.showAllAssets = true;
     $scope.showTimeLockedAssets = false;
     $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
@@ -1628,13 +1629,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         oldTx.s = res.s;
                         oldTx.v = res.v;
                         oldTx.input = input;
-                        oldTx.chainId = "0x1";
+                        oldTx.chainId = 88661;
                         delete oldTx.isError;
                         delete oldTx.rawTx;
                         delete oldTx.signedTx;
                         web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                             txH = txHash;
-                            console.log('txh here');
                             console.log(`${txH}`);
                             $scope.$eval(function () {
                                 $scope.assetCreate.errorMessage = '';
@@ -1750,7 +1750,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 } else if (startTimePosix >= currentDate && endTimePosix >= currentDate) {
                     status = 'Active';
                 } else if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
-                    status = 'Active';
+                    status = 'Available';
                 } else if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
                     status = 'Expired'
                 }
