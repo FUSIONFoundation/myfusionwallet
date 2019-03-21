@@ -191,6 +191,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.verifyWalletAddress = async function () {
+        new Promise(function(resolve, reject){
+            setTimeout(function(){
+                resolve();
+            }, 100)
+        });
         $scope.$eval(function () {
             $scope.validWalletAddress = false;
             $scope.walletAddressError = false;
