@@ -1748,7 +1748,7 @@
                                numbers-only
                                ng-change="checkTotalSupply()"
                                ng-model="assetCreate.totalSupply"
-                               placeholder="Enter the amount of this assets you want to create"/>
+                               placeholder="Must be a whole number"/>
                     </div>
                 </section>
 
