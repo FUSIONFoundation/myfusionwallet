@@ -1745,6 +1745,7 @@
                                min="0"
                                step="1"
                                class="form-control"
+                               numbers-only
                                ng-change="checkTotalSupply()"
                                ng-model="assetCreate.totalSupply"
                                placeholder="Enter the amount of this assets you want to create"/>
