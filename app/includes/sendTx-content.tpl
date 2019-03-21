@@ -1741,7 +1741,7 @@
                         <span class="small-gray-text">
                             Total Supply
                         </span>
-                        <input type="number"
+                        <input type="text"
                                min="0"
                                step="1"
                                class="form-control"
