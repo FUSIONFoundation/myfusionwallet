@@ -1018,7 +1018,8 @@
                     <div class="col-md-6 p-0">
                         <h3 class="h3-blue">Swap Minimums</h3>
                         <span class="small-gray-text">Number of Fills</span>
-                        <input type="number" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
+                        <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
+                               numbers-only
                                ng-change="setMinimumMakes()"
                                placeholder="Amount">
                     </div>

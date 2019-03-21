@@ -242,6 +242,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.reverseMake = !$scope.reverseMake; //if true make it false and vice versa
     }
 
+    $scope.wholeNumberOfFills = function (){
+        $scope.$eval(function(){
+            $scope.makeMinumumSwap = $scope.makeMinumumSwap.toFixed(0);
+        })
+    }
+
     $scope.makeBigNumber = function (amount, decimals) {
         try {
             // Allow .0
