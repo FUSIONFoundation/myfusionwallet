@@ -5,12 +5,38 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         }
         $scope.getShortAddressNotation();
-        $scope.getBalance();
+        $scope.getLatestBalance();
     };
 
-    web3.eth.subscribe('newBlockHeaders', function(){
+    $scope.$watch('assetListOwns', function () {
+        $scope.getLatestBalance();
+    });
+
+    $scope.getLatestBalance = function () {
+        if (!$scope.tx || !$scope.wallet || typeof $scope.assetListOwns[0] == "undefined") {
+            $scope.$eval(function () {
+                $scope.web3WalletBalance = 'Loading';
+            })
+            return;
+        }
+        if ($scope.assetListOwns[0].balance == 0) {
+            $scope.$eval(function () {
+                $scope.web3WalletBalance = 0;
+            })
+            return;
+        }
+        if ($scope.assetListOwns[0].balance > 0) {
+            $scope.$eval(function () {
+                $scope.web3WalletBalance = $scope.assetListOwns[0].balance;
+            })
+            return;
+        }
+    }
+
+
+    web3.eth.subscribe('newBlockHeaders', function () {
         $scope.getShortAddressNotation();
-        $scope.getBalance();
+        $scope.getLatestBalance();
     });
 
     let data = JSON.parse(localStorage.getItem('nodeUrl'));
@@ -23,7 +49,9 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.init();
-    $scope.reloadPage = function(){window.location.reload();}
+    $scope.reloadPage = function () {
+        window.location.reload();
+    }
     $scope.mayRunState = false;
     $scope.provider;
     $scope.ajaxReq = ajaxReq;
@@ -153,7 +181,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
     }
 
-    $scope.copyToClipboard = function (text){
+    $scope.copyToClipboard = function (text) {
         let clipboardAvailable;
         if (clipboardAvailable === undefined) {
             clipboardAvailable =
@@ -183,7 +211,8 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             try {
                 document.execCommand('copy');
                 success = true;
-            } catch (e) {}
+            } catch (e) {
+            }
 
             // remove selection and node
             selection.removeAllRanges();
@@ -212,13 +241,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         return parseInt(returnDecimals);
     }
 
-    setInterval(function () {
-        if (!$scope.tx || !$scope.wallet) {
-            return
-        }
-        $scope.getBalance();
-        $scope.getShortAddressNotation();
-    }, 15000);
 
     $scope.toHexString = function (byteArray) {
         var s = '0x';
@@ -291,28 +313,28 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let accountData = uiFuncs.getTxData($scope);
             let data = {};
             let walletAddress = accountData.from;
-                if (!$scope.account  && ($scope.wallet.hwType !== "ledger")) {
-                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
-                }
+            if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
+                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+            }
 
-                await web3.fsntx.buildGenNotationTx({
-                    from: walletAddress
-                }).then((tx) => {
-                    tx.chainId = _CHAINID;
-                    data = tx;
-                    tx.from = walletAddress;
-                    if ($scope.wallet.hwType == "ledger"){
-                        return;
-                    }
-                    return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
-                        $scope.requestedSAN = true;
-                        $scope.$apply(function () {
-                            $scope.addressNotation.value = 'USAN Requested';
-                            $scope.addressNotation.value = 'USAN Requested';
-                        });
-                    })
-                });
-            if ($scope.wallet.hwType == "ledger"){
+            await web3.fsntx.buildGenNotationTx({
+                from: walletAddress
+            }).then((tx) => {
+                tx.chainId = _CHAINID;
+                data = tx;
+                tx.from = walletAddress;
+                if ($scope.wallet.hwType == "ledger") {
+                    return;
+                }
+                return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
+                    $scope.requestedSAN = true;
+                    $scope.$apply(function () {
+                        $scope.addressNotation.value = 'USAN Requested';
+                        $scope.addressNotation.value = 'USAN Requested';
+                    });
+                })
+            });
+            if ($scope.wallet.hwType == "ledger") {
                 let ledgerConfig = {
                     privKey: $scope.wallet.privKey ? $scope.wallet.getPrivateKeyString() : "",
                     path: $scope.wallet.getPath(),
@@ -345,7 +367,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                         let input = oldTx.input;
                         rawTx.chainId = 88661;
-                        return uiFuncs.signed(app,rawTx, ledgerConfig, false, function (res){
+                        return uiFuncs.signed(app, rawTx, ledgerConfig, false, function (res) {
                             oldTx.r = res.r;
                             oldTx.s = res.s;
                             oldTx.v = res.v;
@@ -354,7 +376,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.isError;
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
-                            web3.fsntx.sendRawTransaction(oldTx).then(function(txHash){
+                            web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                                 $scope.requestedSAN = true;
                                 $scope.$apply(function () {
                                     $scope.addressNotation.value = 'USAN Requested';
@@ -367,7 +389,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await app.getAppConfiguration(localCallback);
                 }
             }
-                await $scope.getShortAddressNotation();
+            await $scope.getShortAddressNotation();
         }
     }
 };
