@@ -2,10 +2,10 @@
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
-    $scope.$watch('wallet', function () {
+    web3.eth.subscribe('newBlockHeaders', function(){
         $scope.getAllFsnAssets();
         $scope.getTimeLockAssets();
-    })
+    });
 
     let nu = localStorage.getItem('nodeUrl')
     let data = nu ? JSON.parse(nu) : {}

@@ -8,6 +8,11 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getBalance();
     };
 
+    web3.eth.subscribe('newBlockHeaders', function(){
+        $scope.getShortAddressNotation();
+        $scope.getBalance();
+    });
+
     let data = JSON.parse(localStorage.getItem('nodeUrl'));
     let _CHAINID = 1;
 
@@ -17,7 +22,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         _CHAINID = 1;
     }
 
-    setInterval($scope.init(), 7500);
+    $scope.init();
     $scope.reloadPage = function(){window.location.reload();}
     $scope.mayRunState = false;
     $scope.provider;
@@ -224,6 +229,9 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.getBalance = async function () {
+        if (!$scope.tx || !$scope.wallet) {
+            return;
+        }
         if ($scope.mayRunState = true) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
@@ -243,6 +251,9 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
     $scope.getShortAddressNotation = async function () {
+        if (!$scope.tx || !$scope.wallet) {
+            return;
+        }
         if ($scope.mayRunState = true) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
