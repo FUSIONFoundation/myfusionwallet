@@ -1120,6 +1120,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         if ($scope.makeTarges !== '') {
+            $scope.makeTarges.replace(" ","");
             let targesArr = $scope.makeTarges.split(',');
             await $scope.processAllTarges(targesArr, 0);
 
