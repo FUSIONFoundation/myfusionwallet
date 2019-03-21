@@ -35,7 +35,7 @@
                     your Fusion PSN wallet.</p>
                 <div class="float-right">
                     <span class="small-gray-text">
-                        Refreshing in <strong>{{refreshTimer}}</strong>s
+                        <i class="fa fa-cube"></i> <strong>{{latestBlock}}</strong>
                     </span>
                 </div>
             </div>
