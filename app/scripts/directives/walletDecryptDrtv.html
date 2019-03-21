@@ -747,6 +747,7 @@
                   ng-class="Validator.isValidPrivKey($parent.$parent.manualprivkey.length) ? 'is-valid' : 'is-invalid'"
                   ng-keyup="$event.keyCode == 13 && decryptWallet()"
                   ng-model="$parent.$parent.manualprivkey"
+                  spellcheck="false"
                   placeholder="{{ 'x_PrivKey2' | translate }}"
                   rows="4"
         ></textarea>

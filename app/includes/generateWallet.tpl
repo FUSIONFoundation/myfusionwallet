@@ -16,6 +16,7 @@
                        type="{{showPass && 'password' || 'text'}}"
                        placeholder="Must be 9 characters or greater"
                        ng-model="password"
+                       spellcheck="false"
                        ng-class="isStrongPass() ? 'is-valid' : 'is-invalid'"
                        aria-label="{{'GEN_Label_1' | translate}}"
                 />
