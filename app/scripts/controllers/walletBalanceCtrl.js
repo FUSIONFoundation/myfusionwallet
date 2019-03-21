@@ -333,12 +333,13 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         var oldTx = Object.assign(rawTx, {});
 
                         let input = oldTx.input;
-                        return uiFuncs.signed(app,rawTx, ledgerConfig, true, function (res){
+                        rawTx.chainId = 88661;
+                        return uiFuncs.signed(app,rawTx, ledgerConfig, false, function (res){
                             oldTx.r = res.r;
                             oldTx.s = res.s;
                             oldTx.v = res.v;
                             oldTx.input = input;
-                            oldTx.chainId = "0x1";
+                            oldTx.chainId = 88661;
                             delete oldTx.isError;
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;

@@ -147,7 +147,7 @@ uiFuncs.signed = function (app, tx, txData, old,  callback) {
             if (!old) {
                 // EIP155 support. check/recalc signature v value.
                 var rv = parseInt(v, 16);
-                var cv = rawTx.chainId * 2 + 35;
+                var cv = tx.chainId * 2 + 35;
                 if (rv !== cv && (rv & cv) !== rv) {
                     cv += 1; // add signature v bit.
                 }

@@ -1624,18 +1624,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     var oldTx = Object.assign(rawTx, {});
 
                     let input = oldTx.input;
+
                     return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
                         oldTx.r = res.r;
                         oldTx.s = res.s;
                         oldTx.v = res.v;
                         oldTx.input = input;
-                        oldTx.chainId = 88661;
                         delete oldTx.isError;
                         delete oldTx.rawTx;
                         delete oldTx.signedTx;
+                        console.log('oldtx');
+                        console.log(oldTx);
                         web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                             txH = txHash;
-                            console.log(`${txH}`);
                             $scope.$eval(function () {
                                 $scope.assetCreate.errorMessage = '';
                                 $scope.assetCreate.assetHash = txH;
