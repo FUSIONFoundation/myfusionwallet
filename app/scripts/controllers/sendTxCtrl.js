@@ -22,7 +22,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.assetCreate = {'assetHash': '', 'errorMessage': ''};
     $scope.assetListOwns = [];
     $scope.assetListLoading = true;
-    $scope.showNoAssets = true;
+    $scope.showNoAssets = false;
     $scope.selectedAssetBalance = '';
     $scope.todayDate = formatDate();
     $scope.tx = {};
@@ -1991,11 +1991,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListLoading = false;
         });
 
-        console.log($scope.assetListOwns);
-
-        if($scope.assetListOwns.length !== 0){
+        if($scope.assetListOwns.length == 0){
             $scope.$eval(function(){
-                $scope.showNoAssets = false;
+                $scope.showNoAssets = true;
             })
         }
     }
