@@ -1512,6 +1512,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetCreate.decimals = '';
             $scope.assetCreate.totalSupply = '';
             $scope.assetCreate.errorMessage = '';
+            $scope.usedChars = 0;
         })
         $scope.createAssetModal.open();
     }
@@ -1876,6 +1877,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (!$scope.tx || !$scope.wallet) {
             return
         }
+        $scope.$eval(function(){
+            $scope.showNoAssets = true;
+        })
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let assetList = {};
