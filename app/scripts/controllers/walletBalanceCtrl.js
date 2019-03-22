@@ -313,8 +313,11 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let accountData = uiFuncs.getTxData($scope);
             let data = {};
             let walletAddress = accountData.from;
-            if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
-                $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+
+            if ($scope.wallet.hwType !== "ledger" && $scope.wallet.hwType !== "trezor") {
+                if (!$scope.account) {
+                    $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
+                }
             }
 
             await web3.fsntx.buildGenNotationTx({
@@ -323,7 +326,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 tx.chainId = _CHAINID;
                 data = tx;
                 tx.from = walletAddress;
-                if ($scope.wallet.hwType == "ledger") {
+                if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
                     return;
                 }
                 return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -386,8 +389,39 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await app.getAppConfiguration(localCallback);
                 }
             }
-            await $scope.getShortAddressNotation();
+            if ($scope.wallet.hwType == "trezor") {
+                let rawTx = data;
+                console.log(rawTx);
+                let oldTx = Object.assign(rawTx, {});
+                rawTx.chainId = parseInt(_CHAINID);
+                rawTx.gasLimit = "0x2EE0";
+                await TrezorConnect.ethereumSignTransaction({
+                    path: $scope.wallet.getPath(),
+                    transaction: rawTx
+                }).then(function (result) {
+                    var rv = parseInt(result.payload.v, 16);
+                    var cv = parseInt(_CHAINID) * 2 + 35;
+                    if (rv !== cv && (rv & cv) !== rv) {
+                        cv += 1; // add signature v bit.
+                    }
+                    let v = cv.toString(16);
+                    rawTx.r = result.payload.r;
+                    rawTx.s = result.payload.s;
+                    rawTx.v = "0x" + v;
+                    console.log(rawTx);
+                    console.log(result);
+                    web3.fsntx.sendRawTransaction(rawTx).then(function (txHash) {
+                        console.log(txHash);
+                        $scope.requestedSAN = true;
+                        $scope.$apply(function () {
+                            $scope.addressNotation.value = 'USAN Requested';
+                            $scope.addressNotation.value = 'USAN Requested';
+                        })
+                    })
+                });
+            }
         }
+        await $scope.getShortAddressNotation();
     }
 };
 
