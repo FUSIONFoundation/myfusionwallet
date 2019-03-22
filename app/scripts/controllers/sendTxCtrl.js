@@ -522,7 +522,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if ($scope.wallet.hwType == "trezor") {
-
             }
         }
 
