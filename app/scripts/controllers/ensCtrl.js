@@ -940,7 +940,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         oldTx.s = res.s;
                         oldTx.v = res.v;
                         oldTx.input = input;
-                        oldTx.chainId = "0x1";
                         delete oldTx.isError;
                         delete oldTx.rawTx;
                         delete oldTx.signedTx;
@@ -1270,7 +1269,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         oldTx.s = res.s;
                         oldTx.v = res.v;
                         oldTx.input = input;
-                        oldTx.chainId = "0x1";
                         delete oldTx.isError;
                         delete oldTx.rawTx;
                         delete oldTx.signedTx;
@@ -1360,7 +1358,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             oldTx.s = res.s;
                             oldTx.v = res.v;
                             oldTx.input = input;
-                            oldTx.chainId = "0x1";
                             delete oldTx.isError;
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;

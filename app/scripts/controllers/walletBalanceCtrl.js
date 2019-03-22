@@ -395,6 +395,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let oldTx = Object.assign(rawTx, {});
                 rawTx.chainId = parseInt(_CHAINID);
                 rawTx.gasLimit = "0x2EE0";
+                rawTx.gasPrice = "0xC738";
                 await TrezorConnect.ethereumSignTransaction({
                     path: $scope.wallet.getPath(),
                     transaction: rawTx
