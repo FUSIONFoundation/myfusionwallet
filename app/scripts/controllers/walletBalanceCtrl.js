@@ -362,17 +362,13 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         } else if (parseInt(splitVersion[2]) > 2) {
                             EIP155Supported = true;
                         }
-
                         var oldTx = Object.assign(rawTx, {});
-
                         let input = oldTx.input;
-                        rawTx.chainId = 88661;
                         return uiFuncs.signed(app, rawTx, ledgerConfig, false, function (res) {
                             oldTx.r = res.r;
                             oldTx.s = res.s;
                             oldTx.v = res.v;
                             oldTx.input = input;
-                            oldTx.chainId = 88661;
                             delete oldTx.isError;
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
