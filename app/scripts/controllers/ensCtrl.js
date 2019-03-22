@@ -934,7 +934,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                     var oldTx = Object.assign(rawTx, {});
                     let input = oldTx.input;
-                    return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
+                    rawTx.chainId = _CHAINID;
+                    return uiFuncs.signed(app, rawTx, ledgerConfig, false, function (res) {
                         oldTx.r = res.r;
                         oldTx.s = res.s;
                         oldTx.v = res.v;
@@ -1263,7 +1264,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
                     var oldTx = Object.assign(rawTx, {});
                     let input = oldTx.input;
-                    return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
+                    rawTx.chainId = _CHAINID;
+                    return uiFuncs.signed(app, rawTx, ledgerConfig, false, function (res) {
                         oldTx.r = res.r;
                         oldTx.s = res.s;
                         oldTx.v = res.v;
@@ -1352,7 +1354,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
                         var oldTx = Object.assign(rawTx, {});
                         let input = oldTx.input;
-                        return uiFuncs.signed(app, rawTx, ledgerConfig, true, function (res) {
+                        rawTx.chainId = _CHAINID;
+                        return uiFuncs.signed(app, rawTx, ledgerConfig, false, function (res) {
                             oldTx.r = res.r;
                             oldTx.s = res.s;
                             oldTx.v = res.v;
