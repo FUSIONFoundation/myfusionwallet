@@ -364,6 +364,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
                         var oldTx = Object.assign(rawTx, {});
                         let input = oldTx.input;
+                        rawTx.chainId = _CHAINID;
                         return uiFuncs.signed(app, rawTx, ledgerConfig, false, function (res) {
                             oldTx.r = res.r;
                             oldTx.s = res.s;
