@@ -683,7 +683,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.checkTotalSupply = function () {
-        if($scope.assetCreate.totalSupply === ''){return;}
+        if(typeof $scope.assetCreate.totalSupply === "undefined"){return;}
         if (parseInt($scope.assetCreate.totalSupply) < 100000000000000000) {
             return;
         }
