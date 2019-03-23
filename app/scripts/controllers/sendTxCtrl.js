@@ -789,7 +789,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         var d = new Date(inputFormat);
-        return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
+        return [d.getUTCFullYear(), pad(d.getUTCMonth() + 1), pad(d.getUTCDate())].join('-');
     }
 
     function getHexDate(d) {

@@ -8,6 +8,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
     $scope.Validator = Validator;
     $scope.nodeList = nodes.nodeList;
     $scope.defaultNodeKey = 'eth_mew';
+    $scope.dropdownMenu = false;
     $scope.customNode = {
         options: 'eth',
         name: '',
