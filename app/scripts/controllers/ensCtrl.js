@@ -834,7 +834,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.setReceive = async function (amount) {
         if ($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) {
-            return;
+            $scope.$eval(function(){$scope.takeAmountSwap = 1});
         }
 
         window.BigNumber.config({ DECIMAL_PLACES: 18});
