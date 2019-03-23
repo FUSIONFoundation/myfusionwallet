@@ -72,6 +72,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.getVerifiedAssets();
 
     $scope.convertToString = function (input){
+        if(input === ''){return};
         if(typeof input === "undefined"){return;}
          return input.toString();
     }
@@ -830,7 +831,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         console.log($scope.takeDataFront);
     }
 
-    $scope.setReceive = async function (amount) {
+    $scope.setReceive = async function (amount) {xxxxxx``
         if ($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) {
             return;
         }
