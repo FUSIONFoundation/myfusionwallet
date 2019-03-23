@@ -40,7 +40,8 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 clearfix text-center gray-bg p-2" ng-show="showNoAssets && !assetListLoading && assetListOwns == ''">
+            <div class="col-sm-12 clearfix text-center gray-bg p-2"
+                 ng-show="showNoAssets && !assetListLoading && assetListOwns == ''">
                 <h4 class="small-gray-text">No available assets</h4>
             </div>
 
@@ -730,7 +731,7 @@
 
                 <h3>Send Time-Lock to Asset</h3>
 
-                <p class="small-gray-text">Send your time-lock back to assets.</p>
+                <p class="small-gray-text">Send your time-lock back to <ax></ax>ssets.</p>
                 <section class="row form-group">
                     <div class="col-sm-8">
                             <span class="small-gray-text">
@@ -741,6 +742,7 @@
                             <br>
                             <span class="small-gray-text text-fusion fusion-text-14">{{assetToSend}}</span>
                         </div>
+                        <span class="small-gray-text">Estimated Gas Price: 0.00002 FSN</span>
                     </div>
                     <div class="col-sm-4">
                           <span class="small-gray-text">
@@ -764,12 +766,6 @@
                                 ng-click="sendBackToAssetsFunction()">
                             Send to Assets
                         </button>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="col-xs-12 clearfix">
-                        <span class="small-gray-text">Estimated Gas Price: 0.00002 FSN</span>
                     </div>
                 </div>
             </article>
@@ -1012,9 +1008,9 @@
                     <span class="small-gray-text">{{errorMessage}}</span>
                 </span>
                 </div>
-<div class="col-md-12 text-center">
-    <button class="btn btn-white w-100" ng-click="errorModal.close()">Cancel</button>
-</div>
+                <div class="col-md-12 text-center">
+                    <button class="btn btn-white w-100" ng-click="errorModal.close()">Cancel</button>
+                </div>
             </article>
 
         </section>

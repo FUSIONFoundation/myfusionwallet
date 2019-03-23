@@ -71,6 +71,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.getVerifiedAssets();
 
+    $scope.convertToString = function (input){
+        if(typeof input === "undefined"){return;}
+         return input.toString();
+    }
+
+
     function formatDate() {
         let d = new Date(),
             month = '' + (d.getMonth() + 1),
@@ -487,8 +493,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.setSwapRate = function (){
         if($scope.makeReceiveAmount <= 0){ return; }
-        let makeSendAmountBN = new BigNumber($scope.makeSendAmount);
-        let makeReceiveAmountBN = new BigNumber($scope.makeReceiveAmount);
+        let makeSendAmountBN = new BigNumber($scope.convertToString($scope.makeSendAmount));
+        let makeReceiveAmountBN = new BigNumber($scope.convertToString($scope.makeReceiveAmount));
 
         let swapRateFinal = makeSendAmountBN.div(makeReceiveAmountBN);
 
@@ -497,8 +503,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.setSendAmountMakeSwap = function (){
         if($scope.makeReceiveAmount <= 0 || $scope.makeSendSwapRate <= 0){ return; }
-        let makeSendSwapRateBN = new BigNumber($scope.makeSendSwapRate);
-        let makeReceiveAmountBN = new BigNumber($scope.makeReceiveAmount);
+        let makeSendSwapRateBN = new BigNumber($scope.convertToString($scope.makeSendSwapRate));
+        let makeReceiveAmountBN = new BigNumber($scope.convertToString($scope.makeReceiveAmount));
 
         let sendAmountFinal = makeSendSwapRateBN.mul(makeReceiveAmountBN);
 
@@ -507,9 +513,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.setReceiveAmountMakeSwap = function (){
         if($scope.makeSendAmount <= 0 || $scope.makeSendSwapRate <= 0){ return; }
-        let one = new BigNumber(1);
-        let makeSendSwapRateBN = new BigNumber($scope.makeSendSwapRate);
-        let makeSendAmountBN = new BigNumber($scope.makeSendAmount);
+        let one = new BigNumber($scope.convertToString(1));
+        let makeSendSwapRateBN = new BigNumber($scope.convertToString($scope.makeSendSwapRate));
+        let makeSendAmountBN = new BigNumber($scope.convertToString($scope.makeSendAmount));
 
         let calc = one.div(makeSendSwapRateBN);
 
@@ -529,11 +535,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.setMinimumMakes = function (){
         if ($scope.makeMinumumSwap <= 0 || $scope.makeMinumumSwap == '' || $scope.makeSendAmount <= 0 || $scope.makeReceiveAmount <= 0) { return }
 
-        let makeMinBN = new window.BigNumber($scope.makeMinumumSwap);
+        let makeMinBN = new window.BigNumber($scope.convertToString($scope.makeMinumumSwap));
 
         //Send an receive
-        let makeSendBN = new window.BigNumber($scope.makeSendAmount);
-        let makeReceiveBN = new window.BigNumber($scope.makeReceiveAmount);
+        let makeSendBN = new window.BigNumber($scope.convertToString($scope.makeSendAmount));
+        let makeReceiveBN = new window.BigNumber($scope.convertToString($scope.makeReceiveAmount));
 
         let makeSendFinal = makeSendBN.div(makeMinBN);
         let makeReceiveFinal = makeReceiveBN.div(makeMinBN);
@@ -831,20 +837,20 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         window.BigNumber.config({ DECIMAL_PLACES: 18});
 
-        let perc1 = new window.BigNumber( $scope.takeAmountSwap )
+        let perc1 = new window.BigNumber( $scope.convertToString($scope.takeAmountSwap) )
 
 
         if (amount >= 0) {
-            perc1 = new window.BigNumber( 1 )
+            perc1 = new window.BigNumber( $scope.convertToString(1) )
         }
 
-        let perc2 = new window.BigNumber($scope.takeDataFront.swapSize)
+        let perc2 = new window.BigNumber($scope.convertToString($scope.takeDataFront.swapSize))
         let perc3 = perc1.div(perc2);
 
-        let fromAmountBN = new window.BigNumber( $scope.takeDataFront.fromAmount )
+        let fromAmountBN = new window.BigNumber( $scope.convertToString($scope.takeDataFront.fromAmount))
         let fromFinal = fromAmountBN.mul(perc3);
 
-        let toAmountBN = new window.BigNumber( $scope.takeDataFront.toAmount )
+        let toAmountBN = new window.BigNumber($scope.convertToString($scope.takeDataFront.toAmount))
         let toFinal = toAmountBN.mul(perc3);
 
         await $scope.$eval(function () {
@@ -1140,18 +1146,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         //Global
-        let makeMinimumSwapBN = new BigNumber($scope.makeMinumumSwap);
+        let makeMinimumSwapBN = new BigNumber($scope.convertToString($scope.makeMinumumSwap));
 
         //Receive Part
         BigNumber.config({ DECIMAL_PLACES: parseInt(toAsset["Decimals"]-1) });
-        let makeReceiveAmountBN = new BigNumber($scope.makeReceiveAmount);
+        let makeReceiveAmountBN = new BigNumber($scope.convertToString($scope.makeReceiveAmount));
         let makeReceiveAmountDiv = makeReceiveAmountBN.div(makeMinimumSwapBN);
         let makeReceiveString = makeReceiveAmountDiv.toString();
         let makeReceiveFinal = $scope.makeBigNumber(makeReceiveString , parseInt(toAsset["Decimals"]));
 
         //Send Part
         BigNumber.config({ DECIMAL_PLACES: parseInt(fromAsset["Decimals"]-1) });
-        let makeSendAmountBN = new BigNumber($scope.makeSendAmount);
+        let makeSendAmountBN = new BigNumber($scope.convertToString($scope.makeSendAmount));
         let makeSendAmountDiv = makeSendAmountBN.div(makeMinimumSwapBN);
         let makeSendString = makeSendAmountDiv.toString();
         let makeSendFinal = $scope.makeBigNumber(makeSendString , parseInt(fromAsset["Decimals"]));
