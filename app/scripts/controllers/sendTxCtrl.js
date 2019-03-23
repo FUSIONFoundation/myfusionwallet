@@ -796,6 +796,31 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         return "0x" + (new Date(d).getTime() / 1000).toString(16);
     }
 
+    $scope.createAssetHasError = false;
+    $scope.createAssetErrorHandler = function (){
+        // Asset name
+        if($scope.assetCreate.assetName === '' || $scope.assetCreate.assetName.length > 35){
+            $scope.createAssetHasError = true;
+            return;
+        }
+        // Asset Symbol
+        if($scope.assetCreate.assetSymbol === '' || $scope.assetCreate.assetSymbol.length > 4){
+            $scope.createAssetHasError = true;
+            return;
+        }
+        // Asset Decimals
+        if($scope.assetCreate.decimals > 15){
+            $scope.createAssetHasError = true;
+            return;
+        }
+        // Total Supply
+        if($scope.assetCreate.totalSupply === '' || $scope.assetCreate.totalSupply <= 0){
+            $scope.createAssetHasError = true;
+            return;
+        }
+        $scope.createAssetHasError = false;
+    }
+
     $scope.getAssetBalance = async function () {
         let asset = $scope.assetToSend;
         let accountData = uiFuncs.getTxData($scope);

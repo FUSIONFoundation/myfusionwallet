@@ -1686,7 +1686,7 @@
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetName"
-                               ng-change="onlyLettersAndNumbersAssetName()"
+                               ng-change="onlyLettersAndNumbersAssetName(); createAssetErrorHandler()"
                                maxlength="35"
                                placeholder="Enter an Asset Name"/>
                         <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetName.length}}
@@ -1701,7 +1701,7 @@
                                class="form-control"
                                maxlength="4"
                                ng-model="assetCreate.assetSymbol"
-                               ng-change="onlyLettersAndNumbersAssetSymbol()"
+                               ng-change="onlyLettersAndNumbersAssetSymbol(); createAssetErrorHandler()"
                                placeholder="4 Characters or less"/>
                         <span class="small-gray-text text-right w-100 float-right">{{assetCreate.assetSymbol.length}}
                             /4</span>
@@ -1715,7 +1715,7 @@
                                min="0"
                                class="form-control"
                                ng-model="assetCreate.decimals"
-                               ng-change="checkDecimalsValue()"
+                               ng-change="checkDecimalsValue(); createAssetErrorHandler()"
                                placeholder="Up to 15 Decimal Points"/>
 
                     </div>
@@ -1746,7 +1746,7 @@
                                step="1"
                                class="form-control"
                                numbers-only
-                               ng-change="checkTotalSupply()"
+                               ng-change="checkTotalSupply(); createAssetErrorHandler()"
                                ng-model="assetCreate.totalSupply"
                                placeholder="Must be a whole number"/>
                     </div>
@@ -1761,7 +1761,8 @@
                     </div>
                     <div class="col-md-6 col-xs-12 clearfix">
                         <button ng-click="createAssetAttributes.open()"
-                                ng-class="{'disabled' : assetCreate.totalSupply <= 0}"
+                                ng-class="{'disabled' : createAssetHasError}"
+                                ng-disabled="createAssetHasError"
                                 class="btn btn-primary btn-block">
                             Next
                         </button>
