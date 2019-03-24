@@ -2,11 +2,11 @@
 
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
-    web3.eth.subscribe('newBlockHeaders', function(){
+    web3.eth.subscribe('newBlockHeaders', function () {
         $scope.getAllFsnAssets();
         $scope.getTimeLockAssets();
-        web3.eth.getBlockNumber().then(function(res){
-            $scope.$eval(function(){
+        web3.eth.getBlockNumber().then(function (res) {
+            $scope.$eval(function () {
                 $scope.latestBlock = res;
             })
         });
@@ -196,8 +196,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.verifyWalletAddress = async function () {
-        new Promise(function(resolve, reject){
-            setTimeout(function(){
+        new Promise(function (resolve, reject) {
+            setTimeout(function () {
                 resolve();
             }, 100)
         });
@@ -425,7 +425,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildIncAssetTx", err);
                 $scope.errorModal.open();
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 })
             }
@@ -463,7 +463,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildDecAssetTx", err);
                 $scope.errorModal.open();
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 })
             }
@@ -645,7 +645,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.sendAsset.fromTimeString = startTime;
                 $scope.sendAsset.tillTimeString = endTime;
             });
-            if(res){
+            if (res) {
                 $scope.sendAssetConfirm.open();
             }
         });
@@ -683,7 +683,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.checkTotalSupply = function () {
-        if(typeof $scope.assetCreate.totalSupply === "undefined"){return;}
+        if (typeof $scope.assetCreate.totalSupply === "undefined") {
+            return;
+        }
         if (parseInt($scope.assetCreate.totalSupply) < 100000000000000000) {
             return;
         }
@@ -798,24 +800,24 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.createAssetHasError = false;
-    $scope.createAssetErrorHandler = function (){
+    $scope.createAssetErrorHandler = function () {
         // Asset name
-        if($scope.assetCreate.assetName === '' || $scope.assetCreate.assetName.length > 35){
+        if ($scope.assetCreate.assetName === '' || $scope.assetCreate.assetName.length > 35) {
             $scope.createAssetHasError = true;
             return;
         }
         // Asset Symbol
-        if($scope.assetCreate.assetSymbol === '' || $scope.assetCreate.assetSymbol.length > 4){
+        if ($scope.assetCreate.assetSymbol === '' || $scope.assetCreate.assetSymbol.length > 4) {
             $scope.createAssetHasError = true;
             return;
         }
         // Asset Decimals
-        if($scope.assetCreate.decimals > 15){
+        if ($scope.assetCreate.decimals > 15) {
             $scope.createAssetHasError = true;
             return;
         }
         // Total Supply
-        if($scope.assetCreate.totalSupply === '' || $scope.assetCreate.totalSupply <= 0){
+        if ($scope.assetCreate.totalSupply === '' || $scope.assetCreate.totalSupply <= 0) {
             $scope.createAssetHasError = true;
             return;
         }
@@ -992,7 +994,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log("buildTimeLockToAssetTx", err);
             $scope.errorModal.open();
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.errorMessage = err.message;
             })
         }
@@ -1050,10 +1052,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-    $scope.onlyLettersAndNumbersAssetName = function (){
+    $scope.onlyLettersAndNumbersAssetName = function () {
         let reg = new RegExp('^[a-zA-Z0-9_. \'-]*$');
         if (!reg.test($scope.assetCreate.assetName)) {
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.assetCreate.assetName = $scope.assetCreate.assetName.replace(/[^a-z0-9 ,.?!]/ig, '');
             })
             return;
@@ -1062,10 +1064,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-    $scope.onlyLettersAndNumbersAssetSymbol = function (){
+    $scope.onlyLettersAndNumbersAssetSymbol = function () {
         let reg = new RegExp('^[a-zA-Z0-9_. \'-]*$');
         if (!reg.test($scope.assetCreate.assetSymbol)) {
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.assetCreate.assetSymbol = $scope.assetCreate.assetSymbol.replace(/[^a-z0-9 ,.?!]/ig, '');
             })
             return;
@@ -1175,7 +1177,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildSendAssetTx", err);
                 $scope.errorModal.open();
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 })
             }
@@ -1222,7 +1224,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 })
             }
@@ -1263,7 +1265,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log("buildAssetToTimeLockTx", err);
                 $scope.errorModal.open();
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 })
             }
@@ -1446,7 +1448,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log("buildTimeLockToTimeLockTx", err);
             $scope.errorModal.open();
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.errorMessage = err.message;
             })
         }
@@ -1511,25 +1513,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.getBalance = async function () {
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            let balance = '';
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let balance = '';
 
-            await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress).then(function (res) {
-                balance = res;
-            });
+        await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress).then(function (res) {
+            balance = res;
+        });
 
-            balance = balance / $scope.countDecimals(18);
-            $scope.$apply(function () {
-                $scope.web3WalletBalance = balance;
-                $scope.web3WalletBalance = balance;
-            });
+        balance = balance / $scope.countDecimals(18);
+        $scope.$apply(function () {
+            $scope.web3WalletBalance = balance;
+            $scope.web3WalletBalance = balance;
+        });
     }
 
     $scope.createAssetInit = async function () {
         let a = $scope.totalAttributes.length;
 
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.totalAttributes = [0];
             $scope.allAttributes = {};
             $scope.showMaxCharacters = false;
@@ -1622,7 +1624,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         } catch (err) {
             console.log("buildGenAssetTx", err);
             $scope.errorModal.open();
-            $scope.$eval(function(){
+            $scope.$eval(function () {
                 $scope.errorMessage = err.message;
             })
         }
@@ -1700,16 +1702,40 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getBalance();
     }, 7000);
 
-    $scope.countdownTimer = function (){
+    $scope.countdownTimer = function () {
         let timeleft = 7;
-         let timerInterval = setInterval(function(){
+        let timerInterval = setInterval(function () {
             timeleft -= 1;
-            if(timeleft <= 0)
+            if (timeleft <= 0)
                 clearInterval(timerInterval);
-            $scope.$apply(function(){
+            $scope.$apply(function () {
                 $scope.refreshTimer = timeleft;
             })
         }, 1000);
+    }
+
+    $scope.getTimeLockStatus = function (startTime,endTime,startTimePosix,endTimePosix){
+        let currentDate = Math.floor(new Date().getTime() / 1000.0);
+        // if the start and endtime are now and forever
+        if (startTimePosix === 0 && endTimePosix === 18446744073709552000) {
+            return status = 'Available';
+            // if the start and end date in range of the current date
+        }
+
+        if (startTimePosix >= currentDate && endTimePosix >= currentDate) {
+            return status = 'Active';
+        }
+
+        if (startTime == 'Now' && endTimePosix >= currentDate) {
+            return status = 'Active';
+        }
+
+        if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
+            return status = 'Available';
+        }
+        if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
+            return status = 'Expired';
+        }
     }
 
 
@@ -1775,22 +1801,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let endTimePosix = timeLockList[asset]["Items"][i]["EndTime"];
                 let startTime = timeLockList[asset]["Items"][i]["StartTime"] * 1000;
                 let endTime = timeLockList[asset]["Items"][i]["EndTime"] * 1000;
-                let currentDate = Math.floor(new Date().getTime() / 1000.0);
-
-                // Calculate the status of the Time Lock
-
-                // if the start and endtime are now and forever
-                if (startTimePosix === 0 && endTimePosix === 18446744073709552000) {
-                    status = 'Available';
-                    // if the start and end date in range of the current date
-                } else if (startTimePosix >= currentDate && endTimePosix >= currentDate) {
-                    status = 'Active';
-                } else if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
-                    status = 'Available';
-                } else if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
-                    status = 'Expired'
-                }
-
 
                 // Set strings for dates
                 if (startTimePosix === 0) {
@@ -1816,6 +1826,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     endTime = $scope.months[month] + ' ' + day + ', ' + year;
                 }
+
+                // Calculate the status of the Time Lock
+                status = $scope.getTimeLockStatus(startTime, endTime, startTimePosix, endTimePosix);
 
                 let data = {
                     "id": timeLockListSave.length,
@@ -1910,7 +1923,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (!$scope.tx || !$scope.wallet) {
             return
         }
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.showNoAssets = true;
         })
         let accountData = uiFuncs.getTxData($scope);
@@ -2028,8 +2041,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListLoading = false;
         });
 
-        if($scope.assetListOwns.length == 0){
-            $scope.$eval(function(){
+        if ($scope.assetListOwns.length == 0) {
+            $scope.$eval(function () {
                 $scope.showNoAssets = true;
             })
         }
