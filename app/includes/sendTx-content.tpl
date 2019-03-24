@@ -687,7 +687,7 @@
                         </div>
                     </section>
                 </div>
-                <span class="small-gray-text" ng-show="wallet.balance < 0.00002">Insufficient funds to create transaction.</span>
+                <span class="small-gray-text" ng-show="web3WalletBalance < 0.00002">Insufficient funds to create transaction.</span>
                 <div class="row form-group">
                     <div class="col-xs-6 clearfix">
                         <button class="btn btn-white btn-block"
@@ -695,7 +695,7 @@
                             Cancel
                         </button>
                     </div>
-                    <div class="col-xs-6 clearfix" ng-hide="wallet.balance < 0.00002">
+                    <div class="col-xs-6 clearfix" ng-hide="web3WalletBalance < 0.00002">
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
