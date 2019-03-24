@@ -391,12 +391,13 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             if ($scope.wallet.hwType == "trezor") {
                 let rawTx = data;
-                console.log(rawTx);
                 let oldTx = Object.assign(rawTx, {});
                 rawTx.chainId = parseInt(_CHAINID);
                 rawTx.gasLimit = "0x2EE0";
-                rawTx.gasPrice = "0xC738";
-                await TrezorConnect.ethereumSignTransaction({
+                let gasPrice = web3.utils.toWei(new web3.utils.BN(2), "gwei");
+                rawTx.gasPrice = "0x" + gasPrice.toString(16);
+                rawTx.gas = "0x15F90"
+                return TrezorConnect.ethereumSignTransaction({
                     path: $scope.wallet.getPath(),
                     transaction: rawTx
                 }).then(function (result) {
@@ -409,8 +410,8 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     rawTx.r = result.payload.r;
                     rawTx.s = result.payload.s;
                     rawTx.v = "0x" + v;
+
                     console.log(rawTx);
-                    console.log(result);
                     web3.fsntx.sendRawTransaction(rawTx).then(function (txHash) {
                         console.log(txHash);
                         $scope.requestedSAN = true;

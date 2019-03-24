@@ -1796,8 +1796,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (startTimePosix === 0) {
                     startTime = 'Now'
                 } else {
-                    let a = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000);
-
+                    let a = new Date(timeLockList[asset]["Items"][i]["StartTime"] * 1000 + 1000);
                     var month = a.getUTCMonth();
                     var day = a.getUTCDate();
                     var year = a.getUTCFullYear();
@@ -1809,7 +1808,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     endTime = '∞ Forever';
                 } else {
 
-                    let a = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000);
+                    let a = new Date(timeLockList[asset]["Items"][i]["EndTime"] * 1000 + 1000);
 
                     var month = a.getUTCMonth();
                     var day = a.getUTCDate();
