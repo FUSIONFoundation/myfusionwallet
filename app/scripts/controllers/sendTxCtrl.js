@@ -196,11 +196,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.verifyWalletAddress = async function () {
-        new Promise(function (resolve, reject) {
-            setTimeout(function () {
-                resolve();
-            }, 100)
-        });
         $scope.$eval(function () {
             $scope.validWalletAddress = false;
             $scope.walletAddressError = false;
@@ -242,11 +237,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             try {
                 await web3.fsn.getAddressByNotation(parseInt(address)).then(function (res) {
                     console.log(res);
-                })
-                $scope.$eval(function () {
-                    $scope.walletAddressError = false;
-                    $scope.validWalletAddress = true;
-                    $scope.checkingUSAN = false;
+                    if (web3.utils.isAddress(res)) {
+                        $scope.$eval(function () {
+                            $scope.walletAddressError = false;
+                            $scope.validWalletAddress = true;
+                            $scope.checkingUSAN = false;
+                        })
+                        return;
+                    }
                 })
                 return;
             } catch (err) {
