@@ -818,6 +818,7 @@
                                     <br>
                                     <input class="form-control"
                                            type="date"
+                                           timepicker-neutral-timezone
                                            min="{{todayDate}}"
                                            onkeydown="return false"
                                            ng-model="fromStartTime"
@@ -837,6 +838,7 @@
                                             </span>
                                         <input class="form-control"
                                                type="date"
+                                               timepicker-neutral-timezone
                                                min="{{todayDate}}"
                                                onkeydown="return false"
                                                ng-model="fromEndTime">
@@ -931,6 +933,7 @@
                                            min="{{todayDate}}"
                                            onkeydown="return false"
                                            ng-model="ToStartTime"
+                                           timepicker-neutral-timezone
                                            ng-hide="receiveTimeLock == 'daterange'"
                                     >
                                     <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
@@ -948,6 +951,7 @@
                                         <input class="form-control"
                                                type="date"
                                                min="{{todayDate}}"
+                                               timepicker-neutral-timezone
                                                onkeydown="return false"
                                                ng-model="ToEndTime">
                                     </div>

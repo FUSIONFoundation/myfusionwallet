@@ -1033,10 +1033,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.assetToSendConfirm = sendAssetSymbol;
             $scope.assetToReceiveConfirm = receiveAssetSymbol;
-            $scope.fromStartTimeString = $scope.returnDateString(new Date($scope.fromStartTime).getTime() / 1000.0);
-            $scope.fromEndTimeString = $scope.returnDateString(new Date($scope.fromEndTime).getTime() / 1000.0);
-            $scope.toStartTimeString = $scope.returnDateString(new Date($scope.ToStartTime).getTime() / 1000.0);
-            $scope.toEndTimeString = $scope.returnDateString(new Date($scope.ToEndTime).getTime() / 1000.0);
+            $scope.fromStartTimeString = $scope.returnDateString((new Date($scope.fromStartTime).getTime() / 1000.0) + 1000);
+            $scope.fromEndTimeString = $scope.returnDateString((new Date($scope.fromEndTime).getTime() / 1000.0) + 1000);
+            $scope.toStartTimeString = $scope.returnDateString((new Date($scope.ToStartTime).getTime() / 1000.0) + 1000);
+            $scope.toEndTimeString = $scope.returnDateString((new Date($scope.ToEndTime).getTime() / 1000.0) + 1000);
         });
 
         if (end === 'end') {
@@ -1193,7 +1193,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let fromStartTime = getHexDate(convertDate($scope.todayDate));
                 let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
 
-                data.FromStartTime = 0;
+                data.FromStartTime = fromStartTime;
                 data.FromEndTime = fromEndTime;
             }
         }
