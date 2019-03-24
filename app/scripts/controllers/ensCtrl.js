@@ -1193,7 +1193,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let fromStartTime = getHexDate(convertDate($scope.todayDate));
                 let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
 
-                data.FromStartTime = fromStartTime;
+                data.FromStartTime = 0;
                 data.FromEndTime = fromEndTime;
             }
         }
@@ -1212,7 +1212,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let toStartTime = getHexDate(convertDate($scope.todayDate));
                 let toEndTime = getHexDate(convertDate($scope.ToEndTime));
 
-                data.ToStartTime = toStartTime;
+                data.ToStartTime = 0;
                 data.ToEndTime = toEndTime;
             }
         }
@@ -1428,15 +1428,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         });
     }
 
-    $scope.returnDateString = function (posixtime) {
-        if (posixtime == 18446744073709552000) {
+    $scope.returnDateString = function (posixtime,position) {
+        let time = new Date(parseInt(posixtime) * 1000);
+        if (posixtime == 18446744073709552000 && position == 'End') {
             return 'Forever';
         }
-        if (posixtime == 0) {
-            return 'Now';
+        if (position == 'Start') {
+            if(posixtime == 0){return 'Now';}
+            if(posixtime < time && position == 'Start'){return 'Now';}
         }
-        let time = new Date(parseInt(posixtime) * 1000);
-
         let tMonth = time.getUTCMonth();
         let tDay = time.getUTCDate();
         let tYear = time.getUTCFullYear();
@@ -1516,7 +1516,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     minutes = "0" + time.getUTCMinutes();
                 }
                 // Global
-
                 time = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
                 let timeHours = hours + ':' + minutes;
 
@@ -1587,12 +1586,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "owned": owned,
                     "FromEndTime": swapList[asset]["FromEndTime"],
                     "FromStartTime": swapList[asset]["FromStartTime"],
-                    "FromEndTimeString": $scope.returnDateString(swapList[asset]["FromEndTime"]),
-                    "FromStartTimeString": $scope.returnDateString(swapList[asset]["FromStartTime"]),
+                    "FromEndTimeString": $scope.returnDateString(swapList[asset]["FromEndTime"],'End'),
+                    "FromStartTimeString": $scope.returnDateString(swapList[asset]["FromStartTime"],'Start'),
                     "ToEndTime": swapList[asset]["ToEndTime"],
                     "ToStartTime": swapList[asset]["ToStartTime"],
-                    "ToEndTimeString": $scope.returnDateString(swapList[asset]["ToEndTime"]),
-                    "ToStartTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"])
+                    "ToEndTimeString": $scope.returnDateString(swapList[asset]["ToEndTime"],'End'),
+                    "ToStartTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"],'Start')
 
                 }
                 if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0 || walletAddress == swapList[asset]["Owner"]) {
