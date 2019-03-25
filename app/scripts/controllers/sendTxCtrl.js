@@ -235,17 +235,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.checkingUSAN = true;
             })
             try {
+                let addr = '';
                 await web3.fsn.getAddressByNotation(parseInt(address)).then(function (res) {
-                    console.log(res);
-                    if (web3.utils.isAddress(res)) {
-                        $scope.$eval(function () {
-                            $scope.walletAddressError = false;
-                            $scope.validWalletAddress = true;
-                            $scope.checkingUSAN = false;
-                        })
-                        return;
-                    }
+                    addr = res;
                 })
+                if (web3.utils.isAddress(addr)) {
+                    $scope.$eval(function () {
+                        $scope.walletAddressError = false;
+                        $scope.validWalletAddress = true;
+                        $scope.checkingUSAN = false;
+                    })
+                    return;
+                }
                 return;
             } catch (err) {
                 $scope.$eval(function () {
@@ -259,6 +260,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.$eval(function () {
             $scope.walletAddressError = true;
+            $scope.validWalletAddress = false;
+            $scope.checkingUSAN = false;
         })
     }
 
