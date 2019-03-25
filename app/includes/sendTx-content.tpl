@@ -657,6 +657,7 @@
                                        type="date"
                                        ng-change="checkDateWithForever()"
                                        min="{{todayDate}}"
+                                       timepicker-neutral-timezone
                                        onkeydown="return false"
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled'"
@@ -679,6 +680,7 @@
                                 <br>
                                 <input class="form-control"
                                        type="date"
+                                       timepicker-neutral-timezone
                                        ng-change="checkDate()"
                                        min="{{todayDate}}"
                                        onkeydown="return false"
