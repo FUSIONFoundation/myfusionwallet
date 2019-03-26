@@ -57,9 +57,12 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         })
     }
 
+    $scope.$eval(function(){
+        $scope.latestBlock = 'Loading';
+    })
     web3.eth.subscribe('newBlockHeaders', function () {
         web3.eth.getBlockNumber().then(function (res) {
-            $scope.$apply(function () {
+            $scope.$eval(function () {
                 $scope.latestBlock = res;
             })
         });
