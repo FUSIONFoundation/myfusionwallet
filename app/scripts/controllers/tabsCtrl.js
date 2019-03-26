@@ -57,6 +57,14 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         })
     }
 
+    web3.eth.subscribe('newBlockHeaders', function () {
+        web3.eth.getBlockNumber().then(function (res) {
+            $scope.$apply(function () {
+                $scope.latestBlock = res;
+            })
+        });
+    });
+
     $scope.nodeType = $scope.ajaxReq.type;
     $scope.nodeService = $scope.ajaxReq.service;
     $scope.$watch('ajaxReq.type', function () {

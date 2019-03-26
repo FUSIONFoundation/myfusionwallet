@@ -3,13 +3,13 @@
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     web3.eth.subscribe('newBlockHeaders', function () {
-        $scope.getAllFsnAssets();
-        $scope.getTimeLockAssets();
-        web3.eth.getBlockNumber().then(function (res) {
-            $scope.$eval(function () {
-                $scope.latestBlock = res;
-            })
-        });
+            $scope.getAllFsnAssets();
+            $scope.getTimeLockAssets();
+            web3.eth.getBlockNumber().then(function (res) {
+                $scope.$eval(function () {
+                    $scope.latestBlock = res;
+                })
+            });
     });
 
     let nu = localStorage.getItem('nodeUrl')

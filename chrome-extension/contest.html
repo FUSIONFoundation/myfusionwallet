@@ -156,6 +156,8 @@
                     </span>
                     <div class="align-self-center hidden-xs">
                         <span class="badge badge-secondary text-fusion ml-4">2.00.00</span>
+                        <span class="badge badge-secondary text-fusion mr-1"><i class="fa fa-cube"></i> {{latestBlock}}</span>
+
                     </div>
 
                     <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
