@@ -33,11 +33,6 @@
             <div class="col-sm-12 clearfix">
                 <p class="p-2">The Assets section provides an overview of all the digital assets that are currently in
                     your Fusion PSN wallet.</p>
-                <div class="float-right">
-                    <span class="small-gray-text">
-                        <i class="fa fa-cube"></i> <strong>{{latestBlock}}</strong>
-                    </span>
-                </div>
             </div>
 
             <div class="col-sm-12 clearfix text-center gray-bg p-2"
