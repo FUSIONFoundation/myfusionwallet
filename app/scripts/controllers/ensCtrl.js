@@ -11,16 +11,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         _CHAINID = 1;
     }
 
-    $scope.init = function () {
+    $scope.init = async function () {
         if (!$scope.wallet) {
             return;
         }
         $scope.getAllAssets();
         $scope.getShortAddressNotation();
-        $scope.allSwaps().then(function () {
-            $scope.sortSwapMarket("timePosix");
-            $scope.sortOpenMakes("timePosix");
-        });
+        $scope.allSwaps();
+        $scope.sortSwapMarket("timePosix");
+        $scope.sortOpenMakes("timePosix");
         $scope.getBalance();
         $scope.setWalletAddress();
         $scope.getAllAssetsList().then(function () {
