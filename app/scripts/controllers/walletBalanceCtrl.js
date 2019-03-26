@@ -44,7 +44,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     let _CHAINID = 1;
 
     if (data.chainid !== "") {
-        _CHAINID = data.chainid;
+        _CHAINID = parseInt(data.chainid);
     } else {
         _CHAINID = 1;
     }
@@ -346,6 +346,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     hwTransport: $scope.wallet.getHWTransport()
                 }
                 let rawTx = data;
+                let txH = '';
                 var eTx = new ethUtil.Tx(rawTx);
                 if (ledgerConfig.hwType == "ledger") {
                     var app = new ledgerEth(ledgerConfig.hwTransport);
@@ -366,8 +367,11 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                         } else if (parseInt(splitVersion[2]) > 2) {
                             EIP155Supported = true;
                         }
+
                         var oldTx = Object.assign(rawTx, {});
+
                         let input = oldTx.input;
+
                         rawTx.chainId = _CHAINID;
                         return uiFuncs.signed(app, rawTx, ledgerConfig, false, function (res) {
                             oldTx.r = res.r;
@@ -390,6 +394,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await app.getAppConfiguration(localCallback);
                 }
             }
+
             if ($scope.wallet.hwType == "trezor") {
                 let rawTx = data;
                 let oldTx = Object.assign(rawTx, {});
