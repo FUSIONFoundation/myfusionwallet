@@ -50,6 +50,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.attributevalue = [];
     $scope.allAttributes = {};
 
+    $scope.wallet = walletService.wallet;
 
     $scope.addAttribute = function () {
         let max = $scope.totalAttributes.reduce(function (a, b) {

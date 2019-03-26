@@ -1,5 +1,6 @@
 'use strict';
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
+
     $scope.init = function () {
         if (!$scope.tx || !$scope.wallet) {
             return;
