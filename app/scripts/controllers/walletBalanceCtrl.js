@@ -1,18 +1,17 @@
 'use strict';
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
-    $scope.init = function () {
+    $scope.init = async function () {
         if (!$scope.tx || !$scope.wallet) {
             return;
         }
-        $scope.getShortAddressNotation();
         $scope.getLatestBalance();
+        try {
+            $scope.getShortAddressNotation();
+        }catch(err){}
+
         $scope.wallet.password = walletService.password;
     };
-
-    $scope.$watch('assetListOwns', function () {
-        $scope.getLatestBalance();
-    });
 
     $scope.getLatestBalance = function () {
         if (!$scope.tx || !$scope.wallet || typeof $scope.assetListOwns[0] == "undefined") {
@@ -34,7 +33,6 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         }
     }
-
 
     web3.eth.subscribe('newBlockHeaders', function () {
         $scope.getShortAddressNotation();
