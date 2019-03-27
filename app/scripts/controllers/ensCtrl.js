@@ -1,14 +1,14 @@
 'use strict';
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
-    let nu = localStorage.getItem('nodeUrl')
+    let nu = localStorage.getItem(window.cookieName)
     let data = nu ? JSON.parse(nu) : {}
     let _CHAINID = 1;
 
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
     } else {
-        _CHAINID = 1;
+        _CHAINID = window.defaultChainId;
     }
 
     $scope.init = async function () {
