@@ -831,12 +831,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         console.log($scope.takeDataFront);
     }
 
+
     $scope.setReceive = async function (amount) {
         if ($scope.takeAmountSwap == "" || $scope.takeAmountSwap == 0) {
             $scope.$eval(function(){$scope.takeAmountSwap = 1});
         }
 
-        window.BigNumber.config({ DECIMAL_PLACES: 18});
+        window.BigNumber.set({ DECIMAL_PLACES: 18});
 
         let perc1 = new window.BigNumber( $scope.convertToString($scope.takeAmountSwap) )
 
@@ -846,13 +847,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         let perc2 = new window.BigNumber($scope.convertToString($scope.takeDataFront.swapSize))
-        let perc3 = perc1.div(perc2);
+        let perc3 = perc1.div($scope.convertToString(perc2));
+
+        let perc4 = perc1.dividedBy(perc2.toString());
 
         let fromAmountBN = new window.BigNumber( $scope.convertToString($scope.takeDataFront.fromAmount))
-        let fromFinal = fromAmountBN.mul(perc3);
+        let fromFinal = fromAmountBN.times($scope.convertToString(perc3));
 
         let toAmountBN = new window.BigNumber($scope.convertToString($scope.takeDataFront.toAmount))
-        let toFinal = toAmountBN.mul(perc3);
+        let toFinal = toAmountBN.times($scope.convertToString(perc3));
 
         await $scope.$eval(function () {
             $scope.receiveTokens = fromFinal.toString();
@@ -1525,6 +1528,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let swapratetaker = toAmount / fromAmount;
                 let minimumswaptaker = fromAmount * swapratetaker;
 
+
                 // Targes section
 
                 let targes = '';
@@ -1561,6 +1565,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let toAmountF = toAmount * parseInt(swapList[asset]["SwapSize"]);
                 let fromAmountF = fromAmount * parseInt(swapList[asset]["SwapSize"])
 
+                let minimumswapopenmake = fromAmountF / parseInt(swapList[asset]["SwapSize"]);
+
                 let data = {
                     "id": swapListFront.length,
                     "swap_id": swapList[asset]["ID"],
@@ -1577,6 +1583,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "swapratetaker": swapratetaker,
                     "minswap": minimumswap,
                     "minswaptaker": minimumswaptaker,
+                    "minswapopenmake" : minimumswapopenmake,
                     "time": time.toLocaleString(),
                     "timePosix": swapList[asset]["Time"],
                     "timeHours": timeHours,
