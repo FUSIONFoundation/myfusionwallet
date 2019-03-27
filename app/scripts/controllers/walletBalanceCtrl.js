@@ -7,6 +7,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         $scope.getShortAddressNotation();
         $scope.getLatestBalance();
+        $scope.wallet.password = walletService.password;
     };
 
     $scope.$watch('assetListOwns', function () {

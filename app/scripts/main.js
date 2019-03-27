@@ -164,7 +164,7 @@ function keepWeb3Alive(){
     let data = nu ? JSON.parse(nu) : {}
     // if the url is empty set standard gateway
     if (data.url == ""){
-        nodeUrl = "wss://gatewayw.fusionnetwork.io:10001";
+        nodeUrl = window.defaultGateway;
     } else {
         nodeUrl = data.url;
     }
@@ -175,7 +175,7 @@ function keepWeb3Alive(){
     } catch (err){
         alert(`Could not connect to node. Reverting back to default gateway.`);
         let data = {
-            "url": "wss://gatewayw.fusionnetwork.io:10001"
+            "url": window.defaultGateway
         }
         localStorage.setItem(window.cookieName, JSON.stringify(data));
         provider = new Web3.providers.WebsocketProvider(data.url);
