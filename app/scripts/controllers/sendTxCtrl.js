@@ -7,12 +7,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getTimeLockAssets();
     });
 
-    let nu = localStorage.getItem('nodeUrl')
-    let data = nu ? JSON.parse(nu) : {}
-    let _CHAINID = 88661;
+    let nu = localStorage.getItem(window.cookieName)
+    let cookieData = nu ? JSON.parse(nu) : {}
+    let _CHAINID = window.defaultChainId;
 
-    if (data.chainid !== "") {
-        _CHAINID = data.chainid;
+    if (cookieData.chainid !== "") {
+        _CHAINID = cookieData.chainid;
     } else {
         _CHAINID = 1;
     }
@@ -473,6 +473,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 hwTransport: $scope.wallet.getHWTransport()
             }
             let rawTx = data;
+                rawTx.gasLimit = globalFuncs.urlGet('gaslimit');
+                rawTx.gas = globalFuncs.urlGet('gasprice');
+                console.log(rawTx);
             var eTx = new ethUtil.Tx(rawTx);
             if (ledgerConfig.hwType == "ledger") {
                 var app = new ledgerEth(ledgerConfig.hwTransport);
