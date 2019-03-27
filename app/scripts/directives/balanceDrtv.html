@@ -125,14 +125,17 @@
                                 <div class="row form-group" ng-hide="showPkState">
                                     <span class="small-gray-text inline mb-2 mt-2">Private Key (Unencrypted)</span>
                                     <div class="col-md-10 pl-1 pr-1"
-                                         ng-hide="wallet.password == ''"
                                     >
                                         <input type="password"
                                                class="form-control" placeholder="Enter password to view Private Key"
-                                               ng-model="inputPassword">
+                                               ng-model="inputPassword"
+                                               ng-hide="wallet.password == ''">
+                                        <div class="gray-bg p-1 break-word"
+                                             ng-show="wallet.password == ''">
+                                            <span class="small-gray-text text-fusion fusion-text-14">Press view to view private key</span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-2 pl-1 pr-1"
-                                         ng-class="{'col-md-12' : wallet.password == ''}">
+                                    <div class="col-md-2 pl-1 pr-1">
 
                                         <button class="btn btn-sm btn-primary" ng-click="showPk('show')">View Key</button>
                                     </div>
