@@ -1574,8 +1574,7 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                <span class="fusion-text-14">{{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}}
-                                    )</span>
+                                <span class="fusion-text-14">{{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})</span>
                                 <br>
                                 <span class="small-gray-text max-char text-right inline-block" data-toggle="tooltip"
                                       data-placement="top"
