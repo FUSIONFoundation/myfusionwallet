@@ -377,6 +377,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.changeSupplyTx = async function () {
+        let data = {};
         let asset = $scope.assetListOwns[$scope.lastId];
 
         let accountData = uiFuncs.getTxData($scope);
@@ -396,7 +397,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let newtotalSupplyBN = $scope.makeBigNumber(newtotalSupplyString, asset.decimals);
             let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
 
-            let data = {
+            data = {
                 "asset": asset.contractaddress,
                 "from": walletAddress,
                 "to": walletAddress,
@@ -434,7 +435,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let newtotalSupplyBN = $scope.makeBigNumber(newtotalSupplyString, asset.decimals);
             let newtotalSupplyBNHex = "0x" + newtotalSupplyBN.toString(16);
 
-            let data = {
+            data = {
                 "asset": asset.contractaddress,
                 "from": walletAddress,
                 "to": walletAddress,
@@ -473,8 +474,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 hwTransport: $scope.wallet.getHWTransport()
             }
             let rawTx = data;
-                rawTx.gasLimit = globalFuncs.urlGet('gaslimit');
-                rawTx.gas = globalFuncs.urlGet('gasprice');
                 console.log(rawTx);
             var eTx = new ethUtil.Tx(rawTx);
             if (ledgerConfig.hwType == "ledger") {
