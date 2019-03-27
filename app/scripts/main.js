@@ -140,21 +140,27 @@ var web3FusionExtend = require('web3-fusion-extend');
 window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
-var nodeUrl = localStorage.getItem('nodeUrl')
+let cookieName = "nodeUrl";
+let defaultGateway = "wss://gatewayw.fusionnetwork.io:10001";
+let defaultChainId = 88661;
+window.cookieName = cookieName;
+window.defaultGateway = defaultGateway;
+window.defaultChainId = defaultChainId;
+var nodeUrl = localStorage.getItem(window.cookieName)
 let data = nodeUrl ? JSON.parse(nodeUrl) : null
 
 // Initialize cookie if there is non
 if (data === null){
     let data = {
-        "url": "",
-        "chainid" : ""
+        "url": window.defaultGateway,
+        "chainid" : window.defaultChainId
     }
-    localStorage.setItem('nodeUrl', JSON.stringify(data));
+    localStorage.setItem(window.cookieName, JSON.stringify(data));
 }
 
 
 function keepWeb3Alive(){
-    let nu = localStorage.getItem('nodeUrl')
+    let nu = localStorage.getItem(window.cookieName)
     let data = nu ? JSON.parse(nu) : {}
     // if the url is empty set standard gateway
     if (data.url == ""){
@@ -171,7 +177,7 @@ function keepWeb3Alive(){
         let data = {
             "url": "wss://gatewayw.fusionnetwork.io:10001"
         }
-        localStorage.setItem('nodeUrl', JSON.stringify(data));
+        localStorage.setItem(window.cookieName, JSON.stringify(data));
         provider = new Web3.providers.WebsocketProvider(data.url);
     }
 

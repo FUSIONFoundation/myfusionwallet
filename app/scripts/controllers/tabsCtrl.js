@@ -28,16 +28,17 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
     $scope.notifier.scope = $scope;
     $scope.ajaxReq = ajaxReq;
     $scope.chainId;
-    let nu = localStorage.getItem('nodeUrl')
+
+    let nu = localStorage.getItem(window.cookieName)
     let data = nu ? JSON.parse(nu) : {}
     if (data.url == ""){
-        $scope.inputUrl = "wss://gatewayw.fusionnetwork.io:10001";
+        $scope.inputUrl = window.defaultGateway;
     } else {
         $scope.$eval(function(){
             $scope.inputUrl = data.url;
         })
     }
-    if($scope.inputUrl == "wss://gatewayw.fusionnetwork.io:10001"){
+    if($scope.inputUrl == window.defaultGateway){
         $scope.$eval(function(){
             $scope.nodeName = "FSN Gateway"
         })
@@ -49,7 +50,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
     if(data.chainid == ""){
         $scope.$eval(function(){
-            $scope.chainId = 1;
+            $scope.chainId = window.defaultChainId;
         })
     } else {
         $scope.$eval(function(){
@@ -141,8 +142,8 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
                 "url": $scope.inputUrl,
                 "chainid" : $scope.chainId
             };
-            localStorage.setItem('nodeUrl', JSON.stringify(url));
-            let data = JSON.parse(localStorage.getItem('nodeUrl'));
+            localStorage.setItem(window.cookieName, JSON.stringify(url));
+            let data = JSON.parse(localStorage.getItem(window.cookieName));
 
             $scope.$eval(function () {
                 $scope.inputUrl = data.url;
