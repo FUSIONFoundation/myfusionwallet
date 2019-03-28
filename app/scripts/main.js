@@ -140,8 +140,10 @@ var web3FusionExtend = require('web3-fusion-extend');
 window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
+
 let cookieName = "gatewayURL";
 let defaultGateway = "wss://gatewaypsn2w.fusionnetwork.io:10001";
+
 let defaultChainId = 88666;
 window.cookieName = cookieName;
 window.defaultGateway = defaultGateway;
