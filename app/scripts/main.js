@@ -142,7 +142,7 @@ var provider;
 var web3;
 let cookieName = "nodeUrl";
 let defaultGateway = "wss://gatewayw.fusionnetwork.io:10001";
-let defaultChainId = 88661;
+let defaultChainId = 88666;
 window.cookieName = cookieName;
 window.defaultGateway = defaultGateway;
 window.defaultChainId = defaultChainId;
