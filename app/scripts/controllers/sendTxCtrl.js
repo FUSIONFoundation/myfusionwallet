@@ -13,8 +13,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     if (cookieData.chainid !== "") {
         _CHAINID = cookieData.chainid;
-    } else {
-        _CHAINID = 1;
     }
 
     $scope.showAllAssets = true;

@@ -3,12 +3,10 @@
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     let nu = localStorage.getItem(window.cookieName)
     let data = nu ? JSON.parse(nu) : {}
-    let _CHAINID = 1;
+    let _CHAINID = window.defaultChainId;
 
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
-    } else {
-        _CHAINID = window.defaultChainId;
     }
 
     $scope.init = async function () {

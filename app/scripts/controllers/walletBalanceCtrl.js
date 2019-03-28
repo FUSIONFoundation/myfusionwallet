@@ -40,12 +40,10 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     });
 
     let data = JSON.parse(localStorage.getItem(window.cookieName));
-    let _CHAINID = 1;
+    let _CHAINID = window.defaultChainId;
 
     if (data.chainid !== "") {
         _CHAINID = parseInt(data.chainid);
-    } else {
-        _CHAINID = window.defaultChainId;
     }
 
     $scope.init();
