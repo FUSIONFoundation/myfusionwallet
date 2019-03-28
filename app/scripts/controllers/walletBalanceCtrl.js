@@ -13,6 +13,10 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.wallet.password = walletService.password;
     };
 
+    $scope.$watch('assetListOwns', function () {
+        $scope.getLatestBalance();
+    });
+
     $scope.getLatestBalance = function () {
         if (!$scope.tx || !$scope.wallet || typeof $scope.assetListOwns[0] == "undefined") {
             $scope.$eval(function () {
