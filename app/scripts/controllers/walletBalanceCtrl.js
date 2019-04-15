@@ -19,6 +19,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.$watch('assetListOwns', function () {
         $scope.getLatestBalance();
+        $scope.getStakingInfo();
     });
 
     $scope.getStakingInfo = async function () {
@@ -50,7 +51,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 })
             }
         } catch (err) {
-            console.log(err);
+            return;
         }
     }
 
