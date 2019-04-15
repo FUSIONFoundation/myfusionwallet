@@ -1728,6 +1728,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
+            return status = 'Active';
+        }
+
+        if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
             return status = 'Available';
         }
         if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
