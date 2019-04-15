@@ -33,7 +33,7 @@
         <ul class="account-info">
             <div class="gray-bg p-1 break-word">
                     <span class="small-gray-text text-fusion fusion-text-14 copy"
-                    ng-click="copyToClipboard(wallet.getChecksumAddressString())"
+                          ng-click="copyToClipboard(wallet.getChecksumAddressString())"
                     >{{wallet.getChecksumAddressString()}}</span>
             </div>
             <label class="ens-response" ng-show="showEns()">
@@ -79,7 +79,7 @@
         <ul class="account-info">
             <li ng-show="ajaxReq.type == 'ETH'">
                 <a class="blue-text"
-                        href="https://blocks.fusionnetwork.io/Addresses/{{wallet.getAddressString()}}" target="_blank"
+                   href="https://blocks.fusionnetwork.io/Addresses/{{wallet.getAddressString()}}" target="_blank"
                    rel="noopener noreferrer">
                     FSN Block Explorer <img class="mb-1" src="images/New_Window.svg"/>
                 </a>
@@ -137,7 +137,8 @@
                                     </div>
                                     <div class="col-md-2 pl-1 pr-1">
 
-                                        <button class="btn btn-sm btn-primary" ng-click="showPk('show')">View Key</button>
+                                        <button class="btn btn-sm btn-primary" ng-click="showPk('show')">View Key
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -151,18 +152,45 @@
                                 </div>
                                 <div class="col-md-6 p-0" ng-show="showPkState">
                                     <span class="small-gray-text inline mb-2 mt-2 ml-4">Private Key (Unencrypted)</span>
-                                    <div class="qr-code"  style="max-width: 200px !important;"
+                                    <div class="qr-code" style="max-width: 200px !important;"
                                          qr-code="{{wallet.getPrivateKeyString()}}"
                                          watch-var="timeLockList"></div>
                                 </div>
                             </div>
                         </div>
-
                     </article>
                 </section>
             </section>
         </article>
-
+    </div>
+    <hr>
+    <div class="block pt-2">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
+                <h5>Staking Status</h5>
+                <ul class="account-info point">
+                    <li>
+                        <span ng-hide="totalTickets == 0" class="badge badge-success p-1">Active</span>
+                        <span ng-show="totalTickets == 0" class="badge badge-secondary p-1">Inactive</span>
+                    </li>
+                </ul>
+                <h5>Active tickets</h5>
+                <ul class="account-info point">
+                    <li>
+                        <span class="mono wrap wallet-balance">{{totalTickets}}</span> <span
+                            class="fusion-text-12">Tickets</span>
+                    </li>
+                </ul>
+                <h5>Rewards to date</h5>
+                <ul class="account-info point">
+                    <li>
+                        <span class="mono wrap wallet-balance">{{stakingRewardsEarned}}</span> <span
+                            class="fusion-text-12">FSN</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     </div>
 
     <!-- Slider Thingy -->

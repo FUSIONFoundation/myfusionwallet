@@ -1,6 +1,9 @@
 'use strict';
 var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
 
+    $scope.stakingRewardsEarned = 0;
+    $scope.totalTickets = 0;
+
     $scope.init = async function () {
         if (!$scope.tx || !$scope.wallet) {
             return;
@@ -8,6 +11,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.getLatestBalance();
         try {
             $scope.getShortAddressNotation();
+            $scope.getStakingInfo();
         }catch(err){}
 
         $scope.wallet.password = walletService.password;
@@ -16,6 +20,39 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.$watch('assetListOwns', function () {
         $scope.getLatestBalance();
     });
+
+    $scope.getStakingInfo = async function () {
+        try {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+            let data = {};
+            let ticketsData;
+            let tickets = {};
+            await ajaxReq.http.get(`https://api.fusionnetwork.io/balances/${walletAddress}`).then(function (r) {
+                data = r.data
+                console.log(data);
+            })
+
+            if (data.length == 0){
+                $scope.$eval(function () {
+                    $scope.stakingRewardsEarned = 0;
+                    $scope.totalTickets = 0;
+                })
+            }
+
+            if (data.length > 0) {
+                ticketsData = JSON.parse(data[0].balanceInfo);
+                tickets = Object.keys(ticketsData.tickets);
+
+                $scope.$eval(function () {
+                    $scope.stakingRewardsEarned = data[0].rewardEarn;
+                    $scope.totalTickets = tickets.length;
+                })
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     $scope.getLatestBalance = function () {
         if (!$scope.tx || !$scope.wallet || typeof $scope.assetListOwns[0] == "undefined") {
