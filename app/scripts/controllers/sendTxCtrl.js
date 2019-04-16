@@ -1917,6 +1917,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.timeLockList = timeLockListSave;
         });
+        console.log($scope.timeLockList);
     }
 
 
