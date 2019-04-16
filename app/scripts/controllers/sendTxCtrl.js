@@ -317,9 +317,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     }
 
-    $scope.getVerifiedAssets();
-
-
     $scope.changeSupplyOpen = async function (id) {
         if (id === undefined || id == "") {
             id = $scope.lastId
@@ -1723,6 +1720,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (!$scope.tx || !$scope.wallet) {
             return
         }
+        $scope.getVerifiedAssets();
         $scope.getAllFsnAssets();
         $scope.getTimeLockAssets();
         $scope.countdownTimer();
@@ -1962,6 +1960,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let assetList = {};
         let assetList2 = [];
         let assetList3 = [];
+        let verifiedAsset = false;
 
 
         await web3.fsn.allAssets().then(function (res) {
@@ -1985,11 +1984,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     verifiedImage = $scope.verifiedAssetsImages[a].image;
                     hasImage = true;
                     verifiedAsset = true;
-                } else {
-                    // Place to set empty icon
-                    verifiedImage = '';
-                    hasImage = false;
-                    verifiedAsset = false;
                 }
             }
 
@@ -2065,6 +2059,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             await assetList3.push(data);
         }
+
+        console.log(assetList3);
 
         $scope.$apply(function () {
             $scope.assetListOwns = assetList3;
