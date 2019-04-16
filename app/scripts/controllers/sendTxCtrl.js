@@ -3,8 +3,8 @@
 var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     web3.eth.subscribe('newBlockHeaders', function () {
-            $scope.getAllFsnAssets();
-            $scope.getTimeLockAssets();
+        $scope.getAllFsnAssets();
+        $scope.getTimeLockAssets();
     });
 
     let nu = localStorage.getItem(window.cookieName)
@@ -472,7 +472,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 hwTransport: $scope.wallet.getHWTransport()
             }
             let rawTx = data;
-                console.log(rawTx);
+            console.log(rawTx);
             var eTx = new ethUtil.Tx(rawTx);
             if (ledgerConfig.hwType == "ledger") {
                 var app = new ledgerEth(ledgerConfig.hwTransport);
@@ -1318,10 +1318,40 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.notifier.info('Please, confirm transaction on Ledger.');
                 await app.getAppConfiguration(localCallback);
             }
+        }
 
-            if ($scope.wallet.hwType == "trezor") {
+        if ($scope.wallet.hwType == "trezor") {
+            let rawTx = data;
+            let oldTx = Object.assign(rawTx, {});
+            rawTx.chainId = parseInt(_CHAINID);
+            rawTx.gasLimit = "0x2EE0";
+            let gasPrice = web3.utils.toWei(new web3.utils.BN(2), "gwei");
+            rawTx.gasPrice = "0x" + gasPrice.toString(16);
+            rawTx.gas = "0x15F90"
+            return TrezorConnect.ethereumSignTransaction({
+                path: $scope.wallet.getPath(),
+                transaction: rawTx
+            }).then(function (result) {
+                var rv = parseInt(result.payload.v, 16);
+                var cv = parseInt(_CHAINID) * 2 + 35;
+                if (rv !== cv && (rv & cv) !== rv) {
+                    cv += 1; // add signature v bit.
+                }
+                let v = cv.toString(16);
+                rawTx.r = result.payload.r;
+                rawTx.s = result.payload.s;
+                rawTx.v = "0x" + v;
+                // rawTx.v = result.payload.v;
+                let eTx = new ethUtil.Tx(rawTx);
+                rawTx.rawTx = JSON.stringify(rawTx);
+                rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
+                rawTx.isError = false;
 
-            }
+                window.web3.eth.sendSignedTransaction(rawTx.signedTx,function (err,txHash) {
+                    console.log(txHash);
+                    console.log(err);
+                })
+            });
         }
     }
 
@@ -1711,7 +1741,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }, 1000);
     }
 
-    $scope.getTimeLockStatus = function (startTime,endTime,startTimePosix,endTimePosix){
+    $scope.getTimeLockStatus = function (startTime, endTime, startTimePosix, endTimePosix) {
         let currentDate = Math.floor(new Date().getTime() / 1000.0);
         // if the start and endtime are now and forever
         if (startTimePosix === 0 && endTimePosix === 18446744073709552000) {
@@ -1917,7 +1947,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.timeLockList = timeLockListSave;
         });
-        console.log($scope.timeLockList);
     }
 
 

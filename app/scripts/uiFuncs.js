@@ -30,10 +30,11 @@ uiFuncs.isTxDataValid = function(txData) {
 }
 uiFuncs.signTxTrezor = function(rawTx, { path }) {
     function localCallback({ error = null, success, payload: { v, r, s } }) {
-        if (!success) {
+
+        if(!success){
+            console.log(error);
             throw error;
         }
-
         // check the returned signature_v and recalc signature_v if it needed
         // see also https://github.com/trezor/trezor-mcu/pull/399
         if (v <= 1) {
@@ -55,9 +56,13 @@ uiFuncs.signTxTrezor = function(rawTx, { path }) {
         path,
         transaction: rawTx
     };
-    return TrezorConnect.ethereumSignTransaction(options).then(result =>
-        localCallback(result)
-    );
+    try {
+        return TrezorConnect.ethereumSignTransaction(options).then(result =>
+            localCallback(result)
+        );
+    } catch (err){
+        console.log(err);
+    }
 }
 uiFuncs.signTxLedger = function(app, eTx, rawTx, txData, old, callback) {
     eTx.raw[6] = 1; //rawTx.chainId;
