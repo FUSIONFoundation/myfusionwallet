@@ -70,17 +70,18 @@
                                 <span ng-if="!asset.hasImage"
                                       class="btn btn-white btn-circle w32 asset-round mt-1">{{asset.symbol | limitTo : 4 }}</span>
                             </td>
-                            <td ng-click="manageAssetOpen(f)"
-                            >{{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                     ng-show="asset.verified"><i
-                                            class="fa fa-check-circle"></i> Verified</span> <br>
+                            <td ng-click="manageAssetOpen(f)">
+                                {{asset.name}} ({{asset.symbol}})
+                                <span class="color-Active official-fusion-badge" ng-show="asset.verified">
+                                    <i class="fa fa-check-circle"></i> Verified</span>
+                                <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
                                           title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
                                 </div>
                             </td>
-                            <td ng-click="manageAssetOpen(f)"
-                            ><span class="badge badge-secondary m-1">Fusion Asset</span>
+                            <td ng-click="manageAssetOpen(f)">
+                                <span class="badge badge-secondary m-1">Fusion Asset</span>
                                 <br>
                                 <span class="created m-1" ng-hide="asset.owner == ''">{{asset.owner}}</span>
 
@@ -147,9 +148,8 @@
                                 <span ng-if="!asset.hasImage"
                                       class="btn btn-white btn-circle w32 asset-round mt-1">{{asset.symbol | limitTo : 4 }}</span>
                             </td>
-                            <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                         ng-show="asset.verified"><i
-                                            class="fa fa-check-circle"></i> Verified</span>
+                            <td> {{asset.name}} ({{asset.symbol}})  <span class="color-Active official-fusion-badge" ng-show="asset.verified">
+                                    <i class="fa fa-check-circle"></i> Verified</span>
                                 <br>
                                 <div class="max-char"><span class="small-gray-text" data-toggle="tooltip"
                                                             data-placement="top"

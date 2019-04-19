@@ -61,7 +61,6 @@
     "scryptsy": "^2.0.0",
     "similarity": "^1.1.1",
     "string-format": "^0.5.0",
-    "trezor-connect": "^5.0.33",
     "u2f-api": "^1.0.10",
     "unicode": "^10.0.0",
     "utf8": "^2.1.2",
@@ -81,6 +80,7 @@
     "express": "^4.16.4",
     "jade": "^1.11.0",
     "less-middleware": "^3.0.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "trezor-connect": "^7.0.3"
   }
 }

@@ -1318,17 +1318,26 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         if ($scope.wallet.hwType == "trezor") {
+            debugger
             let rawTx = data;
-            let oldTx = Object.assign(rawTx, {});
+            var oldTx = Object.assign(rawTx, {});
+            let input = oldTx.input;
             rawTx.chainId = parseInt(_CHAINID);
             rawTx.gasLimit = "0x2EE0";
             let gasPrice = web3.utils.toWei(new web3.utils.BN(2), "gwei");
             rawTx.gasPrice = "0x" + gasPrice.toString(16);
-            rawTx.gas = "0x15F90"
+            rawTx.gas = "0x15F90";
+            delete rawTx.r;
+            delete rawTx.s;
+            delete rawTx.v;
+            delete rawTx.gas;
+            console.log(rawTx);
+
             return TrezorConnect.ethereumSignTransaction({
                 path: $scope.wallet.getPath(),
                 transaction: rawTx
             }).then(function (result) {
+                debugger
                 var rv = parseInt(result.payload.v, 16);
                 var cv = parseInt(_CHAINID) * 2 + 35;
                 if (rv !== cv && (rv & cv) !== rv) {
@@ -1337,14 +1346,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let v = cv.toString(16);
                 rawTx.r = result.payload.r;
                 rawTx.s = result.payload.s;
-                rawTx.v = "0x" + v;
-                // rawTx.v = result.payload.v;
-                let eTx = new ethUtil.Tx(rawTx);
-                rawTx.rawTx = JSON.stringify(rawTx);
-                rawTx.signedTx = '0x' + eTx.serialize().toString('hex');
-                rawTx.isError = false;
+                // rawTx.v = "0x" + v;
+                rawTx.v = result.payload.v;
+                rawTx.gas = "0x15F90";
 
-                window.web3.eth.sendSignedTransaction(rawTx.signedTx,function (err,txHash) {
+                console.log(rawTx);
+                window.web3.fsntx.sendRawTransaction(rawTx,function (err,txHash) {
                     console.log(txHash);
                     console.log(err);
                 })
@@ -1716,6 +1723,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
     }
+    $scope.getVerifiedAssets();
     setInterval(function () {
         if (!$scope.tx || !$scope.wallet) {
             return
@@ -1806,16 +1814,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let verifiedImage = '';
             let hasImage = false;
+            let verifiedAsset = false;
 
             for (let a in $scope.verifiedAssetsImages) {
                 if ($scope.verifiedAssetsImages[a].assetID == assetId[x]) {
                     // Set matched image name
                     verifiedImage = $scope.verifiedAssetsImages[a].image;
                     hasImage = true;
-                } else {
-                    // Place to set empty icon
-                    verifiedImage = '';
-                    hasImage = false;
+                    verifiedAsset = true;
                 }
             }
 
@@ -1823,6 +1829,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (assetId[x] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
                 verifiedImage = 'EFSN_LIGHT.svg';
                 hasImage = true;
+                verifiedAsset = true;
             }
 
             for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
@@ -1873,7 +1880,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "rawValue": timeLockList[asset]["Items"][i]["Value"],
                     "value": parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
                     "image": verifiedImage,
-                    "hasImage": hasImage
+                    "hasImage": hasImage,
+                    "verified": verifiedAsset
                 }
 
                 if (status == 'Active') {
@@ -1915,7 +1923,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "rawValue": availableList[asset]["rawValue"],
                 "value": availableList[asset]["value"],
                 "image": availableList[asset]["image"],
-                "hasImage": availableList[asset]["hasImage"]
+                "hasImage": availableList[asset]["hasImage"],
+                "verified": availableList[asset]["verified"]
 
             }
             await timeLockListSave.push(data);
@@ -1937,7 +1946,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "rawValue": activeList[asset]["rawValue"],
                 "value": activeList[asset]["value"],
                 "image": activeList[asset]["image"],
-                "hasImage": activeList[asset]["hasImage"]
+                "hasImage": activeList[asset]["hasImage"],
+                "verified": activeList[asset]["verified"]
+
             }
             await timeLockListSave.push(data);
         }
@@ -1945,6 +1956,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.timeLockList = timeLockListSave;
         });
+
+        console.log(timeLockListSave)
     }
 
 
