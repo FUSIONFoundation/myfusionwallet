@@ -13,6 +13,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (!$scope.wallet) {
             return;
         }
+        $scope.getVerifiedAssets();
         $scope.getAllAssets();
         $scope.getShortAddressNotation();
         $scope.allSwaps();
@@ -65,8 +66,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             })
         } catch (err) { return; }
     }
-
-    $scope.getVerifiedAssets();
 
     $scope.convertToString = function (input){
         if(input === ''){return;}
@@ -358,6 +357,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.assetToReceive = $scope.assetList[0].contractaddress;
                     $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
                     $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
+                    $scope.selectedReceiveVerified = $scope.assetList[0].verified;
                 })
             }
         }
@@ -375,6 +375,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
                     $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
                     $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
+                    $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
                     $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
                     $scope.getAssetBalance();
                 })
@@ -555,6 +556,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.selectedReceiveImage = `${$scope.assetList[id].image}`;
             $scope.selectedReceiveHasImage = $scope.assetList[id].hasImage;
             $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
+            $scope.selectedReceiveVerified= $scope.assetList[id].verified;
             $scope.assetToReceive = $scope.assetList[id].contractaddress;
             $scope.receiveDropDown = false;
         })
@@ -568,6 +570,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.selectedSendImage = `${$scope.assetListOwned[id].image}`;
             $scope.selectedSendHasImage = $scope.assetListOwned[id].hasImage;
             $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
+            $scope.selectedSendVerified= $scope.assetListOwned[id].verified;
             $scope.getAssetBalance();
             $scope.sendDropDown = false;
         })
@@ -683,6 +686,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let owned = false;
                 let assetBalance = '';
 
+                let verifiedImage = '';
+                let hasImage = false;
+                let verifiedAsset = false;
+
                 try {
                     await web3.fsn.getBalance(id, walletAddress).then(function (res) {
                         assetBalance = res;
@@ -691,21 +698,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     console.log(err);
                 }
 
-                let verifiedImage = '';
-                let hasImage = false;
-                let verifiedAsset = false;
-
                 for (let a in $scope.verifiedAssetsImages){
-                    if ($scope.verifiedAssetsImages[a].assetID == id) {
+                    if (id == $scope.verifiedAssetsImages[a].assetID) {
                         // Set matched image name
                         verifiedImage = $scope.verifiedAssetsImages[a].image;
                         hasImage = true;
                         verifiedAsset = true;
-                    } else {
-                        // Place to set empty icon
-                        verifiedImage = '';
-                        hasImage = false;
-                        verifiedAsset = false;
                     }
                 }
 
@@ -801,7 +799,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         balance = balance / $scope.countDecimals(decimals);
 
-        console.log($scope.swapsList[id]);
 
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
@@ -827,7 +824,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         await $scope.setReceive(1).then(function () {
             $scope.takeSwapModal.open();
         });
-        console.log($scope.takeDataFront);
     }
 
 
@@ -888,8 +884,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             SwapID: swap_id.swap_id,
             Size: $scope.takeAmountSwap
         };
-
-        console.log(data);
 
         if (!$scope.account && ($scope.wallet.hwType !== "ledger")) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
@@ -1223,11 +1217,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
         }
 
-        console.log(data);
-
         try {
             await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
-                console.log(tx);
                 tx.from = walletAddress;
                 tx.chainId = _CHAINID;
                 data = tx;
@@ -1498,6 +1489,45 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 } catch (err) {
 
                 }
+                let fromVerifiedImage = '';
+                let fromHasImage = false;
+                let fromVerified = false;
+
+
+                for (let a in $scope.verifiedAssetsImages){
+                    if ($scope.verifiedAssetsImages[a].assetID == swapList[asset]["FromAssetID"]) {
+                        // Set matched image name
+                        fromVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                        fromHasImage = true;
+                        fromVerified = true;
+                    }
+                    if (swapList[asset]["FromAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                        // Set matched image name
+                        fromVerifiedImage = '';
+                        fromHasImage = false;
+                        fromVerified = true;
+                    }
+                }
+
+                let toVerifiedImage = '';
+                let toHasImage = false;
+                let toVerified = false;
+
+                for (let a in $scope.verifiedAssetsImages){
+                    if ($scope.verifiedAssetsImages[a].assetID == swapList[asset]["ToAssetID"]) {
+                        // Set matched image name
+                        toVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                        toHasImage = true;
+                        toVerified = true;
+                    }
+                    if (swapList[asset]["ToAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                        // Set matched image name
+                        fromVerifiedImage = '';
+                        fromHasImage = false;
+                        fromVerified = true;
+                    }
+                }
+
 
                 owner === walletAddress ? owned = true : owned = false;
 
@@ -1597,8 +1627,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     "ToEndTime": swapList[asset]["ToEndTime"],
                     "ToStartTime": swapList[asset]["ToStartTime"],
                     "ToEndTimeString": $scope.returnDateString(swapList[asset]["ToEndTime"],'End'),
-                    "ToStartTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"],'Start')
-
+                    "ToStartTimeString": $scope.returnDateString(swapList[asset]["ToStartTime"],'Start'),
+                    "fromVerifiedImage" : fromVerifiedImage,
+                    "fromHasImage" : fromHasImage,
+                    "fromVerified" : fromVerified,
+                    "toVerifiedImage" : toVerifiedImage,
+                    "toHasImage" : toHasImage,
+                    "toVerified" : toVerified
                 }
                 if (swapList[asset]["Targes"].includes(walletAddress) || swapList[asset]["Targes"].length <= 0 || walletAddress == swapList[asset]["Owner"]) {
                     await swapListFront.push(data);

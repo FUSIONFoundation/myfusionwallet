@@ -65,8 +65,7 @@
                         <div class="col">
                             {{selectedSendAsset}} <span
                                     class="color-Active official-fusion-badge"
-                                    ng-show="selectedSendContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> FSN Official</span>
+                                    ng-show="selectedSendVerified"><i class="fa fa-check-circle"></i></span>
                             <span class="small-gray-text max-char">{{selectedSendContract}}</span>
                         </div>
                     </a>
@@ -97,7 +96,7 @@
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                 ng-show="asset.verified"><i
-                                                class="fa fa-check-circle"></i> Verified</span>
+                                                class="fa fa-check-circle"></i></span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
@@ -129,8 +128,8 @@
                         <div class="col">
                             {{selectedReceiveAsset}} <span
                                     class="color-Active official-fusion-badge"
-                                    ng-show="selectedReceiveContract === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                        class="fa fa-check-circle"></i> Verified</span>
+                                    ng-show="selectedReceiveVerified"><i
+                                        class="fa fa-check-circle"></i></span>
                             <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
                         </div>
                     </a>
@@ -159,8 +158,8 @@
                         <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                                class="fa fa-check-circle"></i> FSN Official</span>
+                                                                ng-show="asset.verified"><i
+                                                class="fa fa-check-circle"></i></span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
@@ -225,7 +224,7 @@
                                     class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
-                                    ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                    ng-show="asset.toVerified"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text"
@@ -238,7 +237,7 @@
                             <span>{{asset.fromAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
-                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                    ng-show="asset.fromVerified"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text"
@@ -330,7 +329,7 @@
                                     class="small-gray-text">{{asset.timeHours}}</span></td>
                         <td class="text-right"ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
                                     class="color-Active official-fusion-badge"
-                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                    ng-show="asset.fromVerified"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text"
@@ -342,7 +341,7 @@
                         <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
                             <span
                                     class="color-Active official-fusion-badge"
-                                    ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                                    ng-show="asset.toVerified"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text"
@@ -484,9 +483,8 @@
                             ng-click="swapInformationModalOpen(asset.swap_id)"
                         ><strong>{{asset.toAmountCut}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span>
-                            <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.toAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                            <span class="color-Active official-fusion-badge"
+                                  ng-show="asset.toVerified"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text"
@@ -498,9 +496,8 @@
                         <td class="text-right"
                             ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.fromAmountCut}}</strong>
                             <span>{{asset.fromAssetSymbol}}</span>
-                            <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.fromAssetId === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
+                            <span class="color-Active official-fusion-badge"
+                                  ng-show="asset.fromVerified"><i
                                         class="fa fa-check-circle"></i></span>
                             <br>
                             <span class="small-gray-text"
@@ -767,9 +764,10 @@
                                         </div>
                                         <div class="col">
                                 <span class="fusion-text-14">
-                        {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                                class="fa fa-check-circle"></i> FSN Official</span>
+                        {{asset.name}} ({{asset.symbol}})
+                                    <span class="color-Active official-fusion-badge"
+                                          ng-show="asset.verified"><i
+                                                class="fa fa-check-circle"></i></span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
@@ -881,8 +879,8 @@
                                         <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.contractaddress === '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'"><i
-                                                class="fa fa-check-circle"></i> FSN Official</span>
+                                                                ng-show="asset.verified"><i
+                                                class="fa fa-check-circle"></i></span>
                         <br>
                         <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
                         </span>
