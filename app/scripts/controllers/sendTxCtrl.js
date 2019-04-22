@@ -1750,7 +1750,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.getTimeLockStatus = function (startTime, endTime, startTimePosix, endTimePosix) {
         let currentDate = Math.floor(new Date().getTime() / 1000.0);
         // if the start and endtime are now and forever
-        if (startTimePosix === 0 && endTimePosix === 18446744073709552000) {
+        if (startTimePosix <= currentDate && endTimePosix === 18446744073709552000) {
             return status = 'Available';
             // if the start and end date in range of the current date
         }
@@ -1767,9 +1767,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return status = 'Active';
         }
 
-        if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
-            return status = 'Available';
-        }
+        // if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
+        //     return status = 'Available';
+        // }
         if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
             return status = 'Expired';
         }
@@ -1906,6 +1906,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return a < b ? -1 : a > b ? 1 : 0;
         });
 
+        console.log(availableList);
         let u = -1;
         for (let asset in availableList) {
             u++
@@ -2072,8 +2073,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             await assetList3.push(data);
         }
-
-        console.log(assetList3);
 
         $scope.$apply(function () {
             $scope.assetListOwns = assetList3;
