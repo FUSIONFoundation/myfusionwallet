@@ -1500,8 +1500,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         fromVerifiedImage = $scope.verifiedAssetsImages[a].image;
                         fromHasImage = true;
                         fromVerified = true;
-                    }
-                    if (swapList[asset]["FromAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                    } else if (swapList[asset]["FromAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
                         // Set matched image name
                         fromVerifiedImage = '';
                         fromHasImage = false;
@@ -1519,12 +1518,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         toVerifiedImage = $scope.verifiedAssetsImages[a].image;
                         toHasImage = true;
                         toVerified = true;
-                    }
-                    if (swapList[asset]["ToAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                    } else if (swapList[asset]["ToAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
                         // Set matched image name
-                        fromVerifiedImage = '';
-                        fromHasImage = false;
-                        fromVerified = true;
+                        toVerifiedImage = '';
+                        toHasImage = false;
+                        toVerified = true;
                     }
                 }
 
