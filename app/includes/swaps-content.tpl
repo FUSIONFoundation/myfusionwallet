@@ -209,18 +209,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in openTakeSwaps track by $index"
-                        ng-click="swapInformationModalOpen(asset.swap_id)"
-                    >
-                        <td class="text-left">
+                    <tr ng-repeat="asset in openTakeSwaps track by $index">
+                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
                               <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
                                 {{asset.targes}}
                             </span>
                         </td>
-                        <td class="text-left">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</td>
-                        <td class="text-right"><strong>{{asset.toAmountCut}}</strong> <span
+                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</td>
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.toAmountCut}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
@@ -233,7 +231,7 @@
                                 - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.fromAmountCut}}</strong>
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.fromAmountCut}}</strong>
                             <span>{{asset.fromAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
@@ -246,9 +244,9 @@
                                 - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="text-right"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
