@@ -260,7 +260,7 @@
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
-                                        ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker"
+                                        ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker && !hasTimeLockBalance(asset.toAssetId)"
                                 >Take Swap
                                 </button>
                             </div>
@@ -365,7 +365,7 @@
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
-                                        ng-disabled="allBalance[asset.id] < asset.minswap"
+                                        ng-disabled="allBalance[asset.id] < asset.minswap && !hasTimeLockBalance(asset.id)"
                                 >Take Swap
                                 </button>
                             </div>
@@ -522,7 +522,7 @@
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
-                                        ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker"
+                                        ng-disabled="allBalance[asset.toAssetId] < asset.minswaptaker && !hasTimeLockBalance(asset.toAssetId)"
                                 >Take Swap
                                 </button>
                             </div>
@@ -678,7 +678,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mt-2" ng-show="takeDataFront.fromAssetBalance < sendTokens">
+                        <div class="col-md-6 mt-2" ng-show="takeDataFront.fromAssetBalance < sendTokens && !hasTimeLockBalance(takeDataFront.fromAssetId)">
                             <span class="balanceinsufficiant p-1">You don’t have enough {{takeDataFront.fromAssetSymbol}}</span>
                         </div>
                     </div>
@@ -716,7 +716,7 @@
                         <div class="col-md-6 p-0 pl-2">
                             <button class="btn btn-primary w-100"
                                     ng-click="takeSwapConfirm.open()"
-                                    ng-disabled="sendTokens > takeDataFront.fromAssetBalance || takeDataFront.fromAssetBalance <= 0">
+                                    ng-disabled="takeDataFront.fromAssetBalance <= 0 && !hasTimeLockBalance(takeDataFront.fromAssetId)">
                                 Review Take Swap
                             </button>
                         </div>
@@ -1335,7 +1335,7 @@
 
                     <div class="row p-2 pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text p-0">
-                            Taker Sends
+                            Maker Sends
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
@@ -1353,7 +1353,7 @@
                     </div>
                     <div class="row p-2 pt-3 pb-3 gray-border-bottom">
                         <div class="col-md-6 small-gray-text p-0">
-                            Taker Sends From
+                            Maker Sends From
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
