@@ -723,6 +723,20 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 assetList = res;
             });
 
+            let balances = {};
+
+            await web3.fsn.getAllBalances(walletAddress).then(function (res) {
+                balances = res;
+            })
+            let ownedAssets = Object.keys(balances);
+
+            let myAssets = [];
+            for (let i in ownedAssets) {
+                let asset = ownedAssets[i];
+                myAssets.push(assetList[asset]);
+            }
+            assetList = myAssets;
+
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
                 let owner = assetList[asset]["Owner"];
@@ -733,13 +747,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let hasImage = false;
                 let verifiedAsset = false;
 
-                try {
-                    await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                        assetBalance = res;
-                    });
-                } catch (err) {
-                    console.log(err);
-                }
+                assetBalance = balances[id];
 
                 for (let a in $scope.verifiedAssetsImages){
                     if (id == $scope.verifiedAssetsImages[a].assetID) {
