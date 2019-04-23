@@ -37,7 +37,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.setWalletAddress();
         $scope.getAllAssetsList();
 
-    }, 7500);
+    }, 15000);
 
     setInterval(function () {
         if ($scope.wallet == null) {

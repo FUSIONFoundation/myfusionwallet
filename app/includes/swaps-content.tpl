@@ -1351,9 +1351,9 @@
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
-                                    <span class="fusion-text-14">{{swapInfo.FromStartTime}} <i
+                                    <span class="fusion-text-14">{{swapInfo.ToStartTime}} <i
                                                 class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                        {{swapInfo.FromEndTime}} </span>
+                                        {{swapInfo.ToEndTime}} </span>
                             </div>
                         </div>
                     </div>
@@ -1405,9 +1405,9 @@
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
-                                    <span class="fusion-text-14">{{swapInfo.ToStartTime}} <i
+                                    <span class="fusion-text-14">{{swapInfo.FromStartTime}} <i
                                                 class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                                        {{swapInfo.ToEndTime}} </span>
+                                        {{swapInfo.FromEndTime}} </span>
                             </div>
                         </div>
                     </div>
