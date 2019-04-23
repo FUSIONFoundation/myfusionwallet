@@ -119,6 +119,46 @@
                 <p class="p-2">The Time-lock Assets section provides all relevant information about the time-locked
                     digital assets in your wallet.</p>
             </div>
+            <div class="col-md-12 p-0">
+                <div class="float-left">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <input type="text" ng-model="searchTimeLock" class="form-control m-0"
+                                               placeholder="Search Assets, Amounts">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <div class="col-md-12">
+                        <form class="form-group form-inline">
+                                    <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
+                                        of {{timeLockList.length}}</span>
+                            <span class="small-gray-text">
+                                        {{currentPage+1}} of {{endPage}}</span>
+                            <span class="small-gray-text m-1"
+                                  ng-click="firstPage()"><i class="fa fa-angle-double-left"
+                                                            aria-hidden="true"></i>
+                                </span>
+                            <span class="small-gray-text pl-1 pr-1 m-1"
+                                  ng-click="previousPage()"><i class="fa fa-angle-left" aria-hidden="true"></i>
+                                </span>
+                            <span class="small-gray-text pl-1 pr-1 m-1"
+                                  ng-click="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </span>
+                            <span class="small-gray-text m-1"
+                                  ng-click="lastPage()"><i class="fa fa-angle-double-right"
+                                                           aria-hidden="true"></i>
+                                </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 
             <div class="col-sm-12 clearfix text-center gray-bg p-2" ng-hide="timeLockList != ''">
@@ -139,7 +179,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in timeLockList track by $index"
+                        <tr ng-repeat="asset in timeLockList | orderBy:sortKey:reverse |filter:searchTimeLock | startFrom:currentPage*pageSize | limitTo:pageSize track by $index"
                             ng-hide="asset.status === 'Expired'">
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
                             <td>

@@ -48,6 +48,114 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.attributevalue = [];
     $scope.allAttributes = {};
 
+    $scope.currentPage = 0;
+    $scope.pageSize = 10;
+    $scope.endPage = 0;
+    $scope.shownRows = 0;
+    $scope.nextPage = function () {
+        if ($scope.currentPage !== $scope.endPage - 1) {
+            $scope.$eval(function () {
+                $scope.currentPage = $scope.currentPage + 1
+                $scope.searchTimeLock = '';
+            })
+        }
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.timeLockList.length) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.timeLockList.length;
+                $scope.searchTimeLock = '';
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchTimeLock = '';
+            })
+        }
+    }
+    $scope.firstPage = function () {
+        $scope.$eval(function () {
+            $scope.currentPage = 0
+            $scope.searchTimeLock = '';
+        })
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.timeLockList.length) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.timeLockList.length;
+                $scope.searchTimeLock = '';
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchTimeLock = '';
+            })
+        }
+    }
+    $scope.lastPage = function () {
+        $scope.$eval(function () {
+            $scope.currentPage = $scope.endPage - 1;
+            $scope.searchTimeLock = '';
+        })
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.timeLockList.length) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.timeLockList.length;
+                $scope.searchTimeLock = '';
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchTimeLock = '';
+            })
+        }
+    }
+
+    $scope.previousPage = function () {
+        if ($scope.currentPage !== 0) {
+            $scope.$eval(function () {
+                $scope.currentPage = $scope.currentPage - 1
+                $scope.searchTimeLock = '';
+            })
+        }
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.timeLockList.length) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.timeLockList.length;
+                $scope.searchTimeLock = '';
+            })
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+                $scope.searchTimeLock = '';
+            })
+        }
+    }
+
+    $scope.$watch('timeLockList', function () {
+        if (typeof $scope.timeLockList === 'undefined') {
+            return;
+        } else {
+            $scope.$eval(function () {
+                $scope.endPage = Math.ceil($scope.timeLockList.length / $scope.pageSize);
+            })
+        }
+    })
+
+    $scope.$watch('timeLockList', function () {
+        if (typeof $scope.timeLockList === 'undefined') {
+            return;
+        }
+        if ($scope.currentPage == 0) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.currentPage + 1 * $scope.pageSize;
+            })
+        }
+        let shownRows = 0;
+        if (($scope.currentPage + 1) * $scope.pageSize > $scope.timeLockList.length) {
+            shownRows = $scope.timeLockList.length;
+        } else {
+            shownRows = ($scope.currentPage + 1) * $scope.pageSize;
+        }
+        $scope.$eval(function () {
+            $scope.shownRows = shownRows;
+        })
+    })
+
     $scope.wallet = walletService.wallet;
 
     $scope.addAttribute = function () {
