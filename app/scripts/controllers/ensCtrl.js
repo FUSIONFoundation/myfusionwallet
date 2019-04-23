@@ -1471,7 +1471,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         if (position == 'Start') {
             if(posixtime == 0){return 'Now';}
-            if(posixtime < time && position == 'Start'){return 'Now';}
+            // if(posixtime < time && position == 'Start'){return 'Now';}
         }
         let tMonth = time.getUTCMonth();
         let tDay = time.getUTCDate();
