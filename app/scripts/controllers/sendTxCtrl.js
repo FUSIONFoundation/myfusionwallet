@@ -2029,9 +2029,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 verifiedAsset = true;
             }
 
-            await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                assetBalance = res;
-            });
+            assetBalance = balances[id];
 
             owner === walletAddress ? owned = 'Created' : owned = '';
 
