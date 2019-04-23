@@ -467,6 +467,43 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         minFromAmount = data["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
         minToAmount = data["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
 
+        let fromVerifiedImage = '';
+        let fromHasImage = false;
+        let fromVerified = false;
+
+
+        for (let a in $scope.verifiedAssetsImages){
+            if ($scope.verifiedAssetsImages[a].assetID == data["FromAssetID"]) {
+                // Set matched image name
+                fromVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                fromHasImage = true;
+                fromVerified = true;
+            } else if (data["FromAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                // Set matched image name
+                fromVerifiedImage = '';
+                fromHasImage = false;
+                fromVerified = true;
+            }
+        }
+
+        let toVerifiedImage = '';
+        let toHasImage = false;
+        let toVerified = false;
+
+        for (let a in $scope.verifiedAssetsImages){
+            if ($scope.verifiedAssetsImages[a].assetID == data["ToAssetID"]) {
+                // Set matched image name
+                toVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                toHasImage = true;
+                toVerified = true;
+            } else if (data["ToAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                // Set matched image name
+                toVerifiedImage = '';
+                toHasImage = false;
+                toVerified = true;
+            }
+        }
+
         $scope.$apply(function () {
             $scope.swapInfo = {
                 FromAssetName: fromAsset["Name"],
@@ -485,7 +522,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 ToAssetSymbol: toAsset["Symbol"],
                 ToAssetID: data["ToAssetID"],
                 ToEndTime: toEndTime,
-                ToStartTime: toStartTime
+                ToStartTime: toStartTime,
+                toVerifiedImage : toVerifiedImage,
+                toHasImage : toHasImage,
+                toVerified : toVerified,
+                fromVerifiedImage : fromVerifiedImage,
+                fromHasImage : fromHasImage,
+                fromVerified : fromVerified,
             };
         })
 
