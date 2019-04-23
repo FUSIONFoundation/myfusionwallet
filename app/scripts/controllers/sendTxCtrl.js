@@ -1724,6 +1724,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     }
     $scope.getVerifiedAssets();
+    $scope.$watch('wallet', function () {
+        if (!$scope.tx || !$scope.wallet) {
+            return
+        }
+        $scope.getVerifiedAssets();
+        $scope.getAllFsnAssets();
+        $scope.getTimeLockAssets();
+        $scope.countdownTimer();
+        $scope.getBalance();
+    })
     setInterval(function () {
         if (!$scope.tx || !$scope.wallet) {
             return
@@ -1906,7 +1916,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return a < b ? -1 : a > b ? 1 : 0;
         });
 
-        console.log(availableList);
         let u = -1;
         for (let asset in availableList) {
             u++
@@ -1957,8 +1966,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.timeLockList = timeLockListSave;
         });
-
-        console.log(timeLockListSave)
     }
 
 
