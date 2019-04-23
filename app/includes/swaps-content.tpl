@@ -680,11 +680,11 @@
                     <div class="col-md-12 p-0 mb-3">
                         <div class="col-md-4 p-0">
                             <div class="float-left"><span class="small-gray-text">
-                           Total Receive
+                           Total Send
                         </span></div>
                             <div class="float-right">
                                 <span class="small-gray-text">
-                           Total Send
+                           Total Receive
                         </span>
                             </div>
                             <br>
