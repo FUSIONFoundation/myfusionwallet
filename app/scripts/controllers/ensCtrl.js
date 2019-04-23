@@ -861,6 +861,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeDataFront.maxAmount = $scope.swapsList[id].toAmount;
             $scope.takeDataFront.fromAmount = $scope.swapsList[id].fromAmount;
             $scope.takeDataFront.toAmount = $scope.swapsList[id].toAmount;
+            $scope.takeDataFront.fromVerified = $scope.swapsList[id].toVerified;
+            $scope.takeDataFront.toVerified = $scope.swapsList[id].fromVerified;
             $scope.takeAmountSwap = 1;
         })
 

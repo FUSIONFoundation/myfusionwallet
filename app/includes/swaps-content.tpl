@@ -586,7 +586,10 @@
                         <br>
                         <div class="col-md-6 p-1 takeswapdrop">
                             <span>
-                            {{takeDataFront.fromAssetName}} ({{takeDataFront.fromAssetSymbol}})
+                            {{takeDataFront.fromAssetName}} ({{takeDataFront.fromAssetSymbol}}) <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="takeDataFront.fromVerified"><i
+                                            class="fa fa-check-circle"></i></span>
                                 <span class="small-gray-text max-char">{{takeDataFront.fromAssetId}}</span>
                             </span>
                         </div>
@@ -609,7 +612,10 @@
                         <br>
                         <div class="col-md-6 p-1 takeswapdrop">
                             <span>
-                                {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}})
+                                {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}}) <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="takeDataFront.toVerified"><i
+                                            class="fa fa-check-circle"></i></span>
                                 <span class="small-gray-text max-char">{{takeDataFront.toAssetId}}</span>
                             </span>
                         </div>
