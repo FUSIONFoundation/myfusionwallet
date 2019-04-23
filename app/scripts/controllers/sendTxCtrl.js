@@ -1986,76 +1986,78 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         await web3.fsn.getAllBalances(walletAddress).then(function (res) {
             balances = res;
         })
-
         let ownedAssets = Object.keys(balances);
 
-        console.log(ownedAssets);
+        let myAssets = [];
+        for (let i in ownedAssets) {
+            let asset = ownedAssets[i];
+            myAssets.push(assetList[asset]);
+        }
+        assetList = myAssets;
 
         let x = -1;
 
         for (let asset in assetList) {
             let id = assetList[asset]["ID"];
-            if(ownedAssets.includes(id)) {
-                let owner = assetList[asset]["Owner"];
-                let owned = false;
-                let assetBalance = '';
-                let verifiedImage = '';
-                let hasImage = false;
-                let verifiedAsset = false;
+            let owner = assetList[asset]["Owner"];
+            let owned = false;
+            let assetBalance = '';
+            let verifiedImage = '';
+            let hasImage = false;
+            let verifiedAsset = false;
 
-                for (let a in $scope.verifiedAssetsImages) {
-                    if ($scope.verifiedAssetsImages[a].assetID == id) {
-                        // Set matched image name
-                        verifiedImage = $scope.verifiedAssetsImages[a].image;
-                        hasImage = true;
-                        verifiedAsset = true;
-                    }
-                }
-
-                // Set FSN icon for PSN as well
-                if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
-                    verifiedImage = 'EFSN_LIGHT.svg';
+            for (let a in $scope.verifiedAssetsImages) {
+                if ($scope.verifiedAssetsImages[a].assetID == id) {
+                    // Set matched image name
+                    verifiedImage = $scope.verifiedAssetsImages[a].image;
                     hasImage = true;
                     verifiedAsset = true;
                 }
+            }
 
-                await web3.fsn.getBalance(id, walletAddress).then(function (res) {
-                    assetBalance = res;
-                });
+            // Set FSN icon for PSN as well
+            if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                verifiedImage = 'EFSN_LIGHT.svg';
+                hasImage = true;
+                verifiedAsset = true;
+            }
 
-                owner === walletAddress ? owned = 'Created' : owned = '';
+            await web3.fsn.getBalance(id, walletAddress).then(function (res) {
+                assetBalance = res;
+            });
+
+            owner === walletAddress ? owned = 'Created' : owned = '';
 
 
-                let description = {};
-                try {
-                    description = JSON.parse(assetList[asset]["Description"]);
-                } catch (err) {
-                    description = assetList[asset]["Description"];
+            let description = {};
+            try {
+                description = JSON.parse(assetList[asset]["Description"]);
+            } catch (err) {
+                description = assetList[asset]["Description"];
+            }
+
+            if (assetBalance > 0.000000000001) {
+                let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
+                let data = {
+                    "name": assetList[asset]["Name"],
+                    "symbol": assetList[asset]["Symbol"],
+                    "decimals": assetList[asset]["Decimals"],
+                    "total": assetList[asset]["Total"] / divider,
+                    "contractaddress": id,
+                    "balance": assetBalance / divider,
+                    "owner": owned,
+                    "issuer": owner,
+                    "canChange": assetList[asset]["CanChange"],
+                    "image": verifiedImage,
+                    "hasImage": hasImage,
+                    "description": description,
+                    "verified": verifiedAsset
                 }
 
-                if (assetBalance > 0.000000000001) {
-                    let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
-                    let data = {
-                        "name": assetList[asset]["Name"],
-                        "symbol": assetList[asset]["Symbol"],
-                        "decimals": assetList[asset]["Decimals"],
-                        "total": assetList[asset]["Total"] / divider,
-                        "contractaddress": id,
-                        "balance": assetBalance / divider,
-                        "owner": owned,
-                        "issuer": owner,
-                        "canChange": assetList[asset]["CanChange"],
-                        "image": verifiedImage,
-                        "hasImage": hasImage,
-                        "description": description,
-                        "verified": verifiedAsset
-                    }
-
-                    if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
-                        await assetList3.push(data);
-                    } else {
-                        await assetList2.push(data);
-                    }
+                if (id === "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
+                    await assetList3.push(data);
+                } else {
+                    await assetList2.push(data);
                 }
             }
         }
