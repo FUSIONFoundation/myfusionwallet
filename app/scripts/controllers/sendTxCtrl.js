@@ -301,6 +301,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 "issuer": $scope.assetListOwns[id].issuer,
                 "image": $scope.assetListOwns[id].image,
                 "hasImage": $scope.assetListOwns[id].hasImage,
+                "verified": $scope.assetListOwns[id].verified,
                 "description": description,
             };
         })
@@ -692,6 +693,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
     }
 
     $scope.sendAssetModalOpen = async function (id, timelockonly) {
+        $scope.$eval(function(){$scope.sendAssetDisabled = false});
         let asset = $scope.assetToSend;
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;

@@ -932,13 +932,17 @@
                             </div>
                             <div class="col-xs-6 clearfix" ng-hide="showStaticTimeLockAsset">
                                 <button class="btn btn-primary btn-block"
-                                        ng-click="sendAsset()">
+                                        ng-class="{'disabled': sendAssetDisabled}"
+                                        ng-disabled="sendAssetDisabled"
+                                        ng-click="sendAssetDisabled = true; sendAsset()">
                                     Send Asset
                                 </button>
                             </div>
                             <div class="col-xs-6 clearfix" ng-show="showStaticTimeLockAsset">
                                 <button class="btn btn-primary btn-block"
-                                        ng-click="timeLockToTimeLock()">
+                                        ng-class="{'disabled': sendAssetDisabled}"
+                                        ng-disabled="sendAssetDisabled"
+                                        ng-click="sendAssetDisabled = true; timeLockToTimeLock()">
                                     Send Asset
                                 </button>
                             </div>
@@ -1170,7 +1174,8 @@
                                  class="round-bg-white mr-2"
                                  ng-src="images/verifiedassets/{{manageAssetInfo.image}}"/>
 
-                            {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}})
+                            {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}}) <span class="color-Active official-fusion-badge p-1" ng-show="manageAssetInfo.verified">
+                            <i class="fa fa-check-circle"></i> Verified</span>
 
                         </div>
                         <div class="col-md-6 text-right">
