@@ -747,6 +747,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     assetList = res;
                 });
 
+                let x = 0;
                 for (let asset in assetList) {
                     let id = assetList[asset]["ID"];
                     let owned = false;
@@ -773,7 +774,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
 
                     let data = {
-                        "id": assetList.length,
+                        "id": x,
                         "name": assetList[asset]["Name"],
                         "symbol": assetList[asset]["Symbol"],
                         "decimals": assetList[asset]["Decimals"],
@@ -784,6 +785,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "verified": verifiedAsset
                     };
                     await assetList2.push(data);
+                    x++;
                 }
 
                 $scope.$eval(function () {
