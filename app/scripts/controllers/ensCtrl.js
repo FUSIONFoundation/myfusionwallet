@@ -750,6 +750,50 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     assetList = res;
                 });
 
+                for (let asset in assetList) {
+                    let id = assetList[asset]["ID"];
+                    let owned = false;
+                    let assetBalance = '';
+
+                    let verifiedImage = '';
+                    let hasImage = false;
+                    let verifiedAsset = false;
+
+                    for (let a in $scope.verifiedAssetsImages) {
+                        if (id == $scope.verifiedAssetsImages[a].assetID) {
+                            // Set matched image name
+                            verifiedImage = $scope.verifiedAssetsImages[a].image;
+                            hasImage = true;
+                            verifiedAsset = true;
+                        }
+                    }
+
+                    // Set FSN icon for PSN as well
+                    if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
+                        verifiedImage = 'EFSN_LIGHT.svg';
+                        hasImage = true;
+                        verifiedAsset = true;
+                    }
+
+                    let data = {
+                        "id": assetList.length,
+                        "name": assetList[asset]["Name"],
+                        "symbol": assetList[asset]["Symbol"],
+                        "decimals": assetList[asset]["Decimals"],
+                        "contractaddress": id,
+                        "owner": owned,
+                        "image": verifiedImage,
+                        "hasImage": hasImage,
+                        "verified": verifiedAsset
+                    };
+                    await assetList2.push(data);
+                }
+
+                $scope.$eval(function () {
+                    $scope.assetList = assetList2;
+                });
+
+
                 let balances = {};
 
                 await web3.fsn.getAllBalances(walletAddress).then(function (res) {
