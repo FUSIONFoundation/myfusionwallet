@@ -13,17 +13,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (!$scope.wallet) {
                 return;
             }
-            $scope.getVerifiedAssets();
+            $scope.getShortAddressNotation();
             $scope.getAllAssets();
             $scope.allSwaps();
-            $scope.getShortAddressNotation();
             $scope.sortSwapMarket("timePosix");
             $scope.sortOpenMakes("timePosix");
             $scope.getBalance();
             $scope.setWalletAddress();
-            $scope.getAllAssetsList().then(function () {
-                $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
-            });
+            $scope.takeGetAllBalances();
             $scope.getTimeLockBalances();
         };
 
@@ -33,10 +30,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             $scope.getAllAssets();
             $scope.getTimeLockBalances();
+            $scope.takeGetAllBalances();
             $scope.getShortAddressNotation();
             $scope.getBalance();
             $scope.setWalletAddress();
-            $scope.getAllAssetsList();
 
         }, 7000);
 
@@ -359,33 +356,33 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (typeof $scope.assetList === 'undefined' || $scope.assetList.length == 0) {
                 return;
             } else {
-                    $scope.$eval(function () {
-                        $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
-                        $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
-                        $scope.assetToReceive = $scope.assetList[0].contractaddress;
-                        $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
-                        $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
-                        $scope.selectedReceiveVerified = $scope.assetList[0].verified;
-                    })
-                }
+                $scope.$eval(function () {
+                    $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
+                    $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
+                    $scope.assetToReceive = $scope.assetList[0].contractaddress;
+                    $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
+                    $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
+                    $scope.selectedReceiveVerified = $scope.assetList[0].verified;
+                })
+            }
         })
 
         $scope.$watch('assetListOwned', function () {
             if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
                 return;
             } else {
-                    $scope.$eval(function () {
-                        $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
-                        $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
-                        $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
-                        $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
-                        $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
-                        $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
-                        $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
-                        $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-                        $scope.getAssetBalance();
-                    })
-                }
+                $scope.$eval(function () {
+                    $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
+                    $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
+                    $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
+                    $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+                    $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
+                    $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
+                    $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
+                    $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
+                    $scope.getAssetBalance();
+                })
+            }
         })
 
         $scope.privateAccess = false;
@@ -703,7 +700,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             await web3.fsn.getAllTimeLockBalances(walletAddress).then(function (res) {
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.myTimeLockedAssets = Object.keys(res);
                 })
             })
@@ -1185,48 +1182,45 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let targesArray = [];
 
-        $scope.allAssetsAddresses = [];
-        $scope.myAssets = [];
-        $scope.allBalance = {};
+        $scope.allBalance = [];
 
-        $scope.getAllAssetsList = async function () {
-            $scope.allAssetsAddresses = [];
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            await web3.fsn.allAssets().then(function (res) {
-                for (let contractaddress in res) {
-                    $scope.allAssetsAddresses.push(contractaddress);
-                }
-            })
-            await web3.fsn.getAllBalances(walletAddress).then(function (res) {
-                for (let contractaddress in res) {
-                    $scope.myAssets.push(contractaddress);
-                }
-            })
+        $scope.hasEnoughBalance = function (asset_id, minswaptaker) {
+            if ($scope.allBalance[asset_id] < minswaptaker) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
         $scope.takeGetAllBalances = async function (allAssetsList, index) {
-            let accountData = uiFuncs.getTxData($scope);
-            let walletAddress = accountData.from;
-            let decimals = 0;
-            let assetBalance = 0;
-            if (index == $scope.allAssetsAddresses.length) {
-                return;
-            }
-            if ($scope.myAssets.includes($scope.allAssetsAddresses[index])) {
-                await web3.fsn.getBalance($scope.allAssetsAddresses[index], walletAddress).then(function (res) {
-                    assetBalance = res;
+            try {
+                let accountData = uiFuncs.getTxData($scope);
+                let walletAddress = accountData.from;
+                let decimals = 0;
+                let assetBalance = 0;
+
+                let allAssets = {};
+                let allBalances = {};
+                await web3.fsn.allAssets().then(function (res) {
+                    allAssets = res;
                 });
-                await web3.fsn.getAsset($scope.allAssetsAddresses[index]).then(function (res) {
-                    decimals = res["Decimals"];
+
+                await web3.fsn.getAllBalances(walletAddress).then(function (res) {
+                    allBalances = res;
+                });
+
+                let myBalances = [];
+                for (let asset in allBalances) {
+                    myBalances[asset] = 0;
+                }
+
+                $scope.$eval(function () {
+                    $scope.allBalance = myBalances;
                 })
-                let balance = assetBalance / $scope.countDecimals(decimals);
-                $scope.allBalance[$scope.allAssetsAddresses[index]] = balance;
-            } else {
-                $scope.allBalance[$scope.allAssetsAddresses[index]] = 0;
+            } catch (err) {
+                console.log(err);
             }
-            return $scope.takeGetAllBalances(allAssetsList, index + 1)
-        }
+        };
 
         $scope.makeSwap = async function () {
             targesArray = [];
@@ -1570,6 +1564,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.allSwaps = async function () {
+            await $scope.getVerifiedAssets();
             console.log('Retrieving all Swaps');
             let swapList = [];
             let swapListFront = [];
@@ -1589,7 +1584,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     console.log(err);
                 }
 
-                let allAssets = {}
+                let allAssets = {};
                 try {
                     await web3.fsn.allAssets().then(function (res) {
                         allAssets = res;
@@ -1614,7 +1609,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let fromVerifiedImage = '';
                     let fromHasImage = false;
                     let fromVerified = false;
-
 
                     for (let a in $scope.verifiedAssetsImages) {
                         if ($scope.verifiedAssetsImages[a].assetID == swapList[asset]["FromAssetID"]) {
