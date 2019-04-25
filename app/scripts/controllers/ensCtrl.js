@@ -352,7 +352,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.initializeSendandReceive = true;
 
+        $scope.receiveChanged = 0;
+        $scope.sendChanged = 0;
+
         $scope.$watch('assetList', function () {
+            if($scope.receiveChanged = 1){return;}
             if (typeof $scope.assetList === 'undefined' || $scope.assetList.length == 0) {
                 return;
             } else {
@@ -368,6 +372,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         })
 
         $scope.$watch('assetListOwned', function () {
+            if($scope.sendChanged = 1){return;}
             if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
                 return;
             } else {
@@ -612,6 +617,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetToReceive = $scope.assetList[id].contractaddress;
                 $scope.receiveDropDown = false;
             })
+            $scope.receiveChanged = 1;
         }
 
         $scope.setSendAsset = async function (id) {
@@ -626,6 +632,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.getAssetBalance();
                 $scope.sendDropDown = false;
             })
+            $scope.sendChanged = 1;
         }
 
 
