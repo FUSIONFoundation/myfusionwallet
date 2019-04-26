@@ -9043,7 +9043,9 @@
                             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="sendDropDown = !sendDropDown">
                                 <a>
-                                    {{selectedSendAsset}}
+                                    {{selectedSendAsset}}  <span class="color-Active official-fusion-badge"
+                                                                 ng-show="selectedSendVerified"><i
+                                                class="fa fa-check-circle"></i></span>
                                     <span class="small-gray-text max-char">{{selectedSendContract}}</span>
                                 </a>
                             </div>
@@ -9157,7 +9159,9 @@
                             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="receiveDropDown = !receiveDropDown">
                                 <a>
-                                    {{selectedReceiveAsset}}
+                                    {{selectedReceiveAsset}} <span class="color-Active official-fusion-badge"
+                                                                   ng-show="selectedReceiveVerified"><i
+                                                class="fa fa-check-circle"></i></span>
                                     <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
                                 </a>
                             </div>
