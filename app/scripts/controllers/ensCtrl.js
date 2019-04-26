@@ -1356,7 +1356,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let toStartTime = getHexDate(convertDate($scope.todayDate));
                     let toEndTime = getHexDate(convertDate($scope.ToEndTime));
 
-                    data.ToStartTime = 0;
+                    data.ToStartTime = '0x0';
                     data.ToEndTime = toEndTime;
                 }
             }
