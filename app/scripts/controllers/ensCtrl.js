@@ -15,13 +15,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             $scope.getShortAddressNotation();
             $scope.getAllAssets();
+            $scope.getTimeLockBalances();
             $scope.allSwaps();
             $scope.sortSwapMarket("timePosix");
             $scope.sortOpenMakes("timePosix");
             $scope.getBalance();
             $scope.setWalletAddress();
             $scope.takeGetAllBalances();
-            $scope.getTimeLockBalances();
         };
 
         setInterval(function () {
@@ -34,17 +34,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getShortAddressNotation();
             $scope.getBalance();
             $scope.setWalletAddress();
+            $scope.takeGetAllBalances();
 
         }, 7000);
-
-        setInterval(function () {
-            if ($scope.wallet == null) {
-                return;
-            }
-            $scope.takeGetAllBalances($scope.allAssetsAddresses, 0);
-
-        }, 25000)
-
 
         $scope.mayRun = false;
 
@@ -703,10 +695,36 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.myTimeLockedAssets = [];
+        $scope.myActiveTimeLocks = [];
         $scope.getTimeLockBalances = async function () {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
+            let allAssets = {};
+            await web3.fsn.allAssets().then(function(res){
+                allAssets = res;
+            });
+
             await web3.fsn.getAllTimeLockBalances(walletAddress).then(function (res) {
+                $scope.myActiveTimeLocks = [];
+                for(let asset in res) {
+                    let timelocks = res[asset].Items;
+                    for(let timelock in timelocks){
+                        let amount = new window.BigNumber(timelocks[timelock].Value);
+                        let decimals = allAssets[asset].Decimals;
+                        let divider = $scope.countDecimals(parseInt(decimals));
+                        let amountFinal = amount.div(divider.toString());
+                        let data = {
+                            "asset_id" : asset,
+                            "amount" : amountFinal.toString(),
+                            "startTime" : timelocks[timelock].StartTime,
+                            "endTime" : timelocks[timelock].EndTime,
+                            "startTimeString" : $scope.returnDateString(timelocks[timelock].StartTime, 'Start'),
+                            "endTimeString" : $scope.returnDateString(timelocks[timelock].EndTime, 'End')
+                        };
+                        $scope.myActiveTimeLocks.push(data);
+                    }
+                    console.log($scope.myActiveTimeLocks)
+                }
                 $scope.$eval(function () {
                     $scope.myTimeLockedAssets = Object.keys(res);
                 })
@@ -845,7 +863,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     }
 
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
-
                     let data = {
                         "id": assetList2.length,
                         "name": assetList[asset]["Name"],
@@ -860,7 +877,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "verified": verifiedAsset
                     }
                     await assetList2.push(data);
-
                     if (assetBalance > 0.000000000000000001) {
                         let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                         let data = {
@@ -878,8 +894,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
                         await assetListOwned.push(data);
                     }
-
                 }
+
                 $scope.$eval(function () {
                     $scope.assetList = assetList2;
                     $scope.assetListOwned = assetListOwned;
