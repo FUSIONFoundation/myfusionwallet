@@ -9422,6 +9422,10 @@
                             <div class="float-right text-right">
                                 <span class="fusion-text-18">{{makeSendAmount}}</span> <span
                                         class="fusion-text-14">{{assetToSendConfirm}}</span>
+                                <span class="color-Active official-fusion-badge"
+                                      ng-show="selectedSendVerified">
+                                    <i class="fa fa-check-circle"></i>
+                                </span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
@@ -9439,7 +9443,10 @@
                         <div class="col-md-6">
                             <div class="float-right text-right">
                                 <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span
-                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span>
+                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span>  <span class="color-Active official-fusion-badge"
+                                                                                                       ng-show="selectedReceiveVerified">
+                                    <i class="fa fa-check-circle"></i>
+                                </span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
@@ -9470,8 +9477,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="float-right">
-                                <span class="fusion-text-18">{{makeMinumumSwap}}</span> <span
-                                        class="fusion-text-14">{{assetToSendConfirm}}</span>
+                                <span class="fusion-text-18">{{makeMinumumSwap}}</span>
                             </div>
                         </div>
                     </div>
