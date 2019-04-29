@@ -141,6 +141,11 @@ window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
 let localCacheOfAssets = {}
+
+window.__fsnDeleteAssetFromCache  = async function(assetId) {
+    delete localCacheOfAssets[assetId]
+}
+
 window.__fsnGetAsset = async function(assetId) {
     if ( localCacheOfAssets[assetId] ) {
         return localCacheOfAssets[assetId]
