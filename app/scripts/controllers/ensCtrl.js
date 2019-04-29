@@ -1839,7 +1839,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
                 $scope.showLoader = false;
             });
-            console.log($scope.swapsList);
             console.log('Finished retrieving all Swaps');
         }
 

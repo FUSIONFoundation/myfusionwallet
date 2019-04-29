@@ -740,7 +740,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let startTime = $scope.months[fMonth] + ' ' + fDay + ', ' + fYear;
         let endTime = $scope.months[tMonth] + ' ' + tDay + ', ' + tYear;
 
-        await web3.fsn.getAsset(asset).then(function (res) {
+        await window.__fsnGetAsset(asset).then(function (res) {
             $scope.$eval(function () {
                 $scope.sendAsset.assetName = res["Name"];
                 $scope.sendAsset.assetSymbol = res["Symbol"];
@@ -822,7 +822,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         if (asset !== undefined) {
-            await web3.fsn.getAsset(asset).then(function (res) {
+            await window.__fsnGetAsset(asset).then(function (res) {
                 decimals = res["Decimals"];
             });
 
@@ -934,7 +934,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let assetBalance = '';
         let decimals = '';
-        await web3.fsn.getAsset(asset).then(function (res) {
+        await window.__fsnGetAsset(asset).then(function (res) {
             decimals = res["Decimals"];
         });
 
@@ -1239,7 +1239,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
         }
 
-        await web3.fsn.getAsset(asset).then(function (res) {
+        await window.__fsnGetAsset(asset).then(function (res) {
             decimals = parseInt(res["Decimals"]);
         });
 
@@ -1521,7 +1521,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
         }
 
-        await web3.fsn.getAsset(asset).then(function (res) {
+        await window.__fsnGetAsset(asset).then(function (res) {
             decimals = parseInt(res["Decimals"]);
         });
 
@@ -1925,7 +1925,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let divider = '';
             let status = '';
 
-            await web3.fsn.getAsset(assetId[x]).then(function (res) {
+            await window.__fsnGetAsset(assetId[x]).then(function (res) {
                 assetName = res["Name"];
                 assetSymbol = res["Symbol"];
                 assetDecimals = res["Decimals"];
