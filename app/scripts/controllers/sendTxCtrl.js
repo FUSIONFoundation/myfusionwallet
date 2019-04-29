@@ -2094,7 +2094,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let verifiedAsset = false;
 
 
-        await web3.fsn.allAssets().then(function (res) {
+        await window.__fsnGetAllAssets().then(function (res) {
             assetList = res;
         });
 

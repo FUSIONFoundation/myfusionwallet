@@ -152,9 +152,6 @@ window.__fsnGetAsset = async function(assetId) {
     }
     try {
         return await web3.fsn.getAsset(assetId).then(function (res) {
-            if ( res.CanChange ) {
-                return res // we will cache changeable in the future
-            }
             localCacheOfAssets[assetId] = res
             return res
         });
@@ -163,6 +160,28 @@ window.__fsnGetAsset = async function(assetId) {
         throw err
     }
 };
+
+let lastGetAllAssetTime = undefined 
+let lastAllGetAssets = undefined
+
+window.__fsnGetAllAssets = async function() {
+    if ( !lastAllGetAssets || !lastGetAllAssetTime  || (lastGetAllAssetTime + 7000) < (new Date()).getTime() ) {
+        try {
+            let assetList = await web3.fsn.allAssets()
+            let keys = Object.keys( assetList )
+            for ( let k of keys ) {
+                localCacheOfAssets[k] = assetList[k]
+            }
+            lastGetAllAssetTime = (new Date()).getTime()
+            lastAllGetAssets = assetList
+            return assetList
+        } catch ( err ) {
+            console.log( "__fsnGetAllAssets Failed throwing this error => " , err);
+            throw err
+        }
+    }
+    return lastAllGetAssets
+}
 
 let cookieName = "gatewayURL";
 let defaultGateway = "wss://gatewaypsn2w.fusionnetwork.io:10001";
