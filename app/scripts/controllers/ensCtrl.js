@@ -2,7 +2,7 @@
 
 var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let nu = localStorage.getItem(window.cookieName)
-        let data = nu ? JSON.parse(nu) : {}
+        let data = nu ? JSON.parse(nu) : {};
         let _CHAINID = window.defaultChainId;
 
         if (data.chainid !== "") {
@@ -95,6 +95,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendTimeLock = 'none';
         $scope.showTimeLockSend = false;
         $scope.showTimeLockReceive = false;
+
+        $scope.selectedTimeLockTimespan = '-';
+        $scope.selectedTimeLockAmount = 'Select time-lock';
+
+        $scope.closeExistingTimeLock = function (){
+            $scope.$eval(function(){
+                $scope.selectedTimeLockTimespan = '-';
+                $scope.selectedTimeLockAmount = 'Select time-lock';
+            })
+        }
 
         $scope.checkDate = function () {
             if ($scope.transactionType == 'scheduled') {
@@ -542,6 +552,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.$eval(function () {
                 $scope.selectedTimeLockAmount = $scope.myActiveTimeLocks[asset_id][id].amount;
                 $scope.selectedTimeLockTimespan = `${$scope.myActiveTimeLocks[asset_id][id].startTimeString} - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
+                $scope.timeLockDropDown = false;
             })
         }
 

@@ -794,7 +794,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 pl-2">
-                            <span class="small-gray-text" style="color:white;">_<br></span>
+                            <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
+                            <span class="small-gray-text" ng-hide="showExistingTimeLocks" style="color:white;">_<br></span>
                             <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
                                     ng-click="showTimeLockSend = !showTimeLockSend"
                                     ng-hide="showTimeLockSend; showExistingTimeLocks"
@@ -809,9 +810,9 @@
                                 <div class="col-md-11 col-xs-11 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                      ng-click="timeLockDropDown = !timeLockDropDown">
                                     <a>
-                                        {{selectedTimeLockAmount}} {{selectedSendAssetSymbol}}
-                                        <br>
-                                        <span class="small-gray-text">{{selectedTimeLockTimespan}}</span>
+                                        <span class="fusion-text-14"><strong>{{selectedTimeLockAmount}} </strong></span><span class="font-size-12" ng-hide="selectedTimeLockAmount == 'Select time-lock'">{{selectedSendAssetSymbol}}</span>
+                                        <span class="small-gray-text display-block"><img class="mr-2" src="images/sendtl.svg" width="12px" ng-hide="selectedTimeLockAmount == 'Select time-lock'">
+ {{selectedTimeLockTimespan}}</span>
                                     </a>
                                 </div>
                                 <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
@@ -832,7 +833,7 @@
                                 </div>
                                 <div class="col-md-1 p-0 pb-2">
                                     <button class="btn btn-sm btn-white"
-                                            ng-click="showExistingTimeLocks = !showExistingTimeLocks">
+                                            ng-click="showExistingTimeLocks = !showExistingTimeLocks; closeExistingTimeLock()">
                                         X
                                     </button>
                                 </div>
