@@ -8619,7 +8619,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList | orderBy:sortKeyMake:reverseMake | filter: { owned: 'true' } track by $index"
+                    <tr ng-repeat="asset in swapsList | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
                     >
                         <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">

@@ -1735,9 +1735,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             toVerified = true;
                         }
                     }
-
-
+                    
                     owner === walletAddress ? owned = true : owned = false;
+
+                    if(owned){
+                        openMakeSwaps++;
+                    }
 
                     let fromAmount = (swapList[asset].MinFromAmount / $scope.countDecimals(fromAsset.Decimals));
 
@@ -1836,6 +1839,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
                 $scope.showLoader = false;
             });
+            console.log($scope.swapsList);
             console.log('Finished retrieving all Swaps');
         }
 
