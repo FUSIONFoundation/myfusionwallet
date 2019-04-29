@@ -538,6 +538,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.swapInformationModal.open();
         }
 
+        $scope.setExistingTimeLock = function (asset_id, id) {
+            $scope.$eval(function () {
+                $scope.selectedTimeLockAmount = $scope.myActiveTimeLocks[asset_id][id].amount;
+                $scope.selectedTimeLockTimespan = `${$scope.myActiveTimeLocks[asset_id][id].startTimeString} - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
+            })
+        }
+
         $scope.setSwapRate = function () {
             if ($scope.makeReceiveAmount <= 0) {
                 return;
@@ -626,6 +633,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.selectedSendHasImage = $scope.assetListOwned[id].hasImage;
                 $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
                 $scope.selectedSendVerified = $scope.assetListOwned[id].verified;
+                $scope.sendHasTimeLockBalance = $scope.assetListOwned[id].timelockBalance;
                 $scope.getAssetBalance();
                 $scope.sendDropDown = false;
             })
@@ -714,12 +722,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 for (let asset in res) {
                     let timelocks = res[asset].Items;
                     $scope.myActiveTimeLocks[asset] = [];
+                    let x = 0;
                     for (let timelock in timelocks) {
                         let amount = new window.BigNumber(timelocks[timelock].Value);
                         let decimals = allAssets[asset].Decimals;
                         let divider = $scope.countDecimals(parseInt(decimals));
                         let amountFinal = amount.div(divider.toString());
                         let data = {
+                            "id": x,
                             "asset_id": asset,
                             "amount": amountFinal.toString(),
                             "startTime": timelocks[timelock].StartTime,
@@ -727,6 +737,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             "startTimeString": $scope.returnDateString(timelocks[timelock].StartTime, 'Start'),
                             "endTimeString": $scope.returnDateString(timelocks[timelock].EndTime, 'End')
                         };
+                        x++;
                         $scope.myActiveTimeLocks[asset].push(data);
                     }
                     console.log($scope.myActiveTimeLocks)
@@ -886,7 +897,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "owner": owned,
                         "image": verifiedImage,
                         "hasImage": hasImage,
-                        "verified": verifiedAsset
+                        "verified": verifiedAsset,
                     }
                     await assetList2.push(data);
                     if (assetBalance > 0.000000000000000001) {
@@ -902,7 +913,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             "owner": owned,
                             "image": verifiedImage,
                             "hasImage": hasImage,
-                            "verified": verifiedAsset
+                            "verified": verifiedAsset,
+                            "timelockBalance": false
                         }
                         await assetListOwned.push(data);
                     } else if (Object.keys($scope.myActiveTimeLocks).includes(id)) {
@@ -918,7 +930,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             "owner": owned,
                             "image": verifiedImage,
                             "hasImage": hasImage,
-                            "verified": verifiedAsset
+                            "verified": verifiedAsset,
+                            "timelockBalance": true
                         }
                         await assetListOwned.push(data);
                     }
@@ -1182,6 +1195,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.privateAccess = false;
                 $scope.makeTarges = '';
                 $scope.showTimeLockSend = false;
+                $scope.showExistingTimeLocks = false;
                 $scope.showTimeLockReceive = false;
                 $scope.ToStartTime = '';
                 $scope.ToEndTime = '';

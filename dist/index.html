@@ -7827,8 +7827,10 @@
                                 {{asset.targes}}
                             </span>
                         </td>
-                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.toAmountCut}}</strong> <span
+                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br>
+                            <span class="small-gray-text">{{asset.timeHours}}</td>
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.toAmountCut}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
@@ -7841,7 +7843,8 @@
                                 - {{asset.ToEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.fromAmountCut}}</strong>
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.fromAmountCut}}</strong>
                             <span>{{asset.fromAssetSymbol}}</span>
                             <span
                                     class="color-Active official-fusion-badge"
@@ -7854,9 +7857,11 @@
                                 - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
@@ -7933,9 +7938,11 @@
                                 {{asset.targes}}
                             </span>
                         </td>
-                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br> <span
+                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br>
+                            <span
                                     class="small-gray-text">{{asset.timeHours}}</span></td>
-                        <td class="text-right"ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.fromVerified"><i
                                         class="fa fa-check-circle"></i></span>
@@ -7946,7 +7953,8 @@
                                 - {{asset.FromEndTimeString}}
                             </span>
                         </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
+                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
                             <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="asset.toVerified"><i
@@ -8115,10 +8123,12 @@
                             </span>
                         </td>
                         <td class="text-right"
-                            ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
+                            ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="text-right"
-                            ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
+                            ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
                                     class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                         <td class="float-right text-right">
                             <div ng-hide="asset.owned == false">
@@ -8240,29 +8250,29 @@
                     </div>
 
                     <div class="col-md-12 p-0 mt-2">
-                    <div class="col-md-12 p-0">
+                        <div class="col-md-12 p-0">
                         <span class="small-gray-text">
                            Swap Rate
                         </span>
-                        <br>
-                        <div class="col-md-4 mt-2 mb-2 p-0">
-                            <div class="gray-bg p-2 display-inline fusion-text-14">
-                                {{takeDataFront.swapRate}} {{takeDataFront.fromAssetSymbol}} :
-                                1 {{takeDataFront.toAssetSymbol}}
+                            <br>
+                            <div class="col-md-4 mt-2 mb-2 p-0">
+                                <div class="gray-bg p-2 display-inline fusion-text-14">
+                                    {{takeDataFront.swapRate}} {{takeDataFront.fromAssetSymbol}} :
+                                    1 {{takeDataFront.toAssetSymbol}}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 p-0">
+                        <div class="col-md-12 p-0">
                         <span class="small-gray-text">
                            Fill Size
                         </span>
-                        <br>
-                        <div class="col-md-4 mt-2 mb-2 p-0">
-                            <div class="gray-bg p-2 display-inline fusion-text-14">
-                                {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}
+                            <br>
+                            <div class="col-md-4 mt-2 mb-2 p-0">
+                                <div class="gray-bg p-2 display-inline fusion-text-14">
+                                    {{takeDataFront.fromAssetMin}} {{takeDataFront.fromAssetSymbol}}
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
 
                     <br>
@@ -8286,7 +8296,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mt-2" ng-show="takeDataFront.fromAssetBalance < sendTokens && !hasTimeLockBalance(takeDataFront.fromAssetId)">
+                        <div class="col-md-6 mt-2"
+                             ng-show="takeDataFront.fromAssetBalance < sendTokens && !hasTimeLockBalance(takeDataFront.fromAssetId)">
                             <span class="balanceinsufficiant p-1">You don’t have enough {{takeDataFront.fromAssetSymbol}}</span>
                         </div>
                     </div>
@@ -8353,8 +8364,8 @@
                             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="sendDropDown = !sendDropDown">
                                 <a>
-                                    {{selectedSendAsset}}  <span class="color-Active official-fusion-badge"
-                                                                 ng-show="selectedSendVerified"><i
+                                    {{selectedSendAsset}} <span class="color-Active official-fusion-badge"
+                                                                ng-show="selectedSendVerified"><i
                                                 class="fa fa-check-circle"></i></span>
                                     <span class="small-gray-text max-char">{{selectedSendContract}}</span>
                                 </a>
@@ -8396,11 +8407,47 @@
                             <span class="small-gray-text" style="color:white;">_<br></span>
                             <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
                                     ng-click="showTimeLockSend = !showTimeLockSend"
-                                    ng-hide="showTimeLockSend"
-                            >Set
-                                Time-lock
+                                    ng-hide="showTimeLockSend; showExistingTimeLocks"
+                            >Set Time-lock
                             </button>
-                            <div ng-show="showTimeLockSend">
+                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
+                                    ng-hide="showTimeLockSend || showExistingTimeLocks || !sendHasTimeLockBalance"
+                                    ng-click="showExistingTimeLocks = !showExistingTimeLocks">
+                                Existing Time-Lock
+                            </button>
+                            <div ng-show="showExistingTimeLocks">
+                                <div class="col-md-11 col-xs-11 p-1 mt-1 asset-dropdown border-gray-dropdown"
+                                     ng-click="timeLockDropDown = !timeLockDropDown">
+                                    <a>
+                                        {{selectedTimeLockAmount}} {{selectedSendAssetSymbol}}
+                                        <br>
+                                        <span class="small-gray-text">{{selectedTimeLockTimespan}}</span>
+                                    </a>
+                                </div>
+                                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                                     ng-show="timeLockDropDown">
+                                    <div class="col-md-12 col-xs-12 p-1 mt-1  asset-dropdown"
+                                         ng-repeat="asset in myActiveTimeLocks[selectedSendContract]">
+                                        <a ng-click="setExistingTimeLock(asset.asset_id,asset.id)">
+                                            <div class="col">
+                                                <span class="fusion-text-14"><strong>{{asset.amount}}</strong></span><span class="font-size-12"> {{selectedSendAssetSymbol}}</span>
+                                                <br>
+                                                <span class="small-gray-text">
+                                                    <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                                    {{asset.startTimeString}} - {{asset.endTimeString}}
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white"
+                                            ng-click="showExistingTimeLocks = !showExistingTimeLocks">
+                                        X
+                                    </button>
+                                </div>
+                            </div>
+                            <div ng-show="showTimeLockSend && !showExistingTimeLocks">
                                 <div class="col-md-6 p-0 pb-2">
                                     <button class="btn btn-sm btn-white w-100"
                                             ng-click="sendTimeLock ='scheduled'"
@@ -8753,8 +8800,9 @@
                         <div class="col-md-6">
                             <div class="float-right text-right">
                                 <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span
-                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span>  <span class="color-Active official-fusion-badge"
-                                                                                                       ng-show="selectedReceiveVerified">
+                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span> <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="selectedReceiveVerified">
                                     <i class="fa fa-check-circle"></i>
                                 </span>
                                 <br>
