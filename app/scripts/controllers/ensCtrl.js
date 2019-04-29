@@ -14,8 +14,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return;
             }
             $scope.getShortAddressNotation();
-            $scope.getAllAssets();
-            $scope.getTimeLockBalances();
+            $scope.getTimeLockBalances().then(function () {
+                $scope.getAllAssets();
+            });
             $scope.allSwaps();
             $scope.sortSwapMarket("timePosix");
             $scope.sortOpenMakes("timePosix");
@@ -348,7 +349,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendChanged = 0;
 
         $scope.$watch('assetList', function () {
-            if($scope.receiveChanged = 1){return;}
+            if ($scope.receiveChanged = 1) {
+                return;
+            }
             if (typeof $scope.assetList === 'undefined' || $scope.assetList.length == 0) {
                 return;
             } else {
@@ -364,7 +367,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         })
 
         $scope.$watch('assetListOwned', function () {
-            if($scope.sendChanged = 1){return;}
+            if ($scope.sendChanged = 1) {
+                return;
+            }
             if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
                 return;
             } else {
@@ -700,27 +705,27 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             let allAssets = {};
-            await web3.fsn.allAssets().then(function(res){
+            await web3.fsn.allAssets().then(function (res) {
                 allAssets = res;
             });
 
             await web3.fsn.getAllTimeLockBalances(walletAddress).then(function (res) {
                 $scope.myActiveTimeLocks = [];
-                for(let asset in res) {
+                for (let asset in res) {
                     let timelocks = res[asset].Items;
-                    $scope.myActiveTimeLocks[asset]  = [];
-                    for(let timelock in timelocks){
+                    $scope.myActiveTimeLocks[asset] = [];
+                    for (let timelock in timelocks) {
                         let amount = new window.BigNumber(timelocks[timelock].Value);
                         let decimals = allAssets[asset].Decimals;
                         let divider = $scope.countDecimals(parseInt(decimals));
                         let amountFinal = amount.div(divider.toString());
                         let data = {
-                            "asset_id" : asset,
-                            "amount" : amountFinal.toString(),
-                            "startTime" : timelocks[timelock].StartTime,
-                            "endTime" : timelocks[timelock].EndTime,
-                            "startTimeString" : $scope.returnDateString(timelocks[timelock].StartTime, 'Start'),
-                            "endTimeString" : $scope.returnDateString(timelocks[timelock].EndTime, 'End')
+                            "asset_id": asset,
+                            "amount": amountFinal.toString(),
+                            "startTime": timelocks[timelock].StartTime,
+                            "endTime": timelocks[timelock].EndTime,
+                            "startTimeString": $scope.returnDateString(timelocks[timelock].StartTime, 'Start'),
+                            "endTimeString": $scope.returnDateString(timelocks[timelock].EndTime, 'End')
                         };
                         $scope.myActiveTimeLocks[asset].push(data);
                     }
@@ -825,7 +830,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     balances = res;
                 })
 
-                let ownedAssets = Object.keys(balances);
+                let a = Object.keys(balances), b = Object.keys($scope.myActiveTimeLocks);
+                let c = a.concat(b);
+                let ownedAssets = c.filter(function (item, pos) {
+                    return c.indexOf(item) == pos
+                });
+
+                console.log(ownedAssets);
 
                 let myAssets = [];
                 for (let i in ownedAssets) {
@@ -888,6 +899,22 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             "total": assetList[asset]["Total"] / divider,
                             "contractaddress": id,
                             "balance": assetBalance / divider,
+                            "owner": owned,
+                            "image": verifiedImage,
+                            "hasImage": hasImage,
+                            "verified": verifiedAsset
+                        }
+                        await assetListOwned.push(data);
+                    } else if (Object.keys($scope.myActiveTimeLocks).includes(id)) {
+                        let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
+                        let data = {
+                            "id": assetListOwned.length,
+                            "name": assetList[asset]["Name"],
+                            "symbol": assetList[asset]["Symbol"],
+                            "decimals": assetList[asset]["Decimals"],
+                            "total": assetList[asset]["Total"] / divider,
+                            "contractaddress": id,
+                            "balance": 0,
                             "owner": owned,
                             "image": verifiedImage,
                             "hasImage": hasImage,
