@@ -462,7 +462,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let toAsset = {};
 
             try {
-                await web3.fsn.getAsset(data["FromAssetID"]).then(function (res) {
+                await window.__fsnGetAsset(data["FromAssetID"]).then(function (res) {
                     fromAsset = res;
                 });
             } catch (err) {
@@ -470,7 +470,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             try {
-                await web3.fsn.getAsset(data["ToAssetID"]).then(function (res) {
+                await window.__fsnGetAsset(data["ToAssetID"]).then(function (res) {
                     toAsset = res;
                 });
             } catch (err) {
@@ -986,13 +986,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await web3.fsn.getBalance($scope.swapsList[id].toAssetId, walletAddress).then(function (res) {
                     balance = res;
                 });
-                await web3.fsn.getAsset($scope.swapsList[id].toAssetId).then(function (res) {
+                await window.__fsnGetAsset($scope.swapsList[id].toAssetId).then(function (res) {
                     decimals = res["Decimals"];
                 })
-                await web3.fsn.getAsset($scope.swapsList[id].toAssetId).then(function (res) {
+                await window.__fsnGetAsset($scope.swapsList[id].toAssetId).then(function (res) {
                     toName = res["Name"];
                 })
-                await web3.fsn.getAsset($scope.swapsList[id].fromAssetId).then(function (res) {
+                await window.__fsnGetAsset($scope.swapsList[id].fromAssetId).then(function (res) {
                     fromName = res["Name"];
                 })
             } catch (err) {
@@ -1078,7 +1078,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let toAsset = [];
 
             try {
-                await web3.fsn.getAsset(asset_id).then(function (res) {
+                await window.__fsnGetAsset(asset_id).then(function (res) {
                     toAsset = res;
                 });
             } catch (err) {
@@ -1315,7 +1315,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
             try {
-                await web3.fsn.getAsset($scope.assetToSend).then(function (res) {
+                await window.__fsnGetAsset($scope.assetToSend).then(function (res) {
                     fromAsset = res;
                 });
             } catch (err) {
@@ -1325,7 +1325,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
             try {
-                await web3.fsn.getAsset($scope.assetToReceive).then(function (res) {
+                await window.__fsnGetAsset($scope.assetToReceive).then(function (res) {
                     toAsset = res;
                 });
             } catch (err) {
@@ -1617,7 +1617,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let assetBalance = '';
             let decimals = '';
             let assetSymbol = ''
-            await web3.fsn.getAsset(asset).then(function (res) {
+            await window.__fsnGetAsset(asset).then(function (res) {
                 decimals = res["Decimals"];
                 assetSymbol = res["Symbol"]
             });
@@ -1735,7 +1735,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             toVerified = true;
                         }
                     }
-                    
+
                     owner === walletAddress ? owned = true : owned = false;
 
                     if(owned){

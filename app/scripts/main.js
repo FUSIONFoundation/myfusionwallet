@@ -140,6 +140,24 @@ var web3FusionExtend = require('web3-fusion-extend');
 window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
+let localCacheOfAssets = {}
+window.__fsnGetAsset = async function(assetId) {
+    if ( localCacheOfAssets[assetId] ) {
+        return localCacheOfAssets[assetId]
+    }
+    try {
+        return await web3.fsn.getAsset(assetId).then(function (res) {
+            if ( res.CanChange ) {
+                return res // we will cache changeable in the future
+            }
+            localCacheOfAssets[assetId] = res
+            return res
+        });
+    } catch (err) {
+        console.log( "fsnGetAsset Failed throwing this error => " , err);
+        throw err
+    }
+};
 
 let cookieName = "gatewayURL";
 let defaultGateway = "wss://gatewaypsn2w.fusionnetwork.io:10001";
