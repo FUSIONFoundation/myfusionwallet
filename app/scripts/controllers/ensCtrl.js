@@ -99,10 +99,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.selectedTimeLockTimespan = '-';
         $scope.selectedTimeLockAmount = 'Select time-lock';
 
-        $scope.closeExistingTimeLock = function (){
-            $scope.$eval(function(){
+        $scope.closeExistingTimeLock = function () {
+            $scope.$eval(function () {
                 $scope.selectedTimeLockTimespan = '-';
                 $scope.selectedTimeLockAmount = 'Select time-lock';
+                $scope.todayData = '';
+                $scope.fromEndTime = '';
+                $scope.hasTimeLockSet = false;
             })
         }
 
@@ -550,8 +553,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.setExistingTimeLock = function (asset_id, id) {
             $scope.$eval(function () {
+                $scope.selectedAssetBalance = $scope.myActiveTimeLocks[asset_id][id].amount;
                 $scope.selectedTimeLockAmount = $scope.myActiveTimeLocks[asset_id][id].amount;
                 $scope.selectedTimeLockTimespan = `${$scope.myActiveTimeLocks[asset_id][id].startTimeString} - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
+                $scope.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
+                $scope.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
+                $scope.hasTimeLockSet = true;
                 $scope.timeLockDropDown = false;
             })
         }
@@ -751,7 +758,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         x++;
                         $scope.myActiveTimeLocks[asset].push(data);
                     }
-                    console.log($scope.myActiveTimeLocks)
                 }
                 $scope.$eval(function () {
                     $scope.myTimeLockedAssets = Object.keys(res);
@@ -857,8 +863,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let ownedAssets = c.filter(function (item, pos) {
                     return c.indexOf(item) == pos
                 });
-
-                console.log(ownedAssets);
 
                 let myAssets = [];
                 for (let i in ownedAssets) {
@@ -1393,6 +1397,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     data.FromStartTime = fromStartTime;
                     data.FromEndTime = fromEndTime;
                 }
+            }
+
+            if ($scope.hasTimeLockSet) {
+                let fromStartTime = "0x" + ($scope.todayDate+1).toString(16);
+                let fromEndTime = '';
+                if ($scope.fromEndTime == 18446744073709552000) {
+                    fromEndTime = web3.fsn.consts.TimeForeverStr;
+                } else {
+                    fromEndTime = "0x" + ($scope.fromEndTime-1).toString(16);
+                }
+                data.FromStartTime = fromStartTime;
+                data.FromEndTime = fromEndTime;
             }
 
             // Receive part
