@@ -708,6 +708,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.myActiveTimeLocks = [];
                 for(let asset in res) {
                     let timelocks = res[asset].Items;
+                    $scope.myActiveTimeLocks[asset]  = [];
                     for(let timelock in timelocks){
                         let amount = new window.BigNumber(timelocks[timelock].Value);
                         let decimals = allAssets[asset].Decimals;
@@ -721,7 +722,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                             "startTimeString" : $scope.returnDateString(timelocks[timelock].StartTime, 'Start'),
                             "endTimeString" : $scope.returnDateString(timelocks[timelock].EndTime, 'End')
                         };
-                        $scope.myActiveTimeLocks.push(data);
+                        $scope.myActiveTimeLocks[asset].push(data);
                     }
                     console.log($scope.myActiveTimeLocks)
                 }
