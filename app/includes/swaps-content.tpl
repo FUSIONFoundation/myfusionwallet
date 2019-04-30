@@ -52,7 +52,7 @@
     </div>
     <div class="col-md-12 p-2 swap-border" ng-show="showSwapMarket === true">
         <div class="col-md-3 text-left mr-0">
-            <span class="small-gray-text">Send Assets</span>
+            <span class="small-gray-text">Send Asset</span>
             <br>
             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                  ng-click="sendDropDown = !sendDropDown">
@@ -749,7 +749,7 @@
                     <h3 class="h3-blue">Make Swap</h3>
                     <div class="row m-0">
                         <div class="col-md-6 text-left p-0">
-                            <span class="small-gray-text">Send Assets</span>
+                            <span class="small-gray-text">Send Asset</span>
                             <br>
                             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="sendDropDown = !sendDropDown">
