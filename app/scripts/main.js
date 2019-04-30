@@ -134,7 +134,8 @@ if (IS_CX) {
     var mainPopCtrl = require("./controllers/CX/mainPopCtrl");
     var quickSendCtrl = require("./controllers/CX/quickSendCtrl");
 }
-
+let Decimal = require('decimal.js');
+window.Decimal = Decimal;
 var Web3 = require("web3");
 var web3FusionExtend = require('web3-fusion-extend');
 window.web3FusionExtend = web3FusionExtend;
