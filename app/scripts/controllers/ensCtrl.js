@@ -809,6 +809,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let x = 0;
                 for (let asset in assetList) {
                     let id = assetList[asset]["ID"];
+
                     let owned = false;
                     let assetBalance = '';
 
@@ -825,11 +826,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         }
                     }
 
+                    let didFSN = false;
                     // Set FSN icon for PSN as well
                     if (id == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
                         verifiedImage = 'EFSN_LIGHT.svg';
                         hasImage = true;
                         verifiedAsset = true;
+                        didFSN = true;
                     }
 
                     let data = {
@@ -843,14 +846,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         "hasImage": hasImage,
                         "verified": verifiedAsset
                     };
-                    await assetList2.push(data);
+                    if(!didFSN) {
+                        await assetList2.push(data);
+                    }
                     x++;
                 }
-
-                $scope.$eval(function () {
-                    $scope.assetList = assetList2;
-                });
-
 
                 let balances = {};
 
@@ -898,7 +898,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         verifiedImage = 'EFSN_LIGHT.svg';
                         hasImage = true;
                         verifiedAsset = true;
-                    }
+                    };
 
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                     let data = {
@@ -1400,12 +1400,12 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if ($scope.hasTimeLockSet) {
-                let fromStartTime = "0x" + ($scope.todayDate+1).toString(16);
+                let fromStartTime = "0x" + ($scope.todayDate + 1).toString(16);
                 let fromEndTime = '';
                 if ($scope.fromEndTime == 18446744073709552000) {
                     fromEndTime = web3.fsn.consts.TimeForeverStr;
                 } else {
-                    fromEndTime = "0x" + ($scope.fromEndTime-1).toString(16);
+                    fromEndTime = "0x" + ($scope.fromEndTime - 1).toString(16);
                 }
                 data.FromStartTime = fromStartTime;
                 data.FromEndTime = fromEndTime;
@@ -1738,7 +1738,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     owner === walletAddress ? owned = true : owned = false;
 
-                    if(owned){
+                    if (owned) {
                         openMakeSwaps++;
                     }
 
