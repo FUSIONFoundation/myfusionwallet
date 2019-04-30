@@ -981,7 +981,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log(err);
             }
-
+            
             balance = balance / $scope.countDecimals(decimals);
 
 
@@ -1025,21 +1025,20 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let perc1 = new window.BigNumber($scope.convertToString($scope.takeAmountSwap))
 
-
             if (amount >= 0) {
                 perc1 = new window.BigNumber($scope.convertToString(1))
             }
 
-            let perc2 = new window.BigNumber($scope.convertToString($scope.takeDataFront.swapSize))
+            let perc2 = new window.BigNumber($scope.convertToString($scope.takeDataFront.swapSize));
             let perc3 = perc1.div($scope.convertToString(perc2));
 
             let perc4 = perc1.dividedBy(perc2.toString());
 
-            let fromAmountBN = new window.BigNumber($scope.convertToString($scope.takeDataFront.fromAmount))
-            let fromFinal = fromAmountBN.times($scope.convertToString(perc3));
+            let fromAmountBN = new window.BigNumber($scope.convertToString($scope.takeDataFront.fromAmount));
+            let fromFinal = fromAmountBN.times($scope.convertToString(perc3)).round(18);
 
-            let toAmountBN = new window.BigNumber($scope.convertToString($scope.takeDataFront.toAmount))
-            let toFinal = toAmountBN.times($scope.convertToString(perc3));
+            let toAmountBN = new window.BigNumber($scope.convertToString($scope.takeDataFront.toAmount));
+            let toFinal = toAmountBN.times($scope.convertToString(perc3)).round(18);
 
             await $scope.$eval(function () {
                 $scope.receiveTokens = fromFinal.toString();
