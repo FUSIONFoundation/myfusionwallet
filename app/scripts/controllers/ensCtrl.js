@@ -15,7 +15,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
             $scope.getShortAddressNotation();
             $scope.getTimeLockBalances().then(function () {
-                $scope.getAllAssets();
+                $scope.getAllAssets().then(function(){
+                    $scope.setSendAndReceiveInit();
+                });
             });
             $scope.allSwaps();
             $scope.sortSwapMarket("timePosix");
@@ -361,44 +363,25 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.receiveChanged = 0;
         $scope.sendChanged = 0;
 
-        $scope.$watch('assetList', function () {
-            if ($scope.receiveChanged = 1) {
-                return;
-            }
-            if (typeof $scope.assetList === 'undefined' || $scope.assetList.length == 0) {
-                return;
-            } else {
-                $scope.$eval(function () {
-                    $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
-                    $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
-                    $scope.assetToReceive = $scope.assetList[0].contractaddress;
-                    $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
-                    $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
-                    $scope.selectedReceiveVerified = $scope.assetList[0].verified;
-                })
-            }
-        })
 
-        $scope.$watch('assetListOwned', function () {
-            if ($scope.sendChanged = 1) {
-                return;
-            }
-            if (typeof $scope.assetListOwned === 'undefined' || $scope.assetListOwned.length == 0) {
-                return;
-            } else {
-                $scope.$eval(function () {
-                    $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
-                    $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
-                    $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
-                    $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
-                    $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
-                    $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
-                    $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
-                    $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-                    $scope.getAssetBalance();
-                })
-            }
-        })
+        $scope.setSendAndReceiveInit = function (){
+                $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${$scope.assetList[0].symbol})`;
+                $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
+                $scope.assetToReceive = $scope.assetList[0].contractaddress;
+                $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
+                $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
+                $scope.selectedReceiveVerified = $scope.assetList[0].verified;
+                // Receive part
+                $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${$scope.assetListOwned[0].symbol})`;
+                $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
+                $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
+                $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+                $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
+                $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
+                $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
+                $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
+                $scope.getAssetBalance();
+        }
 
         $scope.privateAccess = false;
 
@@ -652,9 +635,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.assetToSend = $scope.assetListOwned[id].contractaddress;
                 $scope.selectedSendVerified = $scope.assetListOwned[id].verified;
                 $scope.sendHasTimeLockBalance = $scope.assetListOwned[id].timelockBalance;
-                $scope.getAssetBalance();
                 $scope.sendDropDown = false;
             })
+            $scope.getAssetBalance();
             $scope.sendChanged = 1;
         }
 
