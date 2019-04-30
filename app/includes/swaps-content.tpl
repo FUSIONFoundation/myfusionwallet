@@ -1524,11 +1524,11 @@
                                 <span class="fusion-text-18">{{sendTokens}}</span>
                                 <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
                                 <br>
-                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
-                                    - {{takeDataFront.swapId.FromEndTimeString}}
+        
+                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
+                                    - {{takeDataFront.swapId.ToEndTimeString}}
                                 </span>
-                                
                             </div>
                         </div>
                     </div>
@@ -1541,10 +1541,11 @@
                                 <span class="fusion-text-18">{{receiveTokens}}</span> <span
                                         class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
                                 <br>
-                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
-                                    - {{takeDataFront.swapId.ToEndTimeString}}
+                                  <span class="small-gray-text" ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
+                                    - {{takeDataFront.swapId.FromEndTimeString}}
                                 </span>
+                                
                             </div>
                         </div>
                     </div>
@@ -1621,7 +1622,7 @@
                     </div>
                     <h3 class="h3-blue text-center">Success</h3>
 
-                           <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
+                     <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text">
                             Sent
                         </div>
@@ -1630,27 +1631,28 @@
                                 <span class="fusion-text-18">{{sendTokens}}</span>
                                 <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
                                 <br>
-                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
-                                    - {{takeDataFront.swapId.FromEndTimeString}}
+        
+                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
+                                    - {{takeDataFront.swapId.ToEndTimeString}}
                                 </span>
-                                
                             </div>
                         </div>
                     </div>
                     <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text">
-                            Receiving
+                           Receiving
                         </div>
                         <div class="col-md-6">
                             <div class="float-right text-right">
                                 <span class="fusion-text-18">{{receiveTokens}}</span> <span
                                         class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
                                 <br>
-                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
-                                    - {{takeDataFront.swapId.ToEndTimeString}}
+                                  <span class="small-gray-text" ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
+                                    - {{takeDataFront.swapId.FromEndTimeString}}
                                 </span>
+                                
                             </div>
                         </div>
                     </div>
