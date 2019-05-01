@@ -718,7 +718,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 allAssets = res;
             });
 
-            await web3.fsn.getAllTimeLockBalances(walletAddress).then(function (res) {
+            await window.__fsnGetAllTimeLockBalances(walletAddress).then(function (res) {
                 $scope.myActiveTimeLocks = [];
                 for (let asset in res) {
                     let timelocks = res[asset].Items;
