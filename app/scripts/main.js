@@ -184,6 +184,28 @@ window.__fsnGetAllAssets = async function() {
     return lastAllGetAssets
 }
 
+let lastGetAllBalancesTime = undefined 
+let lastGetAllBalances = undefined
+
+window.__fsnGetAllBalances = async function(walletaddress) {
+    if ( !lastGetAllBalances || !lastGetAllBalancesTime  || (lastGetAllBalancesTime + 7000) < (new Date()).getTime() ) {
+        try {
+            let allBalances = await web3.fsn.getAllBalances(walletaddress)
+            let keys = Object.keys( allBalances )
+            for ( let k of keys ) {
+                localCacheOfAssets[k] = allBalances[k]
+            }
+            lastGetAllBalancesTime = (new Date()).getTime()
+            lastGetAllBalances = allBalances
+            return allBalances
+        } catch ( err ) {
+            console.log( "__fsnGetAllBalances Failed throwing this error => " , err);
+            throw err
+        }
+    }
+    return lastGetAllBalances
+}
+
 let cookieName = "gatewayURL";
 let defaultGateway = "wss://gatewaypsn2w.fusionnetwork.io:10001";
 

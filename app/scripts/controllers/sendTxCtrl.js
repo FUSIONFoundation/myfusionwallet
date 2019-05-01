@@ -2100,7 +2100,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         let balances = {};
 
-        await web3.fsn.getAllBalances(walletAddress).then(function (res) {
+        await window.__fsnGetAllBalances(walletAddress).then(function (res) {
             balances = res;
         })
         let ownedAssets = Object.keys(balances);
