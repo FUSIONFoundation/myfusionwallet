@@ -185,7 +185,7 @@ window.__fsnGetAllAssets = async function() {
 }
 
 let lastGetAllBalancesTime = undefined 
-let lastGetAllBalances = undefined
+let lastGetAllBalances = {};
 
 window.__fsnGetAllBalances = async function(walletaddress) {
     if ( !lastGetAllBalances || !lastGetAllBalancesTime  || (lastGetAllBalancesTime + 7000) < (new Date()).getTime() ) {
@@ -193,7 +193,7 @@ window.__fsnGetAllBalances = async function(walletaddress) {
             let allBalances = await web3.fsn.getAllBalances(walletaddress)
             let keys = Object.keys( allBalances )
             for ( let k of keys ) {
-                localCacheOfAssets[k] = allBalances[k]
+                lastGetAllBalances[k] = allBalances[k]
             }
             lastGetAllBalancesTime = (new Date()).getTime()
             lastGetAllBalances = allBalances
@@ -207,7 +207,7 @@ window.__fsnGetAllBalances = async function(walletaddress) {
 }
 
 let lastGetAllTimeLockBalancesTime = undefined 
-let lastGetAllTimeLockBalances = undefined
+let lastGetAllTimeLockBalances = {};
 
 window.__fsnGetAllTimeLockBalances = async function(walletaddress) {
     if ( !lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime  || (lastGetAllTimeLockBalancesTime + 7000) < (new Date()).getTime() ) {
@@ -215,7 +215,7 @@ window.__fsnGetAllTimeLockBalances = async function(walletaddress) {
             let allBalances = await web3.fsn.getAllTimeLockBalances(walletaddress)
             let keys = Object.keys( allBalances )
             for ( let k of keys ) {
-                localCacheOfAssets[k] = allBalances[k]
+                lastGetAllBalances[k] = allBalances[k]
             }
             lastGetAllTimeLockBalancesTime = (new Date()).getTime()
             lastGetAllTimeLockBalances = allBalances
