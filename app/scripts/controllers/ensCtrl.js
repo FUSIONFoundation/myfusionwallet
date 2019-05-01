@@ -50,11 +50,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         })
 
         $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        $scope.verifiedAssetsImages = {};
+        window.verifiedAssetsImages = {};
         $scope.todayDate = formatDate();
 
         $scope.getVerifiedAssets = async function() {
-            $scope.verifiedAssetsImages = await window.__fsnGetAllVerifiedAssets();
+            window.verifiedAssetsImages = await window.__fsnGetAllVerifiedAssets();
           };
 
         $scope.getVerifiedAssets();
@@ -468,10 +468,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let fromVerified = false;
 
 
-            for (let a in $scope.verifiedAssetsImages) {
-                if ($scope.verifiedAssetsImages[a].assetID == data["FromAssetID"]) {
+            for (let a in window.verifiedAssetsImages) {
+                if (window.verifiedAssetsImages[a].assetID == data["FromAssetID"]) {
                     // Set matched image name
-                    fromVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                    fromVerifiedImage = window.verifiedAssetsImages[a].image;
                     fromHasImage = true;
                     fromVerified = true;
                 } else if (data["FromAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
@@ -486,10 +486,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let toHasImage = false;
             let toVerified = false;
 
-            for (let a in $scope.verifiedAssetsImages) {
-                if ($scope.verifiedAssetsImages[a].assetID == data["ToAssetID"]) {
+            for (let a in window.verifiedAssetsImages) {
+                if (window.verifiedAssetsImages[a].assetID == data["ToAssetID"]) {
                     // Set matched image name
-                    toVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                    toVerifiedImage = window.verifiedAssetsImages[a].image;
                     toHasImage = true;
                     toVerified = true;
                 } else if (data["ToAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
@@ -797,10 +797,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let hasImage = false;
                     let verifiedAsset = false;
 
-                    for (let a in $scope.verifiedAssetsImages) {
-                        if (id == $scope.verifiedAssetsImages[a].assetID) {
+                    for (let a in window.verifiedAssetsImages) {
+                        if (id == window.verifiedAssetsImages[a].assetID) {
                             // Set matched image name
-                            verifiedImage = $scope.verifiedAssetsImages[a].image;
+                            verifiedImage = window.verifiedAssetsImages[a].image;
                             hasImage = true;
                             verifiedAsset = true;
                         }
@@ -864,10 +864,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     assetBalance = balances[id];
 
-                    for (let a in $scope.verifiedAssetsImages) {
-                        if (id == $scope.verifiedAssetsImages[a].assetID) {
+                    for (let a in window.verifiedAssetsImages) {
+                        if (id == window.verifiedAssetsImages[a].assetID) {
                             // Set matched image name
-                            verifiedImage = $scope.verifiedAssetsImages[a].image;
+                            verifiedImage = window.verifiedAssetsImages[a].image;
                             hasImage = true;
                             verifiedAsset = true;
                         }
@@ -1682,10 +1682,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let fromHasImage = false;
                     let fromVerified = false;
 
-                    for (let a in $scope.verifiedAssetsImages) {
-                        if ($scope.verifiedAssetsImages[a].assetID == swapList[asset]["FromAssetID"]) {
+                    for (let a in window.verifiedAssetsImages) {
+                        if (window.verifiedAssetsImages[a].assetID == swapList[asset]["FromAssetID"]) {
                             // Set matched image name
-                            fromVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                            fromVerifiedImage = window.verifiedAssetsImages[a].image;
                             fromHasImage = true;
                             fromVerified = true;
                         } else if (swapList[asset]["FromAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {
@@ -1700,10 +1700,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let toHasImage = false;
                     let toVerified = false;
 
-                    for (let a in $scope.verifiedAssetsImages) {
-                        if ($scope.verifiedAssetsImages[a].assetID == swapList[asset]["ToAssetID"]) {
+                    for (let a in window.verifiedAssetsImages) {
+                        if (window.verifiedAssetsImages[a].assetID == swapList[asset]["ToAssetID"]) {
                             // Set matched image name
-                            toVerifiedImage = $scope.verifiedAssetsImages[a].image;
+                            toVerifiedImage = window.verifiedAssetsImages[a].image;
                             toHasImage = true;
                             toVerified = true;
                         } else if (swapList[asset]["ToAssetID"] == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff') {

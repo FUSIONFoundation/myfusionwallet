@@ -15,7 +15,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     _CHAINID = cookieData.chainid;
   }
 
-  $scope.verifiedAssetsImages = {};
+  window.verifiedAssetsImages = {};
   $scope.showAllAssets = true;
   $scope.showTimeLockedAssets = false;
   $scope.assetCreate = { assetHash: "", errorMessage: "" };
@@ -477,7 +477,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
   };
 
   $scope.getVerifiedAssets = async function() {
-    return $scope.verifiedAssetsImages = await window.__fsnGetAllVerifiedAssets();
+    return window.verifiedAssetsImages = await window.__fsnGetAllVerifiedAssets();
   };
 
   $scope.changeSupplyOpen = async function(id) {
@@ -2147,10 +2147,10 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
       let hasImage = false;
       let verifiedAsset = false;
 
-      for (let a in $scope.verifiedAssetsImages) {
-        if ($scope.verifiedAssetsImages[a].assetID == assetId[x]) {
+      for (let a in window.verifiedAssetsImages) {
+        if (window.verifiedAssetsImages[a].assetID == assetId[x]) {
           // Set matched image name
-          verifiedImage = $scope.verifiedAssetsImages[a].image;
+          verifiedImage = window.verifiedAssetsImages[a].image;
           hasImage = true;
           verifiedAsset = true;
         }
@@ -2338,10 +2338,10 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
       let hasImage = false;
       let verifiedAsset = false;
 
-      for (let a in $scope.verifiedAssetsImages) {
-        if ($scope.verifiedAssetsImages[a].assetID == id) {
+      for (let a in window.verifiedAssetsImages) {
+        if (window.verifiedAssetsImages[a].assetID == id) {
           // Set matched image name
-          verifiedImage = $scope.verifiedAssetsImages[a].image;
+          verifiedImage = window.verifiedAssetsImages[a].image;
           hasImage = true;
           verifiedAsset = true;
         }
