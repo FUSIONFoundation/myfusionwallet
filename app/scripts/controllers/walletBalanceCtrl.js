@@ -320,7 +320,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let notation = '';
 
-            await web3.fsn.getNotation(walletAddress).then(function (res) {
+            await window.__getNotation(walletAddress).then(function (res) {
                 notation = res;
             });
 

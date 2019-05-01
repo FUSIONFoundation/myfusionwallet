@@ -162,6 +162,23 @@ window.__fsnGetAsset = async function(assetId) {
     }
 };
 
+let notation = {};
+
+window.__getNotation = async function(walletAddress) {
+    if ( notation[walletAddress] ) {
+        return notation[walletAddress]
+    }
+    try {
+        return await web3.fsn.getNotation(walletAddress).then(function (res) {
+            notation[walletAddress] = res
+            return notation[walletAddress];
+        });
+    } catch (err) {
+        console.log( "fsnGetAsset Failed throwing this error => " , err);
+        throw err
+    }
+};
+
 let lastGetAllAssetTime = undefined 
 let lastAllGetAssets = undefined
 
