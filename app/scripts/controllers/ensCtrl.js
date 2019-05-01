@@ -38,6 +38,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.getBalance();
             $scope.setWalletAddress();
             $scope.takeGetAllBalances();
+            $scope.getVerifiedAssets();
 
         }, 7000);
 
@@ -53,7 +54,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.todayDate = formatDate();
 
         $scope.getVerifiedAssets = async function() {
-            $scope.verifiedAssetsImages = window.__fsnGetAllVerifiedAssets();
+            $scope.verifiedAssetsImages = await window.__fsnGetAllVerifiedAssets();
           };
 
         $scope.getVerifiedAssets();

@@ -248,7 +248,6 @@ window.__fsnGetAllVerifiedAssets = async function() {
             throw err
         }
     }
-    console.log(lastGetAllVerifiedAssets);
     return lastGetAllVerifiedAssets
 }
 
