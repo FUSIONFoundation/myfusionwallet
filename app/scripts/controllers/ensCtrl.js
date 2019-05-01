@@ -778,13 +778,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (walletService.wallet !== null) {
                 let accountData = uiFuncs.getTxData($scope);
                 let walletAddress = accountData.from;
-                let assetList = {};
                 let assetListOwned = [];
                 let assetList2 = [];
-
-                await window.__fsnGetAllAssets().then(function (res) {
-                    assetList = res;
-                });
+                let assetList = await window.__fsnGetAllAssets()
 
                 let x = 0;
                 for (let asset in assetList) {
@@ -1260,15 +1256,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let decimals = 0;
                 let assetBalance = 0;
 
-                let allAssets = {};
-                let allBalances = {};
-                await window.__fsnGetAllAssets().then(function (res) {
-                    allAssets = res;
-                });
-
-                await web3.fsn.getAllBalances(walletAddress).then(function (res) {
-                    allBalances = res;
-                });
+                let allAssets = await window.__fsnGetAllAssets();
+                let allBalances = await web3.fsn.getAllBalances(walletAddress);
 
                 let myBalances = [];
                 for (let asset in allBalances) {
