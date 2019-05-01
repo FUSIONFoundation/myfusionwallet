@@ -1,6 +1,7 @@
 "use strict";
 
 var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
+  
   web3.eth.subscribe("newBlockHeaders", function() {
     $scope.getAllFsnAssets();
     $scope.getTimeLockAssets();
@@ -14,6 +15,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     _CHAINID = cookieData.chainid;
   }
 
+  $scope.verifiedAssetsImages = {};
   $scope.showAllAssets = true;
   $scope.showTimeLockedAssets = false;
   $scope.assetCreate = { assetHash: "", errorMessage: "" };
@@ -224,7 +226,6 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
   };
 
   $scope.lastId = 0;
-  $scope.verifiedAssetsImages = {};
 
   $scope.hiddenTimeLockStates = localStorage.getItem("hiddenTimeLocks")
     ? JSON.parse(localStorage.getItem("hiddenTimeLocks"))
@@ -476,15 +477,7 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
   };
 
   $scope.getVerifiedAssets = async function() {
-    try {
-      await ajaxReq.http
-        .get("https://api.fusionnetwork.io/assets/verified")
-        .then(function(r) {
-          $scope.verifiedAssetsImages = r.data;
-        });
-    } catch (err) {
-      return;
-    }
+    return $scope.verifiedAssetsImages = await window.__fsnGetAllVerifiedAssets();
   };
 
   $scope.changeSupplyOpen = async function(id) {
@@ -2047,7 +2040,6 @@ var sendTxCtrl = function($scope, $sce, walletService, $rootScope) {
     if (!$scope.tx || !$scope.wallet) {
       return;
     }
-    $scope.getVerifiedAssets();
     $scope.getAllFsnAssets();
     $scope.getTimeLockAssets();
     $scope.countdownTimer();

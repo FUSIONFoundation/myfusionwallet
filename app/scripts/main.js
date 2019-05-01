@@ -228,6 +228,30 @@ window.__fsnGetAllTimeLockBalances = async function(walletaddress) {
     return lastGetAllTimeLockBalances
 }
 
+let lastGetAllVerifiedAssetsTime = undefined 
+let lastGetAllVerifiedAssets = {};
+
+window.__fsnGetAllVerifiedAssets = async function() {
+    if ( !lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime  || (lastGetAllVerifiedAssetsTime + 7000) < (new Date()).getTime() ) {
+        try {
+            let r = await ajaxReq.http.get('https://api.fusionnetwork.io/assets/verified')
+            let allVerifiedAssets = r.data;
+            let keys = Object.keys( allVerifiedAssets )
+            for ( let k of keys ) {
+                lastGetAllVerifiedAssets[k] = allVerifiedAssets[k]
+            }
+            lastGetAllVerifiedAssetsTime = (new Date()).getTime()
+            lastGetAllVerifiedAssets = allVerifiedAssets
+            return allVerifiedAssets
+        } catch ( err ) {
+            console.log( "__fsnGetAllVerifiedAssets Failed throwing this error => " , err);
+            throw err
+        }
+    }
+    console.log(lastGetAllVerifiedAssets);
+    return lastGetAllVerifiedAssets
+}
+
 let cookieName = "gatewayURL";
 let defaultGateway = "wss://gatewaypsn2w.fusionnetwork.io:10001";
 

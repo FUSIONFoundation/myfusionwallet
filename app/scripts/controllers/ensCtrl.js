@@ -52,15 +52,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.verifiedAssetsImages = {};
         $scope.todayDate = formatDate();
 
-        $scope.getVerifiedAssets = async function () {
-            try {
-                await ajaxReq.http.get('https://api.fusionnetwork.io/assets/verified').then(function (r) {
-                    $scope.verifiedAssetsImages = r.data;
-                })
-            } catch (err) {
-                return;
-            }
-        }
+        $scope.getVerifiedAssets = async function() {
+            $scope.verifiedAssetsImages = window.__fsnGetAllVerifiedAssets();
+          };
+
+        $scope.getVerifiedAssets();
 
         $scope.convertToString = function (input) {
             if (input === '') {
@@ -1640,7 +1636,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
         $scope.allSwaps = async function () {
-            await $scope.getVerifiedAssets();
             console.log('Retrieving all Swaps');
             let swapList = [];
             let swapListFront = [];
