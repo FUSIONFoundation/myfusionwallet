@@ -1614,7 +1614,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
 
-            $scope.$eval(function () {
+            $scope.$apply(function () {
                 $scope.selectedAssetBalance = balance;
                 $scope.selectedAssetSymbol = assetSymbol;
             });
