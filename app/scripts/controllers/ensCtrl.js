@@ -547,8 +547,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if ($scope.makeReceiveAmount <= 0) {
                 return;
             }
-            let makeSendAmountBN = new BigNumber($scope.convertToString($scope.makeSendAmount));
-            let makeReceiveAmountBN = new BigNumber($scope.convertToString($scope.makeReceiveAmount));
+            window.Decimal.set({ precision: 18, rounding: 4 })
+
+            let makeSendAmountBN = new Decimal($scope.convertToString($scope.makeSendAmount));
+            let makeReceiveAmountBN = new Decimal($scope.convertToString($scope.makeReceiveAmount));
 
             let swapRateFinal = makeSendAmountBN.div(makeReceiveAmountBN);
 
