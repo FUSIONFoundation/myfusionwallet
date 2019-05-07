@@ -375,7 +375,7 @@
                             <div ng-hide="asset.owned == true">
                                 <button class="btn btn-sm btn-white m-0"
                                         ng-click="takeModal(asset.id)"
-                                        ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker) && !hasTimeLockBalance(asset.toAssetId)"
+                                        ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime) && !hasTimeLockBalance(asset.toAssetId)"
                                 >Take Swap
                                 </button>
                             </div>
@@ -765,7 +765,8 @@
                                 </a>
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                                 ng-show="sendDropDown2">
+                                 ng-show="sendDropDown2"
+                                 >
                                 <form class="form-inline">
                                     <div class="form-group m-0">
                                         <span class="small-gray-text">Search</span>
@@ -1018,7 +1019,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="invalid-feedback" ng-show="selectedReceiveAsset == selectedSendAsset">
+                    <div class="invalid-feedback" ng-show="!sendHasTimeLockBalance && selectedReceiveAsset == selectedSendAsset">
                         Send and Receive can't be the same asset.
                     </div>
                     <div class="col-md-12 p-0">
@@ -1137,7 +1138,7 @@
                         <div class="col-md-6 col-xs-12">
                             <button class="btn btn-primary w-100"
                                     ng-click="makeSwapConfirmation('notend')"
-                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == '' || selectedReceiveAsset == selectedSendAsset; "
+                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == '' || !sendHasTimeLockBalance && selectedReceiveAsset == selectedSendAsset; "
                             >Review
                                 Make
                                 Swap

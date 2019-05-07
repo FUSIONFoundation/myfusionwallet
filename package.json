@@ -74,6 +74,7 @@
     "xss-filters": "^1.2.7"
   },
   "dependencies": {
+    "@iamadamjowett/angular-click-outside": "^2.10.1",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
     "cookie-parser": "^1.4.3",
@@ -81,6 +82,7 @@
     "express": "^4.16.4",
     "jade": "^1.11.0",
     "less-middleware": "^3.0.1",
+    "ng-outside-click": "^1.0.0",
     "path": "^0.12.7",
     "trezor-connect": "^7.0.3"
   }
