@@ -678,6 +678,7 @@ var ensCtrl = function($scope, $sce, walletService, $rootScope) {
       $scope.selectedReceiveVerified = $scope.assetList[id].verified;
       $scope.assetToReceive = $scope.assetList[id].contractaddress;
       $scope.receiveDropDown = false;
+      $scope.receiveDropDown2 = false;
     });
     $scope.receiveChanged = 1;
   };
@@ -695,6 +696,7 @@ var ensCtrl = function($scope, $sce, walletService, $rootScope) {
       $scope.selectedSendVerified = $scope.assetListOwned[id].verified;
       $scope.sendHasTimeLockBalance = $scope.assetListOwned[id].timelockBalance;
       $scope.sendDropDown = false;
+      $scope.sendDropDown2 = false;
     });
     $scope.getAssetBalance();
     $scope.sendChanged = 1;
