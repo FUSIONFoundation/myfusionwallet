@@ -823,38 +823,19 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     };
     $scope.takeAvailable = function (asset_id, minswaptaker, ToStartTime, ToEndTime) {
         if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
-            if($scope.allBalance[asset_id] == undefined){
-                return true;
+            if($scope.allBalance[asset_id] > minswaptaker){
+                return false;
             } else{
-                console.log($scope.allBalance)
-                console.log(`${asset_id}, ${minswaptaker} Normal Balance =>${$scope.allBalance[asset_id]} => ${minswaptaker}`);
+                return true;
             }
-            if ($scope.allBalance[asset_id] > minswaptaker) {
+        }
+        if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000 ) {
+            if ($scope.myTimeLockedAssets.includes(asset_id) == true) {
                 return false;
             } else {
                 return true;
             }
         }
-        // if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000 ) {
-        //     if ($scope.myTimeLockedAssets.includes(asset_id) == true) {
-        //         return false;
-        //     } else {
-        //         return true;
-        //     }
-        // }
-
-// return false; <- knop kun je op klikken;
-// return true; <- knop kun je niet op klikken;
-
-        // } else {
-        //     if ($scope.myTimeLockedAssets.includes(asset_id)){
-        //         return false;
-        //     }
-        //     else {
-        //         return true;
-        //     }
-        // }
-
     }
 
 
