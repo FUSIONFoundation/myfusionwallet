@@ -145,16 +145,12 @@
 
                             <div class="col-md-12 p-0">
                                 <div class="col-md-6 p-0">
-                                    <span class="small-gray-text inline mb-2 mt-2 ml-4">Wallet Address</span>
-                                    <div class="qr-code" style="max-width: 200px !important;"
-                                         qr-code="{{wallet.getChecksumAddressString()}}"
-                                         watch-var="timeLockList"></div>
+                                    <span class="small-gray-text inline mb-2 mt-2">Wallet Address</span>
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{wallet.getChecksumAddressString()}}" alt="">
                                 </div>
                                 <div class="col-md-6 p-0" ng-show="showPkState">
-                                    <span class="small-gray-text inline mb-2 mt-2 ml-4">Private Key (Unencrypted)</span>
-                                    <div class="qr-code" style="max-width: 200px !important;"
-                                         qr-code="{{wallet.getPrivateKeyString()}}"
-                                         watch-var="timeLockList"></div>
+                                    <span class="small-gray-text inline mb-2 mt-2">Private Key (Unencrypted)</span>
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{wallet.getPrivateKeyString()}}" alt="">
                                 </div>
                             </div>
                         </div>
