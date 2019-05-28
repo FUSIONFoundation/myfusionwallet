@@ -476,7 +476,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
+                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse |filter:searchSwapMarket | filter : selectedSendContract | filter : selectedReceiveContract | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
                         <td class="text-left"
                             ng-click="swapInformationModalOpen(asset.swap_id)"
                         >
