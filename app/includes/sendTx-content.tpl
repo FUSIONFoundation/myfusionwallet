@@ -173,7 +173,7 @@
                             <th scope="col">Status</th>
                             <th scope="col"></th>
                             <th scope="col">Asset Name</th>
-                            <th scope="col">Time-lock Period</th>
+                            <th scope="col">Ownership Time</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Actions</th>
                         </tr>
