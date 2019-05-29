@@ -207,11 +207,13 @@ let lastGetAllBalances = {};
 window.__fsnGetAllBalances = async function(walletaddress) {
     if ( !lastGetAllBalances || !lastGetAllBalancesTime  || (lastGetAllBalancesTime + 7000) < (new Date()).getTime() ) {
         try {
-            let allBalances = await web3.fsn.getAllBalances(walletaddress)
-            let keys = Object.keys( allBalances )
-            for ( let k of keys ) {
-                lastGetAllBalances[k] = allBalances[k]
-            }
+            let allBalances = {};
+
+            await ajaxReq.http.get(`https://api.fusionnetwork.io/search/${walletaddress}`).then(function(r){
+            let data = JSON.parse(r.data.address[0].balanceInfo);
+            console.log(data.balances);
+            allBalances = data.balances;
+            });
             lastGetAllBalancesTime = (new Date()).getTime()
             lastGetAllBalances = allBalances
             return allBalances
