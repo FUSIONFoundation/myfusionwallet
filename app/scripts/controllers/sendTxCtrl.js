@@ -2314,6 +2314,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         await window.__fsnGetAllBalances(walletAddress).then(function (res) {
             balances = res;
+            console.log(balances);
         });
 
         let assetsInBalances = Object.keys(balances);
@@ -2335,6 +2336,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let x = -1;
 
         for (let asset in assetList) {
+            console.log(assetList);
             let id = assetList[asset]["ID"];
             let owner = assetList[asset]["Owner"];
             let owned = false;

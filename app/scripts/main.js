@@ -189,7 +189,19 @@ window.__fsnGetAllAssets = async function(array) {
                 if(!localCacheOfAssets[array[asset]]){
                     console.log(`Looking up : ${array[asset]}`);
                     await ajaxReq.http.get(`https://api.fusionnetwork.io/assets/${array[asset]}`).then(function(r){
-                        localCacheOfAssets[array[asset]] = JSON.parse(r.data[0].data);
+                        localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
+                            AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                            CanChange: false,
+                            Decimals: 18,
+                            Description: "",
+                            ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                            Name: "FUSION",
+                            Symbol: "FSN",
+                            Total: 10000000000,
+                        }
+                        let data = JSON.parse(r.data[0].data);
+                        data.ID = data.AssetID;
+                        localCacheOfAssets[array[asset]] = data;
                     })
                 } else {
                     console.log(`Asset ${array[asset]} already in cache`)
