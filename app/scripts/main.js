@@ -186,7 +186,7 @@ window.__fsnGetAllAssets = async function(array) {
     if ( !lastGetAllAssetTime  || (lastGetAllAssetTime + 7000) < (new Date()).getTime() ) {
         try {
             for(let asset in array){
-                if(!localCacheOfAssets[asset]){
+                if(!localCacheOfAssets[array[asset]]){
                     console.log(`Looking up : ${array[asset]}`);
                     await ajaxReq.http.get(`https://api.fusionnetwork.io/assets/${array[asset]}`).then(function(r){
                         localCacheOfAssets[array[asset]] = JSON.parse(r.data[0].data);
