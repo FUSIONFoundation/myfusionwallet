@@ -1040,13 +1040,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let assetBalance = "";
         let decimals = "";
+        
         await window.__fsnGetAsset(asset).then(function (res) {
             decimals = res["Decimals"];
         });
 
-        await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
-            assetBalance = res;
-        });
+        await window.__fsnGetAllBalances(walletAddress).then(function(r){
+            assetBalance = r[asset];
+        })
 
         let balance = new BN(assetBalance) / $scope.countDecimals(decimals);
 
