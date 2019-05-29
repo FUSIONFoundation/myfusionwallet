@@ -152,9 +152,9 @@ window.__fsnGetAsset = async function(assetId) {
         return localCacheOfAssets[assetId]
     }
     try {
-        return await web3.fsn.getAsset(assetId).then(function (res) {
-            localCacheOfAssets[assetId] = res
-            return res
+        let array = [assetId]
+        return await window.__fsnGetAllAssets(array).then(function (res) {
+            window.__fsnGetAsset(assetId);
         });
     } catch (err) {
         console.log( "fsnGetAsset Failed throwing this error => " , err);
@@ -182,23 +182,28 @@ window.__getNotation = async function(walletAddress) {
 let lastGetAllAssetTime = undefined 
 let lastAllGetAssets = undefined
 
-window.__fsnGetAllAssets = async function() {
-    if ( !lastAllGetAssets || !lastGetAllAssetTime  || (lastGetAllAssetTime + 7000) < (new Date()).getTime() ) {
+window.__fsnGetAllAssets = async function(array) {
+    if ( !lastGetAllAssetTime  || (lastGetAllAssetTime + 7000) < (new Date()).getTime() ) {
         try {
-            let assetList = await web3.fsn.allAssets()
-            let keys = Object.keys( assetList )
-            for ( let k of keys ) {
-                localCacheOfAssets[k] = assetList[k]
+            for(let asset in array){
+                if(!localCacheOfAssets[asset]){
+                    console.log(`Looking up : ${array[asset]}`);
+                    await ajaxReq.http.get(`https://api.fusionnetwork.io/assets/${array[asset]}`).then(function(r){
+                        localCacheOfAssets[array[asset]] = JSON.parse(r.data[0].data);
+                    })
+                } else {
+                    console.log(`Asset ${array[asset]} already in cache`)
+                }
             }
+            console.log(localCacheOfAssets);
             lastGetAllAssetTime = (new Date()).getTime()
-            lastAllGetAssets = assetList
-            return assetList
+            return localCacheOfAssets
         } catch ( err ) {
             console.log( "__fsnGetAllAssets Failed throwing this error => " , err);
             throw err
         }
     }
-    return lastAllGetAssets
+    return localCacheOfAssets
 }
 
 let lastGetAllBalancesTime = undefined 
@@ -211,7 +216,6 @@ window.__fsnGetAllBalances = async function(walletaddress) {
 
             await ajaxReq.http.get(`https://api.fusionnetwork.io/search/${walletaddress}`).then(function(r){
             let data = JSON.parse(r.data.address[0].balanceInfo);
-            console.log(data.balances);
             allBalances = data.balances;
             });
             lastGetAllBalancesTime = (new Date()).getTime()
