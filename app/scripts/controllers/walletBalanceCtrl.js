@@ -320,8 +320,12 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let notation = '';
 
-            await window.__getNotation(walletAddress).then(function (res) {
-                notation = res;
+            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function(r) {
+                if (r.data.address[0].san !== "0") {
+                    notation = r.data.address[0].san;
+                } else {
+                    notation = 0;
+                }
             });
 
 
