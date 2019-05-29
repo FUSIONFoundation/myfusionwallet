@@ -29,7 +29,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let data = {};
             let ticketsData;
             let tickets = {};
-            await ajaxReq.http.get(`https://api.fusionnetwork.io/balances/${walletAddress}`).then(function (r) {
+            await ajaxReq.http.get(`${window.getApiServer()}/balances/${walletAddress}`).then(function (r) {
                 data = r.data
             })
 

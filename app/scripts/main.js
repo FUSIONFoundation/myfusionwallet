@@ -143,6 +143,10 @@ var provider;
 var web3;
 let localCacheOfAssets = {}
 
+window.getApiServer = function (){
+    return 'https://api.fusionnetwork.io'
+}
+
 window.__fsnDeleteAssetFromCache  = async function(assetId) {
     delete localCacheOfAssets[assetId]
 }
@@ -188,7 +192,7 @@ window.__fsnGetAllAssets = async function(array) {
             for(let asset in array){
                 if(!localCacheOfAssets[array[asset]]){
                     console.log(`Looking up : ${array[asset]}`);
-                    await ajaxReq.http.get(`https://api.fusionnetwork.io/assets/${array[asset]}`).then(function(r){
+                    await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function(r){
                         localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
                             AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
                             CanChange: false,
@@ -226,7 +230,7 @@ window.__fsnGetAllBalances = async function(walletaddress) {
         try {
             let allBalances = {};
 
-            await ajaxReq.http.get(`https://api.fusionnetwork.io/search/${walletaddress}`).then(function(r){
+            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function(r){
             let data = JSON.parse(r.data.address[0].balanceInfo);
             allBalances = data.balances;
             });
@@ -248,7 +252,7 @@ window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
     if ( !lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime  || (lastGetAllTimeLockBalancesTime + 7000) < (new Date()).getTime() ) {
         try {
             let allBalances = {}
-            await ajaxReq.http.get(`https://api.fusionnetwork.io/search/${walletaddress}`).then(function(r) {
+            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function(r) {
                 let data = JSON.parse(r.data.address[0].balanceInfo);
                 allBalances = data.timeLockBalances;
             });
@@ -269,7 +273,7 @@ let lastGetAllVerifiedAssets = {};
 window.__fsnGetAllVerifiedAssets = async function() {
     if ( !lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime  || (lastGetAllVerifiedAssetsTime + 7000) < (new Date()).getTime() ) {
         try {
-            let r = await ajaxReq.http.get('https://api.fusionnetwork.io/assets/verified')
+            let r = await ajaxReq.http.get(`${window.getApiServer()}/assets/verified`)
             let allVerifiedAssets = r.data;
             let keys = Object.keys( allVerifiedAssets )
             for ( let k of keys ) {
