@@ -244,15 +244,15 @@ window.__fsnGetAllBalances = async function(walletaddress) {
 let lastGetAllTimeLockBalancesTime = undefined 
 let lastGetAllTimeLockBalances = {};
 
-window.__fsnGetAllTimeLockBalances = async function(walletaddress) {
+window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
     if ( !lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime  || (lastGetAllTimeLockBalancesTime + 7000) < (new Date()).getTime() ) {
         try {
-            let allBalances = await web3.fsn.getAllTimeLockBalances(walletaddress)
-            let keys = Object.keys( allBalances )
-            for ( let k of keys ) {
-                lastGetAllBalances[k] = allBalances[k]
-            }
-            lastGetAllTimeLockBalancesTime = (new Date()).getTime()
+            let allBalances = {}
+            await ajaxReq.http.get(`https://api.fusionnetwork.io/search/${walletaddress}`).then(function(r) {
+                let data = JSON.parse(r.data.address[0].balanceInfo);
+                allBalances = data.timeLockBalances;
+            });
+            lastGetAllTimeLockBalancesTime = (new Date()).getTime();
             lastGetAllTimeLockBalances = allBalances
             return allBalances
         } catch ( err ) {
