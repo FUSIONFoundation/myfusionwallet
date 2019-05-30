@@ -143,8 +143,13 @@ var provider;
 var web3;
 let localCacheOfAssets = {}
 
+window.currentNet = '';
 window.getApiServer = function (){
-    return 'https://api.fusionnetwork.io'
+    if(window.currentNet == 'mainnet'){
+        return 'https://api2.fusionnetwork.io'
+    } else if (window.currentNet == 'testnet'){
+        return 'https://api.fusionnetwork.io'
+    }
 }
 
 window.__fsnDeleteAssetFromCache  = async function(assetId) {
@@ -294,7 +299,6 @@ window.__fsnGetAllVerifiedAssets = async function() {
 
 let cookieName = "gatewayURL";
 let defaultGateway = "wss://gatewaypsn2w.fusionnetwork.io:10001";
-
 let defaultChainId = 88666;
 window.cookieName = cookieName;
 window.defaultGateway = defaultGateway;
@@ -322,6 +326,9 @@ function keepWeb3Alive(){
         nodeUrl = data.url;
     }
 
+    // Initialize Testnet/Mainnet
+    if(nodeUrl == "wss://psn2testgatewayalb.fusionnetwork.io:10001") window.currentNet = 'mainnet'
+    if(nodeUrl == "wss://gatewaypsn2w.fusionnetwork.io:10001") window.currentNet = 'testnet'
 //     provider = new Web3.providers.WebsocketProvider("ws://localhost:9001");
     try {
         provider = new Web3.providers.WebsocketProvider(nodeUrl);
