@@ -243,7 +243,7 @@ window.__fsnGetAllBalances = async function(walletaddress) {
             throw err
         }
     }
-    return lastGetAllBalances
+    return lastGetAllBalances[walletaddress]
 }
 
 let lastGetAllTimeLockBalancesTime = undefined 
@@ -258,14 +258,14 @@ window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
                 allBalances = data.timeLockBalances;
             });
             lastGetAllTimeLockBalancesTime = (new Date()).getTime();
-            lastGetAllTimeLockBalances = allBalances
+            lastGetAllTimeLockBalances[walletaddress] = allBalances
             return allBalances
         } catch ( err ) {
             console.log( "__fsnGetAllTimeLockBalances Failed throwing this error => " , err);
             throw err
         }
     }
-    return lastGetAllTimeLockBalances
+    return lastGetAllTimeLockBalances[walletaddress]
 }
 
 let lastGetAllVerifiedAssetsTime = undefined 

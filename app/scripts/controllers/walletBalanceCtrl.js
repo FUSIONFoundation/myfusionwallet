@@ -289,7 +289,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let balance = '';
 
             await window.__fsnGetAllBalances(walletAddress).then(function(r){
-                balance = r[walletAddress]["0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"];
+                balance = r["0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"];
             })
 
             balance = balance / $scope.countDecimals(18);
