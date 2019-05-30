@@ -38,11 +38,16 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             $scope.inputUrl = data.url;
         })
     }
-    if ($scope.inputUrl == window.defaultGateway) {
+    if (window.currentNet == 'mainnet') {
         $scope.$eval(function () {
-            $scope.nodeName = "FSN Gateway"
-        })
-    } else {
+            $scope.nodeName = "Mainnet"
+        }) }
+        if (window.currentNet == 'testnet') {
+            $scope.$eval(function () {
+                $scope.nodeName = "Testnet"
+            })
+        }
+        if (window.currentNet == 'custom'){
         $scope.$eval(function () {
             $scope.nodeName = "Custom Gateway"
         })

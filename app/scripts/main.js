@@ -45,7 +45,7 @@ var etherUnits = require("./etherUnits");
 window.etherUnits = etherUnits;
 var ajaxReq = require("./ajaxReq");
 window.ajaxReq = ajaxReq;
-ajaxReq.type='ETH';
+ajaxReq.type = 'ETH';
 var nodes = require("./nodes");
 window.nodes = nodes;
 var ethFuncs = require("./ethFuncs");
@@ -144,20 +144,20 @@ var web3;
 let localCacheOfAssets = {}
 
 window.currentNet = '';
-window.getApiServer = function (){
-    if(window.currentNet == 'mainnet'){
+window.getApiServer = function () {
+    if (window.currentNet == 'mainnet') {
         return 'https://api2.fusionnetwork.io'
-    } else if (window.currentNet == 'testnet'){
+    } else if (window.currentNet == 'testnet') {
         return 'https://api.fusionnetwork.io'
     }
 }
 
-window.__fsnDeleteAssetFromCache  = async function(assetId) {
+window.__fsnDeleteAssetFromCache = async function (assetId) {
     delete localCacheOfAssets[assetId]
 }
 
-window.__fsnGetAsset = async function(assetId) {
-    if ( localCacheOfAssets[assetId] ) {
+window.__fsnGetAsset = async function (assetId) {
+    if (localCacheOfAssets[assetId]) {
         return localCacheOfAssets[assetId]
     }
     try {
@@ -166,15 +166,15 @@ window.__fsnGetAsset = async function(assetId) {
             window.__fsnGetAsset(assetId);
         });
     } catch (err) {
-        console.log( "fsnGetAsset Failed throwing this error => " , err);
+        console.log("fsnGetAsset Failed throwing this error => ", err);
         throw err
     }
 };
 
 let notation = {};
 
-window.__getNotation = async function(walletAddress) {
-    if ( notation[walletAddress] ) {
+window.__getNotation = async function (walletAddress) {
+    if (notation[walletAddress]) {
         return notation[walletAddress]
     }
     try {
@@ -183,21 +183,21 @@ window.__getNotation = async function(walletAddress) {
             return notation[walletAddress];
         });
     } catch (err) {
-        console.log( "fsnGetAsset Failed throwing this error => " , err);
+        console.log("fsnGetAsset Failed throwing this error => ", err);
         throw err
     }
 };
 
-let lastGetAllAssetTime = undefined 
+let lastGetAllAssetTime = undefined
 let lastAllGetAssets = undefined
 
-window.__fsnGetAllAssets = async function(array) {
-    if ( !lastGetAllAssetTime  || (lastGetAllAssetTime + 7000) < (new Date()).getTime() ) {
+window.__fsnGetAllAssets = async function (array) {
+    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
         try {
-            for(let asset in array){
-                if(!localCacheOfAssets[array[asset]]){
+            for (let asset in array) {
+                if (!localCacheOfAssets[array[asset]]) {
                     console.log(`Looking up : ${array[asset]}`);
-                    await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function(r){
+                    await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function (r) {
                         localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
                             AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
                             CanChange: false,
@@ -219,77 +219,77 @@ window.__fsnGetAllAssets = async function(array) {
             console.log(localCacheOfAssets);
             lastGetAllAssetTime = (new Date()).getTime()
             return localCacheOfAssets
-        } catch ( err ) {
-            console.log( "__fsnGetAllAssets Failed throwing this error => " , err);
+        } catch (err) {
+            console.log("__fsnGetAllAssets Failed throwing this error => ", err);
             throw err
         }
     }
     return localCacheOfAssets
 }
 
-let lastGetAllBalancesTime = undefined 
+let lastGetAllBalancesTime = undefined
 let lastGetAllBalances = {};
 
-window.__fsnGetAllBalances = async function(walletaddress) {
-    if ( !lastGetAllBalancesTime  || (lastGetAllBalancesTime + 7000) < (new Date()).getTime() ) {
+window.__fsnGetAllBalances = async function (walletaddress) {
+    if (!lastGetAllBalancesTime || (lastGetAllBalancesTime + 7000) < (new Date()).getTime()) {
         try {
             let allBalances = {};
 
-            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function(r){
-            let data = JSON.parse(r.data.address[0].balanceInfo);
-            allBalances = data.balances;
+            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
+                let data = JSON.parse(r.data.address[0].balanceInfo);
+                allBalances = data.balances;
             });
             lastGetAllBalancesTime = (new Date()).getTime()
             lastGetAllBalances[walletaddress] = allBalances
             console.log(lastGetAllBalances);
             return allBalances
-        } catch ( err ) {
-            console.log( "__fsnGetAllBalances Failed throwing this error => " , err);
+        } catch (err) {
+            console.log("__fsnGetAllBalances Failed throwing this error => ", err);
             throw err
         }
     }
     return lastGetAllBalances[walletaddress]
 }
 
-let lastGetAllTimeLockBalancesTime = undefined 
+let lastGetAllTimeLockBalancesTime = undefined
 let lastGetAllTimeLockBalances = {};
 
 window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
-    if ( !lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime  || (lastGetAllTimeLockBalancesTime + 7000) < (new Date()).getTime() ) {
+    if (!lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime || (lastGetAllTimeLockBalancesTime + 7000) < (new Date()).getTime()) {
         try {
             let allBalances = {}
-            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function(r) {
+            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
                 let data = JSON.parse(r.data.address[0].balanceInfo);
                 allBalances = data.timeLockBalances;
             });
             lastGetAllTimeLockBalancesTime = (new Date()).getTime();
             lastGetAllTimeLockBalances[walletaddress] = allBalances
             return allBalances
-        } catch ( err ) {
-            console.log( "__fsnGetAllTimeLockBalances Failed throwing this error => " , err);
+        } catch (err) {
+            console.log("__fsnGetAllTimeLockBalances Failed throwing this error => ", err);
             throw err
         }
     }
     return lastGetAllTimeLockBalances[walletaddress]
 }
 
-let lastGetAllVerifiedAssetsTime = undefined 
+let lastGetAllVerifiedAssetsTime = undefined
 let lastGetAllVerifiedAssets = {};
 
-window.__fsnGetAllVerifiedAssets = async function() {
-    if ( !lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime  || (lastGetAllVerifiedAssetsTime + 7000) < (new Date()).getTime() ) {
+window.__fsnGetAllVerifiedAssets = async function () {
+    if (!lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime || (lastGetAllVerifiedAssetsTime + 7000) < (new Date()).getTime()) {
         try {
             let r = await ajaxReq.http.get(`${window.getApiServer()}/assets/verified`)
             let allVerifiedAssets = r.data;
-            let keys = Object.keys( allVerifiedAssets )
-            for ( let k of keys ) {
+            let keys = Object.keys(allVerifiedAssets)
+            for (let k of keys) {
                 lastGetAllVerifiedAssets[k] = allVerifiedAssets[k]
             }
             lastGetAllVerifiedAssetsTime = (new Date()).getTime()
             lastGetAllVerifiedAssets = allVerifiedAssets
             return allVerifiedAssets
-        } catch ( err ) {
-            console.log( "__fsnGetAllVerifiedAssets Failed throwing this error => " , err);
+        } catch (err) {
+            console.log("__fsnGetAllVerifiedAssets Failed throwing this error => ", err);
             throw err
         }
     }
@@ -307,32 +307,37 @@ var nodeUrl = localStorage.getItem(window.cookieName)
 let data = nodeUrl ? JSON.parse(nodeUrl) : null
 
 // Initialize cookie if there is non
-if (data === null){
+if (data === null) {
     let data = {
         "url": window.defaultGateway,
-        "chainid" : window.defaultChainId
+        "chainid": window.defaultChainId
     }
     localStorage.setItem(window.cookieName, JSON.stringify(data));
 }
 
 
-function keepWeb3Alive(){
+function keepWeb3Alive() {
     let nu = localStorage.getItem(window.cookieName)
     let data = nu ? JSON.parse(nu) : {}
     // if the url is empty set standard gateway
-    if (data.url == ""){
+    if (data.url == "") {
         nodeUrl = window.defaultGateway;
     } else {
         nodeUrl = data.url;
     }
 
     // Initialize Testnet/Mainnet
-    if(nodeUrl == "wss://psn2testgatewayalb.fusionnetwork.io:10001") window.currentNet = 'mainnet'
-    if(nodeUrl == "wss://gatewaypsn2w.fusionnetwork.io:10001") window.currentNet = 'testnet'
+    if (nodeUrl == "wss://psn2testgatewayalb.fusionnetwork.io:10001") {
+        window.currentNet = 'mainnet'
+    } else if (nodeUrl == "wss://gatewaypsn2w.fusionnetwork.io:10001") {
+        window.currentNet = 'testnet'
+    } else {
+        window.currentNet = 'custom'
+    }
 //     provider = new Web3.providers.WebsocketProvider("ws://localhost:9001");
     try {
         provider = new Web3.providers.WebsocketProvider(nodeUrl);
-    } catch (err){
+    } catch (err) {
         alert(`Could not connect to node. Reverting back to default gateway.`);
         let data = {
             "url": window.defaultGateway
@@ -359,6 +364,7 @@ function keepWeb3Alive(){
     web3 = window.web3FusionExtend.extend(web3);
     window.web3 = web3;
 }
+
 keepWeb3Alive();
 
 var app = angular.module("mewApp", [
@@ -367,15 +373,15 @@ var app = angular.module("mewApp", [
     "ngAnimate",
 ]);
 
-app.filter('startFrom', function() {
-        return function (input, start) {
-            if (typeof input === 'undefined') {
-                return;
-            } else {
-                start = +start; //parse to int
-                return input.slice(start);
-            }
+app.filter('startFrom', function () {
+    return function (input, start) {
+        if (typeof input === 'undefined') {
+            return;
+        } else {
+            start = +start; //parse to int
+            return input.slice(start);
         }
+    }
 });
 
 app.config([
@@ -431,6 +437,7 @@ app.directive('numbersOnly', function () {
                 }
                 return undefined;
             }
+
             ngModelCtrl.$parsers.push(fromUser);
         }
     };
