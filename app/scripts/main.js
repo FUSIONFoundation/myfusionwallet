@@ -235,7 +235,8 @@ window.__fsnGetAllBalances = async function(walletaddress) {
             allBalances = data.balances;
             });
             lastGetAllBalancesTime = (new Date()).getTime()
-            lastGetAllBalances = allBalances
+            lastGetAllBalances[walletaddress] = allBalances
+            console.log(lastGetAllBalances);
             return allBalances
         } catch ( err ) {
             console.log( "__fsnGetAllBalances Failed throwing this error => " , err);
