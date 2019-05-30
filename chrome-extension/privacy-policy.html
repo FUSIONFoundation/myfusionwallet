@@ -174,7 +174,9 @@
                         {{nodeName}}
                         </a>
                         <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom">
-                             <span class="small-gray-text">Node URL:
+                            <button class="btn btn-sm btn-white w-100" ng-click="netSwitch('mainnet'); window.location.reload();">Mainnet</button>
+                            <button class="btn btn-sm btn-white w-100" ng-click="netSwitch('testnet'); window.location.reload();">Testnet</button>
+                            <span class="small-gray-text">Node URL:
                              </span>
                             <input type="text" class="form-control" ng-model="inputUrl" placeholder="URL">
                             <span class="small-gray-text">Chain ID:

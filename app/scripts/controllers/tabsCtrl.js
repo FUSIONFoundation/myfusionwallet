@@ -31,38 +31,38 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
     let nu = localStorage.getItem(window.cookieName)
     let data = nu ? JSON.parse(nu) : {}
-    if (data.url == ""){
+    if (data.url == "") {
         $scope.inputUrl = window.defaultGateway;
     } else {
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.inputUrl = data.url;
         })
     }
-    if($scope.inputUrl == window.defaultGateway){
-        $scope.$eval(function(){
+    if ($scope.inputUrl == window.defaultGateway) {
+        $scope.$eval(function () {
             $scope.nodeName = "FSN Gateway"
         })
     } else {
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.nodeName = "Custom Gateway"
         })
     }
 
-    if(data.chainid == ""){
-        $scope.$eval(function(){
+    if (data.chainid == "") {
+        $scope.$eval(function () {
             $scope.chainId = window.defaultChainId;
         })
     } else {
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.chainId = data.chainid;
         })
     }
 
     $scope.latestBlock = 'Loading';
 
-    $scope.initLoadBlock = async function(){
-        web3.eth.getBlockNumber().then(function (r){
-            $scope.$eval(function(){
+    $scope.initLoadBlock = async function () {
+        web3.eth.getBlockNumber().then(function (r) {
+            $scope.$eval(function () {
                 $scope.latestBlock = r;
             })
         })
@@ -134,33 +134,58 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
         } else {
         }
+    }
+
+
+    $scope.setNodeUrl = function () {
+        let url = {
+            "url": $scope.inputUrl,
+            "chainid": $scope.chainId
+        };
+        localStorage.setItem(window.cookieName, JSON.stringify(url));
+        let data = JSON.parse(localStorage.getItem(window.cookieName));
+
+        $scope.$eval(function () {
+            $scope.inputUrl = data.url;
+            $scope.chainId = data.chainid;
+        })
+
+        window.location.reload();
+    }
+
+    $scope.netSwitch = function (net) {
+        let url = {};
+        if (net == 'mainnet') {
+            url = {
+                "url": "wss://psn2testgatewayalb.fusionnetwork.io:10001",
+                "chainid": 66688
+            };
+        } else if (net == 'testnet') {
+            url = {
+                "url": "wss://gatewaypsn2w.fusionnetwork.io:10001",
+                "chainid": 88666
+            };
         }
 
+        localStorage.setItem(window.cookieName, JSON.stringify(url));
+        let data = JSON.parse(localStorage.getItem(window.cookieName));
 
-        $scope.setNodeUrl = function () {
-            let url = {
-                "url": $scope.inputUrl,
-                "chainid" : $scope.chainId
-            };
-            localStorage.setItem(window.cookieName, JSON.stringify(url));
-            let data = JSON.parse(localStorage.getItem(window.cookieName));
+        $scope.$eval(function () {
+            $scope.inputUrl = data.url;
+            $scope.chainId = data.chainid;
+        })
 
-            $scope.$eval(function () {
-                $scope.inputUrl = data.url;
-                $scope.chainId = data.chainid;
-            })
+        window.location.reload();
+    }
 
+    networkHasChanged && window.setTimeout(function () {
+        if (window.location.search.length > 0) {
+            window.location = window.location.href.replace(window.location.search, '');
+        } else {
             window.location.reload();
         }
 
-        networkHasChanged && window.setTimeout(function () {
-            if (window.location.search.length > 0) {
-                window.location = window.location.href.replace(window.location.search, '');
-            } else {
-                window.location.reload();
-            }
-
-        }, 250);
+    }, 250);
 
     $scope.checkNodeUrl = function (nodeUrl) {
         // return $scope.Validator.isValidURL(nodeUrl);
