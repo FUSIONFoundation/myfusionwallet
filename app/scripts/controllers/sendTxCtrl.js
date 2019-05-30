@@ -1040,7 +1040,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let walletAddress = accountData.from;
         let assetBalance = "";
         let decimals = "";
-        
+
         await window.__fsnGetAsset(asset).then(function (res) {
             decimals = res["Decimals"];
         });

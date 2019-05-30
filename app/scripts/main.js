@@ -226,7 +226,7 @@ let lastGetAllBalancesTime = undefined
 let lastGetAllBalances = {};
 
 window.__fsnGetAllBalances = async function(walletaddress) {
-    if ( !lastGetAllBalances || !lastGetAllBalancesTime  || (lastGetAllBalancesTime + 7000) < (new Date()).getTime() ) {
+    if ( !lastGetAllBalancesTime  || (lastGetAllBalancesTime + 7000) < (new Date()).getTime() ) {
         try {
             let allBalances = {};
 

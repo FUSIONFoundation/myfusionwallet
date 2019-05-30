@@ -60,18 +60,8 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.web3WalletBalance = 0;
             })
             return;
-        }
-        if ($scope.assetListOwns[0].balance == 0) {
-            $scope.$eval(function () {
-                $scope.web3WalletBalance = 0;
-            })
-            return;
-        }
-        if ($scope.assetListOwns[0].balance > 0) {
-            $scope.$eval(function () {
-                $scope.web3WalletBalance = $scope.assetListOwns[0].balance;
-            })
-            return;
+        } else {
+            $scope.getBalance();
         }
     }
 
@@ -298,9 +288,9 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let balance = '';
 
-            await web3.fsn.getBalance("0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", walletAddress).then(function (res) {
-                balance = res;
-            });
+            await window.__fsnGetAllBalances(walletAddress).then(function(r){
+                balance = r["0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"];
+            })
 
             balance = balance / $scope.countDecimals(18);
             $scope.$apply(function () {
