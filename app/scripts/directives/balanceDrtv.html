@@ -22,17 +22,17 @@
             </div>
         </div>
         <hr>
-        <h5>FUSION Balance</h5>
+        <h5 class="small-gray-text">FUSION Balance</h5>
         <ul class="account-info point">
             <li>
                 <span class="mono wrap wallet-balance">{{web3WalletBalance}}</span> <span
                     class="fusion-text-12">FSN</span>
             </li>
         </ul>
-        <h5>Public Address</h5>
+        <h5 class="small-gray-text">Public Address</h5>
         <ul class="account-info">
             <div class="gray-bg p-1 break-word">
-                    <span class="small-gray-text text-fusion fusion-text-14 copy"
+                    <span class="text-fusion fusion-text-14 copy"
                           ng-click="copyToClipboard(wallet.getChecksumAddressString())"
                     >{{wallet.getChecksumAddressString()}}</span>
             </div>
@@ -40,7 +40,7 @@
                 ↳ <span class="mono ng-binding"> {{ensAddress}} </span>
             </label>
         </ul>
-        <h5>Short Address</h5>
+        <h5 class="small-gray-text">Short Address</h5>
         <ul class="account-info point">
             <li class="gray-bg break-word"
                 ng-class="{'display-table-cell' : addressNotation.value != 'It looks like you don’t have a Short Account Number (SAN) yet. Fusion’s SAN is an 8 character version of your wallet address that’s as easy to remember as your phone number. Click the button below to generate one.'}"
@@ -75,7 +75,7 @@
                     Ledger</a></li>
             </ul>
         </div>
-        <h5 translate="sidebar_TransHistory"> Transaction History</h5>
+        <h5 class="small-gray-text">Transaction History</h5>
         <ul class="account-info">
             <li ng-show="ajaxReq.type == 'ETH'">
                 <a class="blue-text"
