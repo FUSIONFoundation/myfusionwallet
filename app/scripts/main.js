@@ -233,9 +233,7 @@ let lastGetAllBalances = {};
 window.__fsnGetAllBalances = async function (walletaddress) {
     if (!lastGetAllBalancesTime || (lastGetAllBalancesTime + 7000) < (new Date()).getTime()) {
         try {
-            debugger
             let allBalances = {};
-
             await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
                 let data = JSON.parse(r.data.address[0].balanceInfo);
                 allBalances = data.balances;
