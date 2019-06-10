@@ -830,7 +830,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Your Address:
@@ -841,7 +841,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Recepient Address:
@@ -852,7 +852,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2" ng-show="transactionType == 'standard'">
+                        <div class="pb-2 pt-2" ng-show="transactionType == 'standard'">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Send Type:
@@ -864,7 +864,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2" ng-show="transactionType == 'timed'">
+                        <div class="pb-2 pt-2" ng-show="transactionType == 'timed'">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Send Type:
@@ -875,7 +875,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2 inline w-100">
+                        <div class="pb-2 pt-2 inline w-100">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Asset:
@@ -889,7 +889,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
+                        <div class="pb-2 pt-2 w-100 inline">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Amount:
@@ -903,7 +903,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
+                        <div class="pb-2 pt-2 w-100 inline">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Gas Price:
@@ -920,7 +920,7 @@
 
 
                         <div ng-hide="transactionType =='none'">
-                            <div class="float-left border-gray-bottom pb-2 pt-2 w-50"
+                            <div class="float-left pb-2 pt-2 w-50"
                                  ng-class="{'w-100' : transactionType == 'scheduled'}">
                                 <span class="small-gray-text" ng-hide="transactionType =='scheduled'">
                                     From
@@ -933,7 +933,7 @@
                                       ng-hide="transactionType == 'daterange'">{{sendAsset.fromTimeString}}</span>
                                 <span class="fusion-text-14" ng-show="transactionType == 'daterange'">Now</span>
                             </div>
-                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50"
+                            <div class="float-right pb-2 pt-2 w-50"
                                  ng-hide="transactionType == 'scheduled'">
                                 <span class="small-gray-text">
                                     Until
@@ -1081,7 +1081,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Transaction ID
@@ -1094,7 +1094,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Your Address:
@@ -1105,7 +1105,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Recepient Address:
@@ -1116,7 +1116,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2 inline w-100">
+                        <div class="pb-2 pt-2 inline w-100">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Asset:
@@ -1130,7 +1130,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
+                        <div class="pb-2 pt-2 w-100 inline">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Amount:
@@ -1144,7 +1144,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-2 pt-2 w-100 inline">
+                        <div class="pb-2 pt-2 w-100 inline">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                 Gas Price:
@@ -1159,7 +1159,7 @@
                             <br>
                         </div>
                         <div ng-hide="transactionType =='none'">
-                            <div class="float-left border-gray-bottom pb-2 pt-2 w-50">
+                            <div class="float-left pb-2 pt-2 w-50">
                                 <span class="small-gray-text" ng-hide="transactionType =='scheduled'">
                                     From
                                 </span>
@@ -1169,7 +1169,7 @@
                                 <br>
                                 <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
-                            <div class="float-right border-gray-bottom pb-2 pt-2 w-50"
+                            <div class="float-right pb-2 pt-2 w-50"
                                  ng-hide="transactionType =='scheduled'">
                                 <span class="small-gray-text">
                                     Until
@@ -1242,7 +1242,7 @@
                 </nav>
                 <div class="col-md-12" ng-show="!showAttributes">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                        <div class="pb-3 pt-2 flow-root">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Total Supply
@@ -1269,7 +1269,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Available Supply
@@ -1283,7 +1283,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Decimal Points
@@ -1297,7 +1297,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Issuer
@@ -1315,7 +1315,7 @@
                 </div>
                 <div class="col-md-12" ng-show="showAttributes">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2 flow-root"
+                        <div class="pb-3 pt-2 flow-root"
                              ng-repeat="(key,value) in manageAssetInfo.description">
                             <div class="float-left">
                                 <span class="small-gray-text">
@@ -1385,7 +1385,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2 flow-root">
+                        <div class="pb-3 pt-2 flow-root">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Current Total Supply
@@ -1411,7 +1411,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <span class="small-gray-text">
                                 New Total Supply
                             </span>
@@ -1493,7 +1493,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                    Change in Supply
@@ -1510,7 +1510,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-3 pt-2">
+                        <div class="pb-3 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     New Total Supply
@@ -1523,7 +1523,7 @@
                             </div>
                             <br>
                         </div>
-                        <div class="border-gray-bottom pb-3 pt-2" ng-show="transacData !== ''">
+                        <div class="pb-3 pt-2" ng-show="transacData !== ''">
                             <div class="float-left">
                                       <span class="small-gray-text">
                                 Note
@@ -1594,7 +1594,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Transaction ID
@@ -1612,7 +1612,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2 flow-root">
+                        <div class="pb-2 pt-2 flow-root">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Asset
@@ -1630,7 +1630,7 @@
 
                         <div class="col-md-12">
                             <section class="row form-group">
-                                <div class="border-gray-bottom pb-3 pt-2">
+                                <div class="pb-3 pt-2">
                                     <div class="float-left">
                                 <span class="small-gray-text">
                                    Change in Supply
@@ -1647,7 +1647,7 @@
 
                         <div class="col-md-12">
                             <section class="row form-group">
-                                <div class="border-gray-bottom pb-3 pt-2">
+                                <div class="pb-3 pt-2">
                                     <div class="float-left">
                                 <span class="small-gray-text">
                                     New Total Supply
@@ -1665,7 +1665,7 @@
 
                         <div class="col-md-12">
                             <section class="row form-group">
-                                <div class="border-gray-bottom pb-3 pt-2" ng-show="transacData !== ''">
+                                <div class="pb-3 pt-2" ng-show="transacData !== ''">
                                     <div class="float-left">
                                       <span class="small-gray-text">
                                 Note
@@ -1938,7 +1938,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Asset Name
@@ -1950,7 +1950,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Asset Symbol
@@ -1962,7 +1962,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Decimal Points
@@ -1974,7 +1974,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Total Supply
@@ -2064,7 +2064,7 @@
 
                 <div class="col-md-12">
                     <section class="row form-group">
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Transaction ID
@@ -2082,7 +2082,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Asset Name
@@ -2094,7 +2094,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Asset Symbol
@@ -2106,7 +2106,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Decimal Points
@@ -2118,7 +2118,7 @@
                             <br>
                         </div>
 
-                        <div class="border-gray-bottom pb-2 pt-2">
+                        <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
                                     Total Supply
