@@ -777,10 +777,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.getTimeLockBalances = async function () {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
-        let allAssets = {};
-        await window.__fsnGetAllAssets().then(function (res) {
-            allAssets = res;
-        });
 
         await window.__fsnGetAllTimeLockBalances(walletAddress).then(function (res) {
             $scope.myActiveTimeLocks = [];
@@ -790,7 +786,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let x = 0;
                 for (let timelock in timelocks) {
                     let amount = new window.BigNumber(timelocks[timelock].Value);
-                    let decimals = allAssets[asset].Decimals;
+                    let decimals = window.__fsnGetAsset(asset).Decimals;
                     let divider = $scope.countDecimals(parseInt(decimals));
                     let amountFinal = amount.div(divider.toString());
                     let data = {
@@ -874,7 +870,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let x = 0;
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
-
                 let owned = false;
                 let assetBalance = "";
 
@@ -922,8 +917,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let balances = {};
 
-            await web3.fsn.getAllBalances(walletAddress).then(function (res) {
-                balances = res[walletAddress];
+            await window.__fsnGetAllBalances(walletAddress).then(function (res) {
+                balances = res;
             });
 
             let a = Object.keys(balances),
@@ -940,6 +935,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             assetList = myAssets;
+
+            console.log('assetlist')
+            console.log(assetList);
 
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
@@ -1790,7 +1788,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     let swapList = {};
     $scope.allSwaps = async function () {
-        console.log("Retrieving all Swaps");
         let swapListFront = [];
         let openTakesList = [];
         let lookUpAssets = [];
@@ -1832,8 +1829,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let fromAsset = [];
                 let toAsset = [];
-                console.log(allAssets);
-
                 fromAsset = allAssets[swapList[asset]["FromAssetID"]];
                 toAsset = allAssets[swapList[asset]["ToAssetID"]];
 

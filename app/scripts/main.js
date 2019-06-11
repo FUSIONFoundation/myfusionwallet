@@ -209,7 +209,6 @@ window.__fsnGetAllAssets = async function (array) {
         try {
             for (let asset in array) {
                 if (!localCacheOfAssets[array[asset]]) {
-                    console.log(`Using ${window.getApiServer()}`);
                     console.log(`Looking up : ${array[asset]}`);
                     await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function (r) {
                         localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
@@ -222,7 +221,6 @@ window.__fsnGetAllAssets = async function (array) {
                             Symbol: "FSN",
                             Total: 10000000000,
                         }
-                        console.log(r);
                         let data = JSON.parse(r.data[0].data);
                         data.ID = data.AssetID;
                         localCacheOfAssets[array[asset]] = data;
@@ -231,7 +229,6 @@ window.__fsnGetAllAssets = async function (array) {
                     console.log(`Asset ${array[asset]} already in cache`)
                 }
             }
-            console.log(localCacheOfAssets);
             lastGetAllAssetTime = (new Date()).getTime()
             return localCacheOfAssets
         } catch (err) {
@@ -255,7 +252,6 @@ window.__fsnGetAllBalances = async function (walletaddress) {
             });
             lastGetAllBalancesTime = (new Date()).getTime()
             lastGetAllBalances[walletaddress] = allBalances
-            console.log(lastGetAllBalances);
             return allBalances
         } catch (err) {
             console.log("__fsnGetAllBalances Failed throwing this error => ", err);
