@@ -134,7 +134,7 @@
                                       Autobuy Stake
                                     </span>
                             </a>
-                               <a href="http://blocks.fusionnetwork.io/" target="_blank"
+                               <a href="https://blockexplorer.fusionnetwork.io/#!/" target="_blank"
                                   class="col-md-12 col-xs-12 p-2 app-select-active">
 
                                     <span class="fusion-text-14">

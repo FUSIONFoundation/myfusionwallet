@@ -23,10 +23,10 @@
                 <div class="col-md-3 col-xs-6">
                     <span class="small-gray-text mb-2">Related Tools</span>
                     <ul class="list-unstyled pt-2">
-                        <li><a href="http://node.fusionnetwork.io" target="_blank">PSN Node Monitor</a></li>
-                        <li><a href="http://tickets.fusionnetwork.io" target="_blank">PSN Autobuy Ticket</a></li>
-                        <li><a href="http://blocks.fusionnetwork.io" target="_blank">PSN Block Explorer</a></li>
-                        <li><a href="http://api.fusionnetwork.io" target="_blank">PSN API Gateway</a></li>
+                        <li><a href="https://node.fusionnetwork.io" target="_blank">PSN Node Monitor</a></li>
+                        <li><a href="https://tickets.fusionnetwork.io" target="_blank">PSN Autobuy Ticket</a></li>
+                        <li><a href="https://blocks.fusionnetwork.io" target="_blank">PSN Block Explorer</a></li>
+                        <li><a href="https://api.fusionnetwork.io" target="_blank">PSN API Gateway</a></li>
                     </ul>
                 </div>
 
