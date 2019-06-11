@@ -1788,9 +1788,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         return $scope.months[tMonth] + " " + tDay + ", " + tYear;
     };
 
+    let swapList = {};
     $scope.allSwaps = async function () {
         console.log("Retrieving all Swaps");
-        let swapList = [];
         let swapListFront = [];
         let openTakesList = [];
         let openMakeSwaps = 0;
@@ -1801,9 +1801,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await web3.fsn.allSwaps().then(function (res) {
-                    swapList = res;
+                await ajaxReq.http.get("https://api.fusionnetwork.io/swaps/all?page=0&size=10&sort=asc").then(function(r){
+                    for (let swap in r.data){
+                        let data = JSON.parse(r.data[swap].data);
+                        swapList[data.SwapID] = data ;
+                    }
                 });
+                console.log(swapList);
             } catch (err) {
                 console.log(err);
             }
