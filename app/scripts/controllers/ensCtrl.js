@@ -923,7 +923,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let balances = {};
 
             await web3.fsn.getAllBalances(walletAddress).then(function (res) {
-                balances = res;
+                balances = res[walletAddress];
             });
 
             let a = Object.keys(balances),
@@ -1396,10 +1396,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let assetBalance = 0;
 
             let allAssets = await window.__fsnGetAllAssets();
-            let allBalances = await web3.fsn.getAllBalances(walletAddress);
+            let allBalances = await window.__fsnGetAllBalances(walletAddress);
 
             let myBalances = [];
-            for (let asset in allBalances) {
+            for (let asset in allBalances[walletAddress]) {
                 decimals = allAssets[asset].Decimals;
                 let amount = new Decimal(allBalances[asset]);
                 let amountFinal = amount.div($scope.countDecimals(decimals).toString());
