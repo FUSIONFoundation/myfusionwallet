@@ -1793,6 +1793,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         console.log("Retrieving all Swaps");
         let swapListFront = [];
         let openTakesList = [];
+        let lookUpAssets = [];
         let openMakeSwaps = 0;
         $scope.openTakeSwapsTotal = 0;
 
@@ -1805,6 +1806,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     for (let swap in r.data){
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data ;
+                        lookUpAssets.push(data.FromAssetID);
+                        lookUpAssets.push(data.ToAssetID);
                     }
                 });
                 console.log(swapList);
@@ -1814,7 +1817,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let allAssets = {};
             try {
-                await window.__fsnGetAllAssets().then(function (res) {
+                await window.__fsnGetAllAssets(lookUpAssets).then(function (res) {
                     allAssets = res;
                 });
             } catch (err) {
@@ -1829,6 +1832,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let fromAsset = [];
                 let toAsset = [];
+                console.log(allAssets);
 
                 fromAsset = allAssets[swapList[asset]["FromAssetID"]];
                 toAsset = allAssets[swapList[asset]["ToAssetID"]];
