@@ -211,52 +211,53 @@ window.__fsnGetAllAssets = async function (array) {
                         }
                     });
                 }
+                localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
+                    AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                    CanChange: false,
+                    Decimals: 18,
+                    Description: "",
+                    ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                    Name: "FUSION",
+                    Symbol: "FSN",
+                    Total: 10000000000,
+                }
+                return localCacheOfAssets;
             });
-
-            localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
-            AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-            CanChange: false,
-            Decimals: 18,
-            Description: "",
-            ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-            Name: "FUSION",
-            Symbol: "FSN",
-            Total: 10000000000,
-        }
-        return localCacheOfAssets;
     }
-    // if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
-        // try {
-        //     for (let asset in array) {
-        //         if (!localCacheOfAssets[array[asset]]) {
-        //             console.log(`Looking up : ${array[asset]}`);
-        //             await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function (r) {
-        //                 localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
-        //                     AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        //                     CanChange: false,
-        //                     Decimals: 18,
-        //                     Description: "",
-        //                     ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-        //                     Name: "FUSION",
-        //                     Symbol: "FSN",
-        //                     Total: 10000000000,
-        //                 }
-        //                 let data = JSON.parse(r.data[0].data);
-        //                 data.ID = data.AssetID;
-        //                 localCacheOfAssets[array[asset]] = data;
-        //             })
-        //         } else {
-        //             console.log(`Asset ${array[asset]} already in cache`)
-        //         }
-        //     }
-        //     lastGetAllAssetTime = (new Date()).getTime()
-        //     return localCacheOfAssets
-        // } catch (err) {
-        //     console.log("__fsnGetAllAssets Failed throwing this error => ", err);
-        //     throw err
-        // }
-    // }
-    // return localCacheOfAssets
+    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
+        if (array) {
+            try {
+                for (let asset in array) {
+                    if (!localCacheOfAssets[array[asset]]) {
+                        console.log(`Looking up : ${array[asset]}`);
+                        await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function (r) {
+                            localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
+                                AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                                CanChange: false,
+                                Decimals: 18,
+                                Description: "",
+                                ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                                Name: "FUSION",
+                                Symbol: "FSN",
+                                Total: 10000000000,
+                            }
+                            let data = JSON.parse(r.data[0].data);
+                            data.ID = data.AssetID;
+                            localCacheOfAssets[array[asset]] = data;
+                        })
+                    } else {
+                        console.log(`Asset ${array[asset]} already in cache`)
+                    }
+                }
+                lastGetAllAssetTime = (new Date()).getTime()
+                return localCacheOfAssets
+            } catch (err) {
+                console.log("__fsnGetAllAssets Failed throwing this error => ", err);
+                throw err
+            }
+        }
+    }
+    return localCacheOfAssets
 }
 
 let lastGetAllBalancesTime = undefined

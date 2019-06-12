@@ -936,7 +936,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             assetList = myAssets;
 
-            await window.__fsnGetAllAssets(myAssets);
 
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
@@ -1801,7 +1800,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await ajaxReq.http.get("https://api.fusionnetwork.io/swaps/all?page=0&size=10&sort=asc").then(function(r){
                     for (let swap in r.data){
                         let data = JSON.parse(r.data[swap].data);
-                        console.log(data);
                         swapList[data.SwapID] = data ;
                     }
                 });
@@ -1825,14 +1823,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let owned = false;
                 let assetBalance = "";
 
-                let fromAsset = {}
-                if(fromAsset == undefined){
-                    fromAsset = await window.__fsnGetAsset(swapList[asset]["FromAssetID"]);
-                }
-                let toAsset = {}
-                if(toAsset == undefined){
-                    toAsset = await window.__fsnGetAsset(swapList[asset]["ToAssetID"]);
-                }
+                let fromAsset = allAssets[swapList[asset]["FromAssetID"]];
+                let toAsset = allAssets[swapList[asset]["ToAssetID"]];
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;
