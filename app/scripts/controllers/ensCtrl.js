@@ -1830,8 +1830,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let fromAsset = [];
                 let toAsset = [];
                 fromAsset = allAssets[swapList[asset]["FromAssetID"]];
+                console.log(fromAsset);
+                if(fromAsset == undefined){
+                    fromAsset = await window.__fsnGetAsset(swapList[asset]["FromAssetID"]);
+                }
+                console.log(toAsset);
                 toAsset = allAssets[swapList[asset]["ToAssetID"]];
-
+                if(toAsset == undefined){
+                    toAsset = await window.__fsnGetAsset(swapList[asset]["ToAssetID"]);
+                }
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;
