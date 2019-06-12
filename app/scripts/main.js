@@ -246,7 +246,7 @@ window.__fsnGetAllAssets = async function (array) {
                             localCacheOfAssets[array[asset]] = data;
                         })
                     } else {
-                        console.log(`Asset ${array[asset]} already in cache`)
+                        // console.log(`Asset ${array[asset]} already in cache`)
                     }
                 }
                 lastGetAllAssetTime = (new Date()).getTime()

@@ -2337,7 +2337,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         let x = -1;
 
         for (let asset in assetList) {
-            console.log(assetList);
+            // console.log(assetList);
             let id = assetList[asset]["ID"];
             let owner = assetList[asset]["Owner"];
             let owned = false;
