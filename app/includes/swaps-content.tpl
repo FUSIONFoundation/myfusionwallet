@@ -761,7 +761,7 @@
                                     {{selectedSendAsset}} <span class="color-Active official-fusion-badge"
                                                                 ng-show="selectedSendVerified"><i
                                                 class="fa fa-check-circle"></i></span>
-                                    <span class="small-gray-text max-char">{{selectedSendContract}}</span>
+                                    <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
                                 </a>
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
@@ -791,7 +791,7 @@
                                           ng-show="asset.verified"><i
                                                 class="fa fa-check-circle"></i></span>
                         <br>
-                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                         </span>
                                         </div>
                                     </a>
@@ -915,7 +915,7 @@
                                     {{selectedReceiveAsset}} <span class="color-Active official-fusion-badge"
                                                                    ng-show="selectedReceiveVerified"><i
                                                 class="fa fa-check-circle"></i></span>
-                                    <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
+                                    <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
                                 </a>
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
@@ -943,7 +943,7 @@
                                                                 ng-show="asset.verified"><i
                                                 class="fa fa-check-circle"></i></span>
                         <br>
-                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                         </span>
                                         </div>
                                     </a>
