@@ -66,7 +66,7 @@
                             {{selectedSendAsset}} <span
                                     class="color-Active official-fusion-badge"
                                     ng-show="selectedSendVerified"><i class="fa fa-check-circle"></i></span>
-                            <span class="small-gray-text max-char">{{selectedSendContract}}</span>
+                            <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
                         </div>
                     </a>
                 </div>
@@ -98,7 +98,7 @@
                                                                 ng-show="asset.verified"><i
                                                 class="fa fa-check-circle"></i></span>
                         <br>
-                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                         </span>
                         </div>
 
@@ -130,7 +130,7 @@
                                     class="color-Active official-fusion-badge"
                                     ng-show="selectedReceiveVerified"><i
                                         class="fa fa-check-circle"></i></span>
-                            <span class="small-gray-text max-char">{{selectedReceiveContract}}</span>
+                            <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
                         </div>
                     </a>
                 </div>
@@ -161,7 +161,7 @@
                                                                 ng-show="asset.verified"><i
                                                 class="fa fa-check-circle"></i></span>
                         <br>
-                        <span class="small-gray-text max-char">{{asset.contractaddress}}</span>
+                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                         </span>
                         </div>
                     </a>
