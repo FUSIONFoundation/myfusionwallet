@@ -869,8 +869,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let x = 0;
             for (let asset in assetList) {
-                console.log(assetList[asset])
-                console.log(assetList[asset]["ID"])
                 let id = assetList[asset]["ID"];
                 let owned = false;
                 let assetBalance = "";
@@ -940,14 +938,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             await window.__fsnGetAllAssets(myAssets);
 
-            console.log('assetlist')
-            console.log(assetList);
-
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
-                if(id == undefined){
-                    await window.__fsnGetAsset(assetList[asset]);
-                }
                 id = assetList[asset]["ID"];
                 let owner = assetList[asset]["Owner"];
                 let owned = false;
@@ -1798,7 +1790,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.allSwaps = async function () {
         let swapListFront = [];
         let openTakesList = [];
-        let lookUpAssets = [];
         let openMakeSwaps = 0;
         $scope.openTakeSwapsTotal = 0;
 
@@ -1810,9 +1801,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await ajaxReq.http.get("https://api.fusionnetwork.io/swaps/all?page=0&size=10&sort=asc").then(function(r){
                     for (let swap in r.data){
                         let data = JSON.parse(r.data[swap].data);
+                        console.log(data);
                         swapList[data.SwapID] = data ;
-                        lookUpAssets.push(data.FromAssetID);
-                        lookUpAssets.push(data.ToAssetID);
                     }
                 });
                 console.log(swapList);
@@ -1822,7 +1812,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let allAssets = {};
             try {
-                await window.__fsnGetAllAssets(lookUpAssets).then(function (res) {
+                await window.__fsnGetAllAssets().then(function (res) {
                     allAssets = res;
                 });
             } catch (err) {
@@ -1839,12 +1829,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if(fromAsset == undefined){
                     fromAsset = await window.__fsnGetAsset(swapList[asset]["FromAssetID"]);
                 }
-                console.log(fromAsset);
                 let toAsset = {}
                 if(toAsset == undefined){
                     toAsset = await window.__fsnGetAsset(swapList[asset]["ToAssetID"]);
                 }
-                console.log(toAsset);
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;
@@ -1947,7 +1935,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let data = {
                     id: swapListFront.length,
-                    swap_id: swapList[asset]["ID"],
+                    swap_id: swapList[asset]["SwapID"],
                     fromAssetId: swapList[asset]["FromAssetID"],
                     fromAssetSymbol: fromAsset["Symbol"],
                     fromAmount: fromAmountF,
@@ -2009,7 +1997,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        $scope.$apply(function () {
+        console.log(swapListFront);
+
+        $scope.$eval(function () {
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
             $scope.openMakeSwaps = openMakeSwaps;

@@ -193,12 +193,10 @@ let lastAllGetAssets = undefined
 
 window.__fsnGetAllAssets = async function (array) {
     if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
-
         let totalAssets = 0;
             await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
                 let globalInfo = r.data;
                 totalAssets = globalInfo.totalAssets;
-                console.log(`Total Assets ${totalAssets}`);
                 if(localCacheOfAssets.length == totalAssets){
                     return;
                 }
