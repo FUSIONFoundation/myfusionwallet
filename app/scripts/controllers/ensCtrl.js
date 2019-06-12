@@ -869,6 +869,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let x = 0;
             for (let asset in assetList) {
+                console.log(assetList[asset])
+                console.log(assetList[asset]["ID"])
                 let id = assetList[asset]["ID"];
                 let owned = false;
                 let assetBalance = "";
@@ -936,11 +938,17 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             assetList = myAssets;
 
+            await window.__fsnGetAllAssets(myAssets);
+
             console.log('assetlist')
             console.log(assetList);
 
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
+                if(id == undefined){
+                    await window.__fsnGetAsset(assetList[asset]);
+                }
+                id = assetList[asset]["ID"];
                 let owner = assetList[asset]["Owner"];
                 let owned = false;
                 let assetBalance = "";
@@ -1827,18 +1835,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let owned = false;
                 let assetBalance = "";
 
-                let fromAsset = [];
-                let toAsset = [];
-                fromAsset = allAssets[swapList[asset]["FromAssetID"]];
-                console.log(fromAsset);
+                let fromAsset = {}
                 if(fromAsset == undefined){
                     fromAsset = await window.__fsnGetAsset(swapList[asset]["FromAssetID"]);
                 }
-                console.log(toAsset);
-                toAsset = allAssets[swapList[asset]["ToAssetID"]];
+                console.log(fromAsset);
+                let toAsset = {}
                 if(toAsset == undefined){
                     toAsset = await window.__fsnGetAsset(swapList[asset]["ToAssetID"]);
                 }
+                console.log(toAsset);
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;

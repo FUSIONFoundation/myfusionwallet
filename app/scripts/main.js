@@ -192,8 +192,30 @@ let lastGetAllAssetTime = undefined
 let lastAllGetAssets = undefined
 
 window.__fsnGetAllAssets = async function (array) {
-    if(!array){
-        localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
+    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
+
+        let totalAssets = 0;
+            await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
+                let globalInfo = r.data;
+                totalAssets = globalInfo.totalAssets;
+                console.log(`Total Assets ${totalAssets}`);
+                if(localCacheOfAssets.length == totalAssets){
+                    return;
+                }
+                for(let i = 0; i < Math.ceil(totalAssets/100); i++){
+                    ajaxReq.http.get(`${window.getApiServer()}/assets/all?page=${i}&size=100`).then(function (r) {
+                        let assets = r.data;
+                        for(let asset in assets){
+                            let assetData = JSON.parse(r.data[asset].data);
+                            localCacheOfAssets[assetData.AssetID] = assetData;
+                            localCacheOfAssets[assetData.AssetID].ID = assetData.AssetID;
+
+                        }
+                    });
+                }
+            });
+
+            localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
             AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
             CanChange: false,
             Decimals: 18,
@@ -205,38 +227,38 @@ window.__fsnGetAllAssets = async function (array) {
         }
         return localCacheOfAssets;
     }
-    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
-        try {
-            for (let asset in array) {
-                if (!localCacheOfAssets[array[asset]]) {
-                    console.log(`Looking up : ${array[asset]}`);
-                    await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function (r) {
-                        localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
-                            AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-                            CanChange: false,
-                            Decimals: 18,
-                            Description: "",
-                            ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-                            Name: "FUSION",
-                            Symbol: "FSN",
-                            Total: 10000000000,
-                        }
-                        let data = JSON.parse(r.data[0].data);
-                        data.ID = data.AssetID;
-                        localCacheOfAssets[array[asset]] = data;
-                    })
-                } else {
-                    console.log(`Asset ${array[asset]} already in cache`)
-                }
-            }
-            lastGetAllAssetTime = (new Date()).getTime()
-            return localCacheOfAssets
-        } catch (err) {
-            console.log("__fsnGetAllAssets Failed throwing this error => ", err);
-            throw err
-        }
-    }
-    return localCacheOfAssets
+    // if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
+        // try {
+        //     for (let asset in array) {
+        //         if (!localCacheOfAssets[array[asset]]) {
+        //             console.log(`Looking up : ${array[asset]}`);
+        //             await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function (r) {
+        //                 localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
+        //                     AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        //                     CanChange: false,
+        //                     Decimals: 18,
+        //                     Description: "",
+        //                     ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        //                     Name: "FUSION",
+        //                     Symbol: "FSN",
+        //                     Total: 10000000000,
+        //                 }
+        //                 let data = JSON.parse(r.data[0].data);
+        //                 data.ID = data.AssetID;
+        //                 localCacheOfAssets[array[asset]] = data;
+        //             })
+        //         } else {
+        //             console.log(`Asset ${array[asset]} already in cache`)
+        //         }
+        //     }
+        //     lastGetAllAssetTime = (new Date()).getTime()
+        //     return localCacheOfAssets
+        // } catch (err) {
+        //     console.log("__fsnGetAllAssets Failed throwing this error => ", err);
+        //     throw err
+        // }
+    // }
+    // return localCacheOfAssets
 }
 
 let lastGetAllBalancesTime = undefined
