@@ -412,14 +412,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.swapInformationModalOpen = async function (swap_id) {
         let data = {};
 
-        try {
-            await web3.fsn.allSwaps().then(function (res) {
-                data = res[swap_id];
-            });
-        } catch (err) {
-            $scope.errorModal.open();
-            console.log(err);
-        }
+        await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swap_id}`).then(function(r){
+        data = JSON.parse(r.data[0].data);
+        });
 
         let time = new Date(parseInt(data["Time"]) * 1000);
 
