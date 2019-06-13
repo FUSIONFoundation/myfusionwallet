@@ -7625,14 +7625,14 @@
                     <li class="nav-item Swaps mb-1px"
                         ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
                         <a class="ng-scope"
-                           ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">Open Makes
+                           ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">My Open Swaps
                             ({{openMakeSwaps}})
                             <span></span></a>
                     </li>
                     <li class="nav-item Swaps pr-2 mb-1px"
                         ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
                         <a class="ng-scope"
-                           ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Open Takes
+                           ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Private Swap
                             ({{openTakeSwapsTotal}})
                         </a>
                     </li>
@@ -7642,13 +7642,12 @@
     </div>
     <div class="col-md-12 p-2 bg-body" ng-show="showSwapMarket === true">
         <div class="col-md-3 text-left mr-0">
-            <span class="small-gray-text">Send Asset</span>
+            <span class="small-gray-text">YOU SEND</span>
             <br>
-            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
-                 ng-click="sendDropDown = !sendDropDown">
+            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white" ng-click="sendDropDown = !sendDropDown">
                 <div class="float-left w-75">
                     <a>
-                        <div class="col-md-2 p-0" ng-if="selectedSendHasImage">
+                        <div class="col-md-2 m-1 p-0" ng-if="selectedSendHasImage">
                             <img ng-if="selectedSendHasImage"
                                  ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                         </div>
@@ -7705,13 +7704,13 @@
             </div>
         </div>
         <div class="col-md-3 text-left">
-            <span class="small-gray-text">Receive Asset</span>
+            <span class="small-gray-text">YOU RECEIVE</span>
             <br>
             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
                  ng-click="receiveDropDown = !receiveDropDown">
                 <div class="float-left w-75">
                     <a>
-                        <div class="col-md-2 p-0" ng-if="selectedReceiveHasImage">
+                        <div class="col-md-2 m-1 p-0" ng-if="selectedReceiveHasImage">
                             <img ng-if="selectedReceiveHasImage"
                                  ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                         </div>
@@ -7769,7 +7768,7 @@
                             class="font-size-16">{{selectedAssetBalance}}</strong> <span
                             class="font-size-12">{{selectedAssetSymbol}}</span></span>
             </div>
-            <br> 
+            <br>
             <span class="small-gray-text" style="font-size:10px;" ng-hide="!sendHasTimeLockBalance">
                                 <img class="mr-2" src="images/sendtl.svg" width="10px"> Has Time-Lock Balance
             </span>
@@ -9119,7 +9118,7 @@
                                 <span class="fusion-text-18">{{sendTokens}}</span>
                                 <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
                                 <br>
-        
+
                                 <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
                                     - {{takeDataFront.swapId.ToEndTimeString}}
@@ -9140,7 +9139,7 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
                                     - {{takeDataFront.swapId.FromEndTimeString}}
                                 </span>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -9226,7 +9225,7 @@
                                 <span class="fusion-text-18">{{sendTokens}}</span>
                                 <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
                                 <br>
-        
+
                                 <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
                                     - {{takeDataFront.swapId.ToEndTimeString}}
@@ -9247,7 +9246,7 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
                                     - {{takeDataFront.swapId.FromEndTimeString}}
                                 </span>
-                                
+
                             </div>
                         </div>
                     </div>
