@@ -1,29 +1,6 @@
-<div class="block-transparent p-0">
-    <div class="col float-left pl-0">
-        <div class="gray-bg p-1 display-inline">
-            <span class="small-gray-text">Public Address </span><span
-                    class="small-gray-text text-fusion fusion-text-14 copy"
-                    ng-click="copyToClipboard(walletAddress)">{{walletAddress}}</span>
-        </div>
-    </div>
-    <div class="col float-left">
-        <div class="gray-bg p-1 display-inline">
-            <span class="small-gray-text">Short Address </span><span
-                    class="small-gray-text text-fusion fusion-text-14 copy"
-                    ng-click="copyToClipboard(addressNotation)">{{addressNotation}}</span>
-        </div>
-    </div>
-    <div class="col float-left">
-        <div class="gray-bg p-1 display-inline">
-            <span class="small-gray-text">FSN Balance </span><span
-                    class="small-gray-text text-fusion fusion-text-14 copy"
-                    ng-click="copyToClipboard(web3WalletBalance)">{{web3WalletBalance}}</span>
-        </div>
-    </div>
-</div>
-<article class="block p-0" ng-hide="wallet.type=='addressOnly'">
-    <div class="col-md-12 p-0 swap-border">
-        <nav class="nav-container bg-white">
+<article class="block p-0 border-0" ng-hide="wallet.type=='addressOnly'">
+    <div class="col-md-12 p-0">
+        <nav class="nav-container border-0">
             <div class="nav-scroll">
                 <ul class="nav-inner">
                     <li class="nav-item Swaps pl-3 pr-2 mb-1px"
@@ -50,11 +27,11 @@
             </div>
         </nav>
     </div>
-    <div class="col-md-12 p-2 swap-border" ng-show="showSwapMarket === true">
+    <div class="col-md-12 p-2 bg-body" ng-show="showSwapMarket === true">
         <div class="col-md-3 text-left mr-0">
             <span class="small-gray-text">Send Asset</span>
             <br>
-            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
+            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
                  ng-click="sendDropDown = !sendDropDown">
                 <div class="float-left w-75">
                     <a>
@@ -82,7 +59,7 @@
                                placeholder="Search by Symbol, Name, or ID">
                     </div>
                 </form>
-                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown bg-white"
                      ng-repeat="asset in assetListOwned | filter:searchSendAsset | orderBy:'-verified' track by $index">
                     <a ng-click="setSendAsset(asset.id)">
 
@@ -117,7 +94,7 @@
         <div class="col-md-3 text-left">
             <span class="small-gray-text">Receive Asset</span>
             <br>
-            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
+            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
                  ng-click="receiveDropDown = !receiveDropDown">
                 <div class="float-left w-75">
                     <a>
