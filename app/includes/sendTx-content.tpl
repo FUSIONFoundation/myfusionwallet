@@ -1323,8 +1323,10 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                   <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-                                         title="gagaga">
+                                   <a href="{{value}}" target="_blank" ng-show="isValidUrl(value)" class="fusion-text-14">
+                                       {{value}}
+                                   </a>
+                                   <span class="fusion-text-14" ng-show="!isValidUrl(value)">
                                        {{value}}
                                    </span>
                             </div>

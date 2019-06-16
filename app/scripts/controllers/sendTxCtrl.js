@@ -1888,6 +1888,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.createAssetModal.open();
     };
 
+    $scope.isValidUrl = (string) => {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+
     $scope.createAssetReviewOpen = function () {
         if (Object.keys($scope.allAttributes).length == 0) {
             $scope.showAttributesTab = false;
