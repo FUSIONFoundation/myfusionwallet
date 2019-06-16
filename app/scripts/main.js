@@ -268,6 +268,7 @@ window.__fsnGetAllBalances = async function (walletaddress) {
         try {
             let allBalances = {};
             await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
+                console.log(r);
                 let data = JSON.parse(r.data.address[0].balanceInfo);
                 allBalances = data.balances;
             });
