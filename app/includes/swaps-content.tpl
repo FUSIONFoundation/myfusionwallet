@@ -1,4 +1,5 @@
 <article class="block p-0 border-0 no-shadow" ng-hide="wallet.type=='addressOnly'">
+    <div class="row">
     <div class="col-md-12 p-0">
         <nav class="nav-container border-0">
             <div class="nav-scroll">
@@ -520,6 +521,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
     <article class="modal fade" id="recallAsset" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
