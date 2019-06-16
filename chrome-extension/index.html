@@ -80,6 +80,7 @@
 
 
 
+
     </script>
 </head>
 <body>
@@ -167,27 +168,33 @@
                            href="https://fusionnetworks.zendesk.com/hc/en-us/requests/new"
                            target="_blank">Feedback</a>
                         <div class="dropdown dropdown-node">
-                        <a tabindex="0"
-                           aria-haspopup="true"
-                           class="dropdown-toggle  btn btn-white text-16"
-                           style="margin-top:3px"
-                           ng-click="dropdownCustom = !dropdownCustom">
-                        {{nodeName}}
-                        </a>
-                        <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom">
-                            <button class="btn btn-sm btn-white w-100" ng-click="netSwitch('mainnet'); window.location.reload();">Mainnet</button>
-                            <button class="btn btn-sm btn-white w-100" ng-click="netSwitch('testnet'); window.location.reload();">Testnet</button>
-                            <span class="small-gray-text">Node URL:
+                            <a tabindex="0"
+                               aria-haspopup="true"
+                               class="dropdown-toggle  btn btn-white text-16"
+                               style="margin-top:3px"
+                               ng-click="dropdownCustom = !dropdownCustom">
+                                {{nodeName}}
+                            </a>
+                            <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom">
+                                <button class="btn btn-sm btn-white w-100"
+                                        ng-click="netSwitch('mainnet'); window.location.reload();">Mainnet
+                                </button>
+                                <button class="btn btn-sm btn-white w-100"
+                                        ng-click="netSwitch('testnet'); window.location.reload();">Testnet
+                                </button>
+                                <span class="small-gray-text">Node URL:
                              </span>
-                            <input type="text" class="form-control" ng-model="inputUrl" placeholder="URL">
-                            <span class="small-gray-text">Chain ID:
+                                <input type="text" class="form-control" ng-model="inputUrl" placeholder="URL">
+                                <span class="small-gray-text">Chain ID:
                              </span>
-                            <input type="text" class="form-control" ng-model="chainId" placeholder="ID / 1">
-                            <button class="btn btn-sm btn-white w-100" ng-click="setNodeUrl(); window.location.reload();">Save</button>
+                                <input type="text" class="form-control" ng-model="chainId" placeholder="ID / 1">
+                                <button class="btn btn-sm btn-white w-100"
+                                        ng-click="setNodeUrl(); window.location.reload();">Save
+                                </button>
+                            </div>
+                            </span>
                         </div>
-                        </span>
-                    </div>
-                    <span class="dropdown dropdown-node" ng-cloak>
+                        <span class="dropdown dropdown-node" ng-cloak>
       <a tabindex="0"
          aria-haspopup="true"
          aria-label="change node. current node {{curNode.name}} node by {{curNode.service}}"
@@ -215,12 +222,12 @@
       </ul>
     </span>
 
-        </div>
-        
-        </section>
-        </section>
+                    </div>
+                    
+                </section>
+            </section>
 
-         <article class="modal fade" id="customNodeModal" tabindex="-1">
+             <article class="modal fade" id="customNodeModal" tabindex="-1">
   <section class="modal-dialog">
     <section class="modal-content">
 
@@ -301,7 +308,7 @@
   </section>
 </article>
  
-        
+            
         </div>
         <article class="clearfix container">
             <nav role="navigation" aria-label="main navigation" class="nav-container overflowing bg-white">
@@ -313,17 +320,29 @@
                         <li class="nav-item" \
                             ng-class="{active: 0==gService.currentTab}"
                             ng-click="tabClick(0)">
-                            <a tabindex="0"">Create Wallet</a>
+                            <a tabindex="0">
+                                <img src="images/tab-icon-wallet-active.svg" ng-show="0==gService.currentTab" width="24" height="24">
+                                <img src="images/tab-icon-wallet-inactive.svg" ng-show="0!=gService.currentTab" width="24" height="24">
+                                Create Wallet
+                            </a>
                         </li>
                         <li class="nav-item" \
                             ng-class="{active: 3==gService.currentTab}"
                             ng-click="tabClick(3)">
-                            <a tabindex="0"">Wallet Dashboard</a>
+                            <a tabindex="0">
+                                <img src="images/tab-icon-wallet-active.svg" ng-show="3==gService.currentTab" width="24" height="24">
+                                <img src="images/tab-icon-wallet-inactive.svg" ng-show="3!=gService.currentTab" width="24" height="24">
+                                Wallet Dashboard
+                            </a>
                         </li>
                         <li class="nav-item" \
                             ng-class="{active: 7==gService.currentTab}"
                             ng-click="tabClick(7)">
-                            <a tabindex="0"">Quantum Swaps</a>
+                            <a tabindex="0">
+                                <img src="images/tab-icon-wallet-active.svg" ng-show="7==gService.currentTab" width="24" height="24">
+                                <img src="images/tab-icon-wallet-inactive.svg" ng-show="7!=gService.currentTab" width="24" height="24">
+                                Quantum Swaps
+                            </a>
                         </li>
                         
                         
