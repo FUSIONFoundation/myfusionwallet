@@ -1,75 +1,78 @@
 <article class="block p-0 border-0 no-shadow" ng-hide="wallet.type=='addressOnly'">
     <div class="row">
-    <div class="col-md-12 p-0">
-        <nav class="nav-container border-0">
-            <div class="nav-scroll">
-                <ul class="nav-inner">
-                    <li class="nav-item Swaps pl-3 pr-2 mb-1px"
-                        ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
-                        <a class="ng-scope"
-                           ng-click="showSwapMarket = true ; showOpenMakes = false; showOpenTakes = false">Swap
-                            Market</a>
-                    </li>
-                    <li class="nav-item Swaps mb-1px"
-                        ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
-                        <a class="ng-scope"
-                           ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">My Open Swaps
-                            ({{openMakeSwaps}})
-                            <span></span></a>
-                    </li>
-                    <li class="nav-item Swaps pr-2 mb-1px"
-                        ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
-                        <a class="ng-scope"
-                           ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Private Swap
-                            ({{openTakeSwapsTotal}})
+        <div class="col-md-12 p-0">
+            <nav class="nav-container border-0">
+                <div class="nav-scroll">
+                    <ul class="nav-inner">
+                        <li class="nav-item Swaps pl-3 pr-2 mb-1px"
+                            ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
+                            <a class="ng-scope"
+                               ng-click="showSwapMarket = true ; showOpenMakes = false; showOpenTakes = false">Swap
+                                Market</a>
+                        </li>
+                        <li class="nav-item Swaps mb-1px"
+                            ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
+                            <a class="ng-scope"
+                               ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">My Open
+                                Swaps
+                                ({{openMakeSwaps}})
+                                <span></span></a>
+                        </li>
+                        <li class="nav-item Swaps pr-2 mb-1px"
+                            ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
+                            <a class="ng-scope"
+                               ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Private
+                                Swap
+                                ({{openTakeSwapsTotal}})
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-md-12 p-2 bg-body" ng-show="showSwapMarket === true">
+            <div class="col-md-3 text-left mr-0">
+                <span class="small-gray-text">YOU SEND</span>
+                <br>
+                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
+                     ng-click="sendDropDown = !sendDropDown">
+                    <div class="float-left w-75">
+                        <a>
+                            <div class="col-md-2 m-1 p-0" ng-if="selectedSendHasImage">
+                                <img ng-if="selectedSendHasImage"
+                                     ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                            </div>
+                            <div class="col">
+                                {{selectedSendAsset}} <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="selectedSendVerified"><i class="fa fa-check-circle"></i></span>
+                                <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
+                            </div>
                         </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-    <div class="col-md-12 p-2 bg-body" ng-show="showSwapMarket === true">
-        <div class="col-md-3 text-left mr-0">
-            <span class="small-gray-text">YOU SEND</span>
-            <br>
-            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white" ng-click="sendDropDown = !sendDropDown">
-                <div class="float-left w-75">
-                    <a>
-                        <div class="col-md-2 m-1 p-0" ng-if="selectedSendHasImage">
-                            <img ng-if="selectedSendHasImage"
-                                 ng-src="images/verifiedassets/{{selectedSendImage}}"/>
-                        </div>
-                        <div class="col">
-                            {{selectedSendAsset}} <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="selectedSendVerified"><i class="fa fa-check-circle"></i></span>
-                            <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="float-right text-right">
-                    <img src="images/caret-down.svg" class="Group-6">
-                </div>
-            </div>
-            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
-                <form class="form-inline">
-                    <div class="form-group m-0">
-                        <input type="text" class="form-control"
-                               ng-model="searchSendAsset"
-                               placeholder="Search by Symbol, Name, or ID">
                     </div>
-                </form>
-                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown bg-white"
-                     ng-repeat="asset in assetListOwned | filter:searchSendAsset | orderBy:'-verified' track by $index">
-                    <a ng-click="setSendAsset(asset.id)">
-
-                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                            <img ng-if="asset.hasImage"
-                                 ng-src="images/verifiedassets/{{asset.image}}"/>
-                            <span ng-if="!asset.hasImage"
-                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                    <div class="float-right text-right">
+                        <img src="images/caret-down.svg" class="Group-6">
+                    </div>
+                </div>
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
+                    <form class="form-inline">
+                        <div class="form-group m-0">
+                            <input type="text" class="form-control"
+                                   ng-model="searchSendAsset"
+                                   placeholder="Search by Symbol, Name, or ID">
                         </div>
-                        <div class="col">
+                    </form>
+                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown bg-white"
+                         ng-repeat="asset in assetListOwned | filter:searchSendAsset | orderBy:'-verified' track by $index">
+                        <a ng-click="setSendAsset(asset.id)">
+
+                            <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                <img ng-if="asset.hasImage"
+                                     ng-src="images/verifiedassets/{{asset.image}}"/>
+                                <span ng-if="!asset.hasImage"
+                                      class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                            </div>
+                            <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                 ng-show="asset.verified"><i
@@ -77,62 +80,62 @@
                         <br>
                         <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                         </span>
-                        </div>
+                            </div>
 
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1 text-center">
-            <div>
-                <img src="./images/Switcher.svg"
-                     class="mb-2 mt-3"
-                     ng-click="switchAsset()"
-                />
-            </div>
-        </div>
-        <div class="col-md-3 text-left">
-            <span class="small-gray-text">YOU RECEIVE</span>
-            <br>
-            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
-                 ng-click="receiveDropDown = !receiveDropDown">
-                <div class="float-left w-75">
-                    <a>
-                        <div class="col-md-2 m-1 p-0" ng-if="selectedReceiveHasImage">
-                            <img ng-if="selectedReceiveHasImage"
-                                 ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
-                        </div>
-                        <div class="col">
-                            {{selectedReceiveAsset}} <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="selectedReceiveVerified"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="float-right text-right">
-                    <img src="images/caret-down.svg" class="Group-6">
-                </div>
-            </div>
-            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
-                <form class="form-inline">
-                    <div class="form-group m-0">
-                        <input type="text" class="form-control"
-                               ng-model="searchReceiveAsset"
-                               placeholder="Search by Symbol, Name, or ID">
+                        </a>
                     </div>
-                </form>
-                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                     ng-repeat="asset in assetList | filter:searchReceiveAsset | orderBy:'-verified' track by $index">
-                    <a ng-click="setReceiveAsset(asset.id)">
-                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                            <img ng-if="asset.hasImage"
-                                 ng-src="images/verifiedassets/{{asset.image}}"/>
-                            <span ng-if="!asset.hasImage"
-                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                </div>
+            </div>
+            <div class="col-md-1 text-center">
+                <div>
+                    <img src="./images/Switcher.svg"
+                         class="mb-2 mt-3"
+                         ng-click="switchAsset()"
+                    />
+                </div>
+            </div>
+            <div class="col-md-3 text-left">
+                <span class="small-gray-text">YOU RECEIVE</span>
+                <br>
+                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
+                     ng-click="receiveDropDown = !receiveDropDown">
+                    <div class="float-left w-75">
+                        <a>
+                            <div class="col-md-2 m-1 p-0" ng-if="selectedReceiveHasImage">
+                                <img ng-if="selectedReceiveHasImage"
+                                     ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                            </div>
+                            <div class="col">
+                                {{selectedReceiveAsset}} <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="selectedReceiveVerified"><i
+                                            class="fa fa-check-circle"></i></span>
+                                <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="float-right text-right">
+                        <img src="images/caret-down.svg" class="Group-6">
+                    </div>
+                </div>
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
+                    <form class="form-inline">
+                        <div class="form-group m-0">
+                            <input type="text" class="form-control"
+                                   ng-model="searchReceiveAsset"
+                                   placeholder="Search by Symbol, Name, or ID">
                         </div>
-                        <div class="col">
+                    </form>
+                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                         ng-repeat="asset in assetList | filter:searchReceiveAsset | orderBy:'-verified' track by $index">
+                        <a ng-click="setReceiveAsset(asset.id)">
+                            <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                <img ng-if="asset.hasImage"
+                                     ng-src="images/verifiedassets/{{asset.image}}"/>
+                                <span ng-if="!asset.hasImage"
+                                      class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                            </div>
+                            <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
                                                                 ng-show="asset.verified"><i
@@ -140,388 +143,394 @@
                         <br>
                         <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                         </span>
-                        </div>
-                    </a>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3 text-left">
-            <span class="small-gray-text">Asset Balance</span>
-            <br>
-            <div class="sendAssetBalanceAvailable w-50" ng-hide="selectedAssetBalance >= 0">
-                <span class="small-gray-text ng-binding">Select asset first</span>
-            </div>
-            <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
+            <div class="col-md-3 text-left">
+                <span class="small-gray-text">Asset Balance</span>
+                <br>
+                <div class="sendAssetBalanceAvailable w-50" ng-hide="selectedAssetBalance >= 0">
+                    <span class="small-gray-text ng-binding">Select asset first</span>
+                </div>
+                <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
                 <span class="text-fusion ng-binding"><strong
                             class="font-size-16">{{selectedAssetBalance}}</strong> <span
                             class="font-size-12">{{selectedAssetSymbol}}</span></span>
-            </div>
-            <br>
-            <span class="small-gray-text" style="font-size:10px;" ng-hide="!sendHasTimeLockBalance">
+                </div>
+                <br>
+                <span class="small-gray-text" style="font-size:10px;" ng-hide="!sendHasTimeLockBalance">
                                 <img class="mr-2" src="images/sendtl.svg" width="10px"> Has Time-Lock Balance
             </span>
-        </div>
-        <div class="col-md-2 text-left">
-            <span class="small-gray-text"> </span>
-            <br>
-            <button class="btn btn-primary" ng-click="makeModal()">Make Swap</button>
-        </div>
-    </div>
-    <div class="col-md-12 pl-0 pr-0">
-        <div class="panel panel-default" ng-show="showOpenTakes === true">
-            <div class="panel-body">
-                <div class="text-center" ng-show="openTakeSwaps == 0 && !showLoader"><span
-                            class="small-gray-text">No Take Swaps</span></div>
-                <div class="col-md-12 text-center p-5" ng-show="showLoader">
-                    <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                    <br>
-                    <span class="small-gray-text">Loading Swaps...</span>
-                </div>
-                <table class="table" ng-show="openTakeSwaps != 0 && !showLoader">
-                    <thead>
-                    <tr class="small-gray-table">
-                        <th class="text-left" scope="col"></th>
-                        <th class="text-left" scope="col">Time Initiated</th>
-                        <th class="text-right" scope="col">Send</th>
-                        <th class="text-right" scope="col">Receive</th>
-                        <th class="text-right" scope="col">Swap Rate</th>
-                        <th class="text-right" scope="col">Fill Size</th>
-                        <th class="text-right" scope="col" class="float-right">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="asset in openTakeSwaps track by $index">
-                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <span class="gray-bg-2 font-size-12 p-1 targes-border">
-                              <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
-                              <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
-                                {{asset.targes}}
-                            </span>
-                        </td>
-                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br>
-                            <span class="small-gray-text">{{asset.timeHours}}</td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.toAmountCut}}</strong> <span
-                                    class="font-size-12">{{asset.toAssetSymbol}}</span>
-                            <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.toVerified"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <br>
-                            <span class="small-gray-text"
-                                  ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}}
-                                - {{asset.ToEndTimeString}}
-                            </span>
-                        </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.fromAmountCut}}</strong>
-                            <span>{{asset.fromAssetSymbol}}</span>
-                            <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.fromVerified"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <br>
-                            <span class="small-gray-text"
-                                  ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
-                                - {{asset.FromEndTimeString}}
-                            </span>
-                        </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
-                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
-                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="float-right text-right">
-                            <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
-                                    Recall
-                                    Swap
-                                </button>
-                            </div>
-                            <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="takeModal(asset.id)"
-                                        ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker) && !hasTimeLockBalance(asset.toAssetId)"
-                                >Take Swap
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            </div>
+            <div class="col-md-2 text-left">
+                <span class="small-gray-text"> </span>
+                <br>
+                <button class="btn btn-primary" ng-click="makeModal()">Make Swap</button>
             </div>
         </div>
-        <div class="panel panel-default" ng-show="showSwapMarket === false && showOpenTakes === false">
-            <div class="panel-body">
-                <div class="text-center" ng-show="openMakeSwaps == 0 && !showLoader"><span
-                            class="small-gray-text">No Open Swaps</span></div>
-                <div class="col-md-12 text-center p-5" ng-show="showLoader">
-                    <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                    <br>
-                    <span class="small-gray-text">Loading Swaps...</span>
-                </div>
-                <table class="table" ng-show="openMakeSwaps != 0 && !showLoader">
-                    <thead>
-                    <tr class="small-gray-table">
-                        <th class="text-left" scope="col"></th>
-                        <th class="text-left" scope="col" ng-click="sortOpenMakes('time')">Time Initiated
-                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'time'"/>
-                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'time' && reverseMake == false"/>
-                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'time' && reverseMake == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">Send
-                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'fromAmountCut'"/>
-                            <img src="images/Ascend.svg"
-                                 ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == false"/>
-                            <img src="images/Descend.svg"
-                                 ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">Receive
-                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'toAmountCut'"/>
-                            <img src="images/Ascend.svg"
-                                 ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == false"/>
-                            <img src="images/Descend.svg"
-                                 ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('swaprate')">Swap Rate
-                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'swaprate'"/>
-                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'swaprate' && reverseMake == false"/>
-                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'swaprate' && reverseMake == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortOpenMakes('minswap')">Fill Size
-                            <img src="images/Static.svg" ng-show="sortOpenMakes !== 'minswap'"/>
-                            <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'minswap' && reverseMake == false"/>
-                            <img src="images/Descend.svg" ng-show="sortOpenMakes == 'minswap' && reverseMake == true"/>
-                        </th>
-                        <th class="text-right" scope="col" class="float-right">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="asset in swapsList | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
-                    >
-                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
+        <div class="col-md-12 pl-0 pr-0">
+            <div class="panel panel-default" ng-show="showOpenTakes === true">
+                <div class="panel-body">
+                    <div class="text-center" ng-show="openTakeSwaps == 0 && !showLoader"><span
+                                class="small-gray-text">No Take Swaps</span></div>
+                    <div class="col-md-12 text-center p-5" ng-show="showLoader">
+                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                        <br>
+                        <span class="small-gray-text">Loading Swaps...</span>
+                    </div>
+                    <table class="table" ng-show="openTakeSwaps != 0 && !showLoader">
+                        <thead>
+                        <tr class="small-gray-table">
+                            <th class="text-left" scope="col"></th>
+                            <th class="text-left" scope="col">Time Initiated</th>
+                            <th class="text-right" scope="col">Send</th>
+                            <th class="text-right" scope="col">Receive</th>
+                            <th class="text-right" scope="col">Swap Rate</th>
+                            <th class="text-right" scope="col">Fill Size</th>
+                            <th class="text-right" scope="col" class="float-right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asset in openTakeSwaps track by $index">
+                            <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
                               <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
                                 {{asset.targes}}
                             </span>
-                        </td>
-                        <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br>
-                            <span
-                                    class="small-gray-text">{{asset.timeHours}}</span></td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.fromVerified"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <br>
-                            <span class="small-gray-text"
-                                  ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
-                                - {{asset.FromEndTimeString}}
-                            </span>
-                        </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
-                            <span
-                                    class="color-Active official-fusion-badge"
-                                    ng-show="asset.toVerified"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <br>
-                            <span class="small-gray-text"
-                                  ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
+                            </td>
+                            <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br>
+                                <span class="small-gray-text">{{asset.timeHours}}</td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.toAmountCut}}</strong> <span
+                                        class="font-size-12">{{asset.toAssetSymbol}}</span>
+                                <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="asset.toVerified"><i
+                                            class="fa fa-check-circle"></i></span>
+                                <br>
+                                <span class="small-gray-text"
+                                      ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}}
-                                - {{asset.ToEndTimeString}}
+                                    - {{asset.ToEndTimeString}}
                             </span>
-                        </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
-                        </td>
-                        <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.minswapopenmake.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
-                        </td>
-                        <td class="float-right text-right">
-                            <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">Recall
-                                    Swap
-                                </button>
-                            </div>
-                            <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="takeModal(asset.id)"
-                                        ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime) && !hasTimeLockBalance(asset.toAssetId)"
-                                >Take Swap
-                                </button>
-                            </div>
+                            </td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.fromAmountCut}}</strong>
+                                <span>{{asset.fromAssetSymbol}}</span>
+                                <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="asset.fromVerified"><i
+                                            class="fa fa-check-circle"></i></span>
+                                <br>
+                                <span class="small-gray-text"
+                                      ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
+                                    - {{asset.FromEndTimeString}}
+                            </span>
+                            </td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
+                                        class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
+                                        class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                            <td class="float-right text-right">
+                                <div ng-hide="asset.owned == false">
+                                    <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
+                                        Recall
+                                        Swap
+                                    </button>
+                                </div>
+                                <div ng-hide="asset.owned == true">
+                                    <button class="btn btn-sm btn-white m-0"
+                                            ng-click="takeModal(asset.id)"
+                                            ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker) && !hasTimeLockBalance(asset.toAssetId)"
+                                    >Take Swap
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="showSwapMarket === false && showOpenTakes === false">
+                <div class="panel-body">
+                    <div class="text-center" ng-show="openMakeSwaps == 0 && !showLoader"><span
+                                class="small-gray-text">No Open Swaps</span></div>
+                    <div class="col-md-12 text-center p-5" ng-show="showLoader">
+                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                        <br>
+                        <span class="small-gray-text">Loading Swaps...</span>
+                    </div>
+                    <table class="table" ng-show="openMakeSwaps != 0 && !showLoader">
+                        <thead>
+                        <tr class="small-gray-table">
+                            <th class="text-left" scope="col"></th>
+                            <th class="text-left" scope="col" ng-click="sortOpenMakes('time')">Time Initiated
+                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'time'"/>
+                                <img src="images/Ascend.svg" ng-show="sortOpenMakes == 'time' && reverseMake == false"/>
+                                <img src="images/Descend.svg" ng-show="sortOpenMakes == 'time' && reverseMake == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">Send
+                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'fromAmountCut'"/>
+                                <img src="images/Ascend.svg"
+                                     ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == false"/>
+                                <img src="images/Descend.svg"
+                                     ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">Receive
+                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'toAmountCut'"/>
+                                <img src="images/Ascend.svg"
+                                     ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == false"/>
+                                <img src="images/Descend.svg"
+                                     ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortOpenMakes('swaprate')">Swap Rate
+                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'swaprate'"/>
+                                <img src="images/Ascend.svg"
+                                     ng-show="sortOpenMakes == 'swaprate' && reverseMake == false"/>
+                                <img src="images/Descend.svg"
+                                     ng-show="sortOpenMakes == 'swaprate' && reverseMake == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortOpenMakes('minswap')">Fill Size
+                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'minswap'"/>
+                                <img src="images/Ascend.svg"
+                                     ng-show="sortOpenMakes == 'minswap' && reverseMake == false"/>
+                                <img src="images/Descend.svg"
+                                     ng-show="sortOpenMakes == 'minswap' && reverseMake == true"/>
+                            </th>
+                            <th class="text-right" scope="col" class="float-right">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asset in swapsList | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
+                        >
+                            <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
+                            <span class="gray-bg-2 font-size-12 p-1 targes-border">
+                              <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
+                              <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
+                                {{asset.targes}}
+                            </span>
+                            </td>
+                            <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br>
+                                <span
+                                        class="small-gray-text">{{asset.timeHours}}</span></td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="asset.fromVerified"><i
+                                            class="fa fa-check-circle"></i></span>
+                                <br>
+                                <span class="small-gray-text"
+                                      ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
+                                    - {{asset.FromEndTimeString}}
+                            </span>
+                            </td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
+                                <span
+                                        class="color-Active official-fusion-badge"
+                                        ng-show="asset.toVerified"><i
+                                            class="fa fa-check-circle"></i></span>
+                                <br>
+                                <span class="small-gray-text"
+                                      ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}}
+                                    - {{asset.ToEndTimeString}}
+                            </span>
+                            </td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                            </td>
+                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.minswapopenmake.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                            </td>
+                            <td class="float-right text-right">
+                                <div ng-hide="asset.owned == false">
+                                    <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
+                                        Recall
+                                        Swap
+                                    </button>
+                                </div>
+                                <div ng-hide="asset.owned == true">
+                                    <button class="btn btn-sm btn-white m-0"
+                                            ng-click="takeModal(asset.id)"
+                                            ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime) && !hasTimeLockBalance(asset.toAssetId)"
+                                    >Take Swap
+                                    </button>
+                                </div>
 
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        <div class="panel panel-default" ng-show="showSwapMarket === true && showOpenTakes === false">
-            <div class="panel-body">
-                <tr class="col-md-12 p-0">
-                    <div class="float-left">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <form class="form-inline">
-                                        <div class="form-group">
-                                            <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
-                                                   placeholder="Search Assets, Amounts">
-                                        </div>
-                                    </form>
+            <div class="panel panel-default" ng-show="showSwapMarket === true && showOpenTakes === false">
+                <div class="panel-body">
+                    <tr class="col-md-12 p-0">
+                        <div class="float-left">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form class="form-inline">
+                                            <div class="form-group">
+                                                <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
+                                                       placeholder="Search Assets, Amounts">
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="float-right">
-                        <div class="col-md-12">
-                            <form class="form-group form-inline">
+                        <div class="float-right">
+                            <div class="col-md-12">
+                                <form class="form-group form-inline">
                                     <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
                                         of {{swapsList.length}}</span>
-                                <span class="small-gray-text">
+                                    <span class="small-gray-text">
                                         {{currentPage+1}} of {{endPage}}</span>
-                                <span class="small-gray-text m-1"
-                                      ng-click="firstPage()"><i class="fa fa-angle-double-left"
-                                                                aria-hidden="true"></i>
+                                    <span class="small-gray-text m-1"
+                                          ng-click="firstPage()"><i class="fa fa-angle-double-left"
+                                                                    aria-hidden="true"></i>
                                 </span>
-                                <span class="small-gray-text pl-1 pr-1 m-1"
-                                      ng-click="previousPage()"><i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    <span class="small-gray-text pl-1 pr-1 m-1"
+                                          ng-click="previousPage()"><i class="fa fa-angle-left" aria-hidden="true"></i>
                                 </span>
-                                <span class="small-gray-text pl-1 pr-1 m-1"
-                                      ng-click="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <span class="small-gray-text pl-1 pr-1 m-1"
+                                          ng-click="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i>
                                 </span>
-                                <span class="small-gray-text m-1"
-                                      ng-click="lastPage()"><i class="fa fa-angle-double-right"
-                                                               aria-hidden="true"></i>
+                                    <span class="small-gray-text m-1"
+                                          ng-click="lastPage()"><i class="fa fa-angle-double-right"
+                                                                   aria-hidden="true"></i>
                                 </span>
-                            </form>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </tr>
-                <div class="col-md-12 text-center p-5" ng-show="showLoader">
-                    <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                    <br>
-                    <span class="small-gray-text">Loading Swaps...</span>
-                </div>
-                <table class="table" ng-show="!showLoader">
-                    <thead>
-                    <tr class="small-gray-table">
-                        <th class="text-left" scope="col">
-
-                        </th>
-                        <th class="text-left" scope="col" ng-click="sortSwapMarket('time')">
-                            Time Initiated
-
-                            <img src="images/Static.svg" ng-show="sortKey !== 'time'"/>
-                            <img src="images/Ascend.svg" ng-show="sortKey == 'time' && reverse == false"/>
-                            <img src="images/Descend.svg" ng-show="sortKey == 'time' && reverse == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmountCut')">
-                            Send
-                            <img src="images/Static.svg" ng-show="sortKey !== 'fromAmountCut'"/>
-                            <img src="images/Ascend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == false"/>
-                            <img src="images/Descend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmountCut')">
-                            Receive
-                            <img src="images/Static.svg" ng-show="sortKey !== 'toAmountCut'"/>
-                            <img src="images/Ascend.svg" ng-show="sortKey == 'toAmountCut' && reverse == false"/>
-                            <img src="images/Descend.svg" ng-show="sortKey == 'toAmountCut' && reverse == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('swaprate')">
-                            Swap Rate
-                            <img src="images/Static.svg" ng-show="sortKey !== 'swaprate'"/>
-                            <img src="images/Ascend.svg" ng-show="sortKey == 'swaprate' && reverse == false"/>
-                            <img src="images/Descend.svg" ng-show="sortKey == 'swaprate' && reverse == true"/>
-                        </th>
-                        <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">
-                            Fill Size
-                            <img src="images/Static.svg" ng-show="sortKey !== 'minswap'"/>
-                            <img src="images/Ascend.svg" ng-show="sortKey == 'minswap' && reverse == false"/>
-                            <img src="images/Descend.svg" ng-show="sortKey == 'minswap' && reverse == true"/>
-                        </th>
-                        <th class="text-right" scope="col" class="float-right">
-                            Actions
-                        </th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
-                        <td class="text-left"
-                            ng-click="swapInformationModalOpen(asset.swap_id)"
-                        >
+                    <div class="col-md-12 text-center p-5" ng-show="showLoader">
+                        <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                        <br>
+                        <span class="small-gray-text">Loading Swaps...</span>
+                    </div>
+                    <table class="table" ng-show="!showLoader">
+                        <thead>
+                        <tr class="small-gray-table">
+                            <th class="text-left" scope="col">
+
+                            </th>
+                            <th class="text-left" scope="col" ng-click="sortSwapMarket('time')">
+                                Time Initiated
+
+                                <img src="images/Static.svg" ng-show="sortKey !== 'time'"/>
+                                <img src="images/Ascend.svg" ng-show="sortKey == 'time' && reverse == false"/>
+                                <img src="images/Descend.svg" ng-show="sortKey == 'time' && reverse == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmountCut')">
+                                Send
+                                <img src="images/Static.svg" ng-show="sortKey !== 'fromAmountCut'"/>
+                                <img src="images/Ascend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == false"/>
+                                <img src="images/Descend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmountCut')">
+                                Receive
+                                <img src="images/Static.svg" ng-show="sortKey !== 'toAmountCut'"/>
+                                <img src="images/Ascend.svg" ng-show="sortKey == 'toAmountCut' && reverse == false"/>
+                                <img src="images/Descend.svg" ng-show="sortKey == 'toAmountCut' && reverse == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortSwapMarket('swaprate')">
+                                Swap Rate
+                                <img src="images/Static.svg" ng-show="sortKey !== 'swaprate'"/>
+                                <img src="images/Ascend.svg" ng-show="sortKey == 'swaprate' && reverse == false"/>
+                                <img src="images/Descend.svg" ng-show="sortKey == 'swaprate' && reverse == true"/>
+                            </th>
+                            <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">
+                                Fill Size
+                                <img src="images/Static.svg" ng-show="sortKey !== 'minswap'"/>
+                                <img src="images/Ascend.svg" ng-show="sortKey == 'minswap' && reverse == false"/>
+                                <img src="images/Descend.svg" ng-show="sortKey == 'minswap' && reverse == true"/>
+                            </th>
+                            <th class="text-right" scope="col" class="float-right">
+                                Actions
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
+                            <td class="text-left"
+                                ng-click="swapInformationModalOpen(asset.swap_id)"
+                            >
                             <span class="gray-bg-2 font-size-12 p-1 targes-border">
                               <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
                               <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
                                 {{asset.targes}}
                             </span>
-                        </td>
-                        <td class="text-left"
-                            ng-click="swapInformationModalOpen(asset.swap_id)"
-                        >{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</td>
-                        <td class="text-right"
-                            ng-click="swapInformationModalOpen(asset.swap_id)"
-                        ><strong>{{asset.toAmountCut}}</strong> <span
-                                    class="font-size-12">{{asset.toAssetSymbol}}</span>
-                            <span class="color-Active official-fusion-badge"
-                                  ng-show="asset.toVerified"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <br>
-                            <span class="small-gray-text"
-                                  ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
+                            </td>
+                            <td class="text-left"
+                                ng-click="swapInformationModalOpen(asset.swap_id)"
+                            >{{asset.time}} <br> <span class="small-gray-text">{{asset.timeHours}}</td>
+                            <td class="text-right"
+                                ng-click="swapInformationModalOpen(asset.swap_id)"
+                            ><strong>{{asset.toAmountCut}}</strong> <span
+                                        class="font-size-12">{{asset.toAssetSymbol}}</span>
+                                <span class="color-Active official-fusion-badge"
+                                      ng-show="asset.toVerified"><i
+                                            class="fa fa-check-circle"></i></span>
+                                <br>
+                                <span class="small-gray-text"
+                                      ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}}
-                                - {{asset.ToEndTimeString}}
+                                    - {{asset.ToEndTimeString}}
                             </span>
-                        </td>
-                        <td class="text-right"
-                            ng-click="swapInformationModalOpen(asset.swap_id)"><strong>{{asset.fromAmountCut}}</strong>
-                            <span>{{asset.fromAssetSymbol}}</span>
-                            <span class="color-Active official-fusion-badge"
-                                  ng-show="asset.fromVerified"><i
-                                        class="fa fa-check-circle"></i></span>
-                            <br>
-                            <span class="small-gray-text"
-                                  ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                            </td>
+                            <td class="text-right"
+                                ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.fromAmountCut}}</strong>
+                                <span>{{asset.fromAssetSymbol}}</span>
+                                <span class="color-Active official-fusion-badge"
+                                      ng-show="asset.fromVerified"><i
+                                            class="fa fa-check-circle"></i></span>
+                                <br>
+                                <span class="small-gray-text"
+                                      ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
-                                - {{asset.FromEndTimeString}}
+                                    - {{asset.FromEndTimeString}}
                             </span>
-                        </td>
-                        <td class="text-right"
-                            ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
-                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="text-right"
-                            ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
-                                    class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                        <td class="float-right text-right">
-                            <div ng-hide="asset.owned == false">
-                                <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
-                                    Recall
-                                    Swap
-                                </button>
-                            </div>
-                            <div ng-hide="asset.owned == true">
-                                <button class="btn btn-sm btn-white m-0"
-                                        ng-click="takeModal(asset.id)"
-                                        ng-disabled="takeAvailable(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime)"
-                                >Take Swap
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </td>
+                            <td class="text-right"
+                                ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
+                                        class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                            <td class="text-right"
+                                ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
+                                        class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                            <td class="float-right text-right">
+                                <div ng-hide="asset.owned == false">
+                                    <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
+                                        Recall
+                                        Swap
+                                    </button>
+                                </div>
+                                <div ng-hide="asset.owned == true">
+                                    <button class="btn btn-sm btn-white m-0"
+                                            ng-click="takeModal(asset.id)"
+                                            ng-disabled="takeAvailable(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime)"
+                                    >Take Swap
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <article class="modal fade" id="recallAsset" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
@@ -716,10 +725,10 @@
             </section>
         </section>
     </article>
-    <article class="modal fade" id="makeSwap" tabindex="-1">
+    <article class="modal fade bg-white" id="makeSwap" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="makeSwapModal.close();">                    <i
@@ -728,11 +737,14 @@
 </span>
                         </div>
                     </div>
-                    <h3 class="h3-blue">Make Swap</h3>
+                    <h3 class="make-swap">Make Swap</h3>
                     <div class="row m-0">
+                        <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
+                           <span class="make-swap-small-heading">
+                            <img src="images/you-send.svg" class="pr-2"> You Send
+                            </span>
+                        </div>
                         <div class="col-md-6 text-left p-0">
-                            <span class="small-gray-text">Send Asset</span>
-                            <br>
                             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="sendDropDown2 = !sendDropDown2">
                                 <a>
@@ -744,7 +756,7 @@
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                  ng-show="sendDropDown2"
-                                 >
+                            >
                                 <form class="form-inline">
                                     <div class="form-group m-0">
                                         <span class="small-gray-text">Search</span>
@@ -778,7 +790,6 @@
                         </div>
                         <div class="col-md-6 pl-2">
                             <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
-                            <span class="small-gray-text" ng-hide="showExistingTimeLocks" style="color:white;">_<br></span>
                             <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
                                     ng-click="showTimeLockSend = !showTimeLockSend"
                                     ng-hide="showTimeLockSend; showExistingTimeLocks"
@@ -793,9 +804,14 @@
                                 <div class="col-md-11 col-xs-11 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                      ng-click="timeLockDropDown = !timeLockDropDown">
                                     <a>
-                                        <span class="fusion-text-14"><strong>{{selectedTimeLockAmount}} </strong></span><span class="font-size-12" ng-hide="selectedTimeLockAmount == 'Select time-lock'">{{selectedSendAssetSymbol}}</span>
-                                        <span class="small-gray-text display-block"><img class="mr-2" src="images/sendtl.svg" width="12px" ng-hide="selectedTimeLockAmount == 'Select time-lock'">
- {{selectedTimeLockTimespan}}</span>
+                                        <span class="fusion-text-14"><strong>{{selectedTimeLockAmount}} </strong></span><span
+                                                class="font-size-12"
+                                                ng-hide="selectedTimeLockAmount == 'Select time-lock'">{{selectedSendAssetSymbol}}</span>
+                                        <span class="small-gray-text display-block"><img class="mr-2"
+                                                                                         src="images/sendtl.svg"
+                                                                                         width="12px"
+                                                                                         ng-hide="selectedTimeLockAmount == 'Select time-lock'">
+                                            {{selectedTimeLockTimespan}}</span>
                                     </a>
                                 </div>
                                 <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
@@ -804,7 +820,8 @@
                                          ng-repeat="asset in myActiveTimeLocks[selectedSendContract]">
                                         <a ng-click="setExistingTimeLock(asset.asset_id,asset.id)">
                                             <div class="col">
-                                                <span class="fusion-text-14"><strong>{{asset.amount}}</strong></span><span class="font-size-12"> {{selectedSendAssetSymbol}}</span>
+                                                <span class="fusion-text-14"><strong>{{asset.amount}}</strong></span><span
+                                                        class="font-size-12"> {{selectedSendAssetSymbol}}</span>
                                                 <br>
                                                 <span class="small-gray-text">
                                                     <img class="mr-2" src="images/sendtl.svg" width="12px">
@@ -884,9 +901,12 @@
                         </div>
                     </div>
                     <div class="row m-0">
+                        <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
+                           <span class="make-swap-small-heading">
+                            <img src="images/you-receive.svg" class="pr-2"> You Receive
+                            </span>
+                        </div>
                         <div class="col-md-6 p-0 text-left">
-                            <span class="small-gray-text">Receive Asset</span>
-                            <br>
                             <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="receiveDropDown2 = !receiveDropDown2">
                                 <a>
@@ -929,7 +949,6 @@
                             </div>
                         </div>
                         <div class="col-md-6 pl-2">
-                            <span class="small-gray-text" style="color:white;">_<br></span>
                             <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
                                     ng-click="showTimeLockReceive = !showTimeLockReceive"
                                     ng-hide="showTimeLockReceive"
@@ -997,7 +1016,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="invalid-feedback" ng-show="!sendHasTimeLockBalance && selectedReceiveAsset == selectedSendAsset">
+                    <div class="invalid-feedback"
+                         ng-show="!sendHasTimeLockBalance && selectedReceiveAsset == selectedSendAsset">
                         Send and Receive can't be the same asset.
                     </div>
                     <div class="col-md-12 p-0">
@@ -1508,8 +1528,10 @@
                                 <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
                                 <br>
 
-                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
+                                <span class="small-gray-text"
+                                      ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg"
+                                     width="12px">{{takeDataFront.swapId.ToStartTimeString}}
                                     - {{takeDataFront.swapId.ToEndTimeString}}
                                 </span>
                             </div>
@@ -1524,8 +1546,10 @@
                                 <span class="fusion-text-18">{{receiveTokens}}</span> <span
                                         class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
                                 <br>
-                                  <span class="small-gray-text" ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
+                                <span class="small-gray-text"
+                                      ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg"
+                                     width="12px">{{takeDataFront.swapId.FromStartTimeString}}
                                     - {{takeDataFront.swapId.FromEndTimeString}}
                                 </span>
 
@@ -1605,7 +1629,7 @@
                     </div>
                     <h3 class="h3-blue text-center">Success</h3>
 
-                     <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
+                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text">
                             Sent
                         </div>
@@ -1615,8 +1639,10 @@
                                 <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
                                 <br>
 
-                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.ToStartTimeString}}
+                                <span class="small-gray-text"
+                                      ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg"
+                                     width="12px">{{takeDataFront.swapId.ToStartTimeString}}
                                     - {{takeDataFront.swapId.ToEndTimeString}}
                                 </span>
                             </div>
@@ -1624,15 +1650,17 @@
                     </div>
                     <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text">
-                           Receiving
+                            Receiving
                         </div>
                         <div class="col-md-6">
                             <div class="float-right text-right">
                                 <span class="fusion-text-18">{{receiveTokens}}</span> <span
                                         class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
                                 <br>
-                                  <span class="small-gray-text" ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{takeDataFront.swapId.FromStartTimeString}}
+                                <span class="small-gray-text"
+                                      ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
+                                <img class="mr-2" src="images/sendtl.svg"
+                                     width="12px">{{takeDataFront.swapId.FromStartTimeString}}
                                     - {{takeDataFront.swapId.FromEndTimeString}}
                                 </span>
 
