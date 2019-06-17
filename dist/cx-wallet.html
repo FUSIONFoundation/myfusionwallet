@@ -9230,7 +9230,7 @@
                                        ng-change="setSwapRate()"
                                 >
                             </div>
-                            <div class="col-md-6 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
+                            <div class="col-md-6 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown max-height-48"
                                  ng-click="receiveDropDown2 = !receiveDropDown2">
                                 <a>
                                     {{selectedReceiveAsset}} <span class="color-Active official-fusion-badge"
@@ -9362,39 +9362,6 @@
                                                 class="fusion-text-12">{{selectedReceiveAssetSymbol}}</span>
                                     </div>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 p-0">
-                        <h3 class="h3-blue">Swap Totals</h3>
-                        <div class="sendAssetBalanceAvailable display-web-inline-block"
-                             ng-show="selectedAssetBalance >= 0">
-                            <strong class="font-size-16 text-fusion">{{selectedAssetBalance}}</strong><span
-                                    class="small-gray-text"> available.</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 p-0 pt-2">
-                        <div class="col-md-6 p-0">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <span class="small-gray-text">Send Amount</span>
-                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
-                                           placeholder="Amount"
-                                           ng-change="setReceiveAmountMakeSwap(); setSwapRate()"
-                                    >
-                                </div>
-                                <div class="col-md-1 pt-2">
-                                    <span class="text-white">-</span>
-                                    <h3 class="h3-blue p-0 m-0 text-center">:</h3>
-                                </div>
-                                <div class="col-md-5">
-                                    <span class="small-gray-text">Receive Amount</span>
-                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                                           placeholder="Amount"
-                                           ng-change="setSwapRate()"
-                                    >
                                 </div>
                             </div>
                         </div>
