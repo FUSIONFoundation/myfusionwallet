@@ -8399,6 +8399,10 @@
                                     <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
                                 </a>
                             </div>
+                            <div class="display-web-inline-block pt-2"
+                                 ng-show="selectedAssetBalance >= 0">
+                                <strong class="small-blue">{{selectedAssetBalance}} Available</strong>
+                            </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                  ng-show="sendDropDown2"
                             >
@@ -8722,13 +8726,19 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 p-0">
-                        <h3 class="h3-blue">Swap Minimums</h3>
-                        <span class="small-gray-text">Number of Fills</span>
+                    <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
+                           <span class="make-swap-small-heading">
+                            Number of Fills
+                            </span>
+                    </div>
+                    <div class="col-md-4 p-0">
                         <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
                                numbers-only
                                ng-change="setMinimumMakes()"
                                placeholder="Amount">
+                    </div>
+                    <div class="col-md-8 pl-2 pr-2">
+                       <p>Number of fills determines the minimum amount someone can take in your swap. 1 fill would mean only the full swap can be taken. </p>
                     </div>
                     <div class="col-md-12 p-0">
                         <div class="col-md-5 p-0">
