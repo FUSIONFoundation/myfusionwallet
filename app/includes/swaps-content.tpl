@@ -745,7 +745,13 @@
                             </span>
                         </div>
                         <div class="col-md-6 text-left p-0">
-                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
+                            <div class="col-md-6 p-0 pr-2">
+                                <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                                       placeholder="Amount"
+                                       ng-change="setReceiveAmountMakeSwap(); setSwapRate()"
+                                >
+                            </div>
+                            <div class="col-md-6 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown max-height-48"
                                  ng-click="sendDropDown2 = !sendDropDown2">
                                 <a>
                                     {{selectedSendAsset}} <span class="color-Active official-fusion-badge"
@@ -911,7 +917,13 @@
                             </span>
                         </div>
                         <div class="col-md-6 p-0 text-left">
-                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
+                            <div class="col-md-6 p-0 pr-2">
+                                <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
+                                       placeholder="Amount"
+                                       ng-change="setSwapRate()"
+                                >
+                            </div>
+                            <div class="col-md-6 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown"
                                  ng-click="receiveDropDown2 = !receiveDropDown2">
                                 <a>
                                     {{selectedReceiveAsset}} <span class="color-Active official-fusion-badge"
