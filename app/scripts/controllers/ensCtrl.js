@@ -411,10 +411,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.swapInformationModalOpen = async function (swap_id) {
         let data = {};
+        let owner = ''
 
         await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swap_id}`).then(function(r){
         data = JSON.parse(r.data[0].data);
-        console.log(data);
+        owner = r.data[0].fromAddress;
         });
 
         let time = new Date(parseInt(data["Time"]) * 1000);
@@ -535,7 +536,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 ID: data["SwapID"],
                 MinFromAmount: minFromAmount,
                 MinToAmount: minToAmount,
-                Owner: data["Owner"],
+                Owner: owner,
                 SwapSize: data["SwapSize"],
                 Targes: targes,
                 Time: time,
