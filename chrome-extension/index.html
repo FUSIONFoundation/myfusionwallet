@@ -8398,14 +8398,23 @@
                             </div>
                             <div class="col-md-6 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown max-height-48"
                                  ng-click="sendDropDown2 = !sendDropDown2">
-                                <a>
-                                    {{selectedSendAsset}} <span class="color-Active official-fusion-badge"
-                                                                ng-show="selectedSendVerified"><i
-                                                class="fa fa-check-circle"></i></span>
-                                    <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
-                                </a>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col p-0">
+                                            <img ng-if="selectedSendHasImage"
+                                                 ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                                            <span ng-if="!selectedSendHasImage"
+                                                  class="btn btn-white btn-circle w32 asset-round">{{selectedSendAssetSymbol}}</span>
+                                        </div>
+                                        <div class="col">
+                                            {{selectedSendAssetSymbol}} <span class="color-Active official-fusion-badge"
+                                                                              ng-show="selectedSendVerified"><i
+                                                        class="fa fa-check-circle"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="display-web-inline-block pt-2"
+                            <div class="col-md-12 display-web-inline-block pt-2"
                                  ng-show="selectedAssetBalance >= 0">
                                 <strong class="small-blue">{{selectedAssetBalance}} Available</strong>
                             </div>
@@ -8717,7 +8726,8 @@
                                placeholder="Amount">
                     </div>
                     <div class="col-md-8 pl-2 pr-2">
-                       <p>Number of fills determines the minimum amount someone can take in your swap. 1 fill would mean only the full swap can be taken. </p>
+                        <p>Number of fills determines the minimum amount someone can take in your swap. 1 fill would
+                            mean only the full swap can be taken. </p>
                     </div>
                     <div class="col-md-12 p-0">
                         <div class="col-md-12 p-0 display-web-inline-block">

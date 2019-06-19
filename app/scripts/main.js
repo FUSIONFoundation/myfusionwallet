@@ -207,6 +207,7 @@ window.__fsnGetAllAssets = async function (array) {
                             let assetData = JSON.parse(r.data[asset].data);
                             localCacheOfAssets[assetData.AssetID] = assetData;
                             localCacheOfAssets[assetData.AssetID].ID = assetData.AssetID;
+                            localCacheOfAssets[assetData.AssetID].Owner = r.data[asset].fromAddress;
 
                         }
                     });
