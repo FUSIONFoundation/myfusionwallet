@@ -414,6 +414,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swap_id}`).then(function(r){
         data = JSON.parse(r.data[0].data);
+        console.log(data);
         });
 
         let time = new Date(parseInt(data["Time"]) * 1000);
@@ -531,7 +532,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 FromAssetID: data["FromAssetID"],
                 FromEndTime: fromEndTime,
                 FromStartTime: fromStartTime,
-                ID: data["ID"],
+                ID: data["SwapID"],
                 MinFromAmount: minFromAmount,
                 MinToAmount: minToAmount,
                 Owner: data["Owner"],
