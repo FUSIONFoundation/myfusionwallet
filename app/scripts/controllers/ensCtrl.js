@@ -1795,6 +1795,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let swaps = JSON.parse(r.data.address[0].balanceInfo).swaps;
                     for (let swap in swaps) {
                         swapList[swaps[swap].ID] = swaps[swap] ;
+                        swapList[swaps[swap].ID].SwapID = swaps[swap].ID ;
                     }
                 });
             } catch (err) {
