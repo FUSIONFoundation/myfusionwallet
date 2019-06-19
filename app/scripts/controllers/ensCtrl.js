@@ -9,6 +9,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         _CHAINID = data.chainid;
     }
 
+    window.__fsnGetAllAssets();
+
     $scope.init = async function () {
         if (!$scope.wallet) {
             return;
@@ -1966,8 +1968,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             }
         }
-
-        console.log(swapListFront);
 
         $scope.$eval(function () {
         $scope.openMakes = swapListFront;
