@@ -1755,7 +1755,7 @@
                                class="form-control"
                                ng-model="assetCreate.decimals"
                                ng-change="checkDecimalsValue(); createAssetErrorHandler()"
-                               placeholder="Up to 15 Decimal Points"/>
+                               placeholder="Up to 18 Decimal Points"/>
 
                     </div>
                     <div class="col-md-12">

@@ -314,9 +314,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         }
 
-        if (parseInt($scope.assetCreate.decimals) > 15) {
+        if (parseInt($scope.assetCreate.decimals) > 18) {
             $scope.$eval(function () {
-                $scope.assetCreate.decimals = 15;
+                $scope.assetCreate.decimals = 18;
             });
             return;
         }
@@ -1019,7 +1019,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         }
         // Asset Decimals
-        if ($scope.assetCreate.decimals > 15) {
+        if ($scope.assetCreate.decimals > 18) {
             $scope.createAssetHasError = true;
             return;
         }
