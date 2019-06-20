@@ -1785,7 +1785,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         return $scope.months[tMonth] + " " + tDay + ", " + tYear;
     };
     $scope.openMakesList = async function () {
-        let swapListFront = [];
+        let swapList = {};
+        let openMakeListFront = [];
         $scope.openTakeSwapsTotal = 0;
 
         if (walletService.wallet !== null) {
@@ -1914,7 +1915,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     fromAmountF / parseInt(swapList[asset]["SwapSize"]);
 
                 let data = {
-                    id: swapListFront.length,
+                    id: openMakeListFront.length,
                     swap_id: swapList[asset]["SwapID"],
                     fromAssetId: swapList[asset]["FromAssetID"],
                     fromAssetSymbol: fromAsset["Symbol"],
@@ -1964,13 +1965,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     toVerified: toVerified
                 };
 
-                await swapListFront.push(data);
+                await openMakeListFront.push(data);
 
             }
         }
 
         $scope.$eval(function () {
-        $scope.openMakes = swapListFront;
+        $scope.openMakes = openMakeListFront;
         });
         console.log("Finished retrieving all Open Swaps");
     };
@@ -1981,7 +1982,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (!page) page = 0;
         let swapListFront = [];
         let openTakesList = [];
-        let openMakeSwaps = 0;
         $scope.openTakeSwapsTotal = 0;
 
         if (walletService.wallet !== null) {
@@ -1995,7 +1995,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         swapList[data.SwapID] = data;
                     }
                 });
-                console.log(swapList);
             } catch (err) {
                 console.log(err);
             }
@@ -2008,6 +2007,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log(err);
             }
+
+            console.log(swapList);
 
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
@@ -2066,10 +2067,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
 
                 owner === walletAddress ? (owned = true) : (owned = false);
-
-                if (owned) {
-                    openMakeSwaps++;
-                }
 
                 let fromAmount =
                     swapList[asset].MinFromAmount /
@@ -2182,7 +2179,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.$eval(function () {
-            $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
             $scope.openTakeSwaps = openTakesList;
             $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
