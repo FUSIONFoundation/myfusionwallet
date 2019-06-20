@@ -2184,7 +2184,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.swapsList = swapListFront;
             $scope.swapsList = swapListFront;
-            $scope.openMakeSwaps = openMakeSwaps;
             $scope.openTakeSwaps = openTakesList;
             $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
             $scope.showLoader = false;

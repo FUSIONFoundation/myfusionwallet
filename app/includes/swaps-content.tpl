@@ -45,7 +45,7 @@
                             <div class="col">
                                 {{selectedSendAsset}} <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="selectedSendVerified"><i class="fa fa-check-circle"></i></span>
+                                        ng-show="selectedSendVerified"><img src="./images/verified.svg" height="14px" width="14px"/></span>
                                 <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
                             </div>
                         </a>
@@ -1163,7 +1163,7 @@
                                         class="fusion-text-14">{{assetToSendConfirm}}</span>
                                 <span class="color-Active official-fusion-badge"
                                       ng-show="selectedSendVerified">
-                                    <i class="fa fa-check-circle"></i>
+                                    <img src="./images/verified.svg" height="14px" width="14px"/>
                                 </span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
@@ -1185,7 +1185,7 @@
                                         class="fusion-text-14">{{assetToReceiveConfirm}}</span> <span
                                         class="color-Active official-fusion-badge"
                                         ng-show="selectedReceiveVerified">
-                                    <i class="fa fa-check-circle"></i>
+                                    <img src="./images/verified.svg" height="14px" width="14px"/>
                                 </span>
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockReceive">

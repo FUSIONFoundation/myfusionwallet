@@ -73,7 +73,7 @@
                             <td ng-click="manageAssetOpen(f)">
                                 {{asset.name}} ({{asset.symbol}})
                                 <span class="color-Active official-fusion-badge" ng-show="asset.verified">
-                                    <i class="fa fa-check-circle"></i> Verified</span>
+                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
                                 <br>
                                 <div class="max-char">
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
@@ -189,7 +189,7 @@
                                       class="btn btn-white btn-circle w32 asset-round mt-1">{{asset.symbol | limitTo : 4 }}</span>
                             </td>
                             <td> {{asset.name}} ({{asset.symbol}})  <span class="color-Active official-fusion-badge" ng-show="asset.verified">
-                                    <i class="fa fa-check-circle"></i> Verified</span>
+                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
                                 <br>
                                 <div class="max-char"><span class="small-gray-text" data-toggle="tooltip"
                                                             data-placement="top"
