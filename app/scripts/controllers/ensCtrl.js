@@ -43,6 +43,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.setWalletAddress();
         $scope.takeGetAllBalances();
         $scope.getVerifiedAssets();
+        $scope.openMakesList();
     }, 7000);
 
     $scope.mayRun = false;
