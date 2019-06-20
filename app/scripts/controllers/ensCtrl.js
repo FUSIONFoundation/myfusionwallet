@@ -1972,6 +1972,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.$eval(function () {
         $scope.openMakes = openMakeListFront;
+        $scope.openMakeSwaps = $scope.openMakes.length;
         });
         console.log("Finished retrieving all Open Swaps");
     };
