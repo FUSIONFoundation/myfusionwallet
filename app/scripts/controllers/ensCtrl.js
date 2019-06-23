@@ -778,7 +778,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.getTimeLockBalances = async function () {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
-
+        let allAssets = await window.__fsnGetAllAssets();
         await window.__fsnGetAllTimeLockBalances(walletAddress).then(function (res) {
             $scope.myActiveTimeLocks = [];
             for (let asset in res) {
@@ -787,7 +787,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let x = 0;
                 for (let timelock in timelocks) {
                     let amount = new window.BigNumber(timelocks[timelock].Value);
-                    let decimals = window.__fsnGetAsset(asset).Decimals;
+                    let decimals = allAssets[asset].Decimals;
                     let divider = $scope.countDecimals(parseInt(decimals));
                     let amountFinal = amount.div(divider.toString());
                     let data = {
