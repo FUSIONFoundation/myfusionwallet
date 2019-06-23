@@ -310,13 +310,17 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let notation = '';
 
-            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function(r) {
-                if (r.data.address[0].san !== "0") {
-                    notation = r.data.address[0].san;
-                } else {
-                    notation = 0;
-                }
-            });
+            try {
+                await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function (r) {
+                    if (r.data.address[0].san !== "0") {
+                        notation = r.data.address[0].san;
+                    } else {
+                        notation = 0;
+                    }
+                });
+            } catch (err){
+                notation = 0;
+            }
 
 
             if ($scope.requestedSAN == false) {

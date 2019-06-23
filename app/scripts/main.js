@@ -183,6 +183,7 @@ window.__getNotation = async function (walletAddress) {
             return notation[walletAddress];
         });
     } catch (err) {
+        return 0;
         console.log("fsnGetAsset Failed throwing this error => ", err);
         throw err
     }
@@ -276,6 +277,7 @@ window.__fsnGetAllBalances = async function (walletaddress) {
             lastGetAllBalances[walletaddress] = allBalances
             return allBalances
         } catch (err) {
+            return {};
             console.log("__fsnGetAllBalances Failed throwing this error => ", err);
             throw err
         }
@@ -298,6 +300,7 @@ window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
             lastGetAllTimeLockBalances[walletaddress] = allBalances
             return allBalances
         } catch (err) {
+            return {};
             console.log("__fsnGetAllTimeLockBalances Failed throwing this error => ", err);
             throw err
         }
@@ -321,6 +324,7 @@ window.__fsnGetAllVerifiedAssets = async function () {
             lastGetAllVerifiedAssets = allVerifiedAssets
             return allVerifiedAssets
         } catch (err) {
+            return {};
             console.log("__fsnGetAllVerifiedAssets Failed throwing this error => ", err);
             throw err
         }
