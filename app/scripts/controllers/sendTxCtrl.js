@@ -1690,7 +1690,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         if (to.length < 42) {
-            web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
+            await web3.fsn.getAddressByNotation(parseInt(to)).then(function (address) {
                 to = address;
             });
         }
@@ -2304,8 +2304,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.timeLockList = timeLockListSave;
         });
-
-        console.log($scope.timeLockList);
     };
 
     $scope.getAllFsnAssets = async function () {
