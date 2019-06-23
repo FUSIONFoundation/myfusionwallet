@@ -821,6 +821,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.takeAvailable = function (asset_id, minswaptaker, ToStartTime, ToEndTime) {
         if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
             if ($scope.allBalance[asset_id] > minswaptaker) {
+                // console.log(asset_id, minswaptaker, ToStartTime, ToEndTime);
                 return false;
             } else {
                 return true;
@@ -1386,19 +1387,26 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
     };
 
-    $scope.takeGetAllBalances = async function (allAssetsList, index) {
+    $scope.takeGetAllBalances = async function () {
         try {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             let decimals = 0;
             let assetBalance = 0;
 
-            let allAssets = await window.__fsnGetAllAssets();
-            let allBalances = await window.__fsnGetAllBalances(walletAddress);
+            let allAssets = {};
+            await window.__fsnGetAllAssets().then(function(r){
+                allAssets = r;
+            })
+            let allBalances = {};
+            await window.__fsnGetAllBalances(walletAddress).then(function(r){
+                allBalances = r;
+            });
 
             let myBalances = [];
-            for (let asset in allBalances[walletAddress]) {
+            for (let asset in allBalances) {
                 decimals = allAssets[asset].Decimals;
+                console.log(decimals);
                 let amount = new Decimal(allBalances[asset]);
                 let amountFinal = amount.div($scope.countDecimals(decimals).toString());
                 myBalances[asset] = amountFinal.toString();
@@ -1407,6 +1415,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.$eval(function () {
                 $scope.allBalance = myBalances;
             });
+            console.log(allBalances);
+
         } catch (err) {
             console.log(err);
         }
