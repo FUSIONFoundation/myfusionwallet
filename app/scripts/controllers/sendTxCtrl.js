@@ -2196,7 +2196,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                     startTime = $scope.months[month] + " " + day + ", " + year;
                 }
-                if (endTimePosix === 18446744073709552000) {
+                if (endTimePosix === "18446744073709551615") {
                     endTime = "∞ Forever";
                 } else {
                     let a = new Date(
@@ -2304,6 +2304,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.$eval(function () {
             $scope.timeLockList = timeLockListSave;
         });
+
+        console.log($scope.timeLockList);
     };
 
     $scope.getAllFsnAssets = async function () {
