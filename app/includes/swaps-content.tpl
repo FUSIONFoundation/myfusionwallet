@@ -45,7 +45,8 @@
                             <div class="col">
                                 {{selectedSendAsset}} <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="selectedSendVerified"><img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="selectedSendVerified"><img src="./images/verified.svg" height="14px"
+                                                                            width="14px"/></span>
                                 <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
                             </div>
                         </a>
@@ -75,11 +76,12 @@
                             <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.verified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                                ng-show="asset.verified">                                    <img
+                                                src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                        <br>
-                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                        </span>
+                                <br>
+                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                </span>
                             </div>
 
                         </a>
@@ -108,7 +110,8 @@
                             <div class="col">
                                 {{selectedReceiveAsset}} <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="selectedReceiveVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="selectedReceiveVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
                             </div>
@@ -138,11 +141,12 @@
                             <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.verified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                                ng-show="asset.verified">                                    <img
+                                                src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                        <br>
-                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                        </span>
+                                <br>
+                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                </span>
                             </div>
                         </a>
                     </div>
@@ -208,7 +212,8 @@
                                         class="font-size-12">{{asset.toAssetSymbol}}</span>
                                 <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="asset.toVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="asset.toVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <br>
                                 <span class="small-gray-text"
@@ -222,7 +227,8 @@
                                 <span>{{asset.fromAssetSymbol}}</span>
                                 <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="asset.fromVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="asset.fromVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <br>
                                 <span class="small-gray-text"
@@ -322,7 +328,8 @@
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="asset.fromVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="asset.fromVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <br>
                                 <span class="small-gray-text"
@@ -335,7 +342,8 @@
                                 <strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
                                 <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="asset.toVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="asset.toVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <br>
                                 <span class="small-gray-text"
@@ -455,13 +463,16 @@
                             <td class="text-left"
                                 ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong class="price">{{asset.swapratetaker.toFixed(4)}}</strong> <span
-                                        class="font-size-12">{{asset.toAssetSymbol.substr(0,4)}}</span> : <strong class="price">1</strong> <span
+                                        class="font-size-12">{{asset.toAssetSymbol.substr(0,4)}}</span> : <strong
+                                        class="price">1</strong> <span
                                         class="font-size-12">{{asset.fromAssetSymbol.substr(0,4)}}</span></td>
                             <td class="text-right"
                                 ng-click="swapInformationModalOpen(asset.swap_id)"
-                            ><strong class="price">{{asset.toAmountCut}}</strong> <span class="asset-label">{{asset.toAssetSymbol}}</span>
+                            ><strong class="price">{{asset.toAmountCut}}</strong> <span
+                                        class="asset-label">{{asset.toAssetSymbol}}</span>
                                 <span class="color-Active official-fusion-badge"
-                                      ng-show="asset.toVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                      ng-show="asset.toVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <br>
                                 <span class="small-gray-text"
@@ -475,7 +486,8 @@
                                 <strong class="price">{{asset.fromAmountCut}}</strong>
                                 <span class="asset-label">{{asset.fromAssetSymbol}}</span>
                                 <span class="color-Active official-fusion-badge"
-                                      ng-show="asset.fromVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                      ng-show="asset.fromVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <br>
                                 <span class="small-gray-text"
@@ -565,9 +577,10 @@
                             <span>
                             {{takeDataFront.fromAssetName}} ({{takeDataFront.fromAssetSymbol}}) <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="takeDataFront.fromVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="takeDataFront.fromVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                                <span class="small-gray-text max-char">{{takeDataFront.fromAssetId}}</span>
+                            <span class="small-gray-text max-char">{{takeDataFront.fromAssetId}}</span>
                             </span>
                         </div>
                     </div>
@@ -591,9 +604,10 @@
                             <span>
                                 {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}}) <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="takeDataFront.toVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                        ng-show="takeDataFront.toVerified">                                    <img
+                                            src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                                <span class="small-gray-text max-char">{{takeDataFront.toAssetId}}</span>
+                            <span class="small-gray-text max-char">{{takeDataFront.toAssetId}}</span>
                             </span>
                         </div>
                     </div>
@@ -729,23 +743,16 @@
                                        ng-change="setReceiveAmountMakeSwap(); setSwapRate()"
                                 >
                             </div>
-                            <div class="col-md-6 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown max-height-48"
-                                 ng-click="sendDropDown2 = !sendDropDown2">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col p-0">
-                                            <img ng-if="selectedSendHasImage"
-                                                 ng-src="images/verifiedassets/{{selectedSendImage}}"/>
-                                            <span ng-if="!selectedSendHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round">{{selectedSendAssetSymbol}}</span>
-                                        </div>
-                                        <div class="col">
-                                            {{selectedSendAssetSymbol}} <span class="color-Active official-fusion-badge"
-                                                                              ng-show="selectedSendVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
-                                            </span>
-                                        </div>
+                            <div class="col-md-6 col-xs-12 p-0">
+                                <a class="btn btn-secondary custom-dropdown" ng-click="sendDropDown2 = !sendDropDown2">
+                                    <div class="col">
+                                    <img ng-if="selectedSendHasImage"
+                                         ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                                    <span ng-if="!selectedSendHasImage"
+                                          class="btn btn-white btn-circle w32 asset-round">{{selectedSendAssetSymbol}}</span>
+                                    {{selectedSendAssetSymbol}} <img ng-if="selectedSendVerified" src="./images/verified.svg" height="14px" width="14px"/>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-md-12 display-web-inline-block pt-2"
                                  ng-show="selectedAssetBalance >= 0">
@@ -775,11 +782,12 @@
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}})
                                     <span class="color-Active official-fusion-badge"
-                                          ng-show="asset.verified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                          ng-show="asset.verified">                                    <img
+                                                src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                        <br>
-                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                        </span>
+                                            <br>
+                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                            </span>
                                         </div>
                                     </a>
                                 </div>
@@ -914,7 +922,8 @@
                                  ng-click="receiveDropDown2 = !receiveDropDown2">
                                 <a>
                                     {{selectedReceiveAsset}} <span class="color-Active official-fusion-badge"
-                                                                   ng-show="selectedReceiveVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                                   ng-show="selectedReceiveVerified">                                    <img
+                                                src="./images/verified.svg" height="14px" width="14px"/></span>
                                     </span>
                                     <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
                                 </a>
@@ -941,11 +950,12 @@
                                         <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.verified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                                ng-show="asset.verified">                                    <img
+                                                src="./images/verified.svg" height="14px" width="14px"/></span>
                                     </i></span>
-                        <br>
-                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                        </span>
+                                            <br>
+                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                            </span>
                                         </div>
                                     </a>
                                 </div>
@@ -1369,11 +1379,12 @@
                                         <span class="fusion-text-18">{{swapInfo.MinToAmount}}</span>
                                         {{swapInfo.ToAssetName}} ({{swapInfo.ToAssetSymbol}}) <span
                                                 class="color-Active official-fusion-badge"
-                                                ng-show="swapInfo.toVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                ng-show="swapInfo.toVerified">                                    <img
+                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                                        <br>
-                                        <span class="small-gray-text">{{swapInfo.ToAssetID}}</span>
-                                    </span>
+                                <br>
+                                <span class="small-gray-text">{{swapInfo.ToAssetID}}</span>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -1423,11 +1434,12 @@
                                         <span class="fusion-text-18">{{swapInfo.MinFromAmount}}</span>
                                         {{swapInfo.FromAssetName}} ({{swapInfo.FromAssetSymbol}}) <span
                                                 class="color-Active official-fusion-badge"
-                                                ng-show="swapInfo.fromVerified">                                    <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                ng-show="swapInfo.fromVerified">                                    <img
+                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                                        <br>
-                                        <span class="small-gray-text">{{swapInfo.FromAssetID}}</span>
-                                    </span>
+                                <br>
+                                <span class="small-gray-text">{{swapInfo.FromAssetID}}</span>
+                                </span>
                             </div>
                         </div>
                     </div>
