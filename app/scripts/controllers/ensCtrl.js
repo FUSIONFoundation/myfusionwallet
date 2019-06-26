@@ -1986,6 +1986,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         console.log("Finished retrieving all Open Swaps");
     };
 
+    $scope.$watch('selectedSendContract',function(){
+        $scope.allSwaps();
+    })
+    $scope.$watch('selectedReceiveContract',function(){
+        $scope.allSwaps();
+    })
+
 
     let swapList = {};
     $scope.allSwaps = async function (page) {
@@ -1999,7 +2006,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?page=${page}&size=10&sort=asc`).then(function (r) {
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedReceiveContract}&fromAsset=${$scope.selectedSendContract}`).then(function (r) {
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
