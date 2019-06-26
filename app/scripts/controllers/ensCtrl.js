@@ -29,6 +29,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.setWalletAddress();
         $scope.takeGetAllBalances();
         $scope.openMakesList();
+        $scope.takeSwapList();
     };
 
     setInterval(function () {
@@ -1802,10 +1803,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         return $scope.months[tMonth] + " " + tDay + ", " + tYear;
     };
+
     $scope.openMakesList = async function () {
         let swapList = {};
         let openMakeListFront = [];
-        $scope.openTakeSwapsTotal = 0;
 
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
@@ -2008,7 +2009,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (!page) page = 0;
         let swapListFront = [];
         let openTakesList = [];
-        $scope.openTakeSwapsTotal = 0;
 
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
@@ -2019,8 +2019,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if($scope.selectedReceiveAsset == 'All Assets'){
                 url = `${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
-
-            console.log(url);
 
             try {
                 await ajaxReq.http.get(url).then(function (r) {
@@ -2205,19 +2203,215 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
                 if (swapList[asset]["Targes"].includes(walletAddress)) {
                     await openTakesList.push(data);
-                    $scope.openTakeSwapsTotal++;
                 }
             }
         }
 
         $scope.$eval(function () {
             $scope.swapsList = swapListFront;
-            $scope.openTakeSwaps = openTakesList;
-            $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
             $scope.showLoader = false;
         });
         console.log("Finished retrieving all Swaps");
     };
+
+    $scope.takeSwapList = async function (){
+        console.log("Starting retrieval of Private Swaps");
+        $scope.openTakeSwapsTotal = 0;
+        let openTakesList = [];
+        let swapListFront = [];
+        if (walletService.wallet !== null) {
+            let accountData = uiFuncs.getTxData($scope);
+            let walletAddress = accountData.from;
+
+            try {
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?target=${walletAddress}&page0&size=100`).then(function (r) {
+                    console.log(r.data);
+                    for (let swap in r.data) {
+                        let data = JSON.parse(r.data[swap].data);
+                        swapList[data.SwapID] = data;
+                        console.log(swapList);
+                    }
+                });
+            } catch (err) {
+                console.log(err);
+            }
+
+            let allAssets = {};
+            try {
+                await window.__fsnGetAllAssets().then(function (res) {
+                    allAssets = res;
+                });
+            } catch (err) {
+                console.log(err);
+            }
+
+            for (let asset in swapList) {
+                let id = swapList[asset]["ID"];
+                let owner = swapList[asset]["Owner"];
+                let owned = false;
+                let assetBalance = "";
+
+                let fromAsset = allAssets[swapList[asset]["FromAssetID"]];
+                let toAsset = allAssets[swapList[asset]["ToAssetID"]];
+                let fromVerifiedImage = "";
+                let fromHasImage = false;
+                let fromVerified = false;
+
+                for (let a in window.verifiedAssetsImages) {
+                    if (
+                        window.verifiedAssetsImages[a].assetID ==
+                        swapList[asset]["FromAssetID"]
+                    ) {
+                        // Set matched image name
+                        fromVerifiedImage = window.verifiedAssetsImages[a].image;
+                        fromHasImage = true;
+                        fromVerified = true;
+                    } else if (
+                        swapList[asset]["FromAssetID"] ==
+                        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                    ) {
+                        // Set matched image name
+                        fromVerifiedImage = "";
+                        fromHasImage = false;
+                        fromVerified = true;
+                    }
+                }
+
+                let toVerifiedImage = "";
+                let toHasImage = false;
+                let toVerified = false;
+
+                for (let a in window.verifiedAssetsImages) {
+                    if (
+                        window.verifiedAssetsImages[a].assetID ==
+                        swapList[asset]["ToAssetID"]
+                    ) {
+                        // Set matched image name
+                        toVerifiedImage = window.verifiedAssetsImages[a].image;
+                        toHasImage = true;
+                        toVerified = true;
+                    } else if (
+                        swapList[asset]["ToAssetID"] ==
+                        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                    ) {
+                        // Set matched image name
+                        toVerifiedImage = "";
+                        toHasImage = false;
+                        toVerified = true;
+                    }
+                }
+
+                owner === walletAddress ? (owned = true) : (owned = false);
+
+                let fromAmount =
+                    swapList[asset].MinFromAmount /
+                    $scope.countDecimals(fromAsset.Decimals);
+
+                let toAmount =
+                    swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
+                let swapRate = fromAmount / toAmount;
+                let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
+
+                let tMonth = time.getUTCMonth();
+                let tDay = time.getUTCDate();
+                let tYear = time.getUTCFullYear();
+
+                let hours = time.getUTCHours();
+                let minutes = time.getUTCMinutes();
+
+                if (time.getUTCMinutes() < 10) {
+                    minutes = "0" + time.getUTCMinutes();
+                }
+                // Global
+                time = $scope.months[tMonth] + " " + tDay + ", " + tYear;
+                let timeHours = hours + ":" + minutes;
+
+                // Maker parts
+                let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
+
+                // Taker specific parts
+                let swapratetaker = toAmount / fromAmount;
+                let minimumswaptaker = fromAmount * swapratetaker;
+
+                // Targes section
+
+                let targes = "";
+
+                swapList[asset]["Targes"].length > 0
+                    ? (targes = "Private")
+                    : (targes = "Public");
+
+                // Receive TL
+
+                let toAmountF = toAmount * parseInt(swapList[asset]["SwapSize"]);
+                let fromAmountF = fromAmount * parseInt(swapList[asset]["SwapSize"]);
+
+                let minimumswapopenmake =
+                    fromAmountF / parseInt(swapList[asset]["SwapSize"]);
+
+                let data = {
+                    id: swapListFront.length,
+                    swap_id: swapList[asset]["SwapID"],
+                    fromAssetId: swapList[asset]["FromAssetID"],
+                    fromAssetSymbol: fromAsset["Symbol"],
+                    fromAmount: fromAmountF,
+                    fromAmountCut: +fromAmountF.toFixed(8),
+                    toAssetId: swapList[asset]["ToAssetID"],
+                    toAmount: toAmountF,
+                    toAmountCut: +toAmountF.toFixed(8),
+                    toAssetSymbol: toAsset["Symbol"],
+                    swaprate: swapRate,
+                    maxswaps: swapList[asset]["SwapSize"],
+                    swapratetaker: swapratetaker,
+                    minswap: minimumswap,
+                    minswaptaker: minimumswaptaker,
+                    minswapopenmake: minimumswapopenmake,
+                    time: time.toLocaleString(),
+                    timePosix: swapList[asset]["Time"],
+                    timeHours: timeHours,
+                    targes: targes,
+                    owner: swapList[asset]["Owner"],
+                    owned: owned,
+                    FromEndTime: swapList[asset]["FromEndTime"],
+                    FromStartTime: swapList[asset]["FromStartTime"],
+                    FromEndTimeString: $scope.returnDateString(
+                        swapList[asset]["FromEndTime"],
+                        "End"
+                    ),
+                    FromStartTimeString: $scope.returnDateString(
+                        swapList[asset]["FromStartTime"],
+                        "Start"
+                    ),
+                    ToEndTime: swapList[asset]["ToEndTime"],
+                    ToStartTime: swapList[asset]["ToStartTime"],
+                    ToEndTimeString: $scope.returnDateString(
+                        swapList[asset]["ToEndTime"],
+                        "End"
+                    ),
+                    ToStartTimeString: $scope.returnDateString(
+                        swapList[asset]["ToStartTime"],
+                        "Start"
+                    ),
+                    fromVerifiedImage: fromVerifiedImage,
+                    fromHasImage: fromHasImage,
+                    fromVerified: fromVerified,
+                    toVerifiedImage: toVerifiedImage,
+                    toHasImage: toHasImage,
+                    toVerified: toVerified
+                };
+                if (swapList[asset]["Targes"].includes(walletAddress)) {
+                    await openTakesList.push(data);
+                    $scope.openTakeSwapsTotal++;
+                }
+            }
+        }
+
+        $scope.$eval(function(){
+            $scope.openTakeSwaps = openTakesList;
+            $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
+        })
+    }
+
 
     $scope.getBalance = async function () {
         if (($scope.mayRunState = true)) {
