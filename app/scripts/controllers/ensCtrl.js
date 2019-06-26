@@ -384,6 +384,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.receiveChanged = 0;
     $scope.sendChanged = 0;
 
+    $scope.setAllAssetsInReceive = function (){
+        $scope.$eval(function(){
+            $scope.selectedReceiveAsset = `All Assets`;
+            $scope.selectedReceiveContract = "\n";
+            $scope.assetToReceive = $scope.assetList[0].contractaddress;
+            $scope.selectedReceiveImage = '';
+            $scope.selectedReceiveHasImage = false;
+            $scope.selectedReceiveVerified = false;
+        });
+        $scope.allSwaps();
+    }
+
     $scope.setSendAndReceiveInit = function () {
         $scope.selectedReceiveAsset = `All Assets`;
         $scope.selectedReceiveContract = "\n";
