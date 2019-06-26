@@ -1812,12 +1812,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function (r) {
-                    let swaps = JSON.parse(r.data.address[0].balanceInfo).swaps;
-                    console.log(r.data.address[0]);
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?address=${walletAddress}&page=0&size=100`).then(function (r) {
+                    let swaps = r.data;
                     for (let swap in swaps) {
-                        swapList[swaps[swap].ID] = swaps[swap] ;
-                        swapList[swaps[swap].ID].SwapID = swaps[swap].ID ;
+                        swapList[swaps[swap].ID] = JSON.parse(swaps[swap].data);
+                        swapList[swaps[swap].ID].SwapID = JSON.parse(swaps[swap].data).SwapID ;
                     }
                 });
             } catch (err) {
@@ -1926,7 +1925,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     : (targes = "Public");
 
                 // Receive TL
-Assets
+
                 let toAmountF = toAmount * parseInt(swapList[asset]["SwapSize"]);
                 let fromAmountF = fromAmount * parseInt(swapList[asset]["SwapSize"]);
 
@@ -1984,7 +1983,7 @@ Assets
                     toVerified: toVerified
                 };
 
-                await openMakeListFront.Assetspush(data);
+                await openMakeListFront.push(data);
 
             }
         }
