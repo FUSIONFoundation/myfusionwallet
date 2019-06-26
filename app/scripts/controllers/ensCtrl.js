@@ -385,10 +385,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     $scope.sendChanged = 0;
 
     $scope.setSendAndReceiveInit = function () {
-        $scope.selectedReceiveAsset = `${$scope.assetList[0].name} (${
-            $scope.assetList[0].symbol
-            })`;
-        $scope.selectedReceiveContract = $scope.assetList[0].contractaddress;
+        $scope.selectedReceiveAsset = `All Assets`;
+        $scope.selectedReceiveContract = "\n";
         $scope.assetToReceive = $scope.assetList[0].contractaddress;
         $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
         $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
@@ -1916,7 +1914,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     : (targes = "Public");
 
                 // Receive TL
-
+Assets
                 let toAmountF = toAmount * parseInt(swapList[asset]["SwapSize"]);
                 let fromAmountF = fromAmount * parseInt(swapList[asset]["SwapSize"]);
 
@@ -1974,7 +1972,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     toVerified: toVerified
                 };
 
-                await openMakeListFront.push(data);
+                await openMakeListFront.Assetspush(data);
 
             }
         }
@@ -2005,8 +2003,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
 
+            let url = `${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
+
+            if($scope.selectedReceiveAsset == 'All Assets'){
+                url = `${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedSendContract}`
+            }
+
+            console.log(url);
+
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedReceiveContract}&fromAsset=${$scope.selectedSendContract}`).then(function (r) {
+                await ajaxReq.http.get(url).then(function (r) {
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
