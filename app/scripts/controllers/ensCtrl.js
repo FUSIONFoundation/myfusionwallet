@@ -1815,8 +1815,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?address=${walletAddress}&page=0&size=100`).then(function (r) {
                     let swaps = r.data;
                     for (let swap in swaps) {
-                        swapList[swaps[swap].ID] = JSON.parse(swaps[swap].data);
-                        swapList[swaps[swap].ID].SwapID = JSON.parse(swaps[swap].data).SwapID ;
+                        let data = JSON.parse(swaps[swap].data);
+                        swapList[data["SwapID"]] = data;
                     }
                 });
             } catch (err) {
@@ -2041,8 +2041,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log(err);
             }
-
-            console.log(swapList);
 
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
