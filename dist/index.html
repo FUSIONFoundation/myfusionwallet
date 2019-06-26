@@ -7750,10 +7750,10 @@
                      ng-click="receiveDropDown = !receiveDropDown">
                     <div class="float-left w-75">
                         <a>
-                            <div class="col-md-2 m-1 p-0">
+                            <div class="col-md-2 m-1 p-0" ng-show="selectedReceiveAsset !== 'All Assets'">
                                 <img ng-if="selectedReceiveHasImage"
                                      ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
-                                <span ng-if="!selectedReceiveHasImage"
+                                <span ng-if="!selectedReceiveHasImage && selectedReceiveAsset !== 'All Assets'"
                                       class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
 
                             </div>
