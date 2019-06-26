@@ -544,7 +544,7 @@
 </span>
                         </div>
                     </div>
-                    <h3 class="h3-blue">Recall Swap</h3>
+                    <h3 class="make-swap">Recall Swap</h3>
 
                     <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the
                         swap
@@ -576,7 +576,7 @@
 </span>
                         </div>
                     </div>
-                    <h3 class="h3-blue">Take Swap</h3>
+                    <h3 class="make-swap">Take Swap</h3>
 
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">
