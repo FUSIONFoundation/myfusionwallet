@@ -38,9 +38,11 @@
                      ng-click="sendDropDown = !sendDropDown">
                     <div class="float-left w-75">
                         <a>
-                            <div class="col-md-2 m-1 p-0" ng-if="selectedSendHasImage">
+                            <div class="col-md-2 m-1 p-0">
                                 <img ng-if="selectedSendHasImage"
                                      ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                                <span ng-if="!selectedSendHasImage"
+                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
                             </div>
                             <div class="col">
                                 {{selectedSendAsset}} <span
@@ -103,9 +105,12 @@
                      ng-click="receiveDropDown = !receiveDropDown">
                     <div class="float-left w-75">
                         <a>
-                            <div class="col-md-2 m-1 p-0" ng-if="selectedReceiveHasImage">
+                            <div class="col-md-2 m-1 p-0">
                                 <img ng-if="selectedReceiveHasImage"
                                      ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                                <span ng-if="!selectedReceiveHasImage"
+                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
+
                             </div>
                             <div class="col">
                                 {{selectedReceiveAsset}} <span
