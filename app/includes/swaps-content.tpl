@@ -524,8 +524,8 @@
     </div>
     <article class="modal fade" id="recallAsset" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="recallAssetModal.close();">                    <i
@@ -556,8 +556,8 @@
     </article>
     <article class="modal fade" id="takeSwap" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="takeSwapModal.close();">                    <i
@@ -1127,8 +1127,8 @@
     </article>
     <article class="modal fade" id="makeSwapConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="makeSwapModal.open()">                    <i
@@ -1237,8 +1237,8 @@
     </article>
     <article class="modal fade" id="makeSwapEndConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="makeSwapConfirmEndModal.close()">                    <i
@@ -1313,8 +1313,8 @@
     </article>
     <article class="modal fade" id="recallSwapSuccess" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 text-center">
                         <h3 class="h3-blue">Success!</h3>
                         <div class="pt-2 pb-2">
@@ -1331,8 +1331,8 @@
     </article>
     <article class="modal fade" id="swapInformationModal" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="swapInformationModal.close()">                    <i
@@ -1482,8 +1482,8 @@
     </article>
     <article class="modal fade" id="takeSwapConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="takeSwapConfirm.close()">                    <i
@@ -1566,8 +1566,8 @@
     </article>
     <article class="modal fade" id="errorModal" tabindex="-1">
         <section class="modal-dialog">
-            <section class="modal-content">
-                <article class="block">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text"
@@ -1595,8 +1595,8 @@
     </article>
     <article class="modal fade" id="takeSwapEndConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content">
-                <article class="block" ng-hide="wallet.type=='addressOnly'">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
                                   <span class="gray-text" ng-click="takeSwapEndConfirm.close()">                    <i

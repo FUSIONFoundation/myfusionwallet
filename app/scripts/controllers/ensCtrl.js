@@ -1406,7 +1406,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let myBalances = [];
             for (let asset in allBalances) {
                 decimals = allAssets[asset].Decimals;
-                console.log(decimals);
                 let amount = new Decimal(allBalances[asset]);
                 let amountFinal = amount.div($scope.countDecimals(decimals).toString());
                 myBalances[asset] = amountFinal.toString();
@@ -1415,8 +1414,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.$eval(function () {
                 $scope.allBalance = myBalances;
             });
-            console.log(allBalances);
-
         } catch (err) {
             console.log(err);
         }
@@ -1807,6 +1804,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             try {
                 await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function (r) {
                     let swaps = JSON.parse(r.data.address[0].balanceInfo).swaps;
+                    console.log(r.data.address[0]);
                     for (let swap in swaps) {
                         swapList[swaps[swap].ID] = swaps[swap] ;
                         swapList[swaps[swap].ID].SwapID = swaps[swap].ID ;
