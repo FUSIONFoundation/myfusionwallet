@@ -73,7 +73,7 @@
                                 <img ng-if="asset.hasImage"
                                      ng-src="images/verifiedassets/{{asset.image}}"/>
                                 <span ng-if="!asset.hasImage"
-                                      class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
                             </div>
                             <div class="col">
                                 <span class="fusion-text-14">
@@ -146,7 +146,7 @@
                                 <img ng-if="asset.hasImage"
                                      ng-src="images/verifiedassets/{{asset.image}}"/>
                                 <span ng-if="!asset.hasImage"
-                                      class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
                             </div>
                             <div class="col">
                                 <span class="fusion-text-14">
@@ -786,7 +786,7 @@
                                             <img ng-if="asset.hasImage"
                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                             <span ng-if="!asset.hasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
                                         </div>
                                         <div class="col">
                                 <span class="fusion-text-14">
@@ -956,7 +956,7 @@
                                             <img ng-if="asset.hasImage"
                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                             <span ng-if="!asset.hasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round">{{asset.symbol}}</span>
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
                                         </div>
                                         <div class="col">
                                 <span class="fusion-text-14">
