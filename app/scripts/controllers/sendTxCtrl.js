@@ -495,7 +495,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let distributed =
                 $scope.assetListOwns[$scope.lastId].total -
                 $scope.assetListOwns[$scope.lastId].balance;
-
+            
             $scope.changeSupplyInfo = {
                 name: $scope.assetListOwns[$scope.lastId].name,
                 symbol: $scope.assetListOwns[$scope.lastId].symbol,

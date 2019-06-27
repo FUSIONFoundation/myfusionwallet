@@ -1463,8 +1463,8 @@
 </article>
 <article class="modal fade" id="changeSupplyReview" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="changeSupplyReview.close();">                    <i
@@ -1574,8 +1574,8 @@
 
 <article class="modal fade" id="changeSupplySuccess" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="changeSupplySuccess.close()">                    <i
@@ -1700,8 +1700,8 @@
 
 <article class="modal fade" id="createAsset" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="createAssetModal.close();">                    <i
