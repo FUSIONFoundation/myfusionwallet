@@ -551,8 +551,8 @@
 </div>
 <article class="modal fade" id="sendAsset" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="sendAssetModal.close();">                    <i
@@ -755,8 +755,8 @@
 
 <article class="modal fade" id="sendBackToAssetsModal" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="sendBackToAssetsModal.close();">                    <i
@@ -812,8 +812,8 @@
 </article>
 <article class="modal fade" id="sendAssetConfirm" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="sendAssetConfirm.close(); sendAsset.close()">                    <i
@@ -996,8 +996,8 @@
 </article>
 <article class="modal fade" id="successModal" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text"
@@ -1023,8 +1023,8 @@
 </article>
 <article class="modal fade" id="errorModal" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text"
@@ -1059,8 +1059,8 @@
 </article>
 <article class="modal fade" id="sendAssetFinal" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text"
@@ -1195,8 +1195,8 @@
 </article>
 <article class="modal fade" id="manageAsset" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block" ng-hide="wallet.type=='addressOnly'">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="manageAsset.close();">                    <i
@@ -1355,8 +1355,8 @@
 </article>
 <article class="modal fade" id="changeSupply" tabindex="-1">
     <section class="modal-dialog">
-        <section class="modal-content">
-            <article class="block">
+        <section class="modal-content no-shadow">
+            <article class="block no-shadow">
                 <div class="col-md-12 p-0">
                     <div class="float-right">
                                   <span class="gray-text" ng-click="changeSupply.close();">                    <i
