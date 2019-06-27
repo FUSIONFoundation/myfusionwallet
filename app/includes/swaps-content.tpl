@@ -950,7 +950,7 @@
                                     </div>
                                 </form>
                                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                     ng-repeat="asset in assetList | filter:searchReceiveAsset track by $id($index)">
+                                     ng-repeat="asset in assetList | filter:searchReceiveAsset">
                                     <a ng-click="setReceiveAsset(asset.id)">
                                         <div class="col-md-2 p-0" ng-if="asset.hasImage">
                                             <img ng-if="asset.hasImage"

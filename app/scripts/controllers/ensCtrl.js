@@ -680,6 +680,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.setReceiveAsset = async function (id) {
+        console.log(`Selected ${id}`);
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${
                 $scope.assetList[id].symbol
@@ -880,7 +881,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let assetList2 = [];
             let assetList = await window.__fsnGetAllAssets();
 
-            let x = 0;
+            let x = -1;
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
                 let owned = false;
@@ -949,7 +950,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             assetList = myAssets;
 
-
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
                 id = assetList[asset]["ID"];
@@ -984,7 +984,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                 let data = {
-                    id: assetList2.length,
+                    id: x,
                     name: assetList[asset]["Name"],
                     symbol: assetList[asset]["Symbol"],
                     decimals: assetList[asset]["Decimals"],
@@ -1036,6 +1036,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             $scope.$eval(function () {
                 $scope.assetList = assetList2;
+                console.log($scope.assetList);
                 $scope.assetListOwned = assetListOwned;
             });
         }
