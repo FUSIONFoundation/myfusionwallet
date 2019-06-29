@@ -1040,10 +1040,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="invalid-feedback"
-                         ng-show="!sendHasTimeLockBalance && selectedReceiveAsset == selectedSendAsset">
-                        Send and Receive can't be the same asset.
-                    </div>
                     <div class="col-md-12 p-0">
                         <h3 class="h3-blue">Swap Rate</h3>
                         <div class="col-md-6 p-0">
@@ -1123,7 +1119,7 @@
                         <div class="col-md-6 col-xs-12">
                             <button class="btn btn-primary w-100"
                                     ng-click="makeSwapConfirmation('notend')"
-                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == '' || !sendHasTimeLockBalance && selectedReceiveAsset == selectedSendAsset; "
+                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == ''"
                             >Review
                                 Make
                                 Swap
