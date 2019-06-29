@@ -189,8 +189,15 @@ window.__getNotation = async function (walletAddress) {
     }
 };
 
-let lastGetAllAssetTime = undefined
-let lastAllGetAssets = undefined
+let _DEBUG = true;
+
+window.log = function (message) {
+    if(_DEBUG === true){
+        console.log(`%c ${new Date().getHours()}:${new Date().getMinutes()} - ${message} `, 'background: #222; color: #bada55; padding:10px;');
+    }
+};
+let lastGetAllAssetTime = undefined;
+let lastAllGetAssets = undefined;
 
 window.__fsnGetAllAssets = async function (array) {
     if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
@@ -231,7 +238,7 @@ window.__fsnGetAllAssets = async function (array) {
             try {
                 for (let asset in array) {
                     if (!localCacheOfAssets[array[asset]]) {
-                        console.log(`Looking up : ${array[asset]}`);
+                        window.log(`Looking up : ${array[asset]}`);
                         await ajaxReq.http.get(`${window.getApiServer()}/assets/${array[asset]}`).then(function (r) {
                             localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
                                 AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",

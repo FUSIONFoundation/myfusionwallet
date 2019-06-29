@@ -1138,12 +1138,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     return new BigNumber(gs);
                 });
 
-                console.log(amount.toString());
-                console.log(gasPrice.toString());
-
                 amount = amount.sub(gasPrice);
-
-                console.log($scope.formatWei(amount.toString()));
 
                 $scope.sendAsset.amountToSend = $scope.formatWei(amount.toString());
             } else {
@@ -1409,7 +1404,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             asset: asset
                         })
                         .then(tx => {
-                            console.log(tx);
                             tx.from = from;
                             tx.chainId = _CHAINID;
                             data = tx;
@@ -1620,7 +1614,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 delete rawTx.s;
                 delete rawTx.v;
                 delete rawTx.gas;
-                console.log(rawTx);
 
                 return TrezorConnect.ethereumSignTransaction({
                     path: $scope.wallet.getPath(),
@@ -2331,7 +2324,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             await window.__fsnGetAllBalances(walletAddress).then(function (res) {
                 balances = res;
-                console.log(balances);
             });
 
             if (balances === undefined) {
@@ -2344,7 +2336,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
             let assetsInBalances = Object.keys(balances);
-            console.log(assetsInBalances);
 
             await window.__fsnGetAllAssets(assetsInBalances).then(function (res) {
                 assetList = res;

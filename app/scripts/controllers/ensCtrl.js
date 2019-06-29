@@ -692,7 +692,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.setReceiveAsset = async function (id) {
-        console.log(`Selected ${id}`);
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${
                 $scope.assetList[id].symbol
@@ -1048,7 +1047,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             $scope.$eval(function () {
                 $scope.assetList = assetList2;
-                console.log($scope.assetList);
                 $scope.assetListOwned = assetListOwned;
             });
         }
@@ -1218,7 +1216,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 web3.fsn
                     .signAndTransmit(tx, $scope.account.signTransaction)
                     .then(txHash => {
-                        console.log(txHash);
+                        window.log(`TXID : ${txHash}`);
                     });
 
                 return $scope.takeSwapEndConfirm.open();
@@ -1474,8 +1472,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.makeTarges = $scope.makeTarges.replace(" ", "");
             let targesArr = $scope.makeTarges.split(",");
             await $scope.processAllTarges(targesArr, 0);
-
-            console.log(targesArray);
         } else {
             targesArray = [];
         }
@@ -1594,7 +1590,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return web3.fsn
                     .signAndTransmit(tx, $scope.account.signTransaction)
                     .then(txHash => {
-                        console.log(txHash);
+                        window.log(`TXID: ${txHash}`);
                         $scope.makeSwapConfirmation("end");
                     });
             });
@@ -2006,7 +2002,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.openMakes = openMakeListFront;
         $scope.openMakeSwaps = $scope.openMakes.length;
         });
-        console.log("Finished retrieving all Open Swaps");
+        window.log("Finished retrieving all Open Swaps");
     };
 
     $scope.$watch('selectedSendContract',function(){
@@ -2032,8 +2028,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             if($scope.selectedReceiveAsset == 'All Assets'){
                 url = `${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
-
-            console.log(url);
 
             try {
                 await ajaxReq.http.get(url).then(function (r) {
@@ -2226,11 +2220,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.swapsList = swapListFront;
             $scope.showLoader = false;
         });
-        console.log("Finished retrieving all Swaps");
+        window.log("Finished retrieving all Swaps");
     };
 
     $scope.takeSwapList = async function (){
-        console.log("Starting retrieval of Private Swaps");
+        window.log("Starting retrieval of Private Swaps");
         $scope.openTakeSwapsTotal = 0;
         let openTakesList = [];
         let swapListFront = [];
@@ -2240,11 +2234,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             try {
                 await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?target=${walletAddress}&page0&size=100`).then(function (r) {
-                    console.log(r.data);
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
-                        console.log(swapList);
                     }
                 });
             } catch (err) {
