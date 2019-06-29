@@ -492,6 +492,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.transacData = "";
             });
 
+            let a = {}
+            await web3.fsn.getAsset($scope.assetListOwns[$scope.lastId].contractaddress).then(function(r){
+                a = r;
+            });
+
+            $scope.assetListOwns[$scope.lastId].total = a.Total / ($scope.countDecimals(a.Decimals));
+
             let distributed =
                 $scope.assetListOwns[$scope.lastId].total -
                 $scope.assetListOwns[$scope.lastId].balance;
