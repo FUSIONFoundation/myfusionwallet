@@ -2033,6 +2033,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 url = `${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
 
+            console.log(url);
+
             try {
                 await ajaxReq.http.get(url).then(function (r) {
                     for (let swap in r.data) {
