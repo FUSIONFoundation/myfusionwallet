@@ -38,7 +38,7 @@
                      ng-click="sendDropDown = !sendDropDown">
                     <div class="float-left w-75">
                         <a>
-                            <div class="col-md-2 m-1 p-0">
+                            <div class="col-md-2 m-1 p-0" ng-show="selectedSendAsset !== 'All Assets'">
                                 <img ng-if="selectedSendHasImage"
                                      ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                 <span ng-if="!selectedSendHasImage"
@@ -65,10 +65,14 @@
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
+                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown">
+                        <a ng-click="setAllAssetsInSend()">
+                            All Assets
+                        </a>
+                    </div>
                     <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown bg-white"
                          ng-repeat="asset in assetListOwned | filter:searchSendAsset | orderBy:'-verified' track by $index">
                         <a ng-click="setSendAsset(asset.id)">
-
                             <div class="col-md-2 p-0">
                                 <img ng-if="asset.hasImage"
                                      ng-src="images/verifiedassets/{{asset.image}}"/>

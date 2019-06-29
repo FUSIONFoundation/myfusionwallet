@@ -397,6 +397,20 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.allSwaps();
     }
 
+
+    $scope.setAllAssetsInSend = function (){
+        $scope.$eval(function(){
+            $scope.selectedSendAsset = `All Assets`;
+            $scope.selectedSendContract = "\n";
+            $scope.assetToSend = $scope.assetList[0].contractaddress;
+            $scope.selectedSendImage = '';
+            $scope.selectedSendHasImage = false;
+            $scope.selectedSendVerified = false;
+        });
+        $scope.allSwaps();
+    }
+
+
     $scope.setSendAndReceiveInit = function () {
         $scope.selectedReceiveAsset = `All Assets`;
         $scope.selectedReceiveContract = "\n";
@@ -405,12 +419,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
         $scope.selectedReceiveVerified = $scope.assetList[0].verified;
         // Receive part
-        $scope.selectedSendAsset = `${$scope.assetListOwned[0].name} (${
-            $scope.assetListOwned[0].symbol
-            })`;
+        $scope.selectedSendAsset = `All Assets`;
         $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
         $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
-        $scope.selectedSendContract = $scope.assetListOwned[0].contractaddress;
+        $scope.selectedSendContract = "\n";
         $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
         $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
         $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
