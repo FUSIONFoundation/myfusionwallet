@@ -340,7 +340,7 @@ window.__fsnGetAllVerifiedAssets = async function () {
     return lastGetAllVerifiedAssets
 }
 
-let cookieName = "gatewayURLNew";
+let cookieName = "gatewayURL1337";
 let defaultGateway = "wss://mainnetpublicgateway1.fusionnetwork.io:10001";
 let defaultChainId = 32659;
 window.cookieName = cookieName;

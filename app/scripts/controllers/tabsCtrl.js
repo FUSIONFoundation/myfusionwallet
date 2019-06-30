@@ -162,8 +162,8 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         let url = {};
         if (net == 'mainnet') {
             url = {
-                "url": "wss://psn2testgatewayalb.fusionnetwork.io:10001",
-                "chainid": 66688
+                "url": "wss://mainnetpublicgateway1.fusionnetwork.io:10001",
+                "chainid": 32659
             };
         } else if (net == 'testnet') {
             url = {
