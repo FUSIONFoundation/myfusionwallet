@@ -2085,7 +2085,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             endTimePosix
         ) {
 
-            console.log(startTimePosix,endTimePosix);
             let currentDate = Math.floor(new Date().getTime() / 1000.0);
             // if the start and endtime are now and forever
             if (

@@ -1008,6 +1008,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     verified: verifiedAsset
                 };
                 await assetList2.push(data);
+                x++;
                 if (assetBalance > 0.000000000000000001) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                     let data = {
