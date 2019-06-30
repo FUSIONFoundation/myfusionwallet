@@ -1790,6 +1790,7 @@
                                placeholder="Must be a whole number"/>
                     </div>
                 </section>
+                <span class="small-gray-text">Fee 0.01 FSN</span>
 
                 <div class="row form-group">
                     <div class="col-md-6 col-xs-12 clearfix">
