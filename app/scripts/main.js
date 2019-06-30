@@ -146,9 +146,9 @@ let localCacheOfAssets = {}
 window.currentNet = '';
 window.getApiServer = function () {
     if (window.currentNet == 'mainnet') {
-        return 'https://api2.fusionnetwork.io'
-    } else if (window.currentNet == 'testnet') {
         return 'https://api.fusionnetwork.io'
+    } else if (window.currentNet == 'testnet') {
+        return 'https://api2.fusionnetwork.io'
     }
 }
 
