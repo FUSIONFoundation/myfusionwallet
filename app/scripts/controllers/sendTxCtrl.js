@@ -2084,11 +2084,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             startTimePosix,
             endTimePosix
         ) {
+
+            console.log(startTimePosix,endTimePosix);
             let currentDate = Math.floor(new Date().getTime() / 1000.0);
             // if the start and endtime are now and forever
             if (
                 startTimePosix <= currentDate &&
-                endTimePosix === 18446744073709552000
+                endTimePosix === "18446744073709551615"
             ) {
                 return (status = "Available");
                 // if the start and end date in range of the current date
@@ -2105,13 +2107,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
                 return (status = "Active");
             }
-
+            //
             // if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
             //     return status = 'Available';
             // }
-            if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
-                return (status = "Expired");
-            }
         };
 
         $scope.getTimeLockAssets = async function () {
