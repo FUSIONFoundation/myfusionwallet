@@ -178,9 +178,7 @@
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="netSwitch('mainnet'); window.location.reload();">Mainnet
                                 </button>
-                                <button class="btn btn-sm btn-white w-100"
-                                        ng-click="netSwitch('testnet'); window.location.reload();">Testnet
-                                </button>
+                                <button class="btn btn-sm btn-white w-100 disabled">Testnet</button>
                                 <span class="small-gray-text">Node URL:
                              </span>
                                 <input type="text" class="form-control" ng-model="inputUrl" placeholder="URL">
