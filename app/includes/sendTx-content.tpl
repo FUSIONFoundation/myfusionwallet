@@ -1089,7 +1089,7 @@
                             </div>
                             <div class="float-right max-char">
    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
-         title="{{successHash}}"><a href="https://blockexplorer.fusionnetwork.io/#!/transaction/{{successHash}}"
+         title="{{successHash}}"><a href="https://blocks.fusionnetwork.io/#!/transaction/{{successHash}}"
                                     target="_blank">{{successHash}}</a>
                             </div>
                             <br>
@@ -1603,7 +1603,7 @@
                                 </span>
                             </div>
                             <div class="float-right max-char">
-                                <a href="https://blockexplorer.fusionnetwork.io/#!/transaction/{{changeSupplyInfo.txhash}}"
+                                <a href="https://blocks.fusionnetwork.io/#!/transaction/{{changeSupplyInfo.txhash}}"
                                    target="_blank">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="{{changeSupplyInfo.txhash}}">
@@ -2074,7 +2074,7 @@
                                 </span>
                             </div>
                             <div class="float-right max-char">
-                                <a href="https://blockexplorer.fusionnetwork.io/#!/transaction/{{assetCreate.assetHash}}"
+                                <a href="https://blocks.fusionnetwork.io/#!/transaction/{{assetCreate.assetHash}}"
                                    target="_blank">
                                    <span class="fusion-text-14" data-toggle="tooltip" data-placement="top"
                                          title="{{assetCreate.assetHash}}">
