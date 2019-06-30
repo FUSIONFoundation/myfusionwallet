@@ -340,9 +340,9 @@ window.__fsnGetAllVerifiedAssets = async function () {
     return lastGetAllVerifiedAssets
 }
 
-let cookieName = "gatewayURL";
-let defaultGateway = "wss://gatewaypsn2w.fusionnetwork.io:10001";
-let defaultChainId = 88666;
+let cookieName = "gatewayURLNew";
+let defaultGateway = "wss://mainnetpublicgateway1.fusionnetwork.io:10001";
+let defaultChainId = 32659;
 window.cookieName = cookieName;
 window.defaultGateway = defaultGateway;
 window.defaultChainId = defaultChainId;
@@ -370,7 +370,7 @@ function keepWeb3Alive() {
     }
 
     // Initialize Testnet/Mainnet
-    if (nodeUrl == "wss://psn2testgatewayalb.fusionnetwork.io:10001") {
+    if (nodeUrl == "wss://mainnetpublicgateway1.fusionnetwork.io:10001") {
         window.currentNet = 'mainnet'
     } else if (nodeUrl == "wss://gatewaypsn2w.fusionnetwork.io:10001") {
         window.currentNet = 'testnet'
