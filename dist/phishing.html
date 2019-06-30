@@ -156,7 +156,7 @@
                         </div>
                     </span>
                     <div class="align-self-center hidden-xs">
-                        <span class="badge badge-secondary text-fusion ml-4">3.00.00</span>
+                        <span class="badge badge-secondary text-fusion ml-4">3.00.01</span>
                         <span class="badge badge-secondary text-fusion mr-1"><i class="fa fa-cube"></i> {{latestBlock}}</span>
 
                     </div>
