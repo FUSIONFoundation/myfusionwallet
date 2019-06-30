@@ -145,7 +145,7 @@ let localCacheOfAssets = {}
 
 window.currentNet = '';
 window.getApiServer = function () {
-        return 'https://api.fusionnetwork.io'
+        return 'https://mainnetapi.fusionnetwork.io'
 }
 
 window.__fsnDeleteAssetFromCache = async function (assetId) {
