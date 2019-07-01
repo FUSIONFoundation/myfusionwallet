@@ -303,50 +303,81 @@ window.__fsnGetAllAssets = async function (array) {
     return localCacheOfAssets
 }
 
-let lastGetAllBalancesTime = undefined
-let lastGetAllBalances = {};
 
-window.__fsnGetAllBalances = async function (walletaddress) {
-    if (!lastGetAllBalancesTime || (lastGetAllBalancesTime + 7500) < (new Date()).getTime()) {
+let wallets = {}
+let returnTime
+
+function clearOutBalancesPromises( wallet, error ) {
+    let ar = wallet.arrayOfResolvesForBalances
+    let arj = wallet.arrayOfRejectsForBalances
+    let rt = wallet.returnTimeLock
+
+    wallet.arrayOfRejectsForBalances  = []
+    wallet.arrayOfResolvesForBalances = []
+    wallet.returnTimeLock = []
+
+    for ( let x = 0 ; x < ar.length ; x++ ) {
+        if ( error ) {
+            arj[x]( error )
+        } else {
+            ar[x]( rt[x] ? wallet.data.timeLockBalances : wallet.data.balances )
+        }
+    }
+}
+
+
+window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = false ) {
+    if ( !walletaddress) {
+        return {}
+    }
+    let wallet = wallets[walletaddress];
+    if ( !wallet ) {
+        wallet = {
+            data : null,
+            inHere : false ,
+            arrayOfResolvesForBalances  : [],
+            arrayOfRejectsForBalances : [] ,
+            returnTimeLock : []
+        }
+        wallets[walletaddress] = wallet
+    }
+    if ( wallet.inHere ) {
+        wallet.inHere = true
+        return new Promise( (resolve,reject )=> { 
+            wallet.arrayOfRejectsForBalances.push( reject )
+            wallet.arrayOfResolvesForBalances.push( resolve )
+            wallet.returnTimeLock.push( returnTimeLock )
+        })
+    }
+    wallet.inHere = true
+    if ( !wallet.data || 
+            !wallet.lastGetAllBalancesTime || 
+                (wallet.lastGetAllBalancesTime + 7500) < (new Date()).getTime()) {
         try {
-            let allBalances = {};
+            let data 
             await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
-                let data = JSON.parse(r.data.address[0].balanceInfo);
-                allBalances = data.balances;
+                data = JSON.parse(r.data.address[0].balanceInfo);
             });
-            lastGetAllBalancesTime = (new Date()).getTime()
-            lastGetAllBalances[walletaddress] = allBalances
-            return allBalances
+            // cache the notation while we here
+            wallet.lastGetAllBalancesTime = (new Date()).getTime()
+            wallet.data = data
+            wallet.inHere = false
+            clearOutBalancesPromises( wallet, null ) 
+            return returnTimeLock ? data.timeLockBalances : data.balances
         } catch (err) {
-            return {};
+            wallet.inHere = false
+            clearOutBalancesPromises( wallet, null, err ) 
             console.log("__fsnGetAllBalances Failed throwing this error => ", err);
             throw err
         }
     }
-    return lastGetAllBalances[walletaddress]
+    wallet.inHere = false 
+    return returnTimeLock ? wallet.data.timeLockBalances : wallet.data.balances
 }
 
-let lastGetAllTimeLockBalancesTime = undefined
-let lastGetAllTimeLockBalances = {};
 
 window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
-    if (!lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime || (lastGetAllTimeLockBalancesTime + 7500) < (new Date()).getTime()) {
-        try {
-            let allBalances = {}
-            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
-                let data = JSON.parse(r.data.address[0].balanceInfo);
-                allBalances = data.timeLockBalances;
-            });
-            lastGetAllTimeLockBalancesTime = (new Date()).getTime();
-            lastGetAllTimeLockBalances[walletaddress] = allBalances
-            return allBalances
-        } catch (err) {
-            return {};
-            console.log("__fsnGetAllTimeLockBalances Failed throwing this error => ", err);
-            throw err
-        }
-    }
-    return lastGetAllTimeLockBalances[walletaddress]
+    return window.__fsnGetAllBalances( walletaddress, true )
 }
 
 let lastGetAllVerifiedAssetsTime = undefined
