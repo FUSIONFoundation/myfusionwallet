@@ -194,14 +194,44 @@ window.log = function (message) {
 };
 let lastGetAllAssetTime = undefined;
 let lastAllGetAssets = undefined;
+let inGetAllAsets = false 
+
+let arrayOfResolvesForGetAllAssets  = []
+let arrayOfRejectsForGetAllAssets = []
+
+function clearOutAssetPromises( retData, error ) {
+    let ar = arrayOfResolvesForGetAllAssets
+    let arj = arrayOfRejectsForGetAllAssets
+
+    arrayOfResolvesForGetAllAssets  = []
+    arrayOfRejectsForGetAllAssets = []
+
+    for ( let x = 0 ; x < ar.length ; x++ ) {
+        if ( error ) {
+            arj[x]( error )
+        } else {
+            ar[x]( retData )
+        }
+    }
+}
 
 window.__fsnGetAllAssets = async function (array) {
-    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
+    if ( inGetAllAsets ) {
+        //console.log( "Oh chute we entered  get all assets again")
+        return new Promise( (resolve,reject) => {
+            arrayOfResolvesForGetAllAssets.push( resolve )
+            arrayOfRejectsForGetAllAssets.push( reject )
+        })
+    }
+    inGetAllAsets = true
+    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7500) < (new Date()).getTime()) {
         let totalAssets = 0;
             await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
                 let globalInfo = r.data;
                 totalAssets = globalInfo.totalAssets;
                 if(localCacheOfAssets.length == totalAssets){
+                    inGetAllAsets = false
+                    clearOutAssetPromises( null, null )
                     return;
                 }
                 for(let i = 0; i < Math.ceil(totalAssets/100); i++){
@@ -226,10 +256,12 @@ window.__fsnGetAllAssets = async function (array) {
                     Symbol: "FSN",
                     Total: 10000000000,
                 }
+                inGetAllAsets = false
+                clearOutAssetPromises( localCacheOfAssets, null )
                 return localCacheOfAssets;
             });
     }
-    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7000) < (new Date()).getTime()) {
+    if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7500) < (new Date()).getTime()) {
         if (array) {
             try {
                 for (let asset in array) {
@@ -255,13 +287,19 @@ window.__fsnGetAllAssets = async function (array) {
                     }
                 }
                 lastGetAllAssetTime = (new Date()).getTime()
+                inGetAllAsets = false
+                clearOutAssetPromises( localCacheOfAssets, null )
                 return localCacheOfAssets
             } catch (err) {
+                inGetAllAsets = false
                 console.log("__fsnGetAllAssets Failed throwing this error => ", err);
+                clearOutAssetPromises( null, err )
                 throw err
             }
         }
     }
+    inGetAllAsets = false
+    clearOutAssetPromises( localCacheOfAssets, null )
     return localCacheOfAssets
 }
 
@@ -269,7 +307,7 @@ let lastGetAllBalancesTime = undefined
 let lastGetAllBalances = {};
 
 window.__fsnGetAllBalances = async function (walletaddress) {
-    if (!lastGetAllBalancesTime || (lastGetAllBalancesTime + 7000) < (new Date()).getTime()) {
+    if (!lastGetAllBalancesTime || (lastGetAllBalancesTime + 7500) < (new Date()).getTime()) {
         try {
             let allBalances = {};
             await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
@@ -292,7 +330,7 @@ let lastGetAllTimeLockBalancesTime = undefined
 let lastGetAllTimeLockBalances = {};
 
 window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
-    if (!lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime || (lastGetAllTimeLockBalancesTime + 7000) < (new Date()).getTime()) {
+    if (!lastGetAllTimeLockBalances || !lastGetAllTimeLockBalancesTime || (lastGetAllTimeLockBalancesTime + 7500) < (new Date()).getTime()) {
         try {
             let allBalances = {}
             await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
@@ -315,7 +353,12 @@ let lastGetAllVerifiedAssetsTime = undefined
 let lastGetAllVerifiedAssets = {};
 
 window.__fsnGetAllVerifiedAssets = async function () {
-    if (!lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime || (lastGetAllVerifiedAssetsTime + 7000) < (new Date()).getTime()) {
+    // verify changes very very slowly as only
+    // the asset gateway can only verifiy an asset
+    // so this will rarely change
+    // asking someone to do this every 2 minutes or on wallet refresh is fine
+    //
+    if (!lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime || (lastGetAllVerifiedAssetsTime + (2*60)*1000) < (new Date()).getTime()) {
         try {
             let r = await ajaxReq.http.get(`${window.getApiServer()}/assets/verified`)
             let allVerifiedAssets = r.data;
