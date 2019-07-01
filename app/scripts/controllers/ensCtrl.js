@@ -1487,7 +1487,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         );
 
         //Receive Part
-        BigNumber.config({DECIMAL_PLACES: parseInt(toAsset["Decimals"] - 1)});
+
+        BigNumber.config({DECIMAL_PLACES: parseInt(toAsset["Decimals"]) > 0 ? parseInt(toAsset["Decimals"]) -1 : 0});
         let makeReceiveAmountBN = new BigNumber(
             $scope.convertToString($scope.makeReceiveAmount)
         );
@@ -1499,7 +1500,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         );
 
         //Send Part
-        BigNumber.config({DECIMAL_PLACES: parseInt(fromAsset["Decimals"] - 1)});
+        BigNumber.config({DECIMAL_PLACES: parseInt(fromAsset["Decimals"]) > 0 ? parseInt(fromAsset["Decimals"]) -1 : 0});
         let makeSendAmountBN = new BigNumber(
             $scope.convertToString($scope.makeSendAmount)
         );
