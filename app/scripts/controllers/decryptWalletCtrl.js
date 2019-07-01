@@ -267,6 +267,9 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     } else if ($scope.walletType == "mewConnect") {
       $scope.scanMewConnect();
     }
+
+      window.log('Derivation path changed')
+      $scope.$applyAsync();
   };
   $scope.onCustomHDDPathChange = function() {
     $scope.HDWallet.dPath = $scope.HDWallet.customDPath;
@@ -396,6 +399,7 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     }
     $scope.HDWallet.id = 0;
     $scope.HDWallet.numWallets = start + limit;
+    $scope.$apply();
   };
   $scope.AddRemoveHDAddresses = function(isAdd) {
     if (

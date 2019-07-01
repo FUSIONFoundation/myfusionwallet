@@ -73,6 +73,9 @@ var addWalletCtrl = function($scope, $sce) {
         } else if ($scope.walletType == 'trezor') {
             $scope.scanTrezor();
         }
+
+        window.log('Derivation path changed')
+        $scope.$apply();
     }
     $scope.onCustomHDDPathChange = function() {
         $scope.HDWallet.dPath = $scope.HDWallet.customDPath;
