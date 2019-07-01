@@ -635,7 +635,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.setReceiveAmountMakeSwap = function () {
-        if ($scope.makeSendAmount <= 0 || $scope.makeSendSwapRate <= 0) {
+        if ($scope.makeSendAmount <= 0 || $scope.makeSendSwapRate <= 0 || $scope.makeMinumumSwap == '' || $scope.makeMinumumSwap <= 0) {
             return;
         }
         window.Decimal.set({precision: 18, rounding: 4});
