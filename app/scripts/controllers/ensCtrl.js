@@ -1815,9 +1815,17 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         return $scope.months[tMonth] + " " + tDay + ", " + tYear;
     };
 
+    let openMakesListRunning = false;
     $scope.openMakesList = async function () {
         let swapList = {};
         let openMakeListFront = [];
+
+        if(openMakesListRunning){
+            window.log("Open Makes List already running!");
+            return;
+        }
+
+        openMakesListRunning = true;
 
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
@@ -2005,6 +2013,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.openMakeSwaps = $scope.openMakes.length;
         });
         window.log("Finished retrieving all Open Swaps");
+        openMakesListRunning = false;
     };
 
     $scope.$watch('selectedSendContract',function(){
@@ -2016,10 +2025,18 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
 
     let swapList = {};
+    let allSwapsRunning = false;
     $scope.allSwaps = async function (page) {
         if (!page) page = 0;
         let swapListFront = [];
         let openTakesList = [];
+
+        if(allSwapsRunning){
+            window.log(`allSwaps already running!`);
+            return;
+        }
+
+        allSwapsRunning = true;
 
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
@@ -2216,17 +2233,24 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     await openTakesList.push(data);
                 }
             }
+            $scope.$eval(function () {
+                $scope.swapsList = swapListFront;
+                $scope.showLoader = false;
+            });
+            allSwapsRunning = false;
+            window.log("Finished retrieving all Swaps");
         }
-
-        $scope.$eval(function () {
-            $scope.swapsList = swapListFront;
-            $scope.showLoader = false;
-        });
-        window.log("Finished retrieving all Swaps");
     };
 
+    let takeSwapListRunning = false;
     $scope.takeSwapList = async function (){
         window.log("Starting retrieval of Private Swaps");
+        if(takeSwapListRunning){
+            window.log("Private Swaps already running");
+            return;
+        }
+        takeSwapListRunning = true;
+
         $scope.openTakeSwapsTotal = 0;
         let openTakesList = [];
         let swapListFront = [];
@@ -2419,6 +2443,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.openTakeSwaps = openTakesList;
             $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
         })
+        takeSwapListRunning = false;
     }
 
 
