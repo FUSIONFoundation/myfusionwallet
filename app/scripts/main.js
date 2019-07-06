@@ -307,7 +307,7 @@ window.__fsnGetAllAssets = async function (array) {
 let wallets = {}
 let returnTime
 
-function clearOutBalancesPromises( wallet, error ) {
+function clearOutBalancesPromises( wallet, error, returnFullData ) {
     let ar = wallet.arrayOfResolvesForBalances
     let arj = wallet.arrayOfRejectsForBalances
     let rt = wallet.returnTimeLock
@@ -320,13 +320,17 @@ function clearOutBalancesPromises( wallet, error ) {
         if ( error ) {
             arj[x]( error )
         } else {
-            ar[x]( rt[x] ? wallet.data.timeLockBalances : wallet.data.balances )
+            if ( returnFullData ) {
+                ar[x]( wallet.data )
+            } else {
+                ar[x]( rt[x] ? wallet.data.timeLockBalances : wallet.data.balances )
+            }
         }
     }
 }
 
 
-window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = false ) {
+window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = false, returnFullData = false ) {
     if ( !walletaddress) {
         return {}
     }
@@ -362,7 +366,10 @@ window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = fal
             wallet.lastGetAllBalancesTime = (new Date()).getTime()
             wallet.data = data
             wallet.inHere = false
-            clearOutBalancesPromises( wallet, null ) 
+            clearOutBalancesPromises( wallet, null, returnFullData ) 
+            if ( returnFullData ) {
+                return data
+            }
             return returnTimeLock ? data.timeLockBalances : data.balances
         } catch (err) {
             wallet.inHere = false
@@ -372,6 +379,9 @@ window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = fal
         }
     }
     wallet.inHere = false 
+    if ( returnFullData ) {
+        return wallet.data
+    }
     return returnTimeLock ? wallet.data.timeLockBalances : wallet.data.balances
 }
 
