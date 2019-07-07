@@ -1832,7 +1832,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?address=${walletAddress}&page=0&size=100`).then(function (r) {
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?address=${walletAddress}&page=0&size=30`).then(function (r) {
                     let swaps = r.data;
                     for (let swap in swaps) {
                         let data = JSON.parse(swaps[swap].data);
@@ -2031,14 +2031,13 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let swapListFront = [];
         let openTakesList = [];
 
-        if(allSwapsRunning){
-            window.log(`allSwaps already running!`);
-            return;
-        }
-
-        allSwapsRunning = true;
-
         if (walletService.wallet !== null) {
+            if(allSwapsRunning){
+                window.log(`allSwaps already running!`);
+                return;
+            }
+
+            allSwapsRunning = true;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
 
@@ -2050,6 +2049,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             try {
                 await ajaxReq.http.get(url).then(function (r) {
+                    console.log(r.data)
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
