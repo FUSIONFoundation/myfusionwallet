@@ -473,7 +473,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in swapsList | orderBy:sortKey:reverse | startFrom:currentPage*pageSize | limitTo:pageSize track by $index">
+                        <tr ng-repeat="asset in swapsList | startFrom:currentPage*pageSize | limitTo:pageSize | filter: { fromVerified: true }">
                             <td class="text-left"
                                 ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong class="price">{{asset.swapratetaker.toFixed(4)}}</strong> <span
@@ -581,6 +581,12 @@
                         </div>
                     </div>
                     <h3 class="make-swap">Take Swap</h3>
+
+                    <div class="col-md-12 p-0" ng-show="!takeDataFront.toVerified">
+                        <span class="warning-bg p-3 inline w-100">
+                            <img src="./images/unverified.svg" width="16px" height="14px"> Caution: This swap contains a suspicious asset(s).
+                        </span>
+                    </div>
 
                     <div class="col-md-12 p-0">
                         <span class="small-gray-text">
