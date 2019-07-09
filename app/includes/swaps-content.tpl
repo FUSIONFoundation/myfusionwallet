@@ -750,6 +750,14 @@
                         </div>
                     </div>
                     <h3 class="make-swap">Make Swap</h3>
+
+
+                    <div class="col-md-12 p-0" ng-show="!selectedReceiveVerified">
+                        <span class="warning-bg p-3 inline w-100">
+                            <img src="./images/unverified.svg" width="16px" height="14px"> Caution: This swap contains a suspicious asset(s).
+                        </span>
+                    </div>
+
                     <div class="row m-0">
                         <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
                            <span class="make-swap-small-heading">
