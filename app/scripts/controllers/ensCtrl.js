@@ -2095,8 +2095,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     let allSwapsRunning = false;
     $scope.allSwaps = async function (page) {
         if (!page) page = 0;
+        $scope.swapsList = [];
         let swapListFront = [];
-        let openTakesList = [];
 
         if (walletService.wallet !== null) {
             if(allSwapsRunning){
@@ -2107,11 +2107,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             allSwapsRunning = true;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
+            let size = 10;
 
-            let url = `${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
+            let url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
 
             if($scope.selectedReceiveAsset == 'All Assets'){
-                url = `${window.getApiServer()}/swaps/all?page=${page}&size=100&sort=asc&toAsset=${$scope.selectedSendContract}`
+                url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+            }
+
+            if($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets'){
+                url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc`
             }
 
             try {
@@ -2134,6 +2139,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log(err);
             }
+
+            console.log(swapList);
 
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
@@ -2289,21 +2296,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     toHasImage: toHasImage,
                     toVerified: toVerified
                 };
-                if (
-                    swapList[asset]["Targes"].includes(walletAddress) ||
-                    swapList[asset]["Targes"].length <= 0 ||
-                    walletAddress == swapList[asset]["Owner"]
-                ) {
+                if (walletAddress !== swapList[asset]["Owner"] && !targesArray.includes(walletAddress)) {
                     await swapListFront.push(data);
-                }
-                if (swapList[asset]["Targes"].includes(walletAddress)) {
-                    await openTakesList.push(data);
                 }
             }
             $scope.$eval(function () {
                 $scope.swapsList = swapListFront;
                 $scope.showLoader = false;
             });
+            console.log($scope.swapsList);
             allSwapsRunning = false;
             window.log("Finished retrieving all Swaps");
         }
@@ -2316,11 +2317,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             window.log("Private Swaps already running");
             return;
         }
+        let swapList = {};
         takeSwapListRunning = true;
 
         $scope.openTakeSwapsTotal = 0;
         let openTakesList = [];
-        let swapListFront = [];
         if (walletService.wallet !== null) {
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;

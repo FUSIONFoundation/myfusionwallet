@@ -8118,7 +8118,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in swapsList | startFrom:currentPage*pageSize | limitTo:pageSize | filter: { fromVerified: true }">
+                        <tr ng-repeat="asset in swapsList | startFrom:currentPage*pageSize | limitTo:pageSize">
                             <td class="text-left"
                                 ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong class="price">{{asset.swapratetaker.toFixed(4)}}</strong> <span
