@@ -162,6 +162,16 @@ uiFuncs.signed = function (app, tx, txData, old,  callback) {
             rawTx.v = "0x" + v;
             rawTx.r = "0x" + result['r'];
             rawTx.s = "0x" + result['s'];
+            if(rawTx.s.indexOf('0x0') === 0){
+                let i = rawTx.s.substr(3,rawTx.s.length);
+                let x = "0x" + i;
+                rawTx.s = x;
+            }
+            if(rawTx.r.indexOf('0x0') === 0){
+                let i = rawTx.r.substr(3,rawTx.s.length);
+                let x = "0x" + i;
+                rawTx.r = x;
+            }
             let eTx = new ethUtil.Tx(rawTx);
             rawTx.rawTx = JSON.stringify(rawTx);
             rawTx.signedTx = '0x' + eTx.serialize().toString('hex');

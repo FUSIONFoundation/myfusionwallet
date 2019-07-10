@@ -1801,11 +1801,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                         ) {
                             oldTx.r = res.r;
                             oldTx.s = res.s;
-                            if(res.s.indexOf('0x0') === 0){
-                                let i = res.s.substr(3,res.s.length);
-                                let x = "0x" + i;
-                                oldTx.s = x;
-                            }
                             oldTx.v = res.v;
                             oldTx.input = input;
                             delete oldTx.isError;
