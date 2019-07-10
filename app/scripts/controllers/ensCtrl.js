@@ -154,43 +154,21 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     });
 
     $scope.$watch("swapsList", function () {
-        if (typeof $scope.swapsList === "undefined") {
-            return;
-        }
-        if ($scope.currentPage == 0) {
-            $scope.$eval(function () {
-                $scope.shownRows = $scope.currentPage + 1 * $scope.pageSize;
-            });
-        }
-        let shownRows = 0;
-        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-            shownRows = $scope.swapsList.length;
-        } else {
-            shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-        }
         $scope.$eval(function () {
-            $scope.shownRows = shownRows;
+            $scope.currentPage = 0;
+            $scope.searchSwapMarket = "";
+        });
+        $scope.$eval(function () {
+            $scope.shownRows = $scope.swapsList.length;
         });
     });
 
     $scope.nextPage = function () {
-        if ($scope.currentPage !== $scope.endPage - 1) {
             $scope.$eval(function () {
                 $scope.currentPage = $scope.currentPage + 1;
                 $scope.searchSwapMarket = "";
             });
-        }
-        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-            $scope.$eval(function () {
-                $scope.shownRows = $scope.swapsList.length;
-                $scope.searchSwapMarket = "";
-            });
-        } else {
-            $scope.$eval(function () {
-                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                $scope.searchSwapMarket = "";
-            });
-        }
+            $scope.allSwaps($scope.currentPage);
     };
 
     $scope.firstPage = function () {
@@ -198,54 +176,16 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.currentPage = 0;
             $scope.searchSwapMarket = "";
         });
-        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-            $scope.$eval(function () {
-                $scope.shownRows = $scope.swapsList.length;
-                $scope.searchSwapMarket = "";
-            });
-        } else {
-            $scope.$eval(function () {
-                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                $scope.searchSwapMarket = "";
-            });
-        }
-    };
-    $scope.lastPage = function () {
-        $scope.$eval(function () {
-            $scope.currentPage = $scope.endPage - 1;
-            $scope.searchSwapMarket = "";
-        });
-        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-            $scope.$eval(function () {
-                $scope.shownRows = $scope.swapsList.length;
-                $scope.searchSwapMarket = "";
-            });
-        } else {
-            $scope.$eval(function () {
-                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                $scope.searchSwapMarket = "";
-            });
-        }
+        $scope.allSwaps(0);
+
     };
 
     $scope.previousPage = function () {
-        if ($scope.currentPage !== 0) {
-            $scope.$eval(function () {
-                $scope.currentPage = $scope.currentPage - 1;
-                $scope.searchSwapMarket = "";
-            });
-        }
-        if (($scope.currentPage + 1) * $scope.pageSize > $scope.swapsList.length) {
-            $scope.$eval(function () {
-                $scope.shownRows = $scope.swapsList.length;
-                $scope.searchSwapMarket = "";
-            });
-        } else {
-            $scope.$eval(function () {
-                $scope.shownRows = ($scope.currentPage + 1) * $scope.pageSize;
-                $scope.searchSwapMarket = "";
-            });
-        }
+        $scope.$eval(function () {
+            $scope.currentPage = $scope.currentPage - 1;
+            $scope.searchSwapMarket = "";
+        });
+        $scope.allSwaps($scope.currentPage);
     };
 
     let BN = web3.utils.BN;
@@ -2084,19 +2024,21 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     };
 
     $scope.$watch('selectedSendContract',function(){
-        $scope.allSwaps();
+        $scope.allSwaps(0);
+        $scope.allSwapsPage = 0;
     })
     $scope.$watch('selectedReceiveContract',function(){
-        $scope.allSwaps();
+        $scope.allSwaps(0);
+        $scope.allSwapsPage = 0;
     })
 
 
     let swapList = {};
-    let allSwapsRunning = false;
+    $scope.allSwapsRunning = false;
     $scope.allSwaps = async function (page) {
         if (!page) page = 0;
         if (walletService.wallet !== null) {
-            if(allSwapsRunning){
+            if($scope.allSwapsRunning ){
                 window.log(`allSwaps already running!`);
                 return;
             }
@@ -2105,7 +2047,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let swapList = [];
             let swapListFront = [];
 
-            allSwapsRunning = true;
+            $scope.allSwapsRunning = true;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             let size = 10;
@@ -2140,8 +2082,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log(err);
             }
-
-            console.log(swapList);
 
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
@@ -2306,7 +2246,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.showLoader = false;
             });
             console.log($scope.swapsList);
-            allSwapsRunning = false;
+            $scope.allSwapsRunning = false;
             window.log("Finished retrieving all Swaps");
         }
     };

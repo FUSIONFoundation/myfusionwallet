@@ -8744,12 +8744,14 @@
                             </div>
                         </div>
                     </tr>
-                    <div class="col-md-12 text-center p-5" ng-show="showLoader">
+                    <div class="col-md-12 text-center p-5" ng-show="allSwapsRunning">
                         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                        <br>
-                        <span class="small-gray-text">Loading Swaps...</span>
+                        <span class="small-gray-text">Loading...</span>
                     </div>
-                    <table class="table" ng-show="!showLoader">
+                    <div class="col-md-12 text-center p-5" ng-show="swapsList.length === 0 && !allSwapsRunning">
+                        <span>No swaps for this trading pair</span>
+                    </div>
+                    <table class="table" ng-show="swapsList.length > 0 && !allSwapsRunning">
                         <thead>
                         <tr class="small-gray-table">
                             <th class="text-left" scope="col" ng-click="sortSwapMarket('swaprate')">
@@ -8782,7 +8784,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in swapsList | startFrom:currentPage*pageSize | limitTo:pageSize">
+                        <tr ng-repeat="asset in swapsList">
                             <td class="text-left"
                                 ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong class="price">{{asset.swapratetaker.toFixed(4)}}</strong> <span
@@ -8840,8 +8842,8 @@
                             </td>
                         </tr>
                         </tbody>
-                    </table>
                 </div>
+                    </table>
             </div>
         </div>
     </div>
