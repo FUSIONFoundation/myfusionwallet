@@ -30,10 +30,10 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let ticketsData;
             let tickets = {};
 
-            data = await window.__fsnGetAllBalances(walletaddress,  false, true ) 
-            // await ajaxReq.http.get(`${window.getApiServer()}/balances/${walletAddress}`).then(function (r) {
-            //     data = r.data
-            // })
+            // data = await window.__fsnGetAllBalances(walletaddress,  false, true )
+            await ajaxReq.http.get(`${window.getApiServer()}/balances/${walletAddress}`).then(function (r) {
+                data = r.data
+            })
 
             if (data.length == 0){
                 $scope.$eval(function () {
