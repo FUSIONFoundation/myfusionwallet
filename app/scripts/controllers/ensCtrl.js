@@ -2095,14 +2095,15 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     let allSwapsRunning = false;
     $scope.allSwaps = async function (page) {
         if (!page) page = 0;
-        $scope.swapsList = [];
-        let swapListFront = [];
-
         if (walletService.wallet !== null) {
             if(allSwapsRunning){
                 window.log(`allSwaps already running!`);
                 return;
             }
+
+            $scope.swapsList = [];
+            let swapList = [];
+            let swapListFront = [];
 
             allSwapsRunning = true;
             let accountData = uiFuncs.getTxData($scope);
