@@ -1172,7 +1172,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         balance = balance / $scope.countDecimals(decimals);
 
-        await $scope.$eval(function () {
+        await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
             $scope.takeDataFront.fromAssetName = toName;
             $scope.takeDataFront.fromAmountCut = $scope.swapsList[id].fromAmountCut;
