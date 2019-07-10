@@ -21,7 +21,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.setSendAndReceiveInit();
             });
         });
-        $scope.allSwaps();
+        await $scope.allSwaps(0);
         $scope.takeGetAllBalances();
         $scope.sortSwapMarket("timePosix");
         $scope.sortOpenMakes("timePosix");
@@ -151,16 +151,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.endPage = Math.ceil($scope.swapsList.length / $scope.pageSize);
             });
         }
-    });
-
-    $scope.$watch("swapsList", function () {
-        $scope.$eval(function () {
-            $scope.currentPage = 0;
-            $scope.searchSwapMarket = "";
-        });
-        $scope.$eval(function () {
-            $scope.shownRows = $scope.swapsList.length;
-        });
     });
 
     $scope.nextPage = function () {
@@ -2059,6 +2049,9 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets'){
+                url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc`
+            }
+            if($scope.selectedSendContract == '-' && $scope.selectedReceiveContract == '-'){
                 url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc`
             }
 
