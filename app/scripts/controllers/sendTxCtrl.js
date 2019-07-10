@@ -502,7 +502,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let distributed =
                 $scope.assetListOwns[$scope.lastId].total -
                 $scope.assetListOwns[$scope.lastId].balance;
-            
+
             $scope.changeSupplyInfo = {
                 name: $scope.assetListOwns[$scope.lastId].name,
                 symbol: $scope.assetListOwns[$scope.lastId].symbol,
@@ -2320,9 +2320,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let balances = {};
 
-            await window.__fsnGetAllBalances(walletAddress).then(function (res) {
-                balances = res;
-            });
+            try {
+                await window.__fsnGetAllBalances(walletAddress).then(function (res) {
+                    balances = res;
+                });
+            } catch (err){
+                console.log(err);
+            }
 
             if (balances === undefined) {
                 $scope.$eval(function () {
