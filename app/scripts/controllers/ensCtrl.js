@@ -1068,6 +1068,73 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.setReceive();
     };
 
+    $scope.takeModalPrivateSwaps = async function (id) {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let balance = "";
+        let decimals = 0;
+        let toName = "";
+        let fromName = "";
+
+        let fromAsset = [];
+
+        try {
+            await web3.fsn
+                .getBalance($scope.openTakeSwaps[id].toAssetId, walletAddress)
+                .then(function (res) {
+                    balance = res;
+                });
+            await window
+                .__fsnGetAsset($scope.openTakeSwaps[id].toAssetId)
+                .then(function (res) {
+                    decimals = res["Decimals"];
+                });
+            await window
+                .__fsnGetAsset($scope.openTakeSwaps[id].toAssetId)
+                .then(function (res) {
+                    toName = res["Name"];
+                });
+            await window
+                .__fsnGetAsset($scope.openTakeSwaps[id].fromAssetId)
+                .then(function (res) {
+                    fromName = res["Name"];
+                });
+        } catch (err) {
+            console.log(err);
+        }
+
+        balance = balance / $scope.countDecimals(decimals);
+
+        await $scope.$apply(function () {
+            $scope.takeDataFront.swapId = $scope.openTakeSwaps[id];
+            $scope.takeDataFront.fromAssetName = toName;
+            $scope.takeDataFront.fromAmountCut = $scope.openTakeSwaps[id].fromAmountCut;
+            $scope.takeDataFront.toAmountCut = $scope.openTakeSwaps[id].toAmountCut;
+            $scope.takeDataFront.fromAssetSymbol = $scope.openTakeSwaps[id].toAssetSymbol;
+            $scope.takeDataFront.fromAssetId = $scope.openTakeSwaps[id].toAssetId;
+            $scope.takeDataFront.swapSize = $scope.openTakeSwaps[id].maxswaps;
+            $scope.takeDataFront.toAssetName = fromName;
+            $scope.takeDataFront.toAssetMin =
+                $scope.openTakeSwaps[id].minswap / $scope.openTakeSwaps[id].swapratetaker;
+            $scope.takeDataFront.toAssetSymbol = $scope.openTakeSwaps[id].fromAssetSymbol;
+            $scope.takeDataFront.toAssetId = $scope.openTakeSwaps[id].fromAssetId;
+            $scope.takeDataFront.fromAssetMin = $scope.openTakeSwaps[id].minswaptaker;
+            $scope.takeDataFront.fromAssetBalance = balance;
+            $scope.takeDataFront.swapRate = $scope.openTakeSwaps[id].swapratetaker;
+            $scope.takeDataFront.maxAmount = $scope.openTakeSwaps[id].toAmount;
+            $scope.takeDataFront.fromAmount = $scope.openTakeSwaps[id].fromAmount;
+            $scope.takeDataFront.toAmount = $scope.openTakeSwaps[id].toAmount;
+            $scope.takeDataFront.fromVerified = $scope.openTakeSwaps[id].toVerified;
+            $scope.takeDataFront.toVerified = $scope.openTakeSwaps[id].fromVerified;
+            $scope.takeAmountSwap = 1;
+        });
+
+        await $scope.setReceive(1).then(function () {
+            $scope.takeSwapModal.open();
+        });
+    };
+
+
     $scope.takeModal = async function (id) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
@@ -2282,6 +2349,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             } catch (err) {
                 console.log(err);
             }
+            let i = 0;
 
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
@@ -2388,7 +2456,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     fromAmountF / parseInt(swapList[asset]["SwapSize"]);
 
                 let data = {
-                    id: swapListFront.length,
+                    id: i,
                     swap_id: swapList[asset]["SwapID"],
                     fromAssetId: swapList[asset]["FromAssetID"],
                     fromAssetSymbol: fromAsset["Symbol"],
@@ -2439,6 +2507,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 };
                 if (swapList[asset]["Targes"].includes(walletAddress)) {
                     await openTakesList.push(data);
+                    i++;
                     $scope.openTakeSwapsTotal++;
                 }
             }
