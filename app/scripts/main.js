@@ -145,7 +145,12 @@ let localCacheOfAssets = {}
 
 window.currentNet = '';
 window.getApiServer = function () {
+    if(window.currentNet === 'mainnet'){
         return 'https://mainnetapi.fusionnetwork.io'
+
+    } else if (window.currentNet === 'testnet'){
+        return 'https://testnetapi.fusionnetwork.io'
+    }
 }
 
 window.__fsnDeleteAssetFromCache = async function (assetId) {
@@ -194,7 +199,7 @@ window.log = function (message) {
 };
 let lastGetAllAssetTime = undefined;
 let lastAllGetAssets = undefined;
-let inGetAllAsets = false 
+let inGetAllAsets = false
 
 let arrayOfResolvesForGetAllAssets  = []
 let arrayOfRejectsForGetAllAssets = []
@@ -347,18 +352,18 @@ window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = fal
     }
     if ( wallet.inHere ) {
         wallet.inHere = true
-        return new Promise( (resolve,reject )=> { 
+        return new Promise( (resolve,reject )=> {
             wallet.arrayOfRejectsForBalances.push( reject )
             wallet.arrayOfResolvesForBalances.push( resolve )
             wallet.returnTimeLock.push( returnTimeLock )
         })
     }
     wallet.inHere = true
-    if ( !wallet.data || 
-            !wallet.lastGetAllBalancesTime || 
+    if ( !wallet.data ||
+            !wallet.lastGetAllBalancesTime ||
                 (wallet.lastGetAllBalancesTime + 7500) < (new Date()).getTime()) {
         try {
-            let data 
+            let data
             await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
                 data = JSON.parse(r.data.address[0].balanceInfo);
             });
@@ -366,19 +371,19 @@ window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = fal
             wallet.lastGetAllBalancesTime = (new Date()).getTime()
             wallet.data = data
             wallet.inHere = false
-            clearOutBalancesPromises( wallet, null, returnFullData ) 
+            clearOutBalancesPromises( wallet, null, returnFullData )
             if ( returnFullData ) {
                 return data
             }
             return returnTimeLock ? data.timeLockBalances : data.balances
         } catch (err) {
             wallet.inHere = false
-            clearOutBalancesPromises( wallet, null, err ) 
+            clearOutBalancesPromises( wallet, null, err )
             console.log("__fsnGetAllBalances Failed throwing this error => ", err);
             throw err
         }
     }
-    wallet.inHere = false 
+    wallet.inHere = false
     if ( returnFullData ) {
         return wallet.data
     }
@@ -452,7 +457,7 @@ function keepWeb3Alive() {
     // Initialize Testnet/Mainnet
     if (nodeUrl == "wss://mainnetpublicgateway1.fusionnetwork.io:10001") {
         window.currentNet = 'mainnet'
-    } else if (nodeUrl == "wss://gatewaypsn2w.fusionnetwork.io:10001") {
+    } else if (nodeUrl == "wss://testnetpublicgateway1.fusionnetwork.io:10001") {
         window.currentNet = 'testnet'
     } else {
         window.currentNet = 'custom'

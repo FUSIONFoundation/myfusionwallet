@@ -167,8 +167,8 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             };
         } else if (net == 'testnet') {
             url = {
-                "url": "wss://gatewaypsn2w.fusionnetwork.io:10001",
-                "chainid": 88666
+                "url": "wss://testnetpublicgateway1.fusionnetwork.io:10001",
+                "chainid": 46688
             };
         }
 
