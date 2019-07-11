@@ -2286,6 +2286,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
+                        swapList[data.SwapID].size = r.data[swap].size;
                     }
                 });
             } catch (err) {
@@ -2400,8 +2401,29 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 // Receive TL
 
-                let toAmountF = toAmount * parseInt(swapList[asset]["SwapSize"]);
-                let fromAmountF = fromAmount * parseInt(swapList[asset]["SwapSize"]);
+                let leftOver = parseInt(swapList[asset]["size"]) / parseInt(swapList[asset]["SwapSize"]);
+                let leftOverBN = new window.BigNumber(leftOver.toString());
+
+                // fromAmount
+                let minFromAmountBN = new window.BigNumber(swapList[asset]["MinFromAmount"].toString());
+                let fromAmountDec = $scope.countDecimals(fromAsset["Decimals"]);
+                let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
+                let minFromAmountFormattedBN = minFromAmountBN.div(minFromAmountDecimalsBN);
+                let minFromSwapSizeBN = new window.BigNumber(swapList[asset]["SwapSize"]);
+                let minFromMaxAmountBN = minFromAmountFormattedBN.times(minFromSwapSizeBN);
+                let minFromAmountFinal = leftOverBN.times(minFromMaxAmountBN);
+
+                // toAmount
+                let minToAmountBN = new window.BigNumber(swapList[asset]["MinToAmount"].toString());
+                let toAmountDec = $scope.countDecimals(toAsset["Decimals"]);
+                let minToAmountDecimalsBN = new window.BigNumber(toAmountDec.toString());
+                let minToAmountFormattedBN = minToAmountBN.div(minToAmountDecimalsBN);
+                let minToSwapSizeBN = new window.BigNumber(swapList[asset]["SwapSize"]);
+                let minToMaxAmountBN = minToAmountFormattedBN.times(minToSwapSizeBN);
+                let minToAmountFinal = leftOverBN.times(minToMaxAmountBN);
+
+                let toAmountF = minToAmountFinal.toString();
+                let fromAmountF = minFromAmountFinal.toString();
 
                 let minimumswapopenmake =
                     fromAmountF / parseInt(swapList[asset]["SwapSize"]);
@@ -2412,10 +2434,10 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     fromAssetId: swapList[asset]["FromAssetID"],
                     fromAssetSymbol: fromAsset["Symbol"],
                     fromAmount: fromAmountF,
-                    fromAmountCut: +fromAmountF.toFixed(8),
+                    fromAmountCut: fromAmountF,
                     toAssetId: swapList[asset]["ToAssetID"],
                     toAmount: toAmountF,
-                    toAmountCut: +toAmountF.toFixed(8),
+                    toAmountCut: toAmountF,
                     toAssetSymbol: toAsset["Symbol"],
                     swaprate: swapRate,
                     maxswaps: swapList[asset]["SwapSize"],
@@ -2463,6 +2485,8 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
             }
         }
+
+        console.log(openTakesList);
 
         $scope.$eval(function(){
             $scope.openTakeSwaps = openTakesList;
