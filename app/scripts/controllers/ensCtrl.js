@@ -2042,17 +2042,17 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let size = 10;
 
-            let url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
+            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
 
             if($scope.selectedReceiveAsset == 'All Assets'){
-                url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
 
             if($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets'){
-                url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
             if($scope.selectedSendContract == '-' && $scope.selectedReceiveContract == '-'){
-                url = `${window.getApiServer()}/swaps/all?page=${page}&size=${size}&sort=asc`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
 
             try {
