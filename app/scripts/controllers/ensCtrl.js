@@ -368,9 +368,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
 
     $scope.swapInformationModalOpen = async function (swap_id) {
         let data = {};
-        let owner = ''
+        let owner = '';
+        let size = 0;
 
-        await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swap_id}`).then(function (r) {
+        await ajaxReq.http.get(`${window.getApiServer()}/swaps2/${swap_id}`).then(function (r) {
+            size = r.data[0].size;
             data = JSON.parse(r.data[0].data);
             owner = r.data[0].fromAddress;
         });
@@ -436,10 +438,29 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         let minFromAmount;
         let minToAmount;
 
-        minFromAmount =
-            data["MinFromAmount"] / $scope.countDecimals(fromAsset["Decimals"]);
-        minToAmount =
-            data["MinToAmount"] / $scope.countDecimals(toAsset["Decimals"]);
+        let leftOver = parseInt(size) / parseInt(data["SwapSize"]);
+        let leftOverBN = new window.BigNumber(leftOver.toString());
+
+        // fromAmount
+        let minFromAmountBN = new window.BigNumber(data["MinFromAmount"].toString());
+        let fromAmountDec = $scope.countDecimals(fromAsset["Decimals"]);
+        let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
+        let minFromAmountFormattedBN = minFromAmountBN.div(minFromAmountDecimalsBN);
+        let minFromSwapSizeBN = new window.BigNumber(data["SwapSize"]);
+        let minFromMaxAmountBN = minFromAmountFormattedBN.times(minFromSwapSizeBN);
+        let minFromAmountFinal = leftOverBN.times(minFromMaxAmountBN);
+
+        //toAmount
+        let minToAmountBN = new window.BigNumber(data["MinToAmount"].toString());
+        let toAmountDec = $scope.countDecimals(toAsset["Decimals"]);
+        let minToAmountDecimalsBN = new window.BigNumber(toAmountDec.toString());
+        let minToAmountFormattedBN = minToAmountBN.div(minToAmountDecimalsBN);
+        let minToSwapSizeBN = new window.BigNumber(data["SwapSize"]);
+        let minToMaxAmountBN = minToAmountFormattedBN.times(minToSwapSizeBN);
+        let minToAmountFinal = leftOverBN.times(minToMaxAmountBN);
+
+        minFromAmount = minFromAmountFinal.toString()
+        minToAmount = minToAmountFinal.toString()
 
         let fromVerifiedImage = "";
         let fromHasImage = false;
@@ -494,7 +515,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 MinFromAmount: minFromAmount,
                 MinToAmount: minToAmount,
                 Owner: owner,
-                SwapSize: data["SwapSize"],
+                SwapSize: size,
                 Targes: targes,
                 Time: time,
                 ToAssetName: toAsset["Name"],
@@ -1829,7 +1850,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?address=${walletAddress}&page=0&size=30`).then(function (r) {
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?address=${walletAddress}&page=0&size=30`).then(function (r) {
                     let swaps = r.data;
                     for (let swap in swaps) {
                         let data = JSON.parse(swaps[swap].data);
@@ -2261,7 +2282,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/swaps/all?target=${walletAddress}&page0&size=100`).then(function (r) {
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?target=${walletAddress}&page0&size=100`).then(function (r) {
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
