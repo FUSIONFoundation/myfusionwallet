@@ -1175,7 +1175,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         let perc2 = new window.Decimal(
-            $scope.convertToString($scope.takeDataFront.swapSize)
+            $scope.convertToString($scope.takeDataFront.size)
         );
         let perc3 = perc1.div($scope.convertToString(perc2));
 
