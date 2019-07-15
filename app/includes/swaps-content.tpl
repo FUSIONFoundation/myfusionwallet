@@ -683,11 +683,11 @@
                                 <input type="number" class="form-control m-0 mt-1"
                                        ng-model="takeAmountSwap"
                                        min="1"
-                                       max="{{takeDataFront.swapSize}}"
+                                       max="{{takeDataFront.size}}"
                                        ng-change="setReceive()" placeholder="Fills">
                                 <div class="input-group-append">
                                     <span class="input-group-text small-gray-text">
-                                        of {{takeDataFront.swapSize}}</span>
+                                        of {{takeDataFront.size}}</span>
                                 </div>
                             </div>
                         </div>

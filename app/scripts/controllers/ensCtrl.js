@@ -1078,6 +1078,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeDataFront.toAmount = $scope.openTakeSwaps[id].toAmount;
             $scope.takeDataFront.fromVerified = $scope.openTakeSwaps[id].toVerified;
             $scope.takeDataFront.toVerified = $scope.openTakeSwaps[id].fromVerified;
+            $scope.takeDataFront.size = $scope.openTakeSwaps[id].size;
             $scope.takeAmountSwap = 1;
         });
 
@@ -1145,8 +1146,11 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.takeDataFront.toAmount = $scope.swapsList[id].toAmount;
             $scope.takeDataFront.fromVerified = $scope.swapsList[id].toVerified;
             $scope.takeDataFront.toVerified = $scope.swapsList[id].fromVerified;
+            $scope.takeDataFront.size = $scope.swapsList[id].size;
             $scope.takeAmountSwap = 1;
         });
+
+        console.log($scope.takeDataFront);
 
         await $scope.setReceive(1).then(function () {
             $scope.takeSwapModal.open();
@@ -2261,6 +2265,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     maxswaps: swapList[asset]["SwapSize"],
                     swapratetaker: swapratetaker,
                     minswap: minimumswap,
+                    size:swapList[asset]["size"],
                     minswaptaker: minimumswaptaker,
                     minswapopenmake: minimumswapopenmake,
                     time: time.toLocaleString(),
@@ -2491,6 +2496,7 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                     minswaptaker: minimumswaptaker,
                     minswapopenmake: minimumswapopenmake,
                     time: time.toLocaleString(),
+                    size:swapList[asset]["size"],
                     timePosix: swapList[asset]["Time"],
                     timeHours: timeHours,
                     targes: targes,
