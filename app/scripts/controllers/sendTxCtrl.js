@@ -2395,13 +2395,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 if (assetBalance > 0.000000000001) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
+                    let balanceBN = new window.BigNumber(assetBalance);
+                    let divBN = new window.BigNumber($scope.countDecimals(assetList[asset]["Decimals"]));
+                    let balanceFinal = balanceBN.div(divBN);
                     let data = {
                         name: assetList[asset]["Name"],
                         symbol: assetList[asset]["Symbol"],
                         decimals: assetList[asset]["Decimals"],
                         total: assetList[asset]["Total"] / divider,
                         contractaddress: id,
-                        balance: assetBalance / divider,
+                        balance: balanceFinal.toString(),
                         owner: owned,
                         issuer: owner,
                         canChange: assetList[asset]["CanChange"],
