@@ -201,26 +201,18 @@
                     <table class="table" ng-show="openTakeSwaps != 0 && !showLoader">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col"></th>
-                            <th class="text-left" scope="col">Time Initiated</th>
-                            <th class="text-right" scope="col">Send</th>
-                            <th class="text-right" scope="col">Receive</th>
-                            <th class="text-right" scope="col">Swap Rate</th>
-                            <th class="text-right" scope="col">Fill Size</th>
+                            <th class="text-left" scope="col">Price</th>
+                            <th class="text-right" scope="col">You Send</th>
+                            <th class="text-right" scope="col">You Receive</th>
+                            <th class="text-right" scope="col">Minimum Fill</th>
                             <th class="text-right" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
                             <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
-                            <span class="gray-bg-2 font-size-12 p-1 targes-border">
-                              <i class="fa fa-globe" aria-hidden="true" ng-hide="asset.targes=='Private'"></i>
-                              <i class="fa fa-lock" aria-hidden="true" ng-hide="asset.targes=='Public'"></i>
-                                {{asset.targes}}
-                            </span>
+                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.toAssetSymbol}} : <strong>1</strong> : {{asset.fromAssetSymbol}}
                             </td>
-                            <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">{{asset.time}} <br>
-                                <span class="small-gray-text">{{asset.timeHours}}</td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong>{{asset.toAmountCut}}</strong> <span
                                         class="font-size-12">{{asset.toAssetSymbol}}</span>
@@ -251,9 +243,6 @@
                                     - {{asset.FromEndTimeString}}
                             </span>
                             </td>
-                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> <span
-                                        class="font-size-12">{{asset.toAssetSymbol}}</span></td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
                                         class="font-size-12">{{asset.toAssetSymbol}}</span></td>
