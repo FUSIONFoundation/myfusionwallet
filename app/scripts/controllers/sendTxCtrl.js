@@ -513,18 +513,34 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.changeSupply.open();
         };
 
-        $scope.changeSupplyReviewOpen = function () {
+        $scope.changeSupplyReviewOpen = async function () {
+            let a = {};
+
+            await web3.fsn.getAsset($scope.assetListOwns[$scope.lastId].contractaddress).then(function(r){
+                a = r;
+            });
+
+            $scope.assetListOwns[$scope.lastId].total = a.Total / ($scope.countDecimals(a.Decimals));
+
             let totalBN = new BigNumber($scope.assetListOwns[$scope.lastId].total);
             let newtsBN = new BigNumber($scope.newTotalSupply.toString());
 
-            if (newtsBN > totalBN) {
-                $scope.incDecr = "+";
-                $scope.changeSupplyState = "increment";
-            } else {
-                $scope.incDecr = "";
-                $scope.changeSupplyState = "decrement";
-            }
+            console.log($scope.changeSupplyState);
             let diffBN = newtsBN.sub(totalBN);
+
+            let diff = diffBN.toString();
+            
+            if (diff.indexOf('-') === 0) {
+                await $scope.$eval(function(){
+                    $scope.incDecr = "";
+                    $scope.changeSupplyState = "decrement";
+                });
+            } else {
+                await $scope.$eval(function(){
+                    $scope.incDecr = "+";
+                    $scope.changeSupplyState = "increment";
+                });
+            }
 
             $scope.$eval(function () {
                 $scope.totalSupplyDiff = $scope.incDecr + diffBN.toString();
