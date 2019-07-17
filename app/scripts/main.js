@@ -146,11 +146,8 @@ let localCacheOfAssets = {}
 window.currentNet = '';
 window.getApiServer = function () {
     if(window.currentNet === 'mainnet'){
-        console.log('https://mainnetapi.fusionnetwork.io')
         return 'https://mainnetapi.fusionnetwork.io'
-
     } else if (window.currentNet === 'testnet'){
-        console.log('https://testnetapi.fusionnetwork.io')
         return 'https://testnetapi.fusionnetwork.io'
     }
 }

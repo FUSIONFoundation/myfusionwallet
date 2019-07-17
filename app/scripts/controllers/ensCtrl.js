@@ -1997,8 +1997,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
                 let minimumswapopenmake =
                     fromAmountF / parseInt(swapList[asset]["size"]);
 
-                console.log(fromAmountF, swapList[asset]["size"]);
-
                 let data = {
                     id: openMakeListFront.length,
                     swap_id: swapList[asset]["SwapID"],
