@@ -486,7 +486,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.assetListOwns[$scope.lastId].total = a.Total / ($scope.countDecimals(a.Decimals));
 
             $scope.$eval(function () {
-                $scope.newTotalSupply = $scope.assetListOwns[id].total;
+                $scope.newTotalSupply = new window.BigNumber($scope.assetListOwns[id].total).toString();
                 $scope.transacData = "";
             });
 
@@ -529,7 +529,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let diffBN = newtsBN.sub(totalBN);
 
             let diff = diffBN.toString();
-            
+
             if (diff.indexOf('-') === 0) {
                 await $scope.$eval(function(){
                     $scope.incDecr = "";
