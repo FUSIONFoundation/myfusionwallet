@@ -354,15 +354,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         };
 
         $scope.verifyWalletAddress = async function () {
-            $scope.$eval(function () {
-                $scope.validWalletAddress = false;
-                $scope.walletAddressError = false;
-                $scope.checkingUSAN = false;
-            });
-
             let address = $scope.sendAsset.toAddress;
 
-            if (address == "" || address.length == 1) {
+            if(!address || address.length < 3){
                 $scope.$eval(function () {
                     $scope.validWalletAddress = false;
                     $scope.walletAddressError = false;
@@ -371,58 +365,48 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 return;
             }
 
-            if (address.length == 42 && address.slice(0, 2) == "0x") {
-                if (web3.utils.isAddress(address)) {
-                    $scope.$eval(function () {
-                        $scope.validWalletAddress = true;
-                        $scope.walletAddressError = false;
-                    });
-                    return;
-                } else {
-                    $scope.$eval(function () {
-                        $scope.walletAddressError = true;
-                        $scope.validWalletAddress = false;
-                    });
-                    return;
-                }
-            }
+            $scope.$eval(function () {
+                $scope.validWalletAddress = false;
+                $scope.walletAddressError = false;
+                $scope.checkingUSAN = true;
+            });
 
-            if (address.length < 42 && address.match(/^[0-9]+$/) != null) {
+            if (web3.utils.isAddress(address)){
                 $scope.$eval(function () {
+                    $scope.validWalletAddress = true;
+                    $scope.walletAddressError = false;
+                    $scope.checkingUSAN = false;
+                });
+            } else if(address.length < 42){
+                $scope.$eval(function(){
                     $scope.walletAddressError = false;
                     $scope.checkingUSAN = true;
+                    $scope.validWalletAddress = false;
                 });
                 try {
-                    let addr = "";
-                    await web3.fsn
-                        .getAddressByNotation(parseInt(address))
-                        .then(function (res) {
-                            addr = res;
-                        });
-                    if (web3.utils.isAddress(addr)) {
-                        $scope.$eval(function () {
-                            $scope.walletAddressError = false;
-                            $scope.validWalletAddress = true;
-                            $scope.checkingUSAN = false;
-                        });
-                        return;
-                    }
-                    return;
-                } catch (err) {
-                    $scope.$eval(function () {
-                        $scope.walletAddressError = true;
-                        $scope.validWalletAddress = false;
-                        $scope.checkingUSAN = false;
+                    await web3.fsn.getAddressByNotation(parseInt(address)).then(function (r) {
+                        if (r) {
+                            return $scope.$eval(function () {
+                                $scope.validWalletAddress = true;
+                                $scope.walletAddressError = false;
+                                $scope.checkingUSAN = false;
+                            })
+                        }
                     });
-                    return;
+                } catch ( err ){
+                    $scope.$eval(function () {
+                        $scope.validWalletAddress = false;
+                        $scope.walletAddressError = true;
+                        $scope.checkingUSAN = false;
+                    })
                 }
+            } else {
+                $scope.$eval(function(){
+                    $scope.validWalletAddress = false;
+                    $scope.walletAddressError = true;
+                    $scope.checkingUSAN = false;
+                })
             }
-
-            $scope.$eval(function () {
-                $scope.walletAddressError = true;
-                $scope.validWalletAddress = false;
-                $scope.checkingUSAN = false;
-            });
         };
 
         $scope.manageAssetOpen = async function (id) {

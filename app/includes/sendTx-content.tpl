@@ -567,7 +567,7 @@
                             <input type="text"
                                    class="form-control"
                                    ng-model="sendAsset.toAddress"
-                                   ng-change="verifyWalletAddress(); verifyWalletAddress();"
+                                   ng-change="verifyWalletAddress();"
                                    placeholder="Enter a fusion address"/>
                             <div class="invalid-feedback" ng-show="walletAddressError">
                                 Please, enter a valid wallet address.
