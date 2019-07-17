@@ -440,6 +440,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
             }
 
+            let a = {};
+            await web3.fsn.getAsset($scope.assetListOwns[id].contractaddress).then(function(r){
+                a = r;
+            });
+
+            $scope.assetListOwns[id].total = a.Total / ($scope.countDecimals(a.Decimals));
+
             $scope.$eval(function () {
                 $scope.manageAssetInfo = {
                     name: $scope.assetListOwns[id].name,

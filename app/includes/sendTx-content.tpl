@@ -1408,11 +1408,10 @@
                             <span class="small-gray-text">
                                 New Total Supply
                             </span>
-                            <input type="number"
+                            <input type="text"
                                    class="form-control"
                                    ng-class="{'is-invalid' : newTotalSupply <= changeSupplyInfo.distributed}"
                                    ng-model="newTotalSupply"
-                                   min="0"
                             />
                             <div class="invalid-feedback" ng-show="newTotalSupply <= changeSupplyInfo.distributed">
                                 Supply cannot be less than amount distributed.
