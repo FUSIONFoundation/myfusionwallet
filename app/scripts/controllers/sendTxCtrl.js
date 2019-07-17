@@ -478,17 +478,17 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.lastId = id;
             }
 
-            $scope.$eval(function () {
-                $scope.newTotalSupply = $scope.assetListOwns[id].total;
-                $scope.transacData = "";
-            });
-
             let a = {}
             await web3.fsn.getAsset($scope.assetListOwns[$scope.lastId].contractaddress).then(function(r){
                 a = r;
             });
 
             $scope.assetListOwns[$scope.lastId].total = a.Total / ($scope.countDecimals(a.Decimals));
+
+            $scope.$eval(function () {
+                $scope.newTotalSupply = $scope.assetListOwns[id].total;
+                $scope.transacData = "";
+            });
 
             let distributed =
                 $scope.assetListOwns[$scope.lastId].total -
