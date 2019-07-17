@@ -2398,11 +2398,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     let balanceBN = new window.BigNumber(assetBalance);
                     let divBN = new window.BigNumber($scope.countDecimals(assetList[asset]["Decimals"]));
                     let balanceFinal = balanceBN.div(divBN);
+
+                    let totalBN = new window.BigNumber(assetList[asset]["Total"]);
+                    let totalBNFinal = totalBN.div(divBN);
                     let data = {
                         name: assetList[asset]["Name"],
                         symbol: assetList[asset]["Symbol"],
                         decimals: assetList[asset]["Decimals"],
-                        total: assetList[asset]["Total"] / divider,
+                        total: totalBNFinal.toString(),
                         contractaddress: id,
                         balance: balanceFinal.toString(),
                         owner: owned,
