@@ -261,7 +261,7 @@ window.__fsnGetAllAssets = async function (array) {
                     ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
                     Name: "FUSION",
                     Symbol: "FSN",
-                    Total: 10000000000,
+                    Total: 81920000000000000000000000,
                 }
                 inGetAllAsets = false
                 clearOutAssetPromises( localCacheOfAssets, null )
@@ -283,7 +283,7 @@ window.__fsnGetAllAssets = async function (array) {
                                 ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
                                 Name: "FUSION",
                                 Symbol: "FSN",
-                                Total: 10000000000,
+                                Total: 81920000000000000000000000,
                             }
                             let data = JSON.parse(r.data[0].data);
                             data.ID = data.AssetID;
