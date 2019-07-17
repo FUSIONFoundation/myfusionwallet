@@ -141,7 +141,9 @@ var web3FusionExtend = require('web3-fusion-extend');
 window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
-let localCacheOfAssets = {}
+let localCacheOfAssets = {};
+
+window.versionNumber = '3.10.00';
 
 window.currentNet = '';
 window.getApiServer = function () {

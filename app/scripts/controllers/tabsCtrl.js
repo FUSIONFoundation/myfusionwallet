@@ -1,6 +1,7 @@
 'use strict';
 var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
+    $scope.versionNumber = window.versionNumber;
     $scope.gService = globalService;
     $scope.tabNames = $scope.gService.tabs;
     $scope.curLang = 'English';
