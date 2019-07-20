@@ -499,7 +499,7 @@ keepWeb3Alive();
 var app = angular.module("mewApp", [
     "pascalprecht.translate",
     "ngSanitize",
-    "ngAnimate",
+    "ngAnimate"
 ]);
 
 app.filter('startFrom', function () {
@@ -544,6 +544,35 @@ app.factory("globalService", [
 ]);
 app.factory("walletService", walletService);
 app.directive("blockieAddress", blockiesDrtv);
+app.directive('clickOutside', ['$document', function ($document) {
+    return {
+        restrict: 'A',
+        scope: {
+            clickOutside: '&'
+        },
+        link: function (scope, el, attr) {
+            const handler = function (e) {
+                console.log(e);
+                console.log(el);
+                console.log(scope.clickOutside);
+                if (el !== e.target && !el[0].contains(e.target)) {
+                    scope.$apply(function () {
+                        console.log(scope.clickOutside);
+                        //  whatever expression you assign to the click-outside attribute gets executed here
+                        //  good for closing dropdowns etc
+                        scope.$eval(scope.clickOutside);
+                    });
+                }
+            }
+
+            $document.on('click', handler);
+
+            scope.$on('$destroy', function() {
+                $document.off('click', handler);
+            });
+        }
+    }
+}]);
 app.directive("addressField", ["$compile", "darkList", addressFieldDrtv]);
 app.directive("qrCode", QRCodeDrtv);
 app.directive("onReadFile", fileReaderDrtv);

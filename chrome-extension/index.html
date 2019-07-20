@@ -744,12 +744,12 @@
                    data-toggle="modal"
                    data-target="#createAsset"
                    ng-click="createAssetInit()"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                 >
                     <i class="fa fa-plus"></i> Create Asset
                 </a>
                 <a class="btn btn-sm btn-primary"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                    ng-click="sendAssetModalOpen(); transactionType = 'none';"
                 >
                     Send/Time-lock Assets
@@ -3365,12 +3365,12 @@
                    data-toggle="modal"
                    data-target="#createAsset"
                    ng-click="createAssetInit()"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                 >
                     <i class="fa fa-plus"></i> Create Asset
                 </a>
                 <a class="btn btn-sm btn-primary"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                    ng-click="sendAssetModalOpen(); transactionType = 'none';"
                 >
                     Send/Time-lock Assets
@@ -8357,7 +8357,7 @@
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
-                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="sendDropDown2 = !sendDropDown2">
+                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="sendDropDown2 = !sendDropDown2" click-outside="Hallo">
                                     <div class="col">
                                     <img ng-if="selectedSendHasImage"
                                          ng-src="images/verifiedassets/{{selectedSendImage}}"/>
@@ -10593,12 +10593,12 @@
                    data-toggle="modal"
                    data-target="#createAsset"
                    ng-click="createAssetInit()"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                 >
                     <i class="fa fa-plus"></i> Create Asset
                 </a>
                 <a class="btn btn-sm btn-primary"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                    ng-click="sendAssetModalOpen(); transactionType = 'none';"
                 >
                     Send/Time-lock Assets

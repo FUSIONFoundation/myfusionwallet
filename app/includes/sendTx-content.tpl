@@ -16,12 +16,12 @@
                    data-toggle="modal"
                    data-target="#createAsset"
                    ng-click="createAssetInit()"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                 >
                     <i class="fa fa-plus"></i> Create Asset
                 </a>
                 <a class="btn btn-sm btn-primary"
-                   ng-class="{'disabled' : web3WalletBalance <= 0}"
+                   ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                    ng-click="sendAssetModalOpen(); transactionType = 'none';"
                 >
                     Send/Time-lock Assets

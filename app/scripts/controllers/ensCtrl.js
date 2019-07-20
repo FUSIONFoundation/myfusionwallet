@@ -8,7 +8,6 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
     }
-
     window.__fsnGetAllAssets();
 
     $scope.init = async function () {
