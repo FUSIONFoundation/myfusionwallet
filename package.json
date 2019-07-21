@@ -80,9 +80,11 @@
     "cookie-parser": "^1.4.3",
     "decimal.js": "^10.1.1",
     "express": "^4.16.4",
+    "geoip-lite": "^1.3.7",
     "jade": "^1.11.0",
     "less-middleware": "^3.0.1",
     "ng-outside-click": "^1.0.0",
+    "node-iplocate": "^1.0.1",
     "path": "^0.12.7",
     "trezor-connect": "^7.0.3"
   }

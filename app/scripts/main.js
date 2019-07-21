@@ -142,10 +142,45 @@ window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
 let localCacheOfAssets = {};
+const iplocate = require("node-iplocate");
 
 window.versionNumber = '3.10.00';
 
 window.currentNet = '';
+
+window.locationCookie = 'locationCookie';
+let location = localStorage.getItem(window.locationCookie);
+let lastKnownIp = localStorage.getItem(window.lastKnownIp);
+console.log(lastKnownIp)
+console.log(location);
+
+window.getLastKnownIp = async function(){
+    await ajaxReq.http.get('https://ipinfo.io/json').then(function (response) {
+        if(lastKnownIp === null || response.data.ip !== lastKnownIp.ip) {
+            let ipData = {
+                ip: response.data.ip
+            };
+            lastKnownIp = ipData;
+            localStorage.setItem(window.lastKnownIp, JSON.stringify(ipData));
+        }
+    });
+};
+
+window.getLocation = async function (){
+    await window.getLastKnownIp();
+    if(lastKnownIp) {
+        await iplocate(lastKnownIp.ip).then(function (results) {
+            console.log(results.continent, results.country_code);
+            let data = {
+                continent: results.continent,
+                country_code: results.country_code
+            };
+            location = data;
+            localStorage.setItem(window.locationCookie, JSON.stringify(data));
+        });
+    }
+}
+
 window.getApiServer = function () {
     if(window.currentNet === 'mainnet'){
         return 'https://mainnetapi.fusionnetwork.io'
@@ -308,7 +343,6 @@ window.__fsnGetAllAssets = async function (array) {
     clearOutAssetPromises( localCacheOfAssets, null )
     return localCacheOfAssets
 }
-
 
 let wallets = {}
 let returnTime

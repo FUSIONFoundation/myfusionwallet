@@ -1,6 +1,9 @@
 'use strict';
 var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
+
+    window.getLocation();
+
     $scope.versionNumber = window.versionNumber;
     $scope.gService = globalService;
     $scope.tabNames = $scope.gService.tabs;
