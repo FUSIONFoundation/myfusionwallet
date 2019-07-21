@@ -183,11 +183,19 @@ window.getLocation = async function (){
 
 window.getApiServer = function () {
     if(window.currentNet === 'mainnet'){
-        return 'https://mainnetapi.fusionnetwork.io'
+        if(location.continent === 'Asia' && location.country_code === 'CN'){
+            return '';
+        } else {
+            return 'https://mainnetapi.fusionnetwork.io';
+        }
     } else if (window.currentNet === 'testnet'){
-        return 'https://testnetapi.fusionnetwork.io'
+        if(location.continent === 'Asia' && location.country_code === 'CN'){
+            return '';
+        } else {
+            return 'https://testnetapi.fusionnetwork.io'
+        }
     }
-}
+};
 
 window.__fsnDeleteAssetFromCache = async function (assetId) {
     delete localCacheOfAssets[assetId]
