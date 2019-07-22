@@ -149,10 +149,8 @@ window.versionNumber = '3.10.00';
 window.currentNet = '';
 
 window.locationCookie = 'locationCookie';
-let location = localStorage.getItem(window.locationCookie);
-let lastKnownIp = localStorage.getItem(window.lastKnownIp);
-console.log(lastKnownIp)
-console.log(location);
+let location = JSON.parse(localStorage.getItem(window.locationCookie));
+let lastKnownIp = JSON.parse(localStorage.getItem(window.lastKnownIp));
 
 window.getLastKnownIp = async function(){
     await ajaxReq.http.get('https://ipinfo.io/json').then(function (response) {
@@ -170,7 +168,6 @@ window.getLocation = async function (){
     await window.getLastKnownIp();
     if(lastKnownIp) {
         await iplocate(lastKnownIp.ip).then(function (results) {
-            console.log(results.continent, results.country_code);
             let data = {
                 continent: results.continent,
                 country_code: results.country_code
@@ -184,13 +181,15 @@ window.getLocation = async function (){
 window.getApiServer = function () {
     if(window.currentNet === 'mainnet'){
         if(location.continent === 'Asia' && location.country_code === 'CN'){
-            return '';
+            console.log('Using Asia API Mainnet Server');
+            return 'https://asiaapi.fusionnetwork.io';
         } else {
+            console.log('Using US API Mainnet Server');
             return 'https://mainnetapi.fusionnetwork.io';
         }
     } else if (window.currentNet === 'testnet'){
         if(location.continent === 'Asia' && location.country_code === 'CN'){
-            return '';
+            return 'https://testnetasiaapi.fusionnetwork.io';
         } else {
             return 'https://testnetapi.fusionnetwork.io'
         }
@@ -594,12 +593,12 @@ app.directive('clickOutside', ['$document', function ($document) {
         },
         link: function (scope, el, attr) {
             const handler = function (e) {
-                console.log(e);
-                console.log(el);
-                console.log(scope.clickOutside);
+                // console.log(e);
+                // console.log(el);
+                // console.log(scope.clickOutside);
                 if (el !== e.target && !el[0].contains(e.target)) {
                     scope.$apply(function () {
-                        console.log(scope.clickOutside);
+                        // console.log(scope.clickOutside);
                         //  whatever expression you assign to the click-outside attribute gets executed here
                         //  good for closing dropdowns etc
                         scope.$eval(scope.clickOutside);
