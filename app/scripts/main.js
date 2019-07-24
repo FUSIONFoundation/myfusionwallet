@@ -591,24 +591,24 @@ app.directive('clickOutside', ['$document', function ($document) {
         scope: {
             clickOutside: '&'
         },
-        link: function (scope, el, attr) {
+        link: function ($scope, el, attr) {
             const handler = function (e) {
                 // console.log(e);
                 // console.log(el);
-                // console.log(scope.clickOutside);
+                // console.log($scope.clickOutside);
                 if (el !== e.target && !el[0].contains(e.target)) {
-                    scope.$apply(function () {
-                        // console.log(scope.clickOutside);
-                        //  whatever expression you assign to the click-outside attribute gets executed here
-                        //  good for closing dropdowns etc
-                        scope.$eval(scope.clickOutside);
+                    $scope.$apply(function () {
+                        console.log($scope.clickOutside);
+                         // whatever expression you assign to the click-outside attribute gets executed here
+                         // good for closing dropdowns etc
+                        $scope.$eval($scope.clickOutside);
                     });
                 }
             }
 
             $document.on('click', handler);
 
-            scope.$on('$destroy', function() {
+            $scope.$on('$destroy', function() {
                 $document.off('click', handler);
             });
         }

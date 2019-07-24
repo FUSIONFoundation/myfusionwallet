@@ -2069,6 +2069,14 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.allSwapsPage = 0;
     })
 
+    $scope.$watchGroup(['sendDropDown','sendDropDown2','receiveDropDown','receiveDropDown2'],function(){
+        $scope.$eval(function(){
+            $scope.searchSendAsset = '';
+            $scope.searchReceiveAsset = '';
+        });
+        console.log('One of the dropdowns changed');
+    });
+
 
     let swapList = {};
     $scope.allSwapsRunning = false;
