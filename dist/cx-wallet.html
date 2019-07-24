@@ -8324,7 +8324,7 @@
                 <span class="small-gray-text">YOU SEND</span>
                 <br>
                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
-                     ng-click="sendDropDown = !sendDropDown">
+                     ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
                     <div class="float-left w-75">
                         <a>
                             <div class="col-md-2 m-1 p-0" ng-show="selectedSendAsset !== 'All Assets'">
@@ -8395,7 +8395,7 @@
                 <span class="small-gray-text">YOU RECEIVE</span>
                 <br>
                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
-                     ng-click="receiveDropDown = !receiveDropDown">
+                     ng-click="receiveDropDown = !receiveDropDown  && closeAllOtherDropDowns('receiveDropDown2')">
                     <div class="float-left w-75">
                         <a>
                             <div class="col-md-2 m-1 p-0" ng-show="selectedReceiveAsset !== 'All Assets'">
@@ -9020,7 +9020,7 @@
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
-                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="sendDropDown2 = !sendDropDown2" click-outside="!sendDropDown2">
+                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')" click-outside="!sendDropDown2">
                                     <div class="col">
                                     <img ng-if="selectedSendHasImage"
                                          ng-src="images/verifiedassets/{{selectedSendImage}}"/>
@@ -9195,7 +9195,7 @@
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
-                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="receiveDropDown2 = !receiveDropDown2">
+                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
                                     <div class="col">
                                         <img ng-if="selectedReceiveHasImage"
                                              ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>

@@ -2069,12 +2069,46 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.allSwapsPage = 0;
     })
 
+
+    $scope.closeAllOtherDropDowns = async function (input){
+        if(input === 'sendDropDown'){
+            $scope.$eval(function(){
+                $scope.sendDropDown2 = false;
+                $scope.receiveDropDown = false;
+                $scope.receiveDropDown2 = false;
+            });
+            return;
+        }
+        if(input === 'sendDropDown2'){
+            $scope.$eval(function(){
+                $scope.sendDropDown = false;
+                $scope.receiveDropDown = false;
+                $scope.receiveDropDown2 = false;
+            });
+            return;
+        }
+        if(input === 'receiveDropDown'){
+            $scope.$eval(function(){
+                $scope.sendDropDown = false;
+                $scope.sendDropDown2 = false;
+                $scope.receiveDropDown2 = false;
+            });
+            return;
+        }
+        if(input === 'receiveDropDown2'){
+            $scope.$eval(function(){
+                $scope.sendDropDown = false;
+                $scope.sendDropDown2 = false;
+                $scope.receiveDropDown = false;
+            });
+            return;
+        }
+    };
     $scope.$watchGroup(['sendDropDown','sendDropDown2','receiveDropDown','receiveDropDown2'],function(){
         $scope.$eval(function(){
             $scope.searchSendAsset = '';
             $scope.searchReceiveAsset = '';
         });
-        console.log('One of the dropdowns changed');
     });
 
 
