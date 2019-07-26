@@ -540,7 +540,8 @@ keepWeb3Alive();
 var app = angular.module("mewApp", [
     "pascalprecht.translate",
     "ngSanitize",
-    "ngAnimate"
+    "ngAnimate",
+    "ui.bootstrap"
 ]);
 
 app.filter('startFrom', function () {
