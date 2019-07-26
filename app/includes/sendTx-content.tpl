@@ -680,15 +680,19 @@
                                     From
                             </span>
                                 <br>
-                                <input class="form-control"
-                                       type="date"
+                                    <input class="form-control"
+                                       type="text"
                                        ng-change="checkDateWithForever()"
-                                       min="{{todayDate}}"
-                                       timepicker-neutral-timezone
-                                       onkeydown="return false"
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled'"
-                                >
+                                       ng-required="true"
+                                       is-open="popup.opened" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open1()"
+                                       placeholder="mm/dd/yyyy"
+                                    >
                                 <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                       ng-show="transactionType == 'daterange'">Now</span>
 
@@ -706,12 +710,18 @@
                                 </span>
                                 <br>
                                 <input class="form-control"
-                                       type="date"
+                                       type="text"
                                        timepicker-neutral-timezone
                                        ng-change="checkDate()"
-                                       min="{{todayDate}}"
                                        onkeydown="return false"
-                                       ng-model="sendAsset.tillTime">
+                                       ng-model="sendAsset.tillTime"
+                                       ng-required="true"
+                                       is-open="popup.opened2" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open2()"
+                                       placeholder="mm/dd/yyyy">
                             </div>
                         </div>
                     </section>

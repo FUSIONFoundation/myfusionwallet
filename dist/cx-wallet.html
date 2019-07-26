@@ -11,9 +11,11 @@
     <link href="https://www.myetherwallet.com" rel="canonical">
     <meta content="https://www.myetherwallet.com" property="og:url">
     <meta content="https://www.myetherwallet.com" name="twitter:url">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/etherwallet-master.min.css">
     <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
     <script type="text/javascript" src="js/etherwallet-master.js"></script>
+    <script type="text/javascript" src="js/ui-bootstrap-custom-tpls-2.5.0.min.js"></script>
     <meta name="description"
           content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta property="og:description"
@@ -2071,15 +2073,19 @@
                                     From
                             </span>
                                 <br>
-                                <input class="form-control"
-                                       type="date"
+                                    <input class="form-control"
+                                       type="text"
                                        ng-change="checkDateWithForever()"
-                                       min="{{todayDate}}"
-                                       timepicker-neutral-timezone
-                                       onkeydown="return false"
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled'"
-                                >
+                                       ng-required="true"
+                                       is-open="popup.opened" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open1()"
+                                       placeholder="mm/dd/yyyy"
+                                    >
                                 <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                       ng-show="transactionType == 'daterange'">Now</span>
 
@@ -2097,12 +2103,18 @@
                                 </span>
                                 <br>
                                 <input class="form-control"
-                                       type="date"
+                                       type="text"
                                        timepicker-neutral-timezone
                                        ng-change="checkDate()"
-                                       min="{{todayDate}}"
                                        onkeydown="return false"
-                                       ng-model="sendAsset.tillTime">
+                                       ng-model="sendAsset.tillTime"
+                                       ng-required="true"
+                                       is-open="popup.opened2" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open2()"
+                                       placeholder="mm/dd/yyyy">
                             </div>
                         </div>
                     </section>
@@ -4695,15 +4707,19 @@
                                     From
                             </span>
                                 <br>
-                                <input class="form-control"
-                                       type="date"
+                                    <input class="form-control"
+                                       type="text"
                                        ng-change="checkDateWithForever()"
-                                       min="{{todayDate}}"
-                                       timepicker-neutral-timezone
-                                       onkeydown="return false"
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled'"
-                                >
+                                       ng-required="true"
+                                       is-open="popup.opened" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open1()"
+                                       placeholder="mm/dd/yyyy"
+                                    >
                                 <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                       ng-show="transactionType == 'daterange'">Now</span>
 
@@ -4721,12 +4737,18 @@
                                 </span>
                                 <br>
                                 <input class="form-control"
-                                       type="date"
+                                       type="text"
                                        timepicker-neutral-timezone
                                        ng-change="checkDate()"
-                                       min="{{todayDate}}"
                                        onkeydown="return false"
-                                       ng-model="sendAsset.tillTime">
+                                       ng-model="sendAsset.tillTime"
+                                       ng-required="true"
+                                       is-open="popup.opened2" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open2()"
+                                       placeholder="mm/dd/yyyy">
                             </div>
                         </div>
                     </section>
@@ -11765,15 +11787,19 @@
                                     From
                             </span>
                                 <br>
-                                <input class="form-control"
-                                       type="date"
+                                    <input class="form-control"
+                                       type="text"
                                        ng-change="checkDateWithForever()"
-                                       min="{{todayDate}}"
-                                       timepicker-neutral-timezone
-                                       onkeydown="return false"
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled'"
-                                >
+                                       ng-required="true"
+                                       is-open="popup.opened" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open1()"
+                                       placeholder="mm/dd/yyyy"
+                                    >
                                 <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                       ng-show="transactionType == 'daterange'">Now</span>
 
@@ -11791,12 +11817,18 @@
                                 </span>
                                 <br>
                                 <input class="form-control"
-                                       type="date"
+                                       type="text"
                                        timepicker-neutral-timezone
                                        ng-change="checkDate()"
-                                       min="{{todayDate}}"
                                        onkeydown="return false"
-                                       ng-model="sendAsset.tillTime">
+                                       ng-model="sendAsset.tillTime"
+                                       ng-required="true"
+                                       is-open="popup.opened2" 
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="open2()"
+                                       placeholder="mm/dd/yyyy">
                             </div>
                         </div>
                     </section>

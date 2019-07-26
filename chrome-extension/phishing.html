@@ -11,9 +11,11 @@
     <link href="https://www.myetherwallet.com" rel="canonical">
     <meta content="https://www.myetherwallet.com" property="og:url">
     <meta content="https://www.myetherwallet.com" name="twitter:url">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/etherwallet-master.min.css">
     <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
     <script type="text/javascript" src="js/etherwallet-master.js"></script>
+    <script type="text/javascript" src="js/ui-bootstrap-custom-tpls-2.5.0.min.js"></script>
     <meta name="description"
           content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta property="og:description"
