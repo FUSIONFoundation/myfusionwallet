@@ -566,6 +566,7 @@
                             </span>
                             <input type="text"
                                    class="form-control"
+                                   id="sendAssetToAddress"
                                    ng-model="sendAsset.toAddress"
                                    ng-change="verifyWalletAddress();"
                                    placeholder="Enter a fusion address"/>
@@ -1715,6 +1716,7 @@
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetName"
+                               id="assetName"
                                ng-change="onlyLettersAndNumbersAssetName(); createAssetErrorHandler()"
                                maxlength="35"
                                placeholder="Enter an Asset Name"/>

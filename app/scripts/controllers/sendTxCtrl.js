@@ -356,7 +356,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.verifyWalletAddress = async function () {
             let address = $scope.sendAsset.toAddress;
 
-            if(!address || address.length < 3){
+            if (!address || address.length < 3) {
                 $scope.$eval(function () {
                     $scope.validWalletAddress = false;
                     $scope.walletAddressError = false;
@@ -371,14 +371,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.checkingUSAN = true;
             });
 
-            if (web3.utils.isAddress(address)){
+            if (web3.utils.isAddress(address)) {
                 $scope.$eval(function () {
                     $scope.validWalletAddress = true;
                     $scope.walletAddressError = false;
                     $scope.checkingUSAN = false;
                 });
-            } else if(address.length < 42){
-                $scope.$eval(function(){
+            } else if (address.length < 42) {
+                $scope.$eval(function () {
                     $scope.walletAddressError = false;
                     $scope.checkingUSAN = true;
                     $scope.validWalletAddress = false;
@@ -393,7 +393,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             })
                         }
                     });
-                } catch ( err ){
+                } catch (err) {
                     $scope.$eval(function () {
                         $scope.validWalletAddress = false;
                         $scope.walletAddressError = true;
@@ -401,7 +401,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     })
                 }
             } else {
-                $scope.$eval(function(){
+                $scope.$eval(function () {
                     $scope.validWalletAddress = false;
                     $scope.walletAddressError = true;
                     $scope.checkingUSAN = false;
@@ -441,7 +441,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             let a = {};
-            await web3.fsn.getAsset($scope.assetListOwns[id].contractaddress).then(function(r){
+            await web3.fsn.getAsset($scope.assetListOwns[id].contractaddress).then(function (r) {
                 a = r;
             });
 
@@ -479,7 +479,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             let a = {}
-            await web3.fsn.getAsset($scope.assetListOwns[$scope.lastId].contractaddress).then(function(r){
+            await web3.fsn.getAsset($scope.assetListOwns[$scope.lastId].contractaddress).then(function (r) {
                 a = r;
             });
 
@@ -516,7 +516,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.changeSupplyReviewOpen = async function () {
             let a = {};
 
-            await web3.fsn.getAsset($scope.assetListOwns[$scope.lastId].contractaddress).then(function(r){
+            await web3.fsn.getAsset($scope.assetListOwns[$scope.lastId].contractaddress).then(function (r) {
                 a = r;
             });
 
@@ -531,12 +531,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let diff = diffBN.toString();
 
             if (diff.indexOf('-') === 0) {
-                await $scope.$eval(function(){
+                await $scope.$eval(function () {
                     $scope.incDecr = "";
                     $scope.changeSupplyState = "decrement";
                 });
             } else {
-                await $scope.$eval(function(){
+                await $scope.$eval(function () {
                     $scope.incDecr = "+";
                     $scope.changeSupplyState = "increment";
                 });
@@ -995,6 +995,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.transactionType = "none";
                 $scope.successMessagebool = false;
             });
+            let b = document.getElementById('sendAssetToAddress');
+            b.focus();
+            setTimeout(function () {
+                b.focus();
+            }, 200);
         };
 
         function convertDate(inputFormat) {
@@ -1893,6 +1898,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.usedChars = 0;
             });
             $scope.createAssetModal.open();
+            let b = document.getElementById('assetName');
+            b.focus();
+            setTimeout(function () {
+                b.focus();
+            }, 200);
         };
 
         $scope.isValidUrl = (string) => {
@@ -2331,7 +2341,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 await window.__fsnGetAllBalances(walletAddress).then(function (res) {
                     balances = res;
                 });
-            } catch (err){
+            } catch (err) {
                 console.log(err);
             }
 
