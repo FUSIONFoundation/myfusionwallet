@@ -995,6 +995,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.transactionType = "none";
                 $scope.successMessagebool = false;
             });
+            let b = document.getElementById('sendAssetToAddress');
+            b.focus();
+            setTimeout(function () {
+                b.focus();
+            }, 200);
         };
 
         function convertDate(inputFormat) {
