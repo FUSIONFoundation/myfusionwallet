@@ -44,7 +44,7 @@
                                 <span ng-if="!selectedSendHasImage"
                                       class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
                             </div>
-                            <div class="col">
+                            <div class="col" click-out="!sendDropDown">
                                 {{selectedSendAsset}} <span
                                         class="color-Active official-fusion-badge"
                                         ng-show="selectedSendVerified"><img src="./images/verified.svg" height="14px"
@@ -61,6 +61,7 @@
                     <form class="form-inline">
                         <div class="form-group m-0">
                             <input type="text" class="form-control"
+                                   id="searchSendAsset"
                                    ng-model="searchSendAsset"
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
@@ -134,6 +135,7 @@
                     <form class="form-inline">
                         <div class="form-group m-0">
                             <input type="text" class="form-control"
+                                   id="searchReceiveAsset"
                                    ng-model="searchReceiveAsset"
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
@@ -731,8 +733,8 @@
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
-                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')" click-outside="!sendDropDown2">
-                                    <div class="col">
+                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
+                                    <div class="col" click-out="!sendDropDown2">
                                     <img ng-if="selectedSendHasImage"
                                          ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                     <span ng-if="!selectedSendHasImage"
@@ -752,6 +754,7 @@
                                     <div class="form-group m-0">
                                         <span class="small-gray-text">Search</span>
                                         <input type="text" class="form-control"
+                                               id="searchSendAsset2"
                                                ng-model="searchSendAsset"
                                                placeholder="Search by Symbol, Name, or ID">
                                     </div>
@@ -907,7 +910,7 @@
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
                                 <a class="btn btn-secondary custom-dropdown mt-1" ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
-                                    <div class="col">
+                                    <div class="col" click-out="!receiveDropDown">
                                         <img ng-if="selectedReceiveHasImage"
                                              ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                                         <span ng-if="!selectedReceiveHasImage"
@@ -924,6 +927,7 @@
                                     <div class="form-group m-0">
                                         <span class="small-gray-text">Search</span>
                                         <input type="text" class="form-control"
+                                               id="searchReceiveAsset2"
                                                ng-model="searchReceiveAsset"
                                                placeholder="Search by Symbol, Name, or ID">
                                     </div>

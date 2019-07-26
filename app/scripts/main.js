@@ -152,9 +152,9 @@ window.locationCookie = 'locationCookie';
 let location = JSON.parse(localStorage.getItem(window.locationCookie));
 let lastKnownIp = JSON.parse(localStorage.getItem(window.lastKnownIp));
 
-window.getLastKnownIp = async function(){
+window.getLastKnownIp = async function () {
     await ajaxReq.http.get('https://ipinfo.io/json').then(function (response) {
-        if(lastKnownIp === null || response.data.ip !== lastKnownIp.ip) {
+        if (lastKnownIp === null || response.data.ip !== lastKnownIp.ip) {
             let ipData = {
                 ip: response.data.ip
             };
@@ -164,9 +164,9 @@ window.getLastKnownIp = async function(){
     });
 };
 
-window.getLocation = async function (){
+window.getLocation = async function () {
     await window.getLastKnownIp();
-    if(lastKnownIp) {
+    if (lastKnownIp) {
         await iplocate(lastKnownIp.ip).then(function (results) {
             let data = {
                 continent: results.continent,
@@ -179,16 +179,16 @@ window.getLocation = async function (){
 }
 
 window.getApiServer = function () {
-    if(window.currentNet === 'mainnet'){
-        if(location.continent === 'Asia' && location.country_code === 'CN'){
-            console.log('Using Asia API Mainnet Server');
+    if (window.currentNet === 'mainnet') {
+        if (location.continent === 'Asia' && location.country_code === 'CN') {
+            // console.log('Using Asia API Mainnet Server');
             return 'https://asiaapi.fusionnetwork.io';
         } else {
-            console.log('Using US API Mainnet Server');
+            // console.log('Using US API Mainnet Server');
             return 'https://mainnetapi.fusionnetwork.io';
         }
-    } else if (window.currentNet === 'testnet'){
-        if(location.continent === 'Asia' && location.country_code === 'CN'){
+    } else if (window.currentNet === 'testnet') {
+        if (location.continent === 'Asia' && location.country_code === 'CN') {
             return 'https://testnetasiaapi.fusionnetwork.io';
         } else {
             return 'https://testnetapi.fusionnetwork.io'
@@ -236,7 +236,7 @@ window.__getNotation = async function (walletAddress) {
 let _DEBUG = true;
 
 window.log = function (message) {
-    if(_DEBUG === true){
+    if (_DEBUG === true) {
         console.log(`%c ${new Date().getHours()}:${new Date().getMinutes()} - ${message} `, 'background: #222; color: #bada55; padding:10px;');
     }
 };
@@ -244,70 +244,70 @@ let lastGetAllAssetTime = undefined;
 let lastAllGetAssets = undefined;
 let inGetAllAsets = false
 
-let arrayOfResolvesForGetAllAssets  = []
+let arrayOfResolvesForGetAllAssets = []
 let arrayOfRejectsForGetAllAssets = []
 
-function clearOutAssetPromises( retData, error ) {
+function clearOutAssetPromises(retData, error) {
     let ar = arrayOfResolvesForGetAllAssets
     let arj = arrayOfRejectsForGetAllAssets
 
-    arrayOfResolvesForGetAllAssets  = []
+    arrayOfResolvesForGetAllAssets = []
     arrayOfRejectsForGetAllAssets = []
 
-    for ( let x = 0 ; x < ar.length ; x++ ) {
-        if ( error ) {
-            arj[x]( error )
+    for (let x = 0; x < ar.length; x++) {
+        if (error) {
+            arj[x](error)
         } else {
-            ar[x]( retData )
+            ar[x](retData)
         }
     }
 }
 
 window.__fsnGetAllAssets = async function (array) {
-    if ( inGetAllAsets ) {
+    if (inGetAllAsets) {
         //console.log( "Oh chute we entered  get all assets again")
-        return new Promise( (resolve,reject) => {
-            arrayOfResolvesForGetAllAssets.push( resolve )
-            arrayOfRejectsForGetAllAssets.push( reject )
+        return new Promise((resolve, reject) => {
+            arrayOfResolvesForGetAllAssets.push(resolve)
+            arrayOfRejectsForGetAllAssets.push(reject)
         })
     }
     inGetAllAsets = true
     if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7500) < (new Date()).getTime()) {
         let totalAssets = 0;
-            await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
-                let globalInfo = r.data;
-                totalAssets = globalInfo.totalAssets;
-                if(localCacheOfAssets.length == totalAssets){
-                    inGetAllAsets = false
-                    clearOutAssetPromises( null, null )
-                    return;
-                }
-                for(let i = 0; i < Math.ceil(totalAssets/100); i++){
-                    ajaxReq.http.get(`${window.getApiServer()}/assets/all?page=${i}&size=100`).then(function (r) {
-                        let assets = r.data;
-                        for(let asset in assets){
-                            let assetData = JSON.parse(r.data[asset].data);
-                            localCacheOfAssets[assetData.AssetID] = assetData;
-                            localCacheOfAssets[assetData.AssetID].ID = assetData.AssetID;
-                            localCacheOfAssets[assetData.AssetID].Owner = r.data[asset].fromAddress;
-
-                        }
-                    });
-                }
-                localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
-                    AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-                    CanChange: false,
-                    Decimals: 18,
-                    Description: "",
-                    ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
-                    Name: "FUSION",
-                    Symbol: "FSN",
-                    Total: 81920000000000000000000000,
-                }
+        await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
+            let globalInfo = r.data;
+            totalAssets = globalInfo.totalAssets;
+            if (localCacheOfAssets.length == totalAssets) {
                 inGetAllAsets = false
-                clearOutAssetPromises( localCacheOfAssets, null )
-                return localCacheOfAssets;
-            });
+                clearOutAssetPromises(null, null)
+                return;
+            }
+            for (let i = 0; i < Math.ceil(totalAssets / 100); i++) {
+                ajaxReq.http.get(`${window.getApiServer()}/assets/all?page=${i}&size=100`).then(function (r) {
+                    let assets = r.data;
+                    for (let asset in assets) {
+                        let assetData = JSON.parse(r.data[asset].data);
+                        localCacheOfAssets[assetData.AssetID] = assetData;
+                        localCacheOfAssets[assetData.AssetID].ID = assetData.AssetID;
+                        localCacheOfAssets[assetData.AssetID].Owner = r.data[asset].fromAddress;
+
+                    }
+                });
+            }
+            localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
+                AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                CanChange: false,
+                Decimals: 18,
+                Description: "",
+                ID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                Name: "FUSION",
+                Symbol: "FSN",
+                Total: 81920000000000000000000000,
+            }
+            inGetAllAsets = false
+            clearOutAssetPromises(localCacheOfAssets, null)
+            return localCacheOfAssets;
+        });
     }
     if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7500) < (new Date()).getTime()) {
         if (array) {
@@ -336,74 +336,74 @@ window.__fsnGetAllAssets = async function (array) {
                 }
                 lastGetAllAssetTime = (new Date()).getTime()
                 inGetAllAsets = false
-                clearOutAssetPromises( localCacheOfAssets, null )
+                clearOutAssetPromises(localCacheOfAssets, null)
                 return localCacheOfAssets
             } catch (err) {
                 inGetAllAsets = false
                 console.log("__fsnGetAllAssets Failed throwing this error => ", err);
-                clearOutAssetPromises( null, err )
+                clearOutAssetPromises(null, err)
                 throw err
             }
         }
     }
     inGetAllAsets = false
-    clearOutAssetPromises( localCacheOfAssets, null )
+    clearOutAssetPromises(localCacheOfAssets, null)
     return localCacheOfAssets
 }
 
 let wallets = {}
 let returnTime
 
-function clearOutBalancesPromises( wallet, error, returnFullData ) {
+function clearOutBalancesPromises(wallet, error, returnFullData) {
     let ar = wallet.arrayOfResolvesForBalances
     let arj = wallet.arrayOfRejectsForBalances
     let rt = wallet.returnTimeLock
 
-    wallet.arrayOfRejectsForBalances  = []
+    wallet.arrayOfRejectsForBalances = []
     wallet.arrayOfResolvesForBalances = []
     wallet.returnTimeLock = []
 
-    for ( let x = 0 ; x < ar.length ; x++ ) {
-        if ( error ) {
-            arj[x]( error )
+    for (let x = 0; x < ar.length; x++) {
+        if (error) {
+            arj[x](error)
         } else {
-            if ( returnFullData ) {
-                ar[x]( wallet.data )
+            if (returnFullData) {
+                ar[x](wallet.data)
             } else {
-                ar[x]( rt[x] ? wallet.data.timeLockBalances : wallet.data.balances )
+                ar[x](rt[x] ? wallet.data.timeLockBalances : wallet.data.balances)
             }
         }
     }
 }
 
 
-window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = false, returnFullData = false ) {
-    if ( !walletaddress) {
+window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = false, returnFullData = false) {
+    if (!walletaddress) {
         return {}
     }
     let wallet = wallets[walletaddress];
-    if ( !wallet ) {
+    if (!wallet) {
         wallet = {
-            data : null,
-            inHere : false ,
-            arrayOfResolvesForBalances  : [],
-            arrayOfRejectsForBalances : [] ,
-            returnTimeLock : []
+            data: null,
+            inHere: false,
+            arrayOfResolvesForBalances: [],
+            arrayOfRejectsForBalances: [],
+            returnTimeLock: []
         }
         wallets[walletaddress] = wallet
     }
-    if ( wallet.inHere ) {
+    if (wallet.inHere) {
         wallet.inHere = true
-        return new Promise( (resolve,reject )=> {
-            wallet.arrayOfRejectsForBalances.push( reject )
-            wallet.arrayOfResolvesForBalances.push( resolve )
-            wallet.returnTimeLock.push( returnTimeLock )
+        return new Promise((resolve, reject) => {
+            wallet.arrayOfRejectsForBalances.push(reject)
+            wallet.arrayOfResolvesForBalances.push(resolve)
+            wallet.returnTimeLock.push(returnTimeLock)
         })
     }
     wallet.inHere = true
-    if ( !wallet.data ||
-            !wallet.lastGetAllBalancesTime ||
-                (wallet.lastGetAllBalancesTime + 7500) < (new Date()).getTime()) {
+    if (!wallet.data ||
+        !wallet.lastGetAllBalancesTime ||
+        (wallet.lastGetAllBalancesTime + 7500) < (new Date()).getTime()) {
         try {
             let data
             await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
@@ -413,20 +413,20 @@ window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = fal
             wallet.lastGetAllBalancesTime = (new Date()).getTime()
             wallet.data = data
             wallet.inHere = false
-            clearOutBalancesPromises( wallet, null, returnFullData )
-            if ( returnFullData ) {
+            clearOutBalancesPromises(wallet, null, returnFullData)
+            if (returnFullData) {
                 return data
             }
             return returnTimeLock ? data.timeLockBalances : data.balances
         } catch (err) {
             wallet.inHere = false
-            clearOutBalancesPromises( wallet, null, err )
+            clearOutBalancesPromises(wallet, null, err)
             console.log("__fsnGetAllBalances Failed throwing this error => ", err);
             throw err
         }
     }
     wallet.inHere = false
-    if ( returnFullData ) {
+    if (returnFullData) {
         return wallet.data
     }
     return returnTimeLock ? wallet.data.timeLockBalances : wallet.data.balances
@@ -434,7 +434,7 @@ window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = fal
 
 
 window.__fsnGetAllTimeLockBalances = async function (walletaddress) {
-    return window.__fsnGetAllBalances( walletaddress, true )
+    return window.__fsnGetAllBalances(walletaddress, true)
 }
 
 let lastGetAllVerifiedAssetsTime = undefined
@@ -446,7 +446,7 @@ window.__fsnGetAllVerifiedAssets = async function () {
     // so this will rarely change
     // asking someone to do this every 2 minutes or on wallet refresh is fine
     //
-    if (!lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime || (lastGetAllVerifiedAssetsTime + (2*60)*1000) < (new Date()).getTime()) {
+    if (!lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime || (lastGetAllVerifiedAssetsTime + (2 * 60) * 1000) < (new Date()).getTime()) {
         try {
             let r = await ajaxReq.http.get(`${window.getApiServer()}/assets/verified`)
             let allVerifiedAssets = r.data;
@@ -585,34 +585,26 @@ app.factory("globalService", [
 ]);
 app.factory("walletService", walletService);
 app.directive("blockieAddress", blockiesDrtv);
-app.directive('clickOutside', ['$document', function ($document) {
+app.directive('clickOut', ['$window', '$parse', function ($window, $parse) {
     return {
         restrict: 'A',
-        scope: {
-            clickOutside: '&'
-        },
-        link: function ($scope, el, attr) {
-            const handler = function (e) {
-                // console.log(e);
-                // console.log(el);
-                // console.log($scope.clickOutside);
-                if (el !== e.target && !el[0].contains(e.target)) {
-                    $scope.$apply(function () {
-                        console.log($scope.clickOutside);
-                         // whatever expression you assign to the click-outside attribute gets executed here
-                         // good for closing dropdowns etc
-                        $scope.$eval($scope.clickOutside);
-                    });
-                }
-            }
-
-            $document.on('click', handler);
-
-            $scope.$on('$destroy', function() {
-                $document.off('click', handler);
+        link: function ($scope, element, attrs) {
+            var clickOutHandler = $parse(attrs.clickOut);
+            // console.log(clickOutHandler);
+            angular.element($window).on('click', function (event) {
+                // let a = element[0].getAttribute('click-out');
+                // // console.log(a);
+                // if (element[0].contains(event.target)) {
+                //     console.log('Inside..');
+                // } else if (!element[0].contains(event.target)) {
+                //     console.log('Outside..');
+                //     $scope.$applyAsync($scope.outSideClickHandler(element[0].getAttribute('click-out')));
+                // }
+                // clickOutHandler($scope, {$event: event});
+                // // console.log(event);
             });
         }
-    }
+    };
 }]);
 app.directive("addressField", ["$compile", "darkList", addressFieldDrtv]);
 app.directive("qrCode", QRCodeDrtv);

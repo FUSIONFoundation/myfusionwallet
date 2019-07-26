@@ -1,6 +1,6 @@
 "use strict";
 
-var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
+var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
     let nu = localStorage.getItem(window.cookieName);
     let data = nu ? JSON.parse(nu) : {};
     let _CHAINID = window.defaultChainId;
@@ -9,6 +9,67 @@ var ensCtrl = function ($scope, $sce, walletService, $rootScope) {
         _CHAINID = data.chainid;
     }
     window.__fsnGetAllAssets();
+
+    let sendDropDown = false;
+    let sendDropDown2 = false;
+    let receiveDropDown = false;
+    let receiveDropDown2 = false;
+
+    $scope.outSideClickHandler = function (input){
+        // console.log(input);
+        // let a = [$scope.sendDropDown, $scope.sendDropDown2, $scope.receiveDropDown, $scope.receiveDropDown2];
+        // let counts = {};
+        //
+        // input === 'sendDropDown' ? sendDropDown = true : sendDropDown = false;
+        // input === 'sendDropDown2' ? sendDropDown2 = true : sendDropDown2 = false;
+        // input === 'receiveDropDown' ? receiveDropDown = true : receiveDropDown = false;
+        // input === 'receiveDropDown2' ? receiveDropDown2 = true : receiveDropDown2 = false;
+        //
+        // console.log(sendDropDown,sendDropDown2,receiveDropDown,receiveDropDown2);
+        //     $scope.$eval(function () {
+        //         $scope.sendDropDown = sendDropDown;
+        //         $scope.sendDropDown2 = sendDropDown2;
+        //         $scope.receiveDropDown = receiveDropDown;
+        //         $scope.receiveDropDown2 = receiveDropDown2;
+        //     });
+    };
+
+    $scope.$watch('sendDropDown',function(){
+        if($scope.sendDropDown){
+            let a = document.getElementById('searchSendAsset');
+            a.focus();
+            setTimeout(function () {
+                a.focus();
+            },100);
+        }
+    });
+    $scope.$watch('sendDropDown2',function(){
+        if($scope.sendDropDown2){
+            let a = document.getElementById('searchSendAsset2');
+            a.focus();
+            setTimeout(function () {
+                a.focus();
+            },100);
+        }
+    });
+    $scope.$watch('receiveDropDown',function(){
+        if($scope.receiveDropDown){
+            let a = document.getElementById('searchReceiveAsset');
+            a.focus();
+            setTimeout(function () {
+                a.focus();
+            },100);
+        }
+    });
+    $scope.$watch('receiveDropDown2',function(){
+        if($scope.receiveDropDown2){
+            let a = document.getElementById('searchReceiveAsset2');
+            a.focus();
+            setTimeout(function () {
+                a.focus();
+            },100);
+        }
+    });
 
     $scope.init = async function () {
         if (!$scope.wallet) {
