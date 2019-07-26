@@ -1715,6 +1715,7 @@
                         <input type="text"
                                class="form-control"
                                ng-model="assetCreate.assetName"
+                               id="assetName"
                                ng-change="onlyLettersAndNumbersAssetName(); createAssetErrorHandler()"
                                maxlength="35"
                                placeholder="Enter an Asset Name"/>
