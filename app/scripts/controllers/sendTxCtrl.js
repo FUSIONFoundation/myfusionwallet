@@ -23,8 +23,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.assetListLoading = true;
         $scope.showNoAssets = false;
         $scope.selectedAssetBalance = "";
-        $scope.altInputFormats = ['M!/d!/yyyy'];
-
         $scope.todayDate = formatDate();
         $scope.tx = {};
         $scope.signedTx = "";
@@ -261,20 +259,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             return [year, month, day].join("-");
         }
-        $scope.dateOptions = {
-            minDate: new Date(),
-            startingDay: 1
-        };
-        $scope.popup = {
-            opened: false,
-            opened2: false
-        };
-        $scope.open1 = function(){
-            $scope.popup.opened = true;
-        }
-        $scope.open2 = function(){
-            $scope.popup.opened2 = true;
-        }
+
         $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
         $scope.dropdownEnabled = true;
         $scope.Validator = Validator;
