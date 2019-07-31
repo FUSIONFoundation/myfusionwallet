@@ -102,6 +102,7 @@ var tabsCtrl = require("./controllers/tabsCtrl");
 var viewCtrl = require("./controllers/viewCtrl");
 var walletGenCtrl = require("./controllers/walletGenCtrl");
 var onboardingCtrl = require("./controllers/onboardingCtrl");
+var erc20AlertCtrl = require("./controllers/erc20AlertCtrl");
 var bulkGenCtrl = require("./controllers/bulkGenCtrl");
 var decryptWalletCtrl = require("./controllers/decryptWalletCtrl");
 window.decryptWallet = decryptWalletCtrl;
@@ -151,7 +152,6 @@ window.currentNet = '';
 window.locationCookie = 'locationCookie';
 let location = JSON.parse(localStorage.getItem(window.locationCookie));
 let lastKnownIp = JSON.parse(localStorage.getItem(window.lastKnownIp));
-
 window.getLastKnownIp = async function () {
     await ajaxReq.http.get('https://ipinfo.io/json').then(function (response) {
         if (lastKnownIp === null || response.data.ip !== lastKnownIp.ip) {
@@ -242,7 +242,7 @@ window.log = function (message) {
 };
 let lastGetAllAssetTime = undefined;
 let lastAllGetAssets = undefined;
-let inGetAllAsets = false
+let inGetAllAsets = false;
 
 let arrayOfResolvesForGetAllAssets = []
 let arrayOfRejectsForGetAllAssets = []
@@ -682,6 +682,7 @@ app.controller("sendTxCtrl", [
     "$rootScope",
     sendTxCtrl
 ]);
+app.controller("erc20AlertCtrl", ["$scope", erc20AlertCtrl]);
 app.controller("swapCtrl", ["$scope", "$sce", "walletService", swapCtrl]);
 app.controller("signMsgCtrl", ["$scope", "$sce", "walletService", signMsgCtrl]);
 app.controller("contractsCtrl", [

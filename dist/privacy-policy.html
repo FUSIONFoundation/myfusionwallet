@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/etherwallet-master.min.css">
     <script type="text/javascript" src="js/etherwallet-static.min.js"></script>
     <script type="text/javascript" src="js/etherwallet-master.js"></script>
+    <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
     <meta name="description"
           content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta property="og:description"
@@ -49,41 +50,43 @@
     </script>
 
     <script type="application/ld+json">
-{
-"@context": "http://schema.org",
-"@type" : "Organization",
-"name" : "MyEtherWallet",
-"legalName" : "MyEtherWallet Inc",
-"url" : "https://www.myetherwallet.com/",
-"contactPoint" : [{
-  "@type" : "ContactPoint",
-  "email" : "support@myetherwallet.com",
-  "url"   : "https://myetherwallet.com",
-  "contactType" : "customer service"
-}],
-"logo" : "https://www.myetherwallet.com/images/myetherwallet-logo.png",
-"description": "MyEtherWallet.com is a free, open-source, client-side interface for generating Ethereum wallets &amp; more. Interact with the Ethereum blockchain easily &amp; securely.",
-"sameAs" : [
-  "https://www.myetherwallet.com/",
-  "https://chrome.google.com/webstore/detail/myetherwallet-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm",
-  "https://www.facebook.com/MyEtherWallet/",
-  "https://twitter.com/myetherwallet",
-  "https://medium.com/@myetherwallet",
-  "https://kb.myetherwallet.com/",
-  "https://github.com/kvhnuke/etherwallet",
-  "https://github.com/MyEtherWallet",
-  "https://kvhnuke.github.io/etherwallet/","https://myetherwallet.slack.com/"
-]
-}
-
-
-
-
-
+        {
+        "@context": "http://schema.org",
+        "@type" : "Organization",
+        "name" : "MyEtherWallet",
+        "legalName" : "MyEtherWallet Inc",
+        "url" : "https://www.myetherwallet.com/",
+        "contactPoint" : [{
+        "@type" : "ContactPoint",
+        "email" : "support@myetherwallet.com",
+        "url"   : "https://myetherwallet.com",
+        "contactType" : "customer service"
+        }],
+        "logo" : "https://www.myetherwallet.com/images/myetherwallet-logo.png",
+        "description": "MyEtherWallet.com is a free, open-source, client-side interface for generating Ethereum wallets &amp; more. Interact with the Ethereum blockchain easily &amp; securely.",
+        "sameAs" : [
+        "https://www.myetherwallet.com/",
+        "https://chrome.google.com/webstore/detail/myetherwallet-cx/nlbmnnijcnlegkjjpcfjclmcfggfefdm",
+        "https://www.facebook.com/MyEtherWallet/",
+        "https://twitter.com/myetherwallet",
+        "https://medium.com/@myetherwallet",
+        "https://kb.myetherwallet.com/",
+        "https://github.com/kvhnuke/etherwallet",
+        "https://github.com/MyEtherWallet",
+        "https://kvhnuke.github.io/etherwallet/","https://myetherwallet.slack.com/"
+        ]
+        }
     </script>
 </head>
 <body>
 <header ng-controller='tabsCtrl'>
+    <div class="alert alert-warning alert-dismissible fade show" ng-hide="erc20Alert" role="alert" ng-controller="erc20AlertCtrl">
+    <i class="fa fa-exclamation-triangle"></i> 
+    Warning! Read the steps provided <a href="https://www.fusion.org/fsn-token" class="alert-link" target="_blank">here</a> before swapping ERC-20 tokens to MainNet!
+    <button type="button" class="close" ng-click="erc20Alert = true" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
     <header class="bg-white border-gray-bottom {{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
             aria-label="header">
         <div class="header-container p-0">
@@ -105,7 +108,7 @@
                            ng-click="dropdownMenu = !dropdownMenu">
                                        <img src="images/app-grid.svg"
                                             class="Group-2-Copy-4 Group-6">
- Wallet
+                                        Wallet
                         </a>
                         <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-hide="!dropdownMenu">
                               <div class="col-md-12 col-xs-12 p-2">
