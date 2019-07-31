@@ -7,7 +7,7 @@
     <article class="block__wrap gen__1" ng-show="!wallet && !showGetAddress">
         <h4 class="text-fusion mb-2">Create New Wallet</h4>
         <section class="block__main gen__1--inner p-4 text-left">
-            <p class="text-left mb-4">To create a new FUSION PSN wallet you need to create a secure password. Please ensure that this password
+            <p class="text-left mb-4">To create a new FUSION wallet you need to create a secure password. Please ensure that this password
                 is stored safely. This password <u>cannot</u> be recovered if you lose it.</p>
             <span class="small-gray-text mt-2 text-left">Enter a password</span>
             <div class="input-group m-0">

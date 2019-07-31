@@ -22,7 +22,7 @@
                             <i class="fa fa-warning"></i>
                             MFW is only an interface that provides users with a simple mechanism for creating and
                             accessing
-                            Fusion PSN wallets and interacting with the PSN network. As with any cryptocurrency wallet,
+                            Fusion wallets and interacting with the PSN network. As with any cryptocurrency wallet,
                             it is
                             important that you understand the risks associated with using, storing and sending digital
                             assets.
@@ -31,7 +31,7 @@
                             stolen
                             funds. If you are new to the blockchain ecosystem, we advise that you engage in a thorough
                             due
-                            diligence process before using the FUSION PSN wallet to understand best practice for use and
+                            diligence process before using the FUSION wallet to understand best practice for use and
                             security and for protecting your private keys.
                         </p>
                     </div>
