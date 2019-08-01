@@ -1,6 +1,6 @@
 "use strict";
 
-var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
+var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let nu = localStorage.getItem(window.cookieName);
     let data = nu ? JSON.parse(nu) : {};
     let _CHAINID = window.defaultChainId;
@@ -15,7 +15,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
     let receiveDropDown = false;
     let receiveDropDown2 = false;
 
-    $scope.outSideClickHandler = function (input){
+    $scope.outSideClickHandler = function (input) {
         // console.log(input);
         // let a = [$scope.sendDropDown, $scope.sendDropDown2, $scope.receiveDropDown, $scope.receiveDropDown2];
         // let counts = {};
@@ -34,40 +34,40 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
         //     });
     };
 
-    $scope.$watch('sendDropDown',function(){
-        if($scope.sendDropDown){
+    $scope.$watch('sendDropDown', function () {
+        if ($scope.sendDropDown) {
             let a = document.getElementById('searchSendAsset');
             a.focus();
             setTimeout(function () {
                 a.focus();
-            },100);
+            }, 100);
         }
     });
-    $scope.$watch('sendDropDown2',function(){
-        if($scope.sendDropDown2){
+    $scope.$watch('sendDropDown2', function () {
+        if ($scope.sendDropDown2) {
             let a = document.getElementById('searchSendAsset2');
             a.focus();
             setTimeout(function () {
                 a.focus();
-            },100);
+            }, 100);
         }
     });
-    $scope.$watch('receiveDropDown',function(){
-        if($scope.receiveDropDown){
+    $scope.$watch('receiveDropDown', function () {
+        if ($scope.receiveDropDown) {
             let a = document.getElementById('searchReceiveAsset');
             a.focus();
             setTimeout(function () {
                 a.focus();
-            },100);
+            }, 100);
         }
     });
-    $scope.$watch('receiveDropDown2',function(){
-        if($scope.receiveDropDown2){
+    $scope.$watch('receiveDropDown2', function () {
+        if ($scope.receiveDropDown2) {
             let a = document.getElementById('searchReceiveAsset2');
             a.focus();
             setTimeout(function () {
                 a.focus();
-            },100);
+            }, 100);
         }
     });
 
@@ -214,11 +214,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
     });
 
     $scope.nextPage = function () {
-            $scope.$eval(function () {
-                $scope.currentPage = $scope.currentPage + 1;
-                $scope.searchSwapMarket = "";
-            });
-            $scope.allSwaps($scope.currentPage);
+        $scope.$eval(function () {
+            $scope.currentPage = $scope.currentPage + 1;
+            $scope.searchSwapMarket = "";
+        });
+        $scope.allSwaps($scope.currentPage);
     };
 
     $scope.firstPage = function () {
@@ -375,8 +375,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
     $scope.receiveChanged = 0;
     $scope.sendChanged = 0;
 
-    $scope.setAllAssetsInReceive = function (){
-        $scope.$eval(function(){
+    $scope.setAllAssetsInReceive = function () {
+        $scope.$eval(function () {
             $scope.selectedReceiveAsset = `All Assets`;
             $scope.selectedReceiveContract = "\n";
             $scope.assetToReceive = $scope.assetList[0].contractaddress;
@@ -388,8 +388,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
     }
 
 
-    $scope.setAllAssetsInSend = function (){
-        $scope.$eval(function(){
+    $scope.setAllAssetsInSend = function () {
+        $scope.$eval(function () {
             $scope.selectedSendAsset = `All Assets`;
             $scope.selectedSendContract = "\n";
             $scope.assetToSend = $scope.assetList[0].contractaddress;
@@ -578,7 +578,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
                 SwapSize: parseInt(data["SwapSize"]),
                 Targes: targes,
                 Time: time,
-                size:parseInt(size),
+                size: parseInt(size),
                 ToAssetName: toAsset["Name"],
                 ToAssetSymbol: toAsset["Symbol"],
                 ToAssetID: data["ToAssetID"],
@@ -1417,6 +1417,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
             $scope.fromEndTime = "";
         });
         $scope.makeSwapModal.open();
+        let a = document.getElementById('makeSendAmount');
+        a.focus();
+        setTimeout(function () {
+            a.focus();
+        }, 200);
     };
 
     $scope.makeSwapConfirmation = async function (end) {
@@ -1501,11 +1506,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
             let assetBalance = 0;
 
             let allAssets = {};
-            await window.__fsnGetAllAssets().then(function(r){
+            await window.__fsnGetAllAssets().then(function (r) {
                 allAssets = r;
             })
             let allBalances = {};
-            await window.__fsnGetAllBalances(walletAddress).then(function(r){
+            await window.__fsnGetAllBalances(walletAddress).then(function (r) {
                 allBalances = r;
             });
 
@@ -1571,7 +1576,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
 
         //Receive Part
 
-        BigNumber.config({DECIMAL_PLACES: parseInt(toAsset["Decimals"]) > 0 ? parseInt(toAsset["Decimals"]) -1 : 0});
+        BigNumber.config({DECIMAL_PLACES: parseInt(toAsset["Decimals"]) > 0 ? parseInt(toAsset["Decimals"]) - 1 : 0});
         let makeReceiveAmountBN = new BigNumber(
             $scope.convertToString($scope.makeReceiveAmount)
         );
@@ -1583,7 +1588,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
         );
 
         //Send Part
-        BigNumber.config({DECIMAL_PLACES: parseInt(fromAsset["Decimals"]) > 0 ? parseInt(fromAsset["Decimals"]) -1 : 0});
+        BigNumber.config({DECIMAL_PLACES: parseInt(fromAsset["Decimals"]) > 0 ? parseInt(fromAsset["Decimals"]) - 1 : 0});
         let makeSendAmountBN = new BigNumber(
             $scope.convertToString($scope.makeSendAmount)
         );
@@ -1903,7 +1908,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
         let swapList = {};
         let openMakeListFront = [];
 
-        if(openMakesListRunning){
+        if (openMakesListRunning) {
             window.log("Open Makes List already running!");
             return;
         }
@@ -2114,50 +2119,50 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
         }
 
         $scope.$eval(function () {
-        $scope.openMakes = openMakeListFront;
-        $scope.openMakeSwaps = $scope.openMakes.length;
+            $scope.openMakes = openMakeListFront;
+            $scope.openMakeSwaps = $scope.openMakes.length;
         });
         window.log("Finished retrieving all Open Swaps");
         openMakesListRunning = false;
     };
 
-    $scope.$watch('selectedSendContract',function(){
+    $scope.$watch('selectedSendContract', function () {
         $scope.allSwaps(0);
         $scope.allSwapsPage = 0;
     })
-    $scope.$watch('selectedReceiveContract',function(){
+    $scope.$watch('selectedReceiveContract', function () {
         $scope.allSwaps(0);
         $scope.allSwapsPage = 0;
     })
 
 
-    $scope.closeAllOtherDropDowns = async function (input){
-        if(input === 'sendDropDown'){
-            $scope.$eval(function(){
+    $scope.closeAllOtherDropDowns = async function (input) {
+        if (input === 'sendDropDown') {
+            $scope.$eval(function () {
                 $scope.sendDropDown2 = false;
                 $scope.receiveDropDown = false;
                 $scope.receiveDropDown2 = false;
             });
             return;
         }
-        if(input === 'sendDropDown2'){
-            $scope.$eval(function(){
+        if (input === 'sendDropDown2') {
+            $scope.$eval(function () {
                 $scope.sendDropDown = false;
                 $scope.receiveDropDown = false;
                 $scope.receiveDropDown2 = false;
             });
             return;
         }
-        if(input === 'receiveDropDown'){
-            $scope.$eval(function(){
+        if (input === 'receiveDropDown') {
+            $scope.$eval(function () {
                 $scope.sendDropDown = false;
                 $scope.sendDropDown2 = false;
                 $scope.receiveDropDown2 = false;
             });
             return;
         }
-        if(input === 'receiveDropDown2'){
-            $scope.$eval(function(){
+        if (input === 'receiveDropDown2') {
+            $scope.$eval(function () {
                 $scope.sendDropDown = false;
                 $scope.sendDropDown2 = false;
                 $scope.receiveDropDown = false;
@@ -2165,8 +2170,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
             return;
         }
     };
-    $scope.$watchGroup(['sendDropDown','sendDropDown2','receiveDropDown','receiveDropDown2'],function(){
-        $scope.$eval(function(){
+    $scope.$watchGroup(['sendDropDown', 'sendDropDown2', 'receiveDropDown', 'receiveDropDown2'], function () {
+        $scope.$eval(function () {
             $scope.searchSendAsset = '';
             $scope.searchReceiveAsset = '';
         });
@@ -2178,7 +2183,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
     $scope.allSwaps = async function (page) {
         if (!page) page = 0;
         if (walletService.wallet !== null) {
-            if($scope.allSwapsRunning ){
+            if ($scope.allSwapsRunning) {
                 window.log(`allSwaps already running!`);
                 return;
             }
@@ -2194,14 +2199,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
 
             let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
 
-            if($scope.selectedReceiveAsset == 'All Assets'){
+            if ($scope.selectedReceiveAsset == 'All Assets') {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
 
-            if($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets'){
+            if ($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets') {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
-            if($scope.selectedSendContract == '-' && $scope.selectedReceiveContract == '-'){
+            if ($scope.selectedSendContract == '-' && $scope.selectedReceiveContract == '-') {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
 
@@ -2367,7 +2372,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
                     maxswaps: swapList[asset]["SwapSize"],
                     swapratetaker: swapratetaker,
                     minswap: minimumswap,
-                    size:swapList[asset]["size"],
+                    size: swapList[asset]["size"],
                     minswaptaker: minimumswaptaker,
                     minswapopenmake: minimumswapopenmake,
                     time: time.toLocaleString(),
@@ -2418,9 +2423,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
     };
 
     let takeSwapListRunning = false;
-    $scope.takeSwapList = async function (){
+    $scope.takeSwapList = async function () {
         window.log("Starting retrieval of Private Swaps");
-        if(takeSwapListRunning){
+        if (takeSwapListRunning) {
             window.log("Private Swaps already running");
             return;
         }
@@ -2598,7 +2603,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
                     minswaptaker: minimumswaptaker,
                     minswapopenmake: minimumswapopenmake,
                     time: time.toLocaleString(),
-                    size:swapList[asset]["size"],
+                    size: swapList[asset]["size"],
                     timePosix: swapList[asset]["Time"],
                     timeHours: timeHours,
                     targes: targes,
@@ -2639,7 +2644,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout , $rootScope) {
             }
         }
 
-        $scope.$eval(function(){
+        $scope.$eval(function () {
             $scope.openTakeSwaps = openTakesList;
             $scope.openTakeSwapsTotal = $scope.openTakeSwapsTotal;
         })
