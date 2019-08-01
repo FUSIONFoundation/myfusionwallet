@@ -1487,12 +1487,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         startTime,
         endTime
     ) {
-        if (startTime == 0 && endTime == 18446744073709552000) {
-            if ($scope.allBalance[asset_id] > minswaptaker) {
-                return true;
-            } else {
-                return true;
-            }
+        if ($scope.allBalance[asset_id] > minswaptaker) {
+            return true;
         } else {
             return $scope.hasTimeLockBalance(asset_id);
         }
