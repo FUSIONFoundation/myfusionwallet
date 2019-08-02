@@ -16,11 +16,11 @@
     <script type="text/javascript" src="js/etherwallet-master.js"></script>
     <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
     <meta name="description"
-          content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
+          content="MFW is a free client-side interface for creating and using Fusion wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta property="og:description"
-          content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
+          content="MFW is a free client-side interface for creating and using Fusion wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta name="twitter:description"
-          content="MFW is a free client-side interface for creating and using Fusion PSN wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
+          content="MFW is a free client-side interface for creating and using Fusion wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="google-site-verification" content="IpChQ00NYUQuNs_7Xs6xlnSdzalOlTUYbBsr8f7OpvM"/>

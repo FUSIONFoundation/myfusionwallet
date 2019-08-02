@@ -1408,8 +1408,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 }
 
                 try {
-                    await web3.fsntx
-                        .buildSendAssetTx({
+                    await web3.fsntx.buildSendAssetTx({
                             from: from,
                             to: to,
                             value: amount.toString(),
@@ -1419,6 +1418,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             tx.from = from;
                             tx.chainId = _CHAINID;
                             data = tx;
+                            console.log(tx);
                             if (
                                 $scope.wallet.hwType == "ledger" ||
                                 $scope.wallet.hwType == "trezor"
