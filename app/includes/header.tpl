@@ -124,14 +124,6 @@
                                       Asset Gateway
                                     </span>
                             </a>
-                               <a href="https://tickets.fusionnetwork.io" target="_blank"
-                                  class="col-md-12 col-xs-12 p-2 app-select-active">
-                                    <span class="fusion-text-14">
-                                    <img src="images/group-7.svg"
-                                         class="Group-6">
-                                      Autobuy Stake
-                                    </span>
-                            </a>
                                <a href="https://blocks.fusionnetwork.io/#!/" target="_blank"
                                   class="col-md-12 col-xs-12 p-2 app-select-active">
 
