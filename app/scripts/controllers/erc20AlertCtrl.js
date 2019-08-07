@@ -5,11 +5,9 @@ var erc20AlertCtrl = function($scope) {
         let alertData = {"shown": true};
         localStorage.setItem("cookieName",JSON.stringify(alertData));
     } else {
-        if (localStorage.getItem("cookieName") === true){
+        if (JSON.parse(localStorage.getItem("cookieName")).shown === true){
             //set the erc20Alert to the value of the localStorage variable (true)
             $scope.erc20Alert = true;
-        } else {
-            $scope.erc20Alert = false;
         }
     }
 }

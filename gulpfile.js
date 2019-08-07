@@ -172,6 +172,7 @@ let cxSrcFiles = app + "includes/browser_action/*.*";
 let cxBackgroundFile = app + "includes/background/*.*";
 let jsonFile = app + "*.json";
 let jQueryFile = app + "scripts/staticJS/jquery-1.12.3.min.js";
+let datepickerFile = app + "scripts/staticJS/ui-bootstrap.js";
 let bin = app + "/bin/*";
 let staticJSSrcFile = js_destFolderStatic + js_destFileStatic;
 let readMe = "./README.md";
@@ -194,6 +195,11 @@ gulp.task("copy", ["staticJS"], function() {
 
   gulp
     .src(jQueryFile)
+    .pipe(gulp.dest(dist + "js"))
+    .pipe(gulp.dest(dist_CX + "js"));
+
+  gulp
+    .src(datepickerFile)
     .pipe(gulp.dest(dist + "js"))
     .pipe(gulp.dest(dist_CX + "js"));
 
