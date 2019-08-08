@@ -188,7 +188,8 @@
             <div class="col-md-2 text-right">
                 <span class="small-gray-text"> </span>
                 <br>
-                <button class="btn btn-primary" ng-click="makeModal()">Make Swap</button>
+                <button class="btn btn-primary" ng-click="makeModal()" ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
+                ng-disabled="web3WalletBalance <= 0.00021">Make Swap</button>
             </div>
         </div>
         <div class="col-md-12 pl-0 pr-0">
