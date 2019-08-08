@@ -82,7 +82,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
     $scope.initLoadBlock = async function () {
         web3.eth.getBlockNumber().then(function (r) {
-            $scope.$eval(function () {
+            $scope.$applyAsync(function () {
                 $scope.latestBlock = r;
             })
         })
