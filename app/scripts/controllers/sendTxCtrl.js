@@ -770,7 +770,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (walletService.wallet == null) return;
                 $scope.wallet = walletService.wallet;
                 $scope.wd = true;
-
+                $scope.$applyAsync(function(){
+                    $rootScope.walletAvailable = true;
+                });
                 // $scope.setTokenSendMode();
                 defaultInit();
             }

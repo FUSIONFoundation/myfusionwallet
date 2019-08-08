@@ -226,7 +226,8 @@
                 <div class="nav-scroll">
                     <ul class="nav-inner">
                         @@if (site === 'mew' ) {
-                        <li class="nav-item" \
+                        <li class="nav-item"
+                            ng-show="!walletAvailable"
                             ng-class="{active: 0==gService.currentTab}"
                             ng-click="tabClick(0)">
                             <a tabindex="0">
