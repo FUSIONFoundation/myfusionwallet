@@ -18,8 +18,7 @@ function twClickOutside ($window, $parse) {
         if (nakedEl === e.target || nakedEl.contains(e.target) || (ignore && ignore(scope))) {
           return;
         }
-
-        scope.$apply(fn);
+        scope.$applyAsync(fn);
       };
 
       $window.addEventListener('click', handler, true);

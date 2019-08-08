@@ -57,7 +57,7 @@
                         <img src="images/caret-down.svg" class="Group-6">
                     </div>
                 </div>
-                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown" tw-click-outside="closeSendDropDown()" ignore-if="!sendDropDown">
                     <form class="form-inline">
                         <div class="form-group m-0">
                             <input type="text" class="form-control"
@@ -131,7 +131,8 @@
                         <img src="images/caret-down.svg" class="Group-6">
                     </div>
                 </div>
-                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown"
+                     tw-click-outside="closeReceiveDropDown()" ignore-if="!receiveDropDown">
                     <form class="form-inline">
                         <div class="form-group m-0">
                             <input type="text" class="form-control"
@@ -750,6 +751,7 @@
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                  ng-show="sendDropDown2"
+                                 tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
                             >
                                 <form class="form-inline">
                                     <div class="form-group m-0">
@@ -923,7 +925,8 @@
                                 </a>
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                                 ng-show="receiveDropDown2">
+                                 ng-show="receiveDropDown2"
+                                 tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
                                 <form class="form-inline">
                                     <div class="form-group m-0">
                                         <span class="small-gray-text">Search</span>

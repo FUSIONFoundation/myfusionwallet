@@ -15,6 +15,27 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let receiveDropDown = false;
     let receiveDropDown2 = false;
 
+    $scope.closeSendDropDown = function (){
+        $scope.$applyAsync(function(){
+            $scope.sendDropDown = false;
+        })
+    }
+    $scope.closeSendDropDown2 = function (){
+        $scope.$applyAsync(function(){
+            $scope.sendDropDown2 = false;
+        })
+    }
+    $scope.closeReceiveDropDown = function (){
+        $scope.$applyAsync(function(){
+            $scope.receiveDropDown = false;
+        })
+    }
+    $scope.closeReceiveDropDown2 = function (){
+        $scope.$applyAsync(function(){
+            $scope.receiveDropDown2 = false;
+        })
+    }
+
     $scope.outSideClickHandler = function (input) {
         // console.log(input);
         // let a = [$scope.sendDropDown, $scope.sendDropDown2, $scope.receiveDropDown, $scope.receiveDropDown2];
