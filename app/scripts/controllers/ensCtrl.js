@@ -875,15 +875,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return $scope.myTimeLockedAssets.includes(asset_id);
     };
     $scope.takeAvailable = function (asset_id, minswaptaker, ToStartTime, ToEndTime) {
-        if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
-            if ($scope.allBalance[asset_id] > minswaptaker) {
+        if($scope.allBalance[asset_id] >= minswaptaker){
+            return false;
+        } else if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
+            if ($scope.allBalance[asset_id] >= minswaptaker) {
                 // console.log(asset_id, minswaptaker, ToStartTime, ToEndTime);
                 return false;
             } else {
                 return true;
             }
-        }
-        if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000) {
+        } else if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000) {
             if ($scope.myTimeLockedAssets.includes(asset_id) == true) {
                 return false;
             } else {
