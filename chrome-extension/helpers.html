@@ -113,7 +113,8 @@
                                             class="Group-2-Copy-4 Group-6">
                                         Wallet
                         </a>
-                        <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-hide="!dropdownMenu">
+                        <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-hide="!dropdownMenu"
+                             tw-click-outside="closeDropDownMenu()" ignore-if="!dropdownMenu">
                               <div class="col-md-12 col-xs-12 p-2">
                              <span class="small-gray-text">Apps</span>
                             </div>
@@ -172,7 +173,7 @@
                                ng-click="dropdownCustom = !dropdownCustom">
                                 {{nodeName}}
                             </a>
-                            <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom">
+                            <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom" tw-click-outside="closedropdownCustom()" ignore-if="!dropdownCustom">
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="netSwitch('mainnet'); window.location.reload();">Mainnet
                                 </button>

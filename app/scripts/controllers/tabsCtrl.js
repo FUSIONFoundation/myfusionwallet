@@ -3,6 +3,17 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
 
     window.getLocation();
+    $scope.closedropdownCustom = function (){
+        $scope.$applyAsync(function(){
+            $scope.dropdownCustom = false;
+        })
+    }
+
+    $scope.closeDropDownMenu = function (){
+        $scope.$applyAsync(function(){
+            $scope.dropdownMenu = false;
+        })
+    }
 
     $scope.versionNumber = window.versionNumber;
     $scope.gService = globalService;
