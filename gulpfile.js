@@ -172,6 +172,7 @@ let cxSrcFiles = app + "includes/browser_action/*.*";
 let cxBackgroundFile = app + "includes/background/*.*";
 let jsonFile = app + "*.json";
 let jQueryFile = app + "scripts/staticJS/jquery-1.12.3.min.js";
+let clickOutSideFile = app + "scripts/staticJS/angular-click-outside.js";
 let bin = app + "/bin/*";
 let staticJSSrcFile = js_destFolderStatic + js_destFileStatic;
 let readMe = "./README.md";
@@ -196,6 +197,11 @@ gulp.task("copy", ["staticJS"], function() {
     .src(jQueryFile)
     .pipe(gulp.dest(dist + "js"))
     .pipe(gulp.dest(dist_CX + "js"));
+
+  gulp
+      .src(clickOutSideFile)
+      .pipe(gulp.dest(dist + "js"))
+      .pipe(gulp.dest(dist_CX + "js"));
 
   gulp
     .src(jsonFile)
