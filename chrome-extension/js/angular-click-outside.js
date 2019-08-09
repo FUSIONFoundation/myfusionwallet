@@ -22,6 +22,7 @@ function twClickOutside ($window, $parse) {
       };
 
       $window.addEventListener('click', handler, true);
+      $window.addEventListener('keydown', handler, true);
 
       scope.$on('$destroy', function(e) {
         $window.removeEventListener('click', handler);

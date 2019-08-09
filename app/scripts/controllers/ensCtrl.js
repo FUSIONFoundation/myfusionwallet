@@ -98,7 +98,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         $scope.$applyAsync(function(){
             $rootScope.walletAvailable = true;
-        })
+        });
         $scope.getShortAddressNotation();
         $scope.getTimeLockBalances().then(function () {
             $scope.getAllAssets().then(function () {
