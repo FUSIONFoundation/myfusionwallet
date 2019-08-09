@@ -34,7 +34,7 @@
             <div class="col-md-3 text-left mr-0">
                 <span class="small-gray-text">YOU SEND</span>
                 <br>
-                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
+                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white"
                      ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
                     <div class="float-left w-75">
                         <a>
@@ -57,7 +57,7 @@
                         <img src="images/caret-down.svg" class="Group-6">
                     </div>
                 </div>
-                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown">
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown" tw-click-outside="closeSendDropDown()" ignore-if="!sendDropDown">
                     <form class="form-inline">
                         <div class="form-group m-0">
                             <input type="text" class="form-control"
@@ -106,7 +106,7 @@
             <div class="col-md-3 text-left">
                 <span class="small-gray-text">YOU RECEIVE</span>
                 <br>
-                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown border-gray-dropdown bg-white"
+                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white"
                      ng-click="receiveDropDown = !receiveDropDown  && closeAllOtherDropDowns('receiveDropDown2')">
                     <div class="float-left w-75">
                         <a>
@@ -131,7 +131,8 @@
                         <img src="images/caret-down.svg" class="Group-6">
                     </div>
                 </div>
-                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown">
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown"
+                     tw-click-outside="closeReceiveDropDown()" ignore-if="!receiveDropDown">
                     <form class="form-inline">
                         <div class="form-group m-0">
                             <input type="text" class="form-control"
@@ -187,7 +188,8 @@
             <div class="col-md-2 text-right">
                 <span class="small-gray-text"> </span>
                 <br>
-                <button class="btn btn-primary" ng-click="makeModal()">Make Swap</button>
+                <button class="btn btn-primary" ng-click="makeModal()" ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
+                ng-disabled="web3WalletBalance <= 0.00021">Make Swap</button>
             </div>
         </div>
         <div class="col-md-12 pl-0 pr-0">
@@ -368,7 +370,7 @@
                         <div class="float-left">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 pl-2">
                                         <form class="form-inline">
                                             <div class="form-group">
                                                 <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
@@ -750,6 +752,7 @@
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                  ng-show="sendDropDown2"
+                                 tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
                             >
                                 <form class="form-inline">
                                     <div class="form-group m-0">
@@ -938,7 +941,8 @@
                                 </a>
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                                 ng-show="receiveDropDown2">
+                                 ng-show="receiveDropDown2"
+                                 tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
                                 <form class="form-inline">
                                     <div class="form-group m-0">
                                         <span class="small-gray-text">Search</span>

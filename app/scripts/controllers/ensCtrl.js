@@ -15,6 +15,27 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let receiveDropDown = false;
     let receiveDropDown2 = false;
 
+    $scope.closeSendDropDown = function (){
+        $scope.$applyAsync(function(){
+            $scope.sendDropDown = false;
+        })
+    }
+    $scope.closeSendDropDown2 = function (){
+        $scope.$applyAsync(function(){
+            $scope.sendDropDown2 = false;
+        })
+    }
+    $scope.closeReceiveDropDown = function (){
+        $scope.$applyAsync(function(){
+            $scope.receiveDropDown = false;
+        })
+    }
+    $scope.closeReceiveDropDown2 = function (){
+        $scope.$applyAsync(function(){
+            $scope.receiveDropDown2 = false;
+        })
+    }
+
     $scope.outSideClickHandler = function (input) {
         // console.log(input);
         // let a = [$scope.sendDropDown, $scope.sendDropDown2, $scope.receiveDropDown, $scope.receiveDropDown2];
@@ -75,6 +96,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         if (!$scope.wallet) {
             return;
         }
+        $scope.$applyAsync(function(){
+            $rootScope.walletAvailable = true;
+        });
         $scope.getShortAddressNotation();
         $scope.getTimeLockBalances().then(function () {
             $scope.getAllAssets().then(function () {
@@ -859,15 +883,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return $scope.myTimeLockedAssets.includes(asset_id);
     };
     $scope.takeAvailable = function (asset_id, minswaptaker, ToStartTime, ToEndTime) {
-        if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
-            if ($scope.allBalance[asset_id] > minswaptaker) {
+        if($scope.allBalance[asset_id] >= minswaptaker){
+            return false;
+        } else if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
+            if ($scope.allBalance[asset_id] >= minswaptaker) {
                 // console.log(asset_id, minswaptaker, ToStartTime, ToEndTime);
                 return false;
             } else {
                 return true;
             }
-        }
-        if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000) {
+        } else if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000) {
             if ($scope.myTimeLockedAssets.includes(asset_id) == true) {
                 return false;
             } else {

@@ -17,6 +17,7 @@
     <script type="text/javascript" src="js/etherwallet-master.js"></script>
     <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
     <script type="text/javascript" src="js/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="js/angular-click-outside.js"></script>
     <meta name="description"
           content="MFW is a free client-side interface for creating and using Fusion wallets. This enables users to test a suite of innovate functions developed by the FUSION Foundation.">
     <meta property="og:description"
@@ -113,7 +114,8 @@
                                             class="Group-2-Copy-4 Group-6">
                                         Wallet
                         </a>
-                        <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-hide="!dropdownMenu">
+                        <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-hide="!dropdownMenu"
+                             tw-click-outside="closeDropDownMenu()" ignore-if="!dropdownMenu">
                               <div class="col-md-12 col-xs-12 p-2">
                              <span class="small-gray-text">Apps</span>
                             </div>
@@ -172,7 +174,7 @@
                                ng-click="dropdownCustom = !dropdownCustom">
                                 {{nodeName}}
                             </a>
-                            <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom">
+                            <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom" tw-click-outside="closedropdownCustom()" ignore-if="!dropdownCustom">
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="netSwitch('mainnet'); window.location.reload();">Mainnet
                                 </button>
@@ -313,10 +315,10 @@
                 <div class="nav-scroll">
                     <ul class="nav-inner">
                         
-                        <li class="nav-item" \
+                        <li class="nav-item"
+                            ng-show="!walletAvailable"
                             ng-class="{active: 0==gService.currentTab}"
-                            ng-click="tabClick(0)"
-                            ng-show="!wallet">
+                            ng-click="tabClick(0)">
                             <a tabindex="0">
                                 <img src="images/tab-icon-wallet-active.svg" ng-show="0==gService.currentTab" width="24" height="24">
                                 <img src="images/tab-icon-wallet-inactive.svg" ng-show="0!=gService.currentTab" width="24" height="24">

@@ -541,7 +541,8 @@ var app = angular.module("mewApp", [
     "pascalprecht.translate",
     "ngSanitize",
     "ngAnimate",
-    "ui.bootstrap"
+    "ui.bootstrap",
+    "tw.directives.clickOutside"
 ]);
 
 app.filter('startFrom', function () {

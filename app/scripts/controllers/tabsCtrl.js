@@ -3,6 +3,17 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
 
     window.getLocation();
+    $scope.closedropdownCustom = function (){
+        $scope.$applyAsync(function(){
+            $scope.dropdownCustom = false;
+        })
+    }
+
+    $scope.closeDropDownMenu = function (){
+        $scope.$applyAsync(function(){
+            $scope.dropdownMenu = false;
+        })
+    }
 
     $scope.versionNumber = window.versionNumber;
     $scope.gService = globalService;
@@ -71,7 +82,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
 
     $scope.initLoadBlock = async function () {
         web3.eth.getBlockNumber().then(function (r) {
-            $scope.$eval(function () {
+            $scope.$applyAsync(function () {
                 $scope.latestBlock = r;
             })
         })
