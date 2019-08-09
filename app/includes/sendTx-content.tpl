@@ -685,12 +685,11 @@
                                         ng-change="checkDateWithForever()"
                                         ng-model="sendAsset.fromTime"
                                         ng-show="transactionType == 'scheduled'"
-                                        ng-required="true"
                                         is-open="popup.opened" 
                                         datepicker-options="dateOptions"
                                         uib-datepicker-popup="MM/dd/yyyy"
                                         alt-input-formats="altInputFormats"
-                                        ng-click="open1()"
+                                        ng-click="popup.opened = true"
                                         show-button-bar="false"
                                         placeholder="mm/dd/yyyy"
                                 >
@@ -716,12 +715,11 @@
                                         ng-change="checkDate()"
                                         onkeydown="return false"
                                         ng-model="sendAsset.tillTime"
-                                        ng-required="true"
                                         is-open="popup.opened2" 
                                         datepicker-options="dateOptions"
                                         uib-datepicker-popup="MM/dd/yyyy"
                                         alt-input-formats="altInputFormats"
-                                        ng-click="open2()"
+                                        ng-click="popup.opened2 = true"
                                         show-button-bar="false"
                                         placeholder="mm/dd/yyyy">
                             </div>

@@ -1,30 +1,43 @@
 .uib-datepicker-popup.dropdown-menu {
-    position: static;
-    display: inline-block;
-    border-radius: 5px;
-    border-color: #747474;
-    min-width: 350px;
+    position: absolute;
+    border-radius: 8px;
+    border: 1px solid #cfd8dc;
+    min-width: 298px;
+    min-height: 298px;
     .btn, .btn-sm{
-        padding: @padding-small-vertical @padding-small-horizontal !important;
         border: 0;
         border-radius: 5px;
         background-color: #fff;
         width: 100%;
         height: 100%;
     }
-    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-        min-width: auto !important;
+    .uib-day .btn-sm{
+        padding: @padding-xs-vertical @padding-xs-horizontal !important;
+    }
+    .uib-month .btn-default, .uib-year .btn-default{
+        padding: @padding-small-vertical @padding-small-horizontal !important;
+    }
+    table{
+        // table-layout: fixed;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        border: 0;
+        margin-bottom: 0;
     }
     tbody tr:hover{
         background: 0;
     }
     li{
-        padding: .1rem !important;
+        padding: 1rem !important;
     }
     li strong{
         font-weight: 700;
     }
     thead{
+        .btn{
+            margin: 0;
+        }
         .btn.active, .btn:active{
             box-shadow: none;
             background-color: #358dcc;
@@ -38,8 +51,15 @@
             font-weight: 700;
         }
     }
+    .uib-left, .uib-right{
+        padding: 0 !important;
+        color: #78909c;
+    }
 }
 .uib-day, .uib-month, .uib-year{
+    .btn .ng-binding{
+        text-transform: uppercase;
+    }
     .btn.active, .btn:active{
         box-shadow: none;
         background-color: #358dcc;
@@ -57,4 +77,8 @@
 }
 .uib-title{
     text-align: left;
+    font-size: 18px!important;
+    width: 180px;
+    margin-bottom: 5px !important;
+    padding: 0 !important;
 }

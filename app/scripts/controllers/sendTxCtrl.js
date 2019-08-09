@@ -262,18 +262,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
         $scope.dateOptions = {
             minDate: new Date(),
-            showWeeks: false
+            showWeeks: false,
+            formatMonth: "MMM",
+            yearColumns: 3
         };
-        $scope.popup = {
-            opened: false,
-            opened2: false
-        };
-        $scope.open1 = function(){
-            $scope.popup.opened = true;
-        }
-        $scope.open2 = function(){
-            $scope.popup.opened2 = true;
-        }
         $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
         $scope.dropdownEnabled = true;
         $scope.Validator = Validator;

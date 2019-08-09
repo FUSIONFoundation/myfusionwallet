@@ -161,7 +161,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         return [year, month, day].join("-");
     }
-
+    $scope.dateOptions = {
+        minDate: new Date(),
+        showWeeks: false,
+        formatMonth: "MMM",
+        yearColumns: 3
+    };
     $scope.currentPage = 0;
     $scope.pageSize = 10;
     $scope.endPage = 0;

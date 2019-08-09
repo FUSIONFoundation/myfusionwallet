@@ -866,12 +866,19 @@
                                         </span>
                                     <br>
                                     <input class="form-control"
-                                           type="date"
+                                           type="text"
                                            timepicker-neutral-timezone
                                            min="{{todayDate}}"
+                                           is-open="popup.opened3"
+                                           datepicker-options="dateOptions"
+                                           uib-datepicker-popup="MM/dd/yyyy"
+                                           alt-input-formats="altInputFormats"
                                            onkeydown="return false"
                                            ng-model="fromStartTime"
                                            ng-hide="sendTimeLock == 'daterange'"
+                                           ng-click="popup.opened3 = true"
+                                           show-button-bar="false"
+                                           placeholder="mm/dd/yyyy"
                                     >
                                     <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                           ng-show="sendTimeLock == 'daterange'">Now</span>
@@ -886,11 +893,19 @@
                                                  Until
                                             </span>
                                         <input class="form-control"
-                                               type="date"
+                                               type="text"
                                                timepicker-neutral-timezone
                                                min="{{todayDate}}"
+                                               is-open="popup.opened4"
+                                               datepicker-options="dateOptions"
+                                               uib-datepicker-popup="MM/dd/yyyy"
+                                               alt-input-formats="altInputFormats"
                                                onkeydown="return false"
-                                               ng-model="fromEndTime">
+                                               ng-model="fromEndTime"
+                                               ng-click="popup.opened4 = true"
+                                               show-button-bar="false"
+                                               placeholder="mm/dd/yyyy"
+                                        >
                                     </div>
                                 </div>
                             </div>
@@ -995,12 +1010,19 @@
                             </span>
                                     <br>
                                     <input class="form-control"
-                                           type="date"
+                                           type="text"
                                            min="{{todayDate}}"
+                                           is-open="popup.opened5"
                                            onkeydown="return false"
                                            ng-model="ToStartTime"
                                            timepicker-neutral-timezone
                                            ng-hide="receiveTimeLock == 'daterange'"
+                                           datepicker-options="dateOptions"
+                                           uib-datepicker-popup="MM/dd/yyyy"
+                                           alt-input-formats="altInputFormats"
+                                           ng-click="popup.opened5 = true"
+                                           show-button-bar="false"
+                                           placeholder="mm/dd/yyyy"
                                     >
                                     <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                           ng-show="receiveTimeLock == 'daterange'">Now</span>
@@ -1015,11 +1037,19 @@
                                                  Until
                                             </span>
                                         <input class="form-control"
-                                               type="date"
+                                               type="text"
+                                               is-open="popup.opened6"
                                                min="{{todayDate}}"
                                                timepicker-neutral-timezone
                                                onkeydown="return false"
-                                               ng-model="ToEndTime">
+                                               ng-model="ToEndTime"
+                                               datepicker-options="dateOptions"
+                                               uib-datepicker-popup="MM/dd/yyyy"
+                                               alt-input-formats="altInputFormats"
+                                               ng-click="popup.opened6 = true"
+                                               show-button-bar="false"
+                                               placeholder="mm/dd/yyyy"
+                                        >
                                     </div>
                                 </div>
                             </div>

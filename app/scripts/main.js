@@ -579,6 +579,26 @@ app.config([
         $animateProvider.classNameFilter(/^no-animate$/);
     }
 ]);
+app.config([
+    "$provide",
+    function ($provide) {
+        $provide.decorator('$locale', function ($delegate) {
+            var value = $delegate.DATETIME_FORMATS;
+        
+            value.SHORTDAY = [
+                "SU",
+                "M",
+                "TU",
+                "W",
+                "TH",
+                "F",
+                "S"
+            ];
+        
+            return $delegate;
+        });
+    }
+]);
 app.factory("globalService", [
     "$http",
     "$httpParamSerializerJQLike",
