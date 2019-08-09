@@ -2498,7 +2498,7 @@ angular.module("uib/template/datepicker/month.html", []).run(["$templateCache", 
     "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\">\n" +
     "  <thead>\n" +
     "    <tr>\n" +
-    "      <th colspan=\"2\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th>\n" +
+    "      <th colspan=\"3\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\" id=\"past2\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"fa fa-chevron-right\"></i><span class=\"sr-only\">next</span></i></button></th>\n" +
     "    </tr>\n" +
@@ -2528,7 +2528,7 @@ angular.module("uib/template/datepicker/year.html", []).run(["$templateCache", f
     "<table role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\">\n" +
     "  <thead>\n" +
     "    <tr>\n" +
-    "      <th colspan=\"2\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th>\n" +
+    "      <th colspan=\"3\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\" id=\"past3\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"fa fa-chevron-right\"></i><span class=\"sr-only\">next</span></button></th>\n" +
     "    </tr>\n" +

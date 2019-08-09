@@ -685,6 +685,7 @@
                                         ng-click="popup.opened = true"
                                         show-button-bar="false"
                                         placeholder="mm/dd/yyyy"
+                                        onkeydown="return false"
                                 >
                                 <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                       ng-show="transactionType == 'daterange'">Now</span>
