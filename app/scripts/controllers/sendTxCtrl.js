@@ -14,7 +14,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (cookieData.chainid !== "") {
             _CHAINID = cookieData.chainid;
         }
-
         window.verifiedAssetsImages = {};
         $scope.showAllAssets = true;
         $scope.showTimeLockedAssets = false;
@@ -266,6 +265,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             formatMonth: "MMM",
             yearColumns: 3
         };
+        
         $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
         $scope.dropdownEnabled = true;
         $scope.Validator = Validator;

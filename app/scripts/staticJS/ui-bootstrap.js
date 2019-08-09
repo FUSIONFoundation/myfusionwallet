@@ -861,7 +861,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
 
 .controller('UibDaypickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
   var DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
+  var currentDay = new Date();
   this.step = { months: 1 };
   this.element = $element;
   function getDaysInMonth(year, month) {
@@ -909,7 +909,6 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
         uid: scope.uniqueId + '-' + i
       });
     }
-
     scope.labels = new Array(7);
     for (var j = 0; j < 7; j++) {
       scope.labels[j] = {
@@ -929,6 +928,12 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
         scope.weekNumbers.push(
           getISO8601WeekNumber(scope.rows[curWeek][thursdayIndex].date));
       }
+    }
+    if(this.activeDate < currentDay){
+      document.getElementById("past").setAttribute("disabled", "disabled");
+
+    } else{
+      document.getElementById("past").removeAttribute("disabled");
     }
   };
 
@@ -974,6 +979,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
 }])
 
 .controller('UibMonthpickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
+  var currentDay = new Date();
   this.step = { years: 1 };
   this.element = $element;
 
@@ -998,6 +1004,11 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
     scope.title = dateFilter(this.activeDate, this.formatMonthTitle);
     scope.rows = this.split(months, this.monthColumns);
     scope.yearHeaderColspan = this.monthColumns > 3 ? this.monthColumns - 2 : 1;
+    if(this.activeDate < currentDay){
+      document.getElementById("past2").setAttribute("disabled", "disabled");
+    } else{
+      document.getElementById("past2").removeAttribute("disabled");
+    }
   };
 
   this.compare = function(date1, date2) {
@@ -1007,7 +1018,6 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
     _date2.setFullYear(date2.getFullYear());
     return _date1 - _date2;
   };
-
   this.handleKeyDown = function(key, evt) {
     var date = this.activeDate.getMonth();
 
@@ -1033,6 +1043,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
 
 .controller('UibYearpickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
   var columns, range;
+  var currentDay = new Date();
   this.element = $element;
 
   function getStartingYear(year) {
@@ -1059,6 +1070,11 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
     scope.title = [years[0].label, years[range - 1].label].join(' - ');
     scope.rows = this.split(years, columns);
     scope.columns = columns;
+    if(this.activeDate < currentDay){
+      document.getElementById("past3").setAttribute("disabled", "disabled");
+    } else{
+      document.getElementById("past3").removeAttribute("disabled");
+    }
   };
 
   this.compare = function(date1, date2) {
@@ -2448,7 +2464,7 @@ angular.module("uib/template/datepicker/day.html", []).run(["$templateCache", fu
     "  <thead>\n" +
     "    <tr>\n" +
     "      <th colspan=\"{{::5 + showWeeks}}\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th>\n" +
-    "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
+    "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\" id=\"past\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"fa fa-chevron-right\"></i><span class=\"sr-only\">next</span></button></th>\n" +
     "    </tr>\n" +
     "    <tr>\n" +
@@ -2483,7 +2499,7 @@ angular.module("uib/template/datepicker/month.html", []).run(["$templateCache", 
     "  <thead>\n" +
     "    <tr>\n" +
     "      <th colspan=\"2\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th>\n" +
-    "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\" ng-disabled=\"::dt.disabled\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
+    "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\" id=\"past2\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"fa fa-chevron-right\"></i><span class=\"sr-only\">next</span></i></button></th>\n" +
     "    </tr>\n" +
     "  </thead>\n" +
@@ -2513,7 +2529,7 @@ angular.module("uib/template/datepicker/year.html", []).run(["$templateCache", f
     "  <thead>\n" +
     "    <tr>\n" +
     "      <th colspan=\"2\"><button id=\"{{::uniqueId}}-title\" role=\"heading\" aria-live=\"assertive\" aria-atomic=\"true\" type=\"button\" class=\"btn btn-default btn-sm uib-title\" ng-click=\"toggleMode()\" ng-disabled=\"datepickerMode === maxMode\" tabindex=\"-1\"><strong>{{title}}</strong></button></th>\n" +
-    "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\" ng-disabled=\"::dt.disabled\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
+    "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-left\" ng-click=\"move(-1)\" tabindex=\"-1\" id=\"past3\"><i aria-hidden=\"true\" class=\"fa fa-chevron-left\"></i><span class=\"sr-only\">previous</span></button></th>\n" +
     "      <th><button type=\"button\" class=\"btn btn-default btn-sm uib-right\" ng-click=\"move(1)\" tabindex=\"-1\"><i aria-hidden=\"true\" class=\"fa fa-chevron-right\"></i><span class=\"sr-only\">next</span></button></th>\n" +
     "    </tr>\n" +
     "  </thead>\n" +
