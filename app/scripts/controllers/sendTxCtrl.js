@@ -14,7 +14,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         if (cookieData.chainid !== "") {
             _CHAINID = cookieData.chainid;
         }
-
         window.verifiedAssetsImages = {};
         $scope.showAllAssets = true;
         $scope.showTimeLockedAssets = false;
@@ -23,6 +22,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.assetListLoading = true;
         $scope.showNoAssets = false;
         $scope.selectedAssetBalance = "";
+        $scope.altInputFormats = ['M!/d!/yyyy'];
         $scope.todayDate = formatDate();
         $scope.tx = {};
         $scope.signedTx = "";
@@ -259,7 +259,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             return [year, month, day].join("-");
         }
-
+        $scope.dateOptions = {
+            minDate: new Date(),
+            showWeeks: false,
+            formatMonth: "MMM",
+            yearColumns: 3
+        };
+        
         $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
         $scope.dropdownEnabled = true;
         $scope.Validator = Validator;

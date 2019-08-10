@@ -674,13 +674,18 @@
                             </span>
                                 <br>
                                 <input class="form-control"
-                                       type="date"
-                                       ng-change="checkDateWithForever()"
-                                       min="{{todayDate}}"
-                                       timepicker-neutral-timezone
-                                       onkeydown="return false"
-                                       ng-model="sendAsset.fromTime"
-                                       ng-show="transactionType == 'scheduled'"
+                                        type="text"
+                                        ng-change="checkDateWithForever()"
+                                        ng-model="sendAsset.fromTime"
+                                        ng-show="transactionType == 'scheduled'"
+                                        is-open="popup.opened" 
+                                        datepicker-options="dateOptions"
+                                        uib-datepicker-popup="MM/dd/yyyy"
+                                        alt-input-formats="altInputFormats"
+                                        ng-click="popup.opened = true"
+                                        show-button-bar="false"
+                                        placeholder="mm/dd/yyyy"
+                                        onkeydown="return false"
                                 >
                                 <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
                                       ng-show="transactionType == 'daterange'">Now</span>
@@ -699,12 +704,18 @@
                                 </span>
                                 <br>
                                 <input class="form-control"
-                                       type="date"
-                                       timepicker-neutral-timezone
-                                       ng-change="checkDate()"
-                                       min="{{todayDate}}"
-                                       onkeydown="return false"
-                                       ng-model="sendAsset.tillTime">
+                                        type="text"
+                                        timepicker-neutral-timezone
+                                        ng-change="checkDate()"
+                                        onkeydown="return false"
+                                        ng-model="sendAsset.tillTime"
+                                        is-open="popup.opened2" 
+                                        datepicker-options="dateOptions"
+                                        uib-datepicker-popup="MM/dd/yyyy"
+                                        alt-input-formats="altInputFormats"
+                                        ng-click="popup.opened2 = true"
+                                        show-button-bar="false"
+                                        placeholder="mm/dd/yyyy">
                             </div>
                         </div>
                     </section>
