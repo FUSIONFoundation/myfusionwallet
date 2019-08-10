@@ -265,7 +265,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             formatMonth: "MMM",
             yearColumns: 3
         };
-        
+
         $scope.showAdvance = $rootScope.rootScopeShowRawTx = false;
         $scope.dropdownEnabled = true;
         $scope.Validator = Validator;
@@ -489,16 +489,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 a = r;
             });
 
-            $scope.assetListOwns[$scope.lastId].total = a.Total / ($scope.countDecimals(a.Decimals));
+            let decimalsBN = new window.BigNumber($scope.countDecimals(a.Decimals).toString())
+            let totalBN = new window.BigNumber(a.Total.toString());
+
+            $scope.assetListOwns[$scope.lastId].total = totalBN.div(decimalsBN);
 
             $scope.$eval(function () {
-                $scope.newTotalSupply = new window.BigNumber($scope.assetListOwns[id].total).toString();
+                $scope.newTotalSupply = $scope.assetListOwns[$scope.lastId].total.toString();
                 $scope.transacData = "";
             });
 
-            let distributed =
-                $scope.assetListOwns[$scope.lastId].total -
-                $scope.assetListOwns[$scope.lastId].balance;
+            let balanceBN = new window.BigNumber($scope.assetListOwns[$scope.lastId].balance.toString());
+
+            let distributed = $scope.assetListOwns[$scope.lastId].total.minus(balanceBN);
 
             $scope.changeSupplyInfo = {
                 name: $scope.assetListOwns[$scope.lastId].name,
@@ -512,7 +515,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 issuer: $scope.assetListOwns[$scope.lastId].issuer,
                 image: $scope.assetListOwns[$scope.lastId].image,
                 hasImage: $scope.assetListOwns[$scope.lastId].hasImage,
-                distributed: distributed,
+                distributed: distributed.toString(),
                 txhash: ""
             };
 
@@ -531,7 +534,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let totalBN = new BigNumber($scope.assetListOwns[$scope.lastId].total);
             let newtsBN = new BigNumber($scope.newTotalSupply.toString());
 
-            console.log($scope.changeSupplyState);
             let diffBN = newtsBN.sub(totalBN);
 
             let diff = diffBN.toString();
