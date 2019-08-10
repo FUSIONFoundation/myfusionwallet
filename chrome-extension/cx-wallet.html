@@ -9045,7 +9045,7 @@
                             </div>
                             <div class="col-md-12 display-web-inline-block pt-2"
                                  ng-show="selectedAssetBalance >= 0">
-                                <strong class="small-blue">{{selectedAssetBalance}} Available</strong>
+                                <a class="small-blue" ng-click="makeSendAmount = selectedAssetBalance"><strong>{{selectedAssetBalance}}</strong> available</a>
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                  ng-show="sendDropDown2"
