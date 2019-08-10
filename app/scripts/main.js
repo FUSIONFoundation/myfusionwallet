@@ -167,14 +167,24 @@ window.getLastKnownIp = async function () {
 window.getLocation = async function () {
     await window.getLastKnownIp();
     if (lastKnownIp) {
-        await iplocate(lastKnownIp.ip).then(function (results) {
+        try {
+            await iplocate(lastKnownIp.ip).then(function (results) {
+                let data = {
+                    continent: results.continent,
+                    country_code: results.country_code
+                };
+                location = data;
+                localStorage.setItem(window.locationCookie, JSON.stringify(data));
+            });
+        } catch ( err ){
+            console.log(err + ', will use US as location.')
             let data = {
-                continent: results.continent,
-                country_code: results.country_code
+                continent: 'North America',
+                country_code: 'US'
             };
             location = data;
             localStorage.setItem(window.locationCookie, JSON.stringify(data));
-        });
+        }
     }
 }
 
@@ -585,7 +595,7 @@ app.config([
     function ($provide) {
         $provide.decorator('$locale', function ($delegate) {
             var value = $delegate.DATETIME_FORMATS;
-        
+
             value.SHORTDAY = [
                 "SU",
                 "M",
@@ -595,7 +605,7 @@ app.config([
                 "F",
                 "S"
             ];
-        
+
             return $delegate;
         });
     }
