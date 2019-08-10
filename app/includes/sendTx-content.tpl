@@ -649,18 +649,18 @@
                             </div>
                             <div class="col-md-4 p-0 pb-2">
                                 <button class="btn btn-sm btn-white w-100"
-                                        ng-click="transactionType ='scheduled'"
-                                        ng-class="{'time-active' : transactionType == 'scheduled'}"
+                                        ng-click="transactionType ='daterange'"
+                                        ng-class="{'time-active' : transactionType == 'daterange'}"
                                 >
-                                    Date to Forever
+                                    Date to Date
                                 </button>
                             </div>
                             <div class="col-md-4 p-0 pb-2">
                                 <button class="btn btn-sm btn-white w-100"
-                                        ng-click="transactionType ='daterange'"
-                                        ng-class="{'time-active' : transactionType == 'daterange'}"
+                                        ng-click="transactionType ='scheduled'"
+                                        ng-class="{'time-active' : transactionType == 'scheduled'}"
                                 >
-                                    Now to Date
+                                    Date to Forever
                                 </button>
                             </div>
                         </div>
@@ -677,8 +677,8 @@
                                         type="text"
                                         ng-change="checkDateWithForever()"
                                         ng-model="sendAsset.fromTime"
-                                        ng-show="transactionType == 'scheduled'"
-                                        is-open="popup.opened" 
+                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
+                                        is-open="popup.opened"
                                         datepicker-options="dateOptions"
                                         uib-datepicker-popup="MM/dd/yyyy"
                                         alt-input-formats="altInputFormats"
@@ -687,9 +687,6 @@
                                         placeholder="mm/dd/yyyy"
                                         onkeydown="return false"
                                 >
-                                <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
-                                      ng-show="transactionType == 'daterange'">Now</span>
-
                             </div>
                             <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
                                     Until
@@ -709,7 +706,7 @@
                                         ng-change="checkDate()"
                                         onkeydown="return false"
                                         ng-model="sendAsset.tillTime"
-                                        is-open="popup.opened2" 
+                                        is-open="popup.opened2"
                                         datepicker-options="dateOptions"
                                         uib-datepicker-popup="MM/dd/yyyy"
                                         alt-input-formats="altInputFormats"
@@ -925,9 +922,7 @@
                                     From
                                 </span>
                                 <br>
-                                <span class="fusion-text-14"
-                                      ng-hide="transactionType == 'daterange'">{{sendAsset.fromTimeString}}</span>
-                                <span class="fusion-text-14" ng-show="transactionType == 'daterange'">Now</span>
+                                <span class="fusion-text-14">{{sendAsset.fromTimeString}}</span>
                             </div>
                             <div class="float-right pb-2 pt-2 w-50"
                                  ng-hide="transactionType == 'scheduled'">
