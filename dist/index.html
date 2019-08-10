@@ -7684,7 +7684,7 @@
                             <div class="col" click-out="!sendDropDown">
                                 {{selectedSendAsset}} <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="selectedSendVerified"><img src="./images/verified.svg" height="14px"
+                                        ng-show="selectedSendVerified && selectedSendAsset !== 'All Assets'"><img src="./images/verified.svg" height="14px"
                                                                             width="14px"/></span>
                                 <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
                             </div>
@@ -7757,7 +7757,7 @@
                             <div class="col">
                                 {{selectedReceiveAsset}} <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="selectedReceiveVerified">                                    <img
+                                        ng-show="selectedReceiveVerified && selectedReceiveAsset !== 'All Assets'">                                    <img
                                             src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
                                 <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
