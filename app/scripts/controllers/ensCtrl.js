@@ -10,32 +10,56 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
     window.__fsnGetAllAssets();
 
+    let cachedDropdowns = JSON.parse(localStorage.getItem('QSDropdownCache'));
+    if (!cachedDropdowns) {
+        let k = {
+            send: 0,
+            receive: 0,
+        }
+        localStorage.setItem('QSDropdownCache', JSON.stringify(k));
+        cachedDropdowns = k;
+    }
+
+    $scope.updateDropDownCookie = function (t, id) {
+        if (!id) return;
+        if (t == 'send') {
+            cachedDropdowns.send = id;
+            localStorage.setItem('QSDropdownCache', JSON.stringify(cachedDropdowns));
+        }
+        if (t == 'receive') {
+            cachedDropdowns.receive = id;
+            localStorage.setItem('QSDropdownCache', JSON.stringify(cachedDropdowns));
+        }
+        cachedDropdowns = JSON.parse(localStorage.getItem('QSDropdownCache'));
+        console.log(cachedDropdowns);
+
+    }
+
     let sendDropDown = false;
     let sendDropDown2 = false;
     let receiveDropDown = false;
     let receiveDropDown2 = false;
 
-    $scope.closeSendDropDown = function (){
-        $scope.$applyAsync(function(){
+    $scope.closeSendDropDown = function () {
+        $scope.$applyAsync(function () {
             $scope.sendDropDown = false;
         })
     }
-    $scope.closeSendDropDown2 = function (){
-        $scope.$applyAsync(function(){
+    $scope.closeSendDropDown2 = function () {
+        $scope.$applyAsync(function () {
             $scope.sendDropDown2 = false;
         })
     }
-    $scope.closeReceiveDropDown = function (){
-        $scope.$applyAsync(function(){
+    $scope.closeReceiveDropDown = function () {
+        $scope.$applyAsync(function () {
             $scope.receiveDropDown = false;
         })
     }
-    $scope.closeReceiveDropDown2 = function (){
-        $scope.$applyAsync(function(){
+    $scope.closeReceiveDropDown2 = function () {
+        $scope.$applyAsync(function () {
             $scope.receiveDropDown2 = false;
         })
     }
-
 
     $scope.$watch('sendDropDown', function () {
         if ($scope.sendDropDown) {
@@ -78,7 +102,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         if (!$scope.wallet) {
             return;
         }
-        $scope.$applyAsync(function(){
+        $scope.$applyAsync(function () {
             $rootScope.walletAvailable = true;
         });
         $scope.getShortAddressNotation();
@@ -167,6 +191,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         return [year, month, day].join("-");
     }
+
     $scope.dateOptions = {
         minDate: new Date(),
         showWeeks: false,
@@ -428,21 +453,33 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
 
     $scope.setSendAndReceiveInit = function () {
-        $scope.selectedReceiveAsset = `All Assets`;
-        $scope.selectedReceiveContract = "\n";
-        $scope.assetToReceive = $scope.assetList[0].contractaddress;
-        $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
-        $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
-        $scope.selectedReceiveVerified = $scope.assetList[0].verified;
+        let id;
+        if (cachedDropdowns) {
+            id = cachedDropdowns.send;
+            $scope.setSendAsset(id);
+        } else {
+            $scope.selectedReceiveAsset = `All Assets`;
+            $scope.selectedReceiveContract = "\n";
+            $scope.assetToReceive = $scope.assetList[0].contractaddress;
+            $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
+            $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
+            $scope.selectedReceiveVerified = $scope.assetList[0].verified;
+        }
         // Receive part
-        $scope.selectedSendAsset = `All Assets`;
-        $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
-        $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
-        $scope.selectedSendContract = "\n";
-        $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
-        $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
-        $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
-        $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
+        let idR;
+        if (cachedDropdowns) {
+            idR = cachedDropdowns.receive;
+            $scope.setReceiveAsset(idR);
+        } else {
+            $scope.selectedSendAsset = `All Assets`;
+            $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
+            $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
+            $scope.selectedSendContract = "\n";
+            $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
+            $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
+            $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
+            $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
+        }
         $scope.getAssetBalance();
     };
 
@@ -744,6 +781,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.receiveDropDown2 = false;
         });
         $scope.receiveChanged = 1;
+        $scope.updateDropDownCookie('receive', id);
     };
 
     $scope.setSendAsset = async function (id) {
@@ -763,6 +801,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.getAssetBalance();
         $scope.sendChanged = 1;
+        $scope.updateDropDownCookie('send', id);
     };
 
     $scope.copyToClipboard = function (text) {
@@ -880,7 +919,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return $scope.myTimeLockedAssets.includes(asset_id);
     };
     $scope.takeAvailable = function (asset_id, minswaptaker, ToStartTime, ToEndTime) {
-        if($scope.allBalance[asset_id] >= minswaptaker){
+        if ($scope.allBalance[asset_id] >= minswaptaker) {
             return false;
         } else if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
             if ($scope.allBalance[asset_id] >= minswaptaker) {
