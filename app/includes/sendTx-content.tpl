@@ -1075,6 +1075,18 @@
                         <div class="pb-2 pt-2">
                             <div class="float-left">
                                 <span class="small-gray-text">
+                                Status
+                                </span>
+                            </div>
+                            <div class="float-right">
+                                <span class="badge badge-success" ng-show="transactionStatus == 'Success'">Success</span>
+                                <span class="badge badge-info" ng-hide="transactionStatus == 'Success'"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Pending</span>
+                            </div>
+                            <br>
+                        </div>
+                        <div class="pb-2 pt-2">
+                            <div class="float-left">
+                                <span class="small-gray-text">
                                 Transaction ID
                                 </span>
                             </div>

@@ -65,6 +65,37 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             $scope.walletTimeOut();
         })
 
+        $scope.countDownFunc = function () {
+            let counter = 5;
+            const intv = setInterval(function () {
+                $scope.$apply(function () {
+                    $scope.countDown = counter;
+                })
+                counter--
+                if (counter === 0) return clearInterval(intv);
+            }, 1000);
+            if (counter === 0) return clearInterval(intv);
+        }
+        $scope.getTransactionStatus = async function (txid) {
+            let tx;
+            await ajaxReq.http.get(`${window.getApiServer()}/transactions/${txid}`).then(function (r) {
+                tx = r.data[0];
+                if (tx === undefined) {
+                    $scope.countDownFunc();
+                    console.log('Transaction not found, will retry in 5s..');
+                    setTimeout(function () {
+                        console.log('Last check: ' + new Date);
+                        $scope.getTransactionStatus(txid)
+                    }, 5000);
+                    return;
+                } else if(tx){
+                    $scope.$applyAsync(function(){
+                        $scope.transactionStatus = 'Success'
+                    })
+                }
+            });
+        }
+
         $scope.currentPage = 0;
         $scope.pageSize = 10;
         $scope.endPage = 0;
@@ -1442,6 +1473,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                                 .signAndTransmit(tx, $scope.account.signTransaction)
                                 .then(txHash => {
                                     hash = txHash;
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.$eval(function () {
                                         $scope.successHash = hash;
