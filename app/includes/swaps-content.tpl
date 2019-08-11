@@ -66,8 +66,8 @@
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
-                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown">
-                        <a ng-click="setAllAssetsInSend()">
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setAllAssetsInSend()">
+                        <a>
                             All Assets
                         </a>
                     </div>
@@ -141,8 +141,8 @@
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
-                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown">
-                        <a ng-click="setAllAssetsInReceive()">
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setAllAssetsInReceive()">
+                        <a>
                             All Assets
                         </a>
                     </div>
