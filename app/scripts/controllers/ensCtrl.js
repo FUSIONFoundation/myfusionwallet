@@ -102,9 +102,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         if (!$scope.wallet) {
             return;
         }
-        $scope.$applyAsync(function () {
-            $rootScope.walletAvailable = true;
-        });
         $scope.getShortAddressNotation();
         $scope.getTimeLockBalances().then(function () {
             $scope.getAllAssets().then(function () {
@@ -120,6 +117,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.takeGetAllBalances();
         $scope.openMakesList();
         $scope.takeSwapList();
+        $scope.$applyAsync(function () {
+            $rootScope.walletAvailable = true;
+        });
     };
 
     setInterval(function () {
@@ -1939,7 +1939,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(err);
         }
 
-        let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
+        let decimalsBN = new window.BigNumber($scope.countDecimals(decimals).toString())
+        let balanceBN = new window.BigNumber(assetBalance.toString());
+
+        let balance = balanceBN.div(decimalsBN).toString();
 
         $scope.$apply(function () {
             $scope.selectedAssetBalance = balance;

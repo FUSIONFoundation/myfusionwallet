@@ -146,7 +146,6 @@ let localCacheOfAssets = {};
 const iplocate = require("node-iplocate");
 
 window.versionNumber = '3.10.00';
-
 window.currentNet = '';
 
 window.locationCookie = 'locationCookie';
