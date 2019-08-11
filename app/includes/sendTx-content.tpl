@@ -533,7 +533,7 @@
     </article>
 
 </div>
-<article class="modal fade" id="sendAsset" tabindex="-1">
+<article class="modal fade" id="sendAsset" data-keyboard="false" data-backdrop="static" tabindex="-1">
     <section class="modal-dialog">
         <section class="modal-content no-shadow">
             <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">

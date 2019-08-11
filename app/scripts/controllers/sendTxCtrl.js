@@ -29,35 +29,23 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.ajaxReq = ajaxReq;
         $scope.unitReadable = ajaxReq.type;
         $scope.timeLockToAssetId = "";
-        $scope.sendTxModal = new Modal(document.getElementById("sendTransaction"));
-        $scope.sendAssetModal = new Modal(document.getElementById("sendAsset"));
-        $scope.sendAssetConfirm = new Modal(
-            document.getElementById("sendAssetConfirm")
-        );
-        $scope.sendAssetFinal = new Modal(document.getElementById("sendAssetFinal"));
-        $scope.createAssetModal = new Modal(document.getElementById("createAsset"));
-        $scope.createAssetFinal = new Modal(
-            document.getElementById("createAssetFinal")
-        );
-        $scope.createAssetAttributes = new Modal(
-            document.getElementById("createAssetAttributes")
-        );
-        $scope.createAssetReview = new Modal(
-            document.getElementById("createAssetReview")
-        );
-        $scope.sendBackToAssetsModal = new Modal(
-            document.getElementById("sendBackToAssetsModal")
-        );
-        $scope.changeSupplyReview = new Modal(
-            document.getElementById("changeSupplyReview")
-        );
-        $scope.changeSupplySuccess = new Modal(
-            document.getElementById("changeSupplySuccess")
-        );
-        $scope.manageAsset = new Modal(document.getElementById("manageAsset"));
-        $scope.changeSupply = new Modal(document.getElementById("changeSupply"));
-        $scope.errorModal = new Modal(document.getElementById("errorModal"));
-        $scope.successModal = new Modal(document.getElementById("successModal"));
+
+        let noClickModalOptions = {backdrop: 'static', keyboard: false};
+        $scope.sendTxModal = new Modal(document.getElementById("sendTransaction"), noClickModalOptions);
+        $scope.sendAssetModal = new Modal(document.getElementById("sendAsset"), noClickModalOptions);
+        $scope.sendAssetConfirm = new Modal(document.getElementById("sendAssetConfirm"), noClickModalOptions);
+        $scope.sendAssetFinal = new Modal(document.getElementById("sendAssetFinal"), noClickModalOptions);
+        $scope.createAssetModal = new Modal(document.getElementById("createAsset"), noClickModalOptions);
+        $scope.createAssetFinal = new Modal(document.getElementById("createAssetFinal"), noClickModalOptions);
+        $scope.createAssetAttributes = new Modal(document.getElementById("createAssetAttributes"), noClickModalOptions);
+        $scope.createAssetReview = new Modal(document.getElementById("createAssetReview"), noClickModalOptions);
+        $scope.sendBackToAssetsModal = new Modal(document.getElementById("sendBackToAssetsModal"), noClickModalOptions);
+        $scope.changeSupplyReview = new Modal(document.getElementById("changeSupplyReview"), noClickModalOptions);
+        $scope.changeSupplySuccess = new Modal(document.getElementById("changeSupplySuccess"), noClickModalOptions);
+        $scope.manageAsset = new Modal(document.getElementById("manageAsset"), noClickModalOptions);
+        $scope.changeSupply = new Modal(document.getElementById("changeSupply"), noClickModalOptions);
+        $scope.errorModal = new Modal(document.getElementById("errorModal"), noClickModalOptions);
+        $scope.successModal = new Modal(document.getElementById("successModal"), noClickModalOptions);
         $scope.totalAttributes = [0];
         $scope.attributename = [];
         $scope.attributevalue = [];
@@ -259,6 +247,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             return [year, month, day].join("-");
         }
+
         $scope.dateOptions = {
             minDate: new Date(),
             showWeeks: false,
@@ -778,7 +767,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 if (walletService.wallet == null) return;
                 $scope.wallet = walletService.wallet;
                 $scope.wd = true;
-                $scope.$applyAsync(function(){
+                $scope.$applyAsync(function () {
                     $rootScope.walletAvailable = true;
                 });
                 // $scope.setTokenSendMode();
@@ -1419,11 +1408,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
                 try {
                     await web3.fsntx.buildSendAssetTx({
-                            from: from,
-                            to: to,
-                            value: amount.toString(),
-                            asset: asset
-                        })
+                        from: from,
+                        to: to,
+                        value: amount.toString(),
+                        asset: asset
+                    })
                         .then(tx => {
                             tx.from = from;
                             tx.chainId = _CHAINID;
