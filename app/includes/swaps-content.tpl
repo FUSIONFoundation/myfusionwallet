@@ -146,7 +146,7 @@
                             All Assets
                         </a>
                     </div>
-                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
                          ng-repeat="asset in assetList | filter:searchReceiveAsset | orderBy:'-verified' track by $index">
                         <a ng-click="setReceiveAsset(asset.id)">
                             <div class="col-md-2 p-0">
