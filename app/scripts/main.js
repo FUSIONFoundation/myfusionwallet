@@ -152,6 +152,14 @@ window.currentNet = '';
 window.locationCookie = 'locationCookie';
 let location = JSON.parse(localStorage.getItem(window.locationCookie));
 let lastKnownIp = JSON.parse(localStorage.getItem(window.lastKnownIp));
+if (!location) {
+    let k = {
+        continent: '',
+        country_code: ''
+    };
+    localStorage.setItem(window.locationCookie, JSON.stringify(k));
+    location = k;
+}
 window.getLastKnownIp = async function () {
     await ajaxReq.http.get('https://ipinfo.io/json').then(function (response) {
         if (lastKnownIp === null || response.data.ip !== lastKnownIp.ip) {
@@ -191,10 +199,8 @@ window.getLocation = async function () {
 window.getApiServer = function () {
     if (window.currentNet === 'mainnet') {
         if (location.continent === 'Asia' && location.country_code === 'CN') {
-            // console.log('Using Asia API Mainnet Server');
             return 'https://asiaapi.fusionnetwork.io';
         } else {
-            // console.log('Using US API Mainnet Server');
             return 'https://mainnetapi.fusionnetwork.io';
         }
     } else if (window.currentNet === 'testnet') {
