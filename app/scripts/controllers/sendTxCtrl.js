@@ -51,6 +51,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.attributevalue = [];
         $scope.allAttributes = {};
 
+
+        let timeout;
+        $scope.walletTimeOut = function () {
+            timeout = setTimeout(function () {
+                window.location.reload();
+            }, 300000);
+        }
+        $scope.walletTimeOut();
+
+        addEventListener('click', function (e) {
+            clearTimeout(timeout);
+            $scope.walletTimeOut();
+        })
+
         $scope.currentPage = 0;
         $scope.pageSize = 10;
         $scope.endPage = 0;

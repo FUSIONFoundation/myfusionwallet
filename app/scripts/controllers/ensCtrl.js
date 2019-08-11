@@ -404,6 +404,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.receiveChanged = 0;
     $scope.sendChanged = 0;
 
+
+    let timeout;
+    $scope.walletTimeOut = function () {
+        timeout = setTimeout(function () {
+            window.location.reload();
+        }, 300000);
+    }
+    $scope.walletTimeOut();
+
+    addEventListener('click', function (e) {
+        clearTimeout(timeout);
+        $scope.walletTimeOut();
+    })
+
+
     $scope.setAllAssetsInReceive = function () {
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `All Assets`;
