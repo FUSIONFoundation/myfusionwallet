@@ -36,24 +36,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         })
     }
 
-    $scope.outSideClickHandler = function (input) {
-        // console.log(input);
-        // let a = [$scope.sendDropDown, $scope.sendDropDown2, $scope.receiveDropDown, $scope.receiveDropDown2];
-        // let counts = {};
-        //
-        // input === 'sendDropDown' ? sendDropDown = true : sendDropDown = false;
-        // input === 'sendDropDown2' ? sendDropDown2 = true : sendDropDown2 = false;
-        // input === 'receiveDropDown' ? receiveDropDown = true : receiveDropDown = false;
-        // input === 'receiveDropDown2' ? receiveDropDown2 = true : receiveDropDown2 = false;
-        //
-        // console.log(sendDropDown,sendDropDown2,receiveDropDown,receiveDropDown2);
-        //     $scope.$eval(function () {
-        //         $scope.sendDropDown = sendDropDown;
-        //         $scope.sendDropDown2 = sendDropDown2;
-        //         $scope.receiveDropDown = receiveDropDown;
-        //         $scope.receiveDropDown2 = receiveDropDown2;
-        //     });
-    };
 
     $scope.$watch('sendDropDown', function () {
         if ($scope.sendDropDown) {
