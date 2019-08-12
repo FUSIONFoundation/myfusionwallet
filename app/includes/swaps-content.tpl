@@ -147,7 +147,28 @@
                         </a>
                     </div>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
-                         ng-repeat="asset in assetList | filter:searchReceiveAsset | orderBy:'-verified' track by $index">
+                         ng-repeat="asset in assetList | filter:{'contractaddress':'0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'} | orderBy:'-verified' track by $index">
+                        <a ng-click="setReceiveAsset(asset.id)">
+                            <div class="col-md-2 p-0">
+                                <img ng-if="asset.hasImage"
+                                     ng-src="images/verifiedassets/{{asset.image}}"/>
+                                <span ng-if="!asset.hasImage"
+                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                            </div>
+                            <div class="col">
+                                <span class="fusion-text-14">
+                        {{asset.name.substr(0,20)}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                             ng-show="asset.verified">                                    <img
+                                                src="./images/verified.svg" height="14px" width="14px"/></span>
+</span>
+                                <br>
+                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
+                         ng-repeat="asset in assetList | filter:searchReceiveAsset | filter:{'contractaddress':'!0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'} | orderBy:'-verified' track by $index">
                         <a ng-click="setReceiveAsset(asset.id)">
                             <div class="col-md-2 p-0">
                                 <img ng-if="asset.hasImage"
