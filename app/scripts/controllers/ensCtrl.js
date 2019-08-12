@@ -1024,20 +1024,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 balances = res;
             });
 
-            let a = Object.keys(balances),
-                b = Object.keys($scope.myActiveTimeLocks);
-            let c = a.concat(b);
-            let ownedAssets = c.filter(function (item, pos) {
-                return c.indexOf(item) == pos;
-            });
+            if(balances) {
+                let a = Object.keys(balances),
+                    b = Object.keys($scope.myActiveTimeLocks);
+                let c = a.concat(b);
+                let ownedAssets = c.filter(function (item, pos) {
+                    return c.indexOf(item) == pos;
+                });
 
-            let myAssets = [];
-            for (let i in ownedAssets) {
-                let asset = ownedAssets[i];
-                myAssets.push(assetList[asset]);
+                let myAssets = [];
+                for (let i in ownedAssets) {
+                    let asset = ownedAssets[i];
+                    myAssets.push(assetList[asset]);
+                }
+
+                assetList = myAssets;
             }
-
-            assetList = myAssets;
 
             for (let asset in assetList) {
                 let id = assetList[asset]["ID"];
@@ -1050,7 +1052,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let hasImage = false;
                 let verifiedAsset = false;
 
-                assetBalance = balances[id];
+                if(balances) {
+                    assetBalance = balances[id];
+                }
 
                 for (let a in window.verifiedAssetsImages) {
                     if (id == window.verifiedAssetsImages[a].assetID) {
@@ -1087,7 +1091,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 };
                 await assetList2.push(data);
                 x++;
-                if (assetBalance > 0.000000000000000001) {
+                if (assetBalance > 0.000000000000000001 && balances) {
                     let divider = $scope.countDecimals(assetList[asset]["Decimals"]);
                     let data = {
                         id: assetListOwned.length,
