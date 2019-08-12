@@ -8467,7 +8467,7 @@
                             >Set Time-lock
                             </button>
                             <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
-                                    ng-hide="showTimeLockSend || showExistingTimeLocks || !sendHasTimeLockBalance"
+                                    ng-hide="showTimeLockSend || showExistingTimeLocks || !myActiveTimeLocks[selectedSendContract].length > 0"
                                     ng-click="showExistingTimeLocks = !showExistingTimeLocks">
                                 Existing Time-Lock
                             </button>

@@ -909,6 +909,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     $scope.myActiveTimeLocks[asset].push(data);
                 }
             }
+            // console.log($scope.myActiveTimeLocks);
             $scope.$eval(function () {
                 $scope.myTimeLockedAssets = Object.keys(res);
             });
