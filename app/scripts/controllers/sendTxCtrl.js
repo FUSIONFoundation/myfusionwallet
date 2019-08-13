@@ -1533,6 +1533,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             return web3.fsn
                                 .signAndTransmit(tx, $scope.account.signTransaction)
                                 .then(txHash => {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.$eval(function () {
                                         $scope.successHash = txHash;
@@ -1586,6 +1587,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             return web3.fsn
                                 .signAndTransmit(tx, $scope.account.signTransaction)
                                 .then(txHash => {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.$eval(function () {
                                         $scope.successHash = txHash;
@@ -1644,6 +1646,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
                             web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
+                                $scope.getTransactionStatus(txHash);
                                 $scope.sendAssetFinal.open();
                                 $scope.$eval(function () {
                                     $scope.successHash = txHash;
@@ -1824,6 +1827,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             .signAndTransmit(tx, $scope.account.signTransaction)
                             .then(txHash => {
                                 $scope.$eval(function () {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.successHash = txHash;
                                     $scope.successHash = txHash;
@@ -1882,6 +1886,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.signedTx;
                             web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                                 $scope.$eval(function () {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.successHash = txHash;
                                     $scope.successHash = txHash;
