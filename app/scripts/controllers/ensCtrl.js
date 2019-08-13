@@ -218,6 +218,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.fromEndTime = "";
             $scope.hasTimeLockSet = false;
         });
+        $scope.getAssetBalance();
     };
 
     $scope.checkDate = function () {
