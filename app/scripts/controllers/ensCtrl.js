@@ -6,6 +6,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let _CHAINID = window.defaultChainId;
 
     $scope.suspiciousAsset = function (input){
+        console.log(input);
            if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
                window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())){
                console.log(`${input} => Suspicious Assets Involved`);
@@ -25,8 +26,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.receiveDropDown = false;
         })
     }
-
-    $scope.suspiciousAsset('bitcoin');
 
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
@@ -403,6 +402,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.recallAssetModal = new Modal(document.getElementById("recallAsset"));
     $scope.takeSwapModal = new Modal(document.getElementById("takeSwap"));
     $scope.makeSwapModal = new Modal(document.getElementById("makeSwap"));
+    $scope.suspiciousAssetModal = new Modal(document.getElementById("suspiciousAssetModal"));
     $scope.makeSwapConfirmModal = new Modal(
         document.getElementById("makeSwapConfirm")
     );
@@ -474,6 +474,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.allSwaps();
     }
+
+
+    $scope.suspiciousAsset('bitcoin');
 
 
     $scope.setSendAndReceiveInit = function () {
@@ -1236,7 +1239,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.size = $scope.openTakeSwaps[id].size;
             $scope.takeAmountSwap = 1;
         });
-
         await $scope.setReceive(1).then(function () {
             $scope.takeSwapModal.open();
         });
@@ -1306,6 +1308,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
 
         console.log($scope.takeDataFront);
+
+        if($scope.suspiciousAsset($scope.takeDataFront.toAssetName) ||
+            $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol) && !$scope.takeDataFront.toVerified){
+            $scope.suspiciousAssetModal.open();
+        }
 
         await $scope.setReceive(1).then(function () {
             $scope.takeSwapModal.open();

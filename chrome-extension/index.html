@@ -7699,8 +7699,9 @@
                             <div class="col" click-out="!sendDropDown">
                                 {{selectedSendAsset}} <span
                                         class="color-Active official-fusion-badge"
-                                        ng-show="selectedSendVerified && selectedSendAsset !== 'All Assets'"><img src="./images/verified.svg" height="14px"
-                                                                            width="14px"/></span>
+                                        ng-show="selectedSendVerified && selectedSendAsset !== 'All Assets'"><img
+                                            src="./images/verified.svg" height="14px"
+                                            width="14px"/></span>
                                 <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
                             </div>
                         </a>
@@ -7709,7 +7710,8 @@
                         <img src="images/caret-down.svg" class="Group-6">
                     </div>
                 </div>
-                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown" tw-click-outside="closeSendDropDown()" ignore-if="!sendDropDown">
+                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown"
+                     tw-click-outside="closeSendDropDown()" ignore-if="!sendDropDown">
                     <form class="form-inline">
                         <div class="form-group m-0">
                             <input type="text" class="form-control"
@@ -7735,7 +7737,7 @@
                             <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name.substr(0,20)}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.verified">                                    <img
+                                                                             ng-show="asset.verified">                                    <img
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
@@ -7794,7 +7796,8 @@
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setAllAssetsInReceive()">
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
+                         ng-click="setAllAssetsInReceive()">
                         <a>
                             All Assets
                         </a>
@@ -7832,7 +7835,7 @@
                             <div class="col">
                                 <span class="fusion-text-14">
                         {{asset.name.substr(0,20)}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.verified">                                    <img
+                                                                             ng-show="asset.verified">                                    <img
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
@@ -7862,8 +7865,10 @@
             <div class="col-md-2 text-right">
                 <span class="small-gray-text"> </span>
                 <br>
-                <button class="btn btn-primary" ng-click="makeModal()" ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
-                ng-disabled="web3WalletBalance <= 0.00021">Make Swap</button>
+                <button class="btn btn-primary" ng-click="makeModal()"
+                        ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
+                        ng-disabled="web3WalletBalance <= 0.00021">Make Swap
+                </button>
             </div>
         </div>
         <div class="col-md-12 pl-0 pr-0">
@@ -7889,7 +7894,8 @@
                         <tbody>
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
                             <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.toAssetSymbol}} : <strong>1</strong> : {{asset.fromAssetSymbol}}
+                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.toAssetSymbol}} :
+                                <strong>1</strong> : {{asset.fromAssetSymbol}}
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong>{{asset.toAmountCut}}</strong> <span
@@ -7985,7 +7991,8 @@
                         <tr ng-repeat="asset in openMakes | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
                         >
                             <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}} : <strong>1</strong> {{asset.toAssetSymbol}}
+                                <strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}} :
+                                <strong>1</strong> {{asset.toAssetSymbol}}
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
@@ -8179,7 +8186,7 @@
                         </tr>
                         </tbody>
                 </div>
-                    </table>
+                </table>
             </div>
         </div>
     </div>
@@ -8346,9 +8353,10 @@
                             <div class="flex-row mt-2 mb-2 p-0 text-center">
                                 <span class="small-gray-text">Total Send / Total Receive</span>
                                 <div class="gray-bg p-2 fusion-text-14">
-                                    <div class="float-left flex-column ng-binding"><strong class="font-size-16">{{sendTokens}}</strong> {{takeDataFront.fromAssetSymbol}}
+                                    <div class="float-left flex-column ng-binding"><strong
+                                                class="font-size-16">{{sendTokens}}</strong> {{takeDataFront.fromAssetSymbol}}
                                     </div>
-                                     :
+                                    :
                                     <div class="float-right flex-column ng-binding">
                                         <strong class="font-size-16">{{receiveTokens}}</strong> {{takeDataFront.toAssetSymbol}}
                                     </div>
@@ -8365,6 +8373,66 @@
                         <div class="col-md-6 p-0 pl-2">
                             <button class="btn btn-primary w-100"
                                     ng-click="takeSwapConfirm.open()"
+                                    ng-disabled="takeDataFront.fromAssetBalance <= 0 && !hasTimeLockBalance(takeDataFront.fromAssetId)">
+                                Review Take Swap
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </article>
+    <article class="modal fade" id="suspiciousAssetModal" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog">
+            <section class="modal-content no-shadow">
+                <article class="block no-shadow">
+                    <div class="col-md-12 p-0">
+                        <div class="float-right">
+                                  <span class="gray-text"
+                                        ng-click="suspiciousAssetModal.close();">                    <i
+                                              class="fa fa-times"
+                                              aria-hidden="true"></i>
+</span>
+                        </div>
+                    </div>
+                    <h3 class="make-swap"><img src="./images/unverified.svg" width="21px" height="24px"> Swap Contains
+                        Suspicious Asset(s)</h3>
+
+                    <div class="col-md-12 p-0">
+                        <div class="warning-bg p-3 inline w-100">
+                             <h4 class="pt-0 mt-0">Caution</h4>
+                             <p>The following asset is flagged as suspicous due to similarities in naming to a verified asset. This asset was likely created in a scheme to gain verified assets through deceptive practices.</p>
+                            <div class="col-md-6 col-xs-6 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white">
+                                <div class="float-left w-100">
+                                    <a>
+                                        <div class="col-md-2 m-1 p-0">
+                                            <span ng-if="!takeDataFront.toVerified"
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.toAssetSymbol}}</span>
+                                        </div>
+                                        <div class="col mt-1">
+                                            {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}}) <span
+                                                    class="color-Active official-fusion-badge"><img
+                                                        src="./images/unverified.svg" height="14px"
+                                                        width="14px"/></span>
+                                            <span class="small-gray-text max-char inline">{{takeDataFront.toAssetId}}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 p-0 pr-2">
+                            <button class="btn btn-white w-100" ng-click="suspiciousAssetModal.close()">Cancel</button>
+                        </div>
+                        <div class="col-md-6 p-0 pl-2">
+                            <button class="btn btn-primary w-100"
+                                    ng-click="takeSwapModal.open()"
                                     ng-disabled="takeDataFront.fromAssetBalance <= 0 && !hasTimeLockBalance(takeDataFront.fromAssetId)">
                                 Review Take Swap
                             </button>
@@ -8410,19 +8478,24 @@
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
-                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
+                                <a class="btn btn-secondary custom-dropdown mt-1"
+                                   ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
                                     <div class="col" click-out="!sendDropDown2">
-                                    <img ng-if="selectedSendHasImage"
-                                         ng-src="images/verifiedassets/{{selectedSendImage}}"/>
-                                    <span ng-if="!selectedSendHasImage"
-                                          class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
-                                    {{selectedSendAssetSymbol}} <img ng-if="selectedSendVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                        <img ng-if="selectedSendHasImage"
+                                             ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                                        <span ng-if="!selectedSendHasImage"
+                                              class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
+                                        {{selectedSendAssetSymbol}} <img ng-if="selectedSendVerified"
+                                                                         src="./images/verified.svg" height="14px"
+                                                                         width="14px"/>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-md-12 display-web-inline-block pt-2"
                                  ng-show="selectedAssetBalance >= 0">
-                                <a class="small-blue" ng-click="makeSendAmount = selectedAssetBalance"><strong>{{selectedAssetBalance}}</strong> available</a>
+                                <a class="small-blue"
+                                   ng-click="makeSendAmount = selectedAssetBalance"><strong>{{selectedAssetBalance}}</strong>
+                                    available</a>
                             </div>
                             <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                  ng-show="sendDropDown2"
@@ -8602,15 +8675,18 @@
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
-                                <a class="btn btn-secondary custom-dropdown mt-1" ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
+                                <a class="btn btn-secondary custom-dropdown mt-1"
+                                   ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
                                     <div class="col" click-out="!receiveDropDown">
                                         <img ng-if="selectedReceiveHasImage"
                                              ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                                         <span ng-if="!selectedReceiveHasImage"
                                               class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
                                         {{selectedReceiveAssetSymbol}}
-                                        <img ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px" width="14px"/>
-                                        <img ng-if="!selectedReceiveVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                        <img ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px"
+                                             width="14px"/>
+                                        <img ng-if="!selectedReceiveVerified" src="./images/unverified.svg"
+                                             height="16px" width="14px"/>
                                     </div>
                                 </a>
                             </div>
@@ -8639,7 +8715,7 @@
                                 <span class="fusion-text-14">
                         {{asset.name}} ({{asset.symbol}})
                                     <span class="color-Active official-fusion-badge"
-                                                                ng-show="asset.verified">                                    <img
+                                          ng-show="asset.verified">                                    <img
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
                                     </i></span>
                                             <br>
@@ -8803,7 +8879,7 @@
                                placeholder="Addresses">
                     </div>
                     <div class="col-md-12 p-0">
-                     <span class="small-gray-text pt-4 inline">Fee 0.001 FSN</span>
+                        <span class="small-gray-text pt-4 inline">Fee 0.001 FSN</span>
                     </div>
 
                     <div class="row pt-2">
