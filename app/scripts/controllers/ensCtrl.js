@@ -7,6 +7,18 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     console.log(window.verifiedList.list);
 
+    $scope.suspiciousAsset = function (input){
+           if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
+               window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())){
+               console.log(`${input} => Suspicious Assets Involved`);
+               return true;
+           } else {
+               return false;
+           }
+    };
+
+    $scope.suspiciousAsset('bitcoin');
+
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
     }
