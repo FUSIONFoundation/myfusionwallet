@@ -484,7 +484,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 a = r;
             });
 
-            $scope.assetListOwns[id].total = a.Total / ($scope.countDecimals(a.Decimals));
+            let totalBN = new window.BigNumber(a.Total);
+            let decimals = new window.BigNumber($scope.countDecimals(a.Decimals));
+
+            let total = totalBN.div(decimals);
+
+            $scope.assetListOwns[id].total = total.toString();
 
             $scope.$eval(function () {
                 $scope.manageAssetInfo = {
