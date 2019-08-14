@@ -8432,9 +8432,8 @@
                         </div>
                         <div class="col-md-6 p-0 pl-2">
                             <button class="btn btn-primary w-100"
-                                    ng-click="takeSwapModal.open()"
-                                    ng-disabled="takeDataFront.fromAssetBalance <= 0 && !hasTimeLockBalance(takeDataFront.fromAssetId)">
-                                Review Take Swap
+                                    ng-click="takeSwapModal.open(takeId, true)">
+                                Continue
                             </button>
                         </div>
                     </div>

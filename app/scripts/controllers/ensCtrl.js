@@ -5,24 +5,24 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let data = nu ? JSON.parse(nu) : {};
     let _CHAINID = window.defaultChainId;
 
-    $scope.suspiciousAsset = function (input){
+    $scope.suspiciousAsset = function (input) {
         console.log(input);
-           if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
-               window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())){
-               console.log(`${input} => Suspicious Assets Involved`);
-               return true;
-           } else {
-               return false;
-           }
+        if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
+            window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())) {
+            console.log(`${input} => Suspicious Assets Involved`);
+            return true;
+        } else {
+            return false;
+        }
     };
 
-    $scope.closesendDropDown = function (){
-        $scope.$applyAsync(function(){
+    $scope.closesendDropDown = function () {
+        $scope.$applyAsync(function () {
             $scope.sendDropDown = false;
         })
     }
-    $scope.closereceiveDropDown = function (){
-        $scope.$applyAsync(function(){
+    $scope.closereceiveDropDown = function () {
+        $scope.$applyAsync(function () {
             $scope.receiveDropDown = false;
         })
     }
@@ -1052,7 +1052,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 balances = res;
             });
 
-            if(balances) {
+            if (balances) {
                 let a = Object.keys(balances),
                     b = Object.keys($scope.myActiveTimeLocks);
                 let c = a.concat(b);
@@ -1080,7 +1080,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let hasImage = false;
                 let verifiedAsset = false;
 
-                if(balances) {
+                if (balances) {
                     assetBalance = balances[id];
                 }
 
@@ -1225,7 +1225,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.swapSize = $scope.openTakeSwaps[id].maxswaps;
             $scope.takeDataFront.toAssetName = fromName;
             $scope.takeDataFront.toAssetMin =
-            $scope.openTakeSwaps[id].minswap / $scope.openTakeSwaps[id].swapratetaker;
+                $scope.openTakeSwaps[id].minswap / $scope.openTakeSwaps[id].swapratetaker;
             $scope.takeDataFront.toAssetSymbol = $scope.openTakeSwaps[id].fromAssetSymbol;
             $scope.takeDataFront.toAssetId = $scope.openTakeSwaps[id].fromAssetId;
             $scope.takeDataFront.fromAssetMin = $scope.openTakeSwaps[id].minswaptaker;
@@ -1245,7 +1245,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
 
-    $scope.takeModal = async function (id) {
+    $scope.takeId = 0;
+    $scope.takeModal = async function (id, pass) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let balance = "";
@@ -1305,17 +1306,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.toVerified = $scope.swapsList[id].fromVerified;
             $scope.takeDataFront.size = $scope.swapsList[id].size;
             $scope.takeAmountSwap = 1;
+            $scope.takeId = id;
         });
 
         console.log($scope.takeDataFront);
-
-        if($scope.suspiciousAsset($scope.takeDataFront.toAssetName) ||
-            $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol) && !$scope.takeDataFront.toVerified){
-            $scope.suspiciousAssetModal.open();
-        }
-
         await $scope.setReceive(1).then(function () {
-            $scope.takeSwapModal.open();
+            if (!pass) {
+                if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
+                    if (!$scope.takeDataFront.toVerified) {
+                        $scope.suspiciousAssetModal.open();
+                    } else {
+                        $scope.takeSwapModal.open()
+                    }
+                }
+            } else {
+                $scope.takeSwapModal.open();
+            }
         });
     };
 
