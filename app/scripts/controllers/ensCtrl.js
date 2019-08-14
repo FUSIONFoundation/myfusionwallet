@@ -6,10 +6,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let _CHAINID = window.defaultChainId;
 
     $scope.suspiciousAsset = function (input) {
-        console.log(input);
         if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
             window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())) {
-            console.log(`${input} => Suspicious Assets Involved`);
             return true;
         } else {
             return false;
@@ -474,9 +472,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.allSwaps();
     }
-
-
-    $scope.suspiciousAsset('bitcoin');
 
 
     $scope.setSendAndReceiveInit = function () {
@@ -1309,7 +1304,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeId = id;
         });
 
-        console.log($scope.takeDataFront);
         await $scope.setReceive(1).then(function () {
             if (!pass) {
                 if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
