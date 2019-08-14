@@ -111,7 +111,7 @@
                 <br>
                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white"
                      tw-click-outside="closereceiveDropDown()" ignore-if="!receiveDropDown"
-                     ng-click="receiveDropDown = !receiveDropDown  && closeAllOtherDropDowns('receiveDropDown2')">
+                     ng-click="receiveDropDown = !receiveDropDown">
                     <div class="float-left w-75">
                         <a>
                             <div class="col-md-2 m-1 p-0" ng-show="selectedReceiveAsset !== 'All Assets'">

@@ -123,12 +123,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             return;
         }
         $scope.getShortAddressNotation();
-        $scope.getTimeLockBalances().then(function () {
+        await $scope.getTimeLockBalances().then(function () {
             $scope.getAllAssets().then(function () {
                 $scope.setSendAndReceiveInit();
             });
         });
-        await $scope.allSwaps(0);
+        // await $scope.allSwaps(0);
         $scope.takeGetAllBalances();
         $scope.sortSwapMarket("timePosix");
         $scope.sortOpenMakes("timePosix");
@@ -474,11 +474,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
 
-    $scope.setSendAndReceiveInit = function () {
+    $scope.setSendAndReceiveInit = async function () {
         let id;
-        if (cachedDropdowns) {
+        if (cachedDropdowns.send) {
             id = cachedDropdowns.send;
-            $scope.setSendAsset(id);
+            await $scope.setSendAsset(id);
         } else {
             $scope.selectedReceiveAsset = `All Assets`;
             $scope.selectedReceiveContract = "\n";
@@ -489,9 +489,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         // Receive part
         let idR;
-        if (cachedDropdowns) {
+        if (cachedDropdowns.receive) {
             idR = cachedDropdowns.receive;
-            $scope.setReceiveAsset(idR);
+            console.log('Receive was cached');
+            await $scope.setReceiveAsset(idR);
         } else {
             $scope.selectedSendAsset = `All Assets`;
             $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
@@ -804,6 +805,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.receiveChanged = 1;
         $scope.updateDropDownCookie('receive', id);
+        await $scope.allSwaps(0);
     };
 
     $scope.setSendAsset = async function (id) {
@@ -824,6 +826,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.getAssetBalance();
         $scope.sendChanged = 1;
         $scope.updateDropDownCookie('send', id);
+        await $scope.allSwaps(0);
     };
 
     $scope.copyToClipboard = function (text) {
@@ -2227,14 +2230,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         openMakesListRunning = false;
     };
 
-    $scope.$watch('selectedSendContract', function () {
-        $scope.allSwaps(0);
-        $scope.allSwapsPage = 0;
-    })
-    $scope.$watch('selectedReceiveContract', function () {
-        $scope.allSwaps(0);
-        $scope.allSwapsPage = 0;
-    })
+    // $scope.$watch('selectedSendContract', function () {
+    //     $scope.allSwaps(0);
+    //     $scope.allSwapsPage = 0;
+    // })
+    // $scope.$watch('selectedReceiveContract', function () {
+    //     $scope.allSwaps(0);
+    //     $scope.allSwapsPage = 0;
+    // });
 
 
     $scope.closeAllOtherDropDowns = async function (input) {
@@ -2310,6 +2313,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             if ($scope.selectedSendContract == '-' && $scope.selectedReceiveContract == '-') {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
+
+            console.log(url);
 
             try {
                 await ajaxReq.http.get(url).then(function (r) {
