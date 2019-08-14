@@ -245,7 +245,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         };
 
-        $scope.returnAttributesJSON = function () {
+        $scope.returnAttributesJSON = async function () {
             $scope.allAttributes = {};
             for (let u in $scope.attributename) {
                 if ($scope.attributename[u] == "") {
