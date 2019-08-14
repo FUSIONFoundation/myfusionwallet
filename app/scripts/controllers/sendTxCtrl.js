@@ -255,7 +255,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.attributename[u].toString()
                     ] = $scope.attributevalue[u].toString();
             }
-            return $scope.allAttributes;
         };
 
         $scope.lastId = 0;
@@ -368,8 +367,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         };
 
-        $scope.checkAllAttributesLength = function () {
-            $scope.returnAttributesJSON();
+        $scope.checkAllAttributesLength = async function () {
+            await $scope.returnAttributesJSON();
             if ($scope.allAttributes == {}) {
                 return;
             }
@@ -1964,7 +1963,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        $scope.createAssetReviewOpen = function () {
+        $scope.createAssetReviewOpen = async function () {
+            await $scope.returnAttributesJSON();
+            console.log($scope.allAttributes);
             if (Object.keys($scope.allAttributes).length == 0) {
                 $scope.showAttributesTab = false;
             } else {
