@@ -5,6 +5,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let data = nu ? JSON.parse(nu) : {};
     let _CHAINID = window.defaultChainId;
 
+    console.log(window.verifiedList.list);
+
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
     }

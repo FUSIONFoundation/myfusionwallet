@@ -61,6 +61,8 @@ window.ens = ens;
 var domainsale = require("./domainsale");
 window.domainsale = domainsale;
 var translate = require("./translations/translate.js");
+let verifiedList = require("./verifiedList.js");
+window.verifiedList = verifiedList;
 if (IS_CX) {
     var cxFuncs = require("./cxFuncs");
     var punycode = require("punycode");
