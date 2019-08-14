@@ -8356,6 +8356,7 @@
                 <span class="small-gray-text">YOU SEND</span>
                 <br>
                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white"
+                     tw-click-outside="closesendDropDown()" ignore-if="!sendDropDown"
                      ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
                     <div class="float-left w-75">
                         <a>
@@ -8428,6 +8429,7 @@
                 <span class="small-gray-text">YOU RECEIVE</span>
                 <br>
                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white"
+                     tw-click-outside="closereceiveDropDown()" ignore-if="!receiveDropDown"
                      ng-click="receiveDropDown = !receiveDropDown  && closeAllOtherDropDowns('receiveDropDown2')">
                     <div class="float-left w-75">
                         <a>

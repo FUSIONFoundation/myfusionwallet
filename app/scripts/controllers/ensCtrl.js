@@ -5,8 +5,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let data = nu ? JSON.parse(nu) : {};
     let _CHAINID = window.defaultChainId;
 
-    console.log(window.verifiedList.list);
-
     $scope.suspiciousAsset = function (input){
            if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
                window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())){
@@ -16,6 +14,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                return false;
            }
     };
+
+    $scope.closesendDropDown = function (){
+        $scope.$applyAsync(function(){
+            $scope.sendDropDown = false;
+        })
+    }
+    $scope.closereceiveDropDown = function (){
+        $scope.$applyAsync(function(){
+            $scope.receiveDropDown = false;
+        })
+    }
 
     $scope.suspiciousAsset('bitcoin');
 
@@ -1213,7 +1222,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.swapSize = $scope.openTakeSwaps[id].maxswaps;
             $scope.takeDataFront.toAssetName = fromName;
             $scope.takeDataFront.toAssetMin =
-                $scope.openTakeSwaps[id].minswap / $scope.openTakeSwaps[id].swapratetaker;
+            $scope.openTakeSwaps[id].minswap / $scope.openTakeSwaps[id].swapratetaker;
             $scope.takeDataFront.toAssetSymbol = $scope.openTakeSwaps[id].fromAssetSymbol;
             $scope.takeDataFront.toAssetId = $scope.openTakeSwaps[id].fromAssetId;
             $scope.takeDataFront.fromAssetMin = $scope.openTakeSwaps[id].minswaptaker;
