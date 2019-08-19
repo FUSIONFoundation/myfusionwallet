@@ -1,4 +1,4 @@
-<article class="block p-0 border-0 no-shadow" ng-hide="wallet.type=='addressOnly'">
+<article class="block container p-0 border-0 no-shadow" ng-hide="wallet.type=='addressOnly'">
     <div class="row">
         <div class="col-md-12 p-0">
             <nav class="nav-container border-0">
