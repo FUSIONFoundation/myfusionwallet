@@ -744,13 +744,16 @@
 </span>
                         </div>
                     </div>
-                    <h3 class="make-swap"><img src="./images/unverified.svg" width="21px" height="24px"> Swap Contains
+                    <h3 class="make-swap mb-3"><img src="./images/unverified.svg" width="21px" height="24px"
+                                                    class="mb-2 mr-2"> Swap Contains
                         Suspicious Asset(s)</h3>
 
                     <div class="col-md-12 p-0">
                         <div class="warning-bg p-3 inline w-100">
-                             <h4 class="pt-0 mt-0">Caution</h4>
-                             <p>The following asset is flagged as suspicous due to similarities in naming to a verified asset. This asset was likely created in a scheme to gain verified assets through deceptive practices.</p>
+                            <h4 class="pt-0 mt-0">Caution</h4>
+                            <p>The following asset is flagged as suspicous due to similarities in naming to a verified
+                                asset. This asset was likely created in a scheme to gain verified assets through
+                                deceptive practices.</p>
                             <div class="col-md-6 col-xs-6 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white">
                                 <div class="float-left w-100">
                                     <a>
@@ -770,20 +773,21 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mt-4 mb-3">
                         <hr>
                     </div>
-
                     <div class="row">
-                        <div class="col-md-6 p-0 pr-2">
-                            <button class="btn btn-white w-100" ng-click="suspiciousAssetModal.close()">Cancel</button>
-                        </div>
-                        <div class="col-md-6 p-0 pl-2">
-                            <button class="btn btn-primary w-100"
-                                    ng-click="takeSwapModal.open(takeId, true)">
-                                Continue
-                            </button>
+                        <div class="col-md-7 float-right">
+                            <div class="col-md-6 p-0 pr-2">
+                                <button class="btn btn-white w-100" ng-click="suspiciousAssetModal.close()">Back
+                                </button>
+                            </div>
+                            <div class="col-md-6 p-0 pl-2">
+                                <button class="btn btn-yellow w-100"
+                                        ng-click="takeSwapModal.open(takeId, true)">
+                                    Continue
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </article>

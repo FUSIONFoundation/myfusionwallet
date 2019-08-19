@@ -985,13 +985,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
 
                 await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
-                    assetBalance = res;
+                    assetBalance = res.toString();
                 });
 
-                let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
-
+                let balanceBN = new window.BigNumber(assetBalance.toString());
+                let decimalsBN = new window.BigNumber($scope.countDecimals(parseInt(decimals)));
+                let balanceFinal = balanceBN.div(decimalsBN);
                 $scope.$eval(function () {
-                    $scope.selectedAssetBalance = balance;
+                    $scope.selectedAssetBalance = balanceFinal.toString();
                 });
             }
 
@@ -1117,10 +1118,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 assetBalance = r[asset];
             })
 
-            let balance = new BN(assetBalance) / $scope.countDecimals(decimals);
+            let balanceBN = new window.BigNumber(assetBalance.toString());
+            let decimalsBN = new window.BigNumber($scope.countDecimals(parseInt(decimals)));
+            let balanceFinal = balanceBN.div(decimalsBN);
 
             $scope.$apply(function () {
-                $scope.selectedAssetBalance = balance;
+                $scope.selectedAssetBalance = balanceFinal.toString();
             });
         };
 
