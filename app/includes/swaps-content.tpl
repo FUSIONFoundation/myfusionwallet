@@ -1242,7 +1242,7 @@
                         <div class="col-md-6 col-xs-12">
                             <button class="btn btn-primary w-100"
                                     ng-click="makeSwapConfirmation('notend')"
-                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == ''"
+                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == '' || makeSendAmount > selectedAssetBalance"
                             >Review
                                 Make
                                 Swap
