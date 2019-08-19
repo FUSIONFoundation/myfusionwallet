@@ -966,6 +966,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let decimals = "";
 
             $scope.$eval(function () {
+                $scope.transactionStatus = 'Pending'
                 $scope.walletAddressError = false;
                 $scope.validWalletAddress = false;
                 $scope.checkingUSAN = false;
