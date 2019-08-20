@@ -172,7 +172,8 @@
                                 <span ng-if="!asset.hasImage"
                                       class="btn btn-white btn-circle w32 asset-round mt-1">{{asset.symbol | limitTo : 4 }}</span>
                             </td>
-                            <td> {{asset.name}} ({{asset.symbol}})  <span class="color-Active official-fusion-badge" ng-show="asset.verified">
+                            <td> {{asset.name}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
+                                                                         ng-show="asset.verified">
                                     <img src="./images/verified.svg" height="14px" width="14px"/></span>
                                 <br>
                                 <div class="max-char"><span class="small-gray-text" data-toggle="tooltip"
@@ -549,6 +550,17 @@
                 <h3 class="h3-blue" ng-hide="showStaticTimeLockAsset === true">Send Asset</h3>
                 <h3 class="h3-blue" ng-show="showStaticTimeLockAsset === true">Send Time-lock</h3>
 
+                <div class="col-md-12 p-0"
+                     ng-show="assetToSend.toLowerCase() == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'">
+                        <span class="warning-bg p-3 inline w-100">
+                        <div class="d-flex flex-row">
+                            <img src="./images/unverified.svg" width="16px" height="14px" class="align-self-start mt-2">
+  <div class="p-2">             Sending Native FSN to ERC-20 FSN Exchanges will result in permanent loss. Check <a
+              href="https://www.fusion.org/fsn-token#exchange" target="_blank">here</a> for the latest status on which exchanges have made the switch to Native FSN before sending.
+                       </div>
+</div>
+                        </span>
+                </div>
                 <div>
                     <section class="row form-group">
                         <div class="col-sm-12 clearfix">
@@ -674,18 +686,18 @@
                             </span>
                                 <br>
                                 <input class="form-control"
-                                        type="text"
-                                        ng-change="checkDateWithForever()"
-                                        ng-model="sendAsset.fromTime"
-                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
-                                        is-open="popup.opened"
-                                        datepicker-options="dateOptions"
-                                        uib-datepicker-popup="MM/dd/yyyy"
-                                        alt-input-formats="altInputFormats"
-                                        ng-click="popup.opened = true"
-                                        show-button-bar="false"
-                                        placeholder="mm/dd/yyyy"
-                                        onkeydown="return false"
+                                       type="text"
+                                       ng-change="checkDateWithForever()"
+                                       ng-model="sendAsset.fromTime"
+                                       ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
+                                       is-open="popup.opened"
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="popup.opened = true"
+                                       show-button-bar="false"
+                                       placeholder="mm/dd/yyyy"
+                                       onkeydown="return false"
                                 >
                             </div>
                             <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
@@ -701,18 +713,18 @@
                                 </span>
                                 <br>
                                 <input class="form-control"
-                                        type="text"
-                                        timepicker-neutral-timezone
-                                        ng-change="checkDate()"
-                                        onkeydown="return false"
-                                        ng-model="sendAsset.tillTime"
-                                        is-open="popup.opened2"
-                                        datepicker-options="dateOptions"
-                                        uib-datepicker-popup="MM/dd/yyyy"
-                                        alt-input-formats="altInputFormats"
-                                        ng-click="popup.opened2 = true"
-                                        show-button-bar="false"
-                                        placeholder="mm/dd/yyyy">
+                                       type="text"
+                                       timepicker-neutral-timezone
+                                       ng-change="checkDate()"
+                                       onkeydown="return false"
+                                       ng-model="sendAsset.tillTime"
+                                       is-open="popup.opened2"
+                                       datepicker-options="dateOptions"
+                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       alt-input-formats="altInputFormats"
+                                       ng-click="popup.opened2 = true"
+                                       show-button-bar="false"
+                                       placeholder="mm/dd/yyyy">
                             </div>
                         </div>
                     </section>
@@ -761,7 +773,10 @@
 
                 <h3>Send Time-Lock to Asset</h3>
 
-                <p class="small-gray-text">Send your time-lock back to <ax></ax>ssets.</p>
+                <p class="small-gray-text">Send your time-lock back to
+                    <ax></ax>
+                    ssets.
+                </p>
                 <section class="row form-group">
                     <div class="col-sm-8">
                             <span class="small-gray-text">
@@ -1079,8 +1094,10 @@
                                 </span>
                             </div>
                             <div class="float-right">
-                                <span class="badge badge-success" ng-show="transactionStatus == 'Success'">Success</span>
-                                <span class="badge badge-info" ng-hide="transactionStatus == 'Success'"><i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Pending</span>
+                                <span class="badge badge-success"
+                                      ng-show="transactionStatus == 'Success'">Success</span>
+                                <span class="badge badge-info" ng-hide="transactionStatus == 'Success'"><i
+                                            class="fa fa-spinner fa-spin" aria-hidden="true"></i> Pending</span>
                             </div>
                             <br>
                         </div>
@@ -1217,7 +1234,8 @@
                                  class="round-bg-white mr-2"
                                  ng-src="images/verifiedassets/{{manageAssetInfo.image}}"/>
 
-                            {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}}) <span class="color-Active official-fusion-badge p-1" ng-show="manageAssetInfo.verified">
+                            {{manageAssetInfo.name}} ({{manageAssetInfo.symbol}}) <span
+                                    class="color-Active official-fusion-badge p-1" ng-show="manageAssetInfo.verified">
                             <i class="fa fa-check-circle"></i> Verified</span>
 
                         </div>
@@ -1326,10 +1344,10 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                   <a href="{{value}}" target="_blank" ng-show="isValidUrl(value)" class="fusion-text-14">
-                                       {{value}}
-                                   </a>
-                                   <span class="fusion-text-14" ng-show="!isValidUrl(value)">
+                                <a href="{{value}}" target="_blank" ng-show="isValidUrl(value)" class="fusion-text-14">
+                                    {{value}}
+                                </a>
+                                <span class="fusion-text-14" ng-show="!isValidUrl(value)">
                                        {{value}}
                                    </span>
                             </div>
@@ -1623,7 +1641,8 @@
                                 </span>
                             </div>
                             <div class="float-right text-right">
-                                <span class="fusion-text-14">{{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}})</span>
+                                <span class="fusion-text-14">{{changeSupplyInfo.name}} ({{changeSupplyInfo.symbol}}
+                                    )</span>
                                 <br>
                                 <span class="small-gray-text max-char text-right inline-block" data-toggle="tooltip"
                                       data-placement="top"
