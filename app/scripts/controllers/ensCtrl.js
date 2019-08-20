@@ -137,6 +137,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.takeGetAllBalances();
         $scope.openMakesList();
         $scope.takeSwapList();
+        $scope.getUSAN();
         $scope.$applyAsync(function () {
             $rootScope.walletAvailable = true;
         });
@@ -155,6 +156,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.takeGetAllBalances();
         $scope.getVerifiedAssets();
         $scope.openMakesList();
+        $scope.getUSAN();
     }, 7000);
 
     $scope.mayRun = false;
@@ -186,6 +188,29 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.getVerifiedAssets();
+
+    $scope.usanAvailable = false;
+    $scope.usanAddress = 0;
+    $scope.getUSAN = async () => {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let usan = await web3.fsn.getNotation(walletAddress);
+        if (usan === 0){
+            if ($scope.usanAvailable) {
+                $scope.$applyAsync(function () {
+                    $scope.usanAvailable = false;
+                });
+            }
+        } else {
+            if (!$scope.usanAvailable) {
+                $scope.$applyAsync(function () {
+                    $scope.usanAvailable = true;
+                    $scope.usanAddress = usan;
+                });
+            }
+        }
+        console.log(`USAN Available? => ${$scope.usanAvailable} ${usan}`);
+    }
 
     $scope.convertToString = function (input) {
         if (input === "") {
