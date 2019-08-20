@@ -868,8 +868,7 @@
                                                placeholder="Search by Symbol, Name, or ID">
                                     </div>
                                 </form>
-                                <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                                     ng-show="usanAddress !== 0" ng-click="setMakeUSAN()">
+                                <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setMakeUSAN()">
                         <span class="badge badge-success badge-info">
                             USAN <strong>{{usanAddress}}</strong>
                         </span>

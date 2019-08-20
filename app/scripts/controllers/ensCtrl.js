@@ -1323,6 +1323,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(err);
         }
 
+        if($scope.swapsList[id].fromAssetId == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+            pass = true;
+        }
+
         balance = balance / $scope.countDecimals(decimals);
 
         await $scope.$apply(function () {
