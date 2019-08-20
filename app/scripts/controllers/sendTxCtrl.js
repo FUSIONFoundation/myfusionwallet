@@ -51,6 +51,21 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.attributevalue = [];
         $scope.allAttributes = {};
 
+        $scope.sufficientBalance = undefined;
+        $scope.checkSufficientBalance = async () => {
+            if(!$scope.sendAsset.amountToSend || !$scope.selectedAssetBalance) return;
+            let a;
+            let amountToSend = new window.BigNumber($scope.sendAsset.amountToSend);
+            let selectedAssetBalance = new window.BigNumber($scope.selectedAssetBalance);
+            if (selectedAssetBalance.gte(amountToSend)) {
+                a = true;
+            } else {
+                a = false;
+            }
+            $scope.$applyAsync(function(){
+                $scope.sufficientBalance = a;
+            })
+        }
 
         let timeout;
         $scope.walletTimeOut = function () {
@@ -88,8 +103,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         $scope.getTransactionStatus(txid)
                     }, 5000);
                     return;
-                } else if(tx){
-                    $scope.$applyAsync(function(){
+                } else if (tx) {
+                    $scope.$applyAsync(function () {
                         $scope.transactionStatus = 'Success'
                     })
                 }
@@ -966,6 +981,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let decimals = "";
 
             $scope.$eval(function () {
+                $scope.sufficientBalance = undefined;
                 $scope.transactionStatus = 'Pending'
                 $scope.walletAddressError = false;
                 $scope.validWalletAddress = false;

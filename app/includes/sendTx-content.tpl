@@ -617,9 +617,10 @@
                                    class="form-control"
                                    min="0"
                                    ng-model="sendAsset.amountToSend"
-                                   ng-class="{'is-invalid' : sendAsset.amountToSend > selectedAssetBalance}"
+                                   ng-change="checkSufficientBalance()"
+                                   ng-class="{'is-invalid' : sufficientBalance == false}"
                                    placeholder="Enter an amount"/>
-                            <div class="invalid-feedback" ng-show="sendAsset.amountToSend > selectedAssetBalance;">
+                            <div class="invalid-feedback" ng-show="sufficientBalance == false">
                                 You don't have enough funds
                             </div>
                             <div class="invalid-feedback" ng-show="sendAsset.amountToSend < 0;">
@@ -741,13 +742,13 @@
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || sendAsset.amountToSend < 0 || walletAddressError">
+                                ng-disabled="!sufficientBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || sendAsset.amountToSend < 0 || walletAddressError">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="showStaticTimeLockAsset"
-                                ng-disabled="sendAsset.amountToSend > selectedAssetBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || walletAddressError">
+                                ng-disabled="!sufficientBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || walletAddressError">
                             Next
                         </button>
                     </div>
