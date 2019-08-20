@@ -211,6 +211,25 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         console.log(`USAN Available? => ${$scope.usanAvailable} ${usan}`);
     }
+    $scope.setMakeUSAN = async () => {
+        $scope.$eval(function () {
+            $scope.selectedSendAsset = `USAN ${$scope.usanAddress}`;
+            $scope.selectedSendAssetSymbol = `USAN ${$scope.usanAddress}`;
+            $scope.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedSendImage = false;
+            $scope.selectedSendHasImage = false;
+            $scope.assetToSend = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedSendVerified = false;
+            $scope.sendHasTimeLockBalance = false;
+            $scope.sendDropDown = false;
+            $scope.sendDropDown2 = false;
+        });
+        $scope.sendChanged = 1;
+        $scope.$applyAsync(function(){
+            $scope.makeUSAN = true;
+        })
+        await $scope.allSwaps(0);
+    }
 
     $scope.convertToString = function (input) {
         if (input === "") {
@@ -2326,10 +2345,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let walletAddress = accountData.from;
             let size = 10;
 
-            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
+            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedReceiveContract}&fromAsset=${$scope.selectedSendContract}`
 
             if ($scope.selectedReceiveAsset == 'All Assets') {
-                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&fromAsset=${$scope.selectedSendContract}`
             }
 
             if ($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets') {
@@ -2370,6 +2389,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let assetBalance = "";
 
                 let fromAsset = allAssets[swapList[asset]["FromAssetID"]];
+                console.log(fromAsset);
                 let toAsset = allAssets[swapList[asset]["ToAssetID"]];
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
