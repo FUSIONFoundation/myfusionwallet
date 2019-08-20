@@ -2389,6 +2389,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
                 let owner = swapList[asset]["Owner"];
+                console.log(swapList[asset]);
+                console.log(owner);
                 let owned = false;
                 let assetBalance = "";
 
@@ -2398,6 +2400,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;
+
+
+                // If Make Swap is USAN
+                if(fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+                    try {
+                        await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swapList[asset]["SwapID"]}`).then(function (r) {
+                            console.log(r.data)
+                            owner = r.data[0].fromAddress;
+                        });
+                    } catch (err) {
+                        console.log(err);
+                    }
+
+                    let USAN = await web3.fsn.getNotation(owner);
+                    fromAsset.Symbol = "USAN";
+                    fromAsset.Name = USAN;
+                }
 
                 for (let a in window.verifiedAssetsImages) {
                     if (
