@@ -4,11 +4,54 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
   $scope.requireFPass = $scope.requirePPass = $scope.showFDecrypt = $scope.showPDecrypt = $scope.showAOnly = $scope.showParityDecrypt = false;
   $scope.filePassword = "";
   $scope.fileContent = "";
+  $scope.mnemonicFinalPhrase = "";
+  $scope.mnemonicArray = [];
   $scope.Validator = Validator;
   $scope.isSSL = window.location.protocol == "https:";
   $scope.ajaxReq = ajaxReq;
   $scope.nodeType = $scope.ajaxReq.type;
   $scope.isMnemonicPhrase = false;
+  $scope.twelveIsSelected = true;
+  $scope.phrases = [
+    {number: 1},
+    {number: 2},
+    {number: 3},
+    {number: 4},
+    {number: 5},
+    {number: 6},
+    {number: 7},
+    {number: 8},
+    {number: 9},
+    {number: 10},
+    {number: 11},
+    {number: 12}
+  ];
+  $scope.phrases2 = [
+    {number: 1},
+    {number: 2},
+    {number: 3},
+    {number: 4},
+    {number: 5},
+    {number: 6},
+    {number: 7},
+    {number: 8},
+    {number: 9},
+    {number: 10},
+    {number: 11},
+    {number: 12},
+    {number: 13},
+    {number: 14},
+    {number: 15},
+    {number: 16},
+    {number: 17},
+    {number: 18},
+    {number: 19},
+    {number: 20},
+    {number: 21},
+    {number: 22},
+    {number: 23},
+    {number: 24}
+  ];
   $scope.HDWallet = {
     numWallets: 0,
     walletsPerDialog: 5,
@@ -250,7 +293,7 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     $scope.HDWallet.numWallets = 0;
     if ($scope.walletType == "pastemnemonic") {
       $scope.HDWallet.hdk = hd.HDKey.fromMasterSeed(
-        hd.bip39.mnemonicToSeed($scope.manualmnemonic.trim(), password)
+        hd.bip39.mnemonicToSeed($scope.mnemonicFinalPhrase.trim(), password)
       );
       $scope.setHDAddresses(
         $scope.HDWallet.numWallets,
@@ -280,12 +323,27 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
       globalFuncs.successMsgs[4] +
         document.getElementById("fselector").files[0].name
     );
+    $scope.contentFile = "File Selected: " + document.getElementById("fselector").files[0].name;
     try {
       $scope.requireFPass = Wallet.walletRequirePass($fileContent);
       $scope.showFDecrypt = !$scope.requireFPass;
       $scope.fileContent = $fileContent;
     } catch (e) {
       $scope.notifier.danger(e);
+    }
+  };
+  $scope.seperateText = function(e){
+    e.preventDefault();
+    let newPhrase = e.clipboardData.getData('text/plain');
+    let arrayPhrase = newPhrase.split(" ");
+
+    for(var i = 0; i < arrayPhrase.length; i++){
+      document.querySelectorAll("input[ng-model='$phrase']")[i].value = arrayPhrase[i];
+    }
+    if($scope.twelveIsSelected === true){
+      $scope.onMnemonicChange();
+    } else {
+      $scope.onSecondMnemonicChange();
     }
   };
   $scope.openFileDialog = function($fileContent) {
@@ -310,7 +368,25 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
   };
   $scope.onMnemonicChange = function() {
     $scope.showAOnly = false;
-    $scope.showMDecrypt = hd.bip39.validateMnemonic($scope.manualmnemonic);
+    $scope.mnemonicFinalPhrase = "";
+    $scope.mnemonicArray = [];
+    for(var i = 0; i < 12; i++){
+      $scope.mnemonicArray.push(document.querySelectorAll("input[ng-model='$phrase']")[i].value);
+      console.log($scope.mnemonicArray);
+    }
+    $scope.mnemonicFinalPhrase = $scope.mnemonicArray.join(" ");
+    $scope.showMDecrypt = hd.bip39.validateMnemonic($scope.mnemonicFinalPhrase);
+  };
+  $scope.onSecondMnemonicChange = function() {
+    $scope.showAOnly = false;
+    $scope.mnemonicFinalPhrase = "";
+    $scope.mnemonicArray = [];
+    for(var i = 0; i < 24; i++){
+      $scope.mnemonicArray.push(document.querySelectorAll("input[ng-model='$phrase']")[i].value);
+      console.log($scope.mnemonicArray);
+    }
+    $scope.mnemonicFinalPhrase = $scope.mnemonicArray.join(" ");
+    $scope.showMDecrypt = hd.bip39.validateMnemonic($scope.mnemonicFinalPhrase);
   };
   $scope.onParityPhraseChange = function() {
     if ($scope.parityPhrase) $scope.showParityDecrypt = true;

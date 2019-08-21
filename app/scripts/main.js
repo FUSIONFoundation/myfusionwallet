@@ -692,6 +692,40 @@ app.directive('timepickerNeutralTimezone', function () {
         }
     };
 });
+
+app.directive('focus', function () {
+    return {
+        restrict: 'A',
+        link: function ($scope, selem, attrs) {
+            selem.bind('keydown', function (e) {
+                var code = e.keyCode || e.which;
+                if (code === 32) {
+                    e.preventDefault();
+                    if($scope.twelveIsSelected === true){
+                        $scope.onMnemonicChange();
+                    } else {
+                        $scope.onSecondMnemonicChange();
+                    }
+                    var pageElems = document.querySelectorAll('input, select, textarea'),
+                        elem = e.srcElement || e.target,
+                        focusNext = false,
+                        len = pageElems.length;
+                    for (var i = 0; i < len; i++) {
+                        var pe = pageElems[i];
+                        if (focusNext) {
+                            if (pe.style.display !== 'none') {
+                                pe.focus();
+                                break;
+                            }
+                        } else if (pe === elem) {
+                            focusNext = true;
+                        }
+                    }
+                }
+            });
+        }
+    }
+})
 app.constant("darkList", darkListConst);
 app.controller("tabsCtrl", [
     "$scope",
