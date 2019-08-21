@@ -5,6 +5,26 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let data = nu ? JSON.parse(nu) : {};
     let _CHAINID = window.defaultChainId;
 
+    $scope.suspiciousAsset = function (input) {
+        if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
+            window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $scope.closesendDropDown = function () {
+        $scope.$applyAsync(function () {
+            $scope.sendDropDown = false;
+        })
+    }
+    $scope.closereceiveDropDown = function () {
+        $scope.$applyAsync(function () {
+            $scope.receiveDropDown = false;
+        })
+    }
+
     if (data.chainid !== "") {
         _CHAINID = data.chainid;
     }
@@ -103,12 +123,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             return;
         }
         $scope.getShortAddressNotation();
-        $scope.getTimeLockBalances().then(function () {
+        await $scope.getTimeLockBalances().then(function () {
             $scope.getAllAssets().then(function () {
                 $scope.setSendAndReceiveInit();
             });
         });
-        await $scope.allSwaps(0);
+        // await $scope.allSwaps(0);
         $scope.takeGetAllBalances();
         $scope.sortSwapMarket("timePosix");
         $scope.sortOpenMakes("timePosix");
@@ -117,6 +137,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.takeGetAllBalances();
         $scope.openMakesList();
         $scope.takeSwapList();
+        $scope.getUSAN();
         $scope.$applyAsync(function () {
             $rootScope.walletAvailable = true;
         });
@@ -135,6 +156,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.takeGetAllBalances();
         $scope.getVerifiedAssets();
         $scope.openMakesList();
+        $scope.getUSAN();
     }, 7000);
 
     $scope.mayRun = false;
@@ -166,6 +188,48 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.getVerifiedAssets();
+
+    $scope.usanAvailable = false;
+    $scope.usanAddress = 0;
+    $scope.getUSAN = async () => {
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let usan = await web3.fsn.getNotation(walletAddress);
+        if (usan === 0){
+            if ($scope.usanAvailable) {
+                $scope.$applyAsync(function () {
+                    $scope.usanAvailable = false;
+                });
+            }
+        } else {
+            if (!$scope.usanAvailable) {
+                $scope.$applyAsync(function () {
+                    $scope.usanAvailable = true;
+                    $scope.usanAddress = usan;
+                });
+            }
+        }
+        console.log(`USAN Available? => ${$scope.usanAvailable} ${usan}`);
+    }
+    $scope.setMakeUSAN = async () => {
+        $scope.$eval(function () {
+            $scope.selectedSendAsset = `USAN ${$scope.usanAddress}`;
+            $scope.selectedSendAssetSymbol = `USAN ${$scope.usanAddress}`;
+            $scope.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedSendImage = false;
+            $scope.selectedSendHasImage = false;
+            $scope.assetToSend = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedSendVerified = false;
+            $scope.sendHasTimeLockBalance = false;
+            $scope.sendDropDown = false;
+            $scope.sendDropDown2 = false;
+        });
+        $scope.sendChanged = 1;
+        $scope.$applyAsync(function(){
+            $scope.makeUSAN = true;
+        })
+        await $scope.allSwaps(0);
+    }
 
     $scope.convertToString = function (input) {
         if (input === "") {
@@ -218,6 +282,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.fromEndTime = "";
             $scope.hasTimeLockSet = false;
         });
+        $scope.getAssetBalance();
     };
 
     $scope.checkDate = function () {
@@ -379,6 +444,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.recallAssetModal = new Modal(document.getElementById("recallAsset"));
     $scope.takeSwapModal = new Modal(document.getElementById("takeSwap"));
     $scope.makeSwapModal = new Modal(document.getElementById("makeSwap"));
+    $scope.suspiciousAssetModal = new Modal(document.getElementById("suspiciousAssetModal"));
     $scope.makeSwapConfirmModal = new Modal(
         document.getElementById("makeSwapConfirm")
     );
@@ -452,11 +518,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
 
-    $scope.setSendAndReceiveInit = function () {
+    $scope.setSendAndReceiveInit = async function () {
         let id;
-        if (cachedDropdowns) {
+        if (cachedDropdowns.send) {
             id = cachedDropdowns.send;
-            $scope.setSendAsset(id);
+            await $scope.setSendAsset(id);
         } else {
             $scope.selectedReceiveAsset = `All Assets`;
             $scope.selectedReceiveContract = "\n";
@@ -467,9 +533,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         // Receive part
         let idR;
-        if (cachedDropdowns) {
+        if (cachedDropdowns.receive) {
             idR = cachedDropdowns.receive;
-            $scope.setReceiveAsset(idR);
+            console.log('Receive was cached');
+            await $scope.setReceiveAsset(idR);
         } else {
             $scope.selectedSendAsset = `All Assets`;
             $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
@@ -782,6 +849,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.receiveChanged = 1;
         $scope.updateDropDownCookie('receive', id);
+        await $scope.allSwaps(0);
     };
 
     $scope.setSendAsset = async function (id) {
@@ -802,6 +870,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.getAssetBalance();
         $scope.sendChanged = 1;
         $scope.updateDropDownCookie('send', id);
+        await $scope.allSwaps(0);
     };
 
     $scope.copyToClipboard = function (text) {
@@ -1025,7 +1094,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 balances = res;
             });
 
-            if(balances) {
+            if (balances) {
                 let a = Object.keys(balances),
                     b = Object.keys($scope.myActiveTimeLocks);
                 let c = a.concat(b);
@@ -1053,7 +1122,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let hasImage = false;
                 let verifiedAsset = false;
 
-                if(balances) {
+                if (balances) {
                     assetBalance = balances[id];
                 }
 
@@ -1212,14 +1281,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.size = $scope.openTakeSwaps[id].size;
             $scope.takeAmountSwap = 1;
         });
-
         await $scope.setReceive(1).then(function () {
             $scope.takeSwapModal.open();
         });
     };
 
 
-    $scope.takeModal = async function (id) {
+    $scope.takeId = 0;
+    $scope.takeModal = async function (id, pass) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let balance = "";
@@ -1254,6 +1323,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(err);
         }
 
+        if($scope.swapsList[id].fromAssetId == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+            pass = true;
+        }
+
         balance = balance / $scope.countDecimals(decimals);
 
         await $scope.$apply(function () {
@@ -1279,12 +1352,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.toVerified = $scope.swapsList[id].fromVerified;
             $scope.takeDataFront.size = $scope.swapsList[id].size;
             $scope.takeAmountSwap = 1;
+            $scope.takeId = id;
         });
 
-        console.log($scope.takeDataFront);
-
         await $scope.setReceive(1).then(function () {
-            $scope.takeSwapModal.open();
+            if (!pass) {
+                if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
+                    if (!$scope.takeDataFront.toVerified) {
+                        $scope.suspiciousAssetModal.open();
+                    } else {
+                        $scope.takeSwapModal.open()
+                    }
+                }
+            } else {
+                $scope.takeSwapModal.open();
+            }
         });
     };
 
@@ -2196,14 +2278,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         openMakesListRunning = false;
     };
 
-    $scope.$watch('selectedSendContract', function () {
-        $scope.allSwaps(0);
-        $scope.allSwapsPage = 0;
-    })
-    $scope.$watch('selectedReceiveContract', function () {
-        $scope.allSwaps(0);
-        $scope.allSwapsPage = 0;
-    })
+    // $scope.$watch('selectedSendContract', function () {
+    //     $scope.allSwaps(0);
+    //     $scope.allSwapsPage = 0;
+    // })
+    // $scope.$watch('selectedReceiveContract', function () {
+    //     $scope.allSwaps(0);
+    //     $scope.allSwapsPage = 0;
+    // });
 
 
     $scope.closeAllOtherDropDowns = async function (input) {
@@ -2267,10 +2349,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let walletAddress = accountData.from;
             let size = 10;
 
-            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
+            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedReceiveContract}&fromAsset=${$scope.selectedSendContract}`
 
             if ($scope.selectedReceiveAsset == 'All Assets') {
-                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&fromAsset=${$scope.selectedSendContract}`
             }
 
             if ($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets') {
@@ -2279,6 +2361,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             if ($scope.selectedSendContract == '-' && $scope.selectedReceiveContract == '-') {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
+
+            console.log(url);
 
             try {
                 await ajaxReq.http.get(url).then(function (r) {
@@ -2305,14 +2389,34 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
                 let owner = swapList[asset]["Owner"];
+                console.log(swapList[asset]);
+                console.log(owner);
                 let owned = false;
                 let assetBalance = "";
 
                 let fromAsset = allAssets[swapList[asset]["FromAssetID"]];
+                console.log(fromAsset);
                 let toAsset = allAssets[swapList[asset]["ToAssetID"]];
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;
+
+
+                // If Make Swap is USAN
+                if(fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+                    try {
+                        await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swapList[asset]["SwapID"]}`).then(function (r) {
+                            console.log(r.data)
+                            owner = r.data[0].fromAddress;
+                        });
+                    } catch (err) {
+                        console.log(err);
+                    }
+
+                    let USAN = await web3.fsn.getNotation(owner);
+                    fromAsset.Symbol = "USAN";
+                    fromAsset.Name = USAN;
+                }
 
                 for (let a in window.verifiedAssetsImages) {
                     if (

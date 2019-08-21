@@ -61,6 +61,8 @@ window.ens = ens;
 var domainsale = require("./domainsale");
 window.domainsale = domainsale;
 var translate = require("./translations/translate.js");
+let verifiedList = require("./verifiedList.js");
+window.verifiedList = verifiedList;
 if (IS_CX) {
     var cxFuncs = require("./cxFuncs");
     var punycode = require("punycode");
@@ -318,6 +320,16 @@ window.__fsnGetAllAssets = async function (array) {
                 Name: "FUSION",
                 Symbol: "FSN",
                 Total: 81920000000000000000000000,
+            }
+            localCacheOfAssets['0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'] = {
+                AssetID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+                CanChange: false,
+                Decimals: 0,
+                Description: "",
+                ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+                Name: "USAN",
+                Symbol: "",
+                Total: 0,
             }
             inGetAllAsets = false
             clearOutAssetPromises(localCacheOfAssets, null)

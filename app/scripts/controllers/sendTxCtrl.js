@@ -51,6 +51,21 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.attributevalue = [];
         $scope.allAttributes = {};
 
+        $scope.sufficientBalance = undefined;
+        $scope.checkSufficientBalance = async () => {
+            if(!$scope.sendAsset.amountToSend || !$scope.selectedAssetBalance) return;
+            let a;
+            let amountToSend = new window.BigNumber($scope.sendAsset.amountToSend);
+            let selectedAssetBalance = new window.BigNumber($scope.selectedAssetBalance);
+            if (selectedAssetBalance.gte(amountToSend)) {
+                a = true;
+            } else {
+                a = false;
+            }
+            $scope.$applyAsync(function(){
+                $scope.sufficientBalance = a;
+            })
+        }
 
         let timeout;
         $scope.walletTimeOut = function () {
@@ -88,8 +103,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                         $scope.getTransactionStatus(txid)
                     }, 5000);
                     return;
-                } else if(tx){
-                    $scope.$applyAsync(function(){
+                } else if (tx) {
+                    $scope.$applyAsync(function () {
                         $scope.transactionStatus = 'Success'
                     })
                 }
@@ -245,7 +260,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             return;
         };
 
-        $scope.returnAttributesJSON = function () {
+        $scope.returnAttributesJSON = async function () {
             $scope.allAttributes = {};
             for (let u in $scope.attributename) {
                 if ($scope.attributename[u] == "") {
@@ -255,7 +270,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.attributename[u].toString()
                     ] = $scope.attributevalue[u].toString();
             }
-            return $scope.allAttributes;
         };
 
         $scope.lastId = 0;
@@ -368,8 +382,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         };
 
-        $scope.checkAllAttributesLength = function () {
-            $scope.returnAttributesJSON();
+        $scope.checkAllAttributesLength = async function () {
+            await $scope.returnAttributesJSON();
             if ($scope.allAttributes == {}) {
                 return;
             }
@@ -485,7 +499,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 a = r;
             });
 
-            $scope.assetListOwns[id].total = a.Total / ($scope.countDecimals(a.Decimals));
+            let totalBN = new window.BigNumber(a.Total);
+            let decimals = new window.BigNumber($scope.countDecimals(a.Decimals));
+
+            let total = totalBN.div(decimals);
+
+            $scope.assetListOwns[id].total = total.toString();
 
             $scope.$eval(function () {
                 $scope.manageAssetInfo = {
@@ -962,6 +981,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let decimals = "";
 
             $scope.$eval(function () {
+                $scope.sufficientBalance = undefined;
+                $scope.transactionStatus = 'Pending'
                 $scope.walletAddressError = false;
                 $scope.validWalletAddress = false;
                 $scope.checkingUSAN = false;
@@ -980,13 +1001,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 });
 
                 await web3.fsn.getBalance(asset, walletAddress).then(function (res) {
-                    assetBalance = res;
+                    assetBalance = res.toString();
                 });
 
-                let balance = parseInt(assetBalance) / $scope.countDecimals(decimals);
-
+                let balanceBN = new window.BigNumber(assetBalance.toString());
+                let decimalsBN = new window.BigNumber($scope.countDecimals(parseInt(decimals)));
+                let balanceFinal = balanceBN.div(decimalsBN);
                 $scope.$eval(function () {
-                    $scope.selectedAssetBalance = balance;
+                    $scope.selectedAssetBalance = balanceFinal.toString();
                 });
             }
 
@@ -1112,10 +1134,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 assetBalance = r[asset];
             })
 
-            let balance = new BN(assetBalance) / $scope.countDecimals(decimals);
+            let balanceBN = new window.BigNumber(assetBalance.toString());
+            let decimalsBN = new window.BigNumber($scope.countDecimals(parseInt(decimals)));
+            let balanceFinal = balanceBN.div(decimalsBN);
 
             $scope.$apply(function () {
-                $scope.selectedAssetBalance = balance;
+                $scope.selectedAssetBalance = balanceFinal.toString();
             });
         };
 
@@ -1533,6 +1557,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             return web3.fsn
                                 .signAndTransmit(tx, $scope.account.signTransaction)
                                 .then(txHash => {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.$eval(function () {
                                         $scope.successHash = txHash;
@@ -1586,6 +1611,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             return web3.fsn
                                 .signAndTransmit(tx, $scope.account.signTransaction)
                                 .then(txHash => {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.$eval(function () {
                                         $scope.successHash = txHash;
@@ -1644,6 +1670,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
                             web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
+                                $scope.getTransactionStatus(txHash);
                                 $scope.sendAssetFinal.open();
                                 $scope.$eval(function () {
                                     $scope.successHash = txHash;
@@ -1824,6 +1851,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             .signAndTransmit(tx, $scope.account.signTransaction)
                             .then(txHash => {
                                 $scope.$eval(function () {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.successHash = txHash;
                                     $scope.successHash = txHash;
@@ -1882,6 +1910,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                             delete oldTx.signedTx;
                             web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
                                 $scope.$eval(function () {
+                                    $scope.getTransactionStatus(txHash);
                                     $scope.sendAssetFinal.open();
                                     $scope.successHash = txHash;
                                     $scope.successHash = txHash;
@@ -1959,7 +1988,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
         }
 
-        $scope.createAssetReviewOpen = function () {
+        $scope.createAssetReviewOpen = async function () {
+            await $scope.returnAttributesJSON();
+            console.log($scope.allAttributes);
             if (Object.keys($scope.allAttributes).length == 0) {
                 $scope.showAttributesTab = false;
             } else {
