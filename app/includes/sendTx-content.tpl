@@ -567,14 +567,14 @@
                         </div>
                         <div class="col-sm-12 clearfix">
                             <span class="small-gray-text">
-                                To Address:
+                                To Address
                             </span>
                             <input type="text"
                                    class="form-control"
                                    id="sendAssetToAddress"
                                    ng-model="sendAsset.toAddress"
                                    ng-change="verifyWalletAddress();"
-                                   placeholder="Enter a fusion address"/>
+                                   placeholder="Enter a Fusion Address or USAN"/>
                             <div class="invalid-feedback" ng-show="walletAddressError">
                                 Please, enter a valid wallet address.
                             </div>
@@ -587,8 +587,12 @@
                         </div>
 
                         <div class="col-sm-12 mb-2" ng-show="showStaticAsset === true">
+                             <span class="small-gray-text">
+                                YOU SEND
+                            </span>
                             <div class="sendAssetBalanceAvailable">
                                 <span class="text-fusion">{{assetName}}</span>
+                                <span class="small-gray-text" ng-show="showStaticTimeLockAsset"><br>{{timeLockStartTime}} - {{timeLockEndTime}}</span>
                                 <div class="break-word">
                                     <span class="small-gray-text">{{assetToSend}}</span>
                                 </div>
@@ -648,7 +652,7 @@
 
                             </div>
                         </div>
-                        <div class="col-md-12" ng-hide="showStaticTimeLockAsset">
+                        <div class="col-md-12">
                             <span class="small-gray-text">
                                     Time-Lock
                                 </span>

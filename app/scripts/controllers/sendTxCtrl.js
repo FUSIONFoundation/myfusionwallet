@@ -1017,7 +1017,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             });
             if (id >= 0 && timelockonly == true) {
                 let assetData = $scope.timeLockList[id];
-                $scope.$eval(function () {
+                console.log(assetData);
+                $scope.$applyAsync(function () {
                     $scope.assetToSend = assetData.asset;
                     $scope.assetName = assetData.name;
                     $scope.timeLockStartTime = assetData.startTime;
