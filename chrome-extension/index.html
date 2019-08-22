@@ -8660,7 +8660,7 @@
                                             ng-click="sendTimeLock ='daterange'"
                                             ng-class="{'time-active' : sendTimeLock == 'daterange'}"
                                     >
-                                        Now to Date
+                                        Date to Date
                                     </button>
                                 </div>
                                 <div class="col-md-1 p-0 pb-2">
@@ -8687,13 +8687,10 @@
                                            alt-input-formats="altInputFormats"
                                            onkeydown="return false"
                                            ng-model="fromStartTime"
-                                           ng-hide="sendTimeLock == 'daterange'"
                                            ng-click="popup.opened3 = true"
                                            show-button-bar="false"
                                            placeholder="mm/dd/yyyy"
                                     >
-                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
-                                          ng-show="sendTimeLock == 'daterange'">Now</span>
                                 </div>
                                 <div class="col-md-12 p-0" ng-show="showTimeLockSend">
                                     <span class="small-gray-text" ng-show="sendTimeLock == 'scheduled'">Until</span>
