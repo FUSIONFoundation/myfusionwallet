@@ -1101,7 +1101,7 @@
                             <div class="float-right">
                                 <span class="badge badge-success"
                                       ng-show="transactionStatus == 'Success'">Success</span>
-                                <span class="badge badge-info" ng-hide="transactionStatus == 'Success'"><i
+                                <span class="badge badge-info-pending" ng-hide="transactionStatus == 'Success'"><i
                                             class="fa fa-spinner fa-spin" aria-hidden="true"></i> Pending</span>
                             </div>
                             <br>
