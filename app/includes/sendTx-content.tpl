@@ -555,7 +555,7 @@
                         <span class="warning-bg p-3 inline w-100">
                         <div class="d-flex flex-row">
                             <img src="./images/unverified.svg" width="16px" height="14px" class="align-self-start mt-2">
-  <div class="p-2">             Sending Native FSN to ERC-20 FSN Exchanges will result in permanent loss. Check <a
+  <div class="p-2">             Sending Native FSN to ERC-20 FSN Exchanges will result in permanent loss. Check <a class="url-blue"
               href="https://www.fusion.org/fsn-token#exchange" target="_blank">here</a> for the latest status on which exchanges have made the switch to Native FSN before sending.
                        </div>
 </div>
@@ -567,14 +567,14 @@
                         </div>
                         <div class="col-sm-12 clearfix">
                             <span class="small-gray-text">
-                                To Address:
+                                To Address
                             </span>
                             <input type="text"
                                    class="form-control"
                                    id="sendAssetToAddress"
                                    ng-model="sendAsset.toAddress"
                                    ng-change="verifyWalletAddress();"
-                                   placeholder="Enter a fusion address"/>
+                                   placeholder="Enter a Fusion Address or USAN"/>
                             <div class="invalid-feedback" ng-show="walletAddressError">
                                 Please, enter a valid wallet address.
                             </div>
@@ -587,8 +587,12 @@
                         </div>
 
                         <div class="col-sm-12 mb-2" ng-show="showStaticAsset === true">
+                             <span class="small-gray-text">
+                                YOU SEND
+                            </span>
                             <div class="sendAssetBalanceAvailable">
                                 <span class="text-fusion">{{assetName}}</span>
+                                <span class="small-gray-text" ng-show="showStaticTimeLockAsset"><br>{{timeLockStartTime}} - {{timeLockEndTime}}</span>
                                 <div class="break-word">
                                     <span class="small-gray-text">{{assetToSend}}</span>
                                 </div>
@@ -630,37 +634,19 @@
                                ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
-                        <div class="col-md-12" ng-show="showStaticTimeLockAsset">
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        From
-                                </span>
-                                <br>
-                                {{timeLockStartTime}}
-
-                            </div>
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        Until
-                                    </span>
-                                <br>
-                                {{timeLockEndTime}}
-
-                            </div>
-                        </div>
-                        <div class="col-md-12" ng-hide="showStaticTimeLockAsset">
+                        <div class="col-md-12">
                             <span class="small-gray-text">
                                     Time-Lock
                                 </span>
                             <br>
-                            <div class="col-md-4 p-0 pb-2">
+                            <div class="p-0 pb-2" ng-class="{'col-md-6' : showStaticTimeLockAsset && timeLockEndTime !== '∞ Forever','col-md-4': showStaticTimeLockAsset && timeLockEndTime == '∞ Forever' || !showStaticTimeLockAsset}">
                                 <button class="btn btn-sm btn-white w-100 mh48"
                                         ng-click="transactionType ='none'"
                                         ng-class="{'time-active' : transactionType == 'none'}"
                                 >None
                                 </button>
                             </div>
-                            <div class="col-md-4 p-0 pb-2">
+                            <div class="p-0 pb-2" ng-class="{'col-md-6' : showStaticTimeLockAsset && timeLockEndTime !== '∞ Forever','col-md-4': showStaticTimeLockAsset && timeLockEndTime == '∞ Forever' || !showStaticTimeLockAsset}">
                                 <button class="btn btn-sm btn-white w-100 mh48"
                                         ng-click="transactionType ='daterange'"
                                         ng-class="{'time-active' : transactionType == 'daterange'}"
@@ -668,7 +654,7 @@
                                     Date to Date
                                 </button>
                             </div>
-                            <div class="col-md-4 p-0 pb-2">
+                            <div class="col-md-4 p-0 pb-2" ng-hide="showStaticTimeLockAsset && timeLockEndTime !== '∞ Forever'">
                                 <button class="btn btn-sm btn-white w-100 mh48"
                                         ng-click="transactionType ='scheduled'"
                                         ng-class="{'time-active' : transactionType == 'scheduled'}"
@@ -692,7 +678,7 @@
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
                                        is-open="popup.opened"
-                                       datepicker-options="dateOptions"
+                                       datepicker-options="dateOptionsFrom"
                                        uib-datepicker-popup="MM/dd/yyyy"
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened = true"
@@ -720,7 +706,7 @@
                                        onkeydown="return false"
                                        ng-model="sendAsset.tillTime"
                                        is-open="popup.opened2"
-                                       datepicker-options="dateOptions"
+                                       datepicker-options="dateOptionsTill"
                                        uib-datepicker-popup="MM/dd/yyyy"
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened2 = true"
@@ -953,23 +939,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12 p-0" ng-show="showStaticTimeLockAsset">
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        From
-                                </span>
-                                <br>
-                                {{timeLockStartTime}}
-                            </div>
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        Until
-                                    </span>
-                                <br>
-                                {{timeLockEndTime}}
-                            </div>
-                        </div>
-
                         <div class="row form-group">
                             <div class="col-xs-6 clearfix">
                                 <button class="btn btn-white btn-block"
@@ -1097,7 +1066,7 @@
                             <div class="float-right">
                                 <span class="badge badge-success"
                                       ng-show="transactionStatus == 'Success'">Success</span>
-                                <span class="badge badge-info" ng-hide="transactionStatus == 'Success'"><i
+                                <span class="badge badge-info-pending" ng-hide="transactionStatus == 'Success'"><i
                                             class="fa fa-spinner fa-spin" aria-hidden="true"></i> Pending</span>
                             </div>
                             <br>
