@@ -1021,6 +1021,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 $scope.$applyAsync(function () {
                     $scope.assetToSend = assetData.asset;
                     $scope.assetName = assetData.name;
+                    // If end time is forever, set endtime 3 months ahead
+                    $scope.sendAsset.fromTime = new Date((assetData.posixStartTime)*1000);
+                    $scope.sendAsset.tillTime = assetData.posixEndTime === "18446744073709551615" ? new Date((assetData.posixStartTime+7776000)*1000) : new Date(assetData.posixEndTime);
                     $scope.timeLockStartTime = assetData.startTime;
                     $scope.timeLockEndTime = assetData.endTime;
                     $scope.timeLockStartTimePosix = assetData.posixStartTime;

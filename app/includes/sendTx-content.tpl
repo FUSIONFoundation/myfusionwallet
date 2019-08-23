@@ -634,24 +634,6 @@
                                ng-hide="selectedAssetBalance == ''">Send
                                 Max</a>
                         </div>
-                        <div class="col-md-12" ng-show="showStaticTimeLockAsset">
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        From
-                                </span>
-                                <br>
-                                {{timeLockStartTime}}
-
-                            </div>
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        Until
-                                    </span>
-                                <br>
-                                {{timeLockEndTime}}
-
-                            </div>
-                        </div>
                         <div class="col-md-12">
                             <span class="small-gray-text">
                                     Time-Lock
@@ -954,23 +936,6 @@
                                       ng-hide="transactionType == 'scheduled'">{{sendAsset.tillTimeString}}</span>
                                 <span class="fusion-text-14" ng-show="transactionType == 'scheduled'">∞ Forever</span>
 
-                            </div>
-                        </div>
-
-                        <div class="col-md-12 p-0" ng-show="showStaticTimeLockAsset">
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        From
-                                </span>
-                                <br>
-                                {{timeLockStartTime}}
-                            </div>
-                            <div class="col-md-6 p-0">
-                                <span class="small-gray-text">
-                                        Until
-                                    </span>
-                                <br>
-                                {{timeLockEndTime}}
                             </div>
                         </div>
 
