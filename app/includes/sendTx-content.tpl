@@ -639,14 +639,14 @@
                                     Time-Lock
                                 </span>
                             <br>
-                            <div class="col-md-4 p-0 pb-2">
+                            <div class="p-0 pb-2" ng-class="{'col-md-6' : showStaticTimeLockAsset && timeLockEndTime !== '∞ Forever','col-md-4': showStaticTimeLockAsset && timeLockEndTime == '∞ Forever'}">
                                 <button class="btn btn-sm btn-white w-100 mh48"
                                         ng-click="transactionType ='none'"
                                         ng-class="{'time-active' : transactionType == 'none'}"
                                 >None
                                 </button>
                             </div>
-                            <div class="col-md-4 p-0 pb-2">
+                            <div class="p-0 pb-2" ng-class="{'col-md-6' : showStaticTimeLockAsset && timeLockEndTime !== '∞ Forever','col-md-4': showStaticTimeLockAsset && timeLockEndTime == '∞ Forever'}">
                                 <button class="btn btn-sm btn-white w-100 mh48"
                                         ng-click="transactionType ='daterange'"
                                         ng-class="{'time-active' : transactionType == 'daterange'}"
@@ -654,7 +654,7 @@
                                     Date to Date
                                 </button>
                             </div>
-                            <div class="col-md-4 p-0 pb-2">
+                            <div class="col-md-4 p-0 pb-2" ng-hide="showStaticTimeLockAsset && timeLockEndTime !== '∞ Forever'">
                                 <button class="btn btn-sm btn-white w-100 mh48"
                                         ng-click="transactionType ='scheduled'"
                                         ng-class="{'time-active' : transactionType == 'scheduled'}"
