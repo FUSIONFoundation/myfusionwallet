@@ -53,7 +53,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
         $scope.sufficientBalance = undefined;
         $scope.checkSufficientBalance = async () => {
-            if(!$scope.sendAsset.amountToSend || !$scope.selectedAssetBalance) return;
+            if (!$scope.sendAsset.amountToSend || !$scope.selectedAssetBalance) return;
             let a;
             let amountToSend = new window.BigNumber($scope.sendAsset.amountToSend);
             let selectedAssetBalance = new window.BigNumber($scope.selectedAssetBalance);
@@ -62,7 +62,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             } else {
                 a = false;
             }
-            $scope.$applyAsync(function(){
+            $scope.$applyAsync(function () {
                 $scope.sufficientBalance = a;
             })
         }
@@ -308,6 +308,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         $scope.dateOptions = {
+            minDate: new Date(),
+            showWeeks: false,
+            formatMonth: "MMM",
+            yearColumns: 3
+        };
+        $scope.dateOptionsFrom = {
+            minDate: new Date(),
+            showWeeks: false,
+            formatMonth: "MMM",
+            yearColumns: 3
+        };
+        $scope.dateOptionsTill = {
             minDate: new Date(),
             showWeeks: false,
             formatMonth: "MMM",
@@ -1022,8 +1034,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.assetToSend = assetData.asset;
                     $scope.assetName = assetData.name;
                     // If end time is forever, set endtime 3 months ahead
-                    $scope.sendAsset.fromTime = new Date((assetData.posixStartTime)*1000);
-                    $scope.sendAsset.tillTime = assetData.posixEndTime === "18446744073709551615" ? new Date((assetData.posixStartTime+7776000)*1000) : new Date((assetData.posixEndTime)*1000);
+                    $scope.sendAsset.fromTime = new Date((assetData.posixStartTime) * 1000);
+                    $scope.sendAsset.tillTime = assetData.posixEndTime === "18446744073709551615" ? new Date((assetData.posixStartTime + 7776000) * 1000) : new Date((assetData.posixEndTime) * 1000);
+                    $scope.dateOptionsFrom.minDate = $scope.sendAsset.fromTime;
+                    $scope.dateOptionsFrom.maxDate = assetData.posixEndTime === '18446744073709551615' ? '' : new Date((assetData.posixEndTime)*1000);
+                    $scope.dateOptionsTill.minDate = $scope.sendAsset.fromTime;
+                    $scope.dateOptionsTill.maxDate = assetData.posixEndTime === '18446744073709551615' ? '' : new Date((assetData.posixEndTime)*1000);
+                    console.log($scope.dateOptionsFrom);
+                    console.log($scope.dateOptionsTill);
                     $scope.timeLockStartTime = assetData.startTime;
                     $scope.timeLockEndTime = assetData.endTime;
                     $scope.timeLockStartTimePosix = assetData.posixStartTime;
