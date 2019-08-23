@@ -1040,8 +1040,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.dateOptionsFrom.maxDate = assetData.posixEndTime === '18446744073709551615' ? '' : new Date((assetData.posixEndTime)*1000);
                     $scope.dateOptionsTill.minDate = $scope.sendAsset.fromTime;
                     $scope.dateOptionsTill.maxDate = assetData.posixEndTime === '18446744073709551615' ? '' : new Date((assetData.posixEndTime)*1000);
-                    console.log($scope.dateOptionsFrom);
-                    console.log($scope.dateOptionsTill);
                     $scope.timeLockStartTime = assetData.startTime;
                     $scope.timeLockEndTime = assetData.endTime;
                     $scope.timeLockStartTimePosix = assetData.posixStartTime;
@@ -1789,6 +1787,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
 
             let fromTime = web3.utils.numberToHex($scope.timeLockStartTimePosix);
             let tillTime = web3.utils.numberToHex($scope.timeLockEndTimePosix);
+            if($scope.transactionType == 'scheduled'){
+                fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+                console.log(fromTime);
+            }
 
             // JavaScript / Go incompatibility -1 error
             if ($scope.timeLockEndTimePosix === 18446744073709552000) {
