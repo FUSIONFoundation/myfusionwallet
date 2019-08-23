@@ -79,6 +79,7 @@ header {
   line-height: 1.71;
   letter-spacing: normal;
   color: #78909c;
+  width: 90%;
 }
 
 .ledger-message {
@@ -1729,6 +1730,7 @@ h3{
   color: #455a64;
 }
 .fusion-verify {
+  background-color: #fff;
   font-size: 14px;
   margin-bottom: 25px;
   border: 2px solid #cfd8dc;
@@ -1764,6 +1766,7 @@ h3{
 }
 .content-ledger{
   min-height: 212px;
+  padding: 5px;
   background-color: rgba(246, 247, 248, 0.5);
 }
 .big-numbers{
@@ -1773,6 +1776,7 @@ h3{
   float: left;
   margin-right: 15px;
   margin-left: 10px;
+  height: 100px;
 }
 .memon-form{
   width: 30%;
@@ -1781,15 +1785,54 @@ h3{
 .number-switch {
   background-color: #cfd8dc;
   border-radius: 25px;
-  padding: 3px;
   float: right;
   margin-top: 1.1rem;
   font-size: 12px;
   cursor: pointer;
+  height: 21px;
+  line-height: 21px;
 }
 .number-selected {
   background-color: #358dcc;
   color: #fff;
-  border-radius: 10px;
+}
+.number-phrase {
+  border-radius: 15px;
   padding: 3px;
+}
+.modal-dropdown-menu {
+  display: none;
+  position: absolute;
+  list-style-type: none;
+  border: solid 1px #e1e5eb;
+  max-height: 300px;
+  overflow: auto;
+  background-color: #fff;
+  .radio input[type="radio"]{
+    position: absolute;
+    opacity: 0;
+  }
+  label{
+    cursor: pointer;
+  }
+}
+.modal-dropdown-menu li:hover{
+  background-color: #eee;
+}
+.hidden-dropdown-menu {
+  width: 40%;
+  border-radius: 5px;
+  border: solid 1px #e1e5eb;
+  background-color: #ffffff;
+  box-shadow: 0 1px 0 0 rgba(38, 50, 56, 0.05); 
+  h5 {
+    color: #000;
+    margin-top: 5px;
+  }
+  :hover{
+    cursor: pointer;
+  }
+}
+.walletaddresstyles{
+  height: 48px;
 }
