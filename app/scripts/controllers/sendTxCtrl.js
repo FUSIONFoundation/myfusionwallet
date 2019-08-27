@@ -1791,6 +1791,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                 fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 console.log(fromTime);
             }
+            if($scope.transactionType == 'daterange'){
+                fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+                tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
+
+            }
+
 
             // JavaScript / Go incompatibility -1 error
             if ($scope.timeLockEndTimePosix === 18446744073709552000) {
