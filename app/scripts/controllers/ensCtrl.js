@@ -214,7 +214,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.setMakeUSAN = async () => {
         $scope.$eval(function () {
             $scope.selectedSendAsset = `USAN ${$scope.usanAddress}`;
-            $scope.selectedSendAssetSymbol = `USAN ${$scope.usanAddress}`;
+            $scope.selectedSendAssetSymbol = `${$scope.usanAddress}`;
             $scope.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
             $scope.selectedSendImage = false;
             $scope.selectedSendHasImage = false;
@@ -1797,12 +1797,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
 
         if ($scope.hasTimeLockSet) {
-            let fromStartTime = "0x" + ($scope.todayDate + 1).toString(16);
+            let fromStartTime = "0x" + ($scope.todayDate).toString(16);
             let fromEndTime = "";
             if ($scope.fromEndTime == 18446744073709552000) {
                 fromEndTime = web3.fsn.consts.TimeForeverStr;
             } else {
-                fromEndTime = "0x" + ($scope.fromEndTime - 1).toString(16);
+                fromEndTime = "0x" + ($scope.fromEndTime).toString(16);
             }
             data.FromStartTime = fromStartTime;
             data.FromEndTime = fromEndTime;
