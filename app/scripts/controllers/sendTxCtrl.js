@@ -994,12 +994,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let assetBalance = "";
             let decimals = "";
 
+            console.log($scope.dateOptionsFrom);
+            console.log($scope.dateOptionsTill);
+
             $scope.$eval(function () {
                 $scope.sufficientBalance = undefined;
                 $scope.transactionStatus = 'Pending'
                 $scope.walletAddressError = false;
                 $scope.validWalletAddress = false;
                 $scope.checkingUSAN = false;
+                $scope.dateOptionsFrom.minDate = new Date();
+                $scope.dateOptionsFrom.maxDate = "";
+                $scope.dateOptionsTill.minDate = new Date();
+                $scope.dateOptionsTill.maxDate = "";
             });
 
             if (!id && !timelockonly) {
