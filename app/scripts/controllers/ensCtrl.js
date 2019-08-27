@@ -482,7 +482,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.walletTimeOut = function () {
         timeout = setTimeout(function () {
             window.location.reload();
-        }, 300000);
+        }, 600000);
     }
     $scope.walletTimeOut();
 
