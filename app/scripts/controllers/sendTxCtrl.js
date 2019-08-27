@@ -912,6 +912,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         $scope.sendAssetModalConfirm = async function (asset) {
             let fromTimeString = new Date($scope.sendAsset.fromTime);
             let tillTimeString = new Date($scope.sendAsset.tillTime);
+            console.log(fromTimeString.toUTCString());
+            console.log(tillTimeString.toUTCString());
 
             var fMonth = fromTimeString.getUTCMonth();
             var fDay = fromTimeString.getUTCDate();
@@ -1789,14 +1791,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let tillTime = web3.utils.numberToHex($scope.timeLockEndTimePosix);
             if($scope.transactionType == 'scheduled'){
                 fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
-                console.log(fromTime);
             }
             if($scope.transactionType == 'daterange'){
                 fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
                 tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
-
+                if($scope.timeLockStartTimePosix > fromTime){
+                    console.log('Initial Start Time is Larger')
+                    fromTime =  web3.utils.numberToHex($scope.timeLockStartTimePosix);
+                }
             }
-
 
             // JavaScript / Go incompatibility -1 error
             if ($scope.timeLockEndTimePosix === 18446744073709552000) {
@@ -1856,6 +1859,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
                     $scope.toHexString($scope.wallet.getPrivateKey())
                 );
             }
+
 
             try {
                 await web3.fsntx

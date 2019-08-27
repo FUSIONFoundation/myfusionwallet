@@ -679,6 +679,7 @@
                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
                                        is-open="popup.opened"
                                        datepicker-options="dateOptionsFrom"
+                                       ng-model-options="{timezone: 'UTC'}"
                                        uib-datepicker-popup="MM/dd/yyyy"
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened = true"
@@ -701,13 +702,13 @@
                                 <br>
                                 <input class="form-control"
                                        type="text"
-                                       timepicker-neutral-timezone
                                        ng-change="checkDate()"
                                        onkeydown="return false"
                                        ng-model="sendAsset.tillTime"
                                        is-open="popup.opened2"
                                        datepicker-options="dateOptionsTill"
                                        uib-datepicker-popup="MM/dd/yyyy"
+                                       ng-model-options="{timezone: 'UTC'}"
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened2 = true"
                                        show-button-bar="false"
@@ -727,15 +728,13 @@
                     <div class="col-xs-6 clearfix" ng-hide="web3WalletBalance < 0.00002">
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
-                                ng-hide="showStaticTimeLockAsset"
-                                ng-disabled="!sufficientBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || sendAsset.amountToSend < 0 || walletAddressError">
+                                ng-hide="showStaticTimeLockAsset">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="showStaticTimeLockAsset"
-                                ng-disabled="!sufficientBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || walletAddressError">
-                            Next
+>                            Next
                         </button>
                     </div>
                 </div>

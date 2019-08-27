@@ -261,9 +261,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     function formatDate() {
         let d = new Date(),
-            month = "" + (d.getMonth() + 1),
-            day = "" + d.getDate(),
-            year = d.getFullYear();
+            month = "" + (d.getUTCMonth() + 1),
+            day = "" + d.getUTCDate(),
+            year = d.getUTCFullYear();
 
         if (month.length < 2) month = "0" + month;
         if (day.length < 2) day = "0" + day;
