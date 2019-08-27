@@ -230,6 +230,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         })
         await $scope.allSwaps(0);
     }
+    $scope.setReceiveUSAN = async () => {
+        $scope.$eval(function () {
+            $scope.selectedReceiveAsset = `USAN`;
+            $scope.selectedReceiveAssetSymbol = `USAN`;
+            $scope.selectedReceiveContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedReceiveImage = false;
+            $scope.selectedReceiveHasImage = false;
+            $scope.assetToReceive = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedReceiveVerified = false;
+            $scope.sendHasTimeLockBalance = false;
+            $scope.receiveDropDown = false;
+            $scope.receiveDropDown2 = false;
+        });
+        await $scope.allSwaps(0);
+    }
 
     $scope.convertToString = function (input) {
         if (input === "") {
