@@ -1,12 +1,12 @@
 "use strict";
 
-var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
+var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalService) {
 
         web3.eth.subscribe("newBlockHeaders", function () {
             $scope.getAllFsnAssets();
             $scope.getTimeLockAssets();
         });
-
+        var hval = window.location.hash;
         let nu = localStorage.getItem(window.cookieName);
         let cookieData = nu ? JSON.parse(nu) : {};
         let _CHAINID = window.defaultChainId;
@@ -68,8 +68,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
         }
 
         let timeout;
+        $scope.setTab = function (hval) {
+            if (hval != '') {
+                hval = hval.replace('#', '');
+                for (var key in $scope.tabNames) {
+                    if ($scope.tabNames[key].url == hval) {
+                        $scope.activeTab = globalService.currentTab = $scope.tabNames[key].id;
+                        break;
+                    }
+                    $scope.activeTab = globalService.currentTab;
+                }
+            } else {
+                $scope.activeTab = globalService.currentTab;
+            }
+        };
         $scope.walletTimeOut = function () {
             timeout = setTimeout(function () {
+                // console.log("locking wallet now!");
+                // $scope.showLogoutMessage = true;
+                // $scope.setTab(hval);
                 window.location.reload();
             }, 600000);
         }
