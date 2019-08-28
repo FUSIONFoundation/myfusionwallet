@@ -994,9 +994,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope) {
             let assetBalance = "";
             let decimals = "";
 
-            console.log($scope.dateOptionsFrom);
-            console.log($scope.dateOptionsTill);
-
             $scope.$eval(function () {
                 $scope.sufficientBalance = undefined;
                 $scope.transactionStatus = 'Pending'

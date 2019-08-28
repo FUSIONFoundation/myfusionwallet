@@ -1110,7 +1110,7 @@
                                             ng-click="receiveTimeLock ='daterange'"
                                             ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
                                     >
-                                        Now to Date
+                                        Date to Date
                                     </button>
                                 </div>
                                 <div class="col-md-1 p-0 pb-2">
@@ -1134,7 +1134,6 @@
                                            onkeydown="return false"
                                            ng-model="ToStartTime"
                                            timepicker-neutral-timezone
-                                           ng-hide="receiveTimeLock == 'daterange'"
                                            datepicker-options="dateOptions"
                                            uib-datepicker-popup="MM/dd/yyyy"
                                            alt-input-formats="altInputFormats"
@@ -1142,8 +1141,6 @@
                                            show-button-bar="false"
                                            placeholder="mm/dd/yyyy"
                                     >
-                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
-                                          ng-show="receiveTimeLock == 'daterange'">Now</span>
                                 </div>
                                 <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
                                     <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
@@ -1298,7 +1295,7 @@
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}} - {{fromEndTimeString}}</span>
                                     <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
                                         - ∞ Forever</span>
                                 </span>
@@ -1322,7 +1319,7 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
                                     <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
                                         - ∞ Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}} - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
@@ -1402,7 +1399,7 @@
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}} - {{fromEndTimeString}}</span>
                                     <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
                                         - ∞ Forever</span>
                                 </span>
@@ -1422,7 +1419,7 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px"><span
                                             ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
                                         - ∞ Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}} - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
