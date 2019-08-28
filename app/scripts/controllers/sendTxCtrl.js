@@ -88,7 +88,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 // $scope.showLogoutMessage = true;
                 // $scope.setTab(hval);
                 window.location.reload();
-            }, 300000);
+            }, 600000);
         }
         $scope.walletTimeOut();
 
@@ -314,9 +314,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
 
         function formatDate() {
             let d = new Date(),
-                month = "" + (d.getMonth() + 1),
-                day = "" + d.getDate(),
-                year = d.getFullYear();
+                month = "" + (d.getUTCMonth() + 1),
+                day = "" + d.getUTCDate(),
+                year = d.getUTCFullYear();
 
             if (month.length < 2) month = "0" + month;
             if (day.length < 2) day = "0" + day;
@@ -929,13 +929,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         $scope.sendAssetModalConfirm = async function (asset) {
             let fromTimeString = new Date($scope.sendAsset.fromTime);
             let tillTimeString = new Date($scope.sendAsset.tillTime);
+            console.log(fromTimeString.toUTCString());
+            console.log(tillTimeString.toUTCString());
 
-            var fMonth = fromTimeString.getMonth();
-            var fDay = fromTimeString.getDate();
-            var fYear = fromTimeString.getFullYear();
-            var tMonth = tillTimeString.getMonth();
-            var tDay = tillTimeString.getDate();
-            var tYear = tillTimeString.getFullYear();
+            var fMonth = fromTimeString.getUTCMonth();
+            var fDay = fromTimeString.getUTCDate();
+            var fYear = fromTimeString.getUTCFullYear();
+            var tMonth = tillTimeString.getUTCMonth();
+            var tDay = tillTimeString.getUTCDate();
+            var tYear = tillTimeString.getUTCFullYear();
 
             let startTime = $scope.months[fMonth] + " " + fDay + ", " + fYear;
             let endTime = $scope.months[tMonth] + " " + tDay + ", " + tYear;
@@ -1009,12 +1011,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             let assetBalance = "";
             let decimals = "";
 
+            console.log($scope.dateOptionsFrom);
+            console.log($scope.dateOptionsTill);
+
             $scope.$eval(function () {
                 $scope.sufficientBalance = undefined;
                 $scope.transactionStatus = 'Pending'
                 $scope.walletAddressError = false;
                 $scope.validWalletAddress = false;
                 $scope.checkingUSAN = false;
+                $scope.dateOptionsFrom.minDate = new Date();
+                $scope.dateOptionsFrom.maxDate = "";
+                $scope.dateOptionsTill.minDate = new Date();
+                $scope.dateOptionsTill.maxDate = "";
             });
 
             if (!id && !timelockonly) {
@@ -1806,7 +1815,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             let tillTime = web3.utils.numberToHex($scope.timeLockEndTimePosix);
             if($scope.transactionType == 'scheduled'){
                 fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
-                console.log(fromTime);
+            }
+            if($scope.transactionType == 'daterange'){
+                fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
+                tillTime = getHexDate(convertDate($scope.sendAsset.tillTime));
+                if($scope.timeLockStartTimePosix > fromTime){
+                    console.log('Initial Start Time is Larger')
+                    fromTime =  web3.utils.numberToHex($scope.timeLockStartTimePosix);
+                }
             }
 
             // JavaScript / Go incompatibility -1 error
@@ -1867,6 +1883,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     $scope.toHexString($scope.wallet.getPrivateKey())
                 );
             }
+
 
             try {
                 await web3.fsntx

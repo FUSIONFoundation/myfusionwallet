@@ -214,7 +214,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.setMakeUSAN = async () => {
         $scope.$eval(function () {
             $scope.selectedSendAsset = `USAN ${$scope.usanAddress}`;
-            $scope.selectedSendAssetSymbol = `USAN ${$scope.usanAddress}`;
+            $scope.selectedSendAssetSymbol = `${$scope.usanAddress}`;
             $scope.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
             $scope.selectedSendImage = false;
             $scope.selectedSendHasImage = false;
@@ -228,6 +228,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.$applyAsync(function(){
             $scope.makeUSAN = true;
         })
+        await $scope.allSwaps(0);
+    }
+    $scope.setReceiveUSAN = async () => {
+        $scope.$eval(function () {
+            $scope.selectedReceiveAsset = `USAN`;
+            $scope.selectedReceiveAssetSymbol = `USAN`;
+            $scope.selectedReceiveContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedReceiveImage = false;
+            $scope.selectedReceiveHasImage = false;
+            $scope.assetToReceive = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+            $scope.selectedReceiveVerified = false;
+            $scope.sendHasTimeLockBalance = false;
+            $scope.receiveDropDown = false;
+            $scope.receiveDropDown2 = false;
+        });
         await $scope.allSwaps(0);
     }
 
@@ -246,9 +261,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     function formatDate() {
         let d = new Date(),
-            month = "" + (d.getMonth() + 1),
-            day = "" + d.getDate(),
-            year = d.getFullYear();
+            month = "" + (d.getUTCMonth() + 1),
+            day = "" + d.getUTCDate(),
+            year = d.getUTCFullYear();
 
         if (month.length < 2) month = "0" + month;
         if (day.length < 2) day = "0" + day;
@@ -482,7 +497,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.walletTimeOut = function () {
         timeout = setTimeout(function () {
             window.location.reload();
-        }, 300000);
+        }, 600000);
     }
     $scope.walletTimeOut();
 
@@ -1782,12 +1797,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
 
         if ($scope.hasTimeLockSet) {
-            let fromStartTime = "0x" + ($scope.todayDate + 1).toString(16);
+            let fromStartTime = "0x" + ($scope.todayDate).toString(16);
             let fromEndTime = "";
             if ($scope.fromEndTime == 18446744073709552000) {
                 fromEndTime = web3.fsn.consts.TimeForeverStr;
             } else {
-                fromEndTime = "0x" + ($scope.fromEndTime - 1).toString(16);
+                fromEndTime = "0x" + ($scope.fromEndTime).toString(16);
             }
             data.FromStartTime = fromStartTime;
             data.FromEndTime = fromEndTime;
@@ -2349,10 +2364,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let walletAddress = accountData.from;
             let size = 10;
 
-            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedReceiveContract}&fromAsset=${$scope.selectedSendContract}`
+            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
 
             if ($scope.selectedReceiveAsset == 'All Assets') {
-                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&fromAsset=${$scope.selectedSendContract}`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
 
             if ($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets') {
