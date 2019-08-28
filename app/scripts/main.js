@@ -563,6 +563,7 @@ function keepWeb3Alive() {
 }
 
 keepWeb3Alive();
+window.tabClick = undefined;
 
 var app = angular.module("mewApp", [
     "pascalprecht.translate",
