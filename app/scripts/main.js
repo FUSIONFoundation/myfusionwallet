@@ -763,6 +763,7 @@ app.controller("sendTxCtrl", [
     "$sce",
     "walletService",
     "$rootScope",
+    "globalService",
     sendTxCtrl
 ]);
 app.controller("erc20AlertCtrl", ["$scope", erc20AlertCtrl]);
