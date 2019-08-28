@@ -370,8 +370,8 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
       $scope.walletDescription = "Network: Mix Blockchain (MIX)";
     } else if ($scope.HDWallet.dPath === $scope.HDWallet.hwIolitePath){
       $scope.walletDescription = "Network: Iolite (ILT)";
-    } else if ($scope.HDWallet.dPath === $scope.HDWallet.hwIolitePath){
-      $scope.walletDescription = "Network: Iolite (ILT)";
+    } else if ($scope.HDWallet.dPath === $scope.HDWallet.customDPath){
+      $scope.walletDescription = "Custom Path";
     }
   };
   $scope.showContent = function($fileContent) {
