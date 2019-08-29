@@ -9234,20 +9234,20 @@
                                 </div>
                             </div>
                             <div ng-show="showTimeLockSend && !showExistingTimeLocks">
-                                <div class="col-md-6 p-0 pb-2">
-                                    <button class="btn btn-sm btn-white w-100"
-                                            ng-click="sendTimeLock ='scheduled'"
-                                            ng-class="{'time-active' : sendTimeLock == 'scheduled'}"
-                                    >
-                                        Date to Forever
-                                    </button>
-                                </div>
                                 <div class="col-md-5 p-0 pb-2">
                                     <button class="btn btn-sm btn-white w-100"
                                             ng-click="sendTimeLock ='daterange'"
                                             ng-class="{'time-active' : sendTimeLock == 'daterange'}"
                                     >
                                         Date to Date
+                                    </button>
+                                </div>
+                                <div class="col-md-6 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white w-100"
+                                            ng-click="sendTimeLock ='scheduled'"
+                                            ng-class="{'time-active' : sendTimeLock == 'scheduled'}"
+                                    >
+                                        Date to Forever
                                     </button>
                                 </div>
                                 <div class="col-md-1 p-0 pb-2">
@@ -9379,20 +9379,20 @@
                             >Set Time-lock
                             </button>
                             <div ng-show="showTimeLockReceive">
-                                <div class="col-md-6 p-0 pb-2">
-                                    <button class="btn btn-sm btn-white w-100"
-                                            ng-click="receiveTimeLock ='scheduled'"
-                                            ng-class="{'time-active' : receiveTimeLock == 'scheduled'}"
-                                    >
-                                        Date to Forever
-                                    </button>
-                                </div>
                                 <div class="col-md-5 p-0 pb-2">
                                     <button class="btn btn-sm btn-white w-100"
                                             ng-click="receiveTimeLock ='daterange'"
                                             ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
                                     >
                                         Date to Date
+                                    </button>
+                                </div>
+                                <div class="col-md-6 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white w-100"
+                                            ng-click="receiveTimeLock ='scheduled'"
+                                            ng-class="{'time-active' : receiveTimeLock == 'scheduled'}"
+                                    >
+                                        Date to Forever
                                     </button>
                                 </div>
                                 <div class="col-md-1 p-0 pb-2">

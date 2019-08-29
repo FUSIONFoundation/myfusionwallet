@@ -209,7 +209,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 });
             }
         }
-        console.log(`USAN Available? => ${$scope.usanAvailable} ${usan}`);
     }
     $scope.setMakeUSAN = async () => {
         $scope.$eval(function () {
