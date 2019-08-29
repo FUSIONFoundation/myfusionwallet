@@ -579,7 +579,7 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     walletService.wallet = $scope.wallet =
       $scope.HDWallet.wallets[$scope.HDWallet.id];
     // $scope.mnemonicModel.close();
-    $scopw.showModel = false;
+    $scope.showModel = false;
     $scope.notifier.info(globalFuncs.successMsgs[1]);
     $scope.wallet.type = "default";
   };
