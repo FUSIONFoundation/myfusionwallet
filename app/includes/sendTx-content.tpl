@@ -736,7 +736,7 @@
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="showStaticTimeLockAsset"
                                 ng-disabled="!sufficientBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || walletAddressError">
->                            Next
+                            Next
                         </button>
                     </div>
                 </div>
