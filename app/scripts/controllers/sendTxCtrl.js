@@ -991,6 +991,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.transactionStatus = 'Pending'
             $scope.walletAddressError = false;
             $scope.validWalletAddress = false;
+            $scope.sendAssetDisabled = false;
             $scope.checkingUSAN = false;
             $scope.dateOptionsFrom.minDate = new Date();
             $scope.dateOptionsFrom.maxDate = "";
