@@ -2816,7 +2816,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             // });
             window.location.reload();
 
-        }, 60000);
+        }, 600000);
     }
     $scope.walletTimeOut();
 
