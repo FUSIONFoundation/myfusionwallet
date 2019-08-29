@@ -928,6 +928,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
 
     $scope.checkDate = function () {
         let today = new Date();
+        console.log($scope.sendAsset.tillTime);
+        console.log($scope.sendAsset.fromTime);
+        if (!$scope.sendAsset.tillTime || !$scope.sendAsset.fromTime){
+           return;
+        }
         if ($scope.sendAsset.tillTime < today) {
             $scope.$eval(function () {
                 $scope.sendAsset.tillTime = today;

@@ -674,7 +674,7 @@
                                 <br>
                                 <input class="form-control"
                                        type="text"
-                                       ng-change="checkDateWithForever()"
+                                       ng-change="checkDate()"
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
                                        is-open="popup.opened"
