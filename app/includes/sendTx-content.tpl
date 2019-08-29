@@ -728,12 +728,14 @@
                     <div class="col-xs-6 clearfix" ng-hide="web3WalletBalance < 0.00002">
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
-                                ng-hide="showStaticTimeLockAsset">
+                                ng-hide="showStaticTimeLockAsset"
+                                ng-disabled="!sufficientBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || sendAsset.amountToSend < 0 || walletAddressError">
                             Next
                         </button>
                         <button class="btn btn-primary btn-block"
                                 ng-click="sendAssetModalConfirm(assetToSend)"
                                 ng-show="showStaticTimeLockAsset"
+                                ng-disabled="!sufficientBalance || sendAsset.amountToSend == '' || sendAsset.toAddress == '' || walletAddressError">
 >                            Next
                         </button>
                     </div>
