@@ -979,14 +979,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.sendAssetModalOpen = async function (id, timelockonly) {
         $scope.$eval(function () {
             $scope.sendAssetDisabled = false;
-        });
-        let asset = $scope.assetToSend;
-        let accountData = uiFuncs.getTxData($scope);
-        let walletAddress = accountData.from;
-        let assetBalance = "";
-        let decimals = "";
-
-        $scope.$eval(function () {
             $scope.sufficientBalance = undefined;
             $scope.transactionStatus = 'Pending'
             $scope.walletAddressError = false;
@@ -998,6 +990,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.dateOptionsTill.minDate = new Date();
             $scope.dateOptionsTill.maxDate = "";
         });
+
+        let asset = $scope.assetToSend;
+        let accountData = uiFuncs.getTxData($scope);
+        let walletAddress = accountData.from;
+        let assetBalance = "";
+        let decimals = "";
 
         if (!id && !timelockonly) {
             $scope.$eval(function () {
@@ -1813,37 +1811,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             decimals = parseInt(res["Decimals"]);
         });
 
-        let amount = $scope.sendAsset.amountToSend.toString();
+        let amount = $scope.makeBigNumber($scope.sendAsset.amountToSend.toString(), decimals);
 
-        let pieces = amount.split(".");
-        let d = parseInt(decimals);
-        if (pieces.length === 1) {
-            amount = parseInt(amount);
-            if (isNaN(amount) || amount < 0) {
-                // error message
-                return;
-            }
-            amount = new BigNumber(amount + "0".repeat(parseInt(decimals)));
-        } else if (pieces.length > 2) {
-            // error message
-            return;
-        } else if (pieces[1].length >= d) {
-            return; // error
-        } else {
-            let dec = parseInt(pieces[1]);
-            let reg = new RegExp("^\\d+$"); // numbers only
-            if (isNaN(pieces[1]) || dec < 0 || !reg.test(pieces[1])) {
-                // return error
-            }
-            dec = pieces[1];
-            let declen = d - dec.toString().length;
-            amount = parseInt(pieces[0]);
-            if (isNaN(amount) || amount < 0) {
-                // error message
-                return;
-            }
-            amount = new BigNumber(amount + dec + "0".repeat(parseInt(declen)));
-        }
+        console.log(amount.toString());
 
         let data = {};
 
