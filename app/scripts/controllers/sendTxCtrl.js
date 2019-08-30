@@ -55,8 +55,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.checkSufficientBalance = async () => {
         if (!$scope.sendAsset.amountToSend || !$scope.selectedAssetBalance) return;
         let a;
-        let amountToSend = new window.BigNumber($scope.sendAsset.amountToSend);
-        let selectedAssetBalance = new window.BigNumber($scope.selectedAssetBalance);
+        let amountToSend = new window.BigNumber($scope.sendAsset.amountToSend.toString());
+        let selectedAssetBalance = new window.BigNumber($scope.selectedAssetBalance.toString());
         if (selectedAssetBalance.gte(amountToSend)) {
             a = true;
         } else {
