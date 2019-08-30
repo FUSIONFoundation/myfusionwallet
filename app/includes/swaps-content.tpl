@@ -222,7 +222,7 @@
         </div>
         <div class="col-md-12 pl-0 pr-0">
             <div class="panel panel-default" ng-show="showOpenTakes === true">
-                <div class="panel-body">
+                <div class="panel-body inline w-100">
                     <div class="text-center" ng-show="openTakeSwaps == 0 && !showLoader"><span
                                 class="small-gray-text">No Take Swaps</span></div>
                     <div class="col-md-12 text-center p-5" ng-show="showLoader">
@@ -300,7 +300,7 @@
                 </div>
             </div>
             <div class="panel panel-default" ng-show="showSwapMarket === false && showOpenTakes === false">
-                <div class="panel-body">
+                <div class="panel-body inline w-100">
                     <div class="text-center" ng-show="openMakeSwaps == 0 && !showLoader"><span
                                 class="small-gray-text">No Open Swaps</span></div>
                     <div class="col-md-12 text-center p-5" ng-show="showLoader">
@@ -395,8 +395,8 @@
                 </div>
             </div>
             <div class="panel panel-default" ng-show="showSwapMarket === true && showOpenTakes === false">
-                <div class="panel-body">
-                    <tr class="col-md-12 p-0">
+                <div class="panel-body inline w-100">
+                    <div class="col-md-12 p-0">
                         <div class="float-left">
                             <div class="col-md-12">
                                 <div class="row">
@@ -435,7 +435,7 @@
                                 </form>
                             </div>
                         </div>
-                    </tr>
+                    </div>
                     <div class="col-md-12 text-center p-5" ng-show="allSwapsRunning">
                         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                         <span class="small-gray-text">Loading...</span>
@@ -534,8 +534,8 @@
                             </td>
                         </tr>
                         </tbody>
+                    </table>
                 </div>
-                </table>
             </div>
         </div>
     </div>
@@ -1280,7 +1280,8 @@
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}} - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}}
+                                        - {{fromEndTimeString}}</span>
                                     <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
                                         - ∞ Forever</span>
                                 </span>
@@ -1304,7 +1305,8 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
                                     <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
                                         - ∞ Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}} - {{toEndTimeString}}</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
+                                        - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
@@ -1384,7 +1386,8 @@
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}} - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}}
+                                        - {{fromEndTimeString}}</span>
                                     <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
                                         - ∞ Forever</span>
                                 </span>
@@ -1404,7 +1407,8 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px"><span
                                             ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
                                         - ∞ Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}} - {{toEndTimeString}}</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
+                                        - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
