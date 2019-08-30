@@ -583,7 +583,7 @@
         <!-- / Mew Connect -->
 
         <!-- Keystore -->
-        <div ng-if="walletType=='fileupload'">
+        <div ng-if="walletType=='fileupload'" ng-init="requireFPass = true;">
 
             <!-- <div class="warn alert-yellow float-left text-left p-3 m-1">
                 <div class="float-left">
@@ -625,6 +625,7 @@
                        ng-change="onFilePassChange()"
                        ng-class="Validator.isPasswordLenValid($parent.$parent.filePassword,0) ? 'is-valid' : 'is-invalid'"
                        ng-model="$parent.$parent.filePassword"
+                       ng-keyup="$event.keyCode == 13 && decryptWallet()"
                        placeholder="{{ 'x_Password' | translate }}"
                        type="password"/>
             </div>
