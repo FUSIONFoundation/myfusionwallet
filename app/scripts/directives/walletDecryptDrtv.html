@@ -3,7 +3,7 @@
 <p class="text-center">Please ensure that you are on the correct site before entering keys.</p>
 <div class="fusion-verify">
     <span class="fusion-lock"><i class="fa fa-lock"></i> </span>
-    https://www.myfusionwallet.com
+    <div class="fusion-link text-center">https://www.myfusionwallet.com</div>
 </div>
 
 <section class="timeout-message text-center" ng-show="showLogoutMessage"><i class="fa fa-info-circle" aria-hidden="true"></i> Your wallet session timed-out due to inactivity.</section>
@@ -850,7 +850,7 @@
                     </h5>
                     <div id="dropdownButton" class="hidden-dropdown-menu p-2" ng-click="openWalletMenu()">
                         <h5 id="dropdownButton" class="font-weight-bold small">{{walletDescription}} 
-                            <span class="float-right">
+                            <span id="dropdownButton" class="float-right">
                                 <i class="fa fa-sort-desc" aria-hidden="true"></i>
                             </span>
                         </h5>
