@@ -147,7 +147,7 @@ var web3;
 let localCacheOfAssets = {};
 const iplocate = require("node-iplocate");
 
-window.versionNumber = '3.10.00';
+window.versionNumber = '3.11.00';
 window.currentNet = '';
 
 window.locationCookie = 'locationCookie';
@@ -321,16 +321,16 @@ window.__fsnGetAllAssets = async function (array) {
                 Symbol: "FSN",
                 Total: 81920000000000000000000000,
             }
-            localCacheOfAssets['0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'] = {
-                AssetID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
-                CanChange: false,
-                Decimals: 0,
-                Description: "",
-                ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
-                Name: "USAN",
-                Symbol: "",
-                Total: 0,
-            }
+            // localCacheOfAssets['0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'] = {
+            //     AssetID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+            //     CanChange: false,
+            //     Decimals: 0,
+            //     Description: "",
+            //     ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+            //     Name: "USAN",
+            //     Symbol: "",
+            //     Total: 0,
+            // }
             inGetAllAsets = false
             clearOutAssetPromises(localCacheOfAssets, null)
             return localCacheOfAssets;
@@ -563,6 +563,7 @@ function keepWeb3Alive() {
 }
 
 keepWeb3Alive();
+window.tabClick = undefined;
 
 var app = angular.module("mewApp", [
     "pascalprecht.translate",

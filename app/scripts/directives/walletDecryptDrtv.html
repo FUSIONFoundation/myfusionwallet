@@ -104,7 +104,7 @@
                     aria-label="Ledger Hardware Wallet"
                     ng-model="walletType"
                     value="ledger"/>
-             Ledger Wallet 
+             Ledger Wallet
              <!-- <span class="badge badge-primary">BETA</span> -->
          </label>
 
@@ -685,8 +685,8 @@
 
             <div class="form-group mt-2" ng-if="twelveIsSelected">
                 <input
-                    type="text" 
-                    ng-repeat="phrase in phrases" 
+                    type="text"
+                    ng-repeat="phrase in phrases"
                     placeholder={{phrase.number}}
                     ng-change="onMnemonicChange()"
                     ng-model="$phrase"
@@ -698,8 +698,8 @@
             </div>
             <div class="form-group mt-2" ng-if="!twelveIsSelected">
                 <input
-                    type="text" 
-                    ng-repeat="phrase in phrases2" 
+                    type="text"
+                    ng-repeat="phrase in phrases2"
                     placeholder={{phrase.number}}
                     ng-change="onSecondMnemonicChange()"
                     ng-model="$phrase"
@@ -788,7 +788,7 @@
             <div class="form-group">
                 <a tabindex="0"
                    role="button"
-                   class="btn btn-primary w-100 mt-2"    
+                   class="btn btn-primary w-100 mt-2"
                    ng-click="decryptWallet()"
                    translate="ADD_Label_6_short">
                    Open Wallet

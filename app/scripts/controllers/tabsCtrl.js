@@ -317,7 +317,6 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             $scope.activeTab = globalService.currentTab;
         }
     };
-    $scope.setTab(hval);
 
     $scope.tabClick = function (id) {
         // $scope.MEWconnectActive = false;
@@ -329,6 +328,8 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         }
     };
 
+    window.tabClick = $scope.tabClick;
+
     $scope.setLanguageVal = function (id, varName, pos) {
         $translate(id).then(function (paragraph) {
             globalFuncs[varName][pos] = paragraph;
@@ -336,6 +337,7 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
             globalFuncs[varName][pos] = translationId;
         });
     };
+
 
     $scope.setErrorMsgLanguage = function () {
         for (var i = 0; i < globalFuncs.errorMsgs.length; i++) $scope.setLanguageVal('ERROR_' + i, 'errorMsgs', i);

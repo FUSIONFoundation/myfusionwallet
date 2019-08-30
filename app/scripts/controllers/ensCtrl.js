@@ -195,7 +195,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let usan = await web3.fsn.getNotation(walletAddress);
-        if (usan === 0){
+        if (usan === 0) {
             if ($scope.usanAvailable) {
                 $scope.$applyAsync(function () {
                     $scope.usanAvailable = false;
@@ -209,7 +209,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 });
             }
         }
-        console.log(`USAN Available? => ${$scope.usanAvailable} ${usan}`);
     }
     $scope.setMakeUSAN = async () => {
         $scope.$eval(function () {
@@ -225,7 +224,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.sendDropDown2 = false;
         });
         $scope.sendChanged = 1;
-        $scope.$applyAsync(function(){
+        $scope.$applyAsync(function () {
             $scope.makeUSAN = true;
         })
         await $scope.allSwaps(0);
@@ -1338,7 +1337,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(err);
         }
 
-        if($scope.swapsList[id].fromAssetId == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+        if ($scope.swapsList[id].fromAssetId == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
             pass = true;
         }
 
@@ -1370,8 +1369,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeId = id;
         });
 
-        await $scope.setReceive(1).then(function () {
-            if (!pass) {
+        await $scope.setReceive(1).then(function(){
+            if (pass === false) {
                 if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
                     if (!$scope.takeDataFront.toVerified) {
                         $scope.suspiciousAssetModal.open();
@@ -1380,7 +1379,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     }
                 }
             } else {
-                $scope.takeSwapModal.open();
+                try {
+                    $scope.takeSwapModal.open();
+                } catch ( err ){
+                    console.log ( err );
+                }
             }
         });
     };
@@ -1788,7 +1791,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 data.FromEndTime = fromEndTime;
             }
             if ($scope.sendTimeLock == "daterange") {
-                let fromStartTime = getHexDate(convertDate($scope.todayDate));
+                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
                 let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
 
                 data.FromStartTime = fromStartTime;
@@ -1819,10 +1822,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
 
             if ($scope.receiveTimeLock == "daterange") {
-                let toStartTime = getHexDate(convertDate($scope.todayDate));
+                let toStartTime = getHexDate(convertDate($scope.ToStartTime));
                 let toEndTime = getHexDate(convertDate($scope.ToEndTime));
 
-                data.ToStartTime = "0x0";
+                data.ToStartTime = toStartTime;
                 data.ToEndTime = toEndTime;
             }
         }
@@ -2418,7 +2421,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
 
                 // If Make Swap is USAN
-                if(fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+                if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
                     try {
                         await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swapList[asset]["SwapID"]}`).then(function (r) {
                             console.log(r.data)

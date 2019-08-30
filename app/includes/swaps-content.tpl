@@ -69,12 +69,6 @@
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                         ng-click="setMakeUSAN()">
-                        <span class="badge badge-success badge-info">
-                            USAN <strong>{{usanAddress}}</strong>
-                        </span>
-                    </div>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setAllAssetsInSend()">
                         <a>
                             All Assets
@@ -152,10 +146,6 @@
                         </div>
                     </form>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                         ng-click="setReceiveUSAN()">
-                            All Short Account Numbers</strong>
-                    </div>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
                          ng-click="setAllAssetsInReceive()">
                         <a>
                             All Assets
@@ -231,8 +221,8 @@
             </div>
         </div>
         <div class="col-md-12 pl-0 pr-0">
-            <div class="panel panel-default" ng-show="showOpenTakes === true">
-                <div class="panel-body">
+            <div class="panel panel-default mx-auto" ng-show="showOpenTakes === true">
+                <div class="panel-body inline w-100">
                     <div class="text-center" ng-show="openTakeSwaps == 0 && !showLoader"><span
                                 class="small-gray-text">No Take Swaps</span></div>
                     <div class="col-md-12 text-center p-5" ng-show="showLoader">
@@ -309,8 +299,8 @@
                     </table>
                 </div>
             </div>
-            <div class="panel panel-default" ng-show="showSwapMarket === false && showOpenTakes === false">
-                <div class="panel-body">
+            <div class="panel panel-default mx-auto" ng-show="showSwapMarket === false && showOpenTakes === false">
+                <div class="panel-body inline w-100">
                     <div class="text-center" ng-show="openMakeSwaps == 0 && !showLoader"><span
                                 class="small-gray-text">No Open Swaps</span></div>
                     <div class="col-md-12 text-center p-5" ng-show="showLoader">
@@ -404,9 +394,9 @@
                     </table>
                 </div>
             </div>
-            <div class="panel panel-default" ng-show="showSwapMarket === true && showOpenTakes === false">
-                <div class="panel-body">
-                    <tr class="col-md-12 p-0">
+            <div class="panel panel-default mx-auto" ng-show="showSwapMarket === true && showOpenTakes === false">
+                <div class="panel-body inline w-100">
+                    <div class="col-md-12 p-0">
                         <div class="float-left">
                             <div class="col-md-12">
                                 <div class="row">
@@ -445,7 +435,7 @@
                                 </form>
                             </div>
                         </div>
-                    </tr>
+                    </div>
                     <div class="col-md-12 text-center p-5" ng-show="allSwapsRunning">
                         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                         <span class="small-gray-text">Loading...</span>
@@ -544,8 +534,8 @@
                             </td>
                         </tr>
                         </tbody>
+                    </table>
                 </div>
-                </table>
             </div>
         </div>
     </div>
@@ -872,11 +862,6 @@
                                                placeholder="Search by Symbol, Name, or ID">
                                     </div>
                                 </form>
-                                <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setMakeUSAN()">
-                        <span class="badge badge-success badge-info">
-                            USAN <strong>{{usanAddress}}</strong>
-                        </span>
-                                </div>
                                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                                     <a ng-click="setSendAsset(asset.id)">
@@ -952,20 +937,20 @@
                                 </div>
                             </div>
                             <div ng-show="showTimeLockSend && !showExistingTimeLocks">
-                                <div class="col-md-6 p-0 pb-2">
-                                    <button class="btn btn-sm btn-white w-100"
-                                            ng-click="sendTimeLock ='scheduled'"
-                                            ng-class="{'time-active' : sendTimeLock == 'scheduled'}"
-                                    >
-                                        Date to Forever
-                                    </button>
-                                </div>
                                 <div class="col-md-5 p-0 pb-2">
                                     <button class="btn btn-sm btn-white w-100"
                                             ng-click="sendTimeLock ='daterange'"
                                             ng-class="{'time-active' : sendTimeLock == 'daterange'}"
                                     >
                                         Date to Date
+                                    </button>
+                                </div>
+                                <div class="col-md-6 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white w-100"
+                                            ng-click="sendTimeLock ='scheduled'"
+                                            ng-class="{'time-active' : sendTimeLock == 'scheduled'}"
+                                    >
+                                        Date to Forever
                                     </button>
                                 </div>
                                 <div class="col-md-1 p-0 pb-2">
@@ -1097,20 +1082,20 @@
                             >Set Time-lock
                             </button>
                             <div ng-show="showTimeLockReceive">
+                                <div class="col-md-5 p-0 pb-2">
+                                    <button class="btn btn-sm btn-white w-100"
+                                            ng-click="receiveTimeLock ='daterange'"
+                                            ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
+                                    >
+                                        Date to Date
+                                    </button>
+                                </div>
                                 <div class="col-md-6 p-0 pb-2">
                                     <button class="btn btn-sm btn-white w-100"
                                             ng-click="receiveTimeLock ='scheduled'"
                                             ng-class="{'time-active' : receiveTimeLock == 'scheduled'}"
                                     >
                                         Date to Forever
-                                    </button>
-                                </div>
-                                <div class="col-md-5 p-0 pb-2">
-                                    <button class="btn btn-sm btn-white w-100"
-                                            ng-click="receiveTimeLock ='daterange'"
-                                            ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
-                                    >
-                                        Now to Date
                                     </button>
                                 </div>
                                 <div class="col-md-1 p-0 pb-2">
@@ -1134,7 +1119,6 @@
                                            onkeydown="return false"
                                            ng-model="ToStartTime"
                                            timepicker-neutral-timezone
-                                           ng-hide="receiveTimeLock == 'daterange'"
                                            datepicker-options="dateOptions"
                                            uib-datepicker-popup="MM/dd/yyyy"
                                            alt-input-formats="altInputFormats"
@@ -1142,8 +1126,6 @@
                                            show-button-bar="false"
                                            placeholder="mm/dd/yyyy"
                                     >
-                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1"
-                                          ng-show="receiveTimeLock == 'daterange'">Now</span>
                                 </div>
                                 <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
                                     <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
@@ -1298,7 +1280,8 @@
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}}
+                                        - {{fromEndTimeString}}</span>
                                     <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
                                         - ∞ Forever</span>
                                 </span>
@@ -1322,7 +1305,8 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
                                     <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
                                         - ∞ Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
+                                        - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
@@ -1402,7 +1386,8 @@
                                 <br>
                                 <span class="small-gray-text" ng-show="showTimeLockSend">
                                 <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="sendTimeLock == 'daterange'">Now - {{fromEndTimeString}}</span>
+                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}}
+                                        - {{fromEndTimeString}}</span>
                                     <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
                                         - ∞ Forever</span>
                                 </span>
@@ -1422,7 +1407,8 @@
                                 <img class="mr-2" src="images/sendtl.svg" width="12px"><span
                                             ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
                                         - ∞ Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">Now - {{toEndTimeString}}</span>
+                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
+                                        - {{toEndTimeString}}</span>
                                 </span>
                             </div>
                         </div>
