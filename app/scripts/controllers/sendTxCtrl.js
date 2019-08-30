@@ -68,20 +68,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         }
 
         let timeout;
-        $scope.setTab = function (hval) {
-            if (hval != '') {
-                hval = hval.replace('#', '');
-                for (var key in $scope.tabNames) {
-                    if ($scope.tabNames[key].url == hval) {
-                        $scope.activeTab = globalService.currentTab = $scope.tabNames[key].id;
-                        break;
-                    }
-                    $scope.activeTab = globalService.currentTab;
-                }
-            } else {
-                $scope.activeTab = globalService.currentTab;
-            }
-        };
         $scope.walletTimeOut = function () {
             timeout = setTimeout(function () {
                 // console.log("locking wallet now!");

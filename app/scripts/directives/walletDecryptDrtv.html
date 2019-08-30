@@ -738,7 +738,7 @@
         <!--  Private Key -->
         <div id="selectedTypeKey" ng-if="walletType=='pasteprivkey'">
             <h5 class="ledger-message">
-               Private key:
+               Private key
             </h5>
 
             <!-- <div class="warn alert-yellow float-left text-left p-3 m-1">
@@ -844,17 +844,17 @@
                     </a>
                     so we can discuss / be enlightened.
                 </p>
-                <div class="col-md-5">
+                <div class="col-md-5 p-0">
                     <h5 id="modalTitle" class="modal-title ledger-message w-100" style="margin-bottom: .25rem">
                         Derivation path
                     </h5>
-                    <div class="hidden-dropdown-menu p-1" ng-click="openWalletMenu()">
-                        <h5 class="font-weight-bold small">{{walletDescription}} 
+                    <div id="dropdownButton" class="hidden-dropdown-menu p-2" ng-click="openWalletMenu()">
+                        <h5 id="dropdownButton" class="font-weight-bold small">{{walletDescription}} 
                             <span class="float-right">
                                 <i class="fa fa-sort-desc" aria-hidden="true"></i>
                             </span>
                         </h5>
-                        <p class="small">{{HDWallet.dPath}}</p>
+                        <p id="dropdownButton" class="small">{{HDWallet.dPath}}</p>
                     </div>
                     <ul class="modal-dropdown-menu" id="hdwalletmenu">
                             <li>
