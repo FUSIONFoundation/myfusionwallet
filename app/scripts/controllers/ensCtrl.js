@@ -258,6 +258,25 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return input.toString();
     };
 
+    $scope.makeSwapReviewDisabled = true;
+    $scope.checkMakeSwapConditions = async () => {
+        let z = true;
+        if ($scope.makeSendAmount == '' || $scope.makeReceiveAmount == '' || $scope.makeMinumumSwap == '') {
+            return z = true;
+        } else {
+            let a = new window.BigNumber($scope.makeSendAmount.toString());
+            let b = new window.BigNumber($scope.selectedAssetBalance.toString());
+            if (b.gte(a)) {
+                z = false;
+            } else {
+                z = true;
+            }
+        }
+        $scope.$applyAsync(function () {
+            $scope.makeSwapReviewDisabled = z;
+        })
+    }
+
     function formatDate() {
         let d = new Date(),
             month = "" + (d.getUTCMonth() + 1),
@@ -1369,7 +1388,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeId = id;
         });
 
-        await $scope.setReceive(1).then(function(){
+        await $scope.setReceive(1).then(function () {
             if (pass === false) {
                 if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
                     if (!$scope.takeDataFront.toVerified) {
@@ -1381,8 +1400,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             } else {
                 try {
                     $scope.takeSwapModal.open();
-                } catch ( err ){
-                    console.log ( err );
+                } catch (err) {
+                    console.log(err);
                 }
             }
         });

@@ -826,7 +826,7 @@
                                 <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
                                        id="makeSendAmount"
                                        placeholder="Amount"
-                                       ng-change="setReceiveAmountMakeSwap(); setSwapRate()"
+                                       ng-change="setReceiveAmountMakeSwap(); setSwapRate();checkMakeSwapConditions();"
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
@@ -1020,7 +1020,7 @@
                             <div class="col-md-6 p-0 pr-2">
                                 <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
                                        placeholder="Amount"
-                                       ng-change="setSwapRate()"
+                                       ng-change="setSwapRate();checkMakeSwapConditions();"
                                 >
                             </div>
                             <div class="col-md-6 col-xs-12 p-0">
@@ -1162,7 +1162,7 @@
                                 <div class="col-md-5 pl-3">
                                     <input type="text" class="form-control m-0 mt-1" ng-model="makeSendSwapRate"
                                            placeholder="Amount"
-                                           ng-change="setSendAmountMakeSwap()"
+                                           ng-change="setSendAmountMakeSwap();checkMakeSwapConditions();"
                                     > <span
                                             class="small-gray-text">{{selectedSendAsset}}</span>
                                 </div>
@@ -1187,7 +1187,7 @@
                     <div class="col-md-4 p-0">
                         <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
                                numbers-only
-                               ng-change="setMinimumMakes()"
+                               ng-change="setMinimumMakes();checkMakeSwapConditions();"
                                placeholder="Amount">
                     </div>
                     <div class="col-md-8 pl-2 pr-2">
@@ -1236,7 +1236,7 @@
                         <div class="col-md-6 col-xs-12">
                             <button class="btn btn-primary w-100"
                                     ng-click="makeSwapConfirmation('notend')"
-                                    ng-disabled="makeSendAmount == '' || makeReceiveAmount == '' || makeMinumumSwap == '' || makeSendAmount > selectedAssetBalance"
+                                    ng-disabled="makeSwapReviewDisabled"
                             >Review
                                 Make
                                 Swap
