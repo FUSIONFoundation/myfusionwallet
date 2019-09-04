@@ -321,16 +321,16 @@ window.__fsnGetAllAssets = async function (array) {
                 Symbol: "FSN",
                 Total: 81920000000000000000000000,
             }
-            // localCacheOfAssets['0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'] = {
-            //     AssetID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
-            //     CanChange: false,
-            //     Decimals: 0,
-            //     Description: "",
-            //     ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
-            //     Name: "USAN",
-            //     Symbol: "",
-            //     Total: 0,
-            // }
+            localCacheOfAssets['0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'] = {
+                AssetID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+                CanChange: false,
+                Decimals: 0,
+                Description: "",
+                ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+                Name: "USAN",
+                Symbol: "",
+                Total: 0,
+            }
             inGetAllAsets = false
             clearOutAssetPromises(localCacheOfAssets, null)
             return localCacheOfAssets;

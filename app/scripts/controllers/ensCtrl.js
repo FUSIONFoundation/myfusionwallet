@@ -138,9 +138,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.openMakesList();
         $scope.takeSwapList();
         $scope.getUSAN();
-        $scope.$applyAsync(function () {
-            $rootScope.walletAvailable = true;
-        });
     };
 
     setInterval(function () {
