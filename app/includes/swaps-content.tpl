@@ -69,6 +69,12 @@
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
+                         ng-click="setMakeUSAN()">
+                        <span class="badge badge-success badge-info">
+                            USAN <strong>{{usanAddress}}</strong>
+                        </span>
+                    </div>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setAllAssetsInSend()">
                         <a>
                             All Assets
@@ -145,6 +151,10 @@
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
+                         ng-click="setReceiveUSAN()">
+                        All Short Account Numbers</strong>
+                    </div>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
                          ng-click="setAllAssetsInReceive()">
                         <a>
@@ -862,6 +872,11 @@
                                                placeholder="Search by Symbol, Name, or ID">
                                     </div>
                                 </form>
+                                <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setMakeUSAN()">
+                        <span class="badge badge-success badge-info">
+                            USAN <strong>{{usanAddress}}</strong>
+                        </span>
+                                </div>
                                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                                     <a ng-click="setSendAsset(asset.id)">
