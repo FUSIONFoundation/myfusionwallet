@@ -93,12 +93,6 @@
     <header class="bg-white border-gray-bottom {{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
             aria-label="header">
         <div class="header-container p-0">
-            <section class="bg-white header-branding">
-                <section class="container p-0">
-                    
-                </section>
-            </section>
-
             
              <article class="modal fade" id="customNodeModal" tabindex="-1">
   <section class="modal-dialog">
@@ -181,6 +175,12 @@
   </section>
 </article>
  
+            <section class="bg-white header-branding">
+                <section class="container p-0">
+                    
+                </section>
+            </section>
+
         </div>
         <article class="clearfix header-container p-0">
             <nav role="navigation" aria-label="main navigation" class="nav-container overflowing bg-white">
@@ -188,17 +188,6 @@
                    ng-mouseover="scrollHoverIn(true,2);" ng-mouseleave="scrollHoverOut()">&#171;</a>
                 <div class="nav-scroll">
                     <ul class="nav-inner">
-                        
-                        
-                        <li ng-repeat="tab in tabNames track by $index" \
-                            class="nav-item {{tab.name}}" \
-                            ng-class="{active: $index==gService.currentTab}"
-                            ng-show="tab.cx"
-                            ng-click="tabClick($index)">
-                            <a tabindex="0" aria-label="nav item: {{tab.name | translate}}"
-                               translate="{{tab.name}}"></a>
-                        </li>
-                        
                         <li class="nav-item" ng-show="MEWconnectActive" ng-cloak>
                             <div style="margin-left: 20px;">
                                 <div ng-show="MEWconnectState == 0" style="border-bottom: solid 2px #929292">
