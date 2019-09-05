@@ -86,12 +86,14 @@
     <header class="bg-white border-gray-bottom {{curNode.name}} {{curNode.service}} {{curNode.service}} nav-index-{{gService.currentTab}}"
             aria-label="header">
         <div class="header-container p-0">
+            @@if (site === 'mew' ) { @@include( './header-node-modal.tpl', { "site": "mew" } ) }
+            @@if (site === 'cx' ) { @@include( './header-node-modal.tpl', { "site": "cx" } ) }
             <section class="bg-white header-branding">
                 <section class="container p-0">
                     @@if (site === 'mew' ) {
                     <div class="align-self-center">
                         <a class="brand" href="/" aria-label="Go to homepage">
-                            <img src="images/fsn-logo.svg" height="80px" width="125px" alt="MyFusionWallet"/>
+                            <img src="images/fsn-logo.svg" alt="MyFusionWallet"/>
                         </a>
                     </div>
                     <div class="align-self-center p-1">
@@ -100,11 +102,11 @@
                     <span class="dropdown dropdown-node">
                         <a tabindex="0"
                            aria-haspopup="true"
-                           class="dropdown-toggle btn btn-white text-16 mr-2 border-0"
+                           class="dropdown-toggle btn btn-white mr-2 border-0"
                            ng-click="dropdownMenu = !dropdownMenu">
-                                       <img src="images/app-grid.svg"
-                                            class="Group-2-Copy-4 Group-6">
-                                        Wallet
+                                <img src="images/app-grid.svg"
+                                    class="Group-2-Copy-4 Group-6">
+                                <span>Wallet</span>
                         </a>
                         <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-hide="!dropdownMenu"
                              tw-click-outside="closeDropDownMenu()" ignore-if="!dropdownMenu">
@@ -147,10 +149,53 @@
                             </a>
                         </div>
                     </span>
-                    <div class="align-self-center hidden-xs">
+
+                    <div class="header-links">
+
+                         @@if (site === 'mew' ) {
+                        <div class="header-link"
+                            ng-show="!walletAvailable"
+                            ng-class="{active: 0==gService.currentTab}"
+                            ng-click="tabClick(0)">
+                            <a tabindex="0" class="title">
+                                <img src="images/tab-icon-wallet-active.svg" ng-show="0==gService.currentTab" width="24" height="24" class="icon">
+                                <img src="images/tab-icon-wallet-inactive.svg" ng-show="0!=gService.currentTab" width="24" height="24" class="icon">
+                                Create Wallet
+                            </a>
+                        </div>
+                        <div class="header-link" \
+                            ng-class="{active: 3==gService.currentTab}"
+                            ng-click="tabClick(3)">
+                            <a tabindex="0" class="title">
+                                <img src="images/tab-icon-wallet-active.svg" ng-show="3==gService.currentTab" width="24" height="24" class="icon">
+                                <img src="images/tab-icon-wallet-inactive.svg" ng-show="3!=gService.currentTab" width="24" height="24" class="icon">
+                                Wallet Dashboard
+                            </a>
+                        </div>
+                        <div class="header-link" \
+                            ng-class="{active: 7==gService.currentTab}"
+                            ng-click="tabClick(7)">
+                            <a tabindex="0" class="title">
+                                <img src="images/tab-icon-swap-active.svg" ng-show="7==gService.currentTab" width="24" height="24" class="icon">
+                                <img src="images/tab-icon-swap-inactive.svg" ng-show="7!=gService.currentTab" width="24" height="24" class="icon">
+                                Quantum Swaps
+                            </a>
+                        </div>
+                        }
+                        @@if (site === 'cx' ) {
+                        <div ng-repeat="tab in tabNames track by $index" \
+                            class="nav-item {{tab.name}} header-link" \
+                            ng-class="{active: $index==gService.currentTab}"
+                            ng-show="tab.cx"
+                            ng-click="tabClick($index)">
+                            <a tabindex="0" aria-label="nav item: {{tab.name | translate}}"
+                               translate="{{tab.name}}" class="title"></a>
+                        </div>
+                        }
+                    </div>                    
+                    <div class="hidden-xs">
                         <span class="badge badge-secondary text-fusion ml-4">{{versionNumber}}</span>
                         <span class="badge badge-secondary text-fusion mr-1"><i class="fa fa-cube"></i> {{latestBlock}}</span>
-
                     </div>
 
                     <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
@@ -165,6 +210,8 @@
                                style="margin-top:3px"
                                ng-click="dropdownCustom = !dropdownCustom">
                                 {{nodeName}}
+                                <img src="images/caret-down-2.svg"
+                                    class="Group-2-Copy-4 Group-6 dropdown-caret">
                             </a>
                             <div class="dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="dropdownCustom" tw-click-outside="closedropdownCustom()" ignore-if="!dropdownCustom">
                                 <button class="btn btn-sm btn-white w-100"
@@ -172,53 +219,48 @@
                                 </button>
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="netSwitch('testnet'); window.location.reload();">Testnet</button>
-                                <span class="small-gray-text">Node URL:
-                             </span>
+                                <span class="small-gray-text">Node URL:</span>
                                 <input type="text" class="form-control" ng-model="inputUrl" placeholder="URL">
-                                <span class="small-gray-text">Chain ID:
-                             </span>
+                                <span class="small-gray-text">Chain ID:</span>
                                 <input type="text" class="form-control" ng-model="chainId" placeholder="ID / 1">
                                 <button class="btn btn-sm btn-white w-100"
                                         ng-click="setNodeUrl(); window.location.reload();">Save
                                 </button>
                             </div>
-                            </span>
                         </div>
                         <span class="dropdown dropdown-node" ng-cloak>
-      <a tabindex="0"
-         aria-haspopup="true"
-         aria-label="change node. current node {{curNode.name}} node by {{curNode.service}}"
-         class="dropdown-toggle btn btn-gray hidden"
-         ng-click="dropdownNode = !dropdownNode">
-           <span translate="X_Network">Network:</span>
-          {{curNode.name}}
-          <small>({{curNode.service}})</small>
-           <i class="caret"></i>
-      </a>
-      <ul class="dropdown-menu" ng-show="dropdownNode">
-        <li ng-repeat="(key, value) in nodeList">
-          <a ng-class="{true:'active'}[curNode == key]" ng-click="changeNode(key)">
-            {{value.name}}
-              <small> ({{value.service}}) </small>
-            <img ng-show="value.service=='Custom'" src="images/icon-remove.svg" class="node-remove"
-                 title="Remove Custom Node" ng-click="removeNodeFromLocal(value.name)"/>
-          </a>
-        </li>
-        <li>
-          <a ng-click="customNodeModal.open(); dropdownNode = !dropdownNode;" translate="X_Network_Custom">
-            Add Custom Network / Node
-          </a>
-        </li>
-      </ul>
-    </span>
-
+                            <a tabindex="0"
+                                aria-haspopup="true"
+                                aria-label="change node. current node {{curNode.name}} node by {{curNode.service}}"
+                                class="dropdown-toggle btn btn-gray hidden"
+                                ng-click="dropdownNode = !dropdownNode">
+                                <span translate="X_Network">Network:</span>
+                                {{curNode.name}}
+                                <small>({{curNode.service}})</small>
+                                <i class="caret"></i>
+                            </a>
+                            <ul class="dropdown-menu" ng-show="dropdownNode">
+                                <li ng-repeat="(key, value) in nodeList">
+                                <a ng-class="{true:'active'}[curNode == key]" ng-click="changeNode(key)">
+                                    {{value.name}}
+                                    <small> ({{value.service}}) </small>
+                                    <img ng-show="value.service=='Custom'" src="images/icon-remove.svg" class="node-remove"
+                                        title="Remove Custom Node" ng-click="removeNodeFromLocal(value.name)"/>
+                                </a>
+                                </li>
+                                <li>
+                                <a ng-click="customNodeModal.open(); dropdownNode = !dropdownNode;" translate="X_Network_Custom">
+                                    Add Custom Network / Node
+                                </a>
+                                </li>
+                            </ul>
+                        </span>
+                        
                     </div>
                     }
                 </section>
             </section>
 
-            @@if (site === 'mew' ) { @@include( './header-node-modal.tpl', { "site": "mew" } ) }
-            @@if (site === 'cx' ) { @@include( './header-node-modal.tpl', { "site": "cx" } ) }
         </div>
         <article class="clearfix header-container p-0">
             <nav role="navigation" aria-label="main navigation" class="nav-container overflowing bg-white">
@@ -226,46 +268,6 @@
                    ng-mouseover="scrollHoverIn(true,2);" ng-mouseleave="scrollHoverOut()">&#171;</a>
                 <div class="nav-scroll">
                     <ul class="nav-inner">
-                        @@if (site === 'mew' ) {
-                        <li class="nav-item"
-                            ng-show="!walletAvailable"
-                            ng-class="{active: 0==gService.currentTab}"
-                            ng-click="tabClick(0)">
-                            <a tabindex="0">
-                                <img src="images/tab-icon-wallet-active.svg" ng-show="0==gService.currentTab" width="24" height="24">
-                                <img src="images/tab-icon-wallet-inactive.svg" ng-show="0!=gService.currentTab" width="24" height="24">
-                                Create Wallet
-                            </a>
-                        </li>
-                        <li class="nav-item" \
-                            ng-class="{active: 3==gService.currentTab}"
-                            ng-click="tabClick(3)">
-                            <a tabindex="0">
-                                <img src="images/tab-icon-wallet-active.svg" ng-show="3==gService.currentTab" width="24" height="24">
-                                <img src="images/tab-icon-wallet-inactive.svg" ng-show="3!=gService.currentTab" width="24" height="24">
-                                Wallet Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item" \
-                            ng-class="{active: 7==gService.currentTab}"
-                            ng-click="tabClick(7)">
-                            <a tabindex="0">
-                                <img src="images/tab-icon-swap-active.svg" ng-show="7==gService.currentTab" width="24" height="24">
-                                <img src="images/tab-icon-swap-inactive.svg" ng-show="7!=gService.currentTab" width="24" height="24">
-                                Quantum Swaps
-                            </a>
-                        </li>
-                        }
-                        @@if (site === 'cx' ) {
-                        <li ng-repeat="tab in tabNames track by $index" \
-                            class="nav-item {{tab.name}}" \
-                            ng-class="{active: $index==gService.currentTab}"
-                            ng-show="tab.cx"
-                            ng-click="tabClick($index)">
-                            <a tabindex="0" aria-label="nav item: {{tab.name | translate}}"
-                               translate="{{tab.name}}"></a>
-                        </li>
-                        }
                         <li class="nav-item" ng-show="MEWconnectActive" ng-cloak>
                             <div style="margin-left: 20px;">
                                 <div ng-show="MEWconnectState == 0" style="border-bottom: solid 2px #929292">
