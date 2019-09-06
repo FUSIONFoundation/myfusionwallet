@@ -797,7 +797,7 @@
     </article>
     <article class="modal fade bg-white" id="makeSwap" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content no-shadow">
+            <section class="modal-content no-shadow ms-new">
                 <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
@@ -807,7 +807,7 @@
 </span>
                         </div>
                     </div>
-                    <h3 class="make-swap">Make Swap</h3>
+                    <h3 class="make-swap ms-new-title">Make Swap</h3>
 
 
                     <div class="col-md-12 p-0" ng-show="!selectedReceiveVerified">
@@ -824,7 +824,7 @@
                         </div>
                         <div class="col-md-6 text-left p-0">
                             <div class="col-md-6 p-0 pr-2">
-                                <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
+                                <input type="text" class="form-control m-0 mt-1 ms-new-amount-input" ng-model="makeSendAmount"
                                        id="makeSendAmount"
                                        placeholder="Amount"
                                        ng-change="setReceiveAmountMakeSwap(); setSwapRate();checkMakeSwapConditions();"
