@@ -333,18 +333,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
-    // Sets the last page for pagination
-    $scope.$watch("swapsList", function () {
-        if (typeof $scope.swapsList === "undefined") {
-            return;
-        } else {
-            $scope.$eval(function () {
-                $scope.endPage = Math.ceil($scope.swapsList.length / $scope.pageSize);
-            });
-        }
-    });
 
     $scope.nextPage = function () {
+        if($scope.currentPage === $scope.endPage) { return; }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage + 1;
             $scope.searchSwapMarket = "";
@@ -361,7 +352,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     };
 
+    $scope.lastPage = function () {
+        $scope.$eval(function () {
+            $scope.currentPage = $scope.endPage;
+            $scope.searchSwapMarket = "";
+        });
+        $scope.allSwaps($scope.endPage);
+
+    };
+
     $scope.previousPage = function () {
+        if($scope.currentPage == 0){ return; }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage - 1;
             $scope.searchSwapMarket = "";
@@ -552,7 +553,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let id;
         if (cachedDropdowns.send) {
             id = cachedDropdowns.send;
-            await $scope.setSendAsset(id);
+            await $scope.setSendAllAssets(id);
         } else {
             $scope.selectedReceiveAsset = `All Assets`;
             $scope.selectedReceiveContract = "\n";
@@ -1606,7 +1607,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
 
         if (canSwitch) {
-            $scope.setSendAsset(assetListOwnedId);
+            $scope.setSendAllAssets(assetListOwnedId);
             $scope.setReceiveAsset(assetListId);
         }
     };
@@ -2386,6 +2387,27 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
     });
 
+    $scope.setPagination = async (currentPage,totalSwapsInQuery) => {
+        // Calculate shown rows
+        let shownRows;
+        if ( currentPage === 0 ){
+            shownRows = (currentPage+1) * 10;
+        } else {
+            shownRows = (currentPage+1) * 10;
+        }
+
+        if(($scope.totalRowsSwapsQuery- shownRows) < 10){
+            shownRows = $scope.totalRowsSwapsQuery;
+        }
+        $scope.$applyAsync(function () {
+            if(totalSwapsInQuery){
+                $scope.totalRowsSwapsQuery = totalSwapsInQuery
+                $scope.endPage = Math.ceil(totalSwapsInQuery / 10)-1;
+            };
+            $scope.shownRows = shownRows;
+        })
+    }
+
 
     let swapList = {};
     $scope.allSwapsRunning = false;
@@ -2404,6 +2426,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.allSwapsRunning = true;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
+            let totalSwapsInQuery;
             let size = 10;
 
             let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
@@ -2419,11 +2442,19 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
 
-            console.log(url);
-
             try {
                 await ajaxReq.http.get(url).then(function (r) {
-                    console.log(r.data)
+                    if(r.data[size]){
+                        if(r.data[size][0] !== undefined){
+                            totalSwapsInQuery = (r.data[size][0]["COUNT(*)"])
+                        }
+                        delete r.data[size];
+                        if(page === 0){
+                            $scope.setPagination(page,totalSwapsInQuery);
+                        } else {
+                            $scope.setPagination(page);
+                        }
+                    }
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
@@ -2446,13 +2477,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
                 let owner = swapList[asset]["Owner"];
-                console.log(swapList[asset]);
-                console.log(owner);
                 let owned = false;
                 let assetBalance = "";
 
                 let fromAsset = allAssets[swapList[asset]["FromAssetID"]];
-                console.log(fromAsset);
                 let toAsset = allAssets[swapList[asset]["ToAssetID"]];
                 let fromVerifiedImage = "";
                 let fromHasImage = false;

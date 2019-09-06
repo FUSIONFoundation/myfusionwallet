@@ -61,11 +61,12 @@
                 </div>
                 <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown"
                      tw-click-outside="closeSendDropDown()" ignore-if="!sendDropDown">
-                    <form class="form-inline">
-                        <div class="form-group m-0">
+                    <form class="form-inline" ignore-if="sendDropDown">
+                        <div class="form-group m-0" ignore-if="sendDropDown">
                             <input type="text" class="form-control"
                                    id="searchSendAsset"
                                    ng-model="searchSendAsset"
+                                   ignore-if="sendDropDown"
                                    placeholder="Search by Symbol, Name, or ID">
                         </div>
                     </form>
@@ -425,9 +426,9 @@
                             <div class="col-md-12">
                                 <form class="form-group form-inline">
                                     <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
-                                        of {{swapsList.length}}</span>
+                                        of {{totalRowsSwapsQuery}}</span>
                                     <span class="small-gray-text">
-                                        {{currentPage+1}} of {{endPage}}</span>
+                                        {{currentPage+1}} of {{endPage+1}}</span>
                                     <span class="small-gray-text m-1"
                                           ng-click="firstPage()"><i class="fa fa-angle-double-left"
                                                                     aria-hidden="true"></i>
