@@ -589,6 +589,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.swapInfo = {};
 
+    // format address if length >= 20 (e.g. 0xffffff...ffffffff)
+    $scope.formatAddress = function (address) {
+        if(!address || address.length < 20)
+            return address;
+        return address.substring(0, 8) + "..." + address.substring(address.length-8, address.length);
+    };
+
     $scope.swapInformationModalOpen = async function (swap_id) {
         let data = {};
         let owner = '';

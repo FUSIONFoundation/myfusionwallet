@@ -1,16 +1,16 @@
 <article class="block container p-0 border-0 no-shadow" ng-hide="wallet.type=='addressOnly'">
-    <div class="row">
+    <div class="row swap-market-new">
         <div class="col-md-12 p-0">
             <nav class="nav-container border-0">
                 <div class="nav-scroll">
                     <ul class="nav-inner">
-                        <li class="nav-item Swaps pl-3 pr-2 mb-1px"
+                        <li class="nav-item Swaps pl-3 pr-2 mb-1px nav-item-new"
                             ng-class="{active: showSwapMarket==true && showOpenTakes==false}">
                             <a class="ng-scope"
                                ng-click="showSwapMarket = true ; showOpenMakes = false; showOpenTakes = false">Swap
                                 Market</a>
                         </li>
-                        <li class="nav-item Swaps mb-1px"
+                        <li class="nav-item Swaps mb-1px nav-item-new"
                             ng-class="{active: showSwapMarket==false  && showOpenTakes==false}">
                             <a class="ng-scope"
                                ng-click="showSwapMarket = false ; showOpenMakes = true; showOpenTakes = false">My Open
@@ -18,7 +18,7 @@
                                 ({{openMakeSwaps}})
                                 <span></span></a>
                         </li>
-                        <li class="nav-item Swaps pr-2 mb-1px"
+                        <li class="nav-item Swaps pr-2 mb-1px nav-item-new"
                             ng-class="{active: showOpenTakes==true  && showSwapMarket==false}">
                             <a class="ng-scope"
                                ng-click="showSwapMarket = false ; showOpenMakes = false; showOpenTakes = true">Private
@@ -30,7 +30,7 @@
                 </div>
             </nav>
         </div>
-        <div class="col-md-12 p-2 bg-body" ng-show="showSwapMarket === true">
+        <div class="col-md-12 p-2 bg-body make-swap-section" ng-show="showSwapMarket === true">
             <div class="col-md-3 text-left mr-0">
                 <span class="small-gray-text">YOU SEND</span>
                 <br>
@@ -46,12 +46,13 @@
                                       class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
                             </div>
                             <div class="col" click-out="!sendDropDown">
-                                {{selectedSendAsset}} <span
-                                        class="color-Active official-fusion-badge"
-                                        ng-show="selectedSendVerified && selectedSendAsset !== 'All Assets'"><img
-                                            src="./images/verified.svg" height="14px"
-                                            width="14px"/></span>
-                                <span class="small-gray-text max-char inline">{{selectedSendContract}}</span>
+                                {{selectedSendAsset}} 
+                                <span   
+                                    class="color-Active official-fusion-badge-new "
+                                    ng-show="selectedSendVerified && selectedSendAsset !== 'All Assets'">
+                                        <img src="./images/verified.svg" height="14px" width="14px"/>
+                                </span>
+                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(selectedSendContract)}}</span>
                             </div>
                         </a>
                     </div>
@@ -90,7 +91,7 @@
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
-                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
                                 </span>
                             </div>
 
@@ -123,11 +124,11 @@
                             </div>
                             <div class="col">
                                 {{selectedReceiveAsset}} <span
-                                        class="color-Active official-fusion-badge"
+                                        class="color-Active official-fusion-badge-new"
                                         ng-show="selectedReceiveVerified && selectedReceiveAsset !== 'All Assets'">                                    <img
                                             src="./images/verified.svg" height="14px" width="14px"/></span>
                                 </span>
-                                <span class="small-gray-text max-char inline">{{selectedReceiveContract}}</span>
+                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(selectedReceiveContract)}}</span>
                             </div>
                         </a>
                     </div>
@@ -167,7 +168,7 @@
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
-                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
                                 </span>
                             </div>
                         </a>
@@ -188,7 +189,7 @@
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
-                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
                                 </span>
                             </div>
                         </a>
@@ -214,7 +215,7 @@
             <div class="col-md-2 text-right">
                 <span class="small-gray-text"> </span>
                 <br>
-                <button class="btn btn-primary" ng-click="makeModal()"
+                <button class="btn btn-primary make-swap-btn" ng-click="makeModal()"
                         ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                         ng-disabled="web3WalletBalance <= 0.00021">Make Swap
                 </button>
@@ -403,8 +404,8 @@
                                     <div class="col-md-12 pl-2">
                                         <form class="form-inline">
                                             <div class="form-group">
-                                                <input type="text" ng-model="searchSwapMarket" class="form-control m-0"
-                                                       placeholder="Search Assets, Amounts">
+                                                <input type="text" ng-model="searchSwapMarket" class="form-control m-0 search-swap-input"
+                                                       placeholder="Search">
                                             </div>
                                         </form>
                                     </div>
@@ -447,7 +448,7 @@
                         <thead>
                         <tr class="small-gray-table">
                             <th class="text-left" scope="col" ng-click="sortSwapMarket('swaprate')">
-                                PRICE
+                                PRICE PER ETH
                                 <img src="images/Static.svg" ng-show="sortKey !== 'swaprate'"/>
                                 <img src="images/Ascend.svg" ng-show="sortKey == 'swaprate' && reverse == false"/>
                                 <img src="images/Descend.svg" ng-show="sortKey == 'swaprate' && reverse == true"/>
@@ -630,7 +631,7 @@
                                         ng-show="takeDataFront.toVerified">                                    <img
                                             src="./images/verified.svg" height="14px" width="14px"/></span>
 </span> <br>
-                            <span class="small-gray-text max-char inline">{{takeDataFront.toAssetId}}</span>
+                            <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(takeDataFront.toAssetId)}}</span>
                             </span>
                         </div>
                     </div>
@@ -879,7 +880,7 @@
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                             <br>
-                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                            <span class="small-gray-text max-char inline swap-market-adress">{{formatAddress(asset.contractaddress)}}</span>
                                             </span>
                                         </div>
                                     </a>
@@ -1068,7 +1069,7 @@
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
                                     </i></span>
                                             <br>
-                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                            <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
                                             </span>
                                         </div>
                                     </a>
