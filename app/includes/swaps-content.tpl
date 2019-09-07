@@ -795,9 +795,26 @@
             </section>
         </section>
     </article>
-    <article class="modal fade bg-white" id="makeSwap" tabindex="-1">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <article class="modal fade bg-white ms-new" id="makeSwap" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content no-shadow ms-new">
+            <section class="modal-content no-shadow">
                 <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
@@ -808,7 +825,6 @@
                         </div>
                     </div>
                     <h3 class="make-swap ms-new-title">Make Swap</h3>
-
 
                     <div class="col-md-12 p-0" ng-show="!selectedReceiveVerified">
                         <span class="warning-bg p-3 inline w-100">
@@ -823,13 +839,22 @@
                             </span>
                         </div>
                         <div class="col-md-6 text-left p-0">
-                            <div class="col-md-6 p-0 pr-2">
-                                <input type="text" class="form-control m-0 mt-1 ms-new-amount-input" ng-model="makeSendAmount"
+                            <div class="col-md-12 p-0 pr-2 ms-new-amount-input">
+                                <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
                                        id="makeSendAmount"
-                                       placeholder="Amount"
+                                       placeholder="Enter an amount"
                                        ng-change="setReceiveAmountMakeSwap(); setSwapRate();checkMakeSwapConditions();"
                                 >
                             </div>
+                            <div class="col-md-12 display-web-inline-block pt-2"
+                                 ng-show="selectedAssetBalance >= 0">
+                                <a class="small-blue"
+                                   ng-click="makeSendAmount = selectedAssetBalance">{{selectedAssetBalance}}
+                                    Available</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-2">
+                        
                             <div class="col-md-6 col-xs-12 p-0">
                                 <a class="btn btn-secondary custom-dropdown mt-1"
                                    ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
@@ -844,13 +869,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-md-12 display-web-inline-block pt-2"
-                                 ng-show="selectedAssetBalance >= 0">
-                                <a class="small-blue"
-                                   ng-click="makeSendAmount = selectedAssetBalance"><strong>{{selectedAssetBalance}}</strong>
-                                    available</a>
-                            </div>
-                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
+                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width ms-new-dropdown"
                                  ng-show="sendDropDown2"
                                  tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
                             >
@@ -860,7 +879,7 @@
                                         <input type="text" class="form-control"
                                                id="searchSendAsset2"
                                                ng-model="searchSendAsset"
-                                               placeholder="Search by Symbol, Name, or ID">
+                                               placeholder="Search Assets, Symbols and IDs">
                                     </div>
                                 </form>
                                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
@@ -886,13 +905,15 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 pl-2">
+
                             <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
-                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
+                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 ms-new-time-lock"
                                     ng-click="showTimeLockSend = !showTimeLockSend"
                                     ng-hide="showTimeLockSend; showExistingTimeLocks"
-                            >Set Time-lock
+                            >Time-lock
+                            <div class="float-right text-right">
+                                <img src="images/caret-down-2.svg" class="Group-6">
+                            </div>
                             </button>
                             <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
                                     ng-hide="showTimeLockSend || showExistingTimeLocks || !myActiveTimeLocks[selectedSendContract].length > 0"
@@ -1250,6 +1271,30 @@
             </section>
         </section>
     </article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     <article class="modal fade" id="makeSwapConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
             <section class="modal-content no-shadow">
