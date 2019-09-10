@@ -316,27 +316,9 @@
                         <thead>
                         <tr class="small-gray-table">
                             <th class="text-left" scope="col">Price</th>
-                            <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">You Send
-                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'fromAmountCut'"/>
-                                <img src="images/Ascend.svg"
-                                     ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == false"/>
-                                <img src="images/Descend.svg"
-                                     ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">You Receive
-                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'toAmountCut'"/>
-                                <img src="images/Ascend.svg"
-                                     ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == false"/>
-                                <img src="images/Descend.svg"
-                                     ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortOpenMakes('minswap')">Minimum Fill
-                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'minswap'"/>
-                                <img src="images/Ascend.svg"
-                                     ng-show="sortOpenMakes == 'minswap' && reverseMake == false"/>
-                                <img src="images/Descend.svg"
-                                     ng-show="sortOpenMakes == 'minswap' && reverseMake == true"/>
-                            </th>
+                            <th class="text-right" scope="col">You Send</th>
+                            <th class="text-right" scope="col">You Receive</th>
+                            <th class="text-right" scope="col" >Minimum Fill</th>
                             <th class="text-right" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
@@ -456,33 +438,11 @@
                     <table class="table" ng-show="swapsList.length > 0 && !allSwapsRunning">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col" ng-click="sortSwapMarket('swaprate')">
-                                PRICE
-                                <img src="images/Static.svg" ng-show="sortKey !== 'swaprate'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'swaprate' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'swaprate' && reverse == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmountCut')">
-                                YOU SEND
-                                <img src="images/Static.svg" ng-show="sortKey !== 'fromAmountCut'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmountCut')">
-                                YOU RECEIVE
-                                <img src="images/Static.svg" ng-show="sortKey !== 'toAmountCut'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'toAmountCut' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'toAmountCut' && reverse == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">
-                                Minimum Fill
-                                <img src="images/Static.svg" ng-show="sortKey !== 'minswap'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'minswap' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'minswap' && reverse == true"/>
-                            </th>
-                            <th class="text-right" scope="col" class="float-right">
-                                Actions
-                            </th>
+                            <th class="text-left" scope="col">PRICE</th>
+                            <th class="text-right" scope="col">YOU SEND</th>
+                            <th class="text-right" scope="col">YOU RECEIVE</th>
+                            <th class="text-right" scope="col">Minimum Fill</th>
+                            <th class="text-right" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
