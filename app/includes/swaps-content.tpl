@@ -244,12 +244,14 @@
                         <tbody>
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
                             <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.toAssetSymbol}} :
-                                <strong>1</strong> : {{asset.fromAssetSymbol}}
+                                <strong class="price">{{asset.swapratetaker.toFixed(4)}}</strong>
+                                <span class="font-size-12">{{asset.toAssetSymbol}}</span> :
+                                <strong class="price">1</strong> : 
+                                <span class="font-size-12">{{asset.fromAssetSymbol}}</span>
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.toAmountCut}}</strong> <span
-                                        class="font-size-12">{{asset.toAssetSymbol}}</span>
+                                <strong class="price">{{asset.toAmountCut}}</strong>
+                                <span class="asset-label">{{asset.toAssetSymbol}}</span>
                                 <span
                                         class="color-Active official-fusion-badge"
                                         ng-show="asset.toVerified">                                    <img
@@ -263,8 +265,8 @@
                             </span>
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.fromAmountCut}}</strong>
-                                <span>{{asset.fromAssetSymbol}}</span>
+                                <strong class="price">{{asset.fromAmountCut}}</strong>
+                                <span class="asset-label">{{asset.fromAssetSymbol}}</span>
                                 <span
                                         class="color-Active official-fusion-badge"
                                         ng-show="asset.fromVerified">                                    <img
@@ -278,8 +280,9 @@
                             </span>
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
-                                        class="font-size-12">{{asset.toAssetSymbol}}</span></td>
+                                <strong class="price">{{asset.minswaptaker.toFixed(4)}}</strong>
+                                <span class="font-size-12">{{asset.toAssetSymbol}}</span>
+                            </td>
                             <td class="float-right text-right">
                                 <div ng-hide="asset.owned == false">
                                     <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
@@ -341,11 +344,15 @@
                         <tr ng-repeat="asset in openMakes | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
                         >
                             <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.swaprate.toFixed(4)}}</strong> {{asset.fromAssetSymbol}} :
-                                <strong>1</strong> {{asset.toAssetSymbol}}
+                                <strong class="price">{{asset.swaprate.toFixed(4)}}</strong>
+                                <span class="font-size-12">{{asset.fromAssetSymbol}}</span> :
+                                <strong class="price">1</strong>
+                                <span class="font-size-12">{{asset.toAssetSymbol}}</span>
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.fromAmountCut}}</strong> {{asset.fromAssetSymbol}} <span
+                                <strong class="price">{{asset.fromAmountCut}}</strong> 
+                                <span class="asset-label">{{asset.fromAssetSymbol}}</span>
+                                <span
                                         class="color-Active official-fusion-badge"
                                         ng-show="asset.fromVerified">                                    <img
                                             src="./images/verified.svg" height="14px" width="14px"/></span>
@@ -358,7 +365,8 @@
                             </span>
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.toAmountCut}}</strong> {{asset.toAssetSymbol}}
+                                <strong class="price">{{asset.toAmountCut}}</strong> 
+                                <span class="asset-label">{{asset.toAssetSymbol}}</span>
                                 <span
                                         class="color-Active official-fusion-badge"
                                         ng-show="asset.toVerified">                                    <img
@@ -372,7 +380,8 @@
                             </span>
                             </td>
                             <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.minswapopenmake.toFixed(4)}}</strong> {{asset.fromAssetSymbol}}
+                                <strong class="price">{{asset.minswapopenmake.toFixed(4)}}</strong>
+                                <span class="font-size-12">{{asset.fromAssetSymbol}}</span>
                             </td>
                             <td class="float-right text-right">
                                 <div ng-hide="asset.owned == false">
