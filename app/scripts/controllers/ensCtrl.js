@@ -138,9 +138,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.openMakesList();
         $scope.takeSwapList();
         $scope.getUSAN();
-        $scope.$applyAsync(function () {
-            $rootScope.walletAvailable = true;
-        });
     };
 
     setInterval(function () {
@@ -336,18 +333,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
-    // Sets the last page for pagination
-    $scope.$watch("swapsList", function () {
-        if (typeof $scope.swapsList === "undefined") {
-            return;
-        } else {
-            $scope.$eval(function () {
-                $scope.endPage = Math.ceil($scope.swapsList.length / $scope.pageSize);
-            });
-        }
-    });
 
     $scope.nextPage = function () {
+        if($scope.currentPage === $scope.endPage) { return; }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage + 1;
             $scope.searchSwapMarket = "";
@@ -364,7 +352,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     };
 
+    $scope.lastPage = function () {
+        $scope.$eval(function () {
+            $scope.currentPage = $scope.endPage;
+            $scope.searchSwapMarket = "";
+        });
+        $scope.allSwaps($scope.endPage);
+
+    };
+
     $scope.previousPage = function () {
+        if($scope.currentPage == 0){ return; }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage - 1;
             $scope.searchSwapMarket = "";
@@ -555,7 +553,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let id;
         if (cachedDropdowns.send) {
             id = cachedDropdowns.send;
-            await $scope.setSendAsset(id);
+            await $scope.setSendAllAssets(id);
         } else {
             $scope.selectedReceiveAsset = `All Assets`;
             $scope.selectedReceiveContract = "\n";
@@ -905,6 +903,29 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.updateDropDownCookie('send', id);
         await $scope.allSwaps(0);
     };
+
+
+    $scope.setSendAllAssets = async function (id) {
+        $scope.$eval(function () {
+            $scope.selectedSendAsset = `${$scope.assetList[id].name} (${
+                $scope.assetList[id].symbol
+                })`;
+            $scope.selectedSendAssetSymbol = `${$scope.assetList[id].symbol}`;
+            $scope.selectedSendContract = $scope.assetList[id].contractaddress;
+            $scope.selectedSendImage = `${$scope.assetList[id].image}`;
+            $scope.selectedSendHasImage = $scope.assetList[id].hasImage;
+            $scope.assetToSend = $scope.assetList[id].contractaddress;
+            $scope.selectedSendVerified = $scope.assetList[id].verified;
+            $scope.sendHasTimeLockBalance = $scope.assetList[id].timelockBalance;
+            $scope.sendDropDown = false;
+            $scope.sendDropDown2 = false;
+        });
+        $scope.getAssetBalance();
+        $scope.sendChanged = 1;
+        $scope.updateDropDownCookie('send', id);
+        await $scope.allSwaps(0);
+    };
+
 
     $scope.copyToClipboard = function (text) {
         let clipboardAvailable;
@@ -1586,7 +1607,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
 
         if (canSwitch) {
-            $scope.setSendAsset(assetListOwnedId);
+            $scope.setSendAllAssets(assetListOwnedId);
             $scope.setReceiveAsset(assetListId);
         }
     };
@@ -2366,6 +2387,27 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
     });
 
+    $scope.setPagination = async (currentPage,totalSwapsInQuery) => {
+        // Calculate shown rows
+        let shownRows;
+        if ( currentPage === 0 ){
+            shownRows = (currentPage+1) * 10;
+        } else {
+            shownRows = (currentPage+1) * 10;
+        }
+
+        if(($scope.totalRowsSwapsQuery- shownRows) < 10){
+            shownRows = $scope.totalRowsSwapsQuery;
+        }
+        $scope.$applyAsync(function () {
+            if(totalSwapsInQuery){
+                $scope.totalRowsSwapsQuery = totalSwapsInQuery
+                $scope.endPage = Math.ceil(totalSwapsInQuery / 10)-1;
+            };
+            $scope.shownRows = shownRows;
+        })
+    }
+
 
     let swapList = {};
     $scope.allSwapsRunning = false;
@@ -2384,6 +2426,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.allSwapsRunning = true;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
+            let totalSwapsInQuery;
             let size = 10;
 
             let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
@@ -2399,11 +2442,19 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
             }
 
-            console.log(url);
-
             try {
                 await ajaxReq.http.get(url).then(function (r) {
-                    console.log(r.data)
+                    if(r.data[size]){
+                        if(r.data[size][0] !== undefined){
+                            totalSwapsInQuery = (r.data[size][0]["COUNT(*)"])
+                        }
+                        delete r.data[size];
+                        if(page === 0){
+                            $scope.setPagination(page,totalSwapsInQuery);
+                        } else {
+                            $scope.setPagination(page);
+                        }
+                    }
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
                         swapList[data.SwapID] = data;
@@ -2426,201 +2477,202 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             for (let asset in swapList) {
                 let id = swapList[asset]["ID"];
                 let owner = swapList[asset]["Owner"];
-                console.log(swapList[asset]);
-                console.log(owner);
                 let owned = false;
                 let assetBalance = "";
 
                 let fromAsset = allAssets[swapList[asset]["FromAssetID"]];
-                console.log(fromAsset);
                 let toAsset = allAssets[swapList[asset]["ToAssetID"]];
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;
 
+                if(fromAsset && toAsset) {
 
-                // If Make Swap is USAN
-                if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
-                    try {
-                        await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swapList[asset]["SwapID"]}`).then(function (r) {
-                            console.log(r.data)
-                            owner = r.data[0].fromAddress;
-                        });
-                    } catch (err) {
-                        console.log(err);
+
+
+                    // If Make Swap is USAN
+                    // if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+                    // try {
+                    //     await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swapList[asset]["SwapID"]}`).then(function (r) {
+                    //         console.log(r.data)
+                    //         owner = r.data[0].fromAddress;
+                    //     });
+                    // } catch (err) {
+                    //     console.log(err);
+                    // }
+                    //
+                    // let USAN = await web3.fsn.getNotation(owner);
+                    // fromAsset.Symbol = `${USAN} USAN`;
+                    // fromAsset.Name = USAN;
+                    // }
+
+                    for (let a in window.verifiedAssetsImages) {
+                        if (
+                            window.verifiedAssetsImages[a].assetID ==
+                            swapList[asset]["FromAssetID"]
+                        ) {
+                            // Set matched image name
+                            fromVerifiedImage = window.verifiedAssetsImages[a].image;
+                            fromHasImage = true;
+                            fromVerified = true;
+                        } else if (
+                            swapList[asset]["FromAssetID"] ==
+                            "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                        ) {
+                            // Set matched image name
+                            fromVerifiedImage = "";
+                            fromHasImage = false;
+                            fromVerified = true;
+                        }
                     }
 
-                    let USAN = await web3.fsn.getNotation(owner);
-                    fromAsset.Symbol = `${USAN} USAN`;
-                    fromAsset.Name = USAN;
-                }
+                    let toVerifiedImage = "";
+                    let toHasImage = false;
+                    let toVerified = false;
 
-                for (let a in window.verifiedAssetsImages) {
-                    if (
-                        window.verifiedAssetsImages[a].assetID ==
-                        swapList[asset]["FromAssetID"]
-                    ) {
-                        // Set matched image name
-                        fromVerifiedImage = window.verifiedAssetsImages[a].image;
-                        fromHasImage = true;
-                        fromVerified = true;
-                    } else if (
-                        swapList[asset]["FromAssetID"] ==
-                        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-                    ) {
-                        // Set matched image name
-                        fromVerifiedImage = "";
-                        fromHasImage = false;
-                        fromVerified = true;
+                    for (let a in window.verifiedAssetsImages) {
+                        if (
+                            window.verifiedAssetsImages[a].assetID ==
+                            swapList[asset]["ToAssetID"]
+                        ) {
+                            // Set matched image name
+                            toVerifiedImage = window.verifiedAssetsImages[a].image;
+                            toHasImage = true;
+                            toVerified = true;
+                        } else if (
+                            swapList[asset]["ToAssetID"] ==
+                            "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                        ) {
+                            // Set matched image name
+                            toVerifiedImage = "";
+                            toHasImage = false;
+                            toVerified = true;
+                        }
                     }
-                }
 
-                let toVerifiedImage = "";
-                let toHasImage = false;
-                let toVerified = false;
+                    owner === walletAddress ? (owned = true) : (owned = false);
 
-                for (let a in window.verifiedAssetsImages) {
-                    if (
-                        window.verifiedAssetsImages[a].assetID ==
-                        swapList[asset]["ToAssetID"]
-                    ) {
-                        // Set matched image name
-                        toVerifiedImage = window.verifiedAssetsImages[a].image;
-                        toHasImage = true;
-                        toVerified = true;
-                    } else if (
-                        swapList[asset]["ToAssetID"] ==
-                        "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-                    ) {
-                        // Set matched image name
-                        toVerifiedImage = "";
-                        toHasImage = false;
-                        toVerified = true;
+                    let fromAmount =
+                        swapList[asset].MinFromAmount /
+                        $scope.countDecimals(fromAsset.Decimals);
+
+                    let toAmount =
+                        swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
+                    let swapRate = fromAmount / toAmount;
+                    let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
+
+                    let tMonth = time.getUTCMonth();
+                    let tDay = time.getUTCDate();
+                    let tYear = time.getUTCFullYear();
+
+                    let hours = time.getUTCHours();
+                    let minutes = time.getUTCMinutes();
+
+                    if (time.getUTCMinutes() < 10) {
+                        minutes = "0" + time.getUTCMinutes();
                     }
-                }
+                    // Global
+                    time = $scope.months[tMonth] + " " + tDay + ", " + tYear;
+                    let timeHours = hours + ":" + minutes;
 
-                owner === walletAddress ? (owned = true) : (owned = false);
+                    // Maker parts
+                    let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
 
-                let fromAmount =
-                    swapList[asset].MinFromAmount /
-                    $scope.countDecimals(fromAsset.Decimals);
+                    // Taker specific parts
+                    let swapratetaker = toAmount / fromAmount;
+                    let minimumswaptaker = fromAmount * swapratetaker;
 
-                let toAmount =
-                    swapList[asset].MinToAmount / $scope.countDecimals(toAsset.Decimals);
-                let swapRate = fromAmount / toAmount;
-                let time = new Date(parseInt(swapList[asset]["Time"]) * 1000);
+                    // Targes section
 
-                let tMonth = time.getUTCMonth();
-                let tDay = time.getUTCDate();
-                let tYear = time.getUTCFullYear();
+                    let targes = "";
 
-                let hours = time.getUTCHours();
-                let minutes = time.getUTCMinutes();
+                    swapList[asset]["Targes"].length > 0
+                        ? (targes = "Private")
+                        : (targes = "Public");
 
-                if (time.getUTCMinutes() < 10) {
-                    minutes = "0" + time.getUTCMinutes();
-                }
-                // Global
-                time = $scope.months[tMonth] + " " + tDay + ", " + tYear;
-                let timeHours = hours + ":" + minutes;
+                    // Receive TL
 
-                // Maker parts
-                let minimumswap = fromAmount / parseInt(swapList[asset]["SwapSize"]);
+                    let leftOver = parseInt(swapList[asset]["size"]) / parseInt(swapList[asset]["SwapSize"]);
+                    let leftOverBN = new window.BigNumber(leftOver.toString());
 
-                // Taker specific parts
-                let swapratetaker = toAmount / fromAmount;
-                let minimumswaptaker = fromAmount * swapratetaker;
+                    // fromAmount
+                    let minFromAmountBN = new window.BigNumber(swapList[asset]["MinFromAmount"].toString());
+                    let fromAmountDec = $scope.countDecimals(fromAsset["Decimals"]);
+                    let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
+                    let minFromAmountFormattedBN = minFromAmountBN.div(minFromAmountDecimalsBN);
+                    let minFromSwapSizeBN = new window.BigNumber(swapList[asset]["SwapSize"]);
+                    let minFromMaxAmountBN = minFromAmountFormattedBN.times(minFromSwapSizeBN);
+                    let minFromAmountFinal = leftOverBN.times(minFromMaxAmountBN);
 
-                // Targes section
+                    // toAmount
+                    let minToAmountBN = new window.BigNumber(swapList[asset]["MinToAmount"].toString());
+                    let toAmountDec = $scope.countDecimals(toAsset["Decimals"]);
+                    let minToAmountDecimalsBN = new window.BigNumber(toAmountDec.toString());
+                    let minToAmountFormattedBN = minToAmountBN.div(minToAmountDecimalsBN);
+                    let minToSwapSizeBN = new window.BigNumber(swapList[asset]["SwapSize"]);
+                    let minToMaxAmountBN = minToAmountFormattedBN.times(minToSwapSizeBN);
+                    let minToAmountFinal = leftOverBN.times(minToMaxAmountBN);
 
-                let targes = "";
+                    let toAmountF = minToAmountFinal.toString();
+                    let fromAmountF = minFromAmountFinal.toString();
 
-                swapList[asset]["Targes"].length > 0
-                    ? (targes = "Private")
-                    : (targes = "Public");
+                    let minimumswapopenmake =
+                        fromAmountF / parseInt(swapList[asset]["SwapSize"]);
 
-                // Receive TL
-
-                let leftOver = parseInt(swapList[asset]["size"]) / parseInt(swapList[asset]["SwapSize"]);
-                let leftOverBN = new window.BigNumber(leftOver.toString());
-
-                // fromAmount
-                let minFromAmountBN = new window.BigNumber(swapList[asset]["MinFromAmount"].toString());
-                let fromAmountDec = $scope.countDecimals(fromAsset["Decimals"]);
-                let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
-                let minFromAmountFormattedBN = minFromAmountBN.div(minFromAmountDecimalsBN);
-                let minFromSwapSizeBN = new window.BigNumber(swapList[asset]["SwapSize"]);
-                let minFromMaxAmountBN = minFromAmountFormattedBN.times(minFromSwapSizeBN);
-                let minFromAmountFinal = leftOverBN.times(minFromMaxAmountBN);
-
-                // toAmount
-                let minToAmountBN = new window.BigNumber(swapList[asset]["MinToAmount"].toString());
-                let toAmountDec = $scope.countDecimals(toAsset["Decimals"]);
-                let minToAmountDecimalsBN = new window.BigNumber(toAmountDec.toString());
-                let minToAmountFormattedBN = minToAmountBN.div(minToAmountDecimalsBN);
-                let minToSwapSizeBN = new window.BigNumber(swapList[asset]["SwapSize"]);
-                let minToMaxAmountBN = minToAmountFormattedBN.times(minToSwapSizeBN);
-                let minToAmountFinal = leftOverBN.times(minToMaxAmountBN);
-
-                let toAmountF = minToAmountFinal.toString();
-                let fromAmountF = minFromAmountFinal.toString();
-
-                let minimumswapopenmake =
-                    fromAmountF / parseInt(swapList[asset]["SwapSize"]);
-
-                let data = {
-                    id: swapListFront.length,
-                    swap_id: swapList[asset]["SwapID"],
-                    fromAssetId: swapList[asset]["FromAssetID"],
-                    fromAssetSymbol: fromAsset["Symbol"],
-                    fromAmount: fromAmountF,
-                    fromAmountCut: +minFromAmountFinal.toFixed(8),
-                    toAssetId: swapList[asset]["ToAssetID"],
-                    toAmount: toAmountF,
-                    toAmountCut: +minToAmountFinal.toFixed(8),
-                    toAssetSymbol: toAsset["Symbol"],
-                    swaprate: swapRate,
-                    maxswaps: swapList[asset]["SwapSize"],
-                    swapratetaker: swapratetaker,
-                    minswap: minimumswap,
-                    size: swapList[asset]["size"],
-                    minswaptaker: minimumswaptaker,
-                    minswapopenmake: minimumswapopenmake,
-                    time: time.toLocaleString(),
-                    timePosix: swapList[asset]["Time"],
-                    timeHours: timeHours,
-                    targes: targes,
-                    owner: swapList[asset]["Owner"],
-                    owned: owned,
-                    FromEndTime: swapList[asset]["FromEndTime"],
-                    FromStartTime: swapList[asset]["FromStartTime"],
-                    FromEndTimeString: $scope.returnDateString(
-                        swapList[asset]["FromEndTime"],
-                        "End"
-                    ),
-                    FromStartTimeString: $scope.returnDateString(
-                        swapList[asset]["FromStartTime"],
-                        "Start"
-                    ),
-                    ToEndTime: swapList[asset]["ToEndTime"],
-                    ToStartTime: swapList[asset]["ToStartTime"],
-                    ToEndTimeString: $scope.returnDateString(
-                        swapList[asset]["ToEndTime"],
-                        "End"
-                    ),
-                    ToStartTimeString: $scope.returnDateString(
-                        swapList[asset]["ToStartTime"],
-                        "Start"
-                    ),
-                    fromVerifiedImage: fromVerifiedImage,
-                    fromHasImage: fromHasImage,
-                    fromVerified: fromVerified,
-                    toVerifiedImage: toVerifiedImage,
-                    toHasImage: toHasImage,
-                    toVerified: toVerified
-                };
-                if (walletAddress !== swapList[asset]["Owner"] && !targesArray.includes(walletAddress)) {
-                    await swapListFront.push(data);
+                    let data = {
+                        id: swapListFront.length,
+                        swap_id: swapList[asset]["SwapID"],
+                        fromAssetId: swapList[asset]["FromAssetID"],
+                        fromAssetSymbol: fromAsset["Symbol"],
+                        fromAmount: fromAmountF,
+                        fromAmountCut: +minFromAmountFinal.toFixed(8),
+                        toAssetId: swapList[asset]["ToAssetID"],
+                        toAmount: toAmountF,
+                        toAmountCut: +minToAmountFinal.toFixed(8),
+                        toAssetSymbol: toAsset["Symbol"],
+                        swaprate: swapRate,
+                        maxswaps: swapList[asset]["SwapSize"],
+                        swapratetaker: swapratetaker,
+                        minswap: minimumswap,
+                        size: swapList[asset]["size"],
+                        minswaptaker: minimumswaptaker,
+                        minswapopenmake: minimumswapopenmake,
+                        time: time.toLocaleString(),
+                        timePosix: swapList[asset]["Time"],
+                        timeHours: timeHours,
+                        targes: targes,
+                        owner: swapList[asset]["Owner"],
+                        owned: owned,
+                        FromEndTime: swapList[asset]["FromEndTime"],
+                        FromStartTime: swapList[asset]["FromStartTime"],
+                        FromEndTimeString: $scope.returnDateString(
+                            swapList[asset]["FromEndTime"],
+                            "End"
+                        ),
+                        FromStartTimeString: $scope.returnDateString(
+                            swapList[asset]["FromStartTime"],
+                            "Start"
+                        ),
+                        ToEndTime: swapList[asset]["ToEndTime"],
+                        ToStartTime: swapList[asset]["ToStartTime"],
+                        ToEndTimeString: $scope.returnDateString(
+                            swapList[asset]["ToEndTime"],
+                            "End"
+                        ),
+                        ToStartTimeString: $scope.returnDateString(
+                            swapList[asset]["ToStartTime"],
+                            "Start"
+                        ),
+                        fromVerifiedImage: fromVerifiedImage,
+                        fromHasImage: fromHasImage,
+                        fromVerified: fromVerified,
+                        toVerifiedImage: toVerifiedImage,
+                        toHasImage: toHasImage,
+                        toVerified: toVerified
+                    };
+                    if (walletAddress !== swapList[asset]["Owner"] && !targesArray.includes(walletAddress)) {
+                        await swapListFront.push(data);
+                    }
                 }
             }
             $scope.$eval(function () {

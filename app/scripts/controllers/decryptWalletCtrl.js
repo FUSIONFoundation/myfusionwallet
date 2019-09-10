@@ -370,8 +370,8 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
       $scope.walletDescription = "Network: Mix Blockchain (MIX)";
     } else if ($scope.HDWallet.dPath === $scope.HDWallet.hwIolitePath){
       $scope.walletDescription = "Network: Iolite (ILT)";
-    } else if ($scope.HDWallet.dPath === $scope.HDWallet.hwIolitePath){
-      $scope.walletDescription = "Network: Iolite (ILT)";
+    } else if ($scope.HDWallet.dPath === $scope.HDWallet.customDPath){
+      $scope.walletDescription = "Custom Path";
     }
   };
   $scope.showContent = function($fileContent) {
@@ -389,11 +389,20 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     }
   };
   $scope.openWalletMenu = function(){
-    document.getElementById("hdwalletmenu").style.display = "block";
-  }
+    if(document.getElementById("hdwalletmenu").style.display === "block"){
+      document.getElementById("hdwalletmenu").style.display = "none";
+    } else {
+      document.getElementById("hdwalletmenu").style.display = "block";
+    }
+  };
+  window.addEventListener("click", function(event){
+    if(!event.target.matches('#dropdownButton')){
+      document.getElementById("hdwalletmenu").style.display = "none";
+    }
+  });
   $scope.closeModel = function(){
     $scope.showModel = false;
-  }
+  };
   $scope.seperateText = function(e){
     e.preventDefault();
     let newPhrase = e.clipboardData.getData('text/plain');
