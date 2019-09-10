@@ -2639,6 +2639,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         minswapopenmake: minimumswapopenmake,
                         time: time.toLocaleString(),
                         timePosix: swapList[asset]["Time"],
+                        timePosixValue: swapList[asset]["Time"] ? parseInt(swapList[asset]["Time"]) : "",
                         timeHours: timeHours,
                         targes: targes,
                         owner: swapList[asset]["Owner"],
@@ -2677,6 +2678,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
             $scope.$eval(function () {
                 $scope.swapsList = swapListFront;
+                // sort according to timePosixValue
+                $scope.swapsList = $scope.swapsList.sort(function(a, b){return b.timePosixValue - a.timePosixValue});
                 $scope.showLoader = false;
             });
             console.log($scope.swapsList);
@@ -2930,6 +2933,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.web3WalletBalance = balance;
             });
         }
+    };
+
+    $scope.convertTimePosixToNumber = function(asset){
+        return parseInt(asset.timePosix);
     };
 };
 module.exports = ensCtrl;
