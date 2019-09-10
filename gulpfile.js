@@ -58,7 +58,7 @@ gulp.task("html", function(done) {
     .pipe(plumber({ errorHandler: onError }))
     .pipe(fileinclude({ prefix: "@@", basepath: "@file" }))
     .pipe(gulp.dest(dist))
-    .pipe(gulp.dest(dist_CX))
+    // .pipe(gulp.dest(dist_CX))
     .pipe(notify(onSuccess("HTML")));
 });
 
