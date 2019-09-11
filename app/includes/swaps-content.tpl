@@ -484,7 +484,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in swapsList">
+                        <tr ng-repeat="asset in swapsList | orderBy:'convertTimePosixToNumber':reverse">
                             <td class="text-left"
                                 ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong class="price">{{asset.swapratetaker.toFixed(4)}}</strong> <span
@@ -536,7 +536,7 @@
                                     <button class="btn btn-sm btn-white m-0"
                                             ng-click="takeModal(asset.id)"
                                             ng-disabled="takeAvailable(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime)"
-                                    >Take Swap
+                                    >Take Swap8 {{asset.timePosix * 1000 | date:'MM-dd-yyyy HH:mm:ss Z'}}
                                     </button>
                                 </div>
                             </td>
