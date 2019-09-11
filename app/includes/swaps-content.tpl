@@ -152,6 +152,12 @@
                             All Assets
                         </a>
                     </div>
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
+                         ng-click="setAllSANsInReceive()">
+                        <a>
+                            All Short Account Numbers
+                        </a>
+                    </div>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
                          ng-repeat="asset in assetList | filter:{'contractaddress':'0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'} | orderBy:'-verified' track by $index">
                         <a ng-click="setReceiveAsset(asset.id)">
