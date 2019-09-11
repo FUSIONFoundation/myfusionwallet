@@ -535,6 +535,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.allSwaps();
     }
 
+    $scope.setAllSANsInReceive = function () {
+        $scope.$eval(function () {
+            $scope.selectedReceiveAsset = `All Short Account Numbers`;
+            $scope.selectedReceiveContract = "\n";
+            $scope.assetToReceive = $scope.assetList[0].contractaddress;
+            $scope.selectedReceiveImage = '';
+            $scope.selectedReceiveHasImage = false;
+            $scope.selectedReceiveVerified = false;
+        });
+        $scope.allSwaps();
+    }
 
     $scope.setAllAssetsInSend = function () {
         $scope.$eval(function () {
@@ -2438,7 +2449,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
 
-            if ($scope.selectedReceiveAsset == 'All Assets') {
+            if ($scope.selectedReceiveAsset == 'All Short Account Numbers') {
+                // TO DO: customize query to limit to SANs only
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+            } else if ($scope.selectedReceiveAsset == 'All Assets') {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
 
