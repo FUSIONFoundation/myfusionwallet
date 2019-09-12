@@ -535,6 +535,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.allSwaps();
     }
 
+    $scope.setAllSANsInReceive = function () {
+        $scope.$eval(function () {
+            $scope.selectedReceiveAsset = `All Short Account Numbers`;
+            $scope.selectedReceiveContract = "\n";
+            $scope.assetToReceive = $scope.assetList[0].contractaddress;
+            $scope.selectedReceiveImage = '';
+            $scope.selectedReceiveHasImage = false;
+            $scope.selectedReceiveVerified = false;
+        });
+        $scope.allSwaps();
+    }
 
     $scope.setAllAssetsInSend = function () {
         $scope.$eval(function () {
@@ -2438,7 +2449,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
 
-            if ($scope.selectedReceiveAsset == 'All Assets') {
+            if ($scope.selectedReceiveAsset == 'All Short Account Numbers') {
+                // TO DO: customize query to limit to SANs only
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+            } else if ($scope.selectedReceiveAsset == 'All Assets') {
                 url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
             }
 
@@ -2646,6 +2660,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         minswapopenmake: minimumswapopenmake,
                         time: time.toLocaleString(),
                         timePosix: swapList[asset]["Time"],
+                        timePosixValue: swapList[asset]["Time"] ? parseInt(swapList[asset]["Time"]) : "",
                         timeHours: timeHours,
                         targes: targes,
                         owner: swapList[asset]["Owner"],
@@ -2684,6 +2699,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
             $scope.$eval(function () {
                 $scope.swapsList = swapListFront;
+                // sort according to timePosixValue
+                $scope.swapsList = $scope.swapsList.sort(function(a, b){return b.timePosixValue - a.timePosixValue});
                 $scope.showLoader = false;
             });
             console.log($scope.swapsList);
@@ -2937,6 +2954,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.web3WalletBalance = balance;
             });
         }
+    };
+
+    $scope.convertTimePosixToNumber = function(asset){
+        return parseInt(asset.timePosix);
     };
 };
 module.exports = ensCtrl;
