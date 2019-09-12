@@ -1264,104 +1264,120 @@
         </section>
     </article>
 
-
-    <article class="modal fade" id="makeSwapConfirm" tabindex="-1">
+    <article class="modal fade rs-new" id="makeSwapConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
             <section class="modal-content no-shadow">
                 <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
-                                  <span class="gray-text" ng-click="makeSwapModal.open()">                    <i
-                                              class="fa fa-times"
-                                              aria-hidden="true"></i>
-</span>
-                        </div>
-                    </div>
-                    <h3 class="h3-blue">Review Make Swap</h3>
-
-                    <p>Please review the following details carefully before making your swap.</p>
-
-                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
-                        <div class="col-md-6 small-gray-text">
-                            You will be sending
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right text-right">
-                                <span class="fusion-text-18">{{makeSendAmount}}</span> <span
-                                        class="fusion-text-14">{{assetToSendConfirm}}</span>
-                                <span class="color-Active official-fusion-badge"
-                                      ng-show="selectedSendVerified">
-                                    <img src="./images/verified.svg" height="14px" width="14px"/>
+                                <span class="gray-text" ng-click="makeSwapModal.open()">                    <i
+                                    class="fa fa-times"
+                                    aria-hidden="true"></i>
                                 </span>
-                                <br>
-                                <span class="small-gray-text" ng-show="showTimeLockSend">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="sendTimeLock == 'daterange'">{{fromStartTimeString}}
-                                        - {{fromEndTimeString}}</span>
-                                    <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
-                                        - ∞ Forever</span>
-                                </span>
-                            </div>
                         </div>
                     </div>
-                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
-                        <div class="col-md-6 small-gray-text">
-                            You will be receiving
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right text-right">
-                                <span class="fusion-text-18">{{makeReceiveAmount}}</span> <span
-                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span> <span
-                                        class="color-Active official-fusion-badge"
-                                        ng-show="selectedReceiveVerified">
-                                    <img src="./images/verified.svg" height="14px" width="14px"/>
-                                </span>
-                                <br>
-                                <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                    <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
-                                        - ∞ Forever</span>
-                                    <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
-                                        - {{toEndTimeString}}</span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text">
-                            Swap Rate
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                <span class="fusion-text-18">{{makeSendSwapRate}}</span> <span
-                                        class="fusion-text-14">{{assetToSendConfirm}}</span>
-                                : <span class="fusion-text-18">1</span> <span
-                                        class="fusion-text-14">{{assetToReceiveConfirm}}</span>
+                    <h3 class="h3-blue title">Review Make Swap</h3>
+                    <p class="description">Please review the following details carefully before making your swap.</p>
 
+                    <div class="row summary">
+                        <div class="col-md-6 divider">
+                            <div class="table-header">
+                                <img src="images/you-send.svg" class="pr-2">
+                                <span>You Send</span>
+                            </div>
+                            <div class="summary-cell">
+                                <div class="logo">
+                                    <img ng-if="selectedSendHasImage==true"
+                                        ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                                    <span ng-if="!selectedSendHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
+                                </div>
+                                <div class="details">
+                                    <span class="qty">{{makeSendAmount}}</span>
+                                    <span class="currency">{{selectedSendAssetSymbol}}</span>
+                                    <img ng-if="selectedSendVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                    <img ng-if="!selectedSendVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                </div>
+                                <div>
+                                    <span class="small-gray-text" ng-show="showTimeLockSend">
+                                        <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                        <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
+                                            - ∞ Forever</span>
+                                        <span ng-show="receiveTimeLock == 'daterange'">{{fromStartTimeString}}
+                                            - {{fromEndTimeString}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="summary-cell">
+                                <div class="usan"><div class="name">USAN <span class="address">666333</span></div></div>
+                                <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-header">
+                                <img src="images/you-receive.svg" class="pr-2">
+                                <span>You Receive</span>
+                            </div>
+                            <div class="summary-cell">
+                                <div class="logo">
+                                    <img ng-if="selectedReceiveHasImage==true"
+                                        ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                                    <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
+                                </div>
+                                <div class="details">
+                                    <span class="qty">{{makeReceiveAmount}}</span>
+                                    <span class="currency">{{selectedReceiveAssetSymbol}}</span>
+                                    <img ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                    <img ng-if="!selectedReceiveVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                </div>
+                                <div>
+                                    <span class="small-gray-text" ng-show="showTimeLockReceive">
+                                        <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                        <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
+                                            - ∞ Forever</span>
+                                        <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
+                                            - {{toEndTimeString}}</span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text">
-                            Number of Fills
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                <span class="fusion-text-18">{{makeMinumumSwap}}</span>
+                    <div class="price-section">
+                        <div class="row price-row">
+                            <div class="col-md-6 price">
+                                <img src="./images/price.svg" height="24px" width="24px"/>
+                                PRICE
+                            </div>
+                            <div class="col-md-6 price-value">{{makeSendAmount}} 
+                                <span class="currency">{{assetToSendConfirm}}</span> : {{makeReceiveAmount}}
+                                <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom" ng-show="makeTarges != ''">
-                        <div class="col-md-6 small-gray-text">
-                            Available To
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                {{makeTarges}}
+                        <div class="row price-row ">
+                            <div class="col-md-6 price">
+                                <img src="./images/fills.svg" height="24px" width="24px"/>
+                                NUMBER OF FILLS
                             </div>
+                            <div class="col-md-6 price-value">{{makeMinumumSwap}}</div>
+                        </div>
+                        <div class="row price-row" ng-show="privateAccess == true || true">
+                            <div class="col-md-6 price">
+                                <img src="./images/private.svg" height="24px" width="24px"/>
+                                PRIVATELY SENDING TO
+                            </div>
+                            <div class="col-md-6 address">
+                                0x0ac469cf34c4d65515
+                            </div>
+                        </div>
+                        <div class="row price-row">
+                            <div class="col-md-6 price">
+                                <img src="./images/fee.svg" height="24px" width="24px"/>
+                                TRANSACTION FEE
+                            </div>
+                            <div class="col-md-6 price-value">{{'~.00000991'}} <span class="currency">{{'FSN'}}</span></div>
                         </div>
                     </div>
 
+                    <hr class="last-hr">
 
                     <div class="row">
                         <div class="col-md-6">
@@ -1377,6 +1393,7 @@
             </section>
         </section>
     </article>
+
     <article class="modal fade" id="makeSwapEndConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
             <section class="modal-content no-shadow">
