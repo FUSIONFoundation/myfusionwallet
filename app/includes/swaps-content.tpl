@@ -1273,7 +1273,7 @@
         </section>
     </article>
 
-    <article class="modal fade rs-new" id="makeSwapConfirm" tabindex="-1">
+    <article class="modal fade modal-new" id="makeSwapConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
@@ -1668,7 +1668,7 @@
             </section>
         </section>
     </article>
-    <article class="modal fade rs-new" id="takeSwapConfirm" tabindex="-1">
+    <article class="modal fade modal-new" id="takeSwapConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
             <section class="modal-content no-shadow">
                 <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
