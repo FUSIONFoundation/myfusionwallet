@@ -536,7 +536,7 @@
                                     <button class="btn btn-sm btn-white m-0"
                                             ng-click="takeModal(asset.id)"
                                             ng-disabled="takeAvailable(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime)"
-                                    >Take Swap8 {{asset.timePosix * 1000 | date:'MM-dd-yyyy HH:mm:ss Z'}}
+                                    >Take Swap
                                     </button>
                                 </div>
                             </td>
