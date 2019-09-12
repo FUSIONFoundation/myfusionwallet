@@ -1268,9 +1268,9 @@
         <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
-                    
+
                     <img class="close-btn" src="images/t.svg" width="20px" height="20px" ng-click="makeSwapModal.open()">
-                    
+
                     <div class="limit-width">
                         <h3 class="h3-blue title">Review Make Swap</h3>
                         <p class="description">Please review the following details carefully before making your swap.</p>
@@ -1355,7 +1355,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
 
@@ -1366,7 +1366,7 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeSendAmount}} 
+                                <div class="price-value">{{makeSendAmount}}
                                     <span class="currency">{{assetToSendConfirm}}</span> : {{makeReceiveAmount}}
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
@@ -1379,14 +1379,14 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeMinumumSwap}}</div>
                             </div>
-                            <div class="price-row" ng-show="privateAccess == true || true">
+                            <div class="price-row" ng-show="privateAccess">
                                 <div class="price">
                                     <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
                                     PRIVATELY SENDING TO
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="address">
-                                    0x0ac469cf34c4d65515
+                                    {{makeTarges}}
                                 </div>
                             </div>
                             <div class="price-row">
