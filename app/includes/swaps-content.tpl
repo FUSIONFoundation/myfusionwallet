@@ -1259,8 +1259,8 @@
     </article>
 
     <article class="modal fade rs-new" id="makeSwapConfirm" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
-            <section class="modal-content no-shadow">
+        <section class="modal-dialog send-asset-dialog reset-modal">
+            <section class="modal-content no-shadow limit-width">
                 <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
                     <div class="col-md-12 p-0">
                         <div class="float-right">
@@ -1275,7 +1275,7 @@
 
                     <div class="row summary">
                         <div class="col-md-6 divider">
-                            <div class="table-header">
+                            <div class="summary-header">
                                 <img class="icon" src="images/you-send-new.svg" class="pr-2">
                                 <span>You Send</span>
                             </div>
@@ -1286,22 +1286,29 @@
                                             ng-src="images/verifiedassets/{{selectedSendImage}}" height="32px" width="32px"/>
                                         <span ng-if="!selectedSendHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
                                     </div>
-                                    <div class="details">
-                                        <span class="qty">{{makeSendAmount}}</span>
-                                        <div class="curr-sym">
-                                            <span class="currency">{{selectedSendAssetSymbol}}</span>
-                                            <img class="symbol" ng-if="selectedSendVerified" src="./images/verified.svg" height="14px" width="14px"/>
-                                            <img class="symbol" ng-if="!selectedSendVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                    <div class="details-wrapper">
+                                        <div class="details">
+                                            <span class="qty">{{makeSendAmount}}</span>
+                                            <div class="curr-sym">
+                                                <span class="currency">{{selectedSendAssetSymbol}}</span>
+                                                <img class="symbol" ng-if="selectedSendVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="symbol" ng-if="!selectedSendVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <span class="small-gray-text" ng-show="showTimeLockSend">
-                                            <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                            <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
-                                                - ∞ Forever</span>
-                                            <span ng-show="receiveTimeLock == 'daterange'">{{fromStartTimeString}}
-                                                - {{fromEndTimeString}}</span>
-                                        </span>
+                                        <div class="date-range">
+                                            <span class="small-gray-text">
+                                                <img class="mr-2 icon" src="images/send-timelock-icon.svg" width="12px">
+                                                <span class="range">{{'Now'}} - {{'June 29, 2019 (15 days)'}}</span>
+                                            </span>
+                                            <span class="small-gray-text" ng-show="showTimeLockSend">
+                                                <img class="mr-2" src="images/send-timelock-icon.svg" width="12px">
+                                                <span>{{'Today'}} - {{'Tomorrow'}}</span>
+                                                <span ng-show="sendTimeLock == 'scheduled'">{{fromStartTimeString}}
+                                                    - ∞ Forever</span>
+                                                <span ng-show="receiveTimeLock == 'daterange'">{{fromStartTimeString}}
+                                                    - {{fromEndTimeString}}</span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1315,7 +1322,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="table-header">
+                            <div class="summary-header">
                                 <img class="icon" src="images/you-receive-new.svg" class="pr-2">
                                 <span>You Receive</span>
                             </div>
@@ -1326,61 +1333,68 @@
                                             ng-src="images/verifiedassets/{{selectedReceiveImage}}" height="32px" width="32px"/>
                                         <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
                                     </div>
-                                    <div class="details">
-                                        <span class="qty">{{makeReceiveAmount}}</span>
-                                        <div class="curr-sym">
-                                            <span class="currency">{{selectedReceiveAssetSymbol}}</span>
-                                            <img class="symbol" ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px" width="14px"/>
-                                            <img class="symbol" ng-if="!selectedReceiveVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                    <div class="details-wrapper">
+                                        <div class="details">
+                                            <span class="qty">{{makeReceiveAmount}}</span>
+                                            <div class="curr-sym">
+                                                <span class="currency">{{selectedReceiveAssetSymbol}}</span>
+                                                <img class="symbol" ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="symbol" ng-if="!selectedReceiveVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <span class="small-gray-text" ng-show="showTimeLockReceive">
-                                            <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                            <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
-                                                - ∞ Forever</span>
-                                            <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
-                                                - {{toEndTimeString}}</span>
-                                        </span>
+                                        <div class="date-range">
+                                            <span class="small-gray-text" ng-show="showTimeLockReceive">
+                                                <img class="mr-2" src="images/send-timelock-icon.svg" width="12px">
+                                                <span ng-show="receiveTimeLock == 'scheduled'">{{toStartTimeString}}
+                                                    - ∞ Forever</span>
+                                                <span ng-show="receiveTimeLock == 'daterange'">{{toStartTimeString}}
+                                                    - {{toEndTimeString}}</span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             
                         </div>
                     </div>
+
                     <div class="price-section">
-                        <div class="row price-row">
-                            <div class="col-md-6 price">
-                                <img src="./images/price.svg" height="24px" width="24px"/>
+                        <div class="price-row">
+                            <div class="price">
+                                <img class="icon" src="./images/price.svg" height="24px" width="24px"/>
                                 PRICE
                             </div>
-                            <div class="col-md-6 price-value">{{makeSendAmount}} 
+                            <div class="price-filler"></div>
+                            <div class="price-value">{{makeSendAmount}} 
                                 <span class="currency">{{assetToSendConfirm}}</span> : {{makeReceiveAmount}}
                                 <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                             </div>
                         </div>
-                        <div class="row price-row ">
-                            <div class="col-md-6 price">
-                                <img src="./images/fills.svg" height="24px" width="24px"/>
+                        <div class="price-row">
+                            <div class="price">
+                                <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                 NUMBER OF FILLS
                             </div>
-                            <div class="col-md-6 price-value">{{makeMinumumSwap}}</div>
+                            <div class="price-filler"></div>
+                            <div class="price-value">{{makeMinumumSwap}}</div>
                         </div>
-                        <div class="row price-row" ng-show="privateAccess == true || true">
-                            <div class="col-md-6 price">
-                                <img src="./images/private.svg" height="24px" width="24px"/>
+                        <div class="price-row" ng-show="privateAccess == true || true">
+                            <div class="price">
+                                <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
                                 PRIVATELY SENDING TO
                             </div>
-                            <div class="col-md-6 address">
+                            <div class="price-filler"></div>
+                            <div class="address">
                                 0x0ac469cf34c4d65515
                             </div>
                         </div>
-                        <div class="row price-row">
-                            <div class="col-md-6 price">
-                                <img src="./images/fee.svg" height="24px" width="24px"/>
+                        <div class="price-row">
+                            <div class="price">
+                                <img class="icon" src="./images/fee.svg" height="24px" width="24px"/>
                                 TRANSACTION FEE
                             </div>
-                            <div class="col-md-6 price-value">{{'~.00000991'}} <span class="currency">{{'FSN'}}</span></div>
+                            <div class="price-filler"></div>
+                            <div class="price-value">{{'~.00000991'}} <span class="currency">{{'FSN'}}</span></div>
                         </div>
                     </div>
 
