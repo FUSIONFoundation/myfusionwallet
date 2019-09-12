@@ -1277,9 +1277,7 @@
         <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
-
-                    <img class="close-btn" src="images/t.svg" width="20px" height="20px" ng-click="makeSwapModal.open()">
-
+                    <img class="close-btn" src="images/t.svg" width="20px" height="20px" ng-click="makeSwapConfirmModal.close()">
                     <div class="limit-width">
                         <h3 class="h3-blue title">Review Make Swap</h3>
                         <p class="description">Please review the following details carefully before making your swap.</p>
