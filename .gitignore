@@ -17,7 +17,6 @@ cert.pem
 key.pem
 .idea/
 .vscode/
-dist/
 chrome-extension/
 
 Archive.zip
