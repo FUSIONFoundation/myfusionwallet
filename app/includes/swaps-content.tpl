@@ -793,7 +793,7 @@
     </article>
 
 
-    <article class="modal fade bg-white ms-new" id="makeSwap" tabindex="-1">
+    <article class="modal fade bg-white" id="makeSwap" tabindex="-1">
         <section class="modal-dialog send-asset-dialog">
             <section class="modal-content no-shadow">
                 <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
@@ -805,7 +805,8 @@
 </span>
                         </div>
                     </div>
-                    <h3 class="make-swap ms-new-title">Make Swap</h3>
+                    <h3 class="make-swap">Make Swap</h3>
+
 
                     <div class="col-md-12 p-0" ng-show="!selectedReceiveVerified">
                         <span class="warning-bg p-3 inline w-100">
@@ -820,22 +821,13 @@
                             </span>
                         </div>
                         <div class="col-md-6 text-left p-0">
-                            <div class="col-md-12 p-0 pr-2 ms-new-amount-input">
+                            <div class="col-md-6 p-0 pr-2">
                                 <input type="text" class="form-control m-0 mt-1" ng-model="makeSendAmount"
                                        id="makeSendAmount"
-                                       placeholder="Enter an amount"
+                                       placeholder="Amount"
                                        ng-change="setReceiveAmountMakeSwap(); setSwapRate();checkMakeSwapConditions();"
                                 >
                             </div>
-                            <div class="col-md-12 display-web-inline-block pt-2"
-                                 ng-show="selectedAssetBalance >= 0">
-                                <a class="small-blue"
-                                   ng-click="makeSendAmount = selectedAssetBalance">{{selectedAssetBalance}}
-                                    Available</a>
-                            </div>
-                        </div>
-                        <div class="col-md-6 pl-2">
-
                             <div class="col-md-6 col-xs-12 p-0">
                                 <a class="btn btn-secondary custom-dropdown mt-1"
                                    ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
@@ -850,7 +842,13 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width ms-new-dropdown"
+                            <div class="col-md-12 display-web-inline-block pt-2"
+                                 ng-show="selectedAssetBalance >= 0">
+                                <a class="small-blue"
+                                   ng-click="makeSendAmount = selectedAssetBalance"><strong>{{selectedAssetBalance}}</strong>
+                                    available</a>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                  ng-show="sendDropDown2"
                                  tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
                             >
@@ -860,14 +858,9 @@
                                         <input type="text" class="form-control"
                                                id="searchSendAsset2"
                                                ng-model="searchSendAsset"
-                                               placeholder="Search Assets, Symbols and IDs">
+                                               placeholder="Search by Symbol, Name, or ID">
                                     </div>
                                 </form>
-                                <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setMakeUSAN()">
-                        <span class="badge badge-success badge-info">
-                            USAN <strong>{{usanAddress}}</strong>
-                        </span>
-                                </div>
                                 <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
                                      ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
                                     <a ng-click="setSendAsset(asset.id)">
@@ -885,21 +878,19 @@
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                             <br>
-                                            <span class="small-gray-text max-char inline swap-market-adress">{{formatAddress(asset.contractaddress)}}</span>
+                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                                             </span>
                                         </div>
                                     </a>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="col-md-6 pl-2">
                             <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
-                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 ms-new-time-lock"
+                            <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
                                     ng-click="showTimeLockSend = !showTimeLockSend"
                                     ng-hide="showTimeLockSend; showExistingTimeLocks"
-                            >Time-lock
-                                <div class="float-right text-right">
-                                    <img src="images/caret-down-2.svg" class="Group-6">
-                                </div>
+                            >Set Time-lock
                             </button>
                             <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
                                     ng-hide="showTimeLockSend || showExistingTimeLocks || !myActiveTimeLocks[selectedSendContract].length > 0"
@@ -1076,7 +1067,7 @@
                                                 src="./images/verified.svg" height="14px" width="14px"/></span>
                                     </i></span>
                                             <br>
-                                            <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
+                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
                                             </span>
                                         </div>
                                     </a>
