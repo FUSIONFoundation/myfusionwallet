@@ -591,7 +591,7 @@
 
                     <div class="limit-width">
                         <h3 class="h3-blue title">Take Swap</h3>
-                        <div class="title-warning" ng-show="!takeDataFront.toVerified || true">
+                        <div class="title-warning" ng-show="!takeDataFront.toVerified">
                             <img class="icon" src="./images/unverified.svg" height="16px" width="14px"/>
                             <div class="description">Caution: this swap contains a suspicious asset(s).</div>
                         </div>
@@ -620,9 +620,9 @@
                                 <div class="summary-content">
                                     <div class="summary-cell">
                                         <div class="logo">
-                                            <img ng-if="selectedReceiveHasImage==true"
-                                                ng-src="images/verifiedassets/{{selectedReceiveImage}}" height="32px" width="32px"/>
-                                            <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
+                                            <img ng-if="selectedSendHasImage==true"
+                                                ng-src="images/verifiedassets/{{selectedSendImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!selectedSendHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.fromAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
@@ -657,8 +657,8 @@
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="selectedReceiveHasImage==true"
-                                                ng-src="images/verifiedassets/{{selectedSendImage}}" height="32px" width="32px"/>
-                                            <span ng-if="!selectedSendHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
+                                                ng-src="images/verifiedassets/{{selectedReceiveImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.toAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
@@ -671,7 +671,7 @@
                                             </div>
                                             <div class="date-range">
                                                 <span class="small-gray-text"
-                                                    ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
+                                                    ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
                                                     <img class="mr-2" src="images/sendtl.svg" width="12px">
                                                     <span>{{takeDataFront.swapId.FromStartTimeString}} - {{takeDataFront.swapId.FromEndTimeString}}</span>
                                                 </span>
