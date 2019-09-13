@@ -1449,6 +1449,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeId = id;
         });
 
+        console.log($scope.takeDataFront);
+
         await $scope.setReceive(1).then(function () {
             if (pass === false) {
                 if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {

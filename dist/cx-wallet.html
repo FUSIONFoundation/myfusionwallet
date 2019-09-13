@@ -9361,7 +9361,7 @@
                                     <img class="icon" src="images/you-receive-new.svg" class="pr-2">
                                     <span>You Receive</span>
                                 </div>
-                                <div class="summary-content">
+                                <div class="summary-content" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="selectedReceiveHasImage==true"
@@ -9387,9 +9387,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="summary-content">
+                                <div class="summary-content" ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
-                                        <div class="usan"><div class="name">USAN <span class="address">666333</span></div></div>
+                                        <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
                                         <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
