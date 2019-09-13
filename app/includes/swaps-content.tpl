@@ -1273,18 +1273,16 @@
         </section>
     </article>
 
-    <article class="modal fade rs-new" id="makeSwapConfirm" tabindex="-1">
+    <article class="modal fade modal-new" id="makeSwapConfirm" tabindex="-1">
         <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
-
-                    <img class="close-btn" src="images/t.svg" width="20px" height="20px" ng-click="makeSwapModal.open()">
-
+                    <img class="close-btn" src="images/t.svg" width="20px" height="20px" ng-click="makeSwapConfirmModal.close()">
                     <div class="limit-width">
                         <h3 class="h3-blue title">Review Make Swap</h3>
                         <p class="description">Please review the following details carefully before making your swap.</p>
                         <div class="row summary">
-                            <div class="col-md-6 divider">
+                            <div class="col-md-6 summary-col divider-right">
                                 <div class="summary-header">
                                     <img class="icon" src="images/you-send-new.svg" class="pr-2">
                                     <span>You Send</span>
@@ -1322,7 +1320,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            <div class="summary-content">
+                                <div class="summary-content">
                                     <div class="summary-cell">
                                         <div class="usan"><div class="name">USAN <span class="address">666333</span></div></div>
                                     </div>
@@ -1364,7 +1362,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -1670,84 +1667,125 @@
             </section>
         </section>
     </article>
-    <article class="modal fade" id="takeSwapConfirm" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
+    <article class="modal fade modal-new" id="takeSwapConfirm" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
-                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
-                                  <span class="gray-text" ng-click="takeSwapConfirm.close()">                    <i
-                                              class="fa fa-times"
-                                              aria-hidden="true"></i>
-</span>
-                        </div>
-                    </div>
-                    <h3 class="h3-blue">Review Take Swap</h3>
-
-                    <p>Please review the following details carefully before taking the swap.</p>
-
-                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
-                        <div class="col-md-6 small-gray-text">
-                            You will be sending
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right text-right">
-                                <span class="fusion-text-18">{{sendTokens}}</span>
-                                <span class="fusion-text-14">{{takeDataFront.fromAssetSymbol}}</span>
-                                <br>
-
-                                <span class="small-gray-text"
-                                      ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg"
-                                     width="12px">{{takeDataFront.swapId.ToStartTimeString}}
-                                    - {{takeDataFront.swapId.ToEndTimeString}}
-                                </span>
+                <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
+                    <img class="close-btn" src="images/t.svg" width="20px" height="20px" ng-click="takeSwapConfirm.close()">
+                    <div class="limit-width">
+                        <h3 class="h3-blue title">Review Take Swap</h3>
+                        <p class="description">Please review the following details carefully before taking the swap.</p>
+                        <div class="row summary">
+                            <div class="col-md-6 summary-col">
+                                <div class="summary-header">
+                                    <img class="icon" src="images/you-send-new.svg" class="pr-2">
+                                    <span>You Send</span>
+                                </div>
+                                <div class="summary-content">
+                                    <div class="summary-cell">
+                                        <div class="logo">
+                                            <img ng-if="selectedReceiveHasImage==true"
+                                                ng-src="images/verifiedassets/{{selectedReceiveImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
+                                        </div>
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                <span class="qty">{{sendTokens}}</span>
+                                                <div class="curr-sym">
+                                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span>
+                                                    <img class="symbol" ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                                    <img class="symbol" ng-if="!selectedReceiveVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                                </div>
+                                            </div>
+                                            <div class="date-range">
+                                                <span class="small-gray-text">
+                                                    <img class="mr-2 icon" src="images/send-timelock-icon.svg" width="12px">
+                                                    <span class="range">{{'Now'}} - {{'June 29, 2019 (15 days)'}}</span>
+                                                </span>
+                                                <span class="small-gray-text"
+                                                   ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                                   <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                                   <span>{{takeDataFront.swapId.ToStartTimeString}} - {{takeDataFront.swapId.ToEndTimeString}}</span>
+                                               </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 summary-col divider-left">
+                                <div class="summary-header">
+                                    <img class="icon" src="images/you-receive-new.svg" class="pr-2">
+                                    <span>You Receive</span>
+                                </div>
+                                <div class="summary-content">
+                                    <div class="summary-cell">
+                                        <div class="logo">
+                                            <img ng-if="selectedReceiveHasImage==true"
+                                                ng-src="images/verifiedassets/{{selectedSendImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!selectedSendHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
+                                        </div>
+                                        <div class="details-wrapper">
+                                            <div class="details">
+                                                <span class="qty">{{receiveTokens}}</span>
+                                                <div class="curr-sym">
+                                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                                    <img class="symbol" ng-if="selectedSendVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                                    <img class="symbol" ng-if="!selectedSendVerified" src="./images/unverified.svg" height="16px" width="14px"/>
+                                                </div>
+                                            </div>
+                                            <div class="date-range">
+                                                <span class="small-gray-text"
+                                                    ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
+                                                    <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                                    <span>{{takeDataFront.swapId.FromStartTimeString}} - {{takeDataFront.swapId.FromEndTimeString}}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="summary-content">
+                                    <div class="summary-cell">
+                                        <div class="usan"><div class="name">USAN <span class="address">666333</span></div></div>
+                                    </div>
+                                    <div class="summary-cell">
+                                        <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2 info-bg pt-3 pb-3 info-bg mt-1">
-                        <div class="col-md-6 small-gray-text">
-                            You will be receiving
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right text-right">
-                                <span class="fusion-text-18">{{receiveTokens}}</span> <span
-                                        class="fusion-text-14">{{takeDataFront.toAssetSymbol}}</span>
-                                <br>
-                                <span class="small-gray-text"
-                                      ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg"
-                                     width="12px">{{takeDataFront.swapId.FromStartTimeString}}
-                                    - {{takeDataFront.swapId.FromEndTimeString}}
-                                </span>
 
+                        <div class="price-section">
+                            <div class="price-row">
+                                <div class="price">
+                                    <img class="icon" src="./images/price.svg" height="24px" width="24px"/>
+                                    PRICE
+                                </div>
+                                <div class="price-filler"></div>
+                                <div class="price-value">{{takeDataFront.swapRate}}
+                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> : {{1}}
+                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                </div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price">
+                                    <img class="icon" src="./images/fee.svg" height="24px" width="24px"/>
+                                    TRANSACTION FEE
+                                </div>
+                                <div class="price-filler"></div>
+                                <div class="price-value">{{'~.00000991'}}
+                                    <span class="currency">{{'FSN'}}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text">
-                            Swap Rate
-                        </div>
-                        <div class="col-md-6">
-                            <div class="float-right">
-                                <span class="fusion-text-18"><strong>{{takeDataFront.swapRate}}</strong></span>
-                                <span class="fusion-text-12">{{takeDataFront.fromAssetSymbol}}</span> :
-                                <span class="fusion-text-18"><strong>1</strong></span>
-                                <span class="fusion-text-12">{{takeDataFront.toAssetSymbol}}</span>
+                        <hr class="last-hr">
+                        <div class="row actions-row">
+                            <div class="btn-grp">
+                                <button class="btn btn-white main-btn-secondary" ng-click="takeSwapConfirm.close()">Back</button>
+                                <button class="btn btn-primary main-btn-primary" 
+                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
+                                    ng-disabled="swapRecallSuccess">Take Swap
+                                </button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-white w-100" ng-click="takeSwapConfirm.close()">
-                                Back
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-primary w-100"
-                                    ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)">
-                                Take Swap
-                            </button>
                         </div>
                     </div>
                 </article>
