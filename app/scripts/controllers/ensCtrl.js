@@ -2509,8 +2509,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
                 if(fromAsset && toAsset) {
 
-
-
                     // If Make Swap is USAN
                     if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
                     try {
