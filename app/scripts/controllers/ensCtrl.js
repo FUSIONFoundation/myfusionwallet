@@ -1383,6 +1383,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.takeId = 0;
     $scope.takeModal = async function (id, pass) {
+        console.log(id);
+        console.log($scope.swapsList);
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let balance = "";
@@ -2471,20 +2473,20 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let totalSwapsInQuery;
             let size = 10;
 
-            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
+            let url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=desc&toAsset=${$scope.selectedSendContract}&fromAsset=${$scope.selectedReceiveContract}`
 
             if ($scope.selectedReceiveAsset == 'All Short Account Numbers') {
                 // TO DO: customize query to limit to SANs only
-                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=desc&toAsset=${$scope.selectedSendContract}`
             } else if ($scope.selectedReceiveAsset == 'All Assets') {
-                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc&toAsset=${$scope.selectedSendContract}`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=desc&toAsset=${$scope.selectedSendContract}`
             }
 
             if ($scope.selectedSendAsset == 'All Assets' && $scope.selectedReceiveAsset == 'All Assets') {
-                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=desc`
             }
             if ($scope.selectedSendContract == '-' && $scope.selectedReceiveContract == '-') {
-                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=asc`
+                url = `${window.getApiServer()}/swaps2/all?page=${page}&size=${size}&sort=desc`
             }
 
             try {

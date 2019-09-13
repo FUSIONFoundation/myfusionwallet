@@ -7475,7 +7475,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in swapsList | orderBy:'convertTimePosixToNumber':reverse">
+                        <tr ng-repeat="asset in swapsList | orderBy:'convertTimePosixToNumber'">
                             <td class="text-left"
                                 ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <strong class="price">{{asset.swapratetaker.toFixed(4)}}</strong> <span
@@ -8685,15 +8685,10 @@
                                                 </div>
                                             </div>
                                             <div class="date-range">
-                                                <span class="small-gray-text">
+                                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
                                                     <img class="mr-2 icon" src="images/send-timelock-icon.svg" width="12px">
-                                                    <span class="range">{{'Now'}} - {{'June 29, 2019 (15 days)'}}</span>
+                                                    <span class="range">{{takeDataFront.swapId.ToStartTimeString}} - {{takeDataFront.swapId.ToEndTimeString}}</span>
                                                 </span>
-                                                <span class="small-gray-text"
-                                                   ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
-                                                   <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                   <span>{{takeDataFront.swapId.ToStartTimeString}} - {{takeDataFront.swapId.ToEndTimeString}}</span>
-                                               </span>
                                             </div>
                                         </div>
                                     </div>
