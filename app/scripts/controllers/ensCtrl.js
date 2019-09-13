@@ -1358,6 +1358,28 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
     };
 
+    $scope.setSendAllAssets = async function (id) {
+        $scope.$eval(function () {
+            $scope.selectedSendAsset = `${$scope.assetList[id].name} (${
+                $scope.assetList[id].symbol
+                })`;
+            $scope.selectedSendAssetSymbol = `${$scope.assetList[id].symbol}`;
+            $scope.selectedSendContract = $scope.assetList[id].contractaddress;
+            $scope.selectedSendImage = `${$scope.assetList[id].image}`;
+            $scope.selectedSendHasImage = $scope.assetList[id].hasImage;
+            $scope.assetToSend = $scope.assetList[id].contractaddress;
+            $scope.selectedSendVerified = $scope.assetList[id].verified;
+            $scope.sendHasTimeLockBalance = $scope.assetList[id].timelockBalance;
+            $scope.sendDropDown = false;
+            $scope.sendDropDown2 = false;
+        });
+        $scope.getAssetBalance();
+        $scope.sendChanged = 1;
+        $scope.updateDropDownCookie('send', id);
+        await $scope.allSwaps(0);
+    };
+
+
 
     $scope.takeId = 0;
     $scope.takeModal = async function (id, pass) {

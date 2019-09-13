@@ -82,8 +82,8 @@
                         </a>
                     </div>
                     <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown bg-white"
-                         ng-repeat="asset in assetListOwned | filter:searchSendAsset | orderBy:'-verified' track by $index">
-                        <a ng-click="setSendAsset(asset.id)">
+                         ng-repeat="asset in assetList | filter:searchSendAsset | orderBy:'-verified' track by $index">
+                        <a ng-click="setSendAllAssets(asset.id)">
                             <div class="col-md-2 p-0">
                                 <img ng-if="asset.hasImage"
                                      ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1781,7 +1781,7 @@
                         <div class="row actions-row">
                             <div class="btn-grp">
                                 <button class="btn btn-white main-btn-secondary" ng-click="takeSwapConfirm.close()">Back</button>
-                                <button class="btn btn-primary main-btn-primary" 
+                                <button class="btn btn-primary main-btn-primary"
                                     ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
                                     ng-disabled="swapRecallSuccess">Take Swap
                                 </button>
