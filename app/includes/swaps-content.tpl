@@ -1287,7 +1287,7 @@
                                     <img class="icon" src="images/you-send-new.svg" class="pr-2">
                                     <span>You Send</span>
                                 </div>
-                                <div class="summary-content">
+                                <div class="summary-content" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="selectedSendHasImage==true"
@@ -1320,9 +1320,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="summary-content">
+                                <div class="summary-content" ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
-                                        <div class="usan"><div class="name">USAN <span class="address">666333</span></div></div>
+                                        <div class="usan"><div class="name">USAN <span class="address">{{usanAddress}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
                                         <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
