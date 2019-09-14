@@ -15,14 +15,21 @@ function twClickOutside ($window, $parse) {
       var fn = $parse(attr.twClickOutside);
 
       var handler = function(e) {
-        if (nakedEl === e.target || nakedEl.contains(e.target) || e.keyCode !== 27 || (ignore && ignore(scope))) {
+        if (nakedEl === e.target || nakedEl.contains(e.target) || (ignore && ignore(scope))) {
             return;
         }
         scope.$applyAsync(fn);
       };
 
+      var handler2 = function(e) {
+        if (e.keyCode !== 27) {
+          return;
+        }
+        scope.$applyAsync(fn);
+      };
+
       $window.addEventListener('click', handler, true);
-      $window.addEventListener('keydown', handler, true);
+      $window.addEventListener('keydown', handler2, true);
       scope.$on('$destroy', function(e) {
         $window.removeEventListener('click', handler);
       });
