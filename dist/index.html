@@ -7607,9 +7607,9 @@
                                 <div class="summary-content">
                                     <div class="summary-cell">
                                         <div class="logo">
-                                            <img ng-if="selectedSendHasImage==true"
-                                                ng-src="images/verifiedassets/{{selectedSendImage}}" height="32px" width="32px"/>
-                                            <span ng-if="!selectedSendHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.fromAssetSymbol}}</span>
+                                            <img ng-if="takeDataFront.swapId.toHasImage==true"
+                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.toVerifiedImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!takeDataFront.swapId.toHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.toAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
@@ -7621,15 +7621,10 @@
                                                 </div>
                                             </div>
                                             <div class="date-range">
-                                                <span class="small-gray-text">
+                                                <span class="small-gray-text" ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
                                                     <img class="mr-2 icon" src="images/send-timelock-icon.svg" width="12px">
-                                                    <span class="range">{{'Now'}} - {{'June 29, 2019 (15 days)'}}</span>
+                                                    <span class="range">{{takeDataFront.swapId.ToStartTimeString}} - {{takeDataFront.swapId.ToEndTimeString}}</span>
                                                 </span>
-                                                <span class="small-gray-text"
-                                                   ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
-                                                   <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                   <span>{{takeDataFront.swapId.ToStartTimeString}} - {{takeDataFront.swapId.ToEndTimeString}}</span>
-                                               </span>
                                             </div>
                                         </div>
                                     </div>
@@ -7640,7 +7635,7 @@
                                     <img class="icon" src="images/you-receive-new.svg" class="pr-2">
                                     <span>You Receive</span>
                                 </div>
-                                <div class="summary-content">
+                                <div class="summary-content" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="selectedReceiveHasImage==true"
@@ -7658,7 +7653,7 @@
                                             </div>
                                             <div class="date-range">
                                                 <span class="small-gray-text"
-                                                    ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                                      ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
                                                     <img class="mr-2" src="images/sendtl.svg" width="12px">
                                                     <span>{{takeDataFront.swapId.FromStartTimeString}} - {{takeDataFront.swapId.FromEndTimeString}}</span>
                                                 </span>
@@ -7666,9 +7661,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="summary-content">
+                                <div class="summary-content" ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
-                                        <div class="usan"><div class="name">USAN <span class="address">666333</span></div></div>
+                                        <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
                                         <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
@@ -8678,9 +8673,9 @@
                                 <div class="summary-content" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="logo">
-                                            <img ng-if="takeDataFront.swapId.fromHasImage==true"
-                                                ng-src="images/verifiedassets/{{takeDataFront.swapId.fromVerifiedImage}}" height="32px" width="32px"/>
-                                            <span ng-if="!takeDataFront.swapId.fromHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.fromAssetSymbol}}</span>
+                                            <img ng-if="selectedReceiveHasImage==true"
+                                                 ng-src="images/verifiedassets/{{selectedReceiveImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.toAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
