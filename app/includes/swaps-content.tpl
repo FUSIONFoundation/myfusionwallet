@@ -870,141 +870,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="action-section">
-                            <div class="action-header">
-                                <img src="images/you-receive-new.svg" width="24px" height="24px">
-                                <div class="action-title">You Receive</div>
-                            </div>
-                            <hr class="action-hr">
-                            <div class="action-body">
-                                <div class="body-details">
-                                    <div class="action-amount-available">
-                                        <input type="text" class="form-control m-0 mt-1 action-amount" ng-model="makeReceiveAmount"
-                                            placeholder="Amount"
-                                            ng-change="setSwapRate();checkMakeSwapConditions();"
-                                        >
-                                    </div>                                    
-                                    <div class="action-amount-currency">
-                                        <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
-                                            ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
-                                            <div class="col" click-out="!receiveDropDown">
-                                                <img ng-if="selectedReceiveHasImage"
-                                                    ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
-                                                <span ng-if="!selectedReceiveHasImage"
-                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
-                                                <span class="curr-symbol">{{selectedReceiveAssetSymbol}}</span>
-                                                <img class="verifier" ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px"
-                                                    width="14px"/>
-                                                <img class="verifier" ng-if="!selectedReceiveVerified" src="./images/unverified.svg"
-                                                    height="16px" width="14px"/>
-                                            </div>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown"
-                                        ng-show="receiveDropDown2"
-                                        tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
-                                        <form class="form-inline">
-                                            <div class="form-group m-0">
-                                                <span class="small-gray-text">Search</span>
-                                                <input type="text" class="form-control"
-                                                    id="searchReceiveAsset2"
-                                                    ng-model="searchReceiveAsset"
-                                                    placeholder="Search by Symbol, Name, or ID">
-                                            </div>
-                                        </form>
-                                        <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset">
-                                            <a ng-click="setReceiveAsset(asset.id)">
-                                                <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                    <img ng-if="asset.hasImage"
-                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                    <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                                                </div>
-                                                <div class="col">
-                                        <span class="fusion-text-14">
-                                {{asset.name}} ({{asset.symbol}})
-                                            <span class="color-Active official-fusion-badge"
-                                                ng-show="asset.verified">                                    <img
-                                                        src="./images/verified.svg" height="14px" width="14px"/></span>
-                                            </i></span>
-                                                    <br>
-                                                    <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div>Time-lock</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="number-fills-section">
-
-                            <div class="fills-header">
-                                <img src="./images/fills.svg" width="24px" height="24px"> 
-                                <div class="fills-header-title">Number of Fills</div>
-                            </div>
-                            <hr class="fills-hr">
-                            <div class="fills-body">
-                                <input type="text" class="form-control m-0 mt-1 pb-2 fills-amount" ng-model="makeMinumumSwap"
-                                    numbers-only
-                                    ng-change="setMinimumMakes();checkMakeSwapConditions();"
-                                    placeholder="Amount">
-                                <p class="fills-amount-desc">Number of fills determines the minimum amount someone can take in your swap. 1 fill would
-                                mean only the full swap can be taken. </p>
-                            </div> 
-                            <div class="fills-minimum">
-                                <div>
-                                    <div class="fills-minimum-title">Minimum Send</div>
-                                    <div class="fills-minimum-curr">FSN</div>
-                                </div>
-                                <div class="fills-minimum-divider">:</div>
-                                <div>
-                                    <div class="fills-minimum-title">Minimum Receive</div>
-                                    <div class="fills-minimum-curr">ETH</div>
-                                </div>
-                            </div>
-                            <div class="private-send-section">
-                                <img src="./images/private.svg" width="24px" height="24px"> 
-                                <div class="private-send-title">Send this swap privately</div>
-                            </div>
-                        </div>
-
-                        <hr class="last-hr">
-                        <div class="row actions-row">
-                            <div class="btn-grp">
-                                <button class="btn btn-white main-btn-secondary" ng-click="makeSwapModal.close()">Cancel</button>
-                                <button class="btn btn-primary main-btn-primary"
-                                    ng-click="makeSwapConfirmation('notend')"
-                                    ng-disabled="makeSwapReviewDisabled">Review Swap
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="limit-width">
-                        <h3 class="make-swap">Make Swap</h3>
-
-                        <div class="row m-0">
-                            <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
-                            <span class="make-swap-small-heading">
-                                <img src="images/you-send.svg" class="pr-2"> You Send
-                                </span>
-                            </div>
-                            <div class="col-md-6 pl-2">
+                                    <div class="action-time-lock">
                                 <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
-                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
+                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                         ng-click="showTimeLockSend = !showTimeLockSend"
                                         ng-hide="showTimeLockSend; showExistingTimeLocks"
                                 >Set Time-lock
                                 </button>
-                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
+                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                         ng-hide="showTimeLockSend || showExistingTimeLocks || !myActiveTimeLocks[selectedSendContract].length > 0"
                                         ng-click="showExistingTimeLocks = !showExistingTimeLocks">
                                     Existing Time-Lock
@@ -1120,15 +994,79 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row m-0">
-                            <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
-                            <span class="make-swap-small-heading">
-                                <img src="images/you-receive.svg" class="pr-2"> You Receive
-                                </span>
+
+                                </div>
                             </div>
-                            <div class="col-md-6 pl-2">
-                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
+                        </div>
+
+                        <div class="action-section">
+                            <div class="action-header">
+                                <img src="images/you-receive-new.svg" width="24px" height="24px">
+                                <div class="action-title">You Receive</div>
+                            </div>
+                            <hr class="action-hr">
+                            <div class="action-body">
+                                <div class="body-details">
+                                    <div class="action-amount-available">
+                                        <input type="text" class="form-control m-0 mt-1 action-amount" ng-model="makeReceiveAmount"
+                                            placeholder="Amount"
+                                            ng-change="setSwapRate();checkMakeSwapConditions();"
+                                        >
+                                    </div>                                    
+                                    <div class="action-amount-currency">
+                                        <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
+                                            ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
+                                            <div class="col" click-out="!receiveDropDown">
+                                                <img ng-if="selectedReceiveHasImage"
+                                                    ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                                                <span ng-if="!selectedReceiveHasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
+                                                <span class="curr-symbol">{{selectedReceiveAssetSymbol}}</span>
+                                                <img class="verifier" ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px"
+                                                    width="14px"/>
+                                                <img class="verifier" ng-if="!selectedReceiveVerified" src="./images/unverified.svg"
+                                                    height="16px" width="14px"/>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown"
+                                        ng-show="receiveDropDown2"
+                                        tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
+                                        <form class="form-inline">
+                                            <div class="form-group m-0">
+                                                <span class="small-gray-text">Search</span>
+                                                <input type="text" class="form-control"
+                                                    id="searchReceiveAsset2"
+                                                    ng-model="searchReceiveAsset"
+                                                    placeholder="Search by Symbol, Name, or ID">
+                                            </div>
+                                        </form>
+                                        <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset">
+                                            <a ng-click="setReceiveAsset(asset.id)">
+                                                <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                                    <img ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                                                </div>
+                                                <div class="col">
+                                        <span class="fusion-text-14">
+                                {{asset.name}} ({{asset.symbol}})
+                                            <span class="color-Active official-fusion-badge"
+                                                ng-show="asset.verified">                                    <img
+                                                        src="./images/verified.svg" height="14px" width="14px"/></span>
+                                            </i></span>
+                                                    <br>
+                                                    <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <div class="action-time-lock">
+                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                         ng-click="showTimeLockReceive = !showTimeLockReceive"
                                         ng-hide="showTimeLockReceive"
                                 >Set Time-lock
@@ -1206,6 +1144,72 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="number-fills-section">
+
+                            <div class="fills-header">
+                                <img src="./images/fills.svg" width="24px" height="24px"> 
+                                <div class="fills-header-title">Number of Fills</div>
+                            </div>
+                            <hr class="fills-hr">
+                            <div class="fills-body">
+                                <input type="text" class="form-control m-0 mt-1 pb-2 fills-amount" ng-model="makeMinumumSwap"
+                                    numbers-only
+                                    ng-change="setMinimumMakes();checkMakeSwapConditions();"
+                                    placeholder="Amount">
+                                <p class="fills-amount-desc">Number of fills determines the minimum amount someone can take in your swap. 1 fill would
+                                mean only the full swap can be taken. </p>
+                            </div> 
+                            <div class="fills-minimum">
+                                <div>
+                                    <div class="fills-minimum-title">Minimum Send</div>
+                                    <div class="fills-minimum-curr">FSN</div>
+                                </div>
+                                <div class="fills-minimum-divider">:</div>
+                                <div>
+                                    <div class="fills-minimum-title">Minimum Receive</div>
+                                    <div class="fills-minimum-curr">ETH</div>
+                                </div>
+                            </div>
+                            <div class="private-send-section">
+                                <img src="./images/private.svg" width="24px" height="24px"> 
+                                <div class="private-send-title">Send this swap privately</div>
+                            </div>
+                        </div>
+
+                        <hr class="last-hr">
+                        <div class="row actions-row">
+                            <div class="btn-grp">
+                                <button class="btn btn-white main-btn-secondary" ng-click="makeSwapModal.close()">Cancel</button>
+                                <button class="btn btn-primary main-btn-primary"
+                                    ng-click="makeSwapConfirmation('notend')"
+                                    ng-disabled="makeSwapReviewDisabled">Review Swap
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="limit-width">
+                        <h3 class="make-swap">Make Swap</h3>
+
+                        <div class="row m-0">
+                            <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
+                            <span class="make-swap-small-heading">
+                                <img src="images/you-send.svg" class="pr-2"> You Send
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
+                            <span class="make-swap-small-heading">
+                                <img src="images/you-receive.svg" class="pr-2"> You Receive
+                                </span>
+                            </div>
                         </div>
                         <div class="col-md-12 p-0">
                             <h3 class="h3-blue">Swap Rate</h3>
@@ -1234,7 +1238,7 @@
                         <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
                             <span class="make-swap-small-heading">
                                 Number of Fills
-                                </span>
+                            </span>
                         </div>
                         <div class="col-md-4 p-0">
                             <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
