@@ -806,6 +806,15 @@
                                 <div class="action-title">You Send</div>
                             </div>
                             <hr class="action-hr">
+
+                            <div class="action-usan">
+                                <div class="au-selected">
+                                    <div class="au-selected-text">
+                                        <span class="name">USAN</span>
+                                        <span class="address">{{'666333'}}</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="action-body">
                                 <div class="body-details">
                                     <div class="action-amount-available">
