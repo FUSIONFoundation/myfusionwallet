@@ -1168,17 +1168,40 @@
                             <div class="fills-minimum">
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
-                                    <div class="fills-minimum-curr">FSN</div>
+                                    <div class="fills-minimum-curr">
+                                        <img ng-if="" src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
+                                        <span class="amt">{{minimumMakeSend}}</span>
+                                        <span class="currency">{{selectedSendAssetSymbol}}</span>
+                                    </div>
                                 </div>
                                 <div class="fills-minimum-divider">:</div>
                                 <div>
                                     <div class="fills-minimum-title">Minimum Receive</div>
-                                    <div class="fills-minimum-curr">ETH</div>
+                                    <div class="fills-minimum-curr">
+                                        <img class="" ng-if="" src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
+                                        <span class="amt">{{minimumReceiveSend}}</span>
+                                        <span class="currency">{{selectedReceiveAssetSymbol}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="private-send-section">
-                                <img src="./images/private.svg" width="24px" height="24px"> 
-                                <div class="private-send-title">Send this swap privately</div>
+                                <div class="ps-header">
+                                    <div class="ps-title">
+                                        <img src="./images/private.svg" width="24px" height="24px"> 
+                                        <div class="ps-title-text">Send this swap privately</div>
+                                    </div>
+                                    <div class="toggle">
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="privateAccess" ng-value="!privateAccess">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="address-desc" ng-show="privateAccess == true">Add Short Account Numbers or Public Addresses. Separate addresses by commas.</div>
+                                <input ng-show="privateAccess == true"
+                                    type="text" class="form-control m-0 mt-1 ps-address"
+                                    ng-model="makeTarges"
+                                    placeholder="Addresses">
                             </div>
                         </div>
 
@@ -1211,6 +1234,7 @@
                                 </span>
                             </div>
                         </div>
+                        
                         <div class="col-md-12 p-0">
                             <h3 class="h3-blue">Swap Rate</h3>
                             <div class="col-md-6 p-0">
@@ -1235,21 +1259,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12 p-0 pb-2 pt-2 mb-3 small-gray-border">
-                            <span class="make-swap-small-heading">
-                                Number of Fills
-                            </span>
-                        </div>
-                        <div class="col-md-4 p-0">
-                            <input type="text" class="form-control m-0 mt-1 pb-2" ng-model="makeMinumumSwap"
-                                numbers-only
-                                ng-change="setMinimumMakes();checkMakeSwapConditions();"
-                                placeholder="Amount">
-                        </div>
-                        <div class="col-md-8 pl-2 pr-2">
-                            <p>Number of fills determines the minimum amount someone can take in your swap. 1 fill would
-                                mean only the full swap can be taken. </p>
-                        </div>
                         <div class="col-md-12 p-0">
                             <div class="col-md-12 p-0 display-web-inline-block">
                                 <div class="flex-row mt-2 mb-2 p-0 text-center">
