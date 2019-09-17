@@ -858,148 +858,19 @@
                                                             class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
                                                     </div>
                                                     <div class="col">
-                                            <span class="fusion-text-14">
-                                    {{asset.name}} ({{asset.symbol}})
-                                                <span class="color-Active official-fusion-badge"
-                                                    ng-show="asset.verified">                                    <img
-                                                            src="./images/verified.svg" height="14px" width="14px"/></span>
-            </span>
+                                                        <span class="fusion-text-14">
+                                                            {{asset.name}} ({{asset.symbol}})
+                                                            <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
+                                                                src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                        </span>
                                                         <br>
                                                         <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                        </span>
                                                     </div>
                                                 </a>
                                             </div>
                                         </div>
-                                        
-                                    </div>
-                                    
-
-                                    <div class="col-md-6 pl-2">
-                                <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
-                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
-                                        ng-click="showTimeLockSend = !showTimeLockSend"
-                                        ng-hide="showTimeLockSend; showExistingTimeLocks"
-                                >Set Time-lock
-                                </button>
-                                <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
-                                        ng-hide="showTimeLockSend || showExistingTimeLocks || !myActiveTimeLocks[selectedSendContract].length > 0"
-                                        ng-click="showExistingTimeLocks = !showExistingTimeLocks">
-                                    Existing Time-Lock
-                                </button>
-                                <div ng-show="showExistingTimeLocks">
-                                    <div class="col-md-11 col-xs-11 p-1 mt-1 asset-dropdown border-gray-dropdown"
-                                        ng-click="timeLockDropDown = !timeLockDropDown">
-                                        <a>
-                                            <span class="fusion-text-14"><strong>{{selectedTimeLockAmount}} </strong></span><span
-                                                    class="font-size-12"
-                                                    ng-hide="selectedTimeLockAmount == 'Select time-lock'">{{selectedSendAssetSymbol}}</span>
-                                            <span class="small-gray-text display-block"><img class="mr-2"
-                                                                                            src="images/sendtl.svg"
-                                                                                            width="12px"
-                                                                                            ng-hide="selectedTimeLockAmount == 'Select time-lock'">
-                                                {{selectedTimeLockTimespan}}</span>
-                                        </a>
-                                    </div>
-                                    <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                                        ng-show="timeLockDropDown">
-                                        <div class="col-md-12 col-xs-12 p-1 mt-1  asset-dropdown"
-                                            ng-repeat="asset in myActiveTimeLocks[selectedSendContract]">
-                                            <a ng-click="setExistingTimeLock(asset.asset_id,asset.id)">
-                                                <div class="col">
-                                                    <span class="fusion-text-14"><strong>{{asset.amount}}</strong></span><span
-                                                            class="font-size-12"> {{selectedSendAssetSymbol}}</span>
-                                                    <br>
-                                                    <span class="small-gray-text">
-                                                        <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                        {{asset.startTimeString}} - {{asset.endTimeString}}
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-1 p-0 pb-2">
-                                        <button class="btn btn-sm btn-white"
-                                                ng-click="showExistingTimeLocks = !showExistingTimeLocks; closeExistingTimeLock()">
-                                            X
-                                        </button>
                                     </div>
                                 </div>
-                                <div ng-show="showTimeLockSend && !showExistingTimeLocks">
-                                    <div class="col-md-5 p-0 pb-2">
-                                        <button class="btn btn-sm btn-white w-100"
-                                                ng-click="sendTimeLock ='daterange'"
-                                                ng-class="{'time-active' : sendTimeLock == 'daterange'}"
-                                        >
-                                            Date to Date
-                                        </button>
-                                    </div>
-                                    <div class="col-md-6 p-0 pb-2">
-                                        <button class="btn btn-sm btn-white w-100"
-                                                ng-click="sendTimeLock ='scheduled'"
-                                                ng-class="{'time-active' : sendTimeLock == 'scheduled'}"
-                                        >
-                                            Date to Forever
-                                        </button>
-                                    </div>
-                                    <div class="col-md-1 p-0 pb-2">
-                                        <button class="btn btn-sm btn-white"
-                                                ng-click="showTimeLockSend = !showTimeLockSend"
-                                        >
-                                            X
-                                        </button>
-                                    </div>
-                                </div>
-                                <div ng-show="sendTimeLock == 'scheduled' || sendTimeLock == 'daterange' && showTimeLockSend">
-                                    <div class="col-md-12 p-0" ng-show="showTimeLockSend">
-                                            <span class="small-gray-text">
-                                        From
-                                            </span>
-                                        <br>
-                                        <input class="form-control"
-                                            type="text"
-                                            timepicker-neutral-timezone
-                                            min="{{todayDate}}"
-                                            is-open="popup.opened3"
-                                            datepicker-options="dateOptions"
-                                            uib-datepicker-popup="MM/dd/yyyy"
-                                            alt-input-formats="altInputFormats"
-                                            onkeydown="return false"
-                                            ng-model="fromStartTime"
-                                            ng-click="popup.opened3 = true"
-                                            show-button-bar="false"
-                                            placeholder="mm/dd/yyyy"
-                                        >
-                                    </div>
-                                    <div class="col-md-12 p-0" ng-show="showTimeLockSend">
-                                        <span class="small-gray-text" ng-show="sendTimeLock == 'scheduled'">Until</span>
-                                        <div class="col-md-12 p-0" ng-show="sendTimeLock == 'scheduled'">
-                                            <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
-                                        </div>
-                                        <div class="col-md-12 p-0" ng-hide="sendTimeLock == 'scheduled'">
-                                                <span class="small-gray-text">
-                                                    Until
-                                                </span>
-                                            <input class="form-control"
-                                                type="text"
-                                                timepicker-neutral-timezone
-                                                min="{{todayDate}}"
-                                                is-open="popup.opened4"
-                                                datepicker-options="dateOptions"
-                                                uib-datepicker-popup="MM/dd/yyyy"
-                                                alt-input-formats="altInputFormats"
-                                                onkeydown="return false"
-                                                ng-model="fromEndTime"
-                                                ng-click="popup.opened4 = true"
-                                                show-button-bar="false"
-                                                placeholder="mm/dd/yyyy"
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                                </div>
-                                
                             </div>
                         </div>
 
@@ -1017,7 +888,57 @@
                                             ng-change="setSwapRate();checkMakeSwapConditions();"
                                         >
                                     </div>                                    
-                                    <div>Dropdown</div>
+                                    <div class="action-amount-currency">
+                                        <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
+                                            ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
+                                            <div class="col" click-out="!receiveDropDown">
+                                                <img ng-if="selectedReceiveHasImage"
+                                                    ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                                                <span ng-if="!selectedReceiveHasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
+                                                <span class="curr-symbol">{{selectedReceiveAssetSymbol}}</span>
+                                                <img class="verifier" ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px"
+                                                    width="14px"/>
+                                                <img class="verifier" ng-if="!selectedReceiveVerified" src="./images/unverified.svg"
+                                                    height="16px" width="14px"/>
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown"
+                                        ng-show="receiveDropDown2"
+                                        tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
+                                        <form class="form-inline">
+                                            <div class="form-group m-0">
+                                                <span class="small-gray-text">Search</span>
+                                                <input type="text" class="form-control"
+                                                    id="searchReceiveAsset2"
+                                                    ng-model="searchReceiveAsset"
+                                                    placeholder="Search by Symbol, Name, or ID">
+                                            </div>
+                                        </form>
+                                        <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset">
+                                            <a ng-click="setReceiveAsset(asset.id)">
+                                                <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                                    <img ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                                                </div>
+                                                <div class="col">
+                                        <span class="fusion-text-14">
+                                {{asset.name}} ({{asset.symbol}})
+                                            <span class="color-Active official-fusion-badge"
+                                                ng-show="asset.verified">                                    <img
+                                                        src="./images/verified.svg" height="14px" width="14px"/></span>
+                                            </i></span>
+                                                    <br>
+                                                    <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    </div>
                                     <div>Time-lock</div>
                                 </div>
                             </div>
@@ -1075,58 +996,6 @@
                             <span class="make-swap-small-heading">
                                 <img src="images/you-send.svg" class="pr-2"> You Send
                                 </span>
-                            </div>
-                            <div class="col-md-6 text-left p-0">
-                                <div class="col-md-6 col-xs-12 p-0">
-                                    <a class="btn btn-secondary custom-dropdown mt-1"
-                                    ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
-                                        <div class="col" click-out="!sendDropDown2">
-                                            <img ng-if="selectedSendHasImage"
-                                                ng-src="images/verifiedassets/{{selectedSendImage}}"/>
-                                            <span ng-if="!selectedSendHasImage"
-                                                class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
-                                            {{selectedSendAssetSymbol}} <img ng-if="selectedSendVerified"
-                                                                            src="./images/verified.svg" height="14px"
-                                                                            width="14px"/>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                                    ng-show="sendDropDown2"
-                                    tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
-                                >
-                                    <form class="form-inline">
-                                        <div class="form-group m-0">
-                                            <span class="small-gray-text">Search</span>
-                                            <input type="text" class="form-control"
-                                                id="searchSendAsset2"
-                                                ng-model="searchSendAsset"
-                                                placeholder="Search by Symbol, Name, or ID">
-                                        </div>
-                                    </form>
-                                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                        ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
-                                        <a ng-click="setSendAsset(asset.id)">
-                                            <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                <img ng-if="asset.hasImage"
-                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                <span ng-if="!asset.hasImage"
-                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                                            </div>
-                                            <div class="col">
-                                    <span class="fusion-text-14">
-                            {{asset.name}} ({{asset.symbol}})
-                                        <span class="color-Active official-fusion-badge"
-                                            ng-show="asset.verified">                                    <img
-                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
-    </span>
-                                                <br>
-                                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-md-6 pl-2">
                                 <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
@@ -1257,65 +1126,6 @@
                             <span class="make-swap-small-heading">
                                 <img src="images/you-receive.svg" class="pr-2"> You Receive
                                 </span>
-                            </div>
-                            <div class="col-md-6 p-0 text-left">
-                                <div class="col-md-6 p-0 pr-2">
-                                    <input type="text" class="form-control m-0 mt-1" ng-model="makeReceiveAmount"
-                                        placeholder="Amount"
-                                        ng-change="setSwapRate();checkMakeSwapConditions();"
-                                    >
-                                </div>
-                                <div class="col-md-6 col-xs-12 p-0">
-                                    <a class="btn btn-secondary custom-dropdown mt-1"
-                                    ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
-                                        <div class="col" click-out="!receiveDropDown">
-                                            <img ng-if="selectedReceiveHasImage"
-                                                ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
-                                            <span ng-if="!selectedReceiveHasImage"
-                                                class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
-                                            {{selectedReceiveAssetSymbol}}
-                                            <img ng-if="selectedReceiveVerified" src="./images/verified.svg" height="14px"
-                                                width="14px"/>
-                                            <img ng-if="!selectedReceiveVerified" src="./images/unverified.svg"
-                                                height="16px" width="14px"/>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                                    ng-show="receiveDropDown2"
-                                    tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
-                                    <form class="form-inline">
-                                        <div class="form-group m-0">
-                                            <span class="small-gray-text">Search</span>
-                                            <input type="text" class="form-control"
-                                                id="searchReceiveAsset2"
-                                                ng-model="searchReceiveAsset"
-                                                placeholder="Search by Symbol, Name, or ID">
-                                        </div>
-                                    </form>
-                                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                        ng-repeat="asset in assetList | filter:searchReceiveAsset">
-                                        <a ng-click="setReceiveAsset(asset.id)">
-                                            <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                <img ng-if="asset.hasImage"
-                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                <span ng-if="!asset.hasImage"
-                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                                            </div>
-                                            <div class="col">
-                                    <span class="fusion-text-14">
-                            {{asset.name}} ({{asset.symbol}})
-                                        <span class="color-Active official-fusion-badge"
-                                            ng-show="asset.verified">                                    <img
-                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
-                                        </i></span>
-                                                <br>
-                                                <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-md-6 pl-2">
                                 <button class="btn btn-sm btn-primary button-timelock p-2 mt-2"
