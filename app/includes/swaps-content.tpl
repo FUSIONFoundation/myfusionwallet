@@ -1668,6 +1668,10 @@
                     <div class="limit-width">
                         <h3 class="h3-blue title">Review Take Swap</h3>
                         <p class="description">Please review the following details carefully before taking the swap.</p>
+                        <div class="title-warning" ng-show="!takeDataFront.toVerified">
+                            <img class="icon" src="./images/unverified.svg" height="16px" width="14px"/>
+                            <div class="description">Caution: this swap contains a suspicious asset(s).</div>
+                        </div>
                         <div class="row summary">
                             <div class="col-md-6 summary-col">
                                 <div class="summary-header">
@@ -1760,7 +1764,7 @@
                                     TRANSACTION FEE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{'~.00000991'}}
+                                <div class="price-value">{{'~.BLANK'}}
                                     <span class="currency">{{'FSN'}}</span>
                                 </div>
                             </div>
