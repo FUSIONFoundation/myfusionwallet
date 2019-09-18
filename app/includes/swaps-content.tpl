@@ -703,7 +703,7 @@
                                     TRANSACTION FEE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{'~.00000991'}}
+                                <div class="price-value">{{'~.BLANK'}}
                                     <span class="currency">{{'FSN'}}</span>
                                 </div>
                             </div>
