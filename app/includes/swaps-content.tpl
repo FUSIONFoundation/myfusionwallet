@@ -816,40 +816,6 @@
                                             <span class="address">{{'666333'}}</span>
                                         </div>
                                 </div>
-                                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width au-dropdown"
-                                            ng-show="sendDropDown2"
-                                            tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
-                                        >
-                                            <form class="form-inline">
-                                                <div class="form-group m-0">
-                                                    <span class="small-gray-text">Search</span>
-                                                    <input type="text" class="form-control"
-                                                        id="searchSendAsset2"
-                                                        ng-model="searchSendAsset"
-                                                        placeholder="Search by Symbol, Name, or ID">
-                                                </div>
-                                            </form>
-                                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                                ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
-                                                <a ng-click="setSendAsset(asset.id)">
-                                                    <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                        <img ng-if="asset.hasImage"
-                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                        <span ng-if="!asset.hasImage"
-                                                            class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                                                    </div>
-                                                    <div class="col">
-                                                        <span class="fusion-text-14">
-                                                            {{asset.name}} ({{asset.symbol}})
-                                                            <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
-                                                                src="./images/verified.svg" height="14px" width="14px"/></span>
-                                                        </span>
-                                                        <br>
-                                                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
                             </div>
                             <div class="action-body">
                                 <div class="body-details">
@@ -880,40 +846,7 @@
                                                     src="./images/verified.svg" height="14px" width="14px"/>
                                             </div>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown"
-                                            ng-show="sendDropDown2"
-                                            tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
-                                        >
-                                            <form class="form-inline">
-                                                <div class="form-group m-0">
-                                                    <span class="small-gray-text">Search</span>
-                                                    <input type="text" class="form-control"
-                                                        id="searchSendAsset2"
-                                                        ng-model="searchSendAsset"
-                                                        placeholder="Search by Symbol, Name, or ID">
-                                                </div>
-                                            </form>
-                                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                                ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
-                                                <a ng-click="setSendAsset(asset.id)">
-                                                    <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                        <img ng-if="asset.hasImage"
-                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                        <span ng-if="!asset.hasImage"
-                                                            class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                                                    </div>
-                                                    <div class="col">
-                                                        <span class="fusion-text-14">
-                                                            {{asset.name}} ({{asset.symbol}})
-                                                            <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
-                                                                src="./images/verified.svg" height="14px" width="14px"/></span>
-                                                        </span>
-                                                        <br>
-                                                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
 
                                     <div class="action-time-lock">
@@ -1042,6 +975,41 @@
 
                                 </div>
                             </div>
+                            
+                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown ad-send ad-send-usan"
+                                            ng-show="sendDropDown2"
+                                            tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
+                                        >
+                                            <form class="form-inline">
+                                                <div class="form-group m-0">
+                                                    <span class="small-gray-text">Search</span>
+                                                    <input type="text" class="form-control"
+                                                        id="searchSendAsset2"
+                                                        ng-model="searchSendAsset"
+                                                        placeholder="Search by Symbol, Name, or ID">
+                                                </div>
+                                            </form>
+                                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                                                ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
+                                                <a ng-click="setSendAsset(asset.id)">
+                                                    <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                                        <img ng-if="asset.hasImage"
+                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                        <span ng-if="!asset.hasImage"
+                                                            class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                                                    </div>
+                                                    <div class="col">
+                                                        <span class="fusion-text-14">
+                                                            {{asset.name}} ({{asset.symbol}})
+                                                            <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
+                                                                src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                        </span>
+                                                        <br>
+                                                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
                         </div>
 
                         <div class="action-section">
