@@ -1945,6 +1945,43 @@ h3{
     cursor: pointer;
   }
 
+  .usan-selected {
+    height: 24px !important;
+    width: fit-content;
+    padding-left: 4px;
+    padding-right: 4px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+    border: solid 1px #cfd8dc;
+    background-color: #358dcc;
+
+    .name {
+      font-family: Lato;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #ffffff;
+    }
+
+    .address {
+      margin-left: 4px;
+      font-family: Lato;
+      font-size: 16px;
+      font-weight: bold;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      color: #ffffff;
+    }
+  }
+
   .ms-confirmed-title-wrapper {
     display: flex;
     flex-direction: row;
@@ -2065,8 +2102,9 @@ h3{
 
     .action-dropdown {
       position: absolute;
-      top: 60px;
+      top: 54px;
       width: 360px;
+      margin: 0 !important;
       border-radius: 5px;
       box-shadow: 0 4px 12px 0 rgba(38, 50, 56, 0.12);
       border: solid 1px #cfd8dc;
@@ -2149,43 +2187,6 @@ h3{
 
             img {
               max-width: none;
-            }
-
-            .usan-selected {
-              height: 24px !important;
-              width: fit-content;
-              padding-left: 4px;
-              padding-right: 4px;
-              height: 40px;
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              border-radius: 5px;
-              border: solid 1px #cfd8dc;
-              background-color: #358dcc;
-      
-              .name {
-                font-family: Lato;
-                font-size: 14px;
-                font-weight: normal;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: normal;
-                letter-spacing: normal;
-                color: #ffffff;
-              }
-        
-              .address {
-                margin-left: 4px;
-                font-family: Lato;
-                font-size: 16px;
-                font-weight: bold;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 1.25;
-                letter-spacing: normal;
-                color: #ffffff;
-              }
             }
 
           }
