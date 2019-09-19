@@ -1412,7 +1412,7 @@
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
                             <img class="icon" src="images/you-send-new.svg" height="32px" width="32px">
-                            <img class="icon" src="images/you-send-new.svg" height="32px" width="32px">
+                            <img class="icon" src="images/confirmed-transaction.svg" height="32px" width="32px">
                             <h3 class="h3-blue title">Make Swap Pending Confirmed</h3>
                         </div>
                         <p class="ms-confirmed-description">Your swap has been sent and ahould be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
@@ -1896,7 +1896,7 @@
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
                             <img class="icon" src="images/you-send-new.svg" height="32px" width="32px">
-                            <img class="icon" src="images/you-send-new.svg" height="32px" width="32px">
+                            <img class="icon" src="confirmed-transaction.svg" height="32px" width="32px">
                             <h3 class="h3-blue title">Take Swap Pending Confirmed</h3>
                         </div>
                         <p class="ms-confirmed-description">Your swap has been sent and should be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
