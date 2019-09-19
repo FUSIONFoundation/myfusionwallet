@@ -153,14 +153,14 @@
                         </div>
                     </form>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                         ng-click="setReceiveUSAN()">
-                        All Short Account Numbers</strong>
-                    </div>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
                          ng-click="setAllAssetsInReceive()">
                         <a>
                             All Assets
                         </a>
+                    </div>
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
+                         ng-click="setReceiveUSAN()">
+                        All Short Account Numbers</strong>
                     </div>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
                          ng-repeat="asset in assetList | filter:{'contractaddress':'0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'} | orderBy:'-verified' track by $index">
@@ -1071,7 +1071,7 @@
                                                     height="16px" width="14px"/>
                                             </div>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown"
+                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
                                         ng-show="receiveDropDown2"
                                         tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
                                         <form class="form-inline">
@@ -1378,7 +1378,7 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="address">
-                                    {{makeTarges}}
+                                    <div class="address-item">{{makeTarges}}</div>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -1535,7 +1535,7 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="address">
-                                    {{makeTarges}}
+                                    <div class="address-item">{{makeTarges}}</div>
                                 </div>
                             </div>
                             <div class="price-row">
