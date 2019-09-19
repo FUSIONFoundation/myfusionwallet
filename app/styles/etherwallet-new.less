@@ -2066,7 +2066,6 @@ h3{
     .action-usan {
   
       margin: 0;
-      margin-top: 28px;
       margin-bottom: 12px;
       display: inline-block;
       position: relative;
@@ -2417,7 +2416,7 @@ h3{
       }
 
       .fills-minimum-curr {
-        width: 140px;
+        min-width: 140px;
         height: 48px;
         display: flex;
         flex-direction: row;
@@ -2747,8 +2746,8 @@ h3{
       margin-top: 0;
       margin-bottom: 24px;
       border-bottom: 1px solid #cfd8dc;
-      padding-top: 12px;
-      padding-bottom: 8px;
+      padding-top: 16px;
+      padding-bottom: 12px;
       display: flex;
       align-content: center;
 
@@ -2789,10 +2788,9 @@ h3{
     }
     
     .summary-col {
-      padding-bottom: 58px;
       padding-left: 24px;
       padding-right: 19px;
-      padding-bottom: 20px;
+      padding-bottom: 32px;
     }
 
     .summary-content {
@@ -2986,6 +2984,7 @@ h3{
         display: flex;
         flex-direction: row;
         align-items: center;
+        cursor: pointer;
       
         .address {
           height: 32px;
@@ -3074,7 +3073,7 @@ h3{
         width: 148px;
         height: 48px;
         border-radius: 5px !important;
-        box-shadow: 0 0 0 0 rgba(38, 50, 56, 0.05) !important;
+        box-shadow: 0 1px 0 0 rgba(38, 50, 56, 0.05) !important;
         background-color: #358dcc !important;
         margin-left: 16px;
         font-family: Lato;
@@ -3088,6 +3087,7 @@ h3{
         color: #ffffff !important;
         padding-left: 0px !important;
         padding-right: 0px !important;
+        border: none !important;
         
         &:hover{
           box-shadow: 0 2px 4px 0 rgba(38, 50, 56, 0.12) !important;
@@ -3114,7 +3114,7 @@ h3{
         height: 48px;
         border-radius: 5px !important;
         box-shadow: 0 1px 0 0 rgba(38, 50, 56, 0.05) !important;
-        border: solid 1px #cfd8dc !important;
+        border: solid 1px #e1e5eb !important;
         background-color: #ffffff !important;
         font-family: Lato;
         font-size: 16px !important;
@@ -3129,6 +3129,8 @@ h3{
         &:hover{
           box-shadow: 0 2px 4px 0 rgba(38, 50, 56, 0.12) !important;
           border-radius: 5px !important;
+          border: solid 1px #cfd8dc !important;
+          background-color: #ffffff !important;
         }
 
         &:active{
@@ -3138,6 +3140,7 @@ h3{
 
         &:disabled{
           background-color: #cfd8dc !important;
+          border: solid 1px #cfd8dc !important;
           border-radius: 5px !important;
           color: #78909c !important;
         }
