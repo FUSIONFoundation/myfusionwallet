@@ -843,34 +843,69 @@
                                             ng-show="sendDropDown2"
                                             tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
                                         >
-                                            <form class="form-inline">
-                                                <div class="form-group m-0">
-                                                    <span class="small-gray-text">Search</span>
-                                                    <input type="text" class="form-control"
+                                            <form class="form-inline m-0">
+                                                <div class="form-group m-0 ad-input-wrapper">
+                                                    <input type="text" class="form-control ad-input"
                                                         id="searchSendAsset2"
                                                         ng-model="searchSendAsset"
-                                                        placeholder="Search by Symbol, Name, or ID">
+                                                        placeholder="Search Assets, Symbols, and IDs">
+                                                    <img class="ad-input-icon" src="./images/s.svg" height="14px" width="14px"/>
                                                 </div>
                                             </form>
-                                            <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                                ng-repeat="asset in assetListOwned | filter:searchSendAsset track by $index">
-                                                <a ng-click="setSendAsset(asset.id)">
-                                                    <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                        <img ng-if="asset.hasImage"
-                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                        <span ng-if="!asset.hasImage"
-                                                            class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                                            <div class="ad-usan">
+                                                <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
+                                                <div class="ad-usan-content">
+                                                    <div class="usan-selected">
+                                                        <span class="name">USAN</span>
+                                                        <span class="address">{{'666333'}}</span>
                                                     </div>
-                                                    <div class="col">
-                                                        <span class="fusion-text-14">
-                                                            {{asset.name}} ({{asset.symbol}})
-                                                            <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
-                                                                src="./images/verified.svg" height="14px" width="14px"/></span>
-                                                        </span>
-                                                        <br>
-                                                        <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                    </div>
-                                                </a>
+                                                </div>
+                                            </div>
+                                            <div class="ad-verified">
+                                                <div class="ad-verified-title">VERIFIED ASSETS</div>
+                                                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                                                    ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true'} track by $index">
+                                                    <a ng-click="setSendAsset(asset.id)">
+                                                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                                            <img ng-if="asset.hasImage"
+                                                                ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                            <span ng-if="!asset.hasImage"
+                                                                class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                                                        </div>
+                                                        <div class="col">
+                                                            <span class="fusion-text-14">
+                                                                {{asset.name}} ({{asset.symbol}})
+                                                                <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                            </span>
+                                                            <br>
+                                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="ad-verified">
+                                                <div class="ad-verified-title">UNVERIFIED ASSETS</div>
+                                                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                                                    ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true'} track by $index">
+                                                    <a ng-click="setSendAsset(asset.id)">
+                                                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
+                                                            <img ng-if="asset.hasImage"
+                                                                ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                            <span ng-if="!asset.hasImage"
+                                                                class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                                                        </div>
+                                                        <div class="col">
+                                                            <span class="fusion-text-14">
+                                                                {{asset.name}} ({{asset.symbol}})
+                                                                <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                            </span>
+                                                            <br>
+                                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                                        </div>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
