@@ -651,9 +651,9 @@
                                 <div class="summary-content" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="logo">
-                                            <img ng-if="selectedReceiveHasImage==true"
-                                                ng-src="images/verifiedassets/{{selectedReceiveImage}}" height="32px" width="32px"/>
-                                            <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.toAssetSymbol}}</span>
+                                            <img ng-if="takeDataFront.swapId.fromHasImage==true"
+                                                ng-src="images/verifiedassets/{{takeDataFront.swapId.fromVerifiedImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!takeDataFront.swapId.fromHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.fromAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
@@ -1750,9 +1750,9 @@
                                 <div class="summary-content" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="logo">
-                                            <img ng-if="selectedReceiveHasImage==true"
-                                                 ng-src="images/verifiedassets/{{selectedReceiveImage}}" height="32px" width="32px"/>
-                                            <span ng-if="!selectedReceiveHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.toAssetSymbol}}</span>
+                                            <img ng-if="takeDataFront.swapId.fromHasImage==true"
+                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.fromVerifiedImage}}" height="32px" width="32px"/>
+                                            <span ng-if="!takeDataFront.swapId.fromHasImage" class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.fromAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
