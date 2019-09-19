@@ -1182,7 +1182,7 @@
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
                                     <div class="fills-minimum-curr">
-                                        <img ng-if="" src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
+                                        <img class="icon" ng-if="showTimeLockSend" src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
                                         <span class="amt">{{minimumMakeSend}}</span>
                                         <span class="currency">{{selectedSendAssetSymbol}}</span>
                                     </div>
@@ -1191,7 +1191,7 @@
                                 <div>
                                     <div class="fills-minimum-title">Minimum Receive</div>
                                     <div class="fills-minimum-curr">
-                                        <img class="" ng-if="" src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
+                                        <img class="icon" ng-if="showTimeLockReceive" src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
                                         <span class="amt">{{minimumReceiveSend}}</span>
                                         <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                     </div>
