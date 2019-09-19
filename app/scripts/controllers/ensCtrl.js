@@ -775,6 +775,37 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.swapInformationModal.open();
     };
 
+    $scope.countDownFunc = function () {
+        let counter = 5;
+        const intv = setInterval(function () {
+            $scope.$apply(function () {
+                $scope.countDown = counter;
+            })
+            counter--
+            if (counter === 0) return clearInterval(intv);
+        }, 1000);
+        if (counter === 0) return clearInterval(intv);
+    }
+    $scope.getTransactionStatus = async function (txid) {
+        let tx;
+        await ajaxReq.http.get(`${window.getApiServer()}/transactions/${txid}`).then(function (r) {
+            tx = r.data[0];
+            if (tx === undefined) {
+                $scope.countDownFunc();
+                console.log('Transaction not found, will retry in 5s..');
+                setTimeout(function () {
+                    console.log('Last check: ' + new Date);
+                    $scope.getTransactionStatus(txid)
+                }, 5000);
+                return;
+            } else if (tx) {
+                $scope.$applyAsync(function () {
+                    $scope.transactionStatus = 'Success'
+                })
+            }
+        });
+    }
+
     $scope.setExistingTimeLock = function (asset_id, id) {
         $scope.$eval(function () {
             $scope.selectedAssetBalance =
@@ -1670,6 +1701,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.ToEndTime = "";
             $scope.fromStartTime = "";
             $scope.fromEndTime = "";
+            $scope.makeTxid = "";
+            $scope.transactionStatus = "Pending";
         });
         $scope.makeSwapModal.open();
         let a = document.getElementById('makeSendAmount');
@@ -1931,6 +1964,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 return web3.fsn
                     .signAndTransmit(tx, $scope.account.signTransaction)
                     .then(txHash => {
+                        $scope.makeTxid = txHash;
+                        $scope.getTransactionStatus(txHash);
                         window.log(`TXID: ${txHash}`);
                         $scope.makeSwapConfirmation("end");
                     });
