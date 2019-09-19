@@ -1480,9 +1480,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.size = $scope.swapsList[id].size;
             $scope.takeAmountSwap = 1;
             $scope.takeId = id;
+            $scope.takeTxid = "";
+            $scope.transactionStatus = "Pending";
         });
-
-        console.log($scope.takeDataFront);
 
         await $scope.setReceive(1).then(function () {
             if (pass === false) {
@@ -1586,6 +1586,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 web3.fsn
                     .signAndTransmit(tx, $scope.account.signTransaction)
                     .then(txHash => {
+                        $scope.takeTxid = txHash;
+                        $scope.getTransactionStatus(txHash);
                         window.log(`TXID : ${txHash}`);
                     });
 
