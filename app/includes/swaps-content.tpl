@@ -679,7 +679,7 @@
                                         <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
-                                        <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
+                                        <div class="usan-warning">Once swapped, this USAN will take the place of your current USAN. Your current USAN will be permanently lost.</div>
                                     </div>
                                 </div>
                             </div>
@@ -1806,7 +1806,7 @@
                                         <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
-                                        <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
+                                        <div class="usan-warning">Once swapped, this USAN will take the place of your current USAN. Your current USAN will be permanently lost.</div>
                                     </div>
                                 </div>
                             </div>
@@ -1969,7 +1969,7 @@
                                         <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
-                                        <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
+                                        <div class="usan-warning">Once swapped, this USAN will take the place of your current USAN. Your current USAN will be permanently lost.</div>
                                     </div>
                                 </div>
                             </div>
