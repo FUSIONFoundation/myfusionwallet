@@ -1798,6 +1798,14 @@
                             </div>
                             <div class="price-row">
                                 <div class="price">
+                                    <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
+                                    NUMBER OF FILLS
+                                </div>
+                                <div class="price-filler"></div>
+                                <div class="price-value">{{takeAmountSwap}}</div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price">
                                     <img class="icon" src="./images/fee.svg" height="24px" width="24px"/>
                                     TRANSACTION FEE
                                 </div>
@@ -1810,7 +1818,7 @@
                         <hr class="last-hr">
                         <div class="row actions-row">
                             <div class="btn-grp">
-                                <button class="btn btn-white main-btn-secondary" ng-click="takeSwapConfirm.close()">Back</button>
+                                <button class="btn btn-white main-btn-secondary" ng-click="takeSwapModal.open()">Back</button>
                                 <button class="btn btn-primary main-btn-primary"
                                     ng-click="takeSwap(takeDataFront.fromAssetId, takeDataFront.swapId , takeAmountSwap)"
                                     ng-disabled="swapRecallSuccess">Take Swap
