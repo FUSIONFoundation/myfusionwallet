@@ -1945,6 +1945,32 @@ h3{
     cursor: pointer;
   }
 
+  .ms-confirmed-title-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 24px;
+      background-color: #e7f3fb;
+      margin-right: 12px;
+    }
+  }
+
+  .ms-confirmed-description {
+    font-family: Lato;
+    font-size: 16px !important;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #607d8b;
+  }
+
+
   .title {
     font-family: Lato;
     font-size: 28px !important;
@@ -2955,7 +2981,30 @@ h3{
         margin: 0 8px;
         padding-top: 8px;
       }
+
+      .tx-value {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
       
+        .address {
+          height: 32px;
+          font-family: Lato;
+          font-size: 16px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 2;
+          letter-spacing: normal;
+          color: #358dcc;
+        }
+
+        .icon {
+          margin: 0;
+          margin-left: 4px;
+        }
+      }
+
       .price-value {
 
         font-family: Lato;
@@ -2976,20 +3025,28 @@ h3{
       }
 
       .address {
-        font-family: Lato;
-        font-size: 16px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 2;
-        letter-spacing: normal;
-        text-align: right;
-        color: #263238;
-        padding: 0;
-        padding-left: 8px;
-        padding-right: 8px;
-        border-radius: 12px;
-        background-color: #e7f3fb;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .address-item {
+          font-family: Lato;
+          font-size: 16px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 2;
+          letter-spacing: normal;
+          text-align: right;
+          color: #263238;
+          padding: 0;
+          padding-left: 8px;
+          padding-right: 8px;
+          border-radius: 12px;
+          background-color: #e7f3fb;
+        }
+
       }
 
     }
