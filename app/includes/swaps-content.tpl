@@ -233,7 +233,7 @@
         </div>
         <div class="col-md-12 pl-0 pr-0">
             <div class="panel panel-default mx-auto" ng-show="showOpenTakes === true">
-                <div class="panel-body inline w-100">
+                <div class="panel-body inline w-100 panel-body-new">
                     <div class="text-center" ng-show="openTakeSwaps == 0 && !showLoader"><span
                                 class="small-gray-text">No Take Swaps</span></div>
                     <div class="col-md-12 text-center p-5" ng-show="showLoader">
@@ -241,7 +241,7 @@
                         <br>
                         <span class="small-gray-text">Loading Swaps...</span>
                     </div>
-                    <table class="table" ng-show="openTakeSwaps != 0 && !showLoader">
+                    <table class="table table-new" ng-show="openTakeSwaps != 0 && !showLoader">
                         <thead>
                         <tr class="small-gray-table">
                             <th class="text-left" scope="col">Price</th>
@@ -253,56 +253,68 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
-                            <td class="text-left" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.swapratetaker.toFixed(4)}}</strong> {{asset.toAssetSymbol}} :
-                                <strong>1</strong> : {{asset.fromAssetSymbol}}
-                            </td>
-                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.toAmountCut}}</strong> <span
-                                        class="font-size-12">{{asset.toAssetSymbol}}</span>
-                                <span
-                                        class="color-Active official-fusion-badge"
-                                        ng-show="asset.toVerified">                                    <img
-                                            src="./images/verified.svg" height="14px" width="14px"/></span>
-                                </span>
-                                <br>
-                                <span class="small-gray-text"
-                                      ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.ToStartTimeString}}
-                                    - {{asset.ToEndTimeString}}
-                            </span>
-                            </td>
-                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.fromAmountCut}}</strong>
-                                <span>{{asset.fromAssetSymbol}}</span>
-                                <span
-                                        class="color-Active official-fusion-badge"
-                                        ng-show="asset.fromVerified">                                    <img
-                                            src="./images/verified.svg" height="14px" width="14px"/></span>
-                                </span>
-                                <br>
-                                <span class="small-gray-text"
-                                      ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                <img class="mr-2" src="images/sendtl.svg" width="12px">{{asset.FromStartTimeString}}
-                                    - {{asset.FromEndTimeString}}
-                            </span>
-                            </td>
-                            <td class="text-right" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <strong>{{asset.minswaptaker.toFixed(4)}}</strong> <span
-                                        class="font-size-12">{{asset.toAssetSymbol}}</span></td>
-                            <td class="float-right text-right">
-                                <div ng-hide="asset.owned == false">
-                                    <button class="btn btn-sm btn-white m-0" ng-click="recallModal(asset.swap_id)">
-                                        Recall
-                                        Swap
-                                    </button>
+                            <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
+
+                                <img class="marker" ng-show="true" src="./images/semi-circle.svg" height="16px" width="8px"/>
+                                <div class="row-layout">
+                                    <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
+                                    <div class="currency">{{asset.toAssetSymbol}}</div>
+                                    <div class="colon">:</div>
+                                    <div class="asset">1</div>
+                                    <div class="currency">{{asset.fromAssetSymbol}}</div>
                                 </div>
-                                <div ng-hide="asset.owned == true">
-                                    <button class="btn btn-sm btn-white m-0"
-                                            ng-click="takeModalPrivateSwaps(asset.id)"
-                                            ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker) && !hasTimeLockBalance(asset.toAssetId)"
-                                    >Take Swap
-                                    </button>
+                            </td>
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                
+                                <div class="column-layout">
+                                    <div class="row-layout">
+                                        <div class="asset">{{asset.toAmountCut}}</div>
+                                        <div class="currency">{{asset.toAssetSymbol}}</div>
+                                        <img class="color-Active verifier" ng-show="asset.toVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                        <img class="color-Active verifier" ng-show="!asset.toVerified" src="./images/unverified.svg" height="14px" width="14px"/>
+                                    </div>
+                                    <div class="row-layout time-range" ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
+                                        <img class="icon" src="images/sendtl.svg" width="12px">
+                                        <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <div class="column-layout">
+                                    <div class="row-layout">
+                                        <div class="asset">{{asset.fromAmountCut}}</div>
+                                        <div class="currency">{{asset.fromAssetSymbol}}</div>
+                                        <img class="color-Active verifier" ng-show="asset.fromVerified" src="./images/verified.svg" height="14px" width="14px"/>
+                                        <img class="color-Active verifier" ng-show="!asset.fromVerified" src="./images/unverified.svg" height="14px" width="14px"/>
+                                    </div>
+                                    <div class="row-layout time-range" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
+                                        <img class="icon" src="images/sendtl.svg" width="12px">
+                                        <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
+                                    </div>
+                                <div>
+                            </td>
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
+                                <div class="column-layout">
+                                    <div class="row-layout">
+                                        <div class="asset">{{asset.minswaptaker.toFixed(4)}}</div>
+                                        <div class="currency">{{asset.toAssetSymbol}}</div>
+                                    </div>
+                                </div>
+                            <td class="text-right btn-cell-reset">
+                                <div class="column-layout">
+                                    <div ng-hide="asset.owned == false">
+                                        <button class="btn btn-sm btn-white m-0 swap-btn" ng-click="recallModal(asset.swap_id)">
+                                            Recall
+                                            Swap
+                                        </button>
+                                    </div>
+                                    <div ng-hide="asset.owned == true">
+                                        <button class="btn btn-sm btn-white m-0 swap-btn"
+                                                ng-click="takeModalPrivateSwaps(asset.id)"
+                                                ng-disabled="hasEnoughBalance(asset.toAssetId,asset.minswaptaker) && !hasTimeLockBalance(asset.toAssetId)"
+                                        >Take Swap
+                                        </button>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
