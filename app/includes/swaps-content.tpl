@@ -153,14 +153,14 @@
                         </div>
                     </form>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                         ng-click="setReceiveUSAN()">
-                        All Short Account Numbers</strong>
-                    </div>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
                          ng-click="setAllAssetsInReceive()">
                         <a>
                             All Assets
                         </a>
+                    </div>
+                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
+                         ng-click="setReceiveUSAN()">
+                        All Short Account Numbers</strong>
                     </div>
                     <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
                          ng-repeat="asset in assetList | filter:{'contractaddress':'0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'} | orderBy:'-verified' track by $index">
@@ -679,7 +679,7 @@
                                         <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
-                                        <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
+                                        <div class="usan-warning">Once swapped, this USAN will take the place of your current USAN. Your current USAN will be permanently lost.</div>
                                     </div>
                                 </div>
                             </div>
@@ -839,19 +839,17 @@
                                                     src="./images/verified.svg" height="14px" width="14px"/>
                                             </div>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown"
+                                        <div class="action-dropdown"
                                             ng-show="sendDropDown2"
                                             tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
                                         >
-                                            <form class="form-inline m-0">
-                                                <div class="form-group m-0 ad-input-wrapper">
-                                                    <input type="text" class="form-control ad-input"
-                                                        id="searchSendAsset2"
-                                                        ng-model="searchSendAsset"
-                                                        placeholder="Search Assets, Symbols, and IDs">
-                                                    <img class="ad-input-icon" src="./images/s.svg" height="14px" width="14px"/>
-                                                </div>
-                                            </form>
+                                            <div class="ad-input-wrapper">
+                                                <input type="text" class="form-control ad-input"
+                                                    id="searchSendAsset2"
+                                                    ng-model="searchSendAsset"
+                                                    placeholder="Search Assets, Symbols, and IDs">
+                                                <img class="ad-input-icon" src="./images/s.svg" height="14px" width="14px"/>
+                                            </div>
                                             <div class="ad-usan">
                                                 <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
                                                 <div class="ad-usan-content">
@@ -861,48 +859,52 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="ad-verified">
-                                                <div class="ad-verified-title">VERIFIED ASSETS</div>
-                                                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                                            <div class="ad-search-grp">
+                                                <div class="grp-title">VERIFIED ASSETS</div>
+                                                <div 
                                                     ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true'} track by $index">
-                                                    <a ng-click="setSendAsset(asset.id)">
-                                                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                            <img ng-if="asset.hasImage"
-                                                                ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                            <span ng-if="!asset.hasImage"
-                                                                class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                                                        </div>
-                                                        <div class="col">
-                                                            <span class="fusion-text-14">
-                                                                {{asset.name}} ({{asset.symbol}})
-                                                                <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
+                                                    <a class="search-item-link" ng-click="setSendAsset(asset.id)">
+                                                        <div class="search-item">
+                                                        <img class="icon" ng-if="asset.hasImage"
+                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                        <span ng-if="!asset.hasImage"
+                                                            class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        <div class="details-wrapper">
+                                                            <div class="details">
+                                                                <div class="name">{{asset.name}}</div>
+                                                                <div class="currency">({{asset.symbol}})</div>
+                                                                <span class="color-Active verifier" ng-show="asset.verified">                                    <img
                                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
-                                                            </span>
-                                                            <br>
-                                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                                                <span class="color-Active verifier" ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg" height="14px" width="14px"/></span>
+                                                            </div>
+                                                            <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                        </div>
                                                         </div>
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="ad-verified">
-                                                <div class="ad-verified-title">UNVERIFIED ASSETS</div>
-                                                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
+                                            <div class="ad-search-grp">
+                                                <div class="grp-title">UNVERIFIED ASSETS</div>
+                                                <div 
                                                     ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true'} track by $index">
-                                                    <a ng-click="setSendAsset(asset.id)">
-                                                        <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                            <img ng-if="asset.hasImage"
-                                                                ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                            <span ng-if="!asset.hasImage"
-                                                                class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                                                        </div>
-                                                        <div class="col">
-                                                            <span class="fusion-text-14">
-                                                                {{asset.name}} ({{asset.symbol}})
-                                                                <span class="color-Active official-fusion-badge" ng-show="asset.verified">                                    <img
+                                                    <a class="search-item-link" ng-click="setSendAsset(asset.id)">
+                                                        <div class="search-item">
+                                                        <img class="icon" ng-if="asset.hasImage"
+                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                        <span ng-if="!asset.hasImage"
+                                                            class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        <div class="details-wrapper">
+                                                            <div class="details">
+                                                                <div class="name">{{asset.name}}</div>
+                                                                <div class="currency">({{asset.symbol}})</div>
+                                                                <span class="color-Active verifier" ng-show="asset.verified">                                    <img
                                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
-                                                            </span>
-                                                            <br>
-                                                            <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
+                                                                <span class="color-Active verifier" ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg" height="14px" width="14px"/></span>
+                                                            </div>
+                                                            <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                        </div>
                                                         </div>
                                                     </a>
                                                 </div>
@@ -1069,41 +1071,69 @@
                                                     height="16px" width="14px"/>
                                             </div>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width action-dropdown"
-                                        ng-show="receiveDropDown2"
-                                        tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2">
-                                        <form class="form-inline">
-                                            <div class="form-group m-0">
-                                                <span class="small-gray-text">Search</span>
-                                                <input type="text" class="form-control"
+
+                                        <div class="action-dropdown"
+                                            ng-show="receiveDropDown2"
+                                            tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2"
+                                        >
+                                            <div class="ad-input-wrapper">
+                                                <input type="text" class="form-control ad-input"
                                                     id="searchReceiveAsset2"
                                                     ng-model="searchReceiveAsset"
-                                                    placeholder="Search by Symbol, Name, or ID">
+                                                    placeholder="Search Assets, Symbols, and IDs">
+                                                <img class="ad-input-icon" src="./images/s.svg" height="14px" width="14px"/>
                                             </div>
-                                        </form>
-                                        <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown"
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset">
-                                            <a ng-click="setReceiveAsset(asset.id)">
-                                                <div class="col-md-2 p-0" ng-if="asset.hasImage">
-                                                    <img ng-if="asset.hasImage"
-                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                    <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
+                                            <div class="ad-search-grp">
+                                                <div class="grp-title">VERIFIED ASSETS</div>
+                                                <div 
+                                                    ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true'}">
+                                                    <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                        <div class="search-item">
+                                                        <img class="icon" ng-if="asset.hasImage"
+                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                        <span ng-if="!asset.hasImage"
+                                                            class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        <div class="details-wrapper">
+                                                            <div class="details">
+                                                                <div class="name">{{asset.name}}</div>
+                                                                <div class="currency">({{asset.symbol}})</div>
+                                                                <span class="color-Active verifier" ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                                <span class="color-Active verifier" ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg" height="14px" width="14px"/></span>
+                                                            </div>
+                                                            <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                        </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                                <div class="col">
-                                        <span class="fusion-text-14">
-                                {{asset.name}} ({{asset.symbol}})
-                                            <span class="color-Active official-fusion-badge"
-                                                ng-show="asset.verified">                                    <img
-                                                        src="./images/verified.svg" height="14px" width="14px"/></span>
-                                            </i></span>
-                                                    <br>
-                                                    <span class="small-gray-text max-char inline">{{asset.contractaddress}}</span>
-                                                    </span>
+                                            </div>
+                                            <div class="ad-search-grp">
+                                                <div class="grp-title">UNVERIFIED ASSETS</div>
+                                                <div 
+                                                    ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true'}">
+                                                    <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                        <div class="search-item">
+                                                        <img class="icon" ng-if="asset.hasImage"
+                                                            ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                        <span ng-if="!asset.hasImage"
+                                                            class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        <div class="details-wrapper">
+                                                            <div class="details">
+                                                                <div class="name">{{asset.name}}</div>
+                                                                <div class="currency">({{asset.symbol}})</div>
+                                                                <span class="color-Active verifier" ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                                <span class="color-Active verifier" ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg" height="14px" width="14px"/></span>
+                                                            </div>
+                                                            <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                        </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                            </a>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
 
                                     <div class="action-time-lock">
@@ -1376,7 +1406,7 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="address">
-                                    {{makeTarges}}
+                                    <div class="address-item">{{makeTarges}}</div>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -1412,7 +1442,7 @@
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
                             <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus !== 'Success'" height="32px" width="32px">
-                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
+                            <img class="icon" src="images/confirmed-transaction.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
                             <h3 class="h3-blue title">Make Swap <span ng-show="transactionStatus !== 'Success'">Pending</span> <span ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
                         <p class="ms-confirmed-description" ng-show="transactionStatus !== 'Success'">Your swap has been sent and ahould be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
@@ -1504,7 +1534,7 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
                                     <div class="address"><a href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}" target="_blank">{{formatAddress(makeTxid)}}</a></div>
-                                    <img class="icon" src="./images/external-link.svg" height="24px" width="24px"/>
+                                    <a href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}" target="_blank"><img class="icon" src="./images/external-link.svg" height="24px" width="24px"/></a>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -1533,7 +1563,7 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="address">
-                                    {{makeTarges}}
+                                    <div class="address-item">{{makeTarges}}</div>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -1806,7 +1836,7 @@
                                         <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
-                                        <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
+                                        <div class="usan-warning">Once swapped, this USAN will take the place of your current USAN. Your current USAN will be permanently lost.</div>
                                     </div>
                                 </div>
                             </div>
@@ -1895,7 +1925,7 @@
 
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
-                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
+                            <img class="icon" src="images/confirmed-transaction.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
                             <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus !== 'Success'" height="32px" width="32px">
                             <h3 class="h3-blue title">Take Swap <span  ng-show="transactionStatus !== 'Success'" >Pending</span> <span  ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
@@ -1969,7 +1999,7 @@
                                         <div class="usan"><div class="name"><span class="address">{{takeDataFront.toAssetSymbol}}</span></div></div>
                                     </div>
                                     <div class="summary-cell">
-                                        <div class="usan-warning">Once this swap is taken, your USAN will no longer be associated with your address.</div>
+                                        <div class="usan-warning">Once swapped, this USAN will take the place of your current USAN. Your current USAN will be permanently lost.</div>
                                     </div>
                                 </div>
                             </div>
@@ -1984,7 +2014,7 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
                                     <div class="address"><a href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}" target="_blank">{{formatAddress(takeTxid)}}</a></div>
-                                    <img class="icon" src="./images/external-link.svg" height="24px" width="24px"/>
+                                    <a href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}" target="_blank"><img class="icon" src="./images/external-link.svg" height="24px" width="24px"/></a>
                                 </div>
                             </div>
                             <div class="price-row">
