@@ -185,7 +185,7 @@ window.getLocation = async function () {
                 location = data;
                 localStorage.setItem(window.locationCookie, JSON.stringify(data));
             });
-        } catch ( err ){
+        } catch (err) {
             console.log(err + ', will use US as location.')
             let data = {
                 continent: 'North America',
@@ -328,7 +328,7 @@ window.__fsnGetAllAssets = async function (array) {
                 Description: "",
                 ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
                 Name: "USAN",
-                Symbol: "",
+                Symbol: "USAN",
                 Total: 0,
             }
             inGetAllAsets = false
@@ -352,6 +352,16 @@ window.__fsnGetAllAssets = async function (array) {
                                 Name: "FUSION",
                                 Symbol: "FSN",
                                 Total: 81920000000000000000000000,
+                            }
+                            localCacheOfAssets['0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'] = {
+                                AssetID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+                                CanChange: false,
+                                Decimals: 0,
+                                Description: "",
+                                ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+                                Name: "USAN",
+                                Symbol: "USAN",
+                                Total: 0,
                             }
                             let data = JSON.parse(r.data[0].data);
                             data.ID = data.AssetID;
@@ -483,6 +493,11 @@ window.__fsnGetAllVerifiedAssets = async function () {
             }
             lastGetAllVerifiedAssetsTime = (new Date()).getTime()
             lastGetAllVerifiedAssets = allVerifiedAssets
+
+            allVerifiedAssets["0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"] = {
+                "assetID": "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
+                "image": "EFSN_LIGHT.svg",
+          }
             return allVerifiedAssets
         } catch (err) {
             return {};
@@ -714,7 +729,7 @@ app.directive('focus', function () {
                 var code = e.keyCode || e.which;
                 if (code === 32) {
                     e.preventDefault();
-                    if($scope.twelveIsSelected === true){
+                    if ($scope.twelveIsSelected === true) {
                         $scope.onMnemonicChange();
                     } else {
                         $scope.onSecondMnemonicChange();
