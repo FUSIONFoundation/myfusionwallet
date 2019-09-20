@@ -660,8 +660,8 @@
                                      ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="usan">
-                                            <div class="name"><span
-                                                        class="address">{{takeDataFront.toAssetSymbol}}</span></div>
+                                            <!-- Extract address from asset symbol, e.g. "1234"  from "USAN 1234"-->
+                                            <div class="name">USAN <span class="address">{{takeDataFront.toAssetSymbol.substring(5, takeDataFront.toAssetSymbol.length)}}</span></div>
                                         </div>
                                     </div>
                                     <div class="summary-cell">
@@ -1927,8 +1927,8 @@
                                      ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="usan">
-                                            <div class="name"><span
-                                                        class="address">{{takeDataFront.toAssetSymbol}}</span></div>
+                                            <!-- Extract address from asset symbol, e.g. "1234"  from "USAN 1234"-->
+                                            <div class="name">USAN <span class="address">{{takeDataFront.toAssetSymbol.substring(5, takeDataFront.toAssetSymbol.length)}}</span></div>
                                         </div>
                                     </div>
                                     <div class="summary-cell">
@@ -2119,8 +2119,8 @@
                                      ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="summary-cell">
                                         <div class="usan">
-                                            <div class="name"><span
-                                                        class="address">{{takeDataFront.toAssetSymbol}}</span></div>
+                                            <!-- Extract address from asset symbol, e.g. "1234"  from "USAN 1234"-->
+                                            <div class="name">USAN <span class="address">{{takeDataFront.toAssetSymbol.substring(5, takeDataFront.toAssetSymbol.length)}}</span></div>
                                         </div>
                                     </div>
                                     <div class="summary-cell">
