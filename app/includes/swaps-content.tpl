@@ -323,27 +323,9 @@
                         <thead>
                         <tr class="small-gray-table">
                             <th class="text-left" scope="col">Price</th>
-                            <th class="text-right" scope="col" ng-click="sortOpenMakes('fromAmountCut')">You Send
-                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'fromAmountCut'"/>
-                                <img src="images/Ascend.svg"
-                                     ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == false"/>
-                                <img src="images/Descend.svg"
-                                     ng-show="sortOpenMakes == 'fromAmountCut' && reverseMake == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortOpenMakes('toAmountCut')">You Receive
-                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'toAmountCut'"/>
-                                <img src="images/Ascend.svg"
-                                     ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == false"/>
-                                <img src="images/Descend.svg"
-                                     ng-show="sortOpenMakes == 'toAmountCut' && reverseMake == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortOpenMakes('minswap')">Minimum Fill
-                                <img src="images/Static.svg" ng-show="sortOpenMakes !== 'minswap'"/>
-                                <img src="images/Ascend.svg"
-                                     ng-show="sortOpenMakes == 'minswap' && reverseMake == false"/>
-                                <img src="images/Descend.svg"
-                                     ng-show="sortOpenMakes == 'minswap' && reverseMake == true"/>
-                            </th>
+                            <th class="text-right" scope="col">You Send</th>
+                            <th class="text-right" scope="col">You Receive</th>
+                            <th class="text-right" scope="col">Minimum Fill</th>
                             <th class="text-right" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
@@ -458,30 +440,10 @@
                     <table class="table" ng-show="swapsList.length > 0 && !allSwapsRunning">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col" ng-click="sortSwapMarket('swaprate')">
-                                PRICE PER ETH
-                                <img src="images/Static.svg" ng-show="sortKey !== 'swaprate'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'swaprate' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'swaprate' && reverse == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortSwapMarket('fromAmountCut')">
-                                YOU SEND
-                                <img src="images/Static.svg" ng-show="sortKey !== 'fromAmountCut'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'fromAmountCut' && reverse == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortSwapMarket('toAmountCut')">
-                                YOU RECEIVE
-                                <img src="images/Static.svg" ng-show="sortKey !== 'toAmountCut'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'toAmountCut' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'toAmountCut' && reverse == true"/>
-                            </th>
-                            <th class="text-right" scope="col" ng-click="sortSwapMarket('minswap')">
-                                Minimum Fill
-                                <img src="images/Static.svg" ng-show="sortKey !== 'minswap'"/>
-                                <img src="images/Ascend.svg" ng-show="sortKey == 'minswap' && reverse == false"/>
-                                <img src="images/Descend.svg" ng-show="sortKey == 'minswap' && reverse == true"/>
-                            </th>
+                            <th class="text-left" scope="col">PRICE PER ETH</th>
+                            <th class="text-right" scope="col">YOU SEND</th>
+                            <th class="text-right" scope="col">YOU RECEIVE</th>
+                            <th class="text-right" scope="col">Minimum Fill</th>
                             <th class="text-right" scope="col" class="float-right">
                                 Actions
                             </th>
@@ -595,7 +557,7 @@
                             <img class="icon" src="./images/unverified.svg" height="16px" width="14px"/>
                             <div class="description">Caution: this swap contains a suspicious asset(s).</div>
                         </div>
-                        <div class="fills-section">
+                        <div class="fills-section" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                             <div class="fills-available">
                                 <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                 <div class="description">BLANK Fills Available</div>
@@ -808,7 +770,7 @@
                             <hr class="action-hr">
                             <div class="action-body">
                                 <div class="body-details">
-                                    <div class="action-amount-available">
+                                    <div class="action-amount-available" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
                                             ng-model="makeSendAmount"
                                             id="makeSendAmount"
@@ -825,11 +787,11 @@
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                             ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
-                                            <div class="usan-selected">
+                                            <div class="usan-selected" ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                                 <span class="name">USAN</span>
                                                 <span class="address">{{'666333'}}</span>
                                             </div>
-                                            <div class="col" click-out="!sendDropDown2">
+                                            <div class="col" click-out="!sendDropDown2" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                                 <img ng-if="selectedSendHasImage"
                                                     ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                                 <span ng-if="!selectedSendHasImage"
@@ -912,7 +874,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="action-time-lock">
+                                    <div class="action-time-lock" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                 <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
                                 <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                         ng-click="showTimeLockSend = !showTimeLockSend"
@@ -1221,7 +1183,7 @@
                             </div>
                         </div>
 
-                        <div class="number-fills-section">
+                        <div class="number-fills-section" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
 
                             <div class="fills-header">
                                 <img src="./images/fills.svg" width="24px" height="24px">
@@ -1255,27 +1217,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="private-send-section">
-                                <div class="ps-header">
-                                    <div class="ps-title">
-                                        <img src="./images/private.svg" width="24px" height="24px">
-                                        <div class="ps-title-text">Send this swap privately</div>
-                                    </div>
-                                    <div class="toggle">
-                                        <label class="switch">
-                                            <input type="checkbox" ng-model="privateAccess" ng-value="!privateAccess">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="address-desc" ng-show="privateAccess == true">Add Short Account Numbers or Public Addresses. Separate addresses by commas.</div>
-                                <input ng-show="privateAccess == true"
-                                    type="text" class="form-control m-0 mt-1 ps-address"
-                                    ng-model="makeTarges"
-                                    placeholder="Addresses">
-                            </div>
                         </div>
-
+                        <div class="private-send-section">
+                            <div class="ps-header">
+                                <div class="ps-title">
+                                    <img src="./images/private.svg" width="24px" height="24px">
+                                    <div class="ps-title-text">Send this swap privately</div>
+                                </div>
+                                <div class="toggle">
+                                    <label class="switch">
+                                        <input type="checkbox" ng-model="privateAccess" ng-value="!privateAccess">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="address-desc" ng-show="privateAccess == true">Add Short Account Numbers or Public Addresses. Separate addresses by commas.</div>
+                            <input ng-show="privateAccess == true"
+                                type="text" class="form-control m-0 mt-1 ps-address"
+                                ng-model="makeTarges"
+                                placeholder="Addresses">
+                        </div>
                         <hr class="last-hr">
                         <div class="row actions-row">
                             <div class="btn-grp">
@@ -1387,7 +1348,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeSendAmount}}
-                                    <span class="currency">{{assetToSendConfirm}}</span> : {{makeReceiveAmount}}
+                                    <span class="currency" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                        {{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"> : <span>{{makeReceiveAmount}}
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
@@ -1543,8 +1506,9 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeSendAmount}}
-                                    <span class="currency">{{assetToSendConfirm}}</span> : {{makeReceiveAmount}}
+                                <div class="price-value" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{makeSendAmount}}
+                                    <span class="currency" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"> : </span>{{makeReceiveAmount}}
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
@@ -1854,7 +1818,7 @@
                                     <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
                                 </div>
                             </div>
-                            <div class="price-row">
+                            <div class="price-row" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS
@@ -2028,7 +1992,7 @@
                                     <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
                                 </div>
                             </div>
-                            <div class="price-row">
+                            <div class="price-row" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS
