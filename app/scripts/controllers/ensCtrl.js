@@ -1767,7 +1767,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return "0x" + (new Date(d).getTime() / 1000).toString(16);
     }
 
-    let targesArray = [];
+    $scope.targesArray = [];
 
     $scope.allBalance = [];
 
@@ -1817,7 +1817,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.makeSwap = async function () {
-        targesArray = [];
+        $scope.targesArray = [];
         let password = walletService.password;
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
@@ -1848,7 +1848,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let targesArr = $scope.makeTarges.split(",");
             await $scope.processAllTarges(targesArr, 0);
         } else {
-            targesArray = [];
+            $scope.targesArray = [];
         }
 
         if ($scope.makeMinumumSwap == "" || $scope.makeMinumumSwap <= 0) {
@@ -1897,7 +1897,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             MinToAmount: minToAmountHex,
             MinFromAmount: minFromAmountHex,
             SwapSize: parseInt($scope.makeMinumumSwap),
-            Targes: targesArray
+            Targes: $scope.targesArray
         };
 
         // Send part
@@ -2135,12 +2135,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         if (target.length < 42) {
             await web3.fsn.getAddressByNotation(parseInt(target)).then(function (res) {
                 if (res) {
-                    targesArray.push(res);
+                    $scope.targesArray.push(res);
                 }
                 return $scope.processAllTarges(targes, index + 1);
             });
         } else {
-            targesArray.push(target);
+            $scope.targesArray.push(target);
             return $scope.processAllTarges(targes, index + 1);
         }
     };
@@ -2753,7 +2753,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         toHasImage: toHasImage,
                         toVerified: toVerified
                     };
-                    if (walletAddress !== swapList[asset]["Owner"] && !targesArray.includes(walletAddress)) {
+                    if (walletAddress !== swapList[asset]["Owner"] && !$scope.targesArray.includes(walletAddress)) {
                         await swapListFront.push(data);
                     }
                 }
