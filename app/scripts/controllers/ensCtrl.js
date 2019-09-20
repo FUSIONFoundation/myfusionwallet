@@ -2584,7 +2584,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     }
 
                     let USAN = await web3.fsn.getNotation(owner);
-                    fromAsset.Symbol = `${USAN} USAN`;
+                    fromAsset.Symbol = `USAN ${USAN}`;
                     fromAsset.Name = USAN;
                     }
 
