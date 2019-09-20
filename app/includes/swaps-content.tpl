@@ -712,7 +712,7 @@
                         <div class="row actions-row">
                             <div class="btn-grp">
                                 <button class="btn btn-white main-btn-secondary" ng-click="takeSwapModal.close()">Cancel</button>
-                                <button class="btn btn-primary main-btn-primary" 
+                                <button class="btn btn-primary main-btn-primary"
                                     ng-click="takeSwapConfirm.open()"
                                     ng-disabled="takeDataFront.fromAssetBalance <= 0 && !hasTimeLockBalance(takeDataFront.fromAssetId)">Review Swap
                                 </button>
@@ -809,7 +809,7 @@
                             <div class="action-body">
                                 <div class="body-details">
                                     <div class="action-amount-available">
-                                        <input type="text" class="form-control m-0 mt-1 action-amount" 
+                                        <input type="text" class="form-control m-0 mt-1 action-amount"
                                             ng-model="makeSendAmount"
                                             id="makeSendAmount"
                                             placeholder="Amount"
@@ -1038,8 +1038,8 @@
 
                                 </div>
                             </div>
-                            
-                            
+
+
                         </div>
 
                         <div class="action-section">
@@ -1055,7 +1055,7 @@
                                             placeholder="Amount"
                                             ng-change="setSwapRate();checkMakeSwapConditions();"
                                         >
-                                    </div>                                    
+                                    </div>
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                             ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
@@ -1196,7 +1196,7 @@
                         <div class="number-fills-section">
 
                             <div class="fills-header">
-                                <img src="./images/fills.svg" width="24px" height="24px"> 
+                                <img src="./images/fills.svg" width="24px" height="24px">
                                 <div class="fills-header-title">Number of Fills</div>
                             </div>
                             <hr class="fills-hr">
@@ -1207,7 +1207,7 @@
                                     placeholder="Amount">
                                 <p class="fills-amount-desc">Number of fills determines the minimum amount someone can take in your swap. 1 fill would
                                 mean only the full swap can be taken. </p>
-                            </div> 
+                            </div>
                             <div class="fills-minimum">
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
@@ -1230,7 +1230,7 @@
                             <div class="private-send-section">
                                 <div class="ps-header">
                                     <div class="ps-title">
-                                        <img src="./images/private.svg" width="24px" height="24px"> 
+                                        <img src="./images/private.svg" width="24px" height="24px">
                                         <div class="ps-title-text">Send this swap privately</div>
                                     </div>
                                     <div class="toggle">
@@ -1413,12 +1413,12 @@
                     <img class="close-btn" src="images/t.svg" width="20px" height="20px" ng-click="makeSwapConfirmEndModal.close()">
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
-                            <img class="icon" src="images/you-send-new.svg" height="32px" width="32px">
-                            <img class="icon" src="images/confirmed-transaction.svg" height="32px" width="32px">
-                            <h3 class="h3-blue title">Make Swap Pending Confirmed</h3>
+                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus !== 'Success'" height="32px" width="32px">
+                            <img class="icon" src="confirmed-transaction.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
+                            <h3 class="h3-blue title">Make Swap <span ng-show="transactionStatus !== 'Success'">Pending</span> <span ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
-                        <p class="ms-confirmed-description">Your swap has been sent and ahould be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
-                        <p class="ms-confirmed-description">Your swap is now available on the swap market.</p>
+                        <p class="ms-confirmed-description" ng-show="transactionStatus !== 'Success'">Your swap has been sent and ahould be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
+                        <p class="ms-confirmed-description" ng-show="transactionStatus == 'Success'">Your swap is now available on the swap market.</p>
                         <div class="row summary">
                             <div class="col-md-6 summary-col divider-right">
                                 <div class="summary-header">
@@ -1504,8 +1504,8 @@
                                     TX ID
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value tx-value"> 
-                                    <div class="address">{{'0xf69438...3c7e4074'}}</div>
+                                <div class="price-value tx-value">
+                                    <div class="address"><a href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}" target="_blank">{{formatAddress(makeTxid)}}</a></div>
                                     <img class="icon" src="./images/external-link.svg" height="24px" width="24px"/>
                                 </div>
                             </div>
@@ -1897,12 +1897,12 @@
 
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
-                            <img class="icon" src="images/you-send-new.svg" height="32px" width="32px">
-                            <img class="icon" src="confirmed-transaction.svg" height="32px" width="32px">
-                            <h3 class="h3-blue title">Take Swap Pending Confirmed</h3>
+                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
+                            <img class="icon" src="images/confirmed-transaction.svg" ng-show="transactionStatus !== 'Success'" height="32px" width="32px">
+                            <h3 class="h3-blue title">Take Swap <span  ng-show="transactionStatus !== 'Success'" >Pending</span> <span  ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
-                        <p class="ms-confirmed-description">Your swap has been sent and should be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
-                        <p class="ms-confirmed-description">Your asset is now available.</p>
+                        <p class="ms-confirmed-description" ng-show="transactionStatus !== 'Success'" >Your swap has been sent and should be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
+                        <p class="ms-confirmed-description" ng-show="transactionStatus == 'Success'" >Your asset is now available.</p>
                         <div class="row summary">
                             <div class="col-md-6 summary-col">
                                 <div class="summary-header">
@@ -1984,8 +1984,8 @@
                                     TX ID
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value tx-value"> 
-                                    <div class="address">{{'0xf69438...3c7e4074'}}</div>
+                                <div class="price-value tx-value">
+                                    <div class="address"><a href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}" target="_blank">{{formatAddress(takeTxid)}}</a></div>
                                     <img class="icon" src="./images/external-link.svg" height="24px" width="24px"/>
                                 </div>
                             </div>
