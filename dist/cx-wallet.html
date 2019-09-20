@@ -8897,7 +8897,7 @@
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
                                     <div class="fills-minimum-curr">
-                                        <img class="icon" ng-if="showTimeLockSend" src="./images/send-timelock-icon.svg"
+                                        <img class="icon" ng-if="showTimeLockSend || hasTimeLockSet" src="./images/send-timelock-icon.svg"
                                              height="12px" width="12px"/>
                                         <span class="amt">{{minimumMakeSend}}</span>
                                         <span class="currency">{{selectedSendAssetSymbol}}</span>
