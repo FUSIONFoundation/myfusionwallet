@@ -557,7 +557,7 @@
                             <img class="icon" src="./images/unverified.svg" height="16px" width="14px"/>
                             <div class="description">Caution: this swap contains a suspicious asset(s).</div>
                         </div>
-                        <div class="fills-section">
+                        <div class="fills-section" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                             <div class="fills-available">
                                 <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                 <div class="description">BLANK Fills Available</div>
@@ -1816,7 +1816,7 @@
                                     <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
                                 </div>
                             </div>
-                            <div class="price-row">
+                            <div class="price-row" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS
@@ -1990,7 +1990,7 @@
                                     <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
                                 </div>
                             </div>
-                            <div class="price-row">
+                            <div class="price-row" ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS
