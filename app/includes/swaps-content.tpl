@@ -770,7 +770,7 @@
                             <hr class="action-hr">
                             <div class="action-body">
                                 <div class="body-details">
-                                    <div class="action-amount-available">
+                                    <div class="action-amount-available" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
                                             ng-model="makeSendAmount"
                                             id="makeSendAmount"
@@ -787,11 +787,11 @@
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                             ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
-                                            <div class="usan-selected">
+                                            <div class="usan-selected" ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                                 <span class="name">USAN</span>
                                                 <span class="address">{{'666333'}}</span>
                                             </div>
-                                            <div class="col" click-out="!sendDropDown2">
+                                            <div class="col" click-out="!sendDropDown2" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                                 <img ng-if="selectedSendHasImage"
                                                     ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                                 <span ng-if="!selectedSendHasImage"
@@ -874,7 +874,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="action-time-lock">
+                                    <div class="action-time-lock" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                 <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
                                 <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                         ng-click="showTimeLockSend = !showTimeLockSend"
@@ -1183,7 +1183,7 @@
                             </div>
                         </div>
 
-                        <div class="number-fills-section">
+                        <div class="number-fills-section" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
 
                             <div class="fills-header">
                                 <img src="./images/fills.svg" width="24px" height="24px">
@@ -1217,27 +1217,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="private-send-section">
-                                <div class="ps-header">
-                                    <div class="ps-title">
-                                        <img src="./images/private.svg" width="24px" height="24px">
-                                        <div class="ps-title-text">Send this swap privately</div>
-                                    </div>
-                                    <div class="toggle">
-                                        <label class="switch">
-                                            <input type="checkbox" ng-model="privateAccess" ng-value="!privateAccess">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="address-desc" ng-show="privateAccess == true">Add Short Account Numbers or Public Addresses. Separate addresses by commas.</div>
-                                <input ng-show="privateAccess == true"
-                                    type="text" class="form-control m-0 mt-1 ps-address"
-                                    ng-model="makeTarges"
-                                    placeholder="Addresses">
-                            </div>
                         </div>
-
+                        <div class="private-send-section">
+                            <div class="ps-header">
+                                <div class="ps-title">
+                                    <img src="./images/private.svg" width="24px" height="24px">
+                                    <div class="ps-title-text">Send this swap privately</div>
+                                </div>
+                                <div class="toggle">
+                                    <label class="switch">
+                                        <input type="checkbox" ng-model="privateAccess" ng-value="!privateAccess">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="address-desc" ng-show="privateAccess == true">Add Short Account Numbers or Public Addresses. Separate addresses by commas.</div>
+                            <input ng-show="privateAccess == true"
+                                type="text" class="form-control m-0 mt-1 ps-address"
+                                ng-model="makeTarges"
+                                placeholder="Addresses">
+                        </div>
                         <hr class="last-hr">
                         <div class="row actions-row">
                             <div class="btn-grp">
@@ -1349,7 +1348,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeSendAmount}}
-                                    <span class="currency">{{assetToSendConfirm}}</span> : {{makeReceiveAmount}}
+                                    <span class="currency" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                        {{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"> : <span>{{makeReceiveAmount}}
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
@@ -1505,8 +1506,9 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeSendAmount}}
-                                    <span class="currency">{{assetToSendConfirm}}</span> : {{makeReceiveAmount}}
+                                <div class="price-value" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{makeSendAmount}}
+                                    <span class="currency" ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"> : </span>{{makeReceiveAmount}}
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
