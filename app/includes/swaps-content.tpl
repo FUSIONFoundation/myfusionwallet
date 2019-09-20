@@ -440,7 +440,7 @@
                     <table class="table" ng-show="swapsList.length > 0 && !allSwapsRunning">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col">PRICE PER ETH</th>
+                            <th class="text-left" scope="col">PRICE</th>
                             <th class="text-right" scope="col">YOU SEND</th>
                             <th class="text-right" scope="col">YOU RECEIVE</th>
                             <th class="text-right" scope="col">Minimum Fill</th>
@@ -823,7 +823,7 @@
                                             </div>
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">VERIFIED ASSETS</div>
-                                                <div 
+                                                <div
                                                     ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true'} track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -848,7 +848,7 @@
                                             </div>
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">UNVERIFIED ASSETS</div>
-                                                <div 
+                                                <div
                                                     ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true'} track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -1047,7 +1047,7 @@
                                             </div>
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">VERIFIED ASSETS</div>
-                                                <div 
+                                                <div
                                                     ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true'}">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
@@ -1072,7 +1072,7 @@
                                             </div>
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">UNVERIFIED ASSETS</div>
-                                                <div 
+                                                <div
                                                     ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true'}">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
