@@ -560,7 +560,7 @@
                              ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                             <div class="fills-available">
                                 <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
-                                <div class="description">BLANK Fills Available</div>
+                                <div class="description">{{takeDataFront.size}} Fills Available</div>
                             </div>
                             <div class="filler"></div>
                             <div class="amount-details">
