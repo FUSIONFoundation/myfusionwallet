@@ -1442,7 +1442,7 @@
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
                             <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus !== 'Success'" height="32px" width="32px">
-                            <img class="icon" src="confirmed-transaction.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
+                            <img class="icon" src="images/confirmed-transaction.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
                             <h3 class="h3-blue title">Make Swap <span ng-show="transactionStatus !== 'Success'">Pending</span> <span ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
                         <p class="ms-confirmed-description" ng-show="transactionStatus !== 'Success'">Your swap has been sent and ahould be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
@@ -1534,7 +1534,7 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
                                     <div class="address"><a href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}" target="_blank">{{formatAddress(makeTxid)}}</a></div>
-                                    <img class="icon" src="./images/external-link.svg" height="24px" width="24px"/>
+                                    <a href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}" target="_blank"><img class="icon" src="./images/external-link.svg" height="24px" width="24px"/></a>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -1925,8 +1925,8 @@
 
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
-                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
-                            <img class="icon" src="images/confirmed-transaction.svg" ng-show="transactionStatus !== 'Success'" height="32px" width="32px">
+                            <img class="icon" src="images/confirmed-transaction.svg" ng-show="transactionStatus == 'Success'" height="32px" width="32px">
+                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus !== 'Success'" height="32px" width="32px">
                             <h3 class="h3-blue title">Take Swap <span  ng-show="transactionStatus !== 'Success'" >Pending</span> <span  ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
                         <p class="ms-confirmed-description" ng-show="transactionStatus !== 'Success'" >Your swap has been sent and should be confirmed with the next block. You may close this receipt at any time or click the Transaction ID below to view on the block explorer.</p>
@@ -2014,7 +2014,7 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
                                     <div class="address"><a href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}" target="_blank">{{formatAddress(takeTxid)}}</a></div>
-                                    <img class="icon" src="./images/external-link.svg" height="24px" width="24px"/>
+                                    <a href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}" target="_blank"><img class="icon" src="./images/external-link.svg" height="24px" width="24px"/></a>
                                 </div>
                             </div>
                             <div class="price-row">
