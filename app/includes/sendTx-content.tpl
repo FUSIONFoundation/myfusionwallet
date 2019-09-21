@@ -438,9 +438,7 @@
 
                 <h3>Send Time-Lock to Asset</h3>
 
-                <p class="small-gray-text">Send your time-lock back to
-                    <ax></ax>
-                    ssets.
+                <p class="small-gray-text">Send your time-lock back to assets.
                 </p>
                 <section class="row form-group">
                     <div class="col-sm-8">
