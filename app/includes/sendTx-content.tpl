@@ -69,9 +69,9 @@
                                 <span class="color-Active official-fusion-badge" ng-show="asset.verified">
                                     <img src="./images/verified.svg" height="14px" width="14px"/></span>
                                 <br>
-                                <div class="max-char">
+                                <div>
                                     <span class="small-gray-text" data-toggle="tooltip" data-placement="top"
-                                          title="{{asset.contractaddress}}">ID: {{asset.contractaddress}}</span>
+                                          title="{{asset.contractaddress}}">ID: {{formatAddress(asset.contractaddress)}}</span>
                                 </div>
                             </td>
                             <td class="text-right" ng-click="manageAssetOpen(f)">
@@ -176,9 +176,9 @@
                                                                          ng-show="asset.verified">
                                     <img src="./images/verified.svg" height="14px" width="14px"/></span>
                                 <br>
-                                <div class="max-char"><span class="small-gray-text" data-toggle="tooltip"
+                                <div><span class="small-gray-text" data-toggle="tooltip"
                                                             data-placement="top"
-                                                            title="{{asset.asset}}">ID: {{asset.asset}}</span></div>
+                                                            title="{{asset.asset}}">ID: {{formatAddress(asset.asset)}}</span></div>
                             </td>
                             <td><span class="small-gray-text">From</span> {{asset.startTime}} <br><span
                                         class="small-gray-text">Until </span> {{asset.endTime}}</td>
