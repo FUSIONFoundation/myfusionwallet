@@ -7835,7 +7835,7 @@
                                             <div class="usan-selected"
                                                  ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                                 <span class="name">USAN</span>
-                                                <span class="address">{{'666333'}}</span>
+                                                <span class="address">{{usanAddress}}</span>
                                             </div>
                                             <div class="col" click-out="!sendDropDown2"
                                                  ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
@@ -7860,12 +7860,12 @@
                                                 <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                                      width="14px"/>
                                             </div>
-                                            <div class="ad-usan">
+                                            <div class="ad-usan" ng-click="setMakeUSAN()">
                                                 <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
                                                 <div class="ad-usan-content">
                                                     <div class="usan-selected">
                                                         <span class="name">USAN</span>
-                                                        <span class="address">{{'666333'}}</span>
+                                                        <span class="address">{{usanAddress}}</span>
                                                     </div>
                                                 </div>
                                             </div>
