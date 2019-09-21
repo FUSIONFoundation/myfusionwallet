@@ -7242,7 +7242,7 @@
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
 
-                                <img class="marker" ng-show="true" src="./images/semi-circle.svg" height="16px" width="8px"/>
+                                <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
                                     <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
                                     <div class="currency">{{asset.toAssetSymbol}}</div>
@@ -7332,7 +7332,7 @@
                         <tr ng-repeat="asset in openMakes | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
                         >
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <img class="marker" ng-show="true" src="./images/semi-circle.svg" height="16px" width="8px"/>
+                                <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
                                     <div class="asset">{{asset.swaprate.toFixed(4)}}</div>
                                     <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -7505,6 +7505,7 @@
                                         <div class="asset">{{asset.minswaptaker.toFixed(4)}}</div>
                                         <div class="currency">{{asset.toAssetSymbol}}</div>
                                     </div>
+                                </div>
                                 </div>
                             </td>
                             <td class="text-right btn-cell-reset">
