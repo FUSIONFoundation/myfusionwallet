@@ -258,15 +258,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.makeSwapReviewDisabled = true;
     $scope.checkMakeSwapConditions = async () => {
         let z = true;
-        if ($scope.makeSendAmount == '' || $scope.makeReceiveAmount == '' || $scope.makeMinumumSwap == '') {
-            return z = true;
-        } else {
-            let a = new window.BigNumber($scope.makeSendAmount.toString());
-            let b = new window.BigNumber($scope.selectedAssetBalance.toString());
-            if (b.gte(a)) {
-                z = false;
+        if (!$scope.selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe') {
+            if ($scope.makeSendAmount == '' || $scope.makeReceiveAmount == '' || $scope.makeMinumumSwap == '') {
+                 z = true;
             } else {
+                let a = new window.BigNumber($scope.makeSendAmount.toString());
+                let b = new window.BigNumber($scope.selectedAssetBalance.toString());
+                if (b.gte(a)) {
+                    z = false;
+                } else {
+                    z = true;
+                }
+            }
+        } else {
+            if ($scope.makeReceiveAmount == '') {
                 z = true;
+            } else {
+                z = false;
             }
         }
         $scope.$applyAsync(function () {
@@ -2209,14 +2217,20 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?address=${walletAddress}&page=0&size=30`).then(function (r) {
-                    let swaps = r.data;
-                    for (let swap in swaps) {
+                let swaps = {};
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?address=${walletAddress}&page=0&size=100`).then(function (r) {
+                    console.log(r);
+                    swaps = JSON.parse(r.data);
+                });
+                console.log(swaps);
+                for (let swap in swaps) {
+                    console.log(swaps[swap]);
+                    if(swaps[swap] !== null) {
                         let data = JSON.parse(swaps[swap].data);
                         swapList[data["SwapID"]] = data;
                         swapList[data["SwapID"]].size = swaps[swap].size
                     }
-                });
+                }
             } catch (err) {
                 console.log(err);
             }
