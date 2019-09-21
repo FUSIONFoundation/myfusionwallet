@@ -68,7 +68,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "wallet-address-validator": "^0.1.0",
-    "web3": "1.0.0-beta.36",
+    "web3": "^1.2.1",
     "web3-fusion-extend": "^1.0.0-beta.30",
     "websocket": "^1.0.28",
     "xss-filters": "^1.2.7"
