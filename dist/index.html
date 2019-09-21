@@ -7462,7 +7462,7 @@
                         <tbody>
                         <tr ng-repeat="asset in swapsList | orderBy:'convertTimePosixToNumber'">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <img class="marker" ng-show="true" src="./images/semi-circle.svg" height="16px" width="8px"/>
+                                <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
                                     <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
                                     <div class="currency">{{asset.toAssetSymbol.substr(0,4)}}</div>

@@ -2541,7 +2541,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     }
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
+                        let fromAddress = r.data[swap]["fromAddress"];
                         swapList[data.SwapID] = data;
+                        swapList[data.SwapID].Owner = fromAddress;
                         swapList[data.SwapID].size = r.data[swap].size;
                     }
                 });
@@ -2753,7 +2755,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         toHasImage: toHasImage,
                         toVerified: toVerified
                     };
-                    if (walletAddress !== swapList[asset]["Owner"] && !$scope.targesArray.includes(walletAddress)) {
+                    if (!$scope.targesArray.includes(walletAddress)) {
                         await swapListFront.push(data);
                     }
                 }
@@ -2984,6 +2986,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     toHasImage: toHasImage,
                     toVerified: toVerified
                 };
+
                 if (swapList[asset]["Targes"].includes(walletAddress)) {
                     await openTakesList.push(data);
                     i++;
