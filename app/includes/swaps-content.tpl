@@ -1734,7 +1734,7 @@
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
-                                <span class="fusion-text-14">{{swapInfo.ID}}</span>
+                                <span class="fusion-text-14">{{formatAddress(swapInfo.ID)}}</span>
                             </div>
                         </div>
                     </div>
@@ -1764,7 +1764,7 @@
                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
-                                <span class="small-gray-text">{{swapInfo.ToAssetID}}</span>
+                                <span class="small-gray-text">{{formatAddress(swapInfo.ToAssetID)}}</span>
                                 </span>
                             </div>
                         </div>
@@ -1819,7 +1819,7 @@
                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
-                                <span class="small-gray-text">{{swapInfo.FromAssetID}}</span>
+                                <span class="small-gray-text">{{formatAddress(swapInfo.FromAssetID)}}</span>
                                 </span>
                             </div>
                         </div>
