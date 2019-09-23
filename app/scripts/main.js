@@ -356,7 +356,7 @@ window.__fsnGetAllAssets = async function (array) {
                             localCacheOfAssets['0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'] = {
                                 AssetID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
                                 CanChange: false,
-                                Decimals: 0,
+                                Decimals: 1,
                                 Description: "",
                                 ID: "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe",
                                 Name: "USAN",

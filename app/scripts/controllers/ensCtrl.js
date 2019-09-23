@@ -2226,20 +2226,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             try {
                 let swaps = {};
                 await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?address=${walletAddress}&page=0&size=100`).then(function (r) {
-                    console.log(r);
                     swaps = r.data;
                 });
-                console.log(swaps);
                 for (let swap in swaps) {
-                    console.log(swaps[swap]);
-                    if(swaps[swap] !== null) {
+                    if(swaps[swap].data) {
                         let data = JSON.parse(swaps[swap].data);
                         swapList[data["SwapID"]] = data;
                         swapList[data["SwapID"]].size = swaps[swap].size
                     }
                 }
             } catch (err) {
-                console.log(err);
+                // console.log(err);
             }
 
             let allAssets = {};
@@ -2559,15 +2556,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         }
                     }
                     for (let swap in r.data) {
-                        let data = JSON.parse(r.data[swap].data);
-                        let fromAddress = r.data[swap]["fromAddress"];
-                        swapList[data.SwapID] = data;
-                        swapList[data.SwapID].Owner = fromAddress;
-                        swapList[data.SwapID].size = r.data[swap].size;
+                        if(r.data[swap].data) {
+                            let data = JSON.parse(r.data[swap].data);
+                            let fromAddress = r.data[swap]["fromAddress"];
+                            swapList[data.SwapID] = data;
+                            swapList[data.SwapID].Owner = fromAddress;
+                            swapList[data.SwapID].size = r.data[swap].size;
+                        }
                     }
                 });
             } catch (err) {
-                console.log(err);
+                // console.log(err);
             }
 
             let allAssets = {};
@@ -2808,14 +2807,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             try {
                 await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?target=${walletAddress}&page0&size=100`).then(function (r) {
+                    console.log(r);
                     for (let swap in r.data) {
-                        let data = JSON.parse(r.data[swap].data);
-                        swapList[data.SwapID] = data;
-                        swapList[data.SwapID].size = r.data[swap].size;
+                        if(r.data[swap].data) {
+                            let data = JSON.parse(r.data[swap].data);
+                            swapList[data.SwapID] = data;
+                            swapList[data.SwapID].size = r.data[swap].size;
+                        }
                     }
                 });
             } catch (err) {
-                console.log(err);
+                // console.log(err);
             }
 
             let allAssets = {};
