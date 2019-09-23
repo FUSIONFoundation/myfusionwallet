@@ -605,6 +605,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return address.substring(0, 8) + "..." + address.substring(address.length-8, address.length);
     };
 
+    // extract address from asset symbol, e.g. "1234"  from "USAN 1234"
+    $scope.extractAddressFromAssetSymbol = function (assetSymbol) {
+        if(!assetSymbol || assetSymbol.length < 4)
+            return assetSymbol;
+        return assetSymbol.substring(5, assetSymbol.length);
+    };
+
     $scope.swapInformationModalOpen = async function (swap_id) {
         let data = {};
         let owner = '';

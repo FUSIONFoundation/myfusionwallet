@@ -291,7 +291,7 @@
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
                                     </div>
-                                <div>
+                                </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <div class="column-layout">
@@ -380,7 +380,7 @@
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
                                     </div>
-                                <div>
+                                </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <div class="column-layout">
@@ -479,9 +479,9 @@
                                 <div class="row-layout">
                                     <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
                                     <div class="currency">{{asset.toAssetSymbol.substr(0,4)}}</div>
-                                    <div class="colon">:</div>
-                                    <div class="asset">1</div>
-                                    <div class="currency">{{asset.fromAssetSymbol.substr(0,4)}}</div>
+                                    <div class="colon" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">:</div>
+                                    <div class="asset" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">1</div>
+                                    <div class="currency" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{asset.fromAssetSymbol.substr(0,4)}}</div>
                                 </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
@@ -498,8 +498,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)" 
+                                ng-class="{'usan-cell-reset' : asset.fromAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'}">
+                                <div class="column-layout" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.fromAmountCut}}</div>
                                         <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -510,7 +511,12 @@
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
                                     </div>
-                                <div>
+                                </div>
+                                <div class="column-layout" ng-show="asset.fromAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span></div>
+                                    </div>
+                                </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <div class="column-layout">
