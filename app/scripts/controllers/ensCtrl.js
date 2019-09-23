@@ -258,15 +258,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.makeSwapReviewDisabled = true;
     $scope.checkMakeSwapConditions = async () => {
         let z = true;
-        if ($scope.makeSendAmount == '' || $scope.makeReceiveAmount == '' || $scope.makeMinumumSwap == '') {
-            return z = true;
-        } else {
-            let a = new window.BigNumber($scope.makeSendAmount.toString());
-            let b = new window.BigNumber($scope.selectedAssetBalance.toString());
-            if (b.gte(a)) {
-                z = false;
+        if (!$scope.selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe') {
+            if ($scope.makeSendAmount == '' || $scope.makeReceiveAmount == '' || $scope.makeMinumumSwap == '') {
+                 z = true;
             } else {
+                let a = new window.BigNumber($scope.makeSendAmount.toString());
+                let b = new window.BigNumber($scope.selectedAssetBalance.toString());
+                if (b.gte(a)) {
+                    z = false;
+                } else {
+                    z = true;
+                }
+            }
+        } else {
+            if ($scope.makeReceiveAmount == '') {
                 z = true;
+            } else {
+                z = false;
             }
         }
         $scope.$applyAsync(function () {
@@ -723,8 +731,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
             ) {
                 // Set matched image name
-                fromVerifiedImage = "";
-                fromHasImage = false;
+                fromVerifiedImage = "EFSN_LIGHT.svg";
+                fromHasImage = true;
                 fromVerified = true;
             }
         }
@@ -744,8 +752,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
             ) {
                 // Set matched image name
-                toVerifiedImage = "";
-                toHasImage = false;
+                toVerifiedImage = "EFSN_LIGHT.svg";
+                toHasImage = true;
                 toVerified = true;
             }
         }
@@ -1421,8 +1429,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.takeId = 0;
     $scope.takeModal = async function (id, pass) {
-        console.log(id);
-        console.log($scope.swapsList);
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let balance = "";
@@ -2218,14 +2224,20 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let walletAddress = accountData.from;
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?address=${walletAddress}&page=0&size=30`).then(function (r) {
-                    let swaps = r.data;
-                    for (let swap in swaps) {
+                let swaps = {};
+                await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?address=${walletAddress}&page=0&size=100`).then(function (r) {
+                    console.log(r);
+                    swaps = JSON.parse(r.data);
+                });
+                console.log(swaps);
+                for (let swap in swaps) {
+                    console.log(swaps[swap]);
+                    if(swaps[swap] !== null) {
                         let data = JSON.parse(swaps[swap].data);
                         swapList[data["SwapID"]] = data;
                         swapList[data["SwapID"]].size = swaps[swap].size
                     }
-                });
+                }
             } catch (err) {
                 console.log(err);
             }
@@ -2263,8 +2275,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                     ) {
                         // Set matched image name
-                        fromVerifiedImage = "";
-                        fromHasImage = false;
+                        fromVerifiedImage = "EFSN_LIGHT.svg";
+                        fromHasImage = true;
                         fromVerified = true;
                     }
                 }
@@ -2287,8 +2299,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                     ) {
                         // Set matched image name
-                        toVerifiedImage = "";
-                        toHasImage = false;
+                        toVerifiedImage = "EFSN_LIGHT.svg";
+                        toHasImage = true;
                         toVerified = true;
                     }
                 }
@@ -2548,7 +2560,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     }
                     for (let swap in r.data) {
                         let data = JSON.parse(r.data[swap].data);
+                        let fromAddress = r.data[swap]["fromAddress"];
                         swapList[data.SwapID] = data;
+                        swapList[data.SwapID].Owner = fromAddress;
                         swapList[data.SwapID].size = r.data[swap].size;
                     }
                 });
@@ -2609,8 +2623,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                         ) {
                             // Set matched image name
-                            fromVerifiedImage = "";
-                            fromHasImage = false;
+                            fromVerifiedImage = "EFSN_LIGHT.svg";
+                            fromHasImage = true;
                             fromVerified = true;
                         }
                     }
@@ -2633,8 +2647,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                         ) {
                             // Set matched image name
-                            toVerifiedImage = "";
-                            toHasImage = false;
+                            toVerifiedImage = "EFSN_LIGHT.svg";
+                            toHasImage = true;
                             toVerified = true;
                         }
                     }
@@ -2760,7 +2774,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         toHasImage: toHasImage,
                         toVerified: toVerified
                     };
-                    if (walletAddress !== swapList[asset]["Owner"] && !$scope.targesArray.includes(walletAddress)) {
+                    if (!$scope.targesArray.includes(walletAddress)) {
                         await swapListFront.push(data);
                     }
                 }
@@ -2771,7 +2785,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.swapsList = $scope.swapsList.sort(function(a, b){return b.timePosixValue - a.timePosixValue});
                 $scope.showLoader = false;
             });
-            console.log($scope.swapsList);
             $scope.allSwapsRunning = false;
             window.log("Finished retrieving all Swaps");
         }
@@ -2841,8 +2854,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                     ) {
                         // Set matched image name
-                        fromVerifiedImage = "";
-                        fromHasImage = false;
+                        fromVerifiedImage = "EFSN_LIGHT.svg";
+                        fromHasImage = true;
                         fromVerified = true;
                     }
                 }
@@ -2865,8 +2878,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                     ) {
                         // Set matched image name
-                        toVerifiedImage = "";
-                        toHasImage = false;
+                        toVerifiedImage = "EFSN_LIGHT.svg";
+                        toHasImage = true;
                         toVerified = true;
                     }
                 }
@@ -2991,6 +3004,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     toHasImage: toHasImage,
                     toVerified: toVerified
                 };
+
                 if (swapList[asset]["Targes"].includes(walletAddress)) {
                     await openTakesList.push(data);
                     i++;

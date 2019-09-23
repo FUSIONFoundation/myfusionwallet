@@ -255,7 +255,7 @@
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
 
-                                <img class="marker" ng-show="true" src="./images/semi-circle.svg" height="16px" width="8px"/>
+                                <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
                                     <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
                                     <div class="currency">{{asset.toAssetSymbol}}</div>
@@ -345,7 +345,7 @@
                         <tr ng-repeat="asset in openMakes | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
                         >
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <img class="marker" ng-show="true" src="./images/semi-circle.svg" height="16px" width="8px"/>
+                                <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
                                     <div class="asset">{{asset.swaprate.toFixed(4)}}</div>
                                     <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -475,7 +475,7 @@
                         <tbody>
                         <tr ng-repeat="asset in swapsList | orderBy:'convertTimePosixToNumber'">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <img class="marker" ng-show="true" src="./images/semi-circle.svg" height="16px" width="8px"/>
+                                <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
                                     <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
                                     <div class="currency">{{asset.toAssetSymbol.substr(0,4)}}</div>
@@ -524,6 +524,7 @@
                                         <div class="asset">{{asset.minswaptaker.toFixed(4)}}</div>
                                         <div class="currency">{{asset.toAssetSymbol}}</div>
                                     </div>
+                                </div>
                                 </div>
                             </td>
                             <td class="text-right btn-cell-reset">
@@ -853,7 +854,7 @@
                                             <div class="usan-selected"
                                                  ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                                 <span class="name">USAN</span>
-                                                <span class="address">{{'666333'}}</span>
+                                                <span class="address">{{usanAddress}}</span>
                                             </div>
                                             <div class="col" click-out="!sendDropDown2"
                                                  ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
@@ -878,12 +879,12 @@
                                                 <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                                      width="14px"/>
                                             </div>
-                                            <div class="ad-usan">
+                                            <div class="ad-usan" ng-click="setMakeUSAN()">
                                                 <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
                                                 <div class="ad-usan-content">
                                                     <div class="usan-selected">
                                                         <span class="name">USAN</span>
-                                                        <span class="address">{{'666333'}}</span>
+                                                        <span class="address">{{usanAddress}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1739,7 +1740,7 @@
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
-                                <span class="fusion-text-14">{{swapInfo.ID}}</span>
+                                <span class="fusion-text-14">{{formatAddress(swapInfo.ID)}}</span>
                             </div>
                         </div>
                     </div>
@@ -1769,7 +1770,7 @@
                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
-                                <span class="small-gray-text">{{swapInfo.ToAssetID}}</span>
+                                <span class="small-gray-text">{{formatAddress(swapInfo.ToAssetID)}}</span>
                                 </span>
                             </div>
                         </div>
@@ -1824,7 +1825,7 @@
                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
                                 <br>
-                                <span class="small-gray-text">{{swapInfo.FromAssetID}}</span>
+                                <span class="small-gray-text">{{formatAddress(swapInfo.FromAssetID)}}</span>
                                 </span>
                             </div>
                         </div>

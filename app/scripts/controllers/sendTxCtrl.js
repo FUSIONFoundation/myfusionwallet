@@ -50,6 +50,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.attributevalue = [];
     $scope.allAttributes = {};
 
+    $scope.formatAddress = function (address) {
+        if(!address || address.length < 20)
+            return address;
+        return address.substring(0, 8) + "..." + address.substring(address.length-8, address.length);
+    };
+
     $scope.sufficientBalance = undefined;
     $scope.checkSufficientBalance = async () => {
         if (!$scope.sendAsset.amountToSend || !$scope.selectedAssetBalance) return;
