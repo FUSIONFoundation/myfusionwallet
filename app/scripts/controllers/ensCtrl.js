@@ -1968,6 +1968,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             );
         }
 
+        console.log(data);
+
+        if(data.ToAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+            data.MinToAmount = "0x" + "1".toString(16);
+        }
+        if(data.FromAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+            data.MinFromAmount = "0x"+ "1".toString(16);
+        }
+
         try {
             await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
                 tx.from = walletAddress;
