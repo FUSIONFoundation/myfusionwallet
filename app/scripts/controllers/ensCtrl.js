@@ -1739,6 +1739,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         }
 
+        if ($scope.makeTarges !== "") {
+            $scope.makeTarges = $scope.makeTarges.replace(" ", "");
+            let targesArr = $scope.makeTarges.split(",");
+            await $scope.processAllTarges(targesArr, 0);
+        } else {
+            $scope.targesArray = [];
+        }
+
+        console.log($scope.targesArray);
+
         $scope.$eval(function () {
             $scope.assetToSendConfirm = sendAssetSymbol;
             $scope.assetToReceiveConfirm = receiveAssetSymbol;
@@ -1967,8 +1977,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.toHexString($scope.wallet.getPrivateKey())
             );
         }
-
-        console.log(data);
 
         if(data.ToAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
             data.MinToAmount = "0x" + "1".toString(16);
