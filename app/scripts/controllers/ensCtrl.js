@@ -1550,7 +1550,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         );
         let toFinal = toAmountBN.times($scope.convertToString(perc3));
 
-        await $scope.$eval(function () {
+        await $scope.$apply(function () {
             $scope.receiveTokens = fromFinal.toPrecision(5);
             $scope.sendTokens = toFinal.toPrecision(5);
         });
