@@ -265,7 +265,7 @@
                                 </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                
+
                                 <div class="column-layout">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.toAmountCut}}</div>
@@ -434,7 +434,7 @@
                             <div class="col-md-12">
                                 <form class="form-group form-inline align-middle">
                                     <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
-                                        of {{swapsList.length}}
+                                        of {{totalRowsSwapsQuery}}
                                     </span>
                                     <span class="small-gray-text">
                                         {{currentPage+1}} of {{endPage}}</span>
@@ -498,7 +498,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)" 
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
                                 ng-class="{'usan-cell-reset' : asset.fromAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'}">
                                 <div class="column-layout" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
                                     <div class="row-layout">
@@ -541,7 +541,7 @@
                                                 ng-disabled="takeAvailable(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime)"
                                         >Take Swap
                                         </button>
-                                    </div>    
+                                    </div>
                                 </div>
                             </td>
                         </tr>
