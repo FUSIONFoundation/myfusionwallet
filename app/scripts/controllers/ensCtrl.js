@@ -2227,7 +2227,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let swaps = {};
                 await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?address=${walletAddress}&page=0&size=100`).then(function (r) {
                     console.log(r);
-                    swaps = JSON.parse(r.data);
+                    swaps = r.data;
                 });
                 console.log(swaps);
                 for (let swap in swaps) {
