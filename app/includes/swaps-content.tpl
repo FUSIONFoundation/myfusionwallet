@@ -30,202 +30,250 @@
                 </div>
             </nav>
         </div>
-        <div class="col-md-12 p-2 bg-body make-swap-section" ng-show="showSwapMarket === true">
-            <div class="col-md-3 text-left mr-0">
-                <span class="small-gray-text">YOU SEND</span>
-                <br>
-                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white"
-                     tw-click-outside="closesendDropDown()" ignore-if="!sendDropDown"
-                     ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
-                    <div class="float-left w-75">
-                        <a>
-                            <div class="col-md-2 m-1 p-0" ng-show="selectedSendAsset !== 'All Assets'">
-                                <img ng-if="selectedSendHasImage"
-                                     ng-src="images/verifiedassets/{{selectedSendImage}}"/>
-                                <span ng-if="!selectedSendHasImage"
-                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
+        <div class="col-md-12">
+            <div class="make-swap-section-new" ng-show="showSwapMarket === true">
+                <div class="action-grp">
+
+                    <div class="action-item">
+                        <div class="action-title">YOU SEND</div>
+                        <div class="mss-action-selected-wrapper">
+                            <a class="btn btn-secondary custom-dropdown mt-1 mss-action-selected"
+                                tw-click-outside="closesendDropDown()" ignore-if="!sendDropDown"
+                                ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
+                                <div class="ad-all-assets-selected"
+                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset == 'All Assets'"
+                                >All Assets</div>
+                                <div class="usan-selected"
+                                        ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                    <span class="name">USAN</span>
+                                    <span class="address">{{usanAddress}}</span>
+                                </div>
+
+                                <div class="mss-asset-selected" click-out="!sendDropDown"
+                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset !== 'All Assets'">
+                                    <img class="icon" ng-if="selectedSendHasImage"
+                                            ng-src="images/verifiedassets/{{selectedSendImage}}"/>
+                                    <span ng-if="!selectedSendHasImage"
+                                            class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{selectedSendAssetSymbol}}</span>
+                                    <div class="details-address">
+                                        <div class="details">
+                                                <div class="name">{{extractNameOnlyFromAssetNameSymbol(selectedSendAsset, selectedSendAssetSymbol)}}</div>
+                                                <div class="symbol">{{selectedSendAssetSymbol}}</div>
+                                                <img class="verifier" ng-if="selectedSendVerified"
+                                                    src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="verifier" ng-if="!selectedSendVerified"
+                                                    src="./images/unverified.svg" height="14px" width="14px"/>
+                                        </div>
+                                        <div class="address">{{formatAddress(selectedSendContract)}}</div>
+                                    </div>
+                                    
+                                </div>
+
+                            </a>
+                            <div class="mss-action-dropdown"
+                                    ng-show="sendDropDown"
+                                    tw-click-outside="closeSendDropDown()" ignore-if="!sendDropDown"
+                            >
+                                <div class="ad-input-wrapper">
+                                    <input type="text" class="form-control ad-input"
+                                            id="searchSendAsset"
+                                            ng-model="searchSendAsset"
+                                            placeholder="Search Assets, Symbols, and IDs">
+                                    <img class="ad-input-icon" src="./images/s.svg" height="14px"
+                                            width="14px"/>
+                                </div>
+                                <div class="ad-usan" ng-click="setMakeUSAN()">
+                                    <div class="ad-usan-content">
+                                        <div class="usan-selected">
+                                            <span class="name">USAN</span>
+                                            <span class="address">{{usanAddress}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ad-all-assets" ng-click="setAllAssetsInSend()">All Assets</div>
+                                <div class="ad-search-grp">
+                                    <div class="grp-title">VERIFIED ASSETS</div>
+                                    <div
+                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true'} track by $index">
+                                        <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
+                                            <div class="search-item">
+                                                <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                <div class="details-wrapper">
+                                                    <div class="details">
+                                                        <div class="name">{{asset.name}}</div>
+                                                        <div class="currency">{{asset.symbol}}</div>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                    </div>
+                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ad-search-grp">
+                                    <div class="grp-title">UNVERIFIED ASSETS</div>
+                                    <div
+                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true'} track by $index">
+                                        <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
+                                            <div class="search-item">
+                                                <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                <div class="details-wrapper">
+                                                    <div class="details">
+                                                        <div class="name">{{asset.name}}</div>
+                                                        <div class="currency">{{asset.symbol}}</div>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                    </div>
+                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col" click-out="!sendDropDown">
-                                {{selectedSendAsset}}
-                                <span
-                                        class="color-Active official-fusion-badge-new "
-                                        ng-show="selectedSendVerified && selectedSendAsset !== 'All Assets'">
-                                        <img src="./images/verified.svg" height="14px" width="14px"/>
-                                </span>
-                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(selectedSendContract)}}</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="float-right text-right">
-                        <img src="images/caret-down.svg" class="Group-6">
-                    </div>
-                </div>
-                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="sendDropDown"
-                     tw-click-outside="closeSendDropDown()" ignore-if="!sendDropDown">
-                    <form class="form-inline">
-                        <div class="form-group m-0">
-                            <input type="text" class="form-control"
-                                   id="searchSendAsset"
-                                   ng-model="searchSendAsset"
-                                   placeholder="Search by Symbol, Name, or ID">
                         </div>
-                    </form>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                         ng-click="setMakeUSAN()">
-                        <span class="badge badge-success badge-info">
-                            USAN <strong>{{usanAddress}}</strong>
+                    </div>
+                    <img class="switch-btn" src="./images/swap-new.svg" ng-click="switchAsset()" width="32px" height="32px" />
+                    <div class="action-item">
+                        <div class="action-title">YOU RECEIVE</div>
+                        <div class="mss-action-selected-wrapper">
+                            <a class="btn btn-secondary custom-dropdown mt-1 mss-action-selected"
+                                tw-click-outside="closereceiveDropDown()" ignore-if="!receiveDropDown"
+                                ng-click="receiveDropDown = !receiveDropDown">
+                                <div class="ad-all-assets-selected"
+                                    ng-show="selectedReceiveAsset == 'All Assets'"
+                                >All Assets</div>
+                                <div class="ad-all-assets-selected"
+                                    ng-show="selectedReceiveContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"
+                                >All Short Account Numbers</div>
+                                <div class="mss-asset-selected" click-out="!receiveDropDown"
+                                    ng-show="selectedReceiveContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedReceiveAsset !== 'All Assets'">
+                                    <img class="icon" ng-if="selectedReceiveHasImage"
+                                            ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
+                                    <span ng-if="!selectedReceiveHasImage"
+                                            class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{selectedReceiveAssetSymbol}}</span>
+                                    <div class="details-address">
+                                        <div class="details">
+                                                <div class="name">{{extractNameOnlyFromAssetNameSymbol(selectedReceiveAsset, selectedReceiveAssetSymbol)}}</div>
+                                                <div class="symbol">{{selectedReceiveAssetSymbol}}</div>
+                                                <img class="verifier" ng-if="selectedReceiveVerified"
+                                                    src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="verifier" ng-if="!selectedReceiveVerified"
+                                                    src="./images/unverified.svg" height="14px" width="14px"/>
+                                        </div>
+                                        <div class="address">{{formatAddress(selectedReceiveContract)}}</div>
+                                    </div>
+                                    
+                                </div>
+
+                            </a>
+                            <div class="mss-action-dropdown"
+                                    ng-show="receiveDropDown"
+                                    tw-click-outside="closeReceiveDropDown()" ignore-if="!receiveDropDown"
+                            >
+                                <div class="ad-input-wrapper">
+                                    <input type="text" class="form-control ad-input"
+                                            id="searchReceiveAsset"
+                                            ng-model="searchReceiveAsset"
+                                            placeholder="Search Assets, Symbols, and IDs">
+                                    <img class="ad-input-icon" src="./images/s.svg" height="14px"
+                                            width="14px"/>
+                                </div>
+                                <div class="ad-all-assets" ng-click="setAllAssetsInReceive()">All Assets</div>
+                                <div class="ad-all-assets" ng-click="setReceiveUSAN()">All Short Account Numbers</div>
+                                <div class="ad-search-grp">
+                                    <div class="grp-title">VERIFIED ASSETS</div>
+                                    <div
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true'} track by $index">
+                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                            <div class="search-item">
+                                                <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                <div class="details-wrapper">
+                                                    <div class="details">
+                                                        <div class="name">{{asset.name}}</div>
+                                                        <div class="currency">{{asset.symbol}}</div>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                    </div>
+                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ad-search-grp">
+                                    <div class="grp-title">UNVERIFIED ASSETS</div>
+                                    <div
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true'} track by $index">
+                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                            <div class="search-item">
+                                                <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                <div class="details-wrapper">
+                                                    <div class="details">
+                                                        <div class="name">{{asset.name}}</div>
+                                                        <div class="currency">{{asset.symbol}}</div>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                    src="./images/verified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                        <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                    src="./images/unverified.svg"
+                                                                    height="14px" width="14px"/></span>
+                                                    </div>
+                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="asset-balance">
+                        <div class="ab-title">ASSET BALANCE</div>
+                        <div class="ab-select" ng-hide="selectedAssetBalance >= 0">Select asset first</div>
+                        <div class="ab-details" ng-show="selectedAssetBalance >= 0">
+                            <div class="asset">{{selectedAssetBalance}}</div>
+                            <div class="currency">{{selectedAssetSymbol}}</div>
+                        </div>
+                        <span class="small-gray-text" style="font-size:10px;" ng-hide="!sendHasTimeLockBalance">
+                            <img class="time-lock" src="images/sendtl.svg" width="10px"> Has Time-Lock Balance
                         </span>
                     </div>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets" ng-click="setAllAssetsInSend()">
-                        <a>
-                            All Assets
-                        </a>
-                    </div>
-                    <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown bg-white"
-                         ng-repeat="asset in assetList | filter:searchSendAsset | orderBy:'-verified' track by $index">
-                        <a ng-click="setSendAllAssets(asset.id)">
-                            <div class="col-md-2 p-0">
-                                <img ng-if="asset.hasImage"
-                                     ng-src="images/verifiedassets/{{asset.image}}"/>
-                                <span ng-if="!asset.hasImage"
-                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                            </div>
-                            <div class="col">
-                                <span class="fusion-text-14">
-                        {{asset.name.substr(0,20)}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                             ng-show="asset.verified">                                    <img
-                                                src="./images/verified.svg" height="14px" width="14px"/></span>
-</span>
-                                <br>
-                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
-                                </span>
-                            </div>
-
-                        </a>
-                    </div>
                 </div>
-            </div>
-            <div class="col-md-1 text-center">
-                <div>
-                    <img src="./images/Switcher.svg"
-                         class="mb-2 mt-3"
-                         ng-click="switchAsset()"
-                    />
-                </div>
-            </div>
-            <div class="col-md-3 text-left">
-                <span class="small-gray-text">YOU RECEIVE</span>
-                <br>
-                <div class="col-md-12 col-xs-12 p-1 mt-1 asset-dropdown mn-55 border-gray-dropdown bg-white"
-                     tw-click-outside="closereceiveDropDown()" ignore-if="!receiveDropDown"
-                     ng-click="receiveDropDown = !receiveDropDown">
-                    <div class="float-left w-75">
-                        <a>
-                            <div class="col-md-2 m-1 p-0" ng-show="selectedReceiveAsset !== 'All Assets'">
-                                <img ng-if="selectedReceiveHasImage"
-                                     ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
-                                <span ng-if="!selectedReceiveHasImage && selectedReceiveAsset !== 'All Assets'"
-                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
-
-                            </div>
-                            <div class="col">
-                                {{selectedReceiveAsset}} <span
-                                        class="color-Active official-fusion-badge-new"
-                                        ng-show="selectedReceiveVerified && selectedReceiveAsset !== 'All Assets'">                                    <img
-                                            src="./images/verified.svg" height="14px" width="14px"/></span>
-                                </span>
-                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(selectedReceiveContract)}}</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="float-right text-right">
-                        <img src="images/caret-down.svg" class="Group-6">
-                    </div>
-                </div>
-                <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width" ng-show="receiveDropDown"
-                     tw-click-outside="closeReceiveDropDown()" ignore-if="!receiveDropDown">
-                    <form class="form-inline">
-                        <div class="form-group m-0">
-                            <input type="text" class="form-control"
-                                   id="searchReceiveAsset"
-                                   ng-model="searchReceiveAsset"
-                                   placeholder="Search by Symbol, Name, or ID">
-                        </div>
-                    </form>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                         ng-click="setAllAssetsInReceive()">
-                        <a>
-                            All Assets
-                        </a>
-                    </div>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown allassets"
-                         ng-click="setReceiveUSAN()">
-                        All Short Account Numbers</strong>
-                    </div>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
-                         ng-repeat="asset in assetList | filter:{'contractaddress':'0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'} | orderBy:'-verified' track by $index">
-                        <a ng-click="setReceiveAsset(asset.id)">
-                            <div class="col-md-2 p-0">
-                                <img ng-if="asset.hasImage"
-                                     ng-src="images/verifiedassets/{{asset.image}}"/>
-                                <span ng-if="!asset.hasImage"
-                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                            </div>
-                            <div class="col">
-                                <span class="fusion-text-14">
-                        {{asset.name.substr(0,20)}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                             ng-show="asset.verified">                                    <img
-                                                src="./images/verified.svg" height="14px" width="14px"/></span>
-</span>
-                                <br>
-                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-12 col-xs-12 p-2 mt-1 asset-dropdown"
-                         ng-repeat="asset in assetList | filter:searchReceiveAsset | filter:{'contractaddress':'!0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'} | orderBy:'-verified' track by $index">
-                        <a ng-click="setReceiveAsset(asset.id)">
-                            <div class="col-md-2 p-0">
-                                <img ng-if="asset.hasImage"
-                                     ng-src="images/verifiedassets/{{asset.image}}"/>
-                                <span ng-if="!asset.hasImage"
-                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{asset.symbol}}</span>
-                            </div>
-                            <div class="col">
-                                <span class="fusion-text-14">
-                        {{asset.name.substr(0,20)}} ({{asset.symbol}}) <span class="color-Active official-fusion-badge"
-                                                                             ng-show="asset.verified">                                    <img
-                                                src="./images/verified.svg" height="14px" width="14px"/></span>
-</span>
-                                <br>
-                                <span class="small-gray-text max-char inline swap-market-address">{{formatAddress(asset.contractaddress)}}</span>
-                                </span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 text-left">
-                <span class="small-gray-text">Asset Balance</span>
-                <br>
-                <div class="sendAssetBalanceAvailable w-50" ng-hide="selectedAssetBalance >= 0">
-                    <span class="small-gray-text ng-binding">Select asset first</span>
-                </div>
-                <div class="sendAssetBalanceAvailable display-web-inline-block" ng-show="selectedAssetBalance >= 0">
-                <span class="text-fusion ng-binding"><strong
-                            class="font-size-16">{{selectedAssetBalance}}</strong> <span
-                            class="font-size-12">{{selectedAssetSymbol}}</span></span>
-                </div>
-                <br>
-                <span class="small-gray-text" style="font-size:10px;" ng-hide="!sendHasTimeLockBalance">
-                                <img class="mr-2" src="images/sendtl.svg" width="10px"> Has Time-Lock Balance
-            </span>
-            </div>
-            <div class="col-md-2 text-right">
-                <span class="small-gray-text"> </span>
-                <br>
-                <button class="btn btn-primary make-swap-btn" ng-click="makeModal()"
+                <button class="btn btn-primary ms-btn" ng-click="makeModal()"
                         ng-class="{'disabled' : web3WalletBalance <= 0.00021}"
                         ng-disabled="web3WalletBalance <= 0.00021">Make Swap
                 </button>
@@ -244,11 +292,11 @@
                     <table class="table table-new" ng-show="openTakeSwaps != 0 && !showLoader">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col">Price</th>
+                            <th class="text-left header-left-edge" scope="col">Price</th>
                             <th class="text-right" scope="col">You Send</th>
                             <th class="text-right" scope="col">You Receive</th>
                             <th class="text-right" scope="col">Minimum Fill</th>
-                            <th class="text-right" scope="col" class="float-right">Actions</th>
+                            <th class="text-right header-right-edge" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -334,11 +382,11 @@
                     <table class="table table-new" ng-show="openMakeSwaps != 0 && !showLoader">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col">Price</th>
+                            <th class="text-left header-left-edge" scope="col">Price</th>
                             <th class="text-right" scope="col">You Send</th>
                             <th class="text-right" scope="col">You Receive</th>
                             <th class="text-right" scope="col">Minimum Fill</th>
-                            <th class="text-right" scope="col" class="float-right">Actions</th>
+                            <th class="text-right header-right-edge" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -418,20 +466,20 @@
                         <div class="float-left">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-12 pl-2">
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <input type="text" ng-model="searchSwapMarket"
-                                                       class="form-control m-0 search-swap-input"
-                                                       placeholder="Search">
-                                            </div>
-                                        </form>
+                                    <div class="">
+                                        <div class="table-input-wrapper">
+                                            <input type="text" class="form-control ad-input"
+                                                    ng-model="searchSwapMarket"
+                                                    placeholder="Search">
+                                            <img class="ad-input-icon" src="./images/s.svg" height="14px"
+                                                    width="14px"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="float-right">
-                            <div class="col-md-12">
+                            <div class="">
                                 <form class="form-group form-inline align-middle">
                                     <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
                                         of {{totalRowsSwapsQuery}}
@@ -463,11 +511,11 @@
                     <table class="table table-new" ng-show="swapsList.length > 0 && !allSwapsRunning">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col">PRICE</th>
+                            <th class="text-left header-left-edge" scope="col">PRICE</th>
                             <th class="text-right" scope="col">YOU SEND</th>
                             <th class="text-right" scope="col">YOU RECEIVE</th>
                             <th class="text-right" scope="col">Minimum Fill</th>
-                            <th class="text-right" scope="col" class="float-right">
+                            <th class="text-right header-right-edge" scope="col" class="float-right">
                                 Actions
                             </th>
                         </tr>
