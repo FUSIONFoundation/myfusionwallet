@@ -466,20 +466,20 @@
                         <div class="float-left">
                             <div class="col-md-12">
                                 <div class="row">
-                                    <div class="col-md-12 pl-2">
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <input type="text" ng-model="searchSwapMarket"
-                                                       class="form-control m-0 search-swap-input"
-                                                       placeholder="Search">
-                                            </div>
-                                        </form>
+                                    <div class="">
+                                        <div class="table-input-wrapper">
+                                            <input type="text" class="form-control ad-input"
+                                                    ng-model="searchSwapMarket"
+                                                    placeholder="Search">
+                                            <img class="ad-input-icon" src="./images/s.svg" height="14px"
+                                                    width="14px"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="float-right">
-                            <div class="col-md-12">
+                            <div class="">
                                 <form class="form-group form-inline align-middle">
                                     <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
                                         of {{totalRowsSwapsQuery}}
