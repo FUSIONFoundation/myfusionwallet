@@ -292,11 +292,11 @@
                     <table class="table table-new" ng-show="openTakeSwaps != 0 && !showLoader">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col">Price</th>
+                            <th class="text-left header-left-edge" scope="col">Price</th>
                             <th class="text-right" scope="col">You Send</th>
                             <th class="text-right" scope="col">You Receive</th>
                             <th class="text-right" scope="col">Minimum Fill</th>
-                            <th class="text-right" scope="col" class="float-right">Actions</th>
+                            <th class="text-right header-right-edge" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -382,11 +382,11 @@
                     <table class="table table-new" ng-show="openMakeSwaps != 0 && !showLoader">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col">Price</th>
+                            <th class="text-left header-left-edge" scope="col">Price</th>
                             <th class="text-right" scope="col">You Send</th>
                             <th class="text-right" scope="col">You Receive</th>
                             <th class="text-right" scope="col">Minimum Fill</th>
-                            <th class="text-right" scope="col" class="float-right">Actions</th>
+                            <th class="text-right header-right-edge" scope="col" class="float-right">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -511,11 +511,11 @@
                     <table class="table table-new" ng-show="swapsList.length > 0 && !allSwapsRunning">
                         <thead>
                         <tr class="small-gray-table">
-                            <th class="text-left" scope="col">PRICE</th>
+                            <th class="text-left header-left-edge" scope="col">PRICE</th>
                             <th class="text-right" scope="col">YOU SEND</th>
                             <th class="text-right" scope="col">YOU RECEIVE</th>
                             <th class="text-right" scope="col">Minimum Fill</th>
-                            <th class="text-right" scope="col" class="float-right">
+                            <th class="text-right header-right-edge" scope="col" class="float-right">
                                 Actions
                             </th>
                         </tr>
