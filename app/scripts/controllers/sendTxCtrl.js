@@ -2315,6 +2315,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     endTimePosix
                 );
 
+                let value = new window.BigNumber(timeLockList[asset]["Items"][i]["Value"]);
+                let valueDecimal = new window.BigNumber($scope.countDecimals(res["Decimals"]));
+                let valueFinal = value.div(valueDecimal);
+
                 let data = {
                     id: timeLockListSave.length,
                     status: status,
@@ -2327,7 +2331,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     posixStartTime: startTimePosix,
                     posixEndTime: endTimePosix,
                     rawValue: timeLockList[asset]["Items"][i]["Value"],
-                    value: parseInt(timeLockList[asset]["Items"][i]["Value"]) / divider,
+                    value: valueFinal.toString(),
                     image: verifiedImage,
                     hasImage: hasImage,
                     verified: verifiedAsset

@@ -434,37 +434,72 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             }
 
             if ($scope.wallet.hwType == "trezor") {
-                let rawTx = data;
-                let oldTx = Object.assign(rawTx, {});
-                rawTx.chainId = parseInt(_CHAINID);
-                rawTx.gasLimit = "0x2EE0";
-                let gasPrice = web3.utils.toWei(new web3.utils.BN(2), "gwei");
-                rawTx.gasPrice = "0x" + gasPrice.toString(16);
-                rawTx.gas = "0x15F90"
-                return TrezorConnect.ethereumSignTransaction({
-                    path: $scope.wallet.getPath(),
-                    transaction: rawTx
-                }).then(function (result) {
-                    var rv = parseInt(result.payload.v, 16);
-                    var cv = parseInt(_CHAINID) * 2 + 35;
-                    if (rv !== cv && (rv & cv) !== rv) {
-                        cv += 1; // add signature v bit.
-                    }
-                    let v = cv.toString(16);
-                    rawTx.r = result.payload.r;
-                    rawTx.s = result.payload.s;
-                    rawTx.v = "0x" + v;
+                let path = "m/44'/60'/0'/0";
 
-                    console.log(rawTx);
-                    web3.fsntx.sendRawTransaction(rawTx).then(function (txHash) {
-                        console.log(txHash);
-                        $scope.requestedSAN = true;
-                        $scope.$apply(function () {
-                            $scope.addressNotation.value = 'USAN Requested';
-                            $scope.addressNotation.value = 'USAN Requested';
-                        })
-                    })
-                });
+                let trezorCallBack = ({ error = null , success, payload: { v, r, s } }) => {
+
+                    if(!success){
+                        console.log(error);
+                        throw error;
+                    }
+                    // check the returned signature_v and recalc signature_v if it needed
+                    // see also https://github.com/trezor/trezor-mcu/pull/399
+                    if (v <= 1) {
+                        // for larger chainId, only signature_v returned. simply recalc signature_v
+                        v += 2 * data.chainId + 35;
+                    }
+
+
+                    data.v = ethFuncs.sanitizeHex(v)
+                    if(data.v.indexOf('0x0') === 0){
+                        let i = data.v.substr(3,data.v.length);
+                        let x = "0x" + i;
+                        data.v = x;
+                    }
+                    data.r = ethFuncs.sanitizeHex(r);
+                    if(data.r.indexOf('0x0') === 0){
+                        let i = data.r.substr(3,data.r.length);
+                        let x = "0x" + i;
+                        data.r = x;
+                    }
+                    data.s = ethFuncs.sanitizeHex(s);
+                    if(data.s.indexOf('0x0') === 0){
+                        let i = data.s.substr(3,data.s.length);
+                        let x = "0x" + i;
+                        data.s = x;
+                    }
+
+                    const eTx = new ethUtil.Tx(data);
+                    data.rawTx = JSON.stringify(data);
+                    data.signedTx = ethFuncs.sanitizeHex(eTx.serialize().toString("hex"));
+                    data.isError = false;
+                    delete data.isError;
+                    delete data.rawTx;
+                    delete data.signedTx;
+                    console.log(data);
+                    try {
+                    web3.fsntx.sendRawTransaction(data).then(function(r){
+                        console.log(r);
+                    }) } catch ( err ){
+                        console.log( err );
+                    }
+                    return data;
+                }
+
+                data.gasLimit = (new window.BigNumber(21000)).toString(16);
+
+                const options = {
+                    path,
+                    transaction: data
+                };
+                try {
+                    return window.TrezorConnect.ethereumSignTransaction(options).then(result => {
+                        // console.log(result)
+                        trezorCallBack(result)
+                    });
+                } catch (err){
+                    console.log(err);
+                }
             }
         }
         await $scope.getShortAddressNotation();

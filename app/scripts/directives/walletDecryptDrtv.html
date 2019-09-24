@@ -850,7 +850,7 @@
                         Derivation path
                     </h5>
                     <div id="dropdownButton" class="hidden-dropdown-menu p-2" ng-click="openWalletMenu()">
-                        <h5 id="dropdownButton" class="font-weight-bold small">{{walletDescription}} 
+                        <h5 id="dropdownButton" class="font-weight-bold small">{{walletDescription}}
                             <span id="dropdownButton" class="float-right">
                                 <i class="fa fa-sort-desc" aria-hidden="true"></i>
                             </span>
@@ -1170,15 +1170,15 @@
                     </ul>
                 </div>
                 <div class="col-md-5">
-                    <h5 
-                        class="modal-title ledger-message" 
-                        style="margin-bottom: .25rem" 
+                    <h5
+                        class="modal-title ledger-message"
+                        style="margin-bottom: .25rem"
                         ng-show="HDWallet.dPath === HDWallet.customDPath">
                         Custom path
                     </h5>
                     <div class="custom-path" ng-show="HDWallet.dPath === HDWallet.customDPath">
                         <input aria-describedby="Path: Enter your own - {{HDWallet.customDPath}}"
-                                type="text" 
+                                type="text"
                                 class="form-control input-sm"
                                 ng-model="HDWallet.customDPath"
                                 ng-change="onCustomHDDPathChange()"

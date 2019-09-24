@@ -89,6 +89,10 @@ if (IS_CX) {
     var secalotEth = require("./staticJS/secalotEth");
     window.Ledger3 = ledger3;
     window.ledgerEth = ledgerEth;
+    trezorConnect.manifest({
+        email: 'joey@fusion.org',
+        appUrl: 'https://www.myfusionwallet.com'
+    });
     window.TrezorConnect = trezorConnect;
     window.DigitalBitboxUsb = digitalBitboxUsb;
     window.DigitalBitboxEth = digitalBitboxEth;
