@@ -260,7 +260,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let z = true;
         if (!$scope.selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe') {
             if ($scope.makeSendAmount == '' || $scope.makeReceiveAmount == '' || $scope.makeMinumumSwap == '') {
-                 z = true;
+                z = true;
             } else {
                 let a = new window.BigNumber($scope.makeSendAmount.toString());
                 let b = new window.BigNumber($scope.selectedAssetBalance.toString());
@@ -343,7 +343,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
 
     $scope.nextPage = function () {
-        if($scope.currentPage === $scope.endPage) { return; }
+        if ($scope.currentPage === $scope.endPage) {
+            return;
+        }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage + 1;
             $scope.searchSwapMarket = "";
@@ -370,7 +372,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.previousPage = function () {
-        if($scope.currentPage == 0){ return; }
+        if ($scope.currentPage == 0) {
+            return;
+        }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage - 1;
             $scope.searchSwapMarket = "";
@@ -609,14 +613,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     // format address if length >= 20 (e.g. 0xffffff...ffffffff)
     $scope.formatAddress = function (address) {
-        if(!address || address.length < 20)
+        if (!address || address.length < 20)
             return address;
-        return address.substring(0, 8) + "..." + address.substring(address.length-8, address.length);
+        return address.substring(0, 8) + "..." + address.substring(address.length - 8, address.length);
     };
 
     // extract address from asset symbol, e.g. "1234"  from "USAN 1234"
     $scope.extractAddressFromAssetSymbol = function (assetSymbol) {
-        if(!assetSymbol || assetSymbol.length < 4)
+        if (!assetSymbol || assetSymbol.length < 4)
             return assetSymbol;
         return assetSymbol.substring(5, assetSymbol.length);
     };
@@ -625,9 +629,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     // e.g. "Thiendia11"  from "Thiendia11 (TD11)"
     $scope.extractNameOnlyFromAssetNameSymbol = function (nameSymbol, symbol) {
         let allowance = 3; // 2 parenthesis + space
-        if(!nameSymbol || !symbol || nameSymbol.length <= (symbol.length+allowance))
+        if (!nameSymbol || !symbol || nameSymbol.length <= (symbol.length + allowance))
             return nameSymbol;
-        return nameSymbol.substring(0, ((nameSymbol.length-(symbol.length+allowance))));
+        return nameSymbol.substring(0, ((nameSymbol.length - (symbol.length + allowance))));
     };
 
     $scope.swapInformationModalOpen = async function (swap_id) {
@@ -1436,7 +1440,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
 
-
     $scope.takeId = 0;
     $scope.takeModal = async function (id, pass) {
         let accountData = uiFuncs.getTxData($scope);
@@ -1988,11 +1991,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             );
         }
 
-        if(data.ToAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
+        if (data.ToAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
             data.MinToAmount = "0x" + "1".toString(16);
         }
-        if(data.FromAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe"){
-            data.MinFromAmount = "0x"+ "1".toString(16);
+        if (data.FromAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+            data.MinFromAmount = "0x" + "1".toString(16);
         }
 
         try {
@@ -2256,7 +2259,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     swaps = r.data;
                 });
                 for (let swap in swaps) {
-                    if(swaps[swap].data) {
+                    if (swaps[swap].data) {
                         let data = JSON.parse(swaps[swap].data);
                         swapList[data["SwapID"]] = data;
                         swapList[data["SwapID"]].size = swaps[swap].size
@@ -2511,23 +2514,24 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
     });
 
-    $scope.setPagination = async (currentPage,totalSwapsInQuery) => {
+    $scope.setPagination = async (currentPage, totalSwapsInQuery) => {
         // Calculate shown rows
         let shownRows;
-        if ( currentPage === 0 ){
-            shownRows = (currentPage+1) * 10;
+        if (currentPage === 0) {
+            shownRows = (currentPage + 1) * 10;
         } else {
-            shownRows = (currentPage+1) * 10;
+            shownRows = (currentPage + 1) * 10;
         }
 
-        if(($scope.totalRowsSwapsQuery- shownRows) < 10){
+        if (($scope.totalRowsSwapsQuery - shownRows) < 10) {
             shownRows = $scope.totalRowsSwapsQuery;
         }
         $scope.$applyAsync(function () {
-            if(totalSwapsInQuery){
+            if (totalSwapsInQuery) {
                 $scope.totalRowsSwapsQuery = totalSwapsInQuery
-                $scope.endPage = Math.ceil(totalSwapsInQuery / 10)-1;
-            };
+                $scope.endPage = Math.ceil(totalSwapsInQuery / 10) - 1;
+            }
+            ;
             $scope.shownRows = shownRows;
         })
     }
@@ -2571,19 +2575,19 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             try {
                 await ajaxReq.http.get(url).then(function (r) {
-                    if(r.data[size]){
-                        if(r.data[size][0] !== undefined){
+                    if (r.data[size]) {
+                        if (r.data[size][0] !== undefined) {
                             totalSwapsInQuery = (r.data[size][0]["COUNT(*)"])
                         }
                         delete r.data[size];
-                        if(page === 0){
-                            $scope.setPagination(page,totalSwapsInQuery);
+                        if (page === 0) {
+                            $scope.setPagination(page, totalSwapsInQuery);
                         } else {
                             $scope.setPagination(page);
                         }
                     }
                     for (let swap in r.data) {
-                        if(r.data[swap].data) {
+                        if (r.data[swap].data) {
                             let data = JSON.parse(r.data[swap].data);
                             let fromAddress = r.data[swap]["fromAddress"];
                             swapList[data.SwapID] = data;
@@ -2617,11 +2621,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromHasImage = false;
                 let fromVerified = false;
 
-                if(fromAsset && toAsset) {
+                if (fromAsset && toAsset) {
 
-                    if(fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+                    if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
                         let swap = {};
-                        await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function(r){
+                        await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function (r) {
                             swap = r;
                         });
                         let USAN = swap["Notation"];
@@ -2794,15 +2798,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         toHasImage: toHasImage,
                         toVerified: toVerified
                     };
-                    if (!$scope.targesArray.includes(walletAddress)) {
+                    if (swapList[asset]["Targes"].length > 0) {
+                        if (swapList[asset]["Targes"].includes(walletAddress)) {
+                            await swapListFront.push(data)
+                        }
+                    } else if (swapList[asset]["Targes"].length === 0) {
                         await swapListFront.push(data);
                     }
                 }
             }
+
+            console.log(swapListFront);
             $scope.$eval(function () {
                 $scope.swapsList = swapListFront;
                 // sort according to timePosixValue
-                $scope.swapsList = $scope.swapsList.sort(function(a, b){return b.timePosixValue - a.timePosixValue});
+                $scope.swapsList = $scope.swapsList.sort(function (a, b) {
+                    return b.timePosixValue - a.timePosixValue
+                });
                 $scope.showLoader = false;
             });
             $scope.allSwapsRunning = false;
@@ -2830,7 +2842,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 await ajaxReq.http.get(`${window.getApiServer()}/swaps2/all?target=${walletAddress}&page0&size=100`).then(function (r) {
                     console.log(r);
                     for (let swap in r.data) {
-                        if(r.data[swap].data) {
+                        if (r.data[swap].data) {
                             let data = JSON.parse(r.data[swap].data);
                             swapList[data.SwapID] = data;
                             swapList[data.SwapID].size = r.data[swap].size;
@@ -3061,7 +3073,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
-    $scope.convertTimePosixToNumber = function(asset){
+    $scope.convertTimePosixToNumber = function (asset) {
         return parseInt(asset.timePosix);
     };
 };
