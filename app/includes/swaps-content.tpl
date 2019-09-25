@@ -537,7 +537,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in swapsList | orderBy:'convertTimePosixToNumber'">
+                        <tr ng-repeat="asset in swapsList | filter:searchSwapMarket | orderBy:'convertTimePosixToNumber'">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
