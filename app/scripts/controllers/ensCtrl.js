@@ -2619,20 +2619,18 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
                 if(fromAsset && toAsset) {
 
-                    // If Make Swap is USAN
-                    if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
-                    try {
-                        await ajaxReq.http.get(`${window.getApiServer()}/swaps/${swapList[asset]["SwapID"]}`).then(function (r) {
-                            console.log(r.data)
-                            owner = r.data[0].fromAddress;
-                        });
-                    } catch (err) {
-                        console.log(err);
-                    }
+                    if(fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+                        let swap = {};
 
-                    let USAN = await web3.fsn.getNotation(owner);
-                    fromAsset.Symbol = `USAN ${USAN}`;
-                    fromAsset.Name = USAN;
+                        console.log(swapList[asset])
+                        await web3.fsn.getSwap(swapList[asset]["ID"]).then(function(r){
+                            swap = r;
+                        });
+
+                        console.log(swap);
+                        let USAN = swapList[asset]["Notation"];
+                        fromAsset.Symbol = `USAN ${USAN}`;
+                        fromAsset.Name = USAN;
                     }
 
                     for (let a in window.verifiedAssetsImages) {
