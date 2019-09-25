@@ -41,16 +41,19 @@
                                 tw-click-outside="closesendDropDown()" ignore-if="!sendDropDown"
                                 ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
                                 <div class="ad-all-assets-selected"
-                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset == 'All Assets'"
+                                    ng-show="selectedSendContract !== DEFAULT_USAN && selectedSendAsset == 'Select asset'"
+                                >Select asset</div>
+                                <div class="ad-all-assets-selected"
+                                    ng-show="selectedSendContract !== DEFAULT_USAN && selectedSendAsset == 'All Assets'"
                                 >All Assets</div>
                                 <div class="usan-selected"
-                                        ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                        ng-show="selectedSendContract == DEFAULT_USAN">
                                     <span class="name">USAN</span>
                                     <span class="address">{{usanAddress}}</span>
                                 </div>
 
                                 <div class="mss-asset-selected" click-out="!sendDropDown"
-                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset !== 'All Assets'">
+                                    ng-show="selectedSendContract !== DEFAULT_USAN && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset'">
                                     <img class="icon" ng-if="selectedSendHasImage"
                                             ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                     <span ng-if="!selectedSendHasImage"
@@ -94,13 +97,13 @@
                                 <div class="ad-search-grp">
                                     <div class="grp-title">VERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true'} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -123,13 +126,13 @@
                                 <div class="ad-search-grp">
                                     <div class="grp-title">UNVERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true'} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -159,14 +162,13 @@
                             <a class="btn btn-secondary custom-dropdown mt-1 mss-action-selected"
                                 tw-click-outside="closereceiveDropDown()" ignore-if="!receiveDropDown"
                                 ng-click="receiveDropDown = !receiveDropDown">
+                                <div class="ad-all-assets-selected" ng-show="selectedReceiveAsset == 'Select asset'">Select asset</div>
+                                <div class="ad-all-assets-selected" ng-show="selectedReceiveAsset == 'All Assets'">All Assets</div>
                                 <div class="ad-all-assets-selected"
-                                    ng-show="selectedReceiveAsset == 'All Assets'"
-                                >All Assets</div>
-                                <div class="ad-all-assets-selected"
-                                    ng-show="selectedReceiveContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"
+                                    ng-show="selectedReceiveContract == DEFAULT_USAN"
                                 >All Short Account Numbers</div>
                                 <div class="mss-asset-selected" click-out="!receiveDropDown"
-                                    ng-show="selectedReceiveContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedReceiveAsset !== 'All Assets'">
+                                    ng-show="selectedReceiveContract !== DEFAULT_USAN && selectedReceiveAsset !== 'All Assets' && selectedReceiveAsset !== 'Select asset'">
                                     <img class="icon" ng-if="selectedReceiveHasImage"
                                             ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                                     <span ng-if="!selectedReceiveHasImage"
@@ -203,13 +205,13 @@
                                 <div class="ad-search-grp">
                                     <div class="grp-title">VERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true'} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -232,13 +234,13 @@
                                 <div class="ad-search-grp">
                                     <div class="grp-title">UNVERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true'} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -302,19 +304,18 @@
                         <tbody>
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-
                                 <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
-                                    <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
-                                    <div class="currency">{{asset.toAssetSymbol}}</div>
-                                    <div class="colon">:</div>
-                                    <div class="asset">1</div>
-                                    <div class="currency">{{asset.fromAssetSymbol}}</div>
+                                    <div class="asset" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.swapratetaker.toFixed(4)}}</div>
+                                    <div class="currency" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.toAssetSymbol}}</div>
+                                    <div class="colon" ng-hide="asset.fromAssetId == DEFAULT_USAN || asset.toAssetId == DEFAULT_USAN">:</div>
+                                    <div class="asset" ng-hide="asset.fromAssetId == DEFAULT_USAN">1</div>
+                                    <div class="currency" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.fromAssetSymbol}}</div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
+                                ng-class="{'usan-cell-reset' : asset.toAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.toAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.toAmountCut}}</div>
                                         <div class="currency">{{asset.toAssetSymbol}}</div>
@@ -326,9 +327,15 @@
                                         <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
                                     </div>
                                 </div>
+                                <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.toAssetSymbol)}}</span></div>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
+                                ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.fromAmountCut}}</div>
                                         <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -338,6 +345,11 @@
                                     <div class="row-layout time-range" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
+                                    </div>
+                                </div>
+                                <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span></div>
                                     </div>
                                 </div>
                             </td>
@@ -393,17 +405,16 @@
                         <tr ng-repeat="asset in openMakes | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
                         >
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
-                                    <div class="asset">{{asset.swaprate.toFixed(4)}}</div>
-                                    <div class="currency">{{asset.fromAssetSymbol}}</div>
-                                    <div class="colon">:</div>
+                                    <div class="asset" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.swaprate.toFixed(4)}}</div>
+                                    <div class="currency" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.fromAssetSymbol}}</div>
+                                    <div class="colon" ng-hide="asset.fromAssetId == DEFAULT_USAN || asset.toAssetId == DEFAULT_USAN">:</div>
                                     <div class="asset">1</div>
                                     <div class="currency">{{asset.toAssetSymbol}}</div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)" ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.fromAmountCut}}</div>
                                         <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -413,6 +424,11 @@
                                     <div class="row-layout time-range" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
+                                    </div>
+                                </div>
+                                <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span></div>
                                     </div>
                                 </div>
                             </td>
@@ -521,19 +537,20 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in swapsList | orderBy:'convertTimePosixToNumber'">
+                        <tr ng-repeat="asset in swapsList | filter:searchSwapMarket | orderBy:'convertTimePosixToNumber'">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
-                                    <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
-                                    <div class="currency">{{asset.toAssetSymbol.substr(0,4)}}</div>
-                                    <div class="colon" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">:</div>
-                                    <div class="asset" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">1</div>
-                                    <div class="currency" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{asset.fromAssetSymbol.substr(0,4)}}</div>
+                                    <div class="asset" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.swapratetaker.toFixed(4)}}</div>
+                                    <div class="currency" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.toAssetSymbol.substr(0,4)}}</div>
+                                    <div class="colon" ng-hide="asset.fromAssetId == DEFAULT_USAN || asset.toAssetId == DEFAULT_USAN">:</div>
+                                    <div class="asset" ng-hide="asset.fromAssetId == DEFAULT_USAN">1</div>
+                                    <div class="currency" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.fromAssetSymbol.substr(0,4)}}</div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
+                                ng-class="{'usan-cell-reset' : asset.toAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.toAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.toAmountCut}}</div>
                                         <div class="currency">{{asset.toAssetSymbol}}</div>
@@ -545,10 +562,15 @@
                                         <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
                                     </div>
                                 </div>
+                                <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.toAssetSymbol)}}</span></div>
+                                    </div>
+                                </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
-                                ng-class="{'usan-cell-reset' : asset.fromAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'}">
-                                <div class="column-layout" ng-show="asset.fromAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.fromAmountCut}}</div>
                                         <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -560,7 +582,7 @@
                                         <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
                                     </div>
                                 </div>
-                                <div class="column-layout" ng-show="asset.fromAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
                                     <div class="row-layout usan">
                                         <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span></div>
                                     </div>
@@ -645,7 +667,7 @@
                             <div class="description">Caution: this swap contains a suspicious asset(s).</div>
                         </div>
                         <div class="fills-section"
-                             ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                             ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
                             <div class="fills-available">
                                 <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                 <div class="description">{{takeDataFront.size}} Fills Available</div>
@@ -706,7 +728,7 @@
                                     <span>You Receive</span>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="takeDataFront.swapId.fromHasImage==true"
@@ -738,7 +760,7 @@
                                     </div>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="takeDataFront.toAssetId == DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="usan">
                                             <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(takeDataFront.toAssetSymbol)}}</span></div>
@@ -881,7 +903,7 @@
                             <div class="action-body">
                                 <div class="body-details">
                                     <div class="action-amount-available"
-                                         ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                         ng-show="selectedSendContract !== DEFAULT_USAN">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
                                                ng-model="makeSendAmount"
                                                id="makeSendAmount"
@@ -899,12 +921,12 @@
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                            ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
                                             <div class="usan-selected"
-                                                 ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                                 ng-show="selectedSendContract == DEFAULT_USAN">
                                                 <span class="name">USAN</span>
                                                 <span class="address">{{usanAddress}}</span>
                                             </div>
                                             <div class="col" click-out="!sendDropDown2"
-                                                 ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                                 ng-show="selectedSendContract !== DEFAULT_USAN">
                                                 <img ng-if="selectedSendHasImage"
                                                      ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                                 <span ng-if="!selectedSendHasImage"
@@ -938,13 +960,13 @@
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">VERIFIED ASSETS</div>
                                                 <div
-                                                        ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true'} track by $index">
+                                                        ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
@@ -967,13 +989,13 @@
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">UNVERIFIED ASSETS</div>
                                                 <div
-                                                        ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true'} track by $index">
+                                                        ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
@@ -997,7 +1019,7 @@
                                     </div>
 
                                     <div class="action-time-lock"
-                                         ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                         ng-show="selectedSendContract !== DEFAULT_USAN">
                                         <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
                                         <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                                 ng-click="showTimeLockSend = !showTimeLockSend"
@@ -1175,13 +1197,13 @@
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">VERIFIED ASSETS</div>
                                                 <div
-                                                        ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true'}">
+                                                        ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN}">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
@@ -1204,13 +1226,13 @@
                                             <div class="ad-search-grp">
                                                 <div class="grp-title">UNVERIFIED ASSETS</div>
                                                 <div
-                                                        ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true'}">
+                                                        ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN}">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
@@ -1319,7 +1341,7 @@
                         </div>
 
                         <div class="number-fills-section"
-                             ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                             ng-show="selectedSendContract !== DEFAULT_USAN">
 
                             <div class="fills-header">
                                 <img src="./images/fills.svg" width="24px" height="24px">
@@ -1414,7 +1436,7 @@
                                     <span>You Send</span>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="selectedSendContract !== DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="selectedSendHasImage==true"
@@ -1447,7 +1469,7 @@
                                     </div>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="selectedSendContract == DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="usan">
                                             <div class="name">USAN <span class="address">{{usanAddress}}</span></div>
@@ -1509,9 +1531,9 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeSendAmount}}
                                     <span class="currency"
-                                          ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                          ng-show="selectedSendContract !== DEFAULT_USAN">
                                         {{assetToSendConfirm}}</span>
-                                    <span ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"> : <span>{{makeReceiveAmount}}
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : <span>{{makeReceiveAmount}}
                                             <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
@@ -1588,7 +1610,7 @@
                                     <span>You Send</span>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="selectedSendContract !== DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="selectedSendHasImage==true"
@@ -1621,7 +1643,7 @@
                                     </div>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="selectedSendContract == DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="usan">
                                             <div class="name">USAN <span class="address">{{usanAddress}}</span></div>
@@ -1696,10 +1718,10 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value"
-                                     ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{makeSendAmount}}
+                                     ng-show="selectedSendContract !== DEFAULT_USAN">{{makeSendAmount}}
                                     <span class="currency"
-                                          ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">{{assetToSendConfirm}}</span>
-                                    <span ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"> : </span>{{makeReceiveAmount}}
+                                          ng-show="selectedSendContract !== DEFAULT_USAN">{{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : </span>{{makeReceiveAmount}}
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
@@ -1972,7 +1994,7 @@
                                     <span>You Receive</span>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="takeDataFront.swapId.fromHasImage==true"
@@ -2004,7 +2026,7 @@
                                     </div>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="takeDataFront.toAssetId == DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="usan">
                                             <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(takeDataFront.toAssetSymbol)}}</span></div>
@@ -2032,7 +2054,7 @@
                                 </div>
                             </div>
                             <div class="price-row"
-                                 ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                 ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS
@@ -2163,7 +2185,7 @@
                                     <span>You Receive</span>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="logo">
                                             <img ng-if="takeDataFront.swapId.fromHasImage==true"
@@ -2195,7 +2217,7 @@
                                     </div>
                                 </div>
                                 <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                     ng-show="takeDataFront.toAssetId == DEFAULT_USAN">
                                     <div class="summary-cell">
                                         <div class="usan">
                                             <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(takeDataFront.toAssetSymbol)}}</span></div>
@@ -2238,7 +2260,7 @@
                                 </div>
                             </div>
                             <div class="price-row"
-                                 ng-show="takeDataFront.toAssetId !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                 ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS

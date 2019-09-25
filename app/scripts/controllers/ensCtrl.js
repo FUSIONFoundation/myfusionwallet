@@ -459,6 +459,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    $scope.DEFAULT_USAN = "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe";
     $scope.sortByString = "Default";
     $scope.takeAmountSwap = "";
     $scope.showOpenTakes = false;
@@ -618,6 +619,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         if(!assetSymbol || assetSymbol.length < 4)
             return assetSymbol;
         return assetSymbol.substring(5, assetSymbol.length);
+    };
+
+    // extract name only from asset (name + asset symbol)
+    // e.g. "Thiendia11"  from "Thiendia11 (TD11)"
+    $scope.extractNameOnlyFromAssetNameSymbol = function (nameSymbol, symbol) {
+        let allowance = 3; // 2 parenthesis + space
+        if(!nameSymbol || !symbol || nameSymbol.length <= (symbol.length+allowance))
+            return nameSymbol;
+        return nameSymbol.substring(0, ((nameSymbol.length-(symbol.length+allowance))));
     };
 
     $scope.swapInformationModalOpen = async function (swap_id) {
