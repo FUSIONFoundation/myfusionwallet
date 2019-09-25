@@ -41,6 +41,9 @@
                                 tw-click-outside="closesendDropDown()" ignore-if="!sendDropDown"
                                 ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
                                 <div class="ad-all-assets-selected"
+                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset == 'Select asset'"
+                                >Select asset</div>
+                                <div class="ad-all-assets-selected"
                                     ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset == 'All Assets'"
                                 >All Assets</div>
                                 <div class="usan-selected"
@@ -50,7 +53,7 @@
                                 </div>
 
                                 <div class="mss-asset-selected" click-out="!sendDropDown"
-                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset !== 'All Assets'">
+                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset'">
                                     <img class="icon" ng-if="selectedSendHasImage"
                                             ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                     <span ng-if="!selectedSendHasImage"
@@ -159,14 +162,13 @@
                             <a class="btn btn-secondary custom-dropdown mt-1 mss-action-selected"
                                 tw-click-outside="closereceiveDropDown()" ignore-if="!receiveDropDown"
                                 ng-click="receiveDropDown = !receiveDropDown">
-                                <div class="ad-all-assets-selected"
-                                    ng-show="selectedReceiveAsset == 'All Assets'"
-                                >All Assets</div>
+                                <div class="ad-all-assets-selected" ng-show="selectedReceiveAsset == 'Select asset'">Select asset</div>
+                                <div class="ad-all-assets-selected" ng-show="selectedReceiveAsset == 'All Assets'">All Assets</div>
                                 <div class="ad-all-assets-selected"
                                     ng-show="selectedReceiveContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'"
                                 >All Short Account Numbers</div>
                                 <div class="mss-asset-selected" click-out="!receiveDropDown"
-                                    ng-show="selectedReceiveContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedReceiveAsset !== 'All Assets'">
+                                    ng-show="selectedReceiveContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedReceiveAsset !== 'All Assets' && selectedReceiveAsset !== 'Select asset'">
                                     <img class="icon" ng-if="selectedReceiveHasImage"
                                             ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                                     <span ng-if="!selectedReceiveHasImage"
