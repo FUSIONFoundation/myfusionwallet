@@ -620,6 +620,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return assetSymbol.substring(5, assetSymbol.length);
     };
 
+    // extract name only from asset (name + asset symbol)
+    // e.g. "Thiendia11"  from "Thiendia11 (TD11)"
+    $scope.extractNameOnlyFromAssetNameSymbol = function (nameSymbol, symbol) {
+        let allowance = 3; // 2 parenthesis + space
+        if(!nameSymbol || !symbol || nameSymbol.length <= (symbol.length+allowance))
+            return nameSymbol;
+        return nameSymbol.substring(0, ((nameSymbol.length-(symbol.length+allowance))));
+    };
+
     $scope.swapInformationModalOpen = async function (swap_id) {
         let data = {};
         let owner = '';
