@@ -2808,8 +2808,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }
             }
 
-            console.log(swapListFront);
-            $scope.$eval(function () {
+            $scope.$applyAsync(function () {
                 $scope.swapsList = swapListFront;
                 // sort according to timePosixValue
                 $scope.swapsList = $scope.swapsList.sort(function (a, b) {
