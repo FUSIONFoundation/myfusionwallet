@@ -2621,14 +2621,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
                     if(fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
                         let swap = {};
-
-                        console.log(swapList[asset])
-                        await web3.fsn.getSwap(swapList[asset]["ID"]).then(function(r){
+                        await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function(r){
                             swap = r;
                         });
-
-                        console.log(swap);
-                        let USAN = swapList[asset]["Notation"];
+                        let USAN = swap["Notation"];
                         fromAsset.Symbol = `USAN ${USAN}`;
                         fromAsset.Name = USAN;
                     }
