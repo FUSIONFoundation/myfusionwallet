@@ -459,6 +459,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    $scope.DEFAULT_USAN = "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe";
     $scope.sortByString = "Default";
     $scope.takeAmountSwap = "";
     $scope.showOpenTakes = false;

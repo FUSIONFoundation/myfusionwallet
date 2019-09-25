@@ -41,19 +41,19 @@
                                 tw-click-outside="closesendDropDown()" ignore-if="!sendDropDown"
                                 ng-click="sendDropDown = !sendDropDown && closeAllOtherDropDowns('sendDropDown')">
                                 <div class="ad-all-assets-selected"
-                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset == 'Select asset'"
+                                    ng-show="selectedSendContract !== DEFAULT_USAN && selectedSendAsset == 'Select asset'"
                                 >Select asset</div>
                                 <div class="ad-all-assets-selected"
-                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset == 'All Assets'"
+                                    ng-show="selectedSendContract !== DEFAULT_USAN && selectedSendAsset == 'All Assets'"
                                 >All Assets</div>
                                 <div class="usan-selected"
-                                        ng-show="selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'">
+                                        ng-show="selectedSendContract == DEFAULT_USAN">
                                     <span class="name">USAN</span>
                                     <span class="address">{{usanAddress}}</span>
                                 </div>
 
                                 <div class="mss-asset-selected" click-out="!sendDropDown"
-                                    ng-show="selectedSendContract !== '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset'">
+                                    ng-show="selectedSendContract !== DEFAULT_USAN && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset'">
                                     <img class="icon" ng-if="selectedSendHasImage"
                                             ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                     <span ng-if="!selectedSendHasImage"
