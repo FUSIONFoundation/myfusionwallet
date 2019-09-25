@@ -2884,6 +2884,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromHasImage = false;
                 let fromVerified = false;
 
+                if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+                    let swap = {};
+                    await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function (r) {
+                        swap = r;
+                    });
+                    let USAN = swap["Notation"];
+                    fromAsset.Symbol = `USAN ${USAN}`;
+                    fromAsset.Name = USAN;
+                }
+
+
                 for (let a in window.verifiedAssetsImages) {
                     if (
                         window.verifiedAssetsImages[a].assetID ==
