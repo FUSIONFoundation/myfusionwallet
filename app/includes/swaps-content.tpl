@@ -103,7 +103,7 @@
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -132,7 +132,7 @@
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -211,7 +211,7 @@
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -240,7 +240,7 @@
                                                 <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                 <span ng-if="!asset.hasImage"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                 <div class="details-wrapper">
                                                     <div class="details">
                                                         <div class="name">{{asset.name}}</div>
@@ -304,19 +304,18 @@
                         <tbody>
                         <tr ng-repeat="asset in openTakeSwaps track by $index">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-
                                 <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
-                                    <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
-                                    <div class="currency">{{asset.toAssetSymbol}}</div>
-                                    <div class="colon">:</div>
-                                    <div class="asset">1</div>
-                                    <div class="currency">{{asset.fromAssetSymbol}}</div>
+                                    <div class="asset" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.swapratetaker.toFixed(4)}}</div>
+                                    <div class="currency" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.toAssetSymbol}}</div>
+                                    <div class="colon" ng-hide="asset.fromAssetId == DEFAULT_USAN || asset.toAssetId == DEFAULT_USAN">:</div>
+                                    <div class="asset" ng-hide="asset.fromAssetId == DEFAULT_USAN">1</div>
+                                    <div class="currency" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.fromAssetSymbol}}</div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
+                                ng-class="{'usan-cell-reset' : asset.toAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.toAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.toAmountCut}}</div>
                                         <div class="currency">{{asset.toAssetSymbol}}</div>
@@ -328,9 +327,15 @@
                                         <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
                                     </div>
                                 </div>
+                                <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.toAssetSymbol)}}</span></div>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
+                                ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.fromAmountCut}}</div>
                                         <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -340,6 +345,11 @@
                                     <div class="row-layout time-range" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
+                                    </div>
+                                </div>
+                                <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span></div>
                                     </div>
                                 </div>
                             </td>
@@ -396,15 +406,15 @@
                         >
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <div class="row-layout">
-                                    <div class="asset">{{asset.swaprate.toFixed(4)}}</div>
-                                    <div class="currency">{{asset.fromAssetSymbol}}</div>
-                                    <div class="colon">:</div>
+                                    <div class="asset" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.swaprate.toFixed(4)}}</div>
+                                    <div class="currency" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.fromAssetSymbol}}</div>
+                                    <div class="colon" ng-hide="asset.fromAssetId == DEFAULT_USAN || asset.toAssetId == DEFAULT_USAN">:</div>
                                     <div class="asset">1</div>
                                     <div class="currency">{{asset.toAssetSymbol}}</div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)" ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.fromAmountCut}}</div>
                                         <div class="currency">{{asset.fromAssetSymbol}}</div>
@@ -414,6 +424,11 @@
                                     <div class="row-layout time-range" ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.FromStartTimeString}} - {{asset.FromEndTimeString}}</div>
+                                    </div>
+                                </div>
+                                <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span></div>
                                     </div>
                                 </div>
                             </td>
@@ -526,15 +541,16 @@
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <img class="marker" ng-show="asset.owned" src="./images/semi-circle.svg" height="16px" width="8px"/>
                                 <div class="row-layout">
-                                    <div class="asset">{{asset.swapratetaker.toFixed(4)}}</div>
-                                    <div class="currency">{{asset.toAssetSymbol.substr(0,4)}}</div>
-                                    <div class="colon" ng-show="asset.fromAssetId !== DEFAULT_USAN">:</div>
-                                    <div class="asset" ng-show="asset.fromAssetId !== DEFAULT_USAN">1</div>
-                                    <div class="currency" ng-show="asset.fromAssetId !== DEFAULT_USAN">{{asset.fromAssetSymbol.substr(0,4)}}</div>
+                                    <div class="asset" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.swapratetaker.toFixed(4)}}</div>
+                                    <div class="currency" ng-hide="asset.toAssetId == DEFAULT_USAN">{{asset.toAssetSymbol.substr(0,4)}}</div>
+                                    <div class="colon" ng-hide="asset.fromAssetId == DEFAULT_USAN || asset.toAssetId == DEFAULT_USAN">:</div>
+                                    <div class="asset" ng-hide="asset.fromAssetId == DEFAULT_USAN">1</div>
+                                    <div class="currency" ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.fromAssetSymbol.substr(0,4)}}</div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
+                                ng-class="{'usan-cell-reset' : asset.toAssetId == DEFAULT_USAN}">
+                                <div class="column-layout" ng-show="asset.toAssetId !== DEFAULT_USAN">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.toAmountCut}}</div>
                                         <div class="currency">{{asset.toAssetSymbol}}</div>
@@ -544,6 +560,11 @@
                                     <div class="row-layout time-range" ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
                                         <img class="icon" src="images/sendtl.svg" width="12px">
                                         <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
+                                    </div>
+                                </div>
+                                <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
+                                    <div class="row-layout usan">
+                                        <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(asset.toAssetSymbol)}}</span></div>
                                     </div>
                                 </div>
                             </td>
@@ -945,7 +966,7 @@
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
@@ -974,7 +995,7 @@
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
@@ -1182,7 +1203,7 @@
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
@@ -1211,7 +1232,7 @@
                                                             <img class="icon" ng-if="asset.hasImage"
                                                                  ng-src="images/verifiedassets/{{asset.image}}"/>
                                                             <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{asset.symbol}}</span>
+                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                             <div class="details-wrapper">
                                                                 <div class="details">
                                                                     <div class="name">{{asset.name}}</div>
