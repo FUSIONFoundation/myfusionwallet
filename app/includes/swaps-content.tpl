@@ -479,7 +479,7 @@
             <div class="panel panel-default mx-auto" ng-show="showSwapMarket === true && showOpenTakes === false">
                 <div class="panel-body inline w-100 panel-body-new">
                     <div class="col-md-12 p-0">
-                        <div class="float-left">
+                        <div class="float-left" ng-hide="swapsList.length === 0 && !allSwapsRunning">
                             <div class="col-md-12">
                                 <div class="row">
                                     <div class="">
@@ -494,7 +494,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="float-right">
+                        <div class="float-right" ng-hide="swapsList.length === 0 && !allSwapsRunning">
                             <div class="">
                                 <form class="form-group form-inline align-middle">
                                     <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
