@@ -85,6 +85,7 @@
                                     <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                             width="14px"/>
                                 </div>
+                                <div class="ad-all-assets" ng-click="setAllAssetsInSend()">All Assets</div>
                                 <div class="ad-usan" ng-click="setMakeUSAN()">
                                     <div class="ad-usan-content">
                                         <div class="usan-selected">
@@ -93,7 +94,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ad-all-assets" ng-click="setAllAssetsInSend()">All Assets</div>
                                 <div class="ad-search-grp">
                                     <div class="grp-title">VERIFIED ASSETS</div>
                                     <div
