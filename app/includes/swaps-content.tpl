@@ -95,9 +95,9 @@
                                     </div>
                                 </div>
                                 <div class="ad-search-grp">
-                                    <div class="grp-title">VERIFIED ASSETS</div>
+                                    <div class="grp-title" ng-show="verifiedSendAssetList && verifiedSendAssetList.length > 0">VERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} as verifiedSendAssetList track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -124,9 +124,9 @@
                                     </div>
                                 </div>
                                 <div class="ad-search-grp">
-                                    <div class="grp-title">UNVERIFIED ASSETS</div>
+                                    <div class="grp-title" ng-show="unverifiedSendAssetList && unverifiedSendAssetList.length > 0">UNVERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} as unverifiedSendAssetList track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -203,9 +203,9 @@
                                 <div class="ad-all-assets" ng-click="setAllAssetsInReceive()">All Assets</div>
                                 <div class="ad-all-assets" ng-click="setReceiveUSAN()">All Short Account Numbers</div>
                                 <div class="ad-search-grp">
-                                    <div class="grp-title">VERIFIED ASSETS</div>
+                                    <div class="grp-title" ng-show="verifiedReceiveAssetList && verifiedReceiveAssetList.length > 0">VERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} as verifiedReceiveAssetList track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -232,9 +232,9 @@
                                     </div>
                                 </div>
                                 <div class="ad-search-grp">
-                                    <div class="grp-title">UNVERIFIED ASSETS</div>
+                                    <div class="grp-title"  ng-show="unverifiedReceiveAssetList && unverifiedReceiveAssetList.length > 0">UNVERIFIED ASSETS</div>
                                     <div
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
+                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} as unverifiedReceiveAssetList track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -958,9 +958,9 @@
                                                 </div>
                                             </div>
                                             <div class="ad-search-grp">
-                                                <div class="grp-title">VERIFIED ASSETS</div>
-                                                <div
-                                                        ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
+                                                <div class="grp-title"  ng-show="verifiedSendAssetListOwned && verifiedSendAssetListOwned.length > 0">VERIFIED ASSETS</div>
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} 
+                                                    as verifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
@@ -987,9 +987,9 @@
                                                 </div>
                                             </div>
                                             <div class="ad-search-grp">
-                                                <div class="grp-title">UNVERIFIED ASSETS</div>
-                                                <div
-                                                        ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} track by $index">
+                                                <div class="grp-title" ng-show="unverifiedSendAssetListOwned && unverifiedSendAssetListOwned.length > 0">UNVERIFIED ASSETS</div>
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} 
+                                                    as unverifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
@@ -1195,9 +1195,8 @@
                                                      width="14px"/>
                                             </div>
                                             <div class="ad-search-grp">
-                                                <div class="grp-title">VERIFIED ASSETS</div>
-                                                <div
-                                                        ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN}">
+                                                <div class="grp-title" ng-show="verifiedReceiveAssetListOwned && verifiedReceiveAssetListOwned.length > 0">VERIFIED ASSETS</div>
+                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} as verifiedReceiveAssetListOwned">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
@@ -1224,9 +1223,8 @@
                                                 </div>
                                             </div>
                                             <div class="ad-search-grp">
-                                                <div class="grp-title">UNVERIFIED ASSETS</div>
-                                                <div
-                                                        ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN}">
+                                                <div class="grp-title" ng-show="unverifiedReceiveAssetListOwned && unverifiedReceiveAssetListOwned.length > 0">UNVERIFIED ASSETS</div>
+                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} as unverifiedReceiveAssetListOwned">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
