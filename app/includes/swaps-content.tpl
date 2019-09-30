@@ -497,14 +497,14 @@
                                 <div> {{currentPage+1}} of {{endPage}}</div>
                             </div>
                             <div class="actions">
-                                <button class="btn btn-sm btn-white p-0 m-0 wh-36" ng-click="previousPage()">
+                                <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn left-btn" ng-click="previousPage()">
                                     <span class="small-gray-text pl-1 pr-1 m-1">
-                                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
                                     </span>
                                 </button>
-                                <button class="btn btn-sm btn-white p-0 m-0 wh-36" ng-click="nextPage()">
+                                <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn right-btn" ng-click="nextPage()">
                                     <span class="small-gray-text pl-1 pr-1 m-1">
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                                     </span>
                                 </button>
                             </div>
