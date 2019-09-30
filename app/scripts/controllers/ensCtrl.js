@@ -2237,6 +2237,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return $scope.months[tMonth] + " " + tDay + ", " + tYear;
     };
 
+
+    $scope.usanAlreadyInSwap = false;
     let openMakesListRunning = false;
     $scope.openMakesList = async function () {
         let swapList = {};
@@ -2289,6 +2291,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromVerified = false;
 
                 if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+
+                    $scope.$applyAsync(function(){
+                        $scope.usanAlreadyInSwap = true;
+                    });
+
                     let swap = {};
                     await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function (r) {
                         swap = r;
