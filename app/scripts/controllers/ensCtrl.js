@@ -277,6 +277,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 z = false;
             }
         }
+
+        if ($scope.selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && $scope.usanAlreadyInSwap) {
+            z = true
+        }
+
         $scope.$applyAsync(function () {
             $scope.makeSwapReviewDisabled = z;
         })
@@ -2292,7 +2297,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
                 if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
 
-                    $scope.$applyAsync(function(){
+                    $scope.$applyAsync(function () {
                         $scope.usanAlreadyInSwap = true;
                     });
 
