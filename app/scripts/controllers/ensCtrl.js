@@ -258,7 +258,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.makeSwapReviewDisabled = true;
     $scope.checkMakeSwapConditions = async () => {
         let z = true;
-        if (!$scope.selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe') {
+        if (!$scope.selectedSendContract == $scope.DEFAULT_USAN) {
             if ($scope.makeSendAmount == '' || $scope.makeReceiveAmount == '' || $scope.makeMinumumSwap == '') {
                 z = true;
             } else {
@@ -278,7 +278,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         }
 
-        if ($scope.selectedSendContract == '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe' && $scope.usanAlreadyInSwap) {
+        if ($scope.selectedSendContract == $scope.DEFAULT_USAN && $scope.usanAlreadyInSwap) {
             z = true
         }
 
@@ -1481,7 +1481,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(err);
         }
 
-        if ($scope.swapsList[id].fromAssetId == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+        if ($scope.swapsList[id].fromAssetId == $scope.DEFAULT_USAN) {
             pass = true;
         }
 
@@ -1996,10 +1996,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             );
         }
 
-        if (data.ToAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+        if (data.ToAssetID == $scope.DEFAULT_USAN) {
             data.MinToAmount = "0x" + "1".toString(16);
         }
-        if (data.FromAssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+        if (data.FromAssetID == $scope.DEFAULT_USAN) {
             data.MinFromAmount = "0x" + "1".toString(16);
         }
 
@@ -2295,7 +2295,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromHasImage = false;
                 let fromVerified = false;
 
-                if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+                if (fromAsset.AssetID == $scope.DEFAULT_USAN) {
 
                     $scope.$applyAsync(function () {
                         $scope.usanAlreadyInSwap = true;
@@ -2645,7 +2645,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
                 if (fromAsset && toAsset) {
 
-                    if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+                    if (fromAsset.AssetID == $scope.DEFAULT_USAN) {
                         let swap = {};
                         await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function (r) {
                             swap = r;
@@ -2896,7 +2896,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromHasImage = false;
                 let fromVerified = false;
 
-                if (fromAsset.AssetID == "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe") {
+                if (fromAsset.AssetID == $scope.DEFAULT_USAN) {
                     let swap = {};
                     await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function (r) {
                         swap = r;
