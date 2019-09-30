@@ -301,6 +301,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         yearColumns: 3
     };
     $scope.currentPage = 0;
+    $scope.currentPageInput = 1;
     $scope.pageSize = 10;
     $scope.endPage = 0;
     $scope.shownRows = 0;
@@ -341,13 +342,37 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    $scope.$watch('currentPageInput', function (newValue, oldValue) {
+        // window.log("currentPageInput: " + newValue);
+        if(!isNaN(newValue))
+            $scope.goToPage(newValue);
+    });
+
+    $scope.$watch('currentPage', function (newValue) {
+        // window.log("currentPage: " + newValue);
+        $scope.currentPageInput = newValue + 1;
+    });
+
+    $scope.goToPage = function (pageInput) {
+        // window.log("goToPage: " + pageInput);
+        if (pageInput <= $scope.currentPage || pageInput > $scope.endPage) {
+            return;
+        }
+        $scope.$eval(function () {
+            $scope.currentPage = pageInput - 1;
+            $scope.searchSwapMarket = "";
+        });
+        $scope.allSwaps($scope.currentPage);
+    };
 
     $scope.nextPage = function () {
-        if ($scope.currentPage === $scope.endPage) {
+        if ($scope.currentPage === $scope.endPage - 1) {
+            $scope.currentPageInput = $scope.currentPage + 1
             return;
         }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage + 1;
+            $scope.currentPageInput = $scope.currentPage + 1;
             $scope.searchSwapMarket = "";
         });
         $scope.allSwaps($scope.currentPage);
@@ -356,19 +381,19 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.firstPage = function () {
         $scope.$eval(function () {
             $scope.currentPage = 0;
+            $scope.currentPageInput = 1;
             $scope.searchSwapMarket = "";
         });
         $scope.allSwaps(0);
-
     };
 
     $scope.lastPage = function () {
         $scope.$eval(function () {
             $scope.currentPage = $scope.endPage;
+            $scope.currentPageInput = $scope.endPage -1;
             $scope.searchSwapMarket = "";
         });
         $scope.allSwaps($scope.endPage);
-
     };
 
     $scope.previousPage = function () {
@@ -377,6 +402,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         $scope.$eval(function () {
             $scope.currentPage = $scope.currentPage - 1;
+            $scope.currentPageInput = $scope.currentPage + 1;
             $scope.searchSwapMarket = "";
         });
         $scope.allSwaps($scope.currentPage);
