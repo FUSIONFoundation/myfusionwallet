@@ -2536,24 +2536,40 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
     });
 
+
+    let lastKnownTotalSwapsInQuery = 0;
     $scope.setPagination = async (currentPage, totalSwapsInQuery) => {
+        if(totalSwapsInQuery !== undefined){
+            lastKnownTotalSwapsInQuery = totalSwapsInQuery;
+        }
+        if(totalSwapsInQuery == undefined){
+            totalSwapsInQuery = lastKnownTotalSwapsInQuery;
+        }
+
+        let endPage = Math.ceil(totalSwapsInQuery / 10) - 1;
         // Calculate shown rows
         let shownRows;
         if (currentPage === 0) {
-            shownRows = (currentPage + 1) * 10;
+            if(totalSwapsInQuery > 10){
+                shownRows = 10;
+            } else {
+                shownRows = totalSwapsInQuery;
+
+            }
         } else {
-            shownRows = (currentPage + 1) * 10;
+            shownRows = (currentPage+1) * 10;
+            if(currentPage == endPage){
+                if(shownRows > totalSwapsInQuery){
+                    shownRows = totalSwapsInQuery;
+                }
+            }
         }
 
-        if (($scope.totalRowsSwapsQuery - shownRows) < 10) {
-            shownRows = $scope.totalRowsSwapsQuery;
-        }
         $scope.$applyAsync(function () {
             if (totalSwapsInQuery) {
                 $scope.totalRowsSwapsQuery = totalSwapsInQuery
-                $scope.endPage = Math.ceil(totalSwapsInQuery / 10) - 1;
-            }
-            ;
+                $scope.endPage = endPage;
+            };
             $scope.shownRows = shownRows;
         })
     }
