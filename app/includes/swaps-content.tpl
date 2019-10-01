@@ -478,44 +478,34 @@
             </div>
             <div class="panel panel-default mx-auto" ng-show="showSwapMarket === true && showOpenTakes === false">
                 <div class="panel-body inline w-100 panel-body-new">
-                    <div class="col-md-12 p-0">
-                        <div class="float-left" ng-hide="swapsList.length === 0 && !allSwapsRunning">
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="">
-                                        <div class="table-input-wrapper">
-                                            <input type="text" class="form-control ad-input"
-                                                    ng-model="searchSwapMarket"
-                                                    placeholder="Search">
-                                            <img class="ad-input-icon" src="./images/s.svg" height="14px"
-                                                    width="14px"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="col-md-12 p-0 page-controls">
+                        <div class="search-input-wrapper">
+                            <input type="text" class="form-control ad-input"
+                                    ng-model="searchSwapMarket"
+                                    placeholder="Search">
+                            <img class="ad-input-icon" src="./images/s.svg" height="14px"
+                                    width="14px"/>
                         </div>
-                        <div class="float-right" ng-hide="swapsList.length === 0 && !allSwapsRunning">
-                            <div class="">
-                                <form class="form-group form-inline align-middle">
-                                    <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
-                                        of {{totalRowsSwapsQuery}}
-                                    </span>
-                                    <span class="small-gray-text">
-                                        {{currentPage+1}} of {{endPage}}</span>
-                                    </span>
-                                    <button class="btn btn-sm btn-white p-0 m-0 wh-36" ng-click="previousPage()">
-                                    <span class="small-gray-text pl-1 pr-1 m-1"><i class="fa fa-angle-left"
-                                                                                   aria-hidden="true"></i>
-                                    </span>
-                                    </button>
-                                    <button class="btn btn-sm btn-white p-0 m-0 wh-36" ng-click="nextPage()">
+                        <form class="form-group form-inline page-form" ng-hide="endPage === 0">
+                            <div class="all-rows">Rows {{shownRows}} of {{totalRowsSwapsQuery}}</div>
+                            <div class="partition">
+                                <input type="text" class="form-control ad-input custom-input" ng-model="currentPageInput">
+                                <div> of {{endPage}}</div>
+                                <!-- <div> {{currentPage+1}} of {{endPage}}</div> -->
+                            </div>
+                            <div class="actions">
+                                <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn left-btn" ng-click="previousPage()">
                                     <span class="small-gray-text pl-1 pr-1 m-1">
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
                                     </span>
-                                    </button>
-                                </form>
+                                </button>
+                                <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn right-btn" ng-click="nextPage()">
+                                    <span class="small-gray-text pl-1 pr-1 m-1">
+                                        <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                                    </span>
+                                </button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="col-md-12 text-center p-5" ng-show="allSwapsRunning">
                         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
