@@ -342,7 +342,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
-    $scope.$watch('currentPageInput', function (newValue, oldValue) {
+    $scope.$watch('currentPageInput', function (newValue) {
         // window.log("currentPageInput: " + newValue);
         if(!isNaN(newValue))
             $scope.goToPage(newValue);
@@ -367,7 +367,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.nextPage = function () {
         if ($scope.currentPage === $scope.endPage - 1) {
-            $scope.currentPageInput = $scope.currentPage + 1
+            $scope.currentPageInput = $scope.currentPage + 1;
             return;
         }
         $scope.$eval(function () {
@@ -390,7 +390,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.lastPage = function () {
         $scope.$eval(function () {
             $scope.currentPage = $scope.endPage;
-            $scope.currentPageInput = $scope.endPage -1;
+            $scope.currentPageInput = $scope.endPage - 1;
             $scope.searchSwapMarket = "";
         });
         $scope.allSwaps($scope.endPage);

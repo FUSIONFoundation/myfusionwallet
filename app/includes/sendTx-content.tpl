@@ -114,27 +114,19 @@
                 <form class="form-group form-inline page-form" ng-hide="endPage === 0">
                     <div class="all-rows">Rows {{shownRows}} of {{timeLockList.length}}</div>
                     <div class="partition">
-                        <div> {{currentPage+1}} of {{endPage}}</div>
+                        <input type="text" class="form-control ad-input custom-input" ng-model="currentPageInput">
+                        <div> of {{endPage}}</div>
+                        <!-- <div> {{currentPage+1}} of {{endPage}}</div> -->
                     </div>
                     <div class="actions">
-                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn left-btn" ng-click="firstPage()()">
-                            <span class="small-gray-text pl-1 pr-1 m-1">
-                                <i class="fa fa-angle-double-left fa-lg" aria-hidden="true"></i>
-                            </span>
-                        </button>
-                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn inner-btn" ng-click="previousPage()">
+                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn left-btn" ng-click="previousPage()">
                             <span class="small-gray-text pl-1 pr-1 m-1">
                                 <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
                             </span>
                         </button>
-                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn inner-btn" ng-click="nextPage()">
+                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn right-btn" ng-click="nextPage()">
                             <span class="small-gray-text pl-1 pr-1 m-1">
                                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                            </span>
-                        </button>
-                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn right-btn" ng-click="lastPage()">
-                            <span class="small-gray-text pl-1 pr-1 m-1">
-                                <i class="fa fa-angle-double-right fa-lg" aria-hidden="true"></i>
                             </span>
                         </button>
                     </div>
