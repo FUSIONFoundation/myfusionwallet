@@ -329,21 +329,156 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.getAssetBalance();
     };
 
-    $scope.checkDate = function () {
+    $scope.getDayAfter = function (date){
+        let temp = new Date(date);
+        return new Date(temp.setDate(temp.getDate() + 1));
+    }
+
+    $scope.checkSendDate = function (source) {
+        // window.log("checkSendDate source: " + source);
         if ($scope.transactionType == "scheduled") {
             return;
         } else {
             let today = new Date();
-            if ($scope.fromEndTime < today) {
-                $scope.$eval(function () {
-                    $scope.fromEndTime = today;
-                });
+            // window.log("fromStartTime: " + $scope.fromStartTime);
+            // window.log("fromEndTime: " + $scope.fromEndTime);
+            if (!$scope.fromEndTime || !$scope.fromStartTime){
+                return;
             }
-            if ($scope.fromEndTime < $scope.fromStartTime) {
-                $scope.$eval(function () {
-                    $scope.fromStartTime = today;
-                });
+            if($scope.fromStartTime >= today 
+                && $scope.fromEndTime >= today
+                && $scope.fromStartTime <= $scope.fromEndTime) {
+                // window.log("dates ok");
+                return;
             }
+            if(source === "fromStartTime") {
+                // window.log("fromStartTime changed");
+                if($scope.fromStartTime < today) {
+                    $scope.$eval(function () {
+                        $scope.fromStartTime = today;
+                        // window.log("fromStartTime changed to today");
+                    });
+                    if(today > $scope.fromEndTime) {
+                        // change fromEndTime to: tomorrow
+                        let dayAfter = $scope.getDayAfter(today);
+                        $scope.$eval(function () {
+                            $scope.fromEndTime = dayAfter;
+                            // window.log("fromEndTime changed to " + dayAfter);
+                        });
+                    }
+                } else {
+                    if($scope.fromStartTime > $scope.fromEndTime) {
+                        $scope.$eval(function () {
+                            let dayAfter = $scope.getDayAfter($scope.fromStartTime);
+                            $scope.fromEndTime = dayAfter;
+                            // window.log("fromEndTime changed to " + dayAfter);
+                        })
+                    }
+                }
+            } else if (source === "fromEndTime") {
+                // window.log("fromEndTime changed");
+                if($scope.fromEndTime < today) {
+                    $scope.$eval(function () {
+                        $scope.fromEndTime = today;
+                        $scope.fromStartTime = today;
+                        // window.log("dates changed to today");
+                    });
+                } else {
+                    if($scope.fromEndTime < $scope.fromStartTime) {
+                        // change fromStartTime to: today
+                        $scope.$eval(function () {
+                            $scope.fromStartTime = today;
+                            // window.log("fromStartTime changed to today");
+                        });
+                    }
+                }
+            } else {
+                if ($scope.fromEndTime < today) {
+                    $scope.$eval(function () {
+                        $scope.fromEndTime = today;
+                    });
+                }
+                if ($scope.fromEndTime < $scope.fromStartTime) {
+                    $scope.$eval(function () {
+                        $scope.fromStartTime = today;
+                    });
+                }
+            }
+
+        }
+    };
+
+    $scope.checkReceiveDate = function (source) {
+        // window.log("checkReceiveDate source: " + source);
+        if ($scope.transactionType == "scheduled") {
+            return;
+        } else {
+            let today = new Date();
+            // window.log("ToStartTime: " + $scope.ToStartTime);
+            // window.log("ToEndTime: " + $scope.ToEndTime);
+            if (!$scope.ToEndTime || !$scope.ToStartTime){
+                return;
+            }
+            if($scope.ToStartTime >= today 
+                && $scope.ToEndTime >= today
+                && $scope.ToStartTime <= $scope.ToEndTime) {
+                // window.log("dates ok");
+                return;
+            }
+            if(source === "ToStartTime") {
+                // window.log("ToStartTime changed");
+                if($scope.ToStartTime < today) {
+                    $scope.$eval(function () {
+                        $scope.ToStartTime = today;
+                        // window.log("ToStartTime changed to today");
+                    });
+                    if(today > $scope.ToEndTime) {
+                        // change ToEndTime to: tomorrow
+                        let dayAfter = $scope.getDayAfter(today);
+                        $scope.$eval(function () {
+                            $scope.ToEndTime = dayAfter;
+                            // window.log("ToEndTime changed to " + dayAfter);
+                        });
+                    }
+                } else {
+                    if($scope.ToStartTime > $scope.ToEndTime) {
+                        $scope.$eval(function () {
+                            let dayAfter = $scope.getDayAfter($scope.ToStartTime);
+                            $scope.ToEndTime = dayAfter;
+                            // window.log("ToEndTime changed to " + dayAfter);
+                        })
+                    }
+                }
+            } else if (source === "ToEndTime") {
+                // window.log("ToEndTime changed");
+                if($scope.ToEndTime < today) {
+                    $scope.$eval(function () {
+                        $scope.ToEndTime = today;
+                        $scope.ToStartTime = today;
+                        // window.log("dates changed to today");
+                    });
+                } else {
+                    if($scope.ToEndTime < $scope.ToStartTime) {
+                        // change ToStartTime to: today
+                        $scope.$eval(function () {
+                            $scope.ToStartTime = today;
+                            // window.log("ToStartTime changed to today");
+                        });
+                    }
+                }
+            } else {
+                if ($scope.ToEndTime < today) {
+                    $scope.$eval(function () {
+                        $scope.ToEndTime = today;
+                    });
+                }
+                if ($scope.ToEndTime < $scope.ToStartTime) {
+                    $scope.$eval(function () {
+                        $scope.ToStartTime = today;
+                    });
+                }
+            }
+
         }
     };
 

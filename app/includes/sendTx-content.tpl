@@ -338,7 +338,7 @@
                                 <br>
                                 <input class="form-control"
                                        type="text"
-                                       ng-change="checkDate()"
+                                       ng-change="checkDate('fromTime')"
                                        ng-model="sendAsset.fromTime"
                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
                                        is-open="popup.opened"
@@ -366,7 +366,7 @@
                                 <br>
                                 <input class="form-control"
                                        type="text"
-                                       ng-change="checkDate()"
+                                       ng-change="checkDate('tillTime')"
                                        onkeydown="return false"
                                        ng-model="sendAsset.tillTime"
                                        is-open="popup.opened2"
