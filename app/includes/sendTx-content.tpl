@@ -112,7 +112,7 @@
                             width="14px"/>
                 </div>
                 <div class="page-form" ng-hide="endPage === 0">
-                    <div class="all-rows">Rows2 {{shownRows}} of {{timeLockList.length}}</div>
+                    <div class="all-rows">Rows {{shownRows}} of {{timeLockList.length}}</div>
                     <div class="partition">
                         <input type="text" class="form-control ad-input custom-input" ng-model="currentPageInput">
                         <div> of {{endPage}}</div>
