@@ -486,11 +486,11 @@
                             <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                     width="14px"/>
                         </div>
-                        <form class="form-group form-inline page-form" ng-hide="endPage === 0">
+                        <div class="page-form" ng-hide="endPage === 0">
                             <div class="all-rows">Rows {{shownRows}} of {{totalRowsSwapsQuery}}</div>
                             <div class="partition">
                                 <input type="text" class="form-control ad-input custom-input" ng-model="currentPageInput">
-                                <div> of {{endPage}}</div>
+                                <div> of {{endPage+1}}</div>
                                 <!-- <div> {{currentPage+1}} of {{endPage}}</div> -->
                             </div>
                             <div class="actions">
@@ -505,7 +505,7 @@
                                     </span>
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="col-md-12 text-center p-5" ng-show="allSwapsRunning">
                         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
