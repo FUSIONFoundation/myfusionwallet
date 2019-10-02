@@ -930,10 +930,14 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
       }
     }
     if(this.activeDate < currentDay){
-      document.getElementById("past").setAttribute("disabled", "disabled");
+      // check if element is not null
+      if(document.getElementById("past"))
+        document.getElementById("past").setAttribute("disabled", "disabled");
 
     } else{
-      document.getElementById("past").removeAttribute("disabled");
+      // check if element is not null 
+      if(document.getElementById("past"))
+        document.getElementById("past").removeAttribute("disabled");
     }
   };
 

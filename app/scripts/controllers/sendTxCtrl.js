@@ -994,18 +994,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 }
             } else {
                 if($scope.sendAsset.fromTime > $scope.sendAsset.tillTime) {
-                    // TO DO: resolve Type error here
-                    // change tillTime to: fromTime plus one day
                     $scope.$eval(function () {
-                        try {
-                            let dayAfter = $scope.getDayAfter($scope.sendAsset.fromTime);
-                            console.log("dayAfter: " + dayAfter);
-                            // console.log("$scope.sendAsset.tillTime: " + $scope.sendAsset.tillTime);
-                            // $scope.sendAsset.tillTime = dayAfter;
-                            $scope.sendAsset.tillTime = dayAfter;
-                            console.log("tillTime changed to " + dayAfter);
-                        } catch (e) {}
-                    });
+                        let dayAfter = $scope.getDayAfter($scope.sendAsset.fromTime);
+                        console.log("dayAfter: " + dayAfter);
+                        // console.log("$scope.sendAsset.tillTime: " + $scope.sendAsset.tillTime);
+                        // $scope.sendAsset.tillTime = dayAfter;
+                        $scope.sendAsset.tillTime = dayAfter;
+                        console.log("tillTime changed to " + dayAfter);
+                    })
                 }
             }
         } else if (source === "tillTime") {
