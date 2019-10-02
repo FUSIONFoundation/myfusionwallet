@@ -2122,8 +2122,9 @@
                         <div class="ms-confirmed-title-wrapper">
                             <img class="icon" src="images/confirmed-transaction.svg"
                                  ng-show="transactionStatus == 'Success'" height="32px" width="32px">
-                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus !== 'Success'"
-                                 height="32px" width="32px">
+                            <div class="spinner-grow text-primary icon" role="status" ng-show="transactionStatus !== 'Success'">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                             <h3 class="h3-blue title">Take Swap <span
                                         ng-show="transactionStatus !== 'Success'">Pending</span> <span
                                         ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
