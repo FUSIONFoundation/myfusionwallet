@@ -30,31 +30,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
     window.__fsnGetAllAssets();
 
-    let cachedDropdowns = JSON.parse(localStorage.getItem('QSDropdownCache'));
-    if (!cachedDropdowns) {
-        let k = {
-            send: 0,
-            receive: 0,
-        }
-        localStorage.setItem('QSDropdownCache', JSON.stringify(k));
-        cachedDropdowns = k;
-    }
-
-    $scope.updateDropDownCookie = function (t, id) {
-        if (!id) return;
-        if (t == 'send') {
-            cachedDropdowns.send = id;
-            localStorage.setItem('QSDropdownCache', JSON.stringify(cachedDropdowns));
-        }
-        if (t == 'receive') {
-            cachedDropdowns.receive = id;
-            localStorage.setItem('QSDropdownCache', JSON.stringify(cachedDropdowns));
-        }
-        cachedDropdowns = JSON.parse(localStorage.getItem('QSDropdownCache'));
-        console.log(cachedDropdowns);
-
-    }
-
     let sendDropDown = false;
     let sendDropDown2 = false;
     let receiveDropDown = false;
@@ -345,7 +320,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             if (!$scope.fromEndTime || !$scope.fromStartTime){
                 return;
             }
-            if($scope.fromStartTime >= today 
+            if($scope.fromStartTime >= today
                 && $scope.fromEndTime >= today
                 && $scope.fromStartTime <= $scope.fromEndTime) {
                 // window.log("dates ok");
@@ -419,7 +394,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             if (!$scope.ToEndTime || !$scope.ToStartTime){
                 return;
             }
-            if($scope.ToStartTime >= today 
+            if($scope.ToStartTime >= today
                 && $scope.ToEndTime >= today
                 && $scope.ToStartTime <= $scope.ToEndTime) {
                 // window.log("dates ok");
@@ -730,25 +705,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
 
     $scope.setSendAndReceiveInit = async function () {
-        let id;
-        if (cachedDropdowns.send) {
-            id = cachedDropdowns.send;
-            await $scope.setSendAllAssets(id);
-        } else {
             $scope.selectedReceiveAsset = `All Assets`;
             $scope.selectedReceiveContract = "\n";
             $scope.assetToReceive = $scope.assetList[0].contractaddress;
             $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
             $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
             $scope.selectedReceiveVerified = $scope.assetList[0].verified;
-        }
+
         // Receive part
-        let idR;
-        if (cachedDropdowns.receive) {
-            idR = cachedDropdowns.receive;
-            console.log('Receive was cached');
-            await $scope.setReceiveAsset(idR);
-        } else {
             $scope.selectedSendAsset = `All Assets`;
             $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
             $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
@@ -757,8 +721,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
             $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
             $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-        }
-        $scope.getAssetBalance();
+            $scope.getAssetBalance();
     };
 
     $scope.privateAccess = false;
