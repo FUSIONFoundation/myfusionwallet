@@ -109,9 +109,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.endPage = 0;
     $scope.shownRows = 0;
 
-    $scope.$watch('currentPageInput', function (newValue) {
-        if(!isNaN(newValue))
+    $scope.$watch('currentPageInput', function (newValue, oldValue) {
+        if(!isNaN(newValue) && newValue > 0 && newValue !== oldValue){
             $scope.goToPage(newValue);
+        }
     });
 
     $scope.$watch('currentPage', function (newValue) {
@@ -124,9 +125,20 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         }
         $scope.$eval(function () {
             $scope.currentPage = pageInput - 1;
-            $scope.searchSwapMarket = "";
+            $scope.currentPageInput = pageInput;
+            $scope.searchTimeLock = "";
         });
-        $scope.allSwaps($scope.currentPage);
+        if (pageInput * $scope.pageSize > $scope.timeLockList.length) {
+            $scope.$eval(function () {
+                $scope.shownRows = $scope.timeLockList.length;
+                $scope.searchTimeLock = "";
+            });
+        } else {
+            $scope.$eval(function () {
+                $scope.shownRows = pageInput * $scope.pageSize;
+                $scope.searchTimeLock = "";
+            });
+        }
     };
 
     $scope.nextPage = function () {

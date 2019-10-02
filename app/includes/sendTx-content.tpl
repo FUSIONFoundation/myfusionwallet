@@ -111,8 +111,8 @@
                     <img class="ad-input-icon" src="./images/s.svg" height="14px"
                             width="14px"/>
                 </div>
-                <form class="form-group form-inline page-form" ng-hide="endPage === 0">
-                    <div class="all-rows">Rows {{shownRows}} of {{timeLockList.length}}</div>
+                <div class="page-form" ng-hide="endPage === 0">
+                    <div class="all-rows">Rows2 {{shownRows}} of {{timeLockList.length}}</div>
                     <div class="partition">
                         <input type="text" class="form-control ad-input custom-input" ng-model="currentPageInput">
                         <div> of {{endPage}}</div>
@@ -130,7 +130,7 @@
                             </span>
                         </button>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="col-sm-12 clearfix text-center gray-bg p-2" ng-hide="timeLockList != ''">
                 <h4 class="small-gray-text">No time-locked assets</h4>
