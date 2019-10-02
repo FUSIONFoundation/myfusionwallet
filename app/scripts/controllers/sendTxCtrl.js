@@ -104,13 +104,36 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     }
 
     $scope.currentPage = 0;
+    $scope.currentPageInput = 1;
     $scope.pageSize = 10;
     $scope.endPage = 0;
     $scope.shownRows = 0;
+
+    $scope.$watch('currentPageInput', function (newValue) {
+        if(!isNaN(newValue))
+            $scope.goToPage(newValue);
+    });
+
+    $scope.$watch('currentPage', function (newValue) {
+        $scope.currentPageInput = newValue + 1;
+    });
+
+    $scope.goToPage = function (pageInput) {
+        if (pageInput <= $scope.currentPage || pageInput > $scope.endPage) {
+            return;
+        }
+        $scope.$eval(function () {
+            $scope.currentPage = pageInput - 1;
+            $scope.searchSwapMarket = "";
+        });
+        $scope.allSwaps($scope.currentPage);
+    };
+
     $scope.nextPage = function () {
         if ($scope.currentPage !== $scope.endPage - 1) {
             $scope.$eval(function () {
                 $scope.currentPage = $scope.currentPage + 1;
+                $scope.currentPageInput = $scope.currentPage + 1;
                 $scope.searchTimeLock = "";
             });
         }
@@ -132,6 +155,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.firstPage = function () {
         $scope.$eval(function () {
             $scope.currentPage = 0;
+            $scope.currentPageInput = 1;
             $scope.searchTimeLock = "";
         });
         if (
@@ -152,6 +176,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.lastPage = function () {
         $scope.$eval(function () {
             $scope.currentPage = $scope.endPage - 1;
+            $scope.currentPageInput = $scope.endPage - 1;
             $scope.searchTimeLock = "";
         });
         if (
@@ -174,6 +199,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if ($scope.currentPage !== 0) {
             $scope.$eval(function () {
                 $scope.currentPage = $scope.currentPage - 1;
+                $scope.currentPageInput = $scope.currentPage + 1;
                 $scope.searchTimeLock = "";
             });
         }

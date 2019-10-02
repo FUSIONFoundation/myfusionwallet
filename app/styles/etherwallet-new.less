@@ -1887,59 +1887,6 @@ h3{
 
 }
 
-
-// TO DO: put this inside table-new
-.table-input-wrapper {
-  position: relative;
-  display: inline-block;
-  margin: 0;
-  margin-bottom: 12px !important;
-  
-  .ad-input {
-    width: 240px !important;
-    padding-right: 38px !important;
-    height: 48px !important;
-    border-radius: 5px;
-    border: solid 2px #cfd8dc;
-    background-color: #ffffff;
-    margin: 0 !important;
-    font-family: Lato !important;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    color: #263238 !important;
-
-    &:hover {
-      border: solid 2px #90a4ae !important;
-    }
-    
-    &:active {
-      box-shadow: 0 0 0 2px rgba(53, 141, 204, 0.2);
-      border: solid 2px #358dcc;
-    }
-
-    &:focus {
-      box-shadow: 0 0 0 2px rgba(53, 141, 204, 0.2);
-      border: solid 2px #358dcc;
-    }
-
-    &:disabled {
-      background-color: #f6f7f8;
-    }
-
-  }
-
-  .ad-input-icon {
-    position: absolute;
-    top: 18px;
-    right: 14px;
-  }
-
-}
-
 .swap-market-new {
 
   background-color: #f6f7f8;
@@ -2525,6 +2472,144 @@ h3{
 
 .panel-body-new {
   padding: 22px 24px !important;
+
+  .page-controls {
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .search-input-wrapper {
+      position: relative;
+      display: inline-block;
+      margin: 0;
+      margin-bottom: 12px !important;
+    }
+
+    .ad-input {
+      width: 240px !important;
+      padding-right: 38px !important;
+      height: 48px !important;
+      border-radius: 5px;
+      border: solid 2px #cfd8dc;
+      background-color: #ffffff;
+      margin: 0 !important;
+      font-family: Lato !important;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      color: #263238 !important;
+  
+      &:hover {
+        border: solid 2px #90a4ae !important;
+      }
+      
+      &:active {
+        box-shadow: 0 0 0 2px rgba(53, 141, 204, 0.2);
+        border: solid 2px #358dcc;
+      }
+  
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(53, 141, 204, 0.2);
+        border: solid 2px #358dcc;
+      }
+  
+      &:disabled {
+        background-color: #f6f7f8;
+      }
+  
+    }
+  
+    .ad-input-icon {
+      position: absolute;
+      top: 18px;
+      right: 14px;
+    }
+
+    .page-form {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-around;
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: normal;
+      color: #455a64;
+
+      .all-rows {
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.14;
+        letter-spacing: normal;
+        margin-right: 21px;
+      }
+
+      .partition {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        margin-right: 11px !important;
+
+        .custom-input {
+          width: 48px !important;
+          height: 36px !important;
+          border-radius: 5px;
+          border: solid 2px #cfd8dc;
+          background-color: #ffffff;
+          margin-right: 11px !important;
+          padding-left: 8px !important;
+          padding-right: 8px !important;
+        }
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+
+        .page-btn {
+          box-shadow: 0 1px 0 0 rgba(38, 50, 56, 0.05);
+          background-color: #ffffff;
+          border-color: #cfd8dc;
+        }
+
+        .left-btn {
+          border-radius: 5px 0 0 5px !important;
+          border-width: 1px 1px 1px 1px !important;
+          border-style: solid solid solid solid !important;
+        }
+
+        .inner-btn {
+          border-radius: 0 !important;
+          border-width: 1px 1px 1px 0!important;
+          border-style: solid solid solid solid !important;
+        }
+
+        .right-btn {
+          border-radius: 0 5px 5px 0 !important;
+          border-width: 1px 1px 1px 0px !important;
+          border-style: solid solid solid solid !important;
+        }
+      }
+    }
+  }
+
+  .page-controls-timelock {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
 }
 
 .table-new {

@@ -102,49 +102,36 @@
         </div>
     </div>
     <article class="block">
-        <section class="row form-group">
-            <div class="col-md-12 p-0">
-                <div class="float-left">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <input type="text" ng-model="searchTimeLock" class="form-control m-0"
-                                               placeholder="Search Assets, Amounts">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+        <section class="row form-group panel-body-new">
+            <div class="col-md-12 p-0 page-controls page-controls-timelock">
+                <div class="search-input-wrapper">
+                    <input type="text" class="form-control ad-input"
+                            ng-model="searchTimeLock"
+                            placeholder="Search Assets, Amounts">
+                    <img class="ad-input-icon" src="./images/s.svg" height="14px"
+                            width="14px"/>
                 </div>
-                <div class="float-right">
-                    <div class="col-md-12">
-                        <form class="form-group form-inline">
-                                    <span class="small-gray-text text-fusion pr-2"><strong>Rows</strong> {{shownRows}}
-                                        of {{timeLockList.length}}</span>
-                            <span class="small-gray-text">
-                                        {{currentPage+1}} of {{endPage}}</span>
-                            <span class="small-gray-text m-1"
-                                  ng-click="firstPage()"><i class="fa fa-angle-double-left"
-                                                            aria-hidden="true"></i>
-                                </span>
-                            <span class="small-gray-text pl-1 pr-1 m-1"
-                                  ng-click="previousPage()"><i class="fa fa-angle-left" aria-hidden="true"></i>
-                                </span>
-                            <span class="small-gray-text pl-1 pr-1 m-1"
-                                  ng-click="nextPage()"><i class="fa fa-angle-right" aria-hidden="true"></i>
-                                </span>
-                            <span class="small-gray-text m-1"
-                                  ng-click="lastPage()"><i class="fa fa-angle-double-right"
-                                                           aria-hidden="true"></i>
-                                </span>
-                        </form>
+                <form class="form-group form-inline page-form" ng-hide="endPage === 0">
+                    <div class="all-rows">Rows {{shownRows}} of {{timeLockList.length}}</div>
+                    <div class="partition">
+                        <input type="text" class="form-control ad-input custom-input" ng-model="currentPageInput">
+                        <div> of {{endPage}}</div>
+                        <!-- <div> {{currentPage+1}} of {{endPage}}</div> -->
                     </div>
-                </div>
+                    <div class="actions">
+                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn left-btn" ng-click="previousPage()">
+                            <span class="small-gray-text pl-1 pr-1 m-1">
+                                <i class="fa fa-angle-left fa-lg" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                        <button class="btn btn-sm btn-white p-0 m-0 wh-36 page-btn right-btn" ng-click="nextPage()">
+                            <span class="small-gray-text pl-1 pr-1 m-1">
+                                <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                            </span>
+                        </button>
+                    </div>
+                </form>
             </div>
-
-
             <div class="col-sm-12 clearfix text-center gray-bg p-2" ng-hide="timeLockList != ''">
                 <h4 class="small-gray-text">No time-locked assets</h4>
             </div>
