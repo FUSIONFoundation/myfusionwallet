@@ -7683,7 +7683,7 @@
                                         </div>
                                         <div class="address">{{formatAddress(selectedSendContract)}}</div>
                                     </div>
-                                    
+
                                 </div>
 
                             </a>
@@ -7798,7 +7798,7 @@
                                         </div>
                                         <div class="address">{{formatAddress(selectedReceiveContract)}}</div>
                                     </div>
-                                    
+
                                 </div>
 
                             </a>
@@ -8563,7 +8563,7 @@
                                             </div>
                                             <div class="ad-search-grp">
                                                 <div class="grp-title"  ng-show="verifiedSendAssetListOwned && verifiedSendAssetListOwned.length > 0">VERIFIED ASSETS</div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} 
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN}
                                                     as verifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -8592,7 +8592,7 @@
                                             </div>
                                             <div class="ad-search-grp">
                                                 <div class="grp-title" ng-show="unverifiedSendAssetListOwned && unverifiedSendAssetListOwned.length > 0">UNVERIFIED ASSETS</div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} 
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN}
                                                     as unverifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -9196,8 +9196,9 @@
                          ng-click="makeSwapConfirmEndModal.close()">
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
-                            <img class="icon" src="images/you-send-new.svg" ng-show="transactionStatus !== 'Success'"
-                                 height="32px" width="32px">
+                            <div class="spinner-grow text-primary icon" role="status" ng-show="transactionStatus !== 'Success'">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                             <img class="icon" src="images/confirmed-transaction.svg"
                                  ng-show="transactionStatus == 'Success'" height="32px" width="32px">
                             <h3 class="h3-blue title">Make Swap <span
