@@ -931,22 +931,85 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         });
     };
 
-    $scope.checkDate = function () {
-        let today = new Date();
-        console.log($scope.sendAsset.tillTime);
-        console.log($scope.sendAsset.fromTime);
+    $scope.getDayAfter = function (date){
+        let temp = new Date(date);
+        return new Date(temp.setDate(temp.getDate() + 1));
+    }
+
+    $scope.checkDate = function (source) {
+        console.log("scope.checkDate called 14!!");
+        let today = new Date(); 
+        console.log("fromTime: " + $scope.sendAsset.fromTime);
+        console.log("tillTime: " + $scope.sendAsset.tillTime);
         if (!$scope.sendAsset.tillTime || !$scope.sendAsset.fromTime){
            return;
         }
-        if ($scope.sendAsset.tillTime < today) {
-            $scope.$eval(function () {
-                $scope.sendAsset.tillTime = today;
-            });
+        if($scope.sendAsset.fromTime >= today 
+            && $scope.sendAsset.tillTime >= today
+            && $scope.sendAsset.fromTime <= $scope.sendAsset.tillTime) {
+                console.log("dates ok");
+            return;
         }
-        if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
-            $scope.$eval(function () {
-                $scope.sendAsset.fromTime = today;
-            });
+        if(source === "fromTime") {
+            console.log("fromTime changed");
+            if($scope.sendAsset.fromTime < today) {
+                $scope.$eval(function () {
+                    $scope.sendAsset.fromTime = today;
+                    console.log("fromTime changed to today");
+                });
+                if(today > $scope.sendAsset.tillTime) {
+                    // change tillTime to: tomorrow
+                    let dayAfter = $scope.getDayAfter(today);
+                    console.log("dayAfter: " + dayAfter);
+                    $scope.$eval(function () {
+                        $scope.sendAsset.tillTime = dayAfter;
+                        console.log("tillTime changed to " + dayAfter);
+                    });
+                }
+            } else {
+                if($scope.sendAsset.fromTime > $scope.sendAsset.tillTime) {
+                    // TO DO: resolve Type error here
+                    // change tillTime to: fromTime plus one day
+                    $scope.$eval(function () {
+                        try {
+                            let dayAfter = $scope.getDayAfter($scope.sendAsset.fromTime);
+                            console.log("dayAfter: " + dayAfter);
+                            // console.log("$scope.sendAsset.tillTime: " + $scope.sendAsset.tillTime);
+                            // $scope.sendAsset.tillTime = dayAfter;
+                            $scope.sendAsset.tillTime = dayAfter;
+                            console.log("tillTime changed to " + dayAfter);
+                        } catch (e) {}
+                    });
+                }
+            }
+        } else if (source === "tillTime") {
+            console.log("tillTime changed");
+            if($scope.sendAsset.tillTime < today) {
+                $scope.$eval(function () {
+                    $scope.sendAsset.tillTime = today;
+                    $scope.sendAsset.fromTime = today;
+                    console.log("dates changed to today");
+                });
+            } else {
+                if($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
+                    // change fromTime to: today
+                    $scope.$eval(function () {
+                        $scope.sendAsset.fromTime = today;
+                        console.log("fromTime changed to today");
+                    });
+                }
+            }
+        } else {
+            if ($scope.sendAsset.tillTime < today) {
+                $scope.$eval(function () {
+                    $scope.sendAsset.tillTime = today;
+                });
+            }
+            if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
+                $scope.$eval(function () {
+                    $scope.sendAsset.fromTime = today;
+                });
+            }
         }
     };
 
