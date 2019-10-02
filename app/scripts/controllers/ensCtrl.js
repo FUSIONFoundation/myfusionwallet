@@ -304,7 +304,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.getAssetBalance();
     };
 
-    $scope.getDayAfter = function (date){
+    $scope.getDayAfter = function (date) {
         let temp = new Date(date);
         return new Date(temp.setDate(temp.getDate() + 1));
     }
@@ -317,23 +317,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let today = new Date();
             // window.log("fromStartTime: " + $scope.fromStartTime);
             // window.log("fromEndTime: " + $scope.fromEndTime);
-            if (!$scope.fromEndTime || !$scope.fromStartTime){
+            if (!$scope.fromEndTime || !$scope.fromStartTime) {
                 return;
             }
-            if($scope.fromStartTime >= today
+            if ($scope.fromStartTime >= today
                 && $scope.fromEndTime >= today
                 && $scope.fromStartTime <= $scope.fromEndTime) {
                 // window.log("dates ok");
                 return;
             }
-            if(source === "fromStartTime") {
+            if (source === "fromStartTime") {
                 // window.log("fromStartTime changed");
-                if($scope.fromStartTime < today) {
+                if ($scope.fromStartTime < today) {
                     $scope.$eval(function () {
                         $scope.fromStartTime = today;
                         // window.log("fromStartTime changed to today");
                     });
-                    if(today > $scope.fromEndTime) {
+                    if (today > $scope.fromEndTime) {
                         // change fromEndTime to: tomorrow
                         let dayAfter = $scope.getDayAfter(today);
                         $scope.$eval(function () {
@@ -342,7 +342,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         });
                     }
                 } else {
-                    if($scope.fromStartTime > $scope.fromEndTime) {
+                    if ($scope.fromStartTime > $scope.fromEndTime) {
                         $scope.$eval(function () {
                             let dayAfter = $scope.getDayAfter($scope.fromStartTime);
                             $scope.fromEndTime = dayAfter;
@@ -352,14 +352,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }
             } else if (source === "fromEndTime") {
                 // window.log("fromEndTime changed");
-                if($scope.fromEndTime < today) {
+                if ($scope.fromEndTime < today) {
                     $scope.$eval(function () {
                         $scope.fromEndTime = today;
                         $scope.fromStartTime = today;
                         // window.log("dates changed to today");
                     });
                 } else {
-                    if($scope.fromEndTime < $scope.fromStartTime) {
+                    if ($scope.fromEndTime < $scope.fromStartTime) {
                         // change fromStartTime to: today
                         $scope.$eval(function () {
                             $scope.fromStartTime = today;
@@ -391,23 +391,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let today = new Date();
             // window.log("ToStartTime: " + $scope.ToStartTime);
             // window.log("ToEndTime: " + $scope.ToEndTime);
-            if (!$scope.ToEndTime || !$scope.ToStartTime){
+            if (!$scope.ToEndTime || !$scope.ToStartTime) {
                 return;
             }
-            if($scope.ToStartTime >= today
+            if ($scope.ToStartTime >= today
                 && $scope.ToEndTime >= today
                 && $scope.ToStartTime <= $scope.ToEndTime) {
                 // window.log("dates ok");
                 return;
             }
-            if(source === "ToStartTime") {
+            if (source === "ToStartTime") {
                 // window.log("ToStartTime changed");
-                if($scope.ToStartTime < today) {
+                if ($scope.ToStartTime < today) {
                     $scope.$eval(function () {
                         $scope.ToStartTime = today;
                         // window.log("ToStartTime changed to today");
                     });
-                    if(today > $scope.ToEndTime) {
+                    if (today > $scope.ToEndTime) {
                         // change ToEndTime to: tomorrow
                         let dayAfter = $scope.getDayAfter(today);
                         $scope.$eval(function () {
@@ -416,7 +416,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         });
                     }
                 } else {
-                    if($scope.ToStartTime > $scope.ToEndTime) {
+                    if ($scope.ToStartTime > $scope.ToEndTime) {
                         $scope.$eval(function () {
                             let dayAfter = $scope.getDayAfter($scope.ToStartTime);
                             $scope.ToEndTime = dayAfter;
@@ -426,14 +426,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }
             } else if (source === "ToEndTime") {
                 // window.log("ToEndTime changed");
-                if($scope.ToEndTime < today) {
+                if ($scope.ToEndTime < today) {
                     $scope.$eval(function () {
                         $scope.ToEndTime = today;
                         $scope.ToStartTime = today;
                         // window.log("dates changed to today");
                     });
                 } else {
-                    if($scope.ToEndTime < $scope.ToStartTime) {
+                    if ($scope.ToEndTime < $scope.ToStartTime) {
                         // change ToStartTime to: today
                         $scope.$eval(function () {
                             $scope.ToStartTime = today;
@@ -458,7 +458,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.$watch('currentPageInput', function (newValue, oldValue) {
-        if(!isNaN(newValue) && newValue > 0 && newValue !== oldValue){
+        if (!isNaN(newValue) && newValue > 0 && newValue !== oldValue) {
             // window.log("goToPage: "+newValue);
             $scope.goToPage(newValue);
         }
@@ -667,7 +667,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     })
 
 
-    $scope.setAllAssetsInReceive = function () {
+    $scope.setAllAssetsInReceive = async function () {
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `All Assets`;
             $scope.selectedReceiveContract = "\n";
@@ -676,7 +676,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.selectedReceiveHasImage = false;
             $scope.selectedReceiveVerified = false;
         });
-        $scope.allSwaps();
+        await $scope.allSwaps();
     }
 
     $scope.setAllSANsInReceive = function () {
@@ -691,7 +691,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.allSwaps();
     }
 
-    $scope.setAllAssetsInSend = function () {
+    $scope.setAllAssetsInSend = async function () {
         $scope.$eval(function () {
             $scope.selectedSendAsset = `All Assets`;
             $scope.selectedSendContract = "\n";
@@ -700,28 +700,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.selectedSendHasImage = false;
             $scope.selectedSendVerified = false;
         });
-        $scope.allSwaps();
+        await $scope.allSwaps();
     }
 
 
     $scope.setSendAndReceiveInit = async function () {
-            $scope.selectedReceiveAsset = `All Assets`;
-            $scope.selectedReceiveContract = "\n";
-            $scope.assetToReceive = $scope.assetList[0].contractaddress;
-            $scope.selectedReceiveImage = `${$scope.assetList[0].image}`;
-            $scope.selectedReceiveHasImage = $scope.assetList[0].hasImage;
-            $scope.selectedReceiveVerified = $scope.assetList[0].verified;
-
-        // Receive part
-            $scope.selectedSendAsset = `All Assets`;
-            $scope.selectedSendAssetSymbol = `${$scope.assetListOwned[0].symbol}`;
-            $scope.selectedReceiveAssetSymbol = `${$scope.assetList[0].symbol}`;
-            $scope.selectedSendContract = "\n";
-            $scope.selectedSendImage = `${$scope.assetListOwned[0].image}`;
-            $scope.selectedSendHasImage = $scope.assetListOwned[0].hasImage;
-            $scope.selectedSendVerified = $scope.assetListOwned[0].verified;
-            $scope.assetToSend = $scope.assetListOwned[0].contractaddress;
-            $scope.getAssetBalance();
+        await $scope.setAllAssetsInSend();
+        await $scope.setAllAssetsInReceive();
+        $scope.getAssetBalance();
     };
 
     $scope.privateAccess = false;
@@ -2653,10 +2639,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     let lastKnownTotalSwapsInQuery = 0;
     $scope.setPagination = async (currentPage, totalSwapsInQuery) => {
-        if(totalSwapsInQuery !== undefined){
+        if (totalSwapsInQuery !== undefined) {
             lastKnownTotalSwapsInQuery = totalSwapsInQuery;
         }
-        if(totalSwapsInQuery == undefined){
+        if (totalSwapsInQuery == undefined) {
             totalSwapsInQuery = lastKnownTotalSwapsInQuery;
         }
 
@@ -2664,16 +2650,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         // Calculate shown rows
         let shownRows;
         if (currentPage === 0) {
-            if(totalSwapsInQuery > 10){
+            if (totalSwapsInQuery > 10) {
                 shownRows = 10;
             } else {
                 shownRows = totalSwapsInQuery;
 
             }
         } else {
-            shownRows = (currentPage+1) * 10;
-            if(currentPage == endPage){
-                if(shownRows > totalSwapsInQuery){
+            shownRows = (currentPage + 1) * 10;
+            if (currentPage == endPage) {
+                if (shownRows > totalSwapsInQuery) {
                     shownRows = totalSwapsInQuery;
                 }
             }
@@ -2683,7 +2669,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             if (totalSwapsInQuery) {
                 $scope.totalRowsSwapsQuery = totalSwapsInQuery
                 $scope.endPage = endPage;
-            };
+            }
+            ;
             $scope.shownRows = shownRows;
             $scope.currentPageInput = currentPage + 1;
         })
