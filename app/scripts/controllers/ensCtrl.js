@@ -1616,7 +1616,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
 
         await $scope.setReceive(1).then(function () {
-            if (pass === false) {
+            if (!pass) {
                 if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
                     if (!$scope.takeDataFront.toVerified) {
                         $scope.suspiciousAssetModal.open();
