@@ -86,7 +86,7 @@
                                             width="14px"/>
                                 </div>
                                 <div class="ad-all-assets" ng-click="setAllAssetsInSend()">All Assets</div>
-                                <div class="ad-usan" ng-click="setMakeUSAN()">
+                                <div class="ad-usan" ng-show="!!usanAddress" ng-click="setMakeUSAN()">
                                     <div class="ad-usan-content">
                                         <div class="usan-selected">
                                             <span class="name">USAN</span>
@@ -924,6 +924,8 @@
                                                 <span class="curr-symbol">{{selectedSendAssetSymbol}}</span>
                                                 <img class="verifier" ng-if="selectedSendVerified"
                                                      src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="verifier" ng-if="!selectedSendVerified"
+                                                     src="./images/unverified.svg" height="14px" width="14px"/>
                                             </div>
                                         </a>
                                         <div class="action-dropdown"
@@ -938,7 +940,7 @@
                                                 <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                                      width="14px"/>
                                             </div>
-                                            <div class="ad-usan" ng-click="setMakeUSAN()">
+                                            <div class="ad-usan" ng-show="!!usanAddress" ng-click="setMakeUSAN()">
                                                 <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
                                                 <div class="ad-usan-content">
                                                     <div class="usan-selected">
