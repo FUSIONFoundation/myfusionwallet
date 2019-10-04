@@ -231,6 +231,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.makeSwapReviewDisabled = true;
+    $scope.usanAlreadySwapped = false;
     $scope.checkMakeSwapConditions = async () => {
         let z = true;
         if (!$scope.selectedSendContract == $scope.DEFAULT_USAN) {
@@ -253,12 +254,19 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         }
 
+        let usanSwap = false;
+
         if ($scope.selectedSendContract == $scope.DEFAULT_USAN && $scope.usanAlreadyInSwap) {
             z = true
+            usanSwap = true;
+        } else {
+            z = false;
+            usanSwap = false;
         }
 
         $scope.$applyAsync(function () {
             $scope.makeSwapReviewDisabled = z;
+            $scope.usanAlreadySwapped = usanSwap;
         })
     }
 

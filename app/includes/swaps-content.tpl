@@ -1222,6 +1222,7 @@
                                     </div>
 
                                 </div>
+                                <span class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </span>
                             </div>
 
 
