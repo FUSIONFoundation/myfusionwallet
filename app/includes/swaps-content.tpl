@@ -536,16 +536,16 @@
                     <div class="col-md-12 p-0 page-controls">
                         <div class="search-input-wrapper">
                             <input type="text" class="form-control ad-input"
-                                   ng-model="searchSwapMarket"
-                                   placeholder="Search">
+                                ng-model="searchSwapMarket"
+                                autocomplete="false"
+                                placeholder="Search">
                             <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                  width="14px"/>
                         </div>
                         <div class="page-form" ng-hide="endPage === 0">
                             <div class="all-rows">Rows {{shownRows}} of {{totalRowsSwapsQuery}}</div>
                             <div class="partition">
-                                <input type="text" class="form-control ad-input custom-input"
-                                       ng-model="currentPageInput">
+                                <input type="text" class="form-control ad-input custom-input" ng-model="currentPageInput" autocomplete="false">
                                 <div> of {{endPage+1}}</div>
                                 <!-- <div> {{currentPage+1}} of {{endPage}}</div> -->
                             </div>
