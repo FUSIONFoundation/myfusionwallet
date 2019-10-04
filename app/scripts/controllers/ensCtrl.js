@@ -1670,7 +1670,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         );
         let toFinal = toAmountBN.times($scope.convertToString(perc3));
 
-        await $scope.$apply(function () {
+        await $scope.$applyAsync(function () {
             $scope.receiveTokens = fromFinal.toPrecision(5);
             $scope.sendTokens = toFinal.toPrecision(5);
         });
@@ -2690,7 +2690,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 window.log(`allSwaps already running!`);
                 return;
             }
-
             $scope.swapsList = [];
             let swapList = [];
             let swapListFront = [];
