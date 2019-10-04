@@ -2969,6 +2969,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 });
                 $scope.showLoader = false;
             });
+
+            console.log($scope.swapsList);
             $scope.allSwapsRunning = false;
             window.log("Finished retrieving all Swaps");
         }
