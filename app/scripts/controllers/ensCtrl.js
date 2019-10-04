@@ -2098,9 +2098,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         if (data.ToAssetID == $scope.DEFAULT_USAN) {
             data.MinToAmount = "0x" + "1".toString(16);
+            data.SwapSize = parseInt(1);
         }
         if (data.FromAssetID == $scope.DEFAULT_USAN) {
             data.MinFromAmount = "0x" + "1".toString(16);
+            data.SwapSize = parseInt(1);
         }
 
         try {
