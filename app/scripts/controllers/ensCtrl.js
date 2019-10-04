@@ -199,6 +199,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.$applyAsync(function () {
             $scope.makeUSAN = true;
         })
+        await $scope.checkMakeSwapConditions();
         await $scope.allSwaps(0);
     }
     $scope.setReceiveUSAN = async () => {
@@ -1848,6 +1849,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.transactionStatus = "Pending";
         });
         $scope.makeSwapModal.open();
+        await $scope.checkMakeSwapConditions;
         let a = document.getElementById('makeSendAmount');
         a.focus();
         setTimeout(function () {
