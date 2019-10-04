@@ -1619,6 +1619,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     } else {
                         $scope.takeSwapModal.open()
                     }
+                } else {
+                    try {
+                        $scope.takeSwapModal.open();
+                    } catch ( err ) {
+                        console.log( err );
+                    }
                 }
             } else {
                 try {
