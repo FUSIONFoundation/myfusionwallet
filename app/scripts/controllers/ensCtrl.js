@@ -1062,7 +1062,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.receiveDropDown2 = false;
         });
         $scope.receiveChanged = 1;
-        $scope.updateDropDownCookie('receive', id);
         await $scope.allSwaps(0);
     };
 
@@ -1083,7 +1082,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.getAssetBalance();
         $scope.sendChanged = 1;
-        $scope.updateDropDownCookie('send', id);
         await $scope.allSwaps(0);
     };
 
@@ -1105,7 +1103,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.getAssetBalance();
         $scope.sendChanged = 1;
-        $scope.updateDropDownCookie('send', id);
         await $scope.allSwaps(0);
     };
 
@@ -1540,7 +1537,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
         $scope.getAssetBalance();
         $scope.sendChanged = 1;
-        $scope.updateDropDownCookie('send', id);
         await $scope.allSwaps(0);
     };
 
