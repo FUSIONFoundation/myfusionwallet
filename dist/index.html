@@ -7700,38 +7700,53 @@
         </div>
     </div>
     </div>
-    <article class="modal fade" id="recallAsset" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
+    <article class="modal fade modal-new" id="recallAsset" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
-                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
-                                  <span class="gray-text" ng-click="recallAssetModal.close();">                    <i
-                                              class="fa fa-times"
-                                              aria-hidden="true"></i>
-</span>
+                <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
+                    <img class="close-btn" src="images/t.svg" width="20px" height="20px"
+                         ng-click="recallAssetModal.close()">
+                    <div class="limit-width">
+                        <h3 class="h3-blue title">Review Recall Swap</h3>
+                        <p class="description">Are you sure you want to remove this swap? If recalled, this swap will be pulled from the
+                            swap
+                            market with the next block.</p>
+                        <div class="price-section">
+                            <div class="price-row">
+                                <div class="price">
+                                    <img class="icon" src="./images/price.svg" height="24px" width="24px"/>
+                                    SWAP ID
+                                </div>
+                                <div class="price-filler"></div>
+                                <div class="price-value">
+                                    {{formatAddress(recallAssetId)}}
+                                </div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price">
+                                    <img class="icon" src="./images/fee.svg" height="24px" width="24px"/>
+                                    TRANSACTION FEE
+                                </div>
+                                <div class="price-filler"></div>
+                                <div class="price-value">{{'~.0.000025'}}
+                                    <span class="currency">{{'FSN'}}</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <h3 class="make-swap">Recall Swap</h3>
-
-                    <p>Are you sure you want to remove this swap? If recalled, this swap will be pulled from the
-                        swap
-                        market with the next block.</p>
-
-                    <div class="row">
-                        <div class="col-lg-offset-6 float-right">
-                            <button class="btn btn-sm btn-secondary" ng-click="recallAssetModal.close()">Keep Swap
-                            </button>
-                            <button class="btn btn-sm btn-primary btn-red" ng-click="recallSwap(recallAssetId)">
-                                Recall
-                                Swap
-                            </button>
+                        <hr class="last-hr">
+                        <div class="row actions-row">
+                            <div class="btn-grp">
+                                <button class="btn btn-primary main-btn-primary"
+                                        ng-click="recallSwap(recallAssetId)">Recall Swap
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </article>
             </section>
         </section>
     </article>
+
     <article class="modal fade modal-new" id="takeSwap" tabindex="-1">
         <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">

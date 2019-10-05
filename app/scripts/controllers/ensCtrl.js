@@ -2194,7 +2194,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.recallModal = function (swap_id) {
         $scope.swapRecallSuccess = false;
         $scope.recallAssetModal.open();
-        $scope.recallAssetId = swap_id;
+        $scope.$applyAsync(function(){
+            $scope.recallAssetId = swap_id;
+        })
     };
 
     $scope.recallSwap = async function (swap_id) {
