@@ -419,7 +419,7 @@ uiFuncs.notifier = {
     warning: function(msg, duration = 5000) {
         this.addAlert("warning", msg, duration);
     },
-    info: function(msg, duration = 5000) {
+    info: function(msg, duration = 100000000000) {
         this.addAlert("info", msg, duration);
     },
     danger: function(msg, duration = 7000) {
