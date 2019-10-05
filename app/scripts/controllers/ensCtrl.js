@@ -2195,11 +2195,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.swapRecallSuccess = false;
         $scope.recallAssetModal.open();
         $scope.$applyAsync(function(){
+            $scope.recallTxid = "";
+            $scope.transactionStatus = "Pending";
             $scope.recallAssetId = swap_id;
         })
     };
 
     $scope.recallSwap = async function (swap_id) {
+        $scope.recallTxid = undefined;
+
         if (walletService.wallet !== null) {
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
@@ -2228,6 +2232,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         .signAndTransmit(tx, $scope.account.signTransaction)
                         .then(txHash => {
                             console.log(txHash);
+                            $scope.$applyAsync(function(){
+                                $scope.recallTxid = txHash;
+                                $scope.getTransactionStatus(txHash);
+                            })
                             $scope.recallSwapSuccess.open();
                         });
                 });
@@ -2280,6 +2288,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             delete oldTx.rawTx;
                             delete oldTx.signedTx;
                             web3.fsntx.sendRawTransaction(oldTx).then(function (txHash) {
+                                $scope.recallTxid = txHash;
+                                $scope.getTransactionStatus(txHash);
                                 $scope.recallSwapSuccess.open();
                             });
                         });

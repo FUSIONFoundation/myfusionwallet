@@ -9540,19 +9540,64 @@
             </section>
         </section>
     </article>
-    <article class="modal fade" id="recallSwapSuccess" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
+    <article class="modal fade modal-new" id="recallSwapSuccess" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
-                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 text-center">
-                        <h3 class="h3-blue">Success!</h3>
-                        <div class="pt-2 pb-2">
-                            <img src="images/check-circle.svg" width="120px" height="120px">
+                <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
+                    <img class="close-btn" src="images/t.svg" width="20px" height="20px"
+                         ng-click="recallSwapSuccess.close()">
+                    <div class="limit-width">
+                        <div class="ms-confirmed-title-wrapper">
+                            <div class="spinner-grow text-primary icon" role="status"
+                                 ng-show="transactionStatus !== 'Success'">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <img class="icon" src="images/confirmed-transaction.svg"
+                                 ng-show="transactionStatus == 'Success'" height="32px" width="32px">
+                            <h3 class="h3-blue title">Recall Swap <span
+                                        ng-show="transactionStatus !== 'Success'">Pending</span> <span
+                                        ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
-                        <p>
-                            Swap Successful! Assets are now available in your wallet.</p>
-                        <button class="btn btn-white pt-2" ng-click="recallSwapSuccess.close()">Back to Swap Market
-                        </button>
+                        <p class="ms-confirmed-description" ng-show="transactionStatus !== 'Success'">Your swap has been
+                            recalled and should be confirmed with the next block. You may close this receipt at any time or
+                            click the Transaction ID below to view on the block explorer.</p>
+                        <p class="ms-confirmed-description" ng-show="transactionStatus == 'Success'">Your assets are now
+                            available in your wallet.</p>
+                        <div class="price-section">
+                            <div class="price-row">
+                                <div class="price">
+                                    <img class="icon" src="./images/transaction-id.svg" height="24px" width="24px"/>
+                                    TX ID
+                                </div>
+                                <div class="price-filler"></div>
+                                <div class="price-value tx-value">
+                                    <div class="address"><a
+                                                href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
+                                                target="_blank">{{formatAddress(recallTxid)}}</a></div>
+                                    <a href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
+                                       target="_blank"><img class="icon" src="./images/external-link.svg" height="24px"
+                                                            width="24px"/></a>
+                                </div>
+                            </div>
+                            <div class="price-row">
+                                <div class="price">
+                                    <img class="icon" src="./images/fee.svg" height="24px" width="24px"/>
+                                    TRANSACTION FEE
+                                </div>
+                                <div class="price-filler"></div>
+                                <div class="price-value">{{'~.0.000025'}}
+                                    <span class="currency">{{'FSN'}}</span></div>
+                            </div>
+                        </div>
+
+                        <hr class="last-hr">
+                        <div class="row actions-row">
+                            <div class="btn-grp">
+                                <button class="btn btn-white main-btn-secondary"
+                                        ng-click="recallSwapSuccess.close()">Close
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </article>
             </section>
