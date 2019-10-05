@@ -10,6 +10,7 @@
 - [x] Send Asset
 - [x] Send Time Locked Asset
 - [x] Create Asset with attributes
+- [x] Generate SAN
 
 *Quantum Swaps*
 - [x] Make Swap
