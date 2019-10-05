@@ -1971,7 +1971,7 @@
 
                     <div class="row p-2 pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text p-0">
-                            Maker Sends
+                            Maker Receives
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
@@ -2025,7 +2025,7 @@
 
                     <div class="row p-2 pt-3 pb-3 info-bg mt-1">
                         <div class="col-md-6 small-gray-text p-0">
-                            Taker will be receiving
+                            Taker Receives
                         </div>
                         <div class="col-md-6 p-0">
                             <div class="float-right">
