@@ -1,7 +1,47 @@
-### [MyFusionWallet](https://www.myfusionwallet.com)
+# MyFusionWallet
+###### The official wallet implementation for the FUSION Protocol
 
-The Fusion wallet is the central place for users to execute FSN token transfers, time-lock assets for loaning, swap assets using quantum swap, buy tickets for staking and more.
 
-Fusion adapted the My Ether Wallet (MEW) interface, a trusted, open-source wallet as the basis for the Fusion Wallet. The wallet selection was based on MEW’s open-source code, security parameters, and reputation. By amending the original code, Fusion satisfied the requirements for Mainnet usability while maintaining a high level of security. The Fusion Wallet parallels MEW in security, common functionalities, plus look and feel. The purpose of using a trusted and familiar wallet like MEW is to give users the confidence that their digital assets are secure and limit the learning curve with a familiar interface.
+>__We love developers. Join our Developers Community today!__ @ [Telegram](https://t.me/FsnDevCommunity).
 
-For technically inclined community members, the open-source code will be made available. Users can dive into the Fusion Wallet code and explore the ingenious ways Fusion adapted MEW’s source code including the extra functionality: time-lock, quantum swap, staking, and more.
+## Features
+
+*Wallet*
+- [x] Send Asset
+- [x] Send Time Locked Asset
+- [x] Create Asset with attributes
+
+*Quantum Swaps*
+- [x] Make Swap
+- [x] Take Swap
+- [x] Recall Swap
+
+## Running locally
+
+In order to run the wallet locally, you need to have [gulp](https://github.com/gulpjs/gulp) installed. If you only want to run it without compiling, download a pre-compiled version from the [releases](https://github.com/FUSIONFoundation/myfusionwallet/releases) page.
+
+Execute the following commands to build:
+
+Head over to the project
+```bash
+$ cd myfusionwallet
+```
+Install all dependencies
+```bash
+$ npm install
+```
+Create a build
+
+```bash
+$ gulp
+```
+
+To open up the wallet in your browser, open **dist/index.html**
+
+## Troubleshooting
+
+If you are experiencing any issues or have any suggestions we would be glad to hear from you.
+
+1.  Join us on [Telegram](https://t.me/FsnDevCommunity)
+1.  Submit a ticket to [Zendesk](https://fusionnetworks.zendesk.com/hc/en-us/requests/new)
+1.  Submit an [issue](https://github.com/FUSIONFoundation/myfusionwallet/issues)
