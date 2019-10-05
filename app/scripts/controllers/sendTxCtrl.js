@@ -2496,7 +2496,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             await timeLockListSave.push(data);
         }
 
-        $scope.$eval(function () {
+        $scope.$applyAsync(function () {
             $scope.timeLockList = timeLockListSave;
         });
     };
@@ -2505,7 +2505,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (!$scope.tx || !$scope.wallet) {
             return;
         }
-        $scope.$eval(function () {
+        $scope.$applyAsync(function () {
             $scope.showNoAssets = true;
         });
         let accountData = uiFuncs.getTxData($scope);
@@ -2649,18 +2649,16 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 description: assetList2[asset]["description"],
                 verified: assetList2[asset]["verified"]
             };
-            await
-                assetList3.push(data);
+            await assetList3.push(data);
         }
 
-        $scope.$apply(function () {
-            $scope.assetListOwns = assetList3;
+        $scope.$applyAsync(function () {
             $scope.assetListOwns = assetList3;
             $scope.assetListLoading = false;
         });
 
         if ($scope.assetListOwns.length == 0) {
-            $scope.$eval(function () {
+            $scope.$applyAsync(function () {
                 $scope.showNoAssets = true;
             });
         }
