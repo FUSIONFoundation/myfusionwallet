@@ -942,6 +942,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }, 5000);
                 return;
             } else if (tx) {
+                uiFuncs.notifier.info('Transaction was successfully processed', 5000);
                 $scope.$applyAsync(function () {
                     $scope.transactionStatus = 'Success'
                 })

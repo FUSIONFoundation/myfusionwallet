@@ -8365,7 +8365,8 @@
                          ng-click="recallAssetModal.close()">
                     <div class="limit-width">
                         <h3 class="h3-blue title">Review Recall Swap</h3>
-                        <p class="description">Are you sure you want to remove this swap? If recalled, this swap will be pulled from the
+                        <p class="description">Are you sure you want to remove this swap? If recalled, this swap will be
+                            pulled from the
                             swap
                             market with the next block.</p>
                         <div class="price-section">
@@ -9559,7 +9560,8 @@
                                         ng-show="transactionStatus == 'Success'">Confirmed</span></h3>
                         </div>
                         <p class="ms-confirmed-description" ng-show="transactionStatus !== 'Success'">Your swap has been
-                            recalled and should be confirmed with the next block. You may close this receipt at any time or
+                            recalled and should be confirmed with the next block. You may close this receipt at any time
+                            or
                             click the Transaction ID below to view on the block explorer.</p>
                         <p class="ms-confirmed-description" ng-show="transactionStatus == 'Success'">Your assets are now
                             available in your wallet.</p>
@@ -9603,52 +9605,46 @@
             </section>
         </section>
     </article>
-    <article class="modal fade" id="swapInformationModal" tabindex="-1">
-        <section class="modal-dialog send-asset-dialog">
+    <article class="modal fade modal-new" id="swapInformationModal" tabindex="-1">
+        <section class="modal-dialog send-asset-dialog reset-modal">
             <section class="modal-content no-shadow">
-                <article class="block no-shadow" ng-hide="wallet.type=='addressOnly'">
-                    <div class="col-md-12 p-0">
-                        <div class="float-right">
-                                  <span class="gray-text" ng-click="swapInformationModal.close()">                    <i
-                                              class="fa fa-times"
-                                              aria-hidden="true"></i>
-</span>
-                        </div>
-                    </div>
-                    <div class="row p-2">
+                <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
+                    <img class="close-btn" src="images/t.svg" width="20px" height="20px"
+                         ng-click="swapInformationModal.close()">
+
+                    <div class="limit-width">
                         <div class="col-md-12 p-0">
-                            <h3 class="h3-blue m-0">Swap Details</h3>
-                        </div>
-                    </div>
+                            <h3 class="title title-make-swap">Swap Details</h3>
 
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Swap ID
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
-                                <span class="fusion-text-14">{{formatAddress(swapInfo.ID)}}</span>
+
+                            <div class="row p-2 pt-3 pb-3 gray-border-bottom">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Swap ID
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
+                                        <span class="fusion-text-14">{{formatAddress(swapInfo.ID)}}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Time Initiated
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
-                                <span class="fusion-text-14">{{swapInfo.Time}}</span>
+                            <div class="row p-2 pt-3 pb-3 gray-border-bottom">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Time Initiated
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
+                                        <span class="fusion-text-14">{{swapInfo.Time}}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row p-2 pt-3 pb-3 info-bg mt-1">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Maker Receives
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
+                            <div class="row p-2 pt-3 pb-3 info-bg mt-1">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Maker Receives
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
                                     <span class="fusion-text-14">
                                         <span class="fusion-text-18">{{swapInfo.MinToAmount}}</span>
                                         {{swapInfo.ToAssetName}} ({{swapInfo.ToAssetSymbol}}) <span
@@ -9656,53 +9652,53 @@
                                                 ng-show="swapInfo.toVerified">                                    <img
                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                                <br>
-                                <span class="small-gray-text">{{formatAddress(swapInfo.ToAssetID)}}</span>
-                                </span>
+                                        <br>
+                                        <span class="small-gray-text">{{formatAddress(swapInfo.ToAssetID)}}</span>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Maker Sends From
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
+                            <div class="row p-2 pt-3 pb-3 gray-border-bottom">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Maker Sends From
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
                                     <span class="fusion-text-14">{{swapInfo.ToStartTime}} <i
                                                 class="fa fa-long-arrow-right" aria-hidden="true"></i>
                                         {{swapInfo.ToEndTime}} </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Swap initiated by
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
-                                <span class="fusion-text-14">{{swapInfo.Owner}}</span>
+                            <div class="row p-2 pt-3 pb-3 gray-border-bottom">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Swap initiated by
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
+                                        <span class="fusion-text-14">{{swapInfo.Owner}}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Remaining Fills
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
-                                <span class="fusion-text-14">{{swapInfo.size}} of {{swapInfo.SwapSize}}</span>
+                            <div class="row p-2 pt-3 pb-3 gray-border-bottom">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Remaining Fills
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
+                                        <span class="fusion-text-14">{{swapInfo.size}} of {{swapInfo.SwapSize}}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row p-2 pt-3 pb-3 info-bg mt-1">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Taker Receives
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
+                            <div class="row p-2 pt-3 pb-3 info-bg mt-1">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Taker Receives
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
                                     <span class="fusion-text-14">
 
                                         <span class="fusion-text-18">{{swapInfo.MinFromAmount}}</span>
@@ -9711,45 +9707,40 @@
                                                 ng-show="swapInfo.fromVerified">                                    <img
                                                     src="./images/verified.svg" height="14px" width="14px"/></span>
 </span>
-                                <br>
-                                <span class="small-gray-text">{{formatAddress(swapInfo.FromAssetID)}}</span>
-                                </span>
+                                        <br>
+                                        <span class="small-gray-text">{{formatAddress(swapInfo.FromAssetID)}}</span>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row p-2 pt-3 pb-3 gray-border-bottom">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Taker Receives From
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
+                            <div class="row p-2 pt-3 pb-3 gray-border-bottom">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Taker Receives From
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
                                     <span class="fusion-text-14">{{swapInfo.FromStartTime}} <i
                                                 class="fa fa-long-arrow-right" aria-hidden="true"></i>
                                         {{swapInfo.FromEndTime}} </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row p-2">
+                                <div class="col-md-6 small-gray-text p-0">
+                                    Availability
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="float-right">
+                                        <i class="fa fa-globe" aria-hidden="true"
+                                           ng-hide="swapInfo.Targes=='Private'"></i>
+                                        <i class="fa fa-lock" aria-hidden="true"
+                                           ng-hide="swapInfo.Targes=='Public'"></i>
+                                        <span class="fusion-text-14">{{swapInfo.Targes}}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row p-2">
-                        <div class="col-md-6 small-gray-text p-0">
-                            Availability
-                        </div>
-                        <div class="col-md-6 p-0">
-                            <div class="float-right">
-                                <i class="fa fa-globe" aria-hidden="true" ng-hide="swapInfo.Targes=='Private'"></i>
-                                <i class="fa fa-lock" aria-hidden="true" ng-hide="swapInfo.Targes=='Public'"></i>
-                                <span class="fusion-text-14">{{swapInfo.Targes}}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-2 text-center">
-                        <div class="col-md-12">
-                            <button class="btn btn-white" ng-click="swapInformationModal.close()">
-                                Close
-                            </button>
-                        </div>
-                    </div>
                 </article>
             </section>
         </section>
