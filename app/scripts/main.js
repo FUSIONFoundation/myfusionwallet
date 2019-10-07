@@ -206,7 +206,7 @@ window.getApiServer = function () {
         if (location.continent === 'Asia' && location.country_code === 'CN') {
             return 'https://asiaapi.fusionnetwork.io';
         } else {
-            return 'https://mainnetapi.fusionnetwork.io';
+            return 'http://mainnetapi.fusionnetwork.io';
         }
     } else if (window.currentNet === 'testnet') {
         if (location.continent === 'Asia' && location.country_code === 'CN') {
