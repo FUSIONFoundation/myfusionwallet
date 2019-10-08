@@ -296,7 +296,6 @@ window.__fsnGetAllAssets = async function (array) {
     if (!lastGetAllAssetTime || (lastGetAllAssetTime + 15000) < (new Date()).getTime()) {
         let totalAssets = 0;
         await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
-            console.log(`RUNNING FSN PRICE`);
             let globalInfo = r.data;
             totalAssets = globalInfo.totalAssets;
             if (localCacheOfAssets.length == totalAssets) {

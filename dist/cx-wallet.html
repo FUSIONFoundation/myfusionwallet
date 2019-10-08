@@ -8055,7 +8055,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in openMakes | orderBy:sortKeyMake:reverseMake | filter: { owned: true } track by $index"
+                        <tr ng-repeat="asset in openMakes | orderBy:'-timePosix'| filter: { owned: true } track by $index"
                         >
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <div class="row-layout">

@@ -2380,7 +2380,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return $scope.months[tMonth] + " " + tDay + ", " + tYear;
     };
 
-
     $scope.usanAlreadyInSwap = false;
     let openMakesListRunning = false;
     $scope.openMakesList = async function () {
