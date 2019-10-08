@@ -1320,6 +1320,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     didFSN = true;
                 }
 
+                if(assetList[asset]["Name"].length >= 19){
+                    let a = assetList[asset]["Name"].substr(0,19);
+                    assetList[asset]["Name"] = a;
+                }
+
+
                 let data = {
                     id: x,
                     name: assetList[asset]["Name"],
