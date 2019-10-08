@@ -977,13 +977,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
 
     $scope.checkDate = function (source) {
         // console.log("scope.checkDate called 14!!");
-        let today = new Date(); 
+        let today = new Date();
         // console.log("fromTime: " + $scope.sendAsset.fromTime);
         // console.log("tillTime: " + $scope.sendAsset.tillTime);
         if (!$scope.sendAsset.tillTime || !$scope.sendAsset.fromTime){
            return;
         }
-        if($scope.sendAsset.fromTime >= today 
+        if($scope.sendAsset.fromTime >= today
             && $scope.sendAsset.tillTime >= today
             && $scope.sendAsset.fromTime <= $scope.sendAsset.tillTime) {
                 // console.log("dates ok");
@@ -2595,7 +2595,6 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 let balanceBN = new window.BigNumber(assetBalance);
                 let divBN = new window.BigNumber($scope.countDecimals(assetList[asset]["Decimals"]));
                 let balanceFinal = balanceBN.div(divBN);
-
                 let totalBN = new window.BigNumber(assetList[asset]["Total"]);
                 let totalBNFinal = totalBN.div(divBN);
                 let data = {

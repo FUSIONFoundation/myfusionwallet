@@ -9316,14 +9316,16 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeMinumumSwap}}</div>
                             </div>
-                            <div class="price-row" ng-show="privateAccess">
-                                <div class="price">
-                                    <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
-                                    PRIVATELY SENDING TO
+                            <div class="address-row" ng-show="privateAccess">
+                                <div class="left-grp">
+                                    <div class="price">
+                                        <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
+                                        PRIVATELY SENDING TO
+                                    </div>
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="address">
-                                    <div class="address-item">{{makeTarges}}</div>
+                                    <div ng-repeat="pvtAdress in targesArray" class="address-item">{{pvtAdress}}</div>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -9506,14 +9508,16 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeMinumumSwap}}</div>
                             </div>
-                            <div class="price-row" ng-show="privateAccess">
-                                <div class="price">
-                                    <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
-                                    PRIVATELY SENDING TO
+                            <div class="address-row" ng-show="privateAccess">
+                                <div class="left-grp">
+                                    <div class="price">
+                                        <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
+                                        PRIVATELY SENDING TO
+                                    </div>
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="address">
-                                    <div class="address-item">{{makeTarges}}</div>
+                                    <div ng-repeat="pvtAdress in targesArray" class="address-item">{{pvtAdress}}</div>
                                 </div>
                             </div>
                             <div class="price-row">
