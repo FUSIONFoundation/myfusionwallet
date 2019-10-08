@@ -1510,7 +1510,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(err);
         }
 
-        balance = balance / $scope.countDecimals(decimals);
+        let balanceBN = new window.BigNumber(balance.toString());
+        let div = new window.BigNumber($scope.countDecimals(decimals));
+        balance = balanceBN.div(div);
 
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.openTakeSwaps[id];
@@ -1526,7 +1528,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.toAssetSymbol = $scope.openTakeSwaps[id].fromAssetSymbol;
             $scope.takeDataFront.toAssetId = $scope.openTakeSwaps[id].fromAssetId;
             $scope.takeDataFront.fromAssetMin = $scope.openTakeSwaps[id].minswaptaker;
-            $scope.takeDataFront.fromAssetBalance = balance;
+            $scope.takeDataFront.fromAssetBalance = balance.toString();
             $scope.takeDataFront.swapRate = $scope.openTakeSwaps[id].swapratetaker;
             $scope.takeDataFront.maxAmount = $scope.openTakeSwaps[id].toAmount;
             $scope.takeDataFront.fromAmount = $scope.openTakeSwaps[id].fromAmount;
@@ -1534,6 +1536,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.fromVerified = $scope.openTakeSwaps[id].toVerified;
             $scope.takeDataFront.toVerified = $scope.openTakeSwaps[id].fromVerified;
             $scope.takeDataFront.size = $scope.openTakeSwaps[id].size;
+            $scope.takeDataFront.maxTake = maxTake;
             $scope.takeAmountSwap = 1;
         });
         await $scope.setReceive(1).then(function () {
@@ -1602,7 +1605,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             pass = true;
         }
 
-        balance = balance / $scope.countDecimals(decimals);
+        let balanceBN = new window.BigNumber(balance.toString());
+        let div = new window.BigNumber($scope.countDecimals(decimals));
+        balance = balanceBN.div(div);
+
+        let maximumAmount = $scope.swapsList[id].toAmount;
+        let maximumSize = $scope.swapsList[id].size;
+
+        console.log(balance.toString(),maximumAmount,maximumSize);
+
+        let maxTake = 0;
+
+        if(balance.toString() > maximumAmount){
+            maxTake = maximumSize;
+        } else {
+
+        }
 
         await $scope.$apply(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
@@ -1618,7 +1636,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.toAssetSymbol = $scope.swapsList[id].fromAssetSymbol;
             $scope.takeDataFront.toAssetId = $scope.swapsList[id].fromAssetId;
             $scope.takeDataFront.fromAssetMin = $scope.swapsList[id].minswaptaker;
-            $scope.takeDataFront.fromAssetBalance = balance;
+            $scope.takeDataFront.fromAssetBalance = balance.toString();
             $scope.takeDataFront.swapRate = $scope.swapsList[id].swapratetaker;
             $scope.takeDataFront.maxAmount = $scope.swapsList[id].toAmount;
             $scope.takeDataFront.fromAmount = $scope.swapsList[id].fromAmount;
@@ -1626,6 +1644,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.fromVerified = $scope.swapsList[id].toVerified;
             $scope.takeDataFront.toVerified = $scope.swapsList[id].fromVerified;
             $scope.takeDataFront.size = $scope.swapsList[id].size;
+            $scope.takeDataFront.maxTake = maxTake;
             $scope.takeAmountSwap = 1;
             $scope.takeId = id;
             $scope.takeTxid = "";
