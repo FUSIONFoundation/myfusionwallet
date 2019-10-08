@@ -987,11 +987,15 @@
                                                   class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.toAssetSymbol}}</span>
                                         </div>
                                         <div class="col mt-1">
-                                            {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}}) <span
-                                                    class="color-Active official-fusion-badge"><img
-                                                        src="./images/unverified.svg" height="14px"
-                                                        width="14px"/></span>
-                                            <span class="small-gray-text max-char inline">{{takeDataFront.toAssetId}}</span>
+                                            <div>
+                                                <div>
+                                                    {{takeDataFront.toAssetName}} ({{takeDataFront.toAssetSymbol}}) 
+                                                    <span class="color-Active official-fusion-badge">
+                                                        <img src="./images/unverified.svg" height="14px" width="14px"/>
+                                                    </span>
+                                                </div>
+                                                <div class="small-gray-text max-char inline">{{takeDataFront.toAssetId}}</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
