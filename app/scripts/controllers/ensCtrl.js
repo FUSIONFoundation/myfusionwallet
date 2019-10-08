@@ -104,37 +104,42 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             });
         });
         // await $scope.allSwaps(0);
-        $scope.takeGetAllBalances();
-        $scope.sortSwapMarket("timePosix");
-        $scope.sortOpenMakes("timePosix");
-        $scope.getBalance();
-        $scope.setWalletAddress();
-        $scope.takeGetAllBalances();
-        $scope.openMakesList();
-        $scope.takeSwapList();
-        $scope.getUSAN();
+        await $scope.takeGetAllBalances();
+        await $scope.sortSwapMarket("timePosix");
+        await $scope.sortOpenMakes("timePosix");
+        await $scope.getBalance();
+        await $scope.setWalletAddress();
+        await $scope.takeGetAllBalances();
+        await $scope.openMakesList();
+        await $scope.takeSwapList();
+        await $scope.getUSAN();
     };
 
-    setInterval(function () {
+    setInterval(async function () {
         if ($scope.wallet == null) {
             return;
         }
-        $scope.getAllAssets();
-        $scope.getTimeLockBalances();
-        $scope.takeGetAllBalances();
+        if (!$scope.wallet) {
+            return;
+        }
         $scope.getShortAddressNotation();
-        $scope.getBalance();
-        $scope.setWalletAddress();
-        $scope.takeGetAllBalances();
-        $scope.getVerifiedAssets();
-        $scope.openMakesList();
-        $scope.getUSAN();
-    }, 7000);
+        await $scope.getTimeLockBalances();
+        await $scope.getAllAssets();
+        await $scope.takeGetAllBalances();
+        await $scope.sortSwapMarket("timePosix");
+        await $scope.sortOpenMakes("timePosix");
+        await $scope.getBalance();
+        await $scope.setWalletAddress();
+        await $scope.takeGetAllBalances();
+        await $scope.openMakesList();
+        await $scope.takeSwapList();
+        await $scope.getUSAN();
+    }, 12000);
 
     $scope.mayRun = false;
 
-    $scope.$watch("wallet", function () {
-        $scope.init();
+    $scope.$watch("wallet", async function () {
+        await $scope.init();
         $scope.mayRun = true;
     });
 
@@ -1632,8 +1637,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 } else {
                     try {
                         $scope.takeSwapModal.open();
-                    } catch ( err ) {
-                        console.log( err );
+                    } catch (err) {
+                        console.log(err);
                     }
                 }
             } else {
@@ -1850,7 +1855,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.transactionStatus = "Pending";
         });
         $scope.makeSwapModal.open();
-        await $scope.checkMakeSwapConditions;
+        await $scope.checkMakeSwapConditions();
         let a = document.getElementById('makeSendAmount');
         a.focus();
         setTimeout(function () {
@@ -2195,7 +2200,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.recallModal = function (swap_id) {
         $scope.swapRecallSuccess = false;
         $scope.recallAssetModal.open();
-        $scope.$applyAsync(function(){
+        $scope.$applyAsync(function () {
             $scope.recallTxid = "";
             $scope.transactionStatus = "Pending";
             $scope.recallAssetId = swap_id;
@@ -2233,7 +2238,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         .signAndTransmit(tx, $scope.account.signTransaction)
                         .then(txHash => {
                             console.log(txHash);
-                            $scope.$applyAsync(function(){
+                            $scope.$applyAsync(function () {
                                 $scope.recallTxid = txHash;
                                 $scope.getTransactionStatus(txHash);
                             })
@@ -2373,6 +2378,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.usanAlreadyInSwap = false;
     let openMakesListRunning = false;
     $scope.openMakesList = async function () {
+        $scope.usanAlreadyInSwap = false;
+        let usanAlreadyInSwap = false;
         let swapList = {};
         let openMakeListFront = [];
 
@@ -2423,11 +2430,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromVerified = false;
 
                 if (fromAsset.AssetID == $scope.DEFAULT_USAN) {
-
-                    $scope.$applyAsync(function () {
-                        $scope.usanAlreadyInSwap = true;
-                    });
-
+                    usanAlreadyInSwap = true;
                     let swap = {};
                     await web3.fsn.getSwap(swapList[asset]["SwapID"]).then(function (r) {
                         swap = r;
@@ -2604,10 +2607,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         }
 
-        $scope.$eval(function () {
+        $scope.$applyAsync(function () {
+            $scope.usanAlreadyInSwap = usanAlreadyInSwap;
             $scope.openMakes = openMakeListFront;
             $scope.openMakeSwaps = $scope.openMakes.length;
         });
+        await $scope.checkMakeSwapConditions();
         window.log("Finished retrieving all Open Swaps");
         openMakesListRunning = false;
     };
