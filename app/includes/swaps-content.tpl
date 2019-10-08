@@ -101,8 +101,8 @@
                                          ng-show="verifiedSendAssetList && verifiedSendAssetList.length > 0">VERIFIED
                                         ASSETS
                                     </div>
-                                    <div
-                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} as verifiedSendAssetList track by $index">
+                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
+                                        as verifiedSendAssetList track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -133,8 +133,8 @@
                                          ng-show="unverifiedSendAssetList && unverifiedSendAssetList.length > 0">
                                         UNVERIFIED ASSETS
                                     </div>
-                                    <div
-                                            ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} as unverifiedSendAssetList track by $index">
+                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
+                                        as unverifiedSendAssetList track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -221,8 +221,8 @@
                                          ng-show="verifiedReceiveAssetList && verifiedReceiveAssetList.length > 0">
                                         VERIFIED ASSETS
                                     </div>
-                                    <div
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} as verifiedReceiveAssetList track by $index">
+                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
+                                        | orderBy:name as verifiedReceiveAssetList track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -253,8 +253,8 @@
                                          ng-show="unverifiedReceiveAssetList && unverifiedReceiveAssetList.length > 0">
                                         UNVERIFIED ASSETS
                                     </div>
-                                    <div
-                                            ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} as unverifiedReceiveAssetList track by $index">
+                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
+                                        as unverifiedReceiveAssetList track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
                                                 <img class="icon" ng-if="asset.hasImage"
@@ -1108,7 +1108,7 @@
                                                      ng-show="verifiedSendAssetListOwned && verifiedSendAssetListOwned.length > 0">
                                                     VERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN}
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
                                                     as verifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -1140,7 +1140,7 @@
                                                      ng-show="unverifiedSendAssetListOwned && unverifiedSendAssetListOwned.length > 0">
                                                     UNVERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN}
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
                                                     as unverifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -1354,7 +1354,8 @@
                                                      ng-show="verifiedReceiveAssetListOwned && verifiedReceiveAssetListOwned.length > 0">
                                                     VERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} as verifiedReceiveAssetListOwned">
+                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
+                                                    as verifiedReceiveAssetListOwned">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
@@ -1385,7 +1386,8 @@
                                                      ng-show="unverifiedReceiveAssetListOwned && unverifiedReceiveAssetListOwned.length > 0">
                                                     UNVERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} as unverifiedReceiveAssetListOwned">
+                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | orderBy:'name'
+                                                    as unverifiedReceiveAssetListOwned">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
                                                             <img class="icon" ng-if="asset.hasImage"
