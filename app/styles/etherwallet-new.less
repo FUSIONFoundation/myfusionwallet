@@ -3992,6 +3992,75 @@ h3{
     margin-left: 0;
     margin-right: 0;
 
+    .address-row {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+
+      .left-grp {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 10px;
+
+        .price {
+          font-family: Lato;
+          font-size: 14px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          letter-spacing: 0.4px;
+          text-align: left !important;
+          color: #607d8b;
+          padding-left: 0px;
+
+          .icon {
+            margin-right: 8px;
+          }
+        }
+      }
+
+      .price-filler {
+        border-bottom-color: #cfd8dc;
+        border-bottom-style: dotted;
+        border-bottom-width: 3px;
+        flex: 1;
+        margin: 0 8px;
+        padding-top: 25px;
+      }
+      
+      .address {
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        align-self: baseline;
+        margin-top: 2px;
+
+        .address-item {
+          font-family: Lato;
+          font-size: 16px;
+          font-weight: normal;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: 2;
+          letter-spacing: normal;
+          text-align: right;
+          color: #263238;
+          padding: 0;
+          padding-left: 8px;
+          padding-right: 8px;
+          border-radius: 12px;
+          background-color: #e7f3fb;
+          margin-top: 4px;
+          margin-bottom: 4px;
+        }
+
+      }
+    }
 
     .price-row {
 
