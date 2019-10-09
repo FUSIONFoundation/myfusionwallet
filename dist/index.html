@@ -383,7 +383,7 @@
 
 
 
-<section class="container" style="min-height: 50%" ng-controller='viewCtrl'>
+<section class="container" ng-controller='viewCtrl'>
 
   <div class="container tab-content" >
 
@@ -7019,8 +7019,8 @@
                                           class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{selectedSendAssetSymbol}}</span>
                                     <div class="details-address">
                                         <div class="details">
-                                            <div class="name">{{extractNameOnlyFromAssetNameSymbol(selectedSendAsset, selectedSendAssetSymbol)}}</div>
-                                            <div class="symbol">{{selectedSendAssetSymbol}}</div>
+                                            <div class="name">{{formatName(extractNameOnlyFromAssetNameSymbol(selectedSendAsset, selectedSendAssetSymbol))}}</div>
+                                            <div class="symbol">{{formatSymbol(selectedSendAssetSymbol)}}</div>
                                             <img class="verifier" ng-if="selectedSendVerified"
                                                  src="./images/verified.svg" height="14px" width="14px"/>
                                             <img class="verifier" ng-if="!selectedSendVerified"
@@ -7146,8 +7146,8 @@
                                           class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{selectedReceiveAssetSymbol}}</span>
                                     <div class="details-address">
                                         <div class="details">
-                                            <div class="name">{{extractNameOnlyFromAssetNameSymbol(selectedReceiveAsset, selectedReceiveAssetSymbol)}}</div>
-                                            <div class="symbol">{{selectedReceiveAssetSymbol}}</div>
+                                            <div class="name">{{formatName(extractNameOnlyFromAssetNameSymbol(selectedReceiveAsset, selectedReceiveAssetSymbol))}}</div>
+                                            <div class="symbol">{{formatSymbol(selectedReceiveAssetSymbol)}}</div>
                                             <img class="verifier" ng-if="selectedReceiveVerified"
                                                  src="./images/verified.svg" height="14px" width="14px"/>
                                             <img class="verifier" ng-if="!selectedReceiveVerified"
@@ -8650,11 +8650,12 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeSendAmount}}
-                                    <span class="currency"
-                                          ng-show="selectedSendContract !== DEFAULT_USAN">
-                                        {{assetToSendConfirm}}</span>
-                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : <span> 1 <span class="currency">{{selectedReceiveAssetSymbol}}</span>
+                                <div class="price-value">
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN">{{makeSendAmountConfirm}}</span>
+                                    <span class="currency" ng-show="selectedSendContract !== DEFAULT_USAN"> {{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : </span>
+                                    <span> {{makeReceiveAmountConfirm}} </span>
+                                    <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -8663,7 +8664,7 @@
                                     NUMBER OF FILLS
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeMinumumSwap}}</div>
+                                <div class="price-value">{{makeMinumumSwapConfirm}}</div>
                             </div>
                             <div class="address-row" ng-show="privateAccess">
                                 <div class="left-grp">
@@ -8841,11 +8842,11 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value"
-                                     ng-show="selectedSendContract !== DEFAULT_USAN">{{makeSendAmount}}
-                                    <span class="currency"
-                                          ng-show="selectedSendContract !== DEFAULT_USAN">{{assetToSendConfirm}}</span>
-                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : </span>{{makeReceiveAmount}}
+                                <div class="price-value">
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN">{{makeSendAmountConfirm}}</span>
+                                    <span class="currency" ng-show="selectedSendContract !== DEFAULT_USAN"> {{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : </span>
+                                    <span> {{makeReceiveAmountConfirm}} </span>
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
@@ -8855,7 +8856,7 @@
                                     NUMBER OF FILLS
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeMinumumSwap}}</div>
+                                <div class="price-value">{{makeMinumumSwapConfirm}}</div>
                             </div>
                             <div class="address-row" ng-show="privateAccess">
                                 <div class="left-grp">

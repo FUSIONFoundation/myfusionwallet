@@ -2881,18 +2881,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.tabClick = window.tabClick;
     $scope.walletTimeOut = async function () {
         timeout = setTimeout(function () {
-            // $scope.$eval(function () {
-            //     $rootScope.showLogoutMessage = true;
-            //     $scope.wallet = null;
-            //     $scope.wd = false;
-            // });
-            // $scope.$applyAsync(function(){
-            //     $scope.tabClick(0);
-            //     $scope.tabClick(3);
-            // });
             window.location.reload();
-
-        }, 600000);
+        }, 60000);
     }
     $scope.walletTimeOut();
 
