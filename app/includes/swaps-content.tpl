@@ -1693,11 +1693,12 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeSendAmount}}
-                                    <span class="currency"
-                                          ng-show="selectedSendContract !== DEFAULT_USAN">
-                                        {{assetToSendConfirm}}</span>
-                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : <span> 1 <span class="currency">{{selectedReceiveAssetSymbol}}</span>
+                                <div class="price-value">
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN">{{makeSendAmountConfirm}}</span>
+                                    <span class="currency" ng-show="selectedSendContract !== DEFAULT_USAN"> {{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : </span>
+                                    <span> {{makeReceiveAmountConfirm}} </span>
+                                    <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -1706,7 +1707,7 @@
                                     NUMBER OF FILLS
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeMinumumSwap}}</div>
+                                <div class="price-value">{{makeMinumumSwapConfirm}}</div>
                             </div>
                             <div class="address-row" ng-show="privateAccess">
                                 <div class="left-grp">
@@ -1884,11 +1885,11 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value"
-                                     ng-show="selectedSendContract !== DEFAULT_USAN">{{makeSendAmount}}
-                                    <span class="currency"
-                                          ng-show="selectedSendContract !== DEFAULT_USAN">{{assetToSendConfirm}}</span>
-                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : </span>{{makeReceiveAmount}}
+                                <div class="price-value">
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN">{{makeSendAmountConfirm}}</span>
+                                    <span class="currency" ng-show="selectedSendContract !== DEFAULT_USAN"> {{assetToSendConfirm}}</span>
+                                    <span ng-show="selectedSendContract !== DEFAULT_USAN"> : </span>
+                                    <span> {{makeReceiveAmountConfirm}} </span>
                                     <span class="currency">{{selectedReceiveAssetSymbol}}</span>
                                 </div>
                             </div>
@@ -1898,7 +1899,7 @@
                                     NUMBER OF FILLS
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{makeMinumumSwap}}</div>
+                                <div class="price-value">{{makeMinumumSwapConfirm}}</div>
                             </div>
                             <div class="address-row" ng-show="privateAccess">
                                 <div class="left-grp">
