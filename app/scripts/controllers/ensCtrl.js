@@ -737,6 +737,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return address.substring(0, 8) + "..." + address.substring(address.length - 8, address.length);
     };
 
+    // format name if length > 20
+    $scope.formatName = function (name, max) {
+        if(!max) max = 16;
+        if (!name || name.length <= max)
+            return name;
+        return name.substring(0,(max-3)) + "...";
+    };
+
+    // format symbol if length > 4
+    $scope.formatSymbol = function (symbol) {
+        if (!symbol || symbol.length <= 4)
+            return symbol;
+        return symbol.substring(0, 3) + "...";
+    };
+
     // extract address from asset symbol, e.g. "1234"  from "USAN 1234"
     $scope.extractAddressFromAssetSymbol = function (assetSymbol) {
         if (!assetSymbol || assetSymbol.length < 4)

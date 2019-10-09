@@ -62,8 +62,8 @@
                                           class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{selectedSendAssetSymbol}}</span>
                                     <div class="details-address">
                                         <div class="details">
-                                            <div class="name">{{extractNameOnlyFromAssetNameSymbol(selectedSendAsset, selectedSendAssetSymbol)}}</div>
-                                            <div class="symbol">{{selectedSendAssetSymbol}}</div>
+                                            <div class="name">{{formatName(extractNameOnlyFromAssetNameSymbol(selectedSendAsset, selectedSendAssetSymbol))}}</div>
+                                            <div class="symbol">{{formatSymbol(selectedSendAssetSymbol)}}</div>
                                             <img class="verifier" ng-if="selectedSendVerified"
                                                  src="./images/verified.svg" height="14px" width="14px"/>
                                             <img class="verifier" ng-if="!selectedSendVerified"
@@ -189,8 +189,8 @@
                                           class="btn btn-white btn-circle w32 asset-round mt-0 icon">{{selectedReceiveAssetSymbol}}</span>
                                     <div class="details-address">
                                         <div class="details">
-                                            <div class="name">{{extractNameOnlyFromAssetNameSymbol(selectedReceiveAsset, selectedReceiveAssetSymbol)}}</div>
-                                            <div class="symbol">{{selectedReceiveAssetSymbol}}</div>
+                                            <div class="name">{{formatName(extractNameOnlyFromAssetNameSymbol(selectedReceiveAsset, selectedReceiveAssetSymbol))}}</div>
+                                            <div class="symbol">{{formatSymbol(selectedReceiveAssetSymbol)}}</div>
                                             <img class="verifier" ng-if="selectedReceiveVerified"
                                                  src="./images/verified.svg" height="14px" width="14px"/>
                                             <img class="verifier" ng-if="!selectedReceiveVerified"
