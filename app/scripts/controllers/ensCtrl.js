@@ -1911,6 +1911,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         console.log($scope.targesArray);
 
         $scope.$eval(function () {
+            $scope.makeSendAmountConfirm = $scope.makeReceiveAmount === 1 ?
+                $scope.makeSendAmount : $scope.makeReceiveAmount !== 0 ?
+                $scope.makeSendAmount / $scope.makeReceiveAmount : $scope.makeSendAmount;
+            $scope.makeReceiveAmountConfirm = $scope.selectedSendContract !== $scope.DEFAULT_USAN ?
+                1 : $scope.makeReceiveAmount;
+            $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
+                1: $scope.makeMinumumSwap;
             $scope.assetToSendConfirm = sendAssetSymbol;
             $scope.assetToReceiveConfirm = receiveAssetSymbol;
             $scope.fromStartTimeString = $scope.returnDateString(
