@@ -922,9 +922,12 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{takeDataFront.swapRate}}
-                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> : {{1}}
-                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                <div class="price-value">
+                                    <span>{{takeDataFront.swapRate}}</span>
+                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> 
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> : </span>
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> {{1}} </span>
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN" class="currency">{{takeDataFront.toAssetSymbol}}</span>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -2255,9 +2258,14 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{takeDataFront.swapRate}}
-                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> : {{1}}
-                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                <div class="price-value">
+                                    <div class="price-value">
+                                    <span>{{takeDataFront.swapRate}}</span>
+                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> 
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> : </span>
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> {{1}} </span>
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN" class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                </div>
                                 </div>
                             </div>
                             <div class="price-row"
@@ -2465,9 +2473,12 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
-                                <div class="price-value">{{takeDataFront.swapRate}}
-                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> : {{1}}
-                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                <div class="price-value">
+                                    <span>{{takeDataFront.swapRate}}</span>
+                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> 
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> : </span>
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> {{1}} </span>
+                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN" class="currency">{{takeDataFront.toAssetSymbol}}</span>
                                 </div>
                             </div>
                             <div class="price-row"
