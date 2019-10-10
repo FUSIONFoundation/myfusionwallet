@@ -163,9 +163,8 @@
                             </div>
                         </div>
                     </div>
-                    <img class="switch-btn" src="./images/swap-new.svg" ng-click="switchAsset()" width="32px"
-                         height="32px"/>
-                    <div class="action-item">
+                    <div width="24px" height="32px"></div>
+                    <div class="action-item action-item-right">
                         <div class="action-title">YOU RECEIVE</div>
                         <div class="mss-action-selected-wrapper">
                             <a class="btn btn-secondary custom-dropdown mt-1 mss-action-selected"
