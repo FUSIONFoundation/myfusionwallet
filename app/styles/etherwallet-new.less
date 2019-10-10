@@ -3236,7 +3236,8 @@ h3{
             margin-top: 0px !important;
             border-radius: 5px !important;
             border: solid 1px #cfd8dc;
-            background-color: #f6f7f8 !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 1px 0 0 rgba(38, 50, 56, 0.05) !important;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -3255,26 +3256,34 @@ h3{
               background-color: #f6f7f8 !important;
             }
 
-            .curr-symbol {
-              margin: 0;
-              margin-left: 5px;
-              font-family: Lato;
-              font-size: 16px;
-              font-weight: bold;
-              font-style: normal;
-              font-stretch: normal;
-              line-height: 1.25;
-              letter-spacing: normal;
-              color: #062144;
-            }
+            .col {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
 
-            .verifier {
-              margin-top: -4px;
-              max-width: none;
-            }
+              .curr-symbol {
+                margin: 0;
+                margin-left: 8px;
+                font-family: Lato;
+                font-size: 16px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.25;
+                letter-spacing: normal;
+                color: #062144;
+              }
+  
+              .verifier {
+                margin-top: -2px;
+                max-width: none;
+                margin-left: 4px;
+              }
+  
+              img {
+                max-width: none;
+              }
 
-            img {
-              max-width: none;
             }
 
           }

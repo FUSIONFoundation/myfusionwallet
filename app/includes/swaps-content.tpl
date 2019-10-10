@@ -1075,7 +1075,7 @@
                                                      ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                                 <span ng-if="!selectedSendHasImage"
                                                       class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
-                                                <span class="curr-symbol">{{selectedSendAssetSymbol}}</span>
+                                                <div class="curr-symbol">{{selectedSendAssetSymbol}}</div>
                                                 <img class="verifier" ng-if="selectedSendVerified"
                                                      src="./images/verified.svg" height="14px" width="14px"/>
                                                 <img class="verifier" ng-if="!selectedSendVerified"
@@ -1327,7 +1327,7 @@
                                                      ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                                                 <span ng-if="!selectedReceiveHasImage"
                                                       class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
-                                                <span class="curr-symbol">{{selectedReceiveAssetSymbol}}</span>
+                                                <div class="curr-symbol">{{selectedReceiveAssetSymbol}}</div>
                                                 <img class="verifier" ng-if="selectedReceiveVerified"
                                                      src="./images/verified.svg" height="14px"
                                                      width="14px"/>
