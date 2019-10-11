@@ -608,6 +608,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    $scope.FUSION_CONTRACT_ADDRESS = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
     $scope.DEFAULT_USAN = "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe";
     $scope.sortByString = "Default";
     $scope.takeAmountSwap = "";
@@ -1350,7 +1351,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     owner: owned,
                     image: verifiedImage,
                     hasImage: hasImage,
-                    verified: verifiedAsset
+                    verified: verifiedAsset,
+                    pinned: id === $scope.FUSION_CONTRACT_ADDRESS ? true : '',
                 };
                 if (!didFSN) {
                     await assetList2.push(data);
@@ -1427,7 +1429,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     owner: owned,
                     image: verifiedImage,
                     hasImage: hasImage,
-                    verified: verifiedAsset
+                    verified: verifiedAsset,
+                    pinned: id === $scope.FUSION_CONTRACT_ADDRESS ? true : '',
                 };
                 await assetList2.push(data);
                 x++;
@@ -1445,7 +1448,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         image: verifiedImage,
                         hasImage: hasImage,
                         verified: verifiedAsset,
-                        timelockBalance: false
+                        timelockBalance: false,
+                        pinned: id === $scope.FUSION_CONTRACT_ADDRESS ? true : '',
                     };
                     await assetListOwned.push(data);
                 } else if (Object.keys($scope.myActiveTimeLocks).includes(id)) {
@@ -1462,7 +1466,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         image: verifiedImage,
                         hasImage: hasImage,
                         verified: verifiedAsset,
-                        timelockBalance: true
+                        timelockBalance: true,
+                        pinned: id === $scope.FUSION_CONTRACT_ADDRESS ? true : '',
                     };
                     await assetListOwned.push(data);
                 }

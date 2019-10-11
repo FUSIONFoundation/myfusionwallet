@@ -98,10 +98,9 @@
                                 </div>
                                 <div class="ad-search-grp">
                                     <div class="grp-title"
-                                         ng-show="verifiedSendAssetList && verifiedSendAssetList.length > 0">VERIFIED
-                                        ASSETS
+                                         ng-show="verifiedSendAssetList && verifiedSendAssetList.length > 0">VERIFIED ASSETS
                                     </div>
-                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
                                         as verifiedSendAssetList track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
@@ -220,7 +219,7 @@
                                          ng-show="verifiedReceiveAssetList && verifiedReceiveAssetList.length > 0">
                                         VERIFIED ASSETS
                                     </div>
-                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
                                         | orderBy:name as verifiedReceiveAssetList track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
@@ -1110,7 +1109,7 @@
                                                      ng-show="verifiedSendAssetListOwned && verifiedSendAssetListOwned.length > 0">
                                                     VERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
                                                     as verifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -1356,7 +1355,7 @@
                                                      ng-show="verifiedReceiveAssetListOwned && verifiedReceiveAssetListOwned.length > 0">
                                                     VERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
                                                     as verifiedReceiveAssetListOwned">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
