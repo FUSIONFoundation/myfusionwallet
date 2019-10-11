@@ -101,7 +101,7 @@
                                          ng-show="verifiedSendAssetList && verifiedSendAssetList.length > 0">VERIFIED
                                         ASSETS
                                     </div>
-                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                         as verifiedSendAssetList track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
@@ -133,7 +133,7 @@
                                          ng-show="unverifiedSendAssetList && unverifiedSendAssetList.length > 0">
                                         UNVERIFIED ASSETS
                                     </div>
-                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                         as unverifiedSendAssetList track by $index">
                                         <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
                                             <div class="search-item">
@@ -220,7 +220,7 @@
                                          ng-show="verifiedReceiveAssetList && verifiedReceiveAssetList.length > 0">
                                         VERIFIED ASSETS
                                     </div>
-                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                         | orderBy:name as verifiedReceiveAssetList track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
@@ -252,7 +252,7 @@
                                          ng-show="unverifiedReceiveAssetList && unverifiedReceiveAssetList.length > 0">
                                         UNVERIFIED ASSETS
                                     </div>
-                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                         as unverifiedReceiveAssetList track by $index">
                                         <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                             <div class="search-item">
@@ -1110,7 +1110,7 @@
                                                      ng-show="verifiedSendAssetListOwned && verifiedSendAssetListOwned.length > 0">
                                                     VERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                     as verifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -1142,7 +1142,7 @@
                                                      ng-show="unverifiedSendAssetListOwned && unverifiedSendAssetListOwned.length > 0">
                                                     UNVERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                     as unverifiedSendAssetListOwned track by $index">
                                                     <a class="search-item-link" ng-click="setSendAsset(asset.id)">
                                                         <div class="search-item">
@@ -1356,7 +1356,7 @@
                                                      ng-show="verifiedReceiveAssetListOwned && verifiedReceiveAssetListOwned.length > 0">
                                                     VERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                     as verifiedReceiveAssetListOwned">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
@@ -1388,7 +1388,7 @@
                                                      ng-show="unverifiedReceiveAssetListOwned && unverifiedReceiveAssetListOwned.length > 0">
                                                     UNVERIFIED ASSETS
                                                 </div>
-                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:'name'
+                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                     as unverifiedReceiveAssetListOwned">
                                                     <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
                                                         <div class="search-item">
