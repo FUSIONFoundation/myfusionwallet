@@ -1873,9 +1873,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
-                                    <div class="address"><a
-                                                href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}"
-                                                target="_blank">{{formatAddress(makeTxid)}}</a></div>
+                                    <a class="address"
+                                        href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}"
+                                        target="_blank">{{formatAddress(makeTxid)}}</a>
                                     <a href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}"
                                        target="_blank"><img class="icon" src="./images/external-link.svg" height="24px"
                                                             width="24px"/></a>
@@ -1971,9 +1971,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
-                                    <div class="address"><a
-                                                href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
-                                                target="_blank">{{formatAddress(recallTxid)}}</a></div>
+                                    <a class="address"
+                                        href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
+                                        target="_blank">{{formatAddress(recallTxid)}}</a>
                                     <a href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
                                        target="_blank"><img class="icon" src="./images/external-link.svg" height="24px"
                                                             width="24px"/></a>
@@ -2458,9 +2458,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
-                                    <div class="address"><a
-                                                href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}"
-                                                target="_blank">{{formatAddress(takeTxid)}}</a></div>
+                                    <a class="address"
+                                        href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}"
+                                        target="_blank">{{formatAddress(takeTxid)}}</a>
                                     <a href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}"
                                        target="_blank"><img class="icon" src="./images/external-link.svg" height="24px"
                                                             width="24px"/></a>
