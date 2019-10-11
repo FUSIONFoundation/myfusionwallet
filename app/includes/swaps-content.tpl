@@ -816,7 +816,7 @@
                                        min="1"
                                        max="{{takeDataFront.size}}"
                                        ng-change="setReceive()" placeholder="Fills">
-                                <span class="max-fills">Max Fills {{takeDataFront.size}}</span>
+                                <div class="max-fills" ng-click="takeAmountSwap = takeDataFront.size">Max Fills {{takeDataFront.size}}</div>
                             </div>
                         </div>
 
