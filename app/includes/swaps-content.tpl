@@ -1036,7 +1036,8 @@
 
                     <div class="limit-width">
                         <h3 class="title title-make-swap">Make Swap</h3>
-                        <div class="title-warning" ng-show="!selectedReceiveVerified">
+                        <div class="title-warning" 
+                            ng-show="selectedReceiveAsset && !selectedReceiveVerified && selectedReceiveAsset !== 'All Assets' && selectedReceiveAsset !== 'Select asset'">
                             <img class="icon" src="./images/unverified.svg" height="16px" width="14px"/>
                             <div class="description">Caution: this swap contains a suspicious asset(s).</div>
                         </div>
