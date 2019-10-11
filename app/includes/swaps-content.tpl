@@ -1066,13 +1066,17 @@
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                            ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
+                                            <div ng-show="selectedSendContract !== DEFAULT_USAN &&
+                                                (!selectedSendAsset || selectedSendAsset === 'All Assets' || selectedSendAsset === 'Select asset')">
+                                                Select Asset</div>
                                             <div class="usan-selected"
                                                  ng-show="selectedSendContract == DEFAULT_USAN">
                                                 <span class="name">USAN</span>
                                                 <span class="address">{{usanAddress}}</span>
                                             </div>
                                             <div class="col" click-out="!sendDropDown2"
-                                                 ng-show="selectedSendContract !== DEFAULT_USAN">
+                                                 ng-show="selectedSendContract !== DEFAULT_USAN &&
+                                                 (selectedSendAsset && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset')">
                                                 <img ng-if="selectedSendHasImage"
                                                      ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                                 <span ng-if="!selectedSendHasImage"
@@ -1324,7 +1328,10 @@
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                            ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
-                                            <div class="col" click-out="!receiveDropDown">
+                                            <div ng-show="!selectedReceiveAsset || selectedReceiveAsset === 'All Assets' || selectedReceiveAsset === 'Select asset'">
+                                                Select Asset</div>
+                                            <div class="col" click-out="!receiveDropDown"
+                                                ng-show="selectedReceiveAsset && selectedReceiveAsset !== 'All Assets' && selectedReceiveAsset !== 'Select asset'">
                                                 <img ng-if="selectedReceiveHasImage"
                                                      ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                                                 <span ng-if="!selectedReceiveHasImage"
