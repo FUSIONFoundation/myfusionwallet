@@ -1036,7 +1036,8 @@
 
                     <div class="limit-width">
                         <h3 class="title title-make-swap">Make Swap</h3>
-                        <div class="title-warning" ng-show="!selectedReceiveVerified">
+                        <div class="title-warning" 
+                            ng-show="selectedReceiveAsset && !selectedReceiveVerified && selectedReceiveAsset !== 'All Assets' && selectedReceiveAsset !== 'Select asset'">
                             <img class="icon" src="./images/unverified.svg" height="16px" width="14px"/>
                             <div class="description">Caution: this swap contains a suspicious asset(s).</div>
                         </div>
@@ -1066,13 +1067,17 @@
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                            ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
+                                            <div ng-show="selectedSendContract !== DEFAULT_USAN &&
+                                                (!selectedSendAsset || selectedSendAsset === 'All Assets' || selectedSendAsset === 'Select asset')">
+                                                Select Asset</div>
                                             <div class="usan-selected"
                                                  ng-show="selectedSendContract == DEFAULT_USAN">
                                                 <span class="name">USAN</span>
                                                 <span class="address">{{usanAddress}}</span>
                                             </div>
                                             <div class="col" click-out="!sendDropDown2"
-                                                 ng-show="selectedSendContract !== DEFAULT_USAN">
+                                                 ng-show="selectedSendContract !== DEFAULT_USAN &&
+                                                 (selectedSendAsset && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset')">
                                                 <img ng-if="selectedSendHasImage"
                                                      ng-src="images/verifiedassets/{{selectedSendImage}}"/>
                                                 <span ng-if="!selectedSendHasImage"
@@ -1324,7 +1329,10 @@
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
                                            ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
-                                            <div class="col" click-out="!receiveDropDown">
+                                            <div ng-show="!selectedReceiveAsset || selectedReceiveAsset === 'All Assets' || selectedReceiveAsset === 'Select asset'">
+                                                Select Asset</div>
+                                            <div class="col" click-out="!receiveDropDown"
+                                                ng-show="selectedReceiveAsset && selectedReceiveAsset !== 'All Assets' && selectedReceiveAsset !== 'Select asset'">
                                                 <img ng-if="selectedReceiveHasImage"
                                                      ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
                                                 <span ng-if="!selectedReceiveHasImage"
@@ -1873,9 +1881,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
-                                    <div class="address"><a
-                                                href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}"
-                                                target="_blank">{{formatAddress(makeTxid)}}</a></div>
+                                    <a class="address"
+                                        href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}"
+                                        target="_blank">{{formatAddress(makeTxid)}}</a>
                                     <a href="https://blocks.fusionnetwork.io/#!/transaction/{{makeTxid}}"
                                        target="_blank"><img class="icon" src="./images/external-link.svg" height="24px"
                                                             width="24px"/></a>
@@ -1971,9 +1979,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
-                                    <div class="address"><a
-                                                href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
-                                                target="_blank">{{formatAddress(recallTxid)}}</a></div>
+                                    <a class="address"
+                                        href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
+                                        target="_blank">{{formatAddress(recallTxid)}}</a>
                                     <a href="https://blocks.fusionnetwork.io/#!/transaction/{{recallTxid}}"
                                        target="_blank"><img class="icon" src="./images/external-link.svg" height="24px"
                                                             width="24px"/></a>
@@ -2458,9 +2466,9 @@
                                 </div>
                                 <div class="price-filler"></div>
                                 <div class="price-value tx-value">
-                                    <div class="address"><a
-                                                href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}"
-                                                target="_blank">{{formatAddress(takeTxid)}}</a></div>
+                                    <a class="address"
+                                        href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}"
+                                        target="_blank">{{formatAddress(takeTxid)}}</a>
                                     <a href="https://blocks.fusionnetwork.io/#!/transaction/{{takeTxid}}"
                                        target="_blank"><img class="icon" src="./images/external-link.svg" height="24px"
                                                             width="24px"/></a>
