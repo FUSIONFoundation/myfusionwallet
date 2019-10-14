@@ -88,7 +88,7 @@
                                          width="14px"/>
                                 </div>
                                 <div class="ad-all-assets" ng-click="setAllAssetsInSend()">All Assets</div>
-                                <div class="ad-usan" ng-show="!!usanAddress" ng-click="setMakeUSAN()">
+                                <div class="ad-usan" ng-show="!!usanAddress && !usanAlreadyInSwap" ng-click="setMakeUSAN()">
                                     <div class="ad-usan-content">
                                         <div class="usan-selected">
                                             <span class="name">USAN</span>
@@ -283,10 +283,11 @@
                     </div>
                     <div class="asset-balance">
                         <div class="ab-title">ASSET BALANCE</div>
-                        <div class="ab-select" ng-hide="selectedAssetBalance >= 0">Select asset first</div>
-                        <div class="ab-details" ng-show="selectedAssetBalance >= 0">
-                            <div class="asset">{{selectedAssetBalance}}</div>
-                            <div class="currency">{{selectedAssetSymbol}}</div>
+                        <div class="ab-select" ng-show="selectedSendAsset === 'All Assets' || selectedSendAsset === 'Select asset' || !selectedSendAsset">Select asset first</div>
+                        <div class="ab-details" ng-show="selectedSendAsset && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset' && selectedAssetBalance >= 0 ">
+                            <div class="asset" ng-hide="selectedSendContract == DEFAULT_USAN">{{selectedAssetBalance}}</div>
+                            <div class="currency" ng-hide="selectedSendContract == DEFAULT_USAN">{{selectedAssetSymbol}}</div>
+                            <div class="currency" ng-show="selectedSendContract == DEFAULT_USAN">{{'USAN ' + usanAddress}}</div>
                         </div>
                         <span class="small-gray-text" style="font-size:10px;" ng-hide="!sendHasTimeLockBalance">
                             <img class="time-lock" src="images/sendtl.svg" width="10px"> Has Time-Lock Balance
