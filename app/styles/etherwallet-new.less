@@ -3121,12 +3121,20 @@ h3{
           height: 62px;
         }
 
+        .search-item-wrapper {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+
         .search-item {
           display: flex;
           flex-direction: row;
           align-items: center;
           width: 328px;
           height: 62px;
+          position: relative;
 
           .icon {
             margin-left: 12px;
@@ -3200,6 +3208,27 @@ h3{
               color: #6a6f75;
             }
 
+          }
+
+          .si-time-lock {
+            width: 44px;
+            height: 44px;
+            border-radius: 5px;
+            box-shadow: 0 1px 0 0 rgba(38, 50, 56, 0.05);
+            border: solid 1px #cfd8dc;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 9px;
+            right: 16px;
+            
+            .time-icon {
+              width: 16px;
+              height: 16px;
+            }
           }
 
         }
@@ -3296,6 +3325,41 @@ h3{
 
             }
 
+          }
+
+          .as-time-lock {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 40px;
+            padding-left: 8px;
+            padding-right: 10px;
+            background-color: #e7f3fb;
+            margin-right: -8px;
+            margin-left: 11px;
+
+            .time-icon {
+              width: 12px;
+              height: 12px;
+              margin-right: 4px;
+            }
+
+            .time-range {
+              font-family: Lato;
+              font-size: 12px;
+              font-weight: bold;
+              font-style: normal;
+              font-stretch: normal;
+              letter-spacing: normal;
+              text-transform: uppercase;
+              color: #455a64;
+            }
+
+            .close-icon {
+              width: 12px;
+              height: 12px;
+              margin-left: 10px;
+            }
           }
 
         }
