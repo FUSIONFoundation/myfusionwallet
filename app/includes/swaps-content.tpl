@@ -1053,7 +1053,7 @@
                             <div class="action-body">
                                 <div class="body-details">
                                     <div class="action-amount-available"
-                                         ng-show="selectedSendContract !== DEFAULT_USAN && false">
+                                         ng-show="selectedSendContract !== DEFAULT_USAN">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
                                                ng-model="makeSendAmount"
                                                id="makeSendAmount"
@@ -1188,15 +1188,69 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="action-dropdown"
-                                             ng-show="sendTimeLockDropDown2"
-                                             tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
-                                        >
-                                            <div>timelock dropdown</div>
-                                        </div> -->
+                                        <div class="action-dropdown-tl" ng-show="false" tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2">
+                                            <div class="header">
+                                                <img class="icon" ng-if="true" ng-src="images/arrow-left.svg"/>
+                                                <div class="name">Existing FSN Time-lock</div>
+                                            </div>
+                                            <div class="content">
+                                                <div class="content-item">
+                                                    <img class="icon" ng-if="false"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="true"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{"FSN"}}</span>
+                                                    <div class="content-item-details">
+                                                        <div class="asset">
+                                                            <div class="asset-amount">245.19982</div>
+                                                            <div class="asset-currency">FSN</div>
+                                                        </div>
+                                                        <div class="time-details">
+                                                            <img class="icon" src="images/sendtl.svg" width="12px">
+                                                            <div class="time-range">Aug 29 2019</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="action-time-lock">
+                                        <div class="time-lock-btn">
+                                            <div class="name">Time-lock</div>
+                                            <img class="icon" src="images/caret-down-2.svg">
+                                        </div>
+                                        <div class="time-lock-dropdown" ng-show="true">
+                                            <div class="tab-selector">
+                                                <div class="tab-option tab-option-left">Date to Date</div>
+                                                <div class="tab-option tab-option-right">Date to Forever</div>
+                                            </div>
+                                            <div class="date-range">
+                                                <div class="date-item">
+                                                    <div class="marker">FROM</div>
+                                                    <input class="date-input"/>
+                                                </div>
+                                                <div class="date-item">
+                                                    <div class="marker">UNTIL</div>
+                                                    <input class="date-input"/>
+                                                    <div class="">Forever</div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-grp">
+                                                <button class="btn btn-white main-btn-secondary date-btn" ng-click="">
+                                                    Cancel
+                                                </button>
+                                                <button class="btn btn-primary main-btn-primary date-btn"
+                                                        ng-click="" ng-disabled="">Set Time-lock
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </span>
 
-                                    <div class="action-time-lock"
+
+                                <!-- OLD TIME-LOCK HERE -->
+
+                                <div class="action-time-lock-old"
                                          ng-show="selectedSendContract !== DEFAULT_USAN">
                                         <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
                                         <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
@@ -1322,9 +1376,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <span class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </span>
                             </div>
 
 
@@ -1447,7 +1498,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="action-time-lock">
+                                    <div class="action-time-lock-old">
                                         <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                                 ng-click="showTimeLockReceive = !showTimeLockReceive"
                                                 ng-hide="showTimeLockReceive"
