@@ -87,76 +87,78 @@
                                     <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                          width="14px"/>
                                 </div>
-                                <div class="ad-all-assets" ng-click="setAllAssetsInSend()">All Assets</div>
-                                <div class="ad-usan" ng-show="!!usanAddress && !usanAlreadyInSwap" ng-click="setMakeUSAN()">
-                                    <div class="ad-usan-content">
-                                        <div class="usan-selected">
-                                            <span class="name">USAN</span>
-                                            <span class="address">{{usanAddress}}</span>
+                                <div class="ad-options-wrapper">
+                                    <div class="ad-all-assets" ng-click="setAllAssetsInSend()">All Assets</div>
+                                    <div class="ad-usan" ng-show="!!usanAddress  && !usanAlreadyInSwap" ng-click="setMakeUSAN()">
+                                        <div class="ad-usan-content">
+                                            <div class="usan-selected">
+                                                <span class="name">USAN</span>
+                                                <span class="address">{{usanAddress}}</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="ad-search-grp">
-                                    <div class="grp-title"
-                                         ng-show="verifiedSendAssetList && verifiedSendAssetList.length > 0">VERIFIED ASSETS
-                                    </div>
-                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
-                                        as verifiedSendAssetList track by $index">
-                                        <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
-                                            <div class="search-item">
-                                                <img class="icon" ng-if="asset.hasImage"
-                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                <span ng-if="!asset.hasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                <div class="details-wrapper">
-                                                    <div class="details">
-                                                        <div class="name">{{asset.name}}</div>
-                                                        <div class="currency">{{asset.symbol}}</div>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="asset.verified">                                    <img
-                                                                    src="./images/verified.svg"
-                                                                    height="14px" width="14px"/></span>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="!asset.verified">                                    <img
-                                                                    src="./images/unverified.svg"
-                                                                    height="14px" width="14px"/></span>
+                                    <div class="ad-search-grp">
+                                        <div class="grp-title"
+                                            ng-show="verifiedSendAssetList && verifiedSendAssetList.length > 0">VERIFIED ASSETS
+                                        </div>
+                                        <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
+                                            as verifiedSendAssetList track by $index">
+                                            <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
+                                                <div class="search-item">
+                                                    <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                    <div class="details-wrapper">
+                                                        <div class="details">
+                                                            <div class="name">{{asset.name}}</div>
+                                                            <div class="currency">{{asset.symbol}}</div>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                        src="./images/verified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                        src="./images/unverified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                        </div>
+                                                        <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                     </div>
-                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="ad-search-grp">
-                                    <div class="grp-title"
-                                         ng-show="unverifiedSendAssetList && unverifiedSendAssetList.length > 0">
-                                        UNVERIFIED ASSETS
-                                    </div>
-                                    <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
-                                        as unverifiedSendAssetList track by $index">
-                                        <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
-                                            <div class="search-item">
-                                                <img class="icon" ng-if="asset.hasImage"
-                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                <span ng-if="!asset.hasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                <div class="details-wrapper">
-                                                    <div class="details">
-                                                        <div class="name">{{asset.name}}</div>
-                                                        <div class="currency">{{asset.symbol}}</div>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="asset.verified">                                    <img
-                                                                    src="./images/verified.svg"
-                                                                    height="14px" width="14px"/></span>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="!asset.verified">                                    <img
-                                                                    src="./images/unverified.svg"
-                                                                    height="14px" width="14px"/></span>
+                                    <div class="ad-search-grp">
+                                        <div class="grp-title"
+                                            ng-show="unverifiedSendAssetList && unverifiedSendAssetList.length > 0">
+                                            UNVERIFIED ASSETS
+                                        </div>
+                                        <div ng-repeat="asset in assetList | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                            as unverifiedSendAssetList track by $index">
+                                            <a class="search-item-link" ng-click="setSendAllAssets(asset.id)">
+                                                <div class="search-item">
+                                                    <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                    <div class="details-wrapper">
+                                                        <div class="details">
+                                                            <div class="name">{{asset.name}}</div>
+                                                            <div class="currency">{{asset.symbol}}</div>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                        src="./images/verified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                        src="./images/unverified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                        </div>
+                                                        <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                     </div>
-                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -212,70 +214,72 @@
                                     <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                          width="14px"/>
                                 </div>
-                                <div class="ad-all-assets" ng-click="setAllAssetsInReceive()">All Assets</div>
-                                <div class="ad-all-assets" ng-click="setReceiveUSAN()">All Short Account Numbers</div>
-                                <div class="ad-search-grp">
-                                    <div class="grp-title"
-                                         ng-show="verifiedReceiveAssetList && verifiedReceiveAssetList.length > 0">
-                                        VERIFIED ASSETS
-                                    </div>
-                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
-                                        | orderBy:name as verifiedReceiveAssetList track by $index">
-                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
-                                            <div class="search-item">
-                                                <img class="icon" ng-if="asset.hasImage"
-                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                <span ng-if="!asset.hasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                <div class="details-wrapper">
-                                                    <div class="details">
-                                                        <div class="name">{{asset.name}}</div>
-                                                        <div class="currency">{{asset.symbol}}</div>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="asset.verified">                                    <img
-                                                                    src="./images/verified.svg"
-                                                                    height="14px" width="14px"/></span>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="!asset.verified">                                    <img
-                                                                    src="./images/unverified.svg"
-                                                                    height="14px" width="14px"/></span>
+                                <div class="ad-options-wrapper">
+                                    <div class="ad-all-assets" ng-click="setAllAssetsInReceive()">All Assets</div>
+                                    <div class="ad-all-assets" ng-click="setReceiveUSAN()">All Short Account Numbers</div>
+                                    <div class="ad-search-grp">
+                                        <div class="grp-title"
+                                            ng-show="verifiedReceiveAssetList && verifiedReceiveAssetList.length > 0">
+                                            VERIFIED ASSETS
+                                        </div>
+                                        <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
+                                            | orderBy:name as verifiedReceiveAssetList track by $index">
+                                            <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                <div class="search-item">
+                                                    <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                    <div class="details-wrapper">
+                                                        <div class="details">
+                                                            <div class="name">{{asset.name}}</div>
+                                                            <div class="currency">{{asset.symbol}}</div>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                        src="./images/verified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                        src="./images/unverified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                        </div>
+                                                        <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                     </div>
-                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="ad-search-grp">
-                                    <div class="grp-title"
-                                         ng-show="unverifiedReceiveAssetList && unverifiedReceiveAssetList.length > 0">
-                                        UNVERIFIED ASSETS
-                                    </div>
-                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
-                                        as unverifiedReceiveAssetList track by $index">
-                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
-                                            <div class="search-item">
-                                                <img class="icon" ng-if="asset.hasImage"
-                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                <span ng-if="!asset.hasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                <div class="details-wrapper">
-                                                    <div class="details">
-                                                        <div class="name">{{asset.name}}</div>
-                                                        <div class="currency">{{asset.symbol}}</div>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="asset.verified">                                    <img
-                                                                    src="./images/verified.svg"
-                                                                    height="14px" width="14px"/></span>
-                                                        <span class="color-Active verifier"
-                                                              ng-show="!asset.verified">                                    <img
-                                                                    src="./images/unverified.svg"
-                                                                    height="14px" width="14px"/></span>
+                                    <div class="ad-search-grp">
+                                        <div class="grp-title"
+                                            ng-show="unverifiedReceiveAssetList && unverifiedReceiveAssetList.length > 0">
+                                            UNVERIFIED ASSETS
+                                        </div>
+                                        <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                            as unverifiedReceiveAssetList track by $index">
+                                            <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                <div class="search-item">
+                                                    <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                    <div class="details-wrapper">
+                                                        <div class="details">
+                                                            <div class="name">{{asset.name}}</div>
+                                                            <div class="currency">{{asset.symbol}}</div>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="asset.verified">                                    <img
+                                                                        src="./images/verified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                            <span class="color-Active verifier"
+                                                                ng-show="!asset.verified">                                    <img
+                                                                        src="./images/unverified.svg"
+                                                                        height="14px" width="14px"/></span>
+                                                        </div>
+                                                        <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                     </div>
-                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                 </div>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1101,77 +1105,79 @@
                                                 <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                                      width="14px"/>
                                             </div>
-                                            <div class="ad-usan" ng-show="!!usanAddress" ng-click="setMakeUSAN()">
-                                                <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
-                                                <div class="ad-usan-content">
-                                                    <div class="usan-selected">
-                                                        <span class="name">USAN</span>
-                                                        <span class="address">{{usanAddress}}</span>
+                                            <div class="ad-options-wrapper">
+                                                <div class="ad-usan" ng-show="!!usanAddress" ng-click="setMakeUSAN()">
+                                                    <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
+                                                    <div class="ad-usan-content">
+                                                        <div class="usan-selected">
+                                                            <span class="name">USAN</span>
+                                                            <span class="address">{{usanAddress}}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="ad-search-grp">
-                                                <div class="grp-title"
-                                                     ng-show="verifiedSendAssetListOwned && verifiedSendAssetListOwned.length > 0">
-                                                    VERIFIED ASSETS
-                                                </div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
-                                                    as verifiedSendAssetListOwned track by $index">
-                                                    <a class="search-item-link" ng-click="setSendAsset(asset.id)">
-                                                        <div class="search-item">
-                                                            <img class="icon" ng-if="asset.hasImage"
-                                                                 ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                            <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                            <div class="details-wrapper">
-                                                                <div class="details">
-                                                                    <div class="name">{{asset.name}}</div>
-                                                                    <div class="currency">({{asset.symbol}})</div>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="asset.verified">                                    <img
-                                                                                src="./images/verified.svg"
-                                                                                height="14px" width="14px"/></span>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="!asset.verified">                                    <img
-                                                                                src="./images/unverified.svg"
-                                                                                height="14px" width="14px"/></span>
+                                                <div class="ad-search-grp">
+                                                    <div class="grp-title"
+                                                        ng-show="verifiedSendAssetListOwned && verifiedSendAssetListOwned.length > 0">
+                                                        VERIFIED ASSETS
+                                                    </div>
+                                                    <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
+                                                        as verifiedSendAssetListOwned track by $index">
+                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id)">
+                                                            <div class="search-item">
+                                                                <img class="icon" ng-if="asset.hasImage"
+                                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                                <span ng-if="!asset.hasImage"
+                                                                    class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                                <div class="details-wrapper">
+                                                                    <div class="details">
+                                                                        <div class="name">{{asset.name}}</div>
+                                                                        <div class="currency">({{asset.symbol}})</div>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="asset.verified">                                    <img
+                                                                                    src="./images/verified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="!asset.verified">                                    <img
+                                                                                    src="./images/unverified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                    </div>
+                                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                                 </div>
-                                                                <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                             </div>
-                                                        </div>
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="ad-search-grp">
-                                                <div class="grp-title"
-                                                     ng-show="unverifiedSendAssetListOwned && unverifiedSendAssetListOwned.length > 0">
-                                                    UNVERIFIED ASSETS
-                                                </div>
-                                                <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
-                                                    as unverifiedSendAssetListOwned track by $index">
-                                                    <a class="search-item-link" ng-click="setSendAsset(asset.id)">
-                                                        <div class="search-item">
-                                                            <img class="icon" ng-if="asset.hasImage"
-                                                                 ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                            <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                            <div class="details-wrapper">
-                                                                <div class="details">
-                                                                    <div class="name">{{asset.name}}</div>
-                                                                    <div class="currency">({{asset.symbol}})</div>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="asset.verified">                                    <img
-                                                                                src="./images/verified.svg"
-                                                                                height="14px" width="14px"/></span>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="!asset.verified">                                    <img
-                                                                                src="./images/unverified.svg"
-                                                                                height="14px" width="14px"/></span>
+                                                <div class="ad-search-grp">
+                                                    <div class="grp-title"
+                                                        ng-show="unverifiedSendAssetListOwned && unverifiedSendAssetListOwned.length > 0">
+                                                        UNVERIFIED ASSETS
+                                                    </div>
+                                                    <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                                        as unverifiedSendAssetListOwned track by $index">
+                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id)">
+                                                            <div class="search-item">
+                                                                <img class="icon" ng-if="asset.hasImage"
+                                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                                <span ng-if="!asset.hasImage"
+                                                                    class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                                <div class="details-wrapper">
+                                                                    <div class="details">
+                                                                        <div class="name">{{asset.name}}</div>
+                                                                        <div class="currency">({{asset.symbol}})</div>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="asset.verified">                                    <img
+                                                                                    src="./images/verified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="!asset.verified">                                    <img
+                                                                                    src="./images/unverified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                    </div>
+                                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                                 </div>
-                                                                <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                             </div>
-                                                        </div>
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1359,68 +1365,70 @@
                                                 <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                                      width="14px"/>
                                             </div>
-                                            <div class="ad-search-grp">
-                                                <div class="grp-title"
-                                                     ng-show="verifiedReceiveAssetListOwned && verifiedReceiveAssetListOwned.length > 0">
-                                                    VERIFIED ASSETS
-                                                </div>
-                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
-                                                    as verifiedReceiveAssetListOwned">
-                                                    <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
-                                                        <div class="search-item">
-                                                            <img class="icon" ng-if="asset.hasImage"
-                                                                 ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                            <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                            <div class="details-wrapper">
-                                                                <div class="details">
-                                                                    <div class="name">{{asset.name}}</div>
-                                                                    <div class="currency">({{asset.symbol}})</div>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="asset.verified">                                    <img
-                                                                                src="./images/verified.svg"
-                                                                                height="14px" width="14px"/></span>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="!asset.verified">                                    <img
-                                                                                src="./images/unverified.svg"
-                                                                                height="14px" width="14px"/></span>
+                                            <div class="ad-options-wrapper">
+                                                <div class="ad-search-grp">
+                                                    <div class="grp-title"
+                                                        ng-show="verifiedReceiveAssetListOwned && verifiedReceiveAssetListOwned.length > 0">
+                                                        VERIFIED ASSETS
+                                                    </div>
+                                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
+                                                        as verifiedReceiveAssetListOwned">
+                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                            <div class="search-item">
+                                                                <img class="icon" ng-if="asset.hasImage"
+                                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                                <span ng-if="!asset.hasImage"
+                                                                    class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                                <div class="details-wrapper">
+                                                                    <div class="details">
+                                                                        <div class="name">{{asset.name}}</div>
+                                                                        <div class="currency">({{asset.symbol}})</div>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="asset.verified">                                    <img
+                                                                                    src="./images/verified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="!asset.verified">                                    <img
+                                                                                    src="./images/unverified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                    </div>
+                                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                                 </div>
-                                                                <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                             </div>
-                                                        </div>
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="ad-search-grp">
-                                                <div class="grp-title"
-                                                     ng-show="unverifiedReceiveAssetListOwned && unverifiedReceiveAssetListOwned.length > 0">
-                                                    UNVERIFIED ASSETS
-                                                </div>
-                                                <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
-                                                    as unverifiedReceiveAssetListOwned">
-                                                    <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
-                                                        <div class="search-item">
-                                                            <img class="icon" ng-if="asset.hasImage"
-                                                                 ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                            <span ng-if="!asset.hasImage"
-                                                                  class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                                            <div class="details-wrapper">
-                                                                <div class="details">
-                                                                    <div class="name">{{asset.name}}</div>
-                                                                    <div class="currency">({{asset.symbol}})</div>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="asset.verified">                                    <img
-                                                                                src="./images/verified.svg"
-                                                                                height="14px" width="14px"/></span>
-                                                                    <span class="color-Active verifier"
-                                                                          ng-show="!asset.verified">                                    <img
-                                                                                src="./images/unverified.svg"
-                                                                                height="14px" width="14px"/></span>
+                                                <div class="ad-search-grp">
+                                                    <div class="grp-title"
+                                                        ng-show="unverifiedReceiveAssetListOwned && unverifiedReceiveAssetListOwned.length > 0">
+                                                        UNVERIFIED ASSETS
+                                                    </div>
+                                                    <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
+                                                        as unverifiedReceiveAssetListOwned">
+                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                            <div class="search-item">
+                                                                <img class="icon" ng-if="asset.hasImage"
+                                                                    ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                                <span ng-if="!asset.hasImage"
+                                                                    class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                                <div class="details-wrapper">
+                                                                    <div class="details">
+                                                                        <div class="name">{{asset.name}}</div>
+                                                                        <div class="currency">({{asset.symbol}})</div>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="asset.verified">                                    <img
+                                                                                    src="./images/verified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                        <span class="color-Active verifier"
+                                                                            ng-show="!asset.verified">                                    <img
+                                                                                    src="./images/unverified.svg"
+                                                                                    height="14px" width="14px"/></span>
+                                                                    </div>
+                                                                    <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                                 </div>
-                                                                <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                             </div>
-                                                        </div>
-                                                    </a>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
