@@ -1092,10 +1092,15 @@
                                                         src="./images/unverified.svg" height="14px" width="14px"/>
                                                 </div>
                                             </div>
-                                            <div class="as-time-lock">
+                                            <!-- NEW TIME-LOCK MARKER --> 
+                                            <div class="as-time-lock" ng-show="sendTimeLockSet" ng-click="showTimeLockSend=!showTimeLockSend">
                                                 <img class="time-icon" src="images/sendtl.svg" width="12px">
-                                                <div class="time-range">{{selectedTimeLockTimespan}}</div>
-                                                <img class="close-icon" src="images/t.svg" width="12px">
+                                                <div class="time-range">
+                                                    {{fromStartTimeString + " - "}}
+                                                    <span ng-show="sendTimeLock == 'daterange' && fromEndTime">{{fromEndTimeString}}</span>
+                                                    <span ng-show="sendTimeLock == 'scheduled'">∞ Forever</span>
+                                                </div>
+                                                <img class="close-icon" ng-click="removeSendTimeLock()" src="images/t.svg" width="12px">
                                             </div>
                                         </div>
         
@@ -1213,33 +1218,70 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="action-time-lock">
-                                        <div class="time-lock-btn">
+
+                                    <!-- NEW TIME-LOCK HERE -->
+
+                                    <div class="action-time-lock" 
+                                        ng-show="selectedSendContract !== DEFAULT_USAN && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset'"
+                                        tw-click-outside="closeSendTimeLockDropDown()" ignore-if="!showTimeLockSend">
+                                        <div class="time-lock-btn" ng-click="showTimeLockSend = !showTimeLockSend" ng-hide="showTimeLockSend; showExistingTimeLocks; sendTimeLockSet">
                                             <div class="name">Time-lock</div>
                                             <img class="icon" src="images/caret-down-2.svg">
                                         </div>
-                                        <div class="time-lock-dropdown" ng-show="true">
+                                        <div class="time-lock-dropdown" ng-show="showTimeLockSend && !showExistingTimeLocks" ng-class="{'time-lock-dropdown-adjust' : sendTimeLockSet == true}">
                                             <div class="tab-selector">
-                                                <div class="tab-option tab-option-left">Date to Date</div>
-                                                <div class="tab-option tab-option-right">Date to Forever</div>
+                                                <div class="tab-option tab-option-left" ng-click="sendTimeLock ='daterange'"
+                                                    ng-class="{'tab-option-selected' : sendTimeLock == 'daterange'}">Date to Date</div>
+                                                <div class="tab-option tab-option-right" ng-click="sendTimeLock ='scheduled'"
+                                                        ng-class="{'tab-option-selected' : sendTimeLock == 'scheduled'}">Date to Forever</div>
                                             </div>
                                             <div class="date-range">
-                                                <div class="date-item">
+                                                <div class="date-item" ng-show="showTimeLockSend">
                                                     <div class="marker">FROM</div>
-                                                    <input class="date-input"/>
+                                                    <input class="form-control date-input"
+                                                       type="text"
+                                                       timepicker-neutral-timezone
+                                                       min="{{todayDate}}"
+                                                       is-open="popup.opened3"
+                                                       datepicker-options="dateOptions"
+                                                       uib-datepicker-popup="MM/dd/yyyy"
+                                                       alt-input-formats="altInputFormats"
+                                                       onkeydown="return false"
+                                                       ng-change="checkSendDate('fromStartTime')"
+                                                       ng-model="fromStartTime"
+                                                       ng-click="popup.opened3 = true"
+                                                       show-button-bar="false"
+                                                       placeholder="mm/dd/yyyy"
+                                                >
                                                 </div>
-                                                <div class="date-item">
+                                                <div class="date-item" ng-show="showTimeLockSend">
                                                     <div class="marker">UNTIL</div>
-                                                    <input class="date-input"/>
-                                                    <div class="">Forever</div>
+                                                    <input class="form-control date-input"
+                                                           type="text"
+                                                           timepicker-neutral-timezone
+                                                           min="{{todayDate}}"
+                                                           is-open="popup.opened4"
+                                                           datepicker-options="dateOptions"
+                                                           uib-datepicker-popup="MM/dd/yyyy"
+                                                           alt-input-formats="altInputFormats"
+                                                           onkeydown="return false"
+                                                           ng-change="checkSendDate('fromEndTime')"
+                                                           ng-model="fromEndTime"
+                                                           ng-click="popup.opened4 = true"
+                                                           show-button-bar="false"
+                                                           placeholder="mm/dd/yyyy"
+                                                           ng-hide="sendTimeLock == 'scheduled'"
+                                                    >
+                                                    <div class="b-form small-gray-text text-fusion fusion-text-14 p-1" 
+                                                        ng-show="sendTimeLock == 'scheduled'">∞ Forever</div>
                                                 </div>
                                             </div>
                                             <div class="btn-grp">
-                                                <button class="btn btn-white main-btn-secondary date-btn" ng-click="">
+                                                <button class="btn btn-white main-btn-secondary date-btn" ng-click="showTimeLockSend = !showTimeLockSend">
                                                     Cancel
                                                 </button>
                                                 <button class="btn btn-primary main-btn-primary date-btn"
-                                                        ng-click="" ng-disabled="">Set Time-lock
+                                                        ng-click="setSendTimeLock()" ng-disabled="!fromStartTime || (sendTimeLock == 'daterange' && !fromEndTime)">Set Time-lock
                                                 </button>
                                             </div>
                                         </div>
@@ -1249,6 +1291,8 @@
 
 
                                 <!-- OLD TIME-LOCK HERE -->
+
+                                <!--
 
                                 <div class="action-time-lock-old"
                                          ng-show="selectedSendContract !== DEFAULT_USAN">
@@ -1376,6 +1420,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    -->
                             </div>
 
 

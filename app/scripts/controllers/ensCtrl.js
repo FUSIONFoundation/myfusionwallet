@@ -45,6 +45,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.sendDropDown2 = false;
         })
     }
+    $scope.closeSendTimeLockDropDown = function () {
+        $scope.$applyAsync(function () {
+            $scope.showTimeLockSend = false;
+        })
+    }
     $scope.closeReceiveDropDown = function () {
         $scope.$applyAsync(function () {
             $scope.receiveDropDown = false;
@@ -307,6 +312,18 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.selectedTimeLockTimespan = "-";
     $scope.selectedTimeLockAmount = "Select time-lock";
 
+    $scope.removeSendTimeLock = function () {
+        $scope.$eval(function () {
+            $scope.selectedTimeLockTimespan = "-";
+            $scope.selectedTimeLockAmount = "Select time-lock";
+            $scope.todayData = "";
+            $scope.fromEndTime = "";
+            $scope.hasTimeLockSet = false;
+            $scope.sendTimeLockSet = false;
+        });
+        $scope.getAssetBalance();
+    };
+
     $scope.closeExistingTimeLock = function () {
         $scope.$eval(function () {
             $scope.selectedTimeLockTimespan = "-";
@@ -470,6 +487,27 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         }
     };
+
+    $scope.setSendTimeLock = function(){
+        window.log("setSendTimeLock called");
+        $scope.$eval(function () {
+            $scope.fromStartTimeString = $scope.returnDateString(
+                new Date($scope.fromStartTime).getTime() / 1000.0 + 1000
+            );
+            $scope.fromEndTimeString = $scope.returnDateString(
+                new Date($scope.fromEndTime).getTime() / 1000.0 + 1000
+            );
+            $scope.showTimeLockSend = false;
+            $scope.sendTimeLockSet = true;
+            // $scope.toStartTimeString = $scope.returnDateString(
+            //     new Date($scope.ToStartTime).getTime() / 1000.0 + 1000
+            // );
+            // $scope.toEndTimeString = $scope.returnDateString(
+            //     new Date($scope.ToEndTime).getTime() / 1000.0 + 1000
+            // );
+            // $scope.selectedTimeLockTimespan = 
+        });
+    }
 
     $scope.$watch('currentPageInput', function (newValue, oldValue) {
         if (!isNaN(newValue) && newValue > 0 && newValue !== oldValue) {
