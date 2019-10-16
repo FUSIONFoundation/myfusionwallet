@@ -2988,7 +2988,6 @@ h3{
       border-bottom-style: solid;
       margin: 0;
       margin-top: 8px;
-      margin-bottom: 28px;
     }
 
     .action-dropdown {
@@ -3214,6 +3213,8 @@ h3{
         display: flex;
         flex-direction: row;
         align-items: flex-start;
+        position: relative;
+        margin-top: 28px;
 
         .action-amount-available {
           display: flex;
@@ -3223,13 +3224,13 @@ h3{
 
           .available {
             margin-top: 4px;
-            margin-bottom: 12px;
+            // margin-bottom: 12px;
             font-family: Lato;
             font-size: 14px;
             font-weight: normal;
             font-style: normal;
             font-stretch: normal;
-            line-height: 1.43;
+            // line-height: 1.43;
             letter-spacing: normal;
             color: #358dcc;
             padding-left: 12px;
@@ -3316,9 +3317,41 @@ h3{
 
         }
 
+        .action-remove-asset {
+          position: absolute;
+          top: 8px;
+          right: 12px;
+          cursor: pointer;
+        }
+
       }
 
+      .add-asset-btn {
+        width: 110px;
+        height: 36px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space between;
+        font-family: Lato;
+        font-size: 14px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        color: #455a64;
+        padding: 11px 12px;
+        margin-top: 12px;
+        cursor: pointer;
+      
+        .icon {
+          margin-top: -2px;
+        }
 
+        .btn-name {
+          margin-left: 8px;
+        }
+      }
 
     }
 
@@ -3455,7 +3488,7 @@ h3{
     .fills-minimum {
       display: flex;
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
       margin-top: 24px;
 
       .fills-minimum-title {
@@ -3474,8 +3507,9 @@ h3{
       .fills-minimum-divider {
         margin-left: 8px;
         margin-right: 8px;
-        align-self: flex-end;
         padding-bottom: 14px;
+        align-self: flex-start;
+        margin-top: 28px;
       }
 
       .fills-minimum-curr {

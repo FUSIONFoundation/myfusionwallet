@@ -1066,6 +1066,7 @@
                                                ng-click="makeSendAmount = selectedAssetBalance">{{selectedAssetBalance}}
                                                 Available</a>
                                         </div>
+                                        <div class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </div>
                                     </div>
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
@@ -1308,11 +1309,18 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="action-remove-asset">
+                                        <img src="images/t.svg" width="16px" height="16px" ng-click="">
+                                    </div>
 
                                 </div>
-                                <span class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </span>
-                            </div>
 
+                                <div class="add-asset-btn" ng-click="">
+                                     <img class="icon" src="images/add-circle-icon.svg" width="14px" height="14px">
+                                    <div class="btn-name">Add Asset</div>
+                                </div>
+                                
+                            </div>
 
                         </div>
 
@@ -1514,8 +1522,13 @@
                                             </div>
                                         </div>
                                     </div>
-
-
+                                    <div class="action-remove-asset">
+                                        <img src="images/t.svg" width="16px" height="16px" ng-click="">
+                                    </div>
+                                </div>
+                                <div class="add-asset-btn" ng-click="">
+                                     <img class="icon" src="images/add-circle-icon.svg" width="14px" height="14px">
+                                    <div class="btn-name">Add Asset</div>
                                 </div>
                             </div>
                         </div>
@@ -1541,6 +1554,13 @@
                             <div class="fills-minimum">
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
+                                    <div class="fills-minimum-curr">
+                                        <img class="icon" ng-if="showTimeLockSend || hasTimeLockSet"
+                                             src="./images/send-timelock-icon.svg"
+                                             height="12px" width="12px"/>
+                                        <span class="amt">{{minimumMakeSend}}</span>
+                                        <span class="currency">{{selectedSendAssetSymbol}}</span>
+                                    </div>
                                     <div class="fills-minimum-curr">
                                         <img class="icon" ng-if="showTimeLockSend || hasTimeLockSet"
                                              src="./images/send-timelock-icon.svg"
