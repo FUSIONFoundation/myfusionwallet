@@ -608,6 +608,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    // multi-swap-related
+    $scope.MAX_SEND_ASSETS = 200;
+    $scope.MAX_RECEIVE_ASSETS = 200;
+    $scope.multiMakeSwapSendAssetArray = [];
+
     $scope.FUSION_CONTRACT_ADDRESS = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
     $scope.DEFAULT_USAN = "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe";
     $scope.sortByString = "Default";
@@ -1883,7 +1888,30 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.makeModal = async function (send, receive) {
+
+
+        let data = {
+            id: $scope.multiMakeSwapSendAssetArray.length,
+            makeSendAmount : 0,
+            makeReceiveAmount : 0,
+            makeMinumumSwap : 0,
+            privateAccess : false,
+            makeTarges : "",
+            showTimeLockSend : false,
+            showExistingTimeLocks : false,
+            showTimeLockReceive : false,
+            ToStartTime : "",
+            ToEndTime : "",
+            fromStartTime : "",
+            fromEndTime : "",
+            makeTxid : "",
+            transactionStatus : "Pending"
+        }
+
         $scope.$eval(function () {
+            
+            $scope.multiMakeSwapSendAssetArray.push(data)
+
             $scope.makeSendAmount = 0;
             $scope.makeReceiveAmount = 0;
             $scope.makeMinumumSwap = 0;
@@ -1907,6 +1935,32 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             a.focus();
         }, 200);
     };
+
+    $scope.addMakeSwapSendAssetRow = async function () {
+        let data = {
+            id: $scope.multiMakeSwapSendAssetArray.length,
+            makeSendAmount : 0,
+            makeReceiveAmount : 0,
+            makeMinumumSwap : 0,
+            privateAccess : false,
+            makeTarges : "",
+            showTimeLockSend : false,
+            showExistingTimeLocks : false,
+            showTimeLockReceive : false,
+            ToStartTime : "",
+            ToEndTime : "",
+            fromStartTime : "",
+            fromEndTime : "",
+            makeTxid : "",
+            transactionStatus : "Pending"
+        }
+        $scope.multiMakeSwapSendAssetArray.push(data)
+    }
+
+    $scope.removeMakeSwapSendAssetRow = async function (sendAssetRow) {
+        var index = $scope.multiMakeSwapSendAssetArray.indexOf(sendAssetRow);
+        $scope.multiMakeSwapSendAssetArray.splice(index, 1);
+    }
 
     $scope.makeSwapConfirmation = async function (end) {
         let sendAssetSymbol = "";

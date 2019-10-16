@@ -1051,7 +1051,10 @@
                             </div>
                             <hr class="action-hr">
                             <div class="action-body">
-                                <div class="body-details">
+
+                                <!-- MAKE SWAP SEND MULTI ASSETS MARKER -->
+
+                                <div class="body-details" ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray">
                                     <div class="action-amount-available"
                                          ng-show="selectedSendContract !== DEFAULT_USAN">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
@@ -1184,7 +1187,7 @@
                                     </div>
 
                                     <div class="action-time-lock"
-                                         ng-show="selectedSendContract !== DEFAULT_USAN">
+                                         ng-show="selectedSendContract !== DEFAULT_USAN && false">
                                         <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
                                         <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                                 ng-click="showTimeLockSend = !showTimeLockSend"
@@ -1309,13 +1312,19 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="action-remove-asset">
-                                        <img src="images/t.svg" width="16px" height="16px" ng-click="">
+                                    <div class="action-remove-asset" 
+                                        ng-hide="multiMakeSwapSendAssetArray.length <= 1"
+                                        ng-click="removeMakeSwapSendAssetRow(multiSendAsset)">
+                                        <img src="images/t.svg" width="16px" height="16px">
                                     </div>
 
                                 </div>
 
-                                <div class="add-asset-btn" ng-click="">
+                                <!-- MAKE SWAP ADD ROW MARKER -->
+
+                                <div class="add-asset-btn" 
+                                    ng-click="addMakeSwapSendAssetRow()"
+                                    ng-hide="multiMakeSwapSendAssetArray.length >= MAX_SEND_ASSETS">
                                      <img class="icon" src="images/add-circle-icon.svg" width="14px" height="14px">
                                     <div class="btn-name">Add Asset</div>
                                 </div>
@@ -1441,7 +1450,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="action-time-lock">
+                                    <div class="action-time-lock" ng-show="false">
                                         <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
                                                 ng-click="showTimeLockReceive = !showTimeLockReceive"
                                                 ng-hide="showTimeLockReceive"
