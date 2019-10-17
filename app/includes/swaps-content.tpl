@@ -1315,7 +1315,7 @@
 
                                 </div>
 
-                                <!-- MAKE SWAP ADD ROW MARKER -->
+                                <!-- MAKE SWAP ADD SEND ASSET MARKER -->
 
                                 <div class="add-asset-btn" 
                                     ng-click="addMakeSwapSendAssetRow()"
@@ -1335,43 +1335,46 @@
                             </div>
                             <hr class="action-hr">
                             <div class="action-body">
-                                <div class="body-details">
+
+                                <!-- MAKE SWAP RECEIVE MULTI ASSETS MARKER -->
+
+                                <div class="body-details" ng-repeat="multiReceiveAsset in multiMakeSwapReceiveAssetArray track by $index">
                                     <div class="action-amount-available">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
-                                               ng-model="makeReceiveAmount"
+                                               ng-model="multiReceiveAsset.makeReceiveAmount"
                                                placeholder="Amount"
-                                               ng-change="setSwapRate();checkMakeSwapConditions();"
+                                               ng-change="setSwapRate(multiReceiveAsset);checkMakeSwapConditions(multiReceiveAsset);"
                                         >
                                     </div>
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
-                                           ng-click="receiveDropDown2 = !receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2')">
-                                            <div ng-show="!selectedReceiveAsset || selectedReceiveAsset === 'All Assets' || selectedReceiveAsset === 'Select asset'">
+                                           ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
+                                            <div ng-show="!multiReceiveAsset.selectedReceiveAsset || multiReceiveAsset.selectedReceiveAsset === 'All Assets' || multiReceiveAsset.selectedReceiveAsset === 'Select asset'">
                                                 Select Asset</div>
-                                            <div class="col" click-out="!receiveDropDown"
-                                                ng-show="selectedReceiveAsset && selectedReceiveAsset !== 'All Assets' && selectedReceiveAsset !== 'Select asset'">
-                                                <img ng-if="selectedReceiveHasImage"
-                                                     ng-src="images/verifiedassets/{{selectedReceiveImage}}"/>
-                                                <span ng-if="!selectedReceiveHasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedReceiveAssetSymbol}}</span>
-                                                <div class="curr-symbol">{{selectedReceiveAssetSymbol}}</div>
-                                                <img class="verifier" ng-if="selectedReceiveVerified"
+                                            <div class="col" click-out="!multiReceiveAsset.receiveDropDown"
+                                                ng-show="multiReceiveAsset.selectedReceiveAsset && multiReceiveAsset.selectedReceiveAsset !== 'All Assets' && multiReceiveAsset.selectedReceiveAsset !== 'Select asset'">
+                                                <img ng-if="multiReceiveAsset.selectedReceiveHasImage"
+                                                     ng-src="images/verifiedassets/{{multiReceiveAsset.selectedReceiveImage}}"/>
+                                                <span ng-if="!multiReceiveAsset.selectedReceiveHasImage"
+                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
+                                                <div class="curr-symbol">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</div>
+                                                <img class="verifier" ng-if="multiReceiveAsset.selectedReceiveVerified"
                                                      src="./images/verified.svg" height="14px"
                                                      width="14px"/>
-                                                <img class="verifier" ng-if="!selectedReceiveVerified"
+                                                <img class="verifier" ng-if="!multiReceiveAsset.selectedReceiveVerified"
                                                      src="./images/unverified.svg"
                                                      height="16px" width="14px"/>
                                             </div>
                                         </a>
 
                                         <div class="action-dropdown"
-                                             ng-show="receiveDropDown2"
-                                             tw-click-outside="closeReceiveDropDown2()" ignore-if="!receiveDropDown2"
+                                             ng-show="multiReceiveAsset.receiveDropDown2"
+                                             tw-click-outside="closeReceiveDropDown2(multiReceiveAsset)" ignore-if="!multiReceiveAsset.receiveDropDown2"
                                         >
                                             <div class="ad-input-wrapper">
                                                 <input type="text" class="form-control ad-input"
-                                                       id="searchReceiveAsset2"
-                                                       ng-model="searchReceiveAsset"
+                                                       id="{{'searchReceiveAsset2_'+multiReceiveAsset.id}}"
+                                                       ng-model="multiReceiveAsset.searchReceiveAsset"
                                                        placeholder="Search Assets, Symbols, and IDs">
                                                 <img class="ad-input-icon" src="./images/s.svg" height="14px"
                                                      width="14px"/>
@@ -1384,7 +1387,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
                                                         as verifiedReceiveAssetListOwned">
-                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id, multiReceiveAsset)">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1416,7 +1419,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetList | filter:searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                         as unverifiedReceiveAssetListOwned">
-                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id)">
+                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id, multiReceiveAsset)">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1526,11 +1529,18 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="action-remove-asset">
-                                        <img src="images/t.svg" width="16px" height="16px" ng-click="">
+                                    <div class="action-remove-asset" 
+                                        ng-hide="multiMakeSwapReceiveAssetArray.length <= 1"
+                                        ng-click="removeMakeSwapReceiveAssetRow(multiReceiveAsset)">
+                                        <img src="images/t.svg" width="16px" height="16px">
                                     </div>
                                 </div>
-                                <div class="add-asset-btn" ng-click="">
+
+                                <!-- MAKE SWAP ADD RECEIVE ASSET MARKER -->
+
+                                <div class="add-asset-btn" 
+                                    ng-click="addMakeSwapReceiveAssetRow()"
+                                    ng-hide="multiMakeSwapReceiveAssetArray.length >= MAX_RECEIVE_ASSETS">
                                      <img class="icon" src="images/add-circle-icon.svg" width="14px" height="14px">
                                     <div class="btn-name">Add Asset</div>
                                 </div>
@@ -1556,7 +1566,7 @@
                                     mean only the full swap can be taken. </p>
                             </div>
 
-                            <!-- MAKE MINIMUM FILLS MARKER -->
+                            <!-- MAKE SWAP MINIMUM FILLS MARKER -->
                             
                             <div class="fills-minimum">
                                 <div>
@@ -1572,11 +1582,11 @@
                                 <div class="fills-minimum-divider">:</div>
                                 <div>
                                     <div class="fills-minimum-title">Minimum Receive</div>
-                                    <div class="fills-minimum-curr">
-                                        <img class="icon" ng-if="showTimeLockReceive"
+                                    <div class="fills-minimum-curr" ng-repeat="multiReceiveAsset in multiMakeSwapReceiveAssetArray track by $index">
+                                        <img class="icon" ng-if="multiReceiveAsset.showTimeLockReceive"
                                              src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
-                                        <span class="amt">{{minimumReceiveSend}}</span>
-                                        <span class="currency">{{selectedReceiveAssetSymbol}}</span>
+                                        <span class="amt">{{multiReceiveAsset.minimumReceiveSend}}</span>
+                                        <span class="currency">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
                                     </div>
                                 </div>
                             </div>

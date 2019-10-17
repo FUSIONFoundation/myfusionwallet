@@ -57,9 +57,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.receiveDropDown = false;
         })
     }
-    $scope.closeReceiveDropDown2 = function () {
+    $scope.closeReceiveDropDown2 = function (asset) {
         $scope.$applyAsync(function () {
-            $scope.receiveDropDown2 = false;
+            if(asset) {
+                $scope.multiMakeSwapReceiveAssetArray.forEach((row) => {
+                    row.receiveDropDown2 = false
+                });
+                $scope.receiveDropDown2 = false;
+            } else {
+                $scope.receiveDropDown2 = false;
+            }
         })
     }
 
@@ -658,6 +665,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.MAX_RECEIVE_ASSETS = 200;
     $scope.multiMakeSwapSendAssetArray = [];
     $scope.multiMakeSwapSendAssetIdTracker = 0;
+    $scope.multiMakeSwapReceiveAssetArray = [];
+    $scope.multiMakeSwapReceiveAssetIdTracker = 0;
 
     $scope.FUSION_CONTRACT_ADDRESS = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
     $scope.DEFAULT_USAN = "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe";
@@ -1171,41 +1180,55 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.minimumReceiveSend = makeReceiveFinal.toString();
     };
 
-    $scope.setReceiveAsset = async function (id) {
+    $scope.setReceiveAsset = async function (id, asset) {
         $scope.$eval(function () {
-            $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${
-                $scope.assetList[id].symbol
-                })`;
-            $scope.selectedReceiveAssetSymbol = `${$scope.assetList[id].symbol}`;
-            $scope.selectedReceiveImage = `${$scope.assetList[id].image}`;
-            $scope.selectedReceiveHasImage = $scope.assetList[id].hasImage;
-            $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
-            $scope.selectedReceiveVerified = $scope.assetList[id].verified;
-            $scope.assetToReceive = $scope.assetList[id].contractaddress;
-            $scope.receiveDropDown = false;
-            $scope.receiveDropDown2 = false;
+            if(asset) {
+                asset.selectedReceiveAsset = `${$scope.assetList[id].name} (${
+                    $scope.assetList[id].symbol
+                    })`;
+                asset.selectedReceiveAssetSymbol = `${$scope.assetList[id].symbol}`;
+                asset.selectedReceiveImage = `${$scope.assetList[id].image}`;
+                asset.selectedReceiveHasImage = $scope.assetList[id].hasImage;
+                asset.selectedReceiveContract = $scope.assetList[id].contractaddress;
+                asset.selectedReceiveVerified = $scope.assetList[id].verified;
+                asset.assetToReceive = $scope.assetList[id].contractaddress;
+                asset.receiveDropDown = false;
+                asset.receiveDropDown2 = false;
+            } else {
+                $scope.selectedReceiveAsset = `${$scope.assetList[id].name} (${
+                    $scope.assetList[id].symbol
+                    })`;
+                $scope.selectedReceiveAssetSymbol = `${$scope.assetList[id].symbol}`;
+                $scope.selectedReceiveImage = `${$scope.assetList[id].image}`;
+                $scope.selectedReceiveHasImage = $scope.assetList[id].hasImage;
+                $scope.selectedReceiveContract = $scope.assetList[id].contractaddress;
+                $scope.selectedReceiveVerified = $scope.assetList[id].verified;
+                $scope.assetToReceive = $scope.assetList[id].contractaddress;
+                $scope.receiveDropDown = false;
+                $scope.receiveDropDown2 = false;
+            }
         });
         $scope.receiveChanged = 1;
         await $scope.allSwaps(0);
     };
 
-    $scope.setSendAsset = async function (id, multiSendAsset) {
-        if(multiSendAsset) {
+    $scope.setSendAsset = async function (id, asset) {
+        if(asset) {
             $scope.$eval(function () {
-                multiSendAsset.selectedSendAsset = `${$scope.assetListOwned[id].name} (${
+                asset.selectedSendAsset = `${$scope.assetListOwned[id].name} (${
                     $scope.assetListOwned[id].symbol
                     })`;
-                multiSendAsset.selectedSendAssetSymbol = `${$scope.assetListOwned[id].symbol}`;
-                multiSendAsset.selectedSendContract = $scope.assetListOwned[id].contractaddress;
-                multiSendAsset.selectedSendImage = `${$scope.assetListOwned[id].image}`;
-                multiSendAsset.selectedSendHasImage = $scope.assetListOwned[id].hasImage;
-                multiSendAsset.assetToSend = $scope.assetListOwned[id].contractaddress;
-                multiSendAsset.selectedSendVerified = $scope.assetListOwned[id].verified;
-                multiSendAsset.sendHasTimeLockBalance = $scope.assetListOwned[id].timelockBalance;
-                multiSendAsset.sendDropDown = false;
-                multiSendAsset.sendDropDown2 = false;
+                asset.selectedSendAssetSymbol = `${$scope.assetListOwned[id].symbol}`;
+                asset.selectedSendContract = $scope.assetListOwned[id].contractaddress;
+                asset.selectedSendImage = `${$scope.assetListOwned[id].image}`;
+                asset.selectedSendHasImage = $scope.assetListOwned[id].hasImage;
+                asset.assetToSend = $scope.assetListOwned[id].contractaddress;
+                asset.selectedSendVerified = $scope.assetListOwned[id].verified;
+                asset.sendHasTimeLockBalance = $scope.assetListOwned[id].timelockBalance;
+                asset.sendDropDown = false;
+                asset.sendDropDown2 = false;
             });
-            $scope.getAssetBalance(multiSendAsset);
+            $scope.getAssetBalance(asset);
             $scope.sendChanged = 1;
             await $scope.allSwaps(0);
         } else {
@@ -2004,10 +2027,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.makeModal = async function (send, receive) {
 
         $scope.multiMakeSwapSendAssetIdTracker = 0;
-        let data = {
+        $scope.multiMakeSwapReceiveAssetIdTracker = 0;
+        let sendData = {
             id: $scope.multiMakeSwapSendAssetIdTracker,
             makeSendAmount : 0,
-            makeReceiveAmount : 0,
             makeMinumumSwap : 0,
             privateAccess : false,
             makeTarges : "",
@@ -2027,11 +2050,33 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             selectedSendAssetSymbol: $scope.selectedSendAssetSymbol,
             selectedSendVerified: $scope.selectedSendVerified,
             searchSendAsset: $scope.searchSendAsset,
-        }
+        };
+        let receiveData = {
+            id: $scope.multiMakeSwapReceiveAssetIdTracker,
+            makeReceiveAmount : 0,
+            makeMinumumSwap : 0,
+            privateAccess : false,
+            makeTarges : "",
+            showTimeLockSend : false,
+            showExistingTimeLocks : false,
+            showTimeLockReceive : false,
+            ToStartTime : "",
+            ToEndTime : "",
+            fromStartTime : "",
+            fromEndTime : "",
+            receiveDropDown2: $scope.receiveDropDown2,
+            selectedReceiveAsset: $scope.selectedReceiveAsset,
+            selectedReceiveHasImage: $scope.selectedReceiveHasImage,
+            selectedReceiveImage: $scope.selectedReceiveImage,
+            selectedReceiveAssetSymbol: $scope.selectedReceiveAssetSymbol,
+            selectedReceiveVerified: $scope.selectedReceiveVerified,
+            searchReceiveAsset: $scope.searchReceiveAsset,
+        };
 
         $scope.$eval(function () {
             
-            $scope.multiMakeSwapSendAssetArray.push(data)
+            $scope.multiMakeSwapSendAssetArray.push(sendData);
+            $scope.multiMakeSwapReceiveAssetArray.push(receiveData);
             $scope.makeSendAmount = 0;
             $scope.makeReceiveAmount = 0;
             $scope.makeMinumumSwap = 0;
@@ -2060,6 +2105,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.$eval(function () {
             $scope.multiMakeSwapSendAssetArray = [];
             $scope.multiMakeSwapSendAssetIdTracker = 0;
+            $scope.multiMakeSwapReceiveAssetArray = [];
+            $scope.multiMakeSwapReceiveAssetIdTracker = 0;
         });
         $scope.makeSwapModal.close();
     }
@@ -2071,20 +2118,40 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.$eval(function () {
             $scope.multiMakeSwapSendAssetIdTracker = $scope.multiMakeSwapSendAssetIdTracker + 1;
             let data = angular.copy($scope.getLastRow($scope.multiMakeSwapSendAssetArray));
-            console.log("last row; ", data);
+            // console.log("last row; ", data);
             data.id = $scope.multiMakeSwapSendAssetIdTracker;
             data.sendDropDown2 = false;
             data.searchSendAsset = "";
-            console.log("data.id: "+$scope.multiMakeSwapSendAssetIdTracker);
-            console.log("last row after id update: ", data);
+            // console.log("data.id: "+$scope.multiMakeSwapSendAssetIdTracker);
+            // console.log("last row after id update: ", data);
             $scope.multiMakeSwapSendAssetArray.push(data);
-            console.log("array after push2: ", $scope.multiMakeSwapSendAssetArray);
+            // console.log("array after push2: ", $scope.multiMakeSwapSendAssetArray);
+        });
+    }
+
+    $scope.addMakeSwapReceiveAssetRow = async function () {
+        $scope.$eval(function () {
+            $scope.multiMakeSwapReceiveAssetIdTracker = $scope.multiMakeSwapReceiveAssetIdTracker + 1;
+            let data = angular.copy($scope.getLastRow($scope.multiMakeSwapReceiveAssetArray));
+            // console.log("last row; ", data);
+            data.id = $scope.multiMakeSwapReceiveAssetIdTracker;
+            data.receiveDropDown2 = false;
+            data.searchReceiveAsset = "";
+            // console.log("data.id: "+$scope.multiMakeSwapReceiveAssetIdTracker);
+            // console.log("last row after id update: ", data);
+            $scope.multiMakeSwapReceiveAssetArray.push(data);
+            // console.log("array after push2: ", $scope.multiMakeSwapReceiveAssetArray);
         });
     }
 
     $scope.removeMakeSwapSendAssetRow = async function (sendAssetRow) {
         var index = $scope.multiMakeSwapSendAssetArray.indexOf(sendAssetRow);
         $scope.multiMakeSwapSendAssetArray.splice(index, 1);
+    }
+
+    $scope.removeMakeSwapReceiveAssetRow = async function (receiveAssetRow) {
+        var index = $scope.multiMakeSwapReceiveAssetArray.indexOf(receiveAssetRow);
+        $scope.multiMakeSwapReceiveAssetArray.splice(index, 1);
     }
 
     $scope.makeSwapConfirmation = async function (end) {
@@ -2556,9 +2623,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
-    $scope.getAssetBalance = async function (multiSendAsset) {
-        if(multiSendAsset) {
-            let asset = multiSendAsset.assetToSend;
+    $scope.getAssetBalance = async function (multiAsset) {
+        if(multiAsset) {
+            let asset = multiAsset.assetToSend;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             let assetBalance = "";
@@ -2583,8 +2650,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let balance = balanceBN.div(decimalsBN).toString();
 
             $scope.$apply(function () {
-                multiSendAsset.selectedAssetBalance = balance;
-                multiSendAsset.selectedAssetSymbol = assetSymbol;
+                multiAsset.selectedAssetBalance = balance;
+                multiAsset.selectedAssetSymbol = assetSymbol;
             });
         } else {
             let asset = $scope.assetToSend;
@@ -2930,9 +2997,24 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         if (input === 'receiveDropDown2') {
             $scope.$eval(function () {
-                $scope.sendDropDown = false;
-                $scope.sendDropDown2 = false;
-                $scope.receiveDropDown = false;
+                if(asset) {
+                    $scope.multiMakeSwapSendAssetArray.forEach((row) => {
+                        if(row.id !== asset.id){
+                            row.sendDropDown = false;
+                            row.sendDropDown2 = false;
+                            row.receiveDropDown = false;
+                            row.receiveDropDown2 = false;
+                        } else {
+                            row.sendDropDown = false;
+                            row.sendDropDown2 = false;
+                            row.receiveDropDown = false;
+                        }
+                    });
+                } else {
+                    $scope.sendDropDown = false;
+                    $scope.sendDropDown2 = false;
+                    $scope.receiveDropDown = false;
+                }
             });
             return;
         }
