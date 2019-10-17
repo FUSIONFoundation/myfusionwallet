@@ -1035,7 +1035,7 @@
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
                     <img class="close-btn" src="images/t.svg" width="20px" height="20px"
-                         ng-click="makeSwapModal.close()">
+                         ng-click="closeMakeSwapModal()">
 
                     <div class="limit-width">
                         <h3 class="title title-make-swap">Make Swap</h3>
@@ -1054,62 +1054,57 @@
 
                                 <!-- MAKE SWAP SEND MULTI ASSETS MARKER -->
 
-                                <div class="body-details" ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray">
-                                    <div class="action-amount-available"
-                                         ng-show="selectedSendContract !== DEFAULT_USAN">
+                                <div class="body-details" ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray track by $index">
+                                    <div class="action-amount-available" ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
-                                               ng-model="makeSendAmount"
-                                               id="makeSendAmount"
-                                               placeholder="Amount"
-                                               ng-change="setReceiveAmountMakeSwap(); setSwapRate();checkMakeSwapConditions();"
+                                            ng-model="multiSendAsset.makeSendAmount"
+                                            id={{"makeSendAmount_"+multiSendAsset.id}}
+                                            placeholder="Amount"
+                                            ng-change="setReceiveAmountMakeSwap(multiSendAsset); setSwapRate(multiSendAsset);checkMakeSwapConditions(multiSendAsset);"
                                         >
-                                        <div class="available"
-                                             ng-show="selectedAssetBalance >= 0">
-                                            <a class="small-blue"
-                                               ng-click="makeSendAmount = selectedAssetBalance">{{selectedAssetBalance}}
-                                                Available</a>
+                                        <div class="available" ng-show="multiSendAsset.selectedAssetBalance >= 0">
+                                            <a class="small-blue" ng-click="multiSendAsset.makeSendAmount = multiSendAsset.selectedAssetBalance">
+                                                {{multiSendAsset.selectedAssetBalance}} Available</a>
                                         </div>
                                         <div class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </div>
                                     </div>
                                     <div class="action-amount-currency">
                                         <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
-                                           ng-click="sendDropDown2 = !sendDropDown2  && closeAllOtherDropDowns('sendDropDown2')">
-                                            <div ng-show="selectedSendContract !== DEFAULT_USAN &&
-                                                (!selectedSendAsset || selectedSendAsset === 'All Assets' || selectedSendAsset === 'Select asset')">
-                                                Select Asset</div>
-                                            <div class="usan-selected"
-                                                 ng-show="selectedSendContract == DEFAULT_USAN">
+                                           ng-click="multiSendAsset.sendDropDown2 = !multiSendAsset.sendDropDown2  && closeAllOtherDropDowns('sendDropDown2', multiSendAsset)">
+                                            <div ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
+                                                (!multiSendAsset.selectedSendAsset || multiSendAsset.selectedSendAsset === 'All Assets'
+                                                || multiSendAsset.selectedSendAsset === 'Select asset')">Select Asset</div>
+                                            <div class="usan-selected" ng-show="multiSendAsset.selectedSendContract == DEFAULT_USAN">
                                                 <span class="name">USAN</span>
                                                 <span class="address">{{usanAddress}}</span>
                                             </div>
-                                            <div class="col" click-out="!sendDropDown2"
-                                                 ng-show="selectedSendContract !== DEFAULT_USAN &&
-                                                 (selectedSendAsset && selectedSendAsset !== 'All Assets' && selectedSendAsset !== 'Select asset')">
-                                                <img ng-if="selectedSendHasImage"
-                                                     ng-src="images/verifiedassets/{{selectedSendImage}}"/>
-                                                <span ng-if="!selectedSendHasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{selectedSendAssetSymbol}}</span>
-                                                <div class="curr-symbol">{{selectedSendAssetSymbol}}</div>
-                                                <img class="verifier" ng-if="selectedSendVerified"
+                                            <div class="col" click-out="!multiSendAsset.sendDropDown2"
+                                                 ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
+                                                 (multiSendAsset.selectedSendAsset && multiSendAsset.selectedSendAsset !== 'All Assets'
+                                                 && multiSendAsset.selectedSendAsset !== 'Select asset')">
+                                                <img ng-if="multiSendAsset.selectedSendHasImage"
+                                                     ng-src="images/verifiedassets/{{multiSendAsset.selectedSendImage}}"/>
+                                                <span ng-if="!multiSendAsset.selectedSendHasImage"
+                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.selectedSendAssetSymbol}}</span>
+                                                <div class="curr-symbol">{{multiSendAsset.selectedSendAssetSymbol}}</div>
+                                                <img class="verifier" ng-if="multiSendAsset.selectedSendVerified"
                                                      src="./images/verified.svg" height="14px" width="14px"/>
-                                                <img class="verifier" ng-if="!selectedSendVerified"
+                                                <img class="verifier" ng-if="!multiSendAsset.selectedSendVerified"
                                                      src="./images/unverified.svg" height="14px" width="14px"/>
                                             </div>
                                         </a>
-                                        <div class="action-dropdown"
-                                             ng-show="sendDropDown2"
-                                             tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2"
+                                        <div class="action-dropdown" ng-show="multiSendAsset.sendDropDown2"
+                                            tw-click-outside="closeSendDropDown2(multiSendAsset)" ignore-if="!multiSendAsset.sendDropDown2"
                                         >
                                             <div class="ad-input-wrapper">
                                                 <input type="text" class="form-control ad-input"
-                                                       id="searchSendAsset2"
-                                                       ng-model="searchSendAsset"
-                                                       placeholder="Search Assets, Symbols, and IDs">
-                                                <img class="ad-input-icon" src="./images/s.svg" height="14px"
-                                                     width="14px"/>
+                                                    id="{{'searchSendAsset2_'+multiSendAsset.id}}"
+                                                    ng-model="multiSendAsset.searchSendAsset"
+                                                    placeholder="Search Assets, Symbols, and IDs">
+                                                <img class="ad-input-icon" src="./images/s.svg" height="14px" width="14px"/>
                                             </div>
                                             <div class="ad-options-wrapper">
-                                                <div class="ad-usan" ng-show="!!usanAddress" ng-click="setMakeUSAN()">
+                                                <div class="ad-usan" ng-show="!!usanAddress" ng-click="setMakeUSAN(asset)">
                                                     <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
                                                     <div class="ad-usan-content">
                                                         <div class="usan-selected">
@@ -1125,7 +1120,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
                                                         as verifiedSendAssetListOwned track by $index">
-                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id)">
+                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id, multiSendAsset)">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1157,7 +1152,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetListOwned | filter:searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                         as unverifiedSendAssetListOwned track by $index">
-                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id)">
+                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id, multiSendAsset)">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1560,22 +1555,18 @@
                                     take in your swap. 1 fill would
                                     mean only the full swap can be taken. </p>
                             </div>
+
+                            <!-- MAKE MINIMUM FILLS MARKER -->
+                            
                             <div class="fills-minimum">
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
-                                    <div class="fills-minimum-curr">
-                                        <img class="icon" ng-if="showTimeLockSend || hasTimeLockSet"
+                                    <div class="fills-minimum-curr" ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray track by $index">
+                                        <img class="icon" ng-if="multiSendAsset.showTimeLockSend || hasTimeLockSet"
                                              src="./images/send-timelock-icon.svg"
                                              height="12px" width="12px"/>
-                                        <span class="amt">{{minimumMakeSend}}</span>
-                                        <span class="currency">{{selectedSendAssetSymbol}}</span>
-                                    </div>
-                                    <div class="fills-minimum-curr">
-                                        <img class="icon" ng-if="showTimeLockSend || hasTimeLockSet"
-                                             src="./images/send-timelock-icon.svg"
-                                             height="12px" width="12px"/>
-                                        <span class="amt">{{minimumMakeSend}}</span>
-                                        <span class="currency">{{selectedSendAssetSymbol}}</span>
+                                        <span class="amt">{{multiSendAsset.minimumMakeSend}}</span>
+                                        <span class="currency">{{multiSendAsset.selectedSendAssetSymbol}}</span>
                                     </div>
                                 </div>
                                 <div class="fills-minimum-divider">:</div>
