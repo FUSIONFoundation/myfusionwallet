@@ -3835,6 +3835,14 @@ h3{
     margin-top: 32px;
     margin-bottom: 48px;
     box-shadow: 0px 2px 1px 0px rgba(38,50,56,.08);
+    margin-left: -1rem;
+    margin-right: -1rem;
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: 1058px) {
+      flex-direction: column;
+    }
 
     .summary-header {
       font-family: Lato;
@@ -3845,7 +3853,7 @@ h3{
       letter-spacing: normal;
       color: #263238;
       margin-top: 0;
-      margin-bottom: 24px;
+      margin-bottom: 4px;
       border-bottom: 1px solid #cfd8dc;
       padding-top: 16px;
       padding-bottom: 12px;
@@ -3892,18 +3900,32 @@ h3{
       padding-left: 24px;
       padding-right: 19px;
       padding-bottom: 32px;
+      display: flex;
+      flex-flow: column;
+      width: 50%;
+      
+      @media screen and (max-width: 1058px) {
+        width: 100%;
+      }
     }
 
     .summary-content {
-
+      flex: 1;
       display: flex;
       flex-direction: column;
+
+      .summary-cell-custom {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        margin-top: 23px !important;
+      }
 
       .summary-cell {
 
         display: flex;
         flex-direction: row;
         align-items: center;
+        margin-top: 20px;
 
         .logo {
           align-self: flex-start !important;
@@ -4186,10 +4208,21 @@ h3{
         text-align: right;
         color: #263238;
         padding: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+
+        .amt {
+          margin-left: 4px;
+        }
 
         .currency {
           font-size: 14px;
           font-weight: bold;
+        }
+
+        .price-divider {
+          margin-left: 4px;
         }
       }
 

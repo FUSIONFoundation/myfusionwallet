@@ -2155,16 +2155,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
     $scope.makeSwapConfirmation = async function (end) {
-        let sendAssetSymbol = "";
-        let receiveAssetSymbol = "";
-        for (let asset in $scope.assetList) {
-            if ($scope.assetToSend == $scope.assetList[asset].contractaddress) {
-                sendAssetSymbol = $scope.assetList[asset].symbol;
-            }
-            if ($scope.assetToReceive == $scope.assetList[asset].contractaddress) {
-                receiveAssetSymbol = $scope.assetList[asset].symbol;
-            }
-        }
 
         if ($scope.makeTarges !== "") {
             $scope.makeTarges = $scope.makeTarges.replace(" ", "");
@@ -2174,30 +2164,57 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.targesArray = [];
         }
 
-        console.log($scope.targesArray);
-
         $scope.$eval(function () {
-            $scope.makeSendAmountConfirm = $scope.makeReceiveAmount === 1 ?
-                $scope.makeSendAmount : $scope.makeReceiveAmount !== 0 ?
-                $scope.makeSendAmount / $scope.makeReceiveAmount : $scope.makeSendAmount;
-            $scope.makeReceiveAmountConfirm = $scope.selectedSendContract !== $scope.DEFAULT_USAN ?
-                1 : $scope.makeReceiveAmount;
-            $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
-                1: $scope.makeMinumumSwap;
-            $scope.assetToSendConfirm = sendAssetSymbol;
-            $scope.assetToReceiveConfirm = receiveAssetSymbol;
-            $scope.fromStartTimeString = $scope.returnDateString(
-                new Date($scope.fromStartTime).getTime() / 1000.0 + 1000
-            );
-            $scope.fromEndTimeString = $scope.returnDateString(
-                new Date($scope.fromEndTime).getTime() / 1000.0 + 1000
-            );
-            $scope.toStartTimeString = $scope.returnDateString(
-                new Date($scope.ToStartTime).getTime() / 1000.0 + 1000
-            );
-            $scope.toEndTimeString = $scope.returnDateString(
-                new Date($scope.ToEndTime).getTime() / 1000.0 + 1000
-            );
+            
+            $scope.multiMakeSwapSendAssetArray.forEach((row) => {
+
+                let sendAssetSymbol = "";
+                for (let asset in $scope.assetList) {
+                    if (row.assetToSend == $scope.assetList[asset].contractaddress) {
+                        sendAssetSymbol = $scope.assetList[asset].symbol;
+                    }
+                }
+                // row.makeSendAmountConfirm = $scope.makeReceiveAmount === 1 ?
+                //     $scope.makeSendAmount : $scope.makeReceiveAmount !== 0 ?
+                //     $scope.makeSendAmount / $scope.makeReceiveAmount : $scope.makeSendAmount;
+                row.makeSendAmountConfirm = row.makeSendAmount;
+                // $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
+                //     1: $scope.makeMinumumSwap;
+                row.makeMinumumSwapConfirm = row.makeMinumumSwap;
+                row.assetToSendConfirm = sendAssetSymbol;
+                row.fromStartTimeString = $scope.returnDateString(
+                    new Date(row.fromStartTime).getTime() / 1000.0 + 1000
+                );
+                row.fromEndTimeString = $scope.returnDateString(
+                    new Date(row.fromEndTime).getTime() / 1000.0 + 1000
+                );
+            
+            });
+
+            $scope.multiMakeSwapReceiveAssetArray.forEach((row) => {
+
+                let receiveAssetSymbol = "";
+                for (let asset in $scope.assetList) {
+                    if (row.assetToReceive == $scope.assetList[asset].contractaddress) {
+                        receiveAssetSymbol = $scope.assetList[asset].symbol;
+                    }
+                }
+                // row.makeReceiveAmountConfirm = $scope.selectedSendContract !== $scope.DEFAULT_USAN ?
+                //     1 : row.makeReceiveAmount;
+                row.makeReceiveAmountConfirm = row.makeReceiveAmount;
+                // $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
+                //     1: $scope.makeMinumumSwap;
+                row.makeMinumumSwapConfirm = row.makeMinumumSwap;
+                row.assetToReceiveConfirm = receiveAssetSymbol;
+                row.toStartTimeString = $scope.returnDateString(
+                    new Date(row.ToStartTime).getTime() / 1000.0 + 1000
+                );
+                row.toEndTimeString = $scope.returnDateString(
+                    new Date(row.ToEndTime).getTime() / 1000.0 + 1000
+                );
+
+            });
+            
         });
 
         if (end === "end") {
