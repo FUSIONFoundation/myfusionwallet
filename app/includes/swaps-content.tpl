@@ -823,39 +823,42 @@
                             </div>
                         </div>
 
-                        <div class="row summary take-swap-summary">
+                        <div class="summary take-swap-summary">
                             <div class="summary-col">
                                 <div class="summary-header">
                                     <img class="icon" src="images/you-send-new.svg" class="pr-2">
                                     <span>You Send</span>
                                 </div>
                                 <div class="summary-content">
-                                    <div class="summary-cell">
+
+                                    <!-- TAKE SWAP SEND MULTI ASSETS MARKER -->
+                                    <div class="summary-cell" ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
                                         <div class="logo">
-                                            <img ng-if="takeDataFront.swapId.toHasImage==true"
-                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.toVerifiedImage}}"
+                                            <img ng-if="multiSendAsset.swapId.toHasImage==true"
+                                                 ng-src="images/verifiedassets/{{multiSendAsset.swapId.toVerifiedImage}}"
                                                  height="32px" width="32px"/>
-                                            <span ng-if="!takeDataFront.swapId.toHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.toAssetSymbol}}</span>
+                                            <span ng-if="!multiSendAsset.swapId.toHasImage"
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.swapId.toAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
-                                                <span class="qty">{{sendTokens}}</span>
+                                                <span class="qty">{{multiSendAsset.sendTokens}}</span>
                                                 <div class="curr-sym">
-                                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="takeDataFront.fromVerified"
+                                                    <span class="currency">{{multiSendAsset.fromAssetSymbol}}</span>
+                                                    <img class="symbol" ng-if="multiSendAsset.fromVerified"
                                                          src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!takeDataFront.fromVerified"
+                                                    <img class="symbol" ng-if="!multiSendAsset.fromVerified"
                                                          src="./images/unverified.svg" height="16px" width="14px"/>
                                                 </div>
                                             </div>
                                             <div class="date-range">
                                                 <span class="small-gray-text"
-                                                      ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                                      ng-hide="multiSendAsset.swapId.ToStartTime == 0 
+                                                      && multiSendAsset.swapId.ToEndTime == 18446744073709552000">
                                                     <img class="mr-2 icon" src="images/send-timelock-icon.svg"
                                                          width="12px">
-                                                    <span class="range">{{takeDataFront.swapId.ToStartTimeString}}
-                                                        - {{takeDataFront.swapId.ToEndTimeString}}</span>
+                                                    <span class="range">{{multiSendAsset.swapId.ToStartTimeString}}
+                                                        - {{multiSendAsset.swapId.ToEndTimeString}}</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -867,50 +870,47 @@
                                     <img class="icon" src="images/you-receive-new.svg" class="pr-2">
                                     <span>You Receive</span>
                                 </div>
-                                <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
-                                    <div class="summary-cell">
-                                        <div class="logo">
-                                            <img ng-if="takeDataFront.swapId.fromHasImage==true"
-                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.fromVerifiedImage}}"
-                                                 height="32px" width="32px"/>
-                                            <span ng-if="!takeDataFront.swapId.fromHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.fromAssetSymbol}}</span>
-                                        </div>
-                                        <div class="details-wrapper">
-                                            <div class="details">
-                                                <span class="qty">{{receiveTokens}}</span>
-                                                <div class="curr-sym">
-                                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="takeDataFront.toVerified"
-                                                         src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!takeDataFront.toVerified"
-                                                         src="./images/unverified.svg" height="16px" width="14px"/>
+                                <div class="summary-content">
+
+                                    <!-- TAKE SWAP RECEIVE MULTI ASSETS MARKER -->
+                                    <div ng-repeat="multiReceiveAsset in multiTakeSwapReceiveAssetArray track by $index">
+                                        <div class="summary-cell" ng-show="multiReceiveAsset.toAssetId !== DEFAULT_USAN">
+                                            <div class="logo">
+                                                <img ng-if="multiReceiveAsset.swapId.fromHasImage==true"
+                                                    ng-src="images/verifiedassets/{{multiReceiveAsset.swapId.fromVerifiedImage}}"
+                                                    height="32px" width="32px"/>
+                                                <span ng-if="!multiReceiveAsset.swapId.fromHasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.swapId.fromAssetSymbol}}</span>
+                                            </div>
+                                            <div class="details-wrapper">
+                                                <div class="details">
+                                                    <span class="qty">{{multiReceiveAsset.receiveTokens}}</span>
+                                                    <div class="curr-sym">
+                                                        <span class="currency">{{multiReceiveAsset.toAssetSymbol}}</span>
+                                                        <img class="symbol" ng-if="multiReceiveAsset.toVerified"
+                                                            src="./images/verified.svg" height="14px" width="14px"/>
+                                                        <img class="symbol" ng-if="!multiReceiveAsset.toVerified"
+                                                            src="./images/unverified.svg" height="16px" width="14px"/>
+                                                    </div>
+                                                </div>
+                                                <div class="date-range">
+                                                    <span class="small-gray-text"
+                                                        ng-hide="multiReceiveAsset.swapId.FromStartTime == 0 
+                                                        && multiReceiveAsset.swapId.FromEndTime == 18446744073709552000">
+                                                        <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                                        <span>{{multiReceiveAsset.swapId.FromStartTimeString}}
+                                                            - {{multiReceiveAsset.swapId.FromEndTimeString}}</span>
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div class="date-range">
-                                                <span class="small-gray-text"
-                                                      ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                                    <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                    <span>{{takeDataFront.swapId.FromStartTimeString}}
-                                                        - {{takeDataFront.swapId.FromEndTimeString}}</span>
-                                                </span>
-                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId == DEFAULT_USAN">
-                                    <div class="summary-cell">
-                                        <div class="usan">
-                                            <div class="name">USAN <span
-                                                        class="address">{{extractAddressFromAssetSymbol(takeDataFront.toAssetSymbol)}}</span>
+                                        <div class="summary-cell summary-cell-custom" ng-show="multiReceiveAsset.toAssetId == DEFAULT_USAN">
+                                            <div class="usan">
+                                                <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(multiReceiveAsset.toAssetSymbol)}}</span></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="summary-cell">
-                                        <div class="usan-warning">Once swapped, this USAN will take the place of your
-                                            current USAN. Your current USAN will be permanently lost.
+                                            <div class="usan-warning">Once this swap is taken, your USAN will no longer be
+                                                associated with your address.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -924,12 +924,20 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
+
+                                <!-- TAKE SWAP MULTI ASSETS PRICE MARKER -->
                                 <div class="price-value">
-                                    <span>{{takeDataFront.swapRate}}</span>
-                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> 
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> : </span>
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> {{1}} </span>
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN" class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                    <div ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
+                                        <span class="amt">{{multiSendAsset.swapRate}}</span>
+                                        <span class="currency">
+                                            {{multiSendAsset.fromAssetSymbol + (($index != multiTakeSwapSendAssetArray.length-1) ? ', ' : '')}}</span>
+                                    </div>
+                                    <span class="price-divider">:</span>
+                                    <div ng-repeat="multiReceiveAsset in multiTakeSwapReceiveAssetArray track by $index">
+                                        <span class="amt"> {{1}} </span>
+                                        <span class="currency">
+                                            {{multiReceiveAsset.toAssetSymbol + (($index != multiTakeSwapReceiveAssetArray.length-1) ? ', ' : '')}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="price-row">
@@ -1741,7 +1749,7 @@
                                 </div>
                                 <div class="price-filler"></div>
 
-                                <!-- REVIEW MAKE SWAP SEND MULTI ASSETS PRICE MARKER -->
+                                <!-- REVIEW MAKE SWAP MULTI ASSETS PRICE MARKER -->
                                 <div class="price-value">
                                     <div ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray track by $index">
                                         <span class="amt" ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN">{{multiSendAsset.makeSendAmountConfirm}}</span>
@@ -2216,39 +2224,41 @@
                             <img class="icon" src="./images/unverified.svg" height="16px" width="14px"/>
                             <div class="description">Caution: this swap contains a suspicious asset(s).</div>
                         </div>
-                        <div class="summary">
+                        <div class="summary take-swap-summary">
                             <div class="summary-col">
                                 <div class="summary-header">
                                     <img class="icon" src="images/you-send-new.svg" class="pr-2">
                                     <span>You Send</span>
                                 </div>
                                 <div class="summary-content">
-                                    <div class="summary-cell">
+
+                                    <!-- CONFIRM TAKE SWAP SEND MULTI ASSETS MARKER -->
+                                    <div class="summary-cell" ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
                                         <div class="logo">
-                                            <img ng-if="takeDataFront.swapId.toHasImage==true"
-                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.toVerifiedImage}}"
+                                            <img ng-if="multiSendAsset.swapId.toHasImage==true"
+                                                 ng-src="images/verifiedassets/{{multiSendAsset.swapId.toVerifiedImage}}"
                                                  height="32px" width="32px"/>
-                                            <span ng-if="!takeDataFront.swapId.toHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.toAssetSymbol}}</span>
+                                            <span ng-if="!multiSendAsset.swapId.toHasImage"
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.swapId.toAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
-                                                <span class="qty">{{sendTokens}}</span>
+                                                <span class="qty">{{multiSendAsset.sendTokens}}</span>
                                                 <div class="curr-sym">
-                                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="takeDataFront.fromVerified"
+                                                    <span class="currency">{{multiSendAsset.fromAssetSymbol}}</span>
+                                                    <img class="symbol" ng-if="multiSendAsset.fromVerified"
                                                          src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!takeDataFront.fromVerified"
+                                                    <img class="symbol" ng-if="!multiSendAsset.fromVerified"
                                                          src="./images/unverified.svg" height="16px" width="14px"/>
                                                 </div>
                                             </div>
                                             <div class="date-range">
                                                 <span class="small-gray-text"
-                                                      ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                                      ng-hide="multiSendAsset.swapId.ToStartTime == 0 && multiSendAsset.swapId.ToEndTime == 18446744073709552000">
                                                     <img class="mr-2 icon" src="images/send-timelock-icon.svg"
                                                          width="12px">
-                                                    <span class="range">{{takeDataFront.swapId.ToStartTimeString}}
-                                                        - {{takeDataFront.swapId.ToEndTimeString}}</span>
+                                                    <span class="range">{{multiSendAsset.swapId.ToStartTimeString}}
+                                                        - {{multiSendAsset.swapId.ToEndTimeString}}</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -2260,50 +2270,47 @@
                                     <img class="icon" src="images/you-receive-new.svg" class="pr-2">
                                     <span>You Receive</span>
                                 </div>
-                                <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
-                                    <div class="summary-cell">
-                                        <div class="logo">
-                                            <img ng-if="takeDataFront.swapId.fromHasImage==true"
-                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.fromVerifiedImage}}"
-                                                 height="32px" width="32px"/>
-                                            <span ng-if="!takeDataFront.swapId.fromHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.fromAssetSymbol}}</span>
-                                        </div>
-                                        <div class="details-wrapper">
-                                            <div class="details">
-                                                <span class="qty">{{receiveTokens}}</span>
-                                                <div class="curr-sym">
-                                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="takeDataFront.toVerified"
-                                                         src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!takeDataFront.toVerified"
-                                                         src="./images/unverified.svg" height="16px" width="14px"/>
+                                <div class="summary-content">
+
+                                    <!-- CONFIRM TAKE SWAP RECEIVE MULTI ASSETS MARKER -->
+                                    <div ng-repeat="multiReceiveAsset in multiTakeSwapReceiveAssetArray track by $index">
+                                        <div class="summary-cell" ng-show="multiReceiveAsset.toAssetId !== DEFAULT_USAN">
+                                            <div class="logo">
+                                                <img ng-if="multiReceiveAsset.swapId.fromHasImage==true"
+                                                    ng-src="images/verifiedassets/{{multiReceiveAsset.swapId.fromVerifiedImage}}"
+                                                    height="32px" width="32px"/>
+                                                <span ng-if="!multiReceiveAsset.swapId.fromHasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.swapId.fromAssetSymbol}}</span>
+                                            </div>
+                                            <div class="details-wrapper">
+                                                <div class="details">
+                                                    <span class="qty">{{multiReceiveAsset.receiveTokens}}</span>
+                                                    <div class="curr-sym">
+                                                        <span class="currency">{{multiReceiveAsset.toAssetSymbol}}</span>
+                                                        <img class="symbol" ng-if="multiReceiveAsset.toVerified"
+                                                            src="./images/verified.svg" height="14px" width="14px"/>
+                                                        <img class="symbol" ng-if="!multiReceiveAsset.toVerified"
+                                                            src="./images/unverified.svg" height="16px" width="14px"/>
+                                                    </div>
+                                                </div>
+                                                <div class="date-range">
+                                                    <span class="small-gray-text"
+                                                        ng-hide="multiReceiveAsset.swapId.FromStartTime == 0 
+                                                        && multiReceiveAsset.swapId.FromEndTime == 18446744073709552000">
+                                                        <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                                        <span>{{multiReceiveAsset.swapId.FromStartTimeString}}
+                                                            - {{multiReceiveAsset.swapId.FromEndTimeString}}</span>
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div class="date-range">
-                                                <span class="small-gray-text"
-                                                      ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                                    <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                    <span>{{takeDataFront.swapId.FromStartTimeString}}
-                                                        - {{takeDataFront.swapId.FromEndTimeString}}</span>
-                                                </span>
-                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId == DEFAULT_USAN">
-                                    <div class="summary-cell">
-                                        <div class="usan">
-                                            <div class="name">USAN <span
-                                                        class="address">{{extractAddressFromAssetSymbol(takeDataFront.toAssetSymbol)}}</span>
+                                        <div class="summary-cell summary-cell-custom" ng-show="multiReceiveAsset.toAssetId == DEFAULT_USAN">
+                                            <div class="usan">
+                                                <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(multiReceiveAsset.toAssetSymbol)}}</span></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="summary-cell">
-                                        <div class="usan-warning">Once swapped, this USAN will take the place of your
-                                            current USAN. Your current USAN will be permanently lost.
+                                            <div class="usan-warning">Once this swap is taken, your USAN will no longer be
+                                                associated with your address.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2317,14 +2324,20 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
+
+                                <!-- CONFIRM TAKE SWAP MULTI ASSETS PRICE MARKER -->
                                 <div class="price-value">
-                                    <div class="price-value">
-                                    <span>{{takeDataFront.swapRate}}</span>
-                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> 
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> : </span>
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> {{1}} </span>
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN" class="currency">{{takeDataFront.toAssetSymbol}}</span>
-                                </div>
+                                    <div ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
+                                        <span class="amt">{{multiSendAsset.swapRate}}</span>
+                                        <span class="currency">
+                                            {{multiSendAsset.fromAssetSymbol + (($index != multiTakeSwapSendAssetArray.length-1) ? ', ' : '')}}</span>
+                                    </div>
+                                    <span class="price-divider">:</span>
+                                    <div ng-repeat="multiReceiveAsset in multiTakeSwapReceiveAssetArray track by $index">
+                                        <span class="amt"> {{1}} </span>
+                                        <span class="currency">
+                                            {{multiReceiveAsset.toAssetSymbol + (($index != multiTakeSwapReceiveAssetArray.length-1) ? ', ' : '')}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="price-row"
@@ -2416,39 +2429,42 @@
                             click the Transaction ID below to view on the block explorer.</p>
                         <p class="ms-confirmed-description" ng-show="transactionStatus == 'Success'">Your asset is now
                             available.</p>
-                        <div class="summary">
+                        <div class="summary take-swap-summary">
                             <div class="summary-col">
                                 <div class="summary-header">
                                     <img class="icon" src="images/you-send-new.svg" class="pr-2">
                                     <span>You Send</span>
                                 </div>
                                 <div class="summary-content">
-                                    <div class="summary-cell">
+
+                                    <!-- PENDING TAKE SWAP SEND MULTI ASSETS MARKER -->
+                                    <div class="summary-cell" ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
                                         <div class="logo">
-                                            <img ng-if="takeDataFront.swapId.toHasImage==true"
-                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.toVerifiedImage}}"
+                                            <img ng-if="multiSendAsset.swapId.toHasImage==true"
+                                                 ng-src="images/verifiedassets/{{multiSendAsset.swapId.toVerifiedImage}}"
                                                  height="32px" width="32px"/>
-                                            <span ng-if="!takeDataFront.swapId.toHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.toAssetSymbol}}</span>
+                                            <span ng-if="!multiSendAsset.swapId.toHasImage"
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.swapId.toAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
-                                                <span class="qty">{{sendTokens}}</span>
+                                                <span class="qty">{{multiSendAsset.sendTokens}}</span>
                                                 <div class="curr-sym">
-                                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="takeDataFront.fromVerified"
+                                                    <span class="currency">{{multiSendAsset.fromAssetSymbol}}</span>
+                                                    <img class="symbol" ng-if="multiSendAsset.fromVerified"
                                                          src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!takeDataFront.fromVerified"
+                                                    <img class="symbol" ng-if="!multiSendAsset.fromVerified"
                                                          src="./images/unverified.svg" height="16px" width="14px"/>
                                                 </div>
                                             </div>
                                             <div class="date-range">
                                                 <span class="small-gray-text"
-                                                      ng-hide="takeDataFront.swapId.ToStartTime == 0 && takeDataFront.swapId.ToEndTime == 18446744073709552000">
+                                                      ng-hide="multiSendAsset.swapId.ToStartTime == 0 
+                                                      && multiSendAsset.swapId.ToEndTime == 18446744073709552000">
                                                     <img class="mr-2 icon" src="images/send-timelock-icon.svg"
                                                          width="12px">
-                                                    <span class="range">{{takeDataFront.swapId.ToStartTimeString}}
-                                                        - {{takeDataFront.swapId.ToEndTimeString}}</span>
+                                                    <span class="range">{{multiSendAsset.swapId.ToStartTimeString}}
+                                                        - {{multiSendAsset.swapId.ToEndTimeString}}</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -2460,50 +2476,47 @@
                                     <img class="icon" src="images/you-receive-new.svg" class="pr-2">
                                     <span>You Receive</span>
                                 </div>
-                                <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId !== DEFAULT_USAN">
-                                    <div class="summary-cell">
-                                        <div class="logo">
-                                            <img ng-if="takeDataFront.swapId.fromHasImage==true"
-                                                 ng-src="images/verifiedassets/{{takeDataFront.swapId.fromVerifiedImage}}"
-                                                 height="32px" width="32px"/>
-                                            <span ng-if="!takeDataFront.swapId.fromHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{takeDataFront.swapId.fromAssetSymbol}}</span>
-                                        </div>
-                                        <div class="details-wrapper">
-                                            <div class="details">
-                                                <span class="qty">{{receiveTokens}}</span>
-                                                <div class="curr-sym">
-                                                    <span class="currency">{{takeDataFront.toAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="takeDataFront.toVerified"
-                                                         src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!takeDataFront.toVerified"
-                                                         src="./images/unverified.svg" height="16px" width="14px"/>
+                                <div class="summary-content">
+
+                                    <!-- PENDING TAKE SWAP RECEIVE MULTI ASSETS MARKER -->
+                                    <div ng-repeat="multiReceiveAsset in multiTakeSwapReceiveAssetArray track by $index">
+                                        <div class="summary-cell" ng-show="multiReceiveAsset.toAssetId !== DEFAULT_USAN">
+                                            <div class="logo">
+                                                <img ng-if="multiReceiveAsset.swapId.fromHasImage==true"
+                                                    ng-src="images/verifiedassets/{{multiReceiveAsset.swapId.fromVerifiedImage}}"
+                                                    height="32px" width="32px"/>
+                                                <span ng-if="!multiReceiveAsset.swapId.fromHasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.swapId.fromAssetSymbol}}</span>
+                                            </div>
+                                            <div class="details-wrapper">
+                                                <div class="details">
+                                                    <span class="qty">{{multiReceiveAsset.receiveTokens}}</span>
+                                                    <div class="curr-sym">
+                                                        <span class="currency">{{multiReceiveAsset.toAssetSymbol}}</span>
+                                                        <img class="symbol" ng-if="multiReceiveAsset.toVerified"
+                                                            src="./images/verified.svg" height="14px" width="14px"/>
+                                                        <img class="symbol" ng-if="!multiReceiveAsset.toVerified"
+                                                            src="./images/unverified.svg" height="16px" width="14px"/>
+                                                    </div>
+                                                </div>
+                                                <div class="date-range">
+                                                    <span class="small-gray-text"
+                                                        ng-hide="multiReceiveAsset.swapId.FromStartTime == 0 
+                                                        && multiReceiveAsset.swapId.FromEndTime == 18446744073709552000">
+                                                        <img class="mr-2" src="images/sendtl.svg" width="12px">
+                                                        <span>{{multiReceiveAsset.swapId.FromStartTimeString}}
+                                                            - {{multiReceiveAsset.swapId.FromEndTimeString}}</span>
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div class="date-range">
-                                                <span class="small-gray-text"
-                                                      ng-hide="takeDataFront.swapId.FromStartTime == 0 && takeDataFront.swapId.FromEndTime == 18446744073709552000">
-                                                    <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                    <span>{{takeDataFront.swapId.FromStartTimeString}}
-                                                        - {{takeDataFront.swapId.FromEndTimeString}}</span>
-                                                </span>
-                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="summary-content"
-                                     ng-show="takeDataFront.toAssetId == DEFAULT_USAN">
-                                    <div class="summary-cell">
-                                        <div class="usan">
-                                            <div class="name">USAN <span
-                                                        class="address">{{extractAddressFromAssetSymbol(takeDataFront.toAssetSymbol)}}</span>
+                                        <div class="summary-cell summary-cell-custom" ng-show="multiReceiveAsset.toAssetId == DEFAULT_USAN">
+                                            <div class="usan">
+                                                <div class="name">USAN <span class="address">{{extractAddressFromAssetSymbol(multiReceiveAsset.toAssetSymbol)}}</span></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="summary-cell">
-                                        <div class="usan-warning">Once swapped, this USAN will take the place of your
-                                            current USAN. Your current USAN will be permanently lost.
+                                            <div class="usan-warning">Once this swap is taken, your USAN will no longer be
+                                                associated with your address.
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -2532,12 +2545,20 @@
                                     PRICE
                                 </div>
                                 <div class="price-filler"></div>
+                                
+                                <!-- PENDING TAKE SWAP MULTI ASSETS PRICE MARKER -->
                                 <div class="price-value">
-                                    <span>{{takeDataFront.swapRate}}</span>
-                                    <span class="currency">{{takeDataFront.fromAssetSymbol}}</span> 
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> : </span>
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN"> {{1}} </span>
-                                    <span ng-show="takeDataFront.toAssetId !== DEFAULT_USAN" class="currency">{{takeDataFront.toAssetSymbol}}</span>
+                                    <div ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
+                                        <span class="amt">{{multiSendAsset.swapRate}}</span>
+                                        <span class="currency">
+                                            {{multiSendAsset.fromAssetSymbol + (($index != multiTakeSwapSendAssetArray.length-1) ? ', ' : '')}}</span>
+                                    </div>
+                                    <span class="price-divider">:</span>
+                                    <div ng-repeat="multiReceiveAsset in multiTakeSwapReceiveAssetArray track by $index">
+                                        <span class="amt"> {{1}} </span>
+                                        <span class="currency">
+                                            {{multiReceiveAsset.toAssetSymbol + (($index != multiTakeSwapReceiveAssetArray.length-1) ? ', ' : '')}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="price-row"
