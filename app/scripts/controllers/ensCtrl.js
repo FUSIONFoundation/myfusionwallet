@@ -3606,7 +3606,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     fromVerified: fromVerified,
                     toVerifiedImage: toVerifiedImage,
                     toHasImage: toHasImage,
-                    toVerified: toVerified
+                    toVerified: toVerified,
+
+                    // multi-swap related
+                    expand: false,
+                    fromAssetsArray: [],
+                    toAssetsArray: [],
                 };
 
                 if (swapList[asset]["Targes"].includes(walletAddress)) {
