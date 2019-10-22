@@ -661,6 +661,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     // multi-swap-related
+    $scope.MAX_ASSETS_TO_DISPLAY = 3;
     $scope.MAX_SEND_ASSETS = 200;
     $scope.MAX_RECEIVE_ASSETS = 200;
     $scope.multiMakeSwapSendAssetArray = [];
@@ -3342,7 +3343,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         fromVerified: fromVerified,
                         toVerifiedImage: toVerifiedImage,
                         toHasImage: toHasImage,
-                        toVerified: toVerified
+                        toVerified: toVerified,
+                        
+                        // multi-swap related
+                        expand: false,
+                        fromAssetsArray: [],
+                        toAssetsArray: [],
                     };
                     if (swapList[asset]["Targes"].length > 0) {
                         if (swapList[asset]["Targes"].includes(walletAddress)) {
