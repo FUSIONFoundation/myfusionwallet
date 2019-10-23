@@ -345,53 +345,65 @@
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
                                 ng-class="{'usan-cell-reset' : asset.toAssetId == DEFAULT_USAN}">
-                                <div class="column-layout" ng-show="asset.toAssetId !== DEFAULT_USAN">
-                                    <div class="row-layout">
-                                        <div class="asset">{{asset.toAmountCut}}</div>
-                                        <div class="currency">{{asset.toAssetSymbol}}</div>
-                                        <img class="color-Active verifier" ng-show="asset.toVerified"
-                                             src="./images/verified.svg" height="14px" width="14px"/>
-                                        <img class="color-Active verifier" ng-show="!asset.toVerified"
-                                             src="./images/unverified.svg" height="14px" width="14px"/>
-                                    </div>
-                                    <div class="row-layout time-range"
-                                         ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                        <img class="icon" src="images/sendtl.svg" width="12px">
-                                        <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
-                                    </div>
-                                </div>
-                                <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
-                                    <div class="row-layout usan">
-                                        <div class="name">USAN <span
-                                                    class="address">{{extractAddressFromAssetSymbol(asset.toAssetSymbol)}}</span>
+                                <div class="row-item" ng-repeat="toAsset in asset.toAssetsArray track by $index">
+                                    <div class="column-layout" ng-show="toAsset.toAssetId !== DEFAULT_USAN">
+                                        <div class="row-layout">
+                                            <div class="asset">{{toAsset.toAmountCut}}</div>
+                                            <div class="currency">{{toAsset.toAssetSymbol}}</div>
+                                            <img class="color-Active verifier" ng-show="toAsset.toVerified"
+                                                src="./images/verified.svg" height="14px" width="14px"/>
+                                            <img class="color-Active verifier" ng-show="!toAsset.toVerified"
+                                                src="./images/unverified.svg" height="14px" width="14px"/>
+                                        </div>
+                                        <div class="row-layout time-range"
+                                            ng-hide="toAsset.ToStartTime == 0 && toAsset.ToEndTime == 18446744073709552000">
+                                            <img class="icon" src="images/sendtl.svg" width="12px">
+                                            <div class="range">{{toAsset.ToStartTimeString}} - {{toAsset.ToEndTimeString}}</div>
                                         </div>
                                     </div>
+                                    <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
+                                        <div class="row-layout usan">
+                                            <div class="name">USAN <span
+                                                        class="address">{{extractAddressFromAssetSymbol(toAsset.toAssetSymbol)}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-item" ng-show="asset.toAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                    ng-click="asset.expand = true">
+                                    <div class="expand-link">+{{asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
                                 </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
                                 ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
-                                <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
-                                    <div class="row-layout">
-                                        <div class="asset">{{asset.fromAmountCut}}</div>
-                                        <div class="currency">{{asset.fromAssetSymbol}}</div>
-                                        <img class="color-Active verifier" ng-show="asset.fromVerified"
-                                             src="./images/verified.svg" height="14px" width="14px"/>
-                                        <img class="color-Active verifier" ng-show="!asset.fromVerified"
-                                             src="./images/unverified.svg" height="14px" width="14px"/>
-                                    </div>
-                                    <div class="row-layout time-range"
-                                         ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                        <img class="icon" src="images/sendtl.svg" width="12px">
-                                        <div class="range">{{asset.FromStartTimeString}}
-                                            - {{asset.FromEndTimeString}}</div>
-                                    </div>
-                                </div>
-                                <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
-                                    <div class="row-layout usan">
-                                        <div class="name">USAN <span
-                                                    class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span>
+                                <div class="row-item" ng-repeat="fromAsset in asset.fromAssetsArray track by $index">
+                                    <div class="column-layout" ng-show="fromAsset.fromAssetId !== DEFAULT_USAN">
+                                        <div class="row-layout">
+                                            <div class="asset">{{fromAsset.fromAmountCut}}</div>
+                                            <div class="currency">{{fromAsset.fromAssetSymbol}}</div>
+                                            <img class="color-Active verifier" ng-show="fromAsset.fromVerified"
+                                                src="./images/verified.svg" height="14px" width="14px"/>
+                                            <img class="color-Active verifier" ng-show="!fromAsset.fromVerified"
+                                                src="./images/unverified.svg" height="14px" width="14px"/>
+                                        </div>
+                                        <div class="row-layout time-range"
+                                            ng-hide="fromAsset.FromStartTime == 0 && fromAsset.FromEndTime == 18446744073709552000">
+                                            <img class="icon" src="images/sendtl.svg" width="12px">
+                                            <div class="range">{{fromAsset.FromStartTimeString}}
+                                                - {{fromAsset.FromEndTimeString}}</div>
                                         </div>
                                     </div>
+                                    <div class="column-layout" ng-show="fromAsset.fromAssetId == DEFAULT_USAN">
+                                        <div class="row-layout usan">
+                                            <div class="name">USAN <span
+                                                        class="address">{{extractAddressFromAssetSymbol(fromAsset.fromAssetSymbol)}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-item" ng-show="asset.fromAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                    ng-click="asset.expand = true">
+                                    <div class="expand-link">+{{asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
                                 </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
@@ -444,8 +456,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="asset in openMakes | orderBy:'-timePosix'| filter: { owned: true } track by $index"
-                        >
+                        <tr ng-repeat="asset in openMakes | orderBy:'-timePosix'| filter: { owned: true } track by $index">
                             <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
                                 <div class="row-layout">
                                     <div class="asset"
@@ -462,45 +473,57 @@
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
                                 ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
-                                <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
-                                    <div class="row-layout">
-                                        <div class="asset">{{asset.fromAmountCut}}</div>
-                                        <div class="currency">{{asset.fromAssetSymbol}}</div>
-                                        <img class="color-Active verifier" ng-show="asset.fromVerified"
-                                             src="./images/verified.svg" height="14px" width="14px"/>
-                                        <img class="color-Active verifier" ng-show="!asset.fromVerified"
-                                             src="./images/unverified.svg" height="14px" width="14px"/>
+                                <div class="row-item" ng-repeat="fromAsset in asset.fromAssetsArray track by $index">
+                                    <div class="column-layout" ng-show="fromAsset.fromAssetId !== DEFAULT_USAN">
+                                        <div class="row-layout">
+                                            <div class="asset">{{fromAsset.fromAmountCut}}</div>
+                                            <div class="currency">{{fromAsset.fromAssetSymbol}}</div>
+                                            <img class="color-Active verifier" ng-show="fromAsset.fromVerified"
+                                                src="./images/verified.svg" height="14px" width="14px"/>
+                                            <img class="color-Active verifier" ng-show="!fromAsset.fromVerified"
+                                                src="./images/unverified.svg" height="14px" width="14px"/>
+                                        </div>
+                                        <div class="row-layout time-range"
+                                            ng-hide="fromAsset.FromStartTime == 0 && fromAsset.FromEndTime == 18446744073709552000">
+                                            <img class="icon" src="images/sendtl.svg" width="12px">
+                                            <div class="range">{{fromAsset.FromStartTimeString}}
+                                                - {{fromAsset.FromEndTimeString}}</div>
+                                        </div>
                                     </div>
-                                    <div class="row-layout time-range"
-                                         ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                        <img class="icon" src="images/sendtl.svg" width="12px">
-                                        <div class="range">{{asset.FromStartTimeString}}
-                                            - {{asset.FromEndTimeString}}</div>
-                                    </div>
-                                </div>
-                                <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
-                                    <div class="row-layout usan">
-                                        <div class="name">USAN <span
-                                                    class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span>
+                                    <div class="column-layout" ng-show="fromAsset.fromAssetId == DEFAULT_USAN">
+                                        <div class="row-layout usan">
+                                            <div class="name">USAN <span
+                                                        class="address">{{extractAddressFromAssetSymbol(fromAsset.fromAssetSymbol)}}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row-item" ng-show="asset.fromAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                    ng-click="asset.expand = true">
+                                    <div class="expand-link">+{{asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
+                                </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
-                                <div class="column-layout">
-                                    <div class="row-layout">
-                                        <div class="asset">{{asset.toAmountCut}}</div>
-                                        <div class="currency">{{asset.toAssetSymbol}}</div>
-                                        <img class="color-Active verifier" ng-show="asset.toVerified"
-                                             src="./images/verified.svg" height="14px" width="14px"/>
-                                        <img class="color-Active verifier" ng-show="!asset.toVerified"
-                                             src="./images/unverified.svg" height="14px" width="14px"/>
+                                <div class="row-item" ng-repeat="toAsset in asset.toAssetsArray track by $index">
+                                    <div class="column-layout">
+                                        <div class="row-layout">
+                                            <div class="asset">{{toAsset.toAmountCut}}</div>
+                                            <div class="currency">{{toAsset.toAssetSymbol}}</div>
+                                            <img class="color-Active verifier" ng-show="toAsset.toVerified"
+                                                src="./images/verified.svg" height="14px" width="14px"/>
+                                            <img class="color-Active verifier" ng-show="!toAsset.toVerified"
+                                                src="./images/unverified.svg" height="14px" width="14px"/>
+                                        </div>
+                                        <div class="row-layout time-range"
+                                            ng-hide="toAsset.ToStartTime == 0 && toAsset.ToEndTime == 18446744073709552000">
+                                            <img class="icon" src="images/sendtl.svg" width="12px">
+                                            <div class="range">{{toAsset.ToStartTimeString}} - {{toAsset.ToEndTimeString}}</div>
+                                        </div>
                                     </div>
-                                    <div class="row-layout time-range"
-                                         ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                        <img class="icon" src="images/sendtl.svg" width="12px">
-                                        <div class="range">{{asset.ToStartTimeString}} - {{asset.ToEndTimeString}}</div>
-                                    </div>
+                                </div>
+                                <div class="row-item" ng-show="asset.toAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                    ng-click="asset.expand = true">
+                                    <div class="expand-link">+{{asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
                                 </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)">
@@ -610,106 +633,131 @@
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
                                 ng-class="{'usan-cell-reset' : asset.toAssetId == DEFAULT_USAN}">
                                 <div ng-if="asset.owned">
-                                    <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
-                                        <div class="row-layout">
-                                            <div class="asset">{{asset.fromAmountCut}}</div>
-                                            <div class="currency">{{asset.fromAssetSymbol}}</div>
-                                            <img class="color-Active verifier" ng-show="asset.fromVerified"
-                                                 src="./images/verified.svg" height="14px" width="14px"/>
-                                            <img class="color-Active verifier" ng-show="!asset.fromVerified"
-                                                 src="./images/unverified.svg" height="14px" width="14px"/>
-                                        </div>
-                                        <div class="row-layout time-range"
-                                             ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                            <img class="icon" src="images/sendtl.svg" width="12px">
-                                            <div class="range">{{asset.FromStartTimeString}}
-                                                - {{asset.FromEndTimeString}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
-                                        <div class="row-layout usan">
-                                            <div class="name">USAN <span
-                                                        class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span>
+                                    <div class="row-item" ng-repeat="fromAsset in asset.fromAssetsArray track by $index">
+                                        <div class="column-layout" 
+                                            ng-show="fromAsset.fromAssetId !== DEFAULT_USAN && (fromAsset.expand ===true || $index < MAX_ASSETS_TO_DISPLAY)">
+                                            <div class="row-layout">
+                                                <div class="asset">{{fromAsset.fromAmountCut}}</div>
+                                                <div class="currency">{{fromAsset.fromAssetSymbol}}</div>
+                                                <img class="color-Active verifier" ng-show="fromAsset.fromVerified"
+                                                    src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="color-Active verifier" ng-show="!fromAsset.fromVerified"
+                                                    src="./images/unverified.svg" height="14px" width="14px"/>
+                                            </div>
+                                            <div class="row-layout time-range"
+                                                ng-hide="fromAsset.FromStartTime == 0 && fromAsset.FromEndTime == 18446744073709552000">
+                                                <img class="icon" src="images/sendtl.svg" width="12px">
+                                                <div class="range">{{fromAsset.FromStartTimeString}}
+                                                    - {{fromAsset.FromEndTimeString}}</div>
                                             </div>
                                         </div>
+                                        <div class="column-layout" ng-show="fromAsset.fromAssetId == DEFAULT_USAN">
+                                            <div class="row-layout usan">
+                                                <div class="name">USAN <span
+                                                            class="address">{{extractAddressFromAssetSymbol(fromAsset.fromAssetSymbol)}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-item" ng-show="asset.fromAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                        ng-click="asset.expand = true">
+                                        <div class="expand-link">+{{asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
                                     </div>
                                 </div>
                                 <div ng-if="!asset.owned">
-                                    <div class="column-layout" ng-show="asset.toAssetId !== DEFAULT_USAN">
-                                        <div class="row-layout">
-                                            <div class="asset">{{asset.toAmountCut}}</div>
-                                            <div class="currency">{{asset.toAssetSymbol}}</div>
-                                            <img class="color-Active verifier" ng-show="asset.toVerified"
-                                                 src="./images/verified.svg" height="14px" width="14px"/>
-                                            <img class="color-Active verifier" ng-show="!asset.toVerified"
-                                                 src="./images/unverified.svg" height="14px" width="14px"/>
-                                        </div>
-                                        <div class="row-layout time-range"
-                                             ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                            <img class="icon" src="images/sendtl.svg" width="12px">
-                                            <div class="range">{{asset.ToStartTimeString}}
-                                                - {{asset.ToEndTimeString}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
-                                        <div class="row-layout usan">
-                                            <div class="name">USAN <span
-                                                        class="address">{{extractAddressFromAssetSymbol(asset.toAssetSymbol)}}</span>
+                                    <div class="row-item" ng-repeat="toAsset in asset.toAssetsArray track by $index">
+                                        <div class="column-layout" ng-show="toAsset.toAssetId !== DEFAULT_USAN">
+                                            <div class="row-layout">
+                                                <div class="asset">{{toAsset.toAmountCut}}</div>
+                                                <div class="currency">{{toAsset.toAssetSymbol}}</div>
+                                                <img class="color-Active verifier" ng-show="toAsset.toVerified"
+                                                    src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="color-Active verifier" ng-show="!toAsset.toVerified"
+                                                    src="./images/unverified.svg" height="14px" width="14px"/>
+                                            </div>
+                                            <div class="row-layout time-range"
+                                                ng-hide="toAsset.ToStartTime == 0 && toAsset.ToEndTime == 18446744073709552000">
+                                                <img class="icon" src="images/sendtl.svg" width="12px">
+                                                <div class="range">{{toAsset.ToStartTimeString}}
+                                                    - {{toAsset.ToEndTimeString}}</div>
                                             </div>
                                         </div>
+                                        <div class="column-layout" ng-show="toAsset.toAssetId == DEFAULT_USAN">
+                                            <div class="row-layout usan">
+                                                <div class="name">USAN <span
+                                                            class="address">{{extractAddressFromAssetSymbol(toAsset.toAssetSymbol)}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-item" ng-show="asset.toAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                        ng-click="asset.expand = true">
+                                        <div class="expand-link">+{{asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
                                     </div>
                                 </div>
                             </td>
                             <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.swap_id)"
                                 ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
                                 <div ng-if="asset.owned">
-                                    <div class="column-layout" ng-show="asset.toAssetId !== DEFAULT_USAN">
-                                        <div class="row-layout">
-                                            <div class="asset">{{asset.toAmountCut}}</div>
-                                            <div class="currency">{{asset.toAssetSymbol}}</div>
-                                            <img class="color-Active verifier" ng-show="asset.toVerified"
-                                                 src="./images/verified.svg" height="14px" width="14px"/>
-                                            <img class="color-Active verifier" ng-show="!asset.toVerified"
-                                                 src="./images/unverified.svg" height="14px" width="14px"/>
-                                        </div>
-                                        <div class="row-layout time-range"
-                                             ng-hide="asset.ToStartTime == 0 && asset.ToEndTime == 18446744073709552000">
-                                            <img class="icon" src="images/sendtl.svg" width="12px">
-                                            <div class="range">{{asset.ToStartTimeString}}
-                                                - {{asset.ToEndTimeString}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="column-layout" ng-show="asset.toAssetId == DEFAULT_USAN">
-                                        <div class="row-layout usan">
-                                            <div class="name">USAN <span
-                                                        class="address">{{extractAddressFromAssetSymbol(asset.toAssetSymbol)}}</span>
+                                    <div class="row-item" ng-repeat="toAsset in asset.toAssetsArray track by $index">
+                                        <div class="column-layout" ng-show="toAsset.toAssetId !== DEFAULT_USAN">
+                                            <div class="row-layout">
+                                                <div class="asset">{{toAsset.toAmountCut}}</div>
+                                                <div class="currency">{{toAsset.toAssetSymbol}}</div>
+                                                <img class="color-Active verifier" ng-show="toAsset.toVerified"
+                                                    src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="color-Active verifier" ng-show="!toAsset.toVerified"
+                                                    src="./images/unverified.svg" height="14px" width="14px"/>
+                                            </div>
+                                            <div class="row-layout time-range"
+                                                ng-hide="toAsset.ToStartTime == 0 && toAsset.ToEndTime == 18446744073709552000">
+                                                <img class="icon" src="images/sendtl.svg" width="12px">
+                                                <div class="range">{{toAsset.ToStartTimeString}}
+                                                    - {{toAsset.ToEndTimeString}}</div>
                                             </div>
                                         </div>
+                                        <div class="column-layout" ng-show="toAsset.toAssetId == DEFAULT_USAN">
+                                            <div class="row-layout usan">
+                                                <div class="name">USAN <span
+                                                            class="address">{{extractAddressFromAssetSymbol(toAsset.toAssetSymbol)}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     <div class="row-item" ng-show="asset.toAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                        ng-click="asset.expand = true">
+                                        <div class="expand-link">+{{asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.toAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
                                     </div>
                                 </div>
                                 <div ng-if="!asset.owned">
-                                    <div class="column-layout" ng-show="asset.fromAssetId !== DEFAULT_USAN">
-                                        <div class="row-layout">
-                                            <div class="asset">{{asset.fromAmountCut}}</div>
-                                            <div class="currency">{{asset.fromAssetSymbol}}</div>
-                                            <img class="color-Active verifier" ng-show="asset.fromVerified"
-                                                 src="./images/verified.svg" height="14px" width="14px"/>
-                                            <img class="color-Active verifier" ng-show="!asset.fromVerified"
-                                                 src="./images/unverified.svg" height="14px" width="14px"/>
-                                        </div>
-                                        <div class="row-layout time-range"
-                                             ng-hide="asset.FromStartTime == 0 && asset.FromEndTime == 18446744073709552000">
-                                            <img class="icon" src="images/sendtl.svg" width="12px">
-                                            <div class="range">{{asset.FromStartTimeString}}
-                                                - {{asset.FromEndTimeString}}</div>
-                                        </div>
-                                    </div>
-                                    <div class="column-layout" ng-show="asset.fromAssetId == DEFAULT_USAN">
-                                        <div class="row-layout usan">
-                                            <div class="name">USAN <span
-                                                        class="address">{{extractAddressFromAssetSymbol(asset.fromAssetSymbol)}}</span>
+                                    <div class="row-item" ng-repeat="fromAsset in asset.fromAssetsArray track by $index">
+                                        <div class="column-layout" ng-show="fromAsset.fromAssetId !== DEFAULT_USAN">
+                                            <div class="row-layout">
+                                                <div class="asset">{{fromAsset.fromAmountCut}}</div>
+                                                <div class="currency">{{fromAsset.fromAssetSymbol}}</div>
+                                                <img class="color-Active verifier" ng-show="fromAsset.fromVerified"
+                                                    src="./images/verified.svg" height="14px" width="14px"/>
+                                                <img class="color-Active verifier" ng-show="!fromAsset.fromVerified"
+                                                    src="./images/unverified.svg" height="14px" width="14px"/>
+                                            </div>
+                                            <div class="row-layout time-range"
+                                                ng-hide="fromAsset.FromStartTime == 0 && fromAsset.FromEndTime == 18446744073709552000">
+                                                <img class="icon" src="images/sendtl.svg" width="12px">
+                                                <div class="range">{{fromAsset.FromStartTimeString}}
+                                                    - {{fromAsset.FromEndTimeString}}</div>
                                             </div>
                                         </div>
+                                        <div class="column-layout" ng-show="fromAsset.fromAssetId == DEFAULT_USAN">
+                                            <div class="row-layout usan">
+                                                <div class="name">USAN <span
+                                                            class="address">{{extractAddressFromAssetSymbol(fromAsset.fromAssetSymbol)}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row-item" ng-show="asset.fromAssetsArray.length > MAX_ASSETS_TO_DISPLAY && asset.expand !== true"
+                                        ng-click="asset.expand = true">
+                                        <div class="expand-link">+{{asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY}} more asset{{ (asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}</div>
                                     </div>
                                 </div>
                             </td>
