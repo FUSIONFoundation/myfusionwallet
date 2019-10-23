@@ -667,6 +667,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.multiMakeSwapSendAssetIdTracker = 0;
     $scope.multiMakeSwapReceiveAssetArray = [];
     $scope.multiMakeSwapReceiveAssetIdTracker = 0;
+    $scope.multiTakeSwapSendAssetArray = [];
+    $scope.multiTakeSwapReceiveAssetArray = [];
 
     $scope.FUSION_CONTRACT_ADDRESS = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
     $scope.DEFAULT_USAN = "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe";
