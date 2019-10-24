@@ -3466,34 +3466,51 @@ h3{
             flex-direction: row;
             align-items: center;
             height: 40px;
-            padding-left: 8px;
-            padding-right: 10px;
+            padding: 0px;
             background-color: #e7f3fb;
             margin-right: -8px;
             margin-left: 11px;
 
-            .time-icon {
-              width: 12px;
-              height: 12px;
-              margin-right: 4px;
+            .as-tl-value {
+              height: 40px;
+              padding-left: 8px;
+              padding-right: 5px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+
+              .time-icon {
+                width: 12px;
+                height: 12px;
+                margin-right: 4px;
+              }
+  
+              .time-range {
+                font-family: Lato;
+                font-size: 12px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                letter-spacing: normal;
+                text-transform: uppercase;
+                color: #455a64;
+              }
             }
 
-            .time-range {
-              font-family: Lato;
-              font-size: 12px;
-              font-weight: bold;
-              font-style: normal;
-              font-stretch: normal;
-              letter-spacing: normal;
-              text-transform: uppercase;
-              color: #455a64;
+            .as-tl-action {
+              height: 40px;
+              padding-left: 5px;
+              padding-right: 10px;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              
+              .close-icon {
+                width: 12px;
+                height: 12px;
+              }
             }
-
-            .close-icon {
-              width: 12px;
-              height: 12px;
-              margin-left: 10px;
-            }
+            
           }
 
         }
@@ -3558,6 +3575,164 @@ h3{
             align-items: flex-start;
             z-index: 1000;
             padding: 20px 16px 24px;
+
+            .time-lock-header {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              padding-bottom: 22px;
+              width: 360px;
+              margin-bottom: 20px;
+              border-bottom: solid 1px #cfd8dc;
+              padding-left: 16px !important;
+              padding-right: 16px;
+              margin-left: -16px;
+              margin-right: -16px;
+
+              .back-btn {
+                background-color: #ffffff;
+                
+                &:hover {
+                  background-color: #f6f7f8 !important;
+                }
+    
+                &:active {
+                  background-color: #f6f7f8 !important;
+                }
+              }
+
+              .header-title {
+                font-family: Lato;
+                font-size: 18px;
+                font-weight: bold;
+                font-stretch: normal;
+                font-style: normal;
+                letter-spacing: normal;
+                margin-left: 4px;
+                height: 32px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+              }
+            }
+
+            .existing-time-locks {
+              margin-bottom: 8px;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+
+              .existing-tl-item {
+                padding: 12px;
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                background-color: #ffffff;
+                width: 100%;
+                cursor: pointer;
+
+                &:hover {
+                  background-color: #f6f7f8 !important;
+                }
+    
+                &:active {
+                  background-color: #f6f7f8 !important;
+                }
+
+                .tl-item-details {
+                  display: flex;
+                  flex-direction: column;
+                  align-items: flex-start;
+                  margin-left: 12px;
+
+                  .asset {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: baseline;
+
+                    .amt {
+                      height: 16px;
+                      font-family: Lato;
+                      font-size: 16px;
+                      font-weight: normal;
+                      font-stretch: normal;
+                      font-style: normal;
+                      letter-spacing: normal;
+                      color: #062144;
+                      margin-top: 1px;
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                    }
+
+                    .currency {
+                      height: 16px;
+                      font-family: Lato;
+                      font-size: 14px;
+                      font-weight: bold;
+                      font-stretch: normal;
+                      font-style: normal;
+                      line-height: 1.14;
+                      letter-spacing: normal;
+                      color: #062144;
+                      margin-left: 4px;
+                    }
+                  }
+
+                  .time-range {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-top: 5px;
+
+                    .icon {
+                      margin: 0px;
+                      margin-right: 4px;
+                      margin-top: -2px;
+                    }
+
+                    .range {
+                      height: 16px;
+                      font-family: Lato;
+                      font-size: 14px;
+                      font-weight: normal;
+                      font-stretch: normal;
+                      font-style: normal;
+                      letter-spacing: normal;
+                      color: #607d8b;
+                    }
+                  }
+                }
+              }
+            }
+
+            .time-lock-menu {
+              width: 100%;
+              padding-left: 12px;
+              height: 48px;
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: center;
+              background-color: #ffffff;
+              cursor: pointer;
+              font-family: Lato;
+              font-size: 16px;
+              font-weight: normal;
+              font-stretch: normal;
+              font-style: normal;
+              letter-spacing: normal;
+              color: #062144;
+
+              &:hover {
+                background-color: #f6f7f8 !important;
+              }
+  
+              &:active {
+                background-color: #f6f7f8 !important;
+              }
+              
+            }
 
             .tab-selector {
 
