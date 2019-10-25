@@ -1096,8 +1096,8 @@
                                             </div>
 
                                             <!-- NEW TIME-LOCK BUTTON MARKER --> 
-                                            <div class="as-time-lock" ng-show="multiSendAsset.sendTimeLockSet">
-                                                <div class="as-tl-value" ng-click="toggleTimelock(multiSendAsset)">
+                                            <div class="as-time-lock" ng-show="multiSendAsset.sendTimeLockSet" id={{"sendBlueSection_"+multiSendAsset.id}}>
+                                                <div class="as-tl-value" ng-click="toggleSendTimelock(multiSendAsset)">
                                                     <img class="time-icon" src="images/sendtl.svg" width="12px">
                                                     <div class="time-range">
                                                         {{multiSendAsset.fromStartTimeString + " - "}}
@@ -1224,12 +1224,12 @@
 
                                     <div class="action-time-lock" 
                                         ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
-                                        && multiSendAsset.selectedSendAsset !== 'Select asset' && !multiSendAsset.sendTimeLockSet"
+                                        && multiSendAsset.selectedSendAsset !== 'Select asset'"
                                         tw-click-outside="closeSendTimeLockDropDown(multiSendAsset)"
                                         ignore-if="!multiSendAsset.showTimeLockSend">
                                         
-                                        <div class="time-lock-btn" ng-click="toggleTimelock(multiSendAsset)">
-                                            <div class="name">Time-lock3</div>
+                                        <div class="time-lock-btn" ng-click="toggleSendTimelock(multiSendAsset)" ng-hide="multiSendAsset.sendTimeLockSet">
+                                            <div class="name">Time-lock</div>
                                             <img class="icon" src="images/caret-down-2.svg">
                                         </div>
                                         
@@ -1239,13 +1239,14 @@
                                         </div>
                                         
                                         <div class="time-lock-dropdown" ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showSimpleTimelockSendDropdown"
-                                            ng-class="{'time-lock-dropdown-adjust' : multiSendAsset.sendTimeLockSet == true}">
+                                            style="{{ multiSendAsset.sendTimeLockSet ? ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
                                             <div class="time-lock-header" ng-hide="multiSendAsset.showSimpleTimelockSendDropdown">
                                                 <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px">
-                                                <div style="header-title">New Time-lock</div>
+                                                <div class="header-title">New Time-lock</div>
                                             </div>
                                             <div class="tab-selector">
-                                                <div class="tab-option tab-option-left" ng-click="multiSendAsset.sendTimeLock ='daterange'"
+                                                <div class="tab-option tab-option-left"
+                                                    ng-click="handleSendTimeLockDateToDate(multiSendAsset)"
                                                     ng-class="{'tab-option-selected' : multiSendAsset.sendTimeLock == 'daterange'}">Date to Date</div>
                                                 <div class="tab-option tab-option-right" ng-click="multiSendAsset.sendTimeLock ='scheduled'"
                                                         ng-class="{'tab-option-selected' : multiSendAsset.sendTimeLock == 'scheduled'}">Date to Forever</div>
@@ -1293,7 +1294,7 @@
                                             </div>
                                             <div class="btn-grp">
                                                 <button class="btn btn-white main-btn-secondary date-btn"
-                                                    ng-click="multiSendAsset.showTimeLockSend = !multiSendAsset.showTimeLockSend">
+                                                    ng-click="cancelSetSendTimeLock(multiSendAsset)">
                                                     Cancel
                                                 </button>
                                                 <button class="btn btn-primary main-btn-primary date-btn"

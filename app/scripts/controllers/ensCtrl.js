@@ -405,24 +405,42 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return new Date(temp.setDate(temp.getDate() + 1));
     }
 
+    $scope.converTimelocksToDateStrings = function(asset){
+        $scope.$eval(function () {
+            if(asset.fromStartTime) {
+                asset.fromStartTimeString = $scope.returnDateString(
+                    new Date(asset.fromStartTime).getTime() / 1000.0 + 1000
+                );
+            }
+            if(asset.fromEndTime){
+                asset.fromEndTimeString = $scope.returnDateString(
+                    new Date(asset.fromEndTime).getTime() / 1000.0 + 1000
+                );
+            }
+        });
+    }
+
     $scope.checkSendDate = function (source, asset) {
 
         if(asset) {
 
             // window.log("checkSendDate source: " + source);
             if (asset.transactionType == "scheduled") {
+                $scope.converTimelocksToDateStrings(asset);
                 return;
             } else {
                 let today = new Date();
                 // window.log("fromStartTime: " + asset.fromStartTime);
                 // window.log("fromEndTime: " + asset.fromEndTime);
                 if (!asset.fromEndTime || !asset.fromStartTime) {
+                    $scope.converTimelocksToDateStrings(asset);
                     return;
                 }
                 if (asset.fromStartTime >= today
                     && asset.fromEndTime >= today
                     && asset.fromStartTime <= asset.fromEndTime) {
                     // window.log("dates ok");
+                    $scope.converTimelocksToDateStrings(asset);
                     return;
                 }
                 if (source === "fromStartTime") {
@@ -449,6 +467,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             })
                         }
                     }
+                    $scope.converTimelocksToDateStrings(asset);
                 } else if (source === "fromEndTime") {
                     // window.log("fromEndTime changed");
                     if (asset.fromEndTime < today) {
@@ -466,6 +485,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             });
                         }
                     }
+                    $scope.converTimelocksToDateStrings(asset);
                 } else {
                     if (asset.fromEndTime < today) {
                         $scope.$eval(function () {
@@ -483,18 +503,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         } else {
             // window.log("checkSendDate source: " + source);
             if ($scope.transactionType == "scheduled") {
+                $scope.converTimelocksToDateStrings(asset);
                 return;
             } else {
                 let today = new Date();
                 // window.log("fromStartTime: " + $scope.fromStartTime);
                 // window.log("fromEndTime: " + $scope.fromEndTime);
                 if (!$scope.fromEndTime || !$scope.fromStartTime) {
+                    $scope.converTimelocksToDateStrings(asset);
                     return;
                 }
                 if ($scope.fromStartTime >= today
                     && $scope.fromEndTime >= today
                     && $scope.fromStartTime <= $scope.fromEndTime) {
                     // window.log("dates ok");
+                    $scope.converTimelocksToDateStrings(asset);
                     return;
                 }
                 if (source === "fromStartTime") {
@@ -521,6 +544,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             })
                         }
                     }
+                    $scope.converTimelocksToDateStrings(asset);
                 } else if (source === "fromEndTime") {
                     // window.log("fromEndTime changed");
                     if ($scope.fromEndTime < today) {
@@ -538,6 +562,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             });
                         }
                     }
+                    $scope.converTimelocksToDateStrings(asset);
                 } else {
                     if ($scope.fromEndTime < today) {
                         $scope.$eval(function () {
@@ -558,18 +583,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.checkReceiveDate = function (source) {
         // window.log("checkReceiveDate source: " + source);
         if ($scope.transactionType == "scheduled") {
+            $scope.converTimelocksToDateStrings(asset);
             return;
         } else {
             let today = new Date();
             // window.log("ToStartTime: " + $scope.ToStartTime);
             // window.log("ToEndTime: " + $scope.ToEndTime);
             if (!$scope.ToEndTime || !$scope.ToStartTime) {
+                $scope.converTimelocksToDateStrings(asset);
                 return;
             }
             if ($scope.ToStartTime >= today
                 && $scope.ToEndTime >= today
                 && $scope.ToStartTime <= $scope.ToEndTime) {
                 // window.log("dates ok");
+                $scope.converTimelocksToDateStrings(asset);
                 return;
             }
             if (source === "ToStartTime") {
@@ -596,6 +624,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         })
                     }
                 }
+                $scope.converTimelocksToDateStrings(asset);
             } else if (source === "ToEndTime") {
                 // window.log("ToEndTime changed");
                 if ($scope.ToEndTime < today) {
@@ -613,6 +642,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         });
                     }
                 }
+                $scope.converTimelocksToDateStrings(asset);
             } else {
                 if ($scope.ToEndTime < today) {
                     $scope.$eval(function () {
@@ -629,28 +659,28 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    $scope.handleSendTimeLockDateToDate = function(asset) {
+        asset.sendTimeLock ='daterange';
+        if(asset.fromStartTime && !asset.fromEndTime){
+            $scope.$eval(function () {
+                asset.fromEndTime = $scope.getDayAfter(asset.fromStartTime);
+                asset.fromEndTimeString = $scope.returnDateString(
+                    new Date(asset.fromEndTime).getTime() / 1000.0 + 1000
+                );
+            });
+        }
+    }
+
     $scope.setSendTimeLock = function(asset){
         if(asset) {
             window.log("setSendTimeLock called");
             $scope.$eval(function () {
-                asset.fromStartTimeString = $scope.returnDateString(
-                    new Date(asset.fromStartTime).getTime() / 1000.0 + 1000
-                );
-                asset.fromEndTimeString = $scope.returnDateString(
-                    new Date(asset.fromEndTime).getTime() / 1000.0 + 1000
-                );
                 asset.showTimeLockSend = false;
                 asset.sendTimeLockSet = true;
-                // asset.toStartTimeString = $scope.returnDateString(
-                //     new Date(asset.ToStartTime).getTime() / 1000.0 + 1000
-                // );
-                // asset.toEndTimeString = $scope.returnDateString(
-                //     new Date(asset.ToEndTime).getTime() / 1000.0 + 1000
-                // );
-                // asset.selectedTimeLockTimespan = 
+
             });
+            $scope.converTimelocksToDateStrings(asset);
             $scope.closeSendTimelockDropdowns(asset);
-            window.log("setSendTimeLock closeSendTimelockDropdowns called");
 
         } else {
             window.log("setSendTimeLock called");
@@ -674,6 +704,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     }
 
+    $scope.cancelSetSendTimeLock = function(asset){
+        $scope.$eval(function () {
+            asset.sendTimeLock = asset.sendTimeLockReset;
+            asset.fromStartTime = asset.fromStartTimeReset;
+            asset.fromEndTime = asset.fromEndTimeReset;
+            asset.showTimeLockSend = false;
+        });
+        $scope.converTimelocksToDateStrings(asset);
+    }
+
+    $scope.getSendTimeLockLeftAdjust = function (asset) {
+        if(asset && document.getElementById('sendBlueSection_'+asset.id)) {
+            return document.getElementById('sendBlueSection_'+asset.id).clientWidth + 6;
+        }
+        return 0;
+    };
+
     $scope.closeSendTimelockDropdowns = async function (asset) {
         if(asset) {
             $scope.$eval(function () {
@@ -683,24 +730,37 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 asset.showNewTimelockSendDropdown = false;
                 asset.showExistingTimeLocksSendDropdown = false;
             });
-            console.log("closeSendTimelockDropdowns done: ");
         }
     };
 
-    $scope.toggleTimelock = async function (asset) {
-        console.log("toggleTimelock clicked!");
+    $scope.toggleSendTimelock = async function (asset) {
+        console.log("toggleSendTimelock clicked!");
         if(asset) {
-            if(!asset.showTimeLockSend == true) {
+            if(asset.sendTimeLockSet){
                 $scope.$eval(function () {
                     asset.showTimeLockSend = !asset.showTimeLockSend;
-                    asset.sendTimeLock = 'daterange';
                     asset.showSimpleTimelockSendDropdown = true;
+                    asset.sendTimeLockReset = asset.sendTimeLock;
+                    asset.fromStartTimeReset = asset.fromStartTime;
+                    asset.fromEndTimeReset = asset.fromEndTime;
                     // if(selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
                     // && multiSendAsset.selectedSendAsset !== 'Select asset')
                 });
             } else {
-                $scope.closeSendTimelockDropdowns(asset);
+                if(!asset.showTimeLockSend) {
+                    $scope.$eval(function () {
+                        asset.showTimeLockSend = !asset.showTimeLockSend;
+                        asset.sendTimeLock = 'daterange';
+                        asset.showSimpleTimelockSendDropdown = true;
+                        // if(selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
+                        // && multiSendAsset.selectedSendAsset !== 'Select asset')
+                    });
+                } else {
+                    $scope.closeSendTimelockDropdowns(asset);
+                }
             }
+
+            
            
         }
     };
