@@ -1099,10 +1099,13 @@
                                             <div class="as-time-lock" ng-show="multiSendAsset.sendTimeLockSet" id={{"sendBlueSection_"+multiSendAsset.id}}>
                                                 <div class="as-tl-value" ng-click="toggleSendTimelock(multiSendAsset)">
                                                     <img class="time-icon" src="images/sendtl.svg" width="12px">
-                                                    <div class="time-range">
+                                                    <div class="time-range" ng-hide="multiSendAsset.hasTimeLockSet">
                                                         {{multiSendAsset.fromStartTimeString + " - "}}
                                                         <span ng-show="multiSendAsset.sendTimeLock == 'daterange' && multiSendAsset.fromEndTime">{{multiSendAsset.fromEndTimeString}}</span>
                                                         <span ng-show="multiSendAsset.sendTimeLock == 'scheduled'">∞ Forever</span>
+                                                    </div>
+                                                    <div class="time-range" ng-show="multiSendAsset.hasTimeLockSet">
+                                                        {{multiSendAsset.selectedTimeLockTimespan}}
                                                     </div>
                                                 </div>
                                                 <div class="as-tl-action" ng-click="removeSendTimeLock(multiSendAsset)">
@@ -1233,15 +1236,22 @@
                                             <img class="icon" src="images/caret-down-2.svg">
                                         </div>
                                         
-                                        <div class="time-lock-dropdown" ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showMenuTimelockSendDropdown">
-                                            <div class="time-lock-menu">New Time-lock</div>
-                                            <div class="time-lock-menu">Existing Time-lock</div>
+                                        <div class="time-lock-dropdown" ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showMenuTimelockSendDropdown"
+                                            style="{{ (multiSendAsset.sendExistingTimeLockSet || (multiSendAsset.sendTimeLockSet && multiSendAsset.sendExistingTimeLocksAvailable)) ?
+                                            ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
+                                            <div class="time-lock-menu" 
+                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showNewTimelockDropdown=true;multiSendAsset.sendTimeLock='daterange';">
+                                                New Time-lock</div>
+                                            <div class="time-lock-menu"
+                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showExistingTimeLocksDropdown=true">Existing Time-lock</div>
                                         </div>
                                         
-                                        <div class="time-lock-dropdown" ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showSimpleTimelockSendDropdown"
+                                        <div class="time-lock-dropdown" 
+                                            ng-show="multiSendAsset.showTimeLockSend && (multiSendAsset.showSimpleTimelockSendDropdown || multiSendAsset.showNewTimelockDropdown)"
                                             style="{{ multiSendAsset.sendTimeLockSet ? ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
-                                            <div class="time-lock-header" ng-hide="multiSendAsset.showSimpleTimelockSendDropdown">
-                                                <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px">
+                                            <div class="time-lock-header" ng-show="!multiSendAsset.showSimpleTimelockSendDropdown || multiSendAsset.sendExistingTimeLocksAvailable">
+                                                <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px"
+                                                    ng-click="multiSendAsset.showNewTimelockDropdown=false;multiSendAsset.showSimpleTimelockSendDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
                                                 <div class="header-title">New Time-lock</div>
                                             </div>
                                             <div class="tab-selector">
@@ -1304,31 +1314,31 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="time-lock-dropdown" ng-show="false && multiSendAsset.showTimeLockSend && !multiSendAsset.showExistingTimeLocks"
-                                            ng-class="{'time-lock-dropdown-adjust' : multiSendAsset.sendTimeLockSet == true}">
+                                        <div class="time-lock-dropdown" 
+                                            ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showExistingTimeLocksDropdown"
+                                            style="{{ (multiSendAsset.sendExistingTimeLockSet || (multiSendAsset.sendTimeLockSet && multiSendAsset.sendExistingTimeLocksAvailable)) ?
+                                            ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
                                             <div class="time-lock-header">
-                                                <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px">
-                                                <div style="header-title">Existing FSN Time-lock</div>
+                                                <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px"
+                                                    ng-click="multiSendAsset.showExistingTimeLocksDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
+                                                <div class="header-title">Existing {{multiSendAsset.selectedSendAssetSymbol}} Time-lock</div>
                                             </div>
-
-                                            <img class="icon" ng-if="asset.hasImage"
+                                            <div class="existing-time-locks" >
+                                                <div class="existing-tl-item" 
+                                                    ng-repeat="asset in myActiveTimeLocks[multiSendAsset.selectedSendContract]"
+                                                    ng-click="setExistingTimeLock(asset.asset_id,asset.id,multiSendAsset); ">
+                                                    <img class="icon" ng-if="asset.hasImage"
                                                         ng-src="images/verifiedassets/{{asset.image}}"/>
                                                     <span ng-if="!asset.hasImage"
                                                         class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
-                                            <div class="existing-time-locks" >
-                                                <div class="existing-tl-item">
-                                                    <img class="icon" ng-if="asset.hasImage || true"
-                                                        ng-src="images/verifiedassets/{{asset.image || 'EFSN_LIGHT.svg'}}"/>
-                                                    <span ng-if="!asset.hasImage && false"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                     <div class="tl-item-details">
                                                         <div class="asset">
-                                                            <div class="amt">245.19982</div>
-                                                            <div class="currency">FSN</div>
+                                                            <div class="amt">{{asset.amount}}</div>
+                                                            <div class="currency">{{multiSendAsset.selectedSendAssetSymbol}}</div>
                                                         </div>
                                                         <div class="time-range">
                                                             <img class="icon" src="images/sendtl.svg" width="12px" height="12px">
-                                                            <div class="range">Jul 30, 2019 - Jul 12, 2019</div>
+                                                            <div class="range">{{asset.startTimeString}} - {{asset.endTimeString}}</div>
                                                         </div>
                                                     </div>
                                                 </div>

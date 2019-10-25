@@ -373,9 +373,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 asset.fromEndTime = "";
                 asset.hasTimeLockSet = false;
                 asset.sendTimeLockSet = false;
-                $scope.closeSendTimelockDropdowns(asset);
+                asset.sendExistingTimeLockSet = false;
             });
             $scope.getAssetBalance();
+            $scope.closeSendTimelockDropdowns(asset);
         } else {
             $scope.$eval(function () {
                 $scope.selectedTimeLockTimespan = "-";
@@ -677,7 +678,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.$eval(function () {
                 asset.showTimeLockSend = false;
                 asset.sendTimeLockSet = true;
-
+                asset.sendExistingTimeLockSet = false;
             });
             $scope.converTimelocksToDateStrings(asset);
             $scope.closeSendTimelockDropdowns(asset);
@@ -734,59 +735,74 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.toggleSendTimelock = async function (asset) {
-        console.log("toggleSendTimelock clicked!");
-        if(asset) {
-            if(asset.sendTimeLockSet){
+        if(asset.sendTimeLockSet){
+            console.log("time-lock set!");
+            if(!asset.sendExistingTimeLockSet){
+                console.log("regular time-lock set!");
+                if($scope.myActiveTimeLocks[asset.selectedSendContract]
+                    && $scope.myActiveTimeLocks[asset.selectedSendContract].length > 0){
+                        // time-locks are available
+                        $scope.$eval(function () {
+                            asset.showTimeLockSend = !asset.showTimeLockSend;
+                            asset.showSimpleTimelockSendDropdown = true;
+                            asset.sendTimeLockReset = asset.sendTimeLock;
+                            asset.fromStartTimeReset = asset.fromStartTime;
+                            asset.fromEndTimeReset = asset.fromEndTime;
+                            asset.sendExistingTimeLocksAvailable = true;
+                        });
+                    } else {
+                        $scope.$eval(function () {
+                            asset.showTimeLockSend = !asset.showTimeLockSend;
+                            asset.showSimpleTimelockSendDropdown = true;
+                            asset.sendTimeLockReset = asset.sendTimeLock;
+                            asset.fromStartTimeReset = asset.fromStartTime;
+                            asset.fromEndTimeReset = asset.fromEndTime;
+                            asset.sendExistingTimeLocksAvailable = false;
+                        });
+                    }
+            } else {
+                // open time-locks menu
+                console.log("existing time-lock set!");
                 $scope.$eval(function () {
                     asset.showTimeLockSend = !asset.showTimeLockSend;
-                    asset.showSimpleTimelockSendDropdown = true;
-                    asset.sendTimeLockReset = asset.sendTimeLock;
-                    asset.fromStartTimeReset = asset.fromStartTime;
-                    asset.fromEndTimeReset = asset.fromEndTime;
-                    // if(selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
-                    // && multiSendAsset.selectedSendAsset !== 'Select asset')
-                });
-            } else {
-                if(!asset.showTimeLockSend) {
-                    $scope.$eval(function () {
-                        asset.showTimeLockSend = !asset.showTimeLockSend;
-                        asset.sendTimeLock = 'daterange';
-                        asset.showSimpleTimelockSendDropdown = true;
-                        // if(selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
-                        // && multiSendAsset.selectedSendAsset !== 'Select asset')
-                    });
-                } else {
-                    $scope.closeSendTimelockDropdowns(asset);
-                }
-            }
-
-            
-           
-        }
-    };
-
-    $scope.resetTimelock = async function (asset) {
-        console.log("resetTimelock clicked!");
-
-        // reset to previously selected time-lock
-        
-        if(asset) {
-            $scope.$eval(function () {
-                asset.showTimeLockSend = !asset.showTimeLockSend;
-                if(asset.showTimeLockSend== true){
-                    asset.showSimpleTimelockSendDropdown = true;
-
-                } else {
-                    // close all dropdowns
-                    asset.showTimeLockSend = false;
                     asset.showSimpleTimelockSendDropdown = false;
                     asset.showMenuTimelockSendDropdown = false;
                     asset.showNewTimelockSendDropdown = false;
-                    asset.showExistingTimeLocksSendDropdown = false;
+                    asset.showExistingTimeLocksSendDropdown = true;
+                });
+            }
+        } else {
+            console.log("time-lock NOT set!");
+            if(!asset.showTimeLockSend) {
+                // open dropdown
+                if(asset.selectedSendContract !== $scope.DEFAULT_USAN 
+                    && asset.selectedSendAsset !== 'All Assets'
+                    && asset.selectedSendAsset !== 'Select asset') {
+
+                    if($scope.myActiveTimeLocks[asset.selectedSendContract]
+                        && $scope.myActiveTimeLocks[asset.selectedSendContract].length > 0) {
+                            console.log("existing time-locks found! menu shown");
+                            $scope.$eval(function () {
+                                asset.showTimeLockSend = true;
+                                asset.showMenuTimelockSendDropdown = true;
+                                asset.showNewTimelockDropdown = false;
+                                asset.showExistingTimeLocksDropdown = false;
+                                asset.showSimpleTimelockSendDropdown = false;
+                            });
+                            
+                        } else {
+                            console.log("basic menu shown");
+                            $scope.$eval(function () {
+                                asset.showTimeLockSend = true;
+                                asset.sendTimeLock = 'daterange';
+                                asset.showSimpleTimelockSendDropdown = true; 
+                            });
+                        }
                 }
-                // if(selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
-                // && multiSendAsset.selectedSendAsset !== 'Select asset')
-            });
+            } else { 
+                // close dropdown
+                $scope.closeSendTimelockDropdowns(asset);
+            }
         }
     };
 
@@ -1298,20 +1314,40 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
     }
 
-    $scope.setExistingTimeLock = function (asset_id, id) {
-        $scope.$eval(function () {
-            $scope.selectedAssetBalance =
-                $scope.myActiveTimeLocks[asset_id][id].amount;
-            $scope.selectedTimeLockAmount =
-                $scope.myActiveTimeLocks[asset_id][id].amount;
-            $scope.selectedTimeLockTimespan = `${
-                $scope.myActiveTimeLocks[asset_id][id].startTimeString
-                } - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
-            $scope.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
-            $scope.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
-            $scope.hasTimeLockSet = true;
-            $scope.timeLockDropDown = false;
-        });
+    $scope.setExistingTimeLock = function (asset_id, id, multiAsset) {
+        console.log("setExistingTimeLock called!")
+        if(multiAsset){
+            $scope.$eval(function () {
+                multiAsset.selectedAssetBalance =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                multiAsset.selectedTimeLockAmount =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                multiAsset.selectedTimeLockTimespan = `${
+                    $scope.myActiveTimeLocks[asset_id][id].startTimeString
+                    } - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
+                multiAsset.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
+                multiAsset.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
+                multiAsset.hasTimeLockSet = true;
+                multiAsset.sendTimeLockSet = true;
+                multiAsset.sendExistingTimeLockSet = true;
+                multiAsset.timeLockDropDown = false;
+                $scope.closeSendTimelockDropdowns(multiAsset);
+            });
+        } else {
+            $scope.$eval(function () {
+                $scope.selectedAssetBalance =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                $scope.selectedTimeLockAmount =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                $scope.selectedTimeLockTimespan = `${
+                    $scope.myActiveTimeLocks[asset_id][id].startTimeString
+                    } - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
+                $scope.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
+                $scope.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
+                $scope.hasTimeLockSet = true;
+                $scope.timeLockDropDown = false;
+            });
+        }
     };
 
     $scope.setSwapRate = function (asset) {
