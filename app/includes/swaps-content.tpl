@@ -1095,7 +1095,7 @@
                                                 </div>
                                             </div>
 
-                                            <!-- NEW TIME-LOCK BUTTON MARKER --> 
+                                            <!-- NEW SEND TIME-LOCK BUTTON MARKER --> 
                                             <div class="as-time-lock" ng-show="multiSendAsset.sendTimeLockSet" id={{"sendBlueSection_"+multiSendAsset.id}}>
                                                 <div class="as-tl-value" ng-click="toggleSendTimelock(multiSendAsset)">
                                                     <img class="time-icon" src="images/sendtl.svg" width="12px">
@@ -1223,7 +1223,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- NEW TIME-LOCK MARKER -->
+                                    <!-- SEND NEW TIME-LOCK MARKER -->
 
                                     <div class="action-time-lock" 
                                         ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
@@ -1383,30 +1383,46 @@
                                     <div class="action-amount-available">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
                                                ng-model="multiReceiveAsset.makeReceiveAmount"
+                                               id={{"makeReceiveAmount_"+multiReceiveAsset.id}}
                                                placeholder="Amount"
                                                ng-change="setSwapRate(multiReceiveAsset);checkMakeSwapConditions(multiReceiveAsset);"
                                         >
                                     </div>
+
                                     <div class="action-amount-currency">
-                                        <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
-                                           ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
-                                            <div ng-show="!multiReceiveAsset.selectedReceiveAsset || multiReceiveAsset.selectedReceiveAsset === 'All Assets' || multiReceiveAsset.selectedReceiveAsset === 'Select asset'">
-                                                Select Asset</div>
-                                            <div class="col" click-out="!multiReceiveAsset.receiveDropDown"
-                                                ng-show="multiReceiveAsset.selectedReceiveAsset && multiReceiveAsset.selectedReceiveAsset !== 'All Assets' && multiReceiveAsset.selectedReceiveAsset !== 'Select asset'">
-                                                <img ng-if="multiReceiveAsset.selectedReceiveHasImage"
-                                                     ng-src="images/verifiedassets/{{multiReceiveAsset.selectedReceiveImage}}"/>
-                                                <span ng-if="!multiReceiveAsset.selectedReceiveHasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
-                                                <div class="curr-symbol">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</div>
-                                                <img class="verifier" ng-if="multiReceiveAsset.selectedReceiveVerified"
-                                                     src="./images/verified.svg" height="14px"
-                                                     width="14px"/>
-                                                <img class="verifier" ng-if="!multiReceiveAsset.selectedReceiveVerified"
-                                                     src="./images/unverified.svg"
-                                                     height="16px" width="14px"/>
+                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected">
+                                            <div ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
+                                                <div ng-show="!multiReceiveAsset.selectedReceiveAsset || multiReceiveAsset.selectedReceiveAsset === 'All Assets' || multiReceiveAsset.selectedReceiveAsset === 'Select asset'">
+                                                    Select Asset</div>
+                                                <div class="col" click-out="!multiReceiveAsset.receiveDropDown"
+                                                    ng-show="multiReceiveAsset.selectedReceiveAsset && multiReceiveAsset.selectedReceiveAsset !== 'All Assets' && multiReceiveAsset.selectedReceiveAsset !== 'Select asset'">
+                                                    <img ng-if="multiReceiveAsset.selectedReceiveHasImage"
+                                                        ng-src="images/verifiedassets/{{multiReceiveAsset.selectedReceiveImage}}"/>
+                                                    <span ng-if="!multiReceiveAsset.selectedReceiveHasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
+                                                    <div class="curr-symbol">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</div>
+                                                    <img class="verifier" ng-if="multiReceiveAsset.selectedReceiveVerified"
+                                                        src="./images/verified.svg" height="14px" width="14px"/>
+                                                    <img class="verifier" ng-if="!multiReceiveAsset.selectedReceiveVerified"
+                                                        src="./images/unverified.svg" height="16px" width="14px"/>
+                                                </div>
                                             </div>
-                                        </a>
+
+                                            <!-- NEW RECEIVE TIME-LOCK BUTTON MARKER --> 
+                                            <div class="as-time-lock" ng-show="multiReceiveAsset.receiveTimeLockSet" id={{"receiveBlueSection_"+multiReceiveAsset.id}}>
+                                                <div class="as-tl-value" ng-click="toggleReceiveTimelock(multiReceiveAsset)">
+                                                    <img class="time-icon" src="images/sendtl.svg" width="12px">
+                                                    <div class="time-range">
+                                                        {{multiReceiveAsset.fromStartTimeString + " - "}}
+                                                        <span ng-show="multiReceiveAsset.receiveTimeLock == 'daterange' && multiReceiveAsset.fromEndTime">{{multiReceiveAsset.fromEndTimeString}}</span>
+                                                        <span ng-show="multiReceiveAsset.receiveTimeLock == 'scheduled'">∞ Forever</span>
+                                                    </div>
+                                                </div>
+                                                <div class="as-tl-action" ng-click="removeReceiveTimeLock(multiReceiveAsset)">
+                                                    <img class="close-icon" src="images/t.svg" width="12px">
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="action-dropdown"
                                              ng-show="multiReceiveAsset.receiveDropDown2"
@@ -1489,85 +1505,85 @@
                                         </div>
                                     </div>
 
-                                    <div class="action-time-lock-old" ng-show="false">
-                                        <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
-                                                ng-click="showTimeLockReceive = !showTimeLockReceive"
-                                                ng-hide="showTimeLockReceive"
-                                        >Set Time-lock
-                                        </button>
-                                        <div ng-show="showTimeLockReceive">
-                                            <div class="col-md-5 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white w-100"
-                                                        ng-click="receiveTimeLock ='daterange'"
-                                                        ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
-                                                >
-                                                    Date to Date
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white w-100"
-                                                        ng-click="receiveTimeLock ='scheduled'"
-                                                        ng-class="{'time-active' : receiveTimeLock == 'scheduled'}"
-                                                >
-                                                    Date to Forever
-                                                </button>
-                                            </div>
-                                            <div class="col-md-1 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white"
-                                                        ng-click="showTimeLockReceive = !showTimeLockReceive"
-                                                >
-                                                    X
-                                                </button>
-                                            </div>
+                                    <!-- RECEIVE NEW TIME-LOCK MARKER -->
+
+                                    <div class="action-time-lock" 
+                                        ng-show="multiReceiveAsset.selectedReceiveContract !== DEFAULT_USAN && multiReceiveAsset.selectedReceiveAsset !== 'All Assets'
+                                        && multiReceiveAsset.selectedReceiveAsset !== 'Select asset'"
+                                        tw-click-outside="closeReceiveTimeLockDropDown(multiReceiveAsset)"
+                                        ignore-if="!multiReceiveAsset.showTimeLockReceive">
+                                        
+                                        <div class="time-lock-btn" ng-click="toggleReceiveTimelock(multiReceiveAsset)" ng-hide="multiReceiveAsset.receiveTimeLockSet">
+                                            <div class="name">Time-lock</div>
+                                            <img class="icon" src="images/caret-down-2.svg">
                                         </div>
-                                        <div ng-show="receiveTimeLock == 'scheduled' || receiveTimeLock == 'daterange'  && showTimeLockReceive">
-                                            <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
-                                            <span class="small-gray-text">From</span>
-                                                <br>
-                                                <input class="form-control"
+
+                                        <div class="time-lock-dropdown" 
+                                            ng-show="multiReceiveAsset.showTimeLockReceive && (multiReceiveAsset.showSimpleTimelockReceiveDropdown || multiReceiveAsset.showNewTimelockDropdown)"
+                                            style="{{ multiReceiveAsset.receiveTimeLockSet ? ('left: -'+ getReceiveTimeLockLeftAdjust(multiReceiveAsset) +'px !important') : ''}}">
+                                            <div class="tab-selector">
+                                                <div class="tab-option tab-option-left"
+                                                    ng-click="handleReceiveTimeLockDateToDate(multiReceiveAsset)"
+                                                    ng-class="{'tab-option-selected' : multiReceiveAsset.receiveTimeLock == 'daterange'}">Date to Date</div>
+                                                <div class="tab-option tab-option-right" ng-click="multiReceiveAsset.receiveTimeLock ='scheduled'"
+                                                        ng-class="{'tab-option-selected' : multiReceiveAsset.receiveTimeLock == 'scheduled'}">Date to Forever</div>
+                                            </div>
+                                            <div class="date-range">
+                                                <div class="date-item" ng-show="multiReceiveAsset.showTimeLockReceive">
+                                                    <div class="marker">FROM</div>
+                                                    <input class="form-control date-input"
                                                        type="text"
+                                                       timepicker-neutral-timezone
                                                        min="{{todayDate}}"
                                                        is-open="popup.opened5"
-                                                       onkeydown="return false"
-                                                       ng-change="checkReceiveDate('ToStartTime')"
-                                                       ng-model="ToStartTime"
-                                                       timepicker-neutral-timezone
                                                        datepicker-options="dateOptions"
                                                        uib-datepicker-popup="MM/dd/yyyy"
                                                        alt-input-formats="altInputFormats"
+                                                       onkeydown="return false"
+                                                       ng-change="checkReceiveDate('ToStartTime', multiReceiveAsset)"
+                                                       ng-model="multiReceiveAsset.fromStartTime"
                                                        ng-click="popup.opened5 = true"
                                                        show-button-bar="false"
                                                        placeholder="mm/dd/yyyy"
                                                 >
-                                            </div>
-                                            <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
-                                                <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
-                                                <div class="col-md-12 p-0" ng-show="receiveTimeLock == 'scheduled'">
-                                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
                                                 </div>
-                                                <div class="col-md-12 p-0" ng-hide="receiveTimeLock == 'scheduled'">
-                                                <span class="small-gray-text">
-                                                    Until
-                                                </span>
-                                                    <input class="form-control"
+                                                <div class="date-item" ng-show="multiReceiveAsset.showTimeLockReceive">
+                                                    <div class="marker">UNTIL</div>
+                                                    <input class="form-control date-input"
                                                            type="text"
-                                                           is-open="popup.opened6"
-                                                           min="{{todayDate}}"
                                                            timepicker-neutral-timezone
-                                                           onkeydown="return false"
-                                                           ng-change="checkReceiveDate('ToEndTime')"
-                                                           ng-model="ToEndTime"
+                                                           min="{{todayDate}}"
+                                                           is-open="popup.opened6"
                                                            datepicker-options="dateOptions"
                                                            uib-datepicker-popup="MM/dd/yyyy"
                                                            alt-input-formats="altInputFormats"
+                                                           onkeydown="return false"
+                                                           ng-change="checkReceiveDate('ToEndTime', multiReceiveAsset)"
+                                                           ng-model="multiReceiveAsset.ToEndTime"
                                                            ng-click="popup.opened6 = true"
                                                            show-button-bar="false"
                                                            placeholder="mm/dd/yyyy"
+                                                           ng-hide="multiReceiveAsset.receiveTimeLock == 'scheduled'"
                                                     >
+                                                    <div class="b-form small-gray-text text-fusion fusion-text-14 p-1" 
+                                                        ng-show="multiReceiveAsset.receiveTimeLock == 'scheduled'">∞ Forever</div>
                                                 </div>
+                                            </div>
+                                            <div class="btn-grp">
+                                                <button class="btn btn-white main-btn-secondary date-btn"
+                                                    ng-click="cancelSetReceiveTimeLock(multiReceiveAsset)">
+                                                    Cancel
+                                                </button>
+                                                <button class="btn btn-primary main-btn-primary date-btn"
+                                                    ng-click="setReceiveTimeLock(multiReceiveAsset)"
+                                                    ng-disabled="!multiReceiveAsset.fromStartTime || (multiReceiveAsset.receiveTimeLock == 'daterange' && !multiReceiveAsset.fromEndTime)">
+                                                    Set Time-lock
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div class="action-remove-asset" 
                                         ng-hide="multiMakeSwapReceiveAssetArray.length <= 1"
                                         ng-click="removeMakeSwapReceiveAssetRow(multiReceiveAsset)">
