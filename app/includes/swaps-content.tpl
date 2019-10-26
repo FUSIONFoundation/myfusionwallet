@@ -1126,33 +1126,52 @@
                                         <div class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </div>
                                     </div>
                                     <div class="action-amount-currency">
-                                        <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
-                                           ng-click="multiSendAsset.sendDropDown2 = !multiSendAsset.sendDropDown2  && closeAllOtherDropDowns('sendDropDown2', multiSendAsset)">
-                                            <div ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
-                                                (!multiSendAsset.selectedSendAsset || multiSendAsset.selectedSendAsset === 'All Assets'
-                                                || multiSendAsset.selectedSendAsset === 'Select asset')">Select Asset</div>
-                                            <div class="usan-selected" ng-show="multiSendAsset.selectedSendContract == DEFAULT_USAN">
-                                                <span class="name">USAN</span>
-                                                <span class="address">{{usanAddress}}</span>
+                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected">
+                                            <div ng-click="multiSendAsset.sendDropDown2 = !multiSendAsset.sendDropDown2  && closeAllOtherDropDowns('sendDropDown2', multiSendAsset)">
+                                                <div ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
+                                                    (!multiSendAsset.selectedSendAsset || multiSendAsset.selectedSendAsset === 'All Assets'
+                                                    || multiSendAsset.selectedSendAsset === 'Select asset')">Select Asset</div>
+                                                <div class="usan-selected" ng-show="multiSendAsset.selectedSendContract == DEFAULT_USAN">
+                                                    <span class="name">USAN</span>
+                                                    <span class="address">{{usanAddress}}</span>
+                                                </div>
+                                                <div class="col" click-out="!multiSendAsset.sendDropDown2"
+                                                    ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
+                                                    (multiSendAsset.selectedSendAsset && multiSendAsset.selectedSendAsset !== 'All Assets'
+                                                    && multiSendAsset.selectedSendAsset !== 'Select asset')">
+                                                    <img ng-if="multiSendAsset.selectedSendHasImage"
+                                                        ng-src="images/verifiedassets/{{multiSendAsset.selectedSendImage}}"/>
+                                                    <span ng-if="!multiSendAsset.selectedSendHasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.selectedSendAssetSymbol}}</span>
+                                                    <div class="curr-symbol">{{multiSendAsset.selectedSendAssetSymbol}}</div>
+                                                    <img class="verifier" ng-if="multiSendAsset.selectedSendVerified"
+                                                        src="./images/verified.svg" height="14px" width="14px"/>
+                                                    <img class="verifier" ng-if="!multiSendAsset.selectedSendVerified"
+                                                        src="./images/unverified.svg" height="14px" width="14px"/>
+                                                </div>
                                             </div>
-                                            <div class="col" click-out="!multiSendAsset.sendDropDown2"
-                                                 ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
-                                                 (multiSendAsset.selectedSendAsset && multiSendAsset.selectedSendAsset !== 'All Assets'
-                                                 && multiSendAsset.selectedSendAsset !== 'Select asset')">
-                                                <img ng-if="multiSendAsset.selectedSendHasImage"
-                                                     ng-src="images/verifiedassets/{{multiSendAsset.selectedSendImage}}"/>
-                                                <span ng-if="!multiSendAsset.selectedSendHasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.selectedSendAssetSymbol}}</span>
-                                                <div class="curr-symbol">{{multiSendAsset.selectedSendAssetSymbol}}</div>
-                                                <img class="verifier" ng-if="multiSendAsset.selectedSendVerified"
-                                                     src="./images/verified.svg" height="14px" width="14px"/>
-                                                <img class="verifier" ng-if="!multiSendAsset.selectedSendVerified"
-                                                     src="./images/unverified.svg" height="14px" width="14px"/>
+
+                                            <!-- NEW SEND TIME-LOCK BUTTON MARKER --> 
+                                            <div class="as-time-lock" ng-show="multiSendAsset.sendTimeLockSet" id={{"sendBlueSection_"+multiSendAsset.id}}>
+                                                <div class="as-tl-value" ng-click="toggleSendTimelock(multiSendAsset)">
+                                                    <img class="time-icon" src="images/sendtl.svg" width="12px">
+                                                    <div class="time-range" ng-hide="multiSendAsset.hasTimeLockSet">
+                                                        {{multiSendAsset.fromStartTimeString + " - "}}
+                                                        <span ng-show="multiSendAsset.sendTimeLock == 'daterange' && multiSendAsset.fromEndTime">{{multiSendAsset.fromEndTimeString}}</span>
+                                                        <span ng-show="multiSendAsset.sendTimeLock == 'scheduled'">∞ Forever</span>
+                                                    </div>
+                                                    <div class="time-range" ng-show="multiSendAsset.hasTimeLockSet">
+                                                        {{multiSendAsset.selectedTimeLockTimespan}}
+                                                    </div>
+                                                </div>
+                                                <div class="as-tl-action" ng-click="removeSendTimeLock(multiSendAsset)">
+                                                    <img class="close-icon" src="images/t.svg" width="12px">
+                                                </div>
                                             </div>
-                                        </a>
+
+                                        </div>
                                         <div class="action-dropdown" ng-show="multiSendAsset.sendDropDown2"
-                                            tw-click-outside="closeSendDropDown2(multiSendAsset)" ignore-if="!multiSendAsset.sendDropDown2"
-                                        >
+                                            tw-click-outside="closeSendDropDown2(multiSendAsset)" ignore-if="!multiSendAsset.sendDropDown2">
                                             <div class="ad-input-wrapper">
                                                 <input type="text" class="form-control ad-input"
                                                     id="{{'searchSendAsset2_'+multiSendAsset.id}}"
@@ -1185,16 +1204,14 @@
                                                                     class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                                 <div class="details-wrapper">
                                                                     <div class="details">
-                                                                        <div class="name">{{asset.name}}</div>
-                                                                        <div class="currency">({{asset.symbol}})</div>
-                                                                        <span class="color-Active verifier"
-                                                                            ng-show="asset.verified">                                    <img
-                                                                                    src="./images/verified.svg"
-                                                                                    height="14px" width="14px"/></span>
-                                                                        <span class="color-Active verifier"
-                                                                            ng-show="!asset.verified">                                    <img
-                                                                                    src="./images/unverified.svg"
-                                                                                    height="14px" width="14px"/></span>
+                                                                        <div class="name">{{formatName(asset.name)}}</div>
+                                                                        <div class="currency">({{formatSymbol(asset.symbol)}})</div>
+                                                                        <span class="color-Active verifier" ng-show="asset.verified">
+                                                                            <img src="./images/verified.svg" height="14px" width="14px"/>
+                                                                        </span>
+                                                                        <span class="color-Active verifier" ng-show="!asset.verified">
+                                                                            <img src="./images/unverified.svg" height="14px" width="14px"/>
+                                                                        </span>
                                                                     </div>
                                                                     <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                                 </div>
@@ -1217,8 +1234,8 @@
                                                                     class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                                 <div class="details-wrapper">
                                                                     <div class="details">
-                                                                        <div class="name">{{asset.name}}</div>
-                                                                        <div class="currency">({{asset.symbol}})</div>
+                                                                        <div class="name">{{formatName(asset.name)}}</div>
+                                                                        <div class="currency">({{formatSymbol(asset.symbol)}})</div>
                                                                         <span class="color-Active verifier"
                                                                             ng-show="asset.verified">                                    <img
                                                                                     src="./images/verified.svg"
@@ -1236,91 +1253,74 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="action-time-lock"
-                                         ng-show="selectedSendContract !== DEFAULT_USAN && false">
-                                        <span class="small-gray-text" ng-show="showExistingTimeLocks">Existing Time-Lock <br></span>
-                                        <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
-                                                ng-click="showTimeLockSend = !showTimeLockSend"
-                                                ng-hide="showTimeLockSend; showExistingTimeLocks"
-                                        >Set Time-lock
-                                        </button>
-                                        <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
-                                                ng-hide="showTimeLockSend || showExistingTimeLocks || !myActiveTimeLocks[selectedSendContract].length > 0"
-                                                ng-click="showExistingTimeLocks = !showExistingTimeLocks">
-                                            Existing Time-Lock
-                                        </button>
-                                        <div ng-show="showExistingTimeLocks">
-                                            <div class="col-md-11 col-xs-11 p-1 mt-1 asset-dropdown border-gray-dropdown"
-                                                 ng-click="timeLockDropDown = !timeLockDropDown">
-                                                <a>
-                                                    <span class="fusion-text-14"><strong>{{selectedTimeLockAmount}} </strong></span><span
-                                                            class="font-size-12"
-                                                            ng-hide="selectedTimeLockAmount == 'Select time-lock'">{{selectedSendAssetSymbol}}</span>
-                                                    <span class="small-gray-text display-block"><img class="mr-2"
-                                                                                                     src="images/sendtl.svg"
-                                                                                                     width="12px"
-                                                                                                     ng-hide="selectedTimeLockAmount == 'Select time-lock'">
-                                                        {{selectedTimeLockTimespan}}</span>
-                                                </a>
+                                        <div class="action-dropdown-tl" ng-show="false" tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2">
+                                            <div class="header">
+                                                <img class="icon" ng-if="true" ng-src="images/arrow-left.svg"/>
+                                                <div class="name">Existing FSN Time-lock</div>
                                             </div>
-                                            <div class="dropdown-menu dropdown-menu fusion-text-14 p-2 higher-min-width"
-                                                 ng-show="timeLockDropDown">
-                                                <div class="col-md-12 col-xs-12 p-1 mt-1  asset-dropdown"
-                                                     ng-repeat="asset in myActiveTimeLocks[selectedSendContract]">
-                                                    <a ng-click="setExistingTimeLock(asset.asset_id,asset.id)">
-                                                        <div class="col">
-                                                            <span class="fusion-text-14"><strong>{{asset.amount}}</strong></span><span
-                                                                    class="font-size-12"> {{selectedSendAssetSymbol}}</span>
-                                                            <br>
-                                                            <span class="small-gray-text">
-                                                        <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                                {{asset.startTimeString}} - {{asset.endTimeString}}
-                                                    </span>
+                                            <div class="content">
+                                                <div class="content-item">
+                                                    <img class="icon" ng-if="false"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="true"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{"FSN"}}</span>
+                                                    <div class="content-item-details">
+                                                        <div class="asset">
+                                                            <div class="asset-amount">245.19982</div>
+                                                            <div class="asset-currency">FSN</div>
                                                         </div>
-                                                    </a>
+                                                        <div class="time-details">
+                                                            <img class="icon" src="images/sendtl.svg" width="12px">
+                                                            <div class="time-range">Aug 29 2019</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white"
-                                                        ng-click="showExistingTimeLocks = !showExistingTimeLocks; closeExistingTimeLock()">
-                                                    X
-                                                </button>
-                                            </div>
                                         </div>
-                                        <div ng-show="showTimeLockSend && !showExistingTimeLocks">
-                                            <div class="col-md-5 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white w-100"
-                                                        ng-click="sendTimeLock ='daterange'"
-                                                        ng-class="{'time-active' : sendTimeLock == 'daterange'}"
-                                                >
-                                                    Date to Date
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white w-100"
-                                                        ng-click="sendTimeLock ='scheduled'"
-                                                        ng-class="{'time-active' : sendTimeLock == 'scheduled'}"
-                                                >
-                                                    Date to Forever
-                                                </button>
-                                            </div>
-                                            <div class="col-md-1 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white"
-                                                        ng-click="showTimeLockSend = !showTimeLockSend"
-                                                >
-                                                    X
-                                                </button>
-                                            </div>
+                                    </div>
+
+                                    <!-- SEND NEW TIME-LOCK MARKER -->
+
+                                    <div class="action-time-lock" 
+                                        ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN && multiSendAsset.selectedSendAsset !== 'All Assets'
+                                        && multiSendAsset.selectedSendAsset !== 'Select asset'"
+                                        tw-click-outside="closeSendTimeLockDropDown(multiSendAsset)"
+                                        ignore-if="!multiSendAsset.showTimeLockSend">
+                                        
+                                        <div class="time-lock-btn" ng-click="toggleSendTimelock(multiSendAsset)" ng-hide="multiSendAsset.sendTimeLockSet">
+                                            <div class="name">Time-lock</div>
+                                            <img class="icon" src="images/caret-down-2.svg">
                                         </div>
-                                        <div ng-show="sendTimeLock == 'scheduled' || sendTimeLock == 'daterange' && showTimeLockSend">
-                                            <div class="col-md-12 p-0" ng-show="showTimeLockSend">
-                                            <span class="small-gray-text">
-                                        From
-                                            </span>
-                                                <br>
-                                                <input class="form-control"
+                                        
+                                        <div class="time-lock-dropdown" ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showMenuTimelockSendDropdown"
+                                            style="{{ (multiSendAsset.sendExistingTimeLockSet || (multiSendAsset.sendTimeLockSet && multiSendAsset.sendExistingTimeLocksAvailable)) ?
+                                            ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
+                                            <div class="time-lock-menu" 
+                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showNewTimelockDropdown=true;multiSendAsset.sendTimeLock='daterange';">
+                                                New Time-lock</div>
+                                            <div class="time-lock-menu"
+                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showExistingTimeLocksDropdown=true">Existing Time-lock</div>
+                                        </div>
+                                        
+                                        <div class="time-lock-dropdown" 
+                                            ng-show="multiSendAsset.showTimeLockSend && (multiSendAsset.showSimpleTimelockSendDropdown || multiSendAsset.showNewTimelockDropdown)"
+                                            style="{{ multiSendAsset.sendTimeLockSet ? ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
+                                            <div class="time-lock-header" ng-show="!multiSendAsset.showSimpleTimelockSendDropdown || multiSendAsset.sendExistingTimeLocksAvailable">
+                                                <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px"
+                                                    ng-click="multiSendAsset.showNewTimelockDropdown=false;multiSendAsset.showSimpleTimelockSendDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
+                                                <div class="header-title">New Time-lock</div>
+                                            </div>
+                                            <div class="tab-selector">
+                                                <div class="tab-option tab-option-left"
+                                                    ng-click="handleSendTimeLockDateToDate(multiSendAsset)"
+                                                    ng-class="{'tab-option-selected' : multiSendAsset.sendTimeLock == 'daterange'}">Date to Date</div>
+                                                <div class="tab-option tab-option-right" ng-click="multiSendAsset.sendTimeLock ='scheduled'"
+                                                        ng-class="{'tab-option-selected' : multiSendAsset.sendTimeLock == 'scheduled'}">Date to Forever</div>
+                                            </div>
+                                            <div class="date-range">
+                                                <div class="date-item" ng-show="multiSendAsset.showTimeLockSend">
+                                                    <div class="marker">FROM</div>
+                                                    <input class="form-control date-input"
                                                        type="text"
                                                        timepicker-neutral-timezone
                                                        min="{{todayDate}}"
@@ -1329,23 +1329,16 @@
                                                        uib-datepicker-popup="MM/dd/yyyy"
                                                        alt-input-formats="altInputFormats"
                                                        onkeydown="return false"
-                                                       ng-change="checkSendDate('fromStartTime')"
-                                                       ng-model="fromStartTime"
+                                                       ng-change="checkSendDate('fromStartTime', multiSendAsset)"
+                                                       ng-model="multiSendAsset.fromStartTime"
                                                        ng-click="popup.opened3 = true"
                                                        show-button-bar="false"
                                                        placeholder="mm/dd/yyyy"
                                                 >
-                                            </div>
-                                            <div class="col-md-12 p-0" ng-show="showTimeLockSend">
-                                                <span class="small-gray-text" ng-show="sendTimeLock == 'scheduled'">Until</span>
-                                                <div class="col-md-12 p-0" ng-show="sendTimeLock == 'scheduled'">
-                                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
                                                 </div>
-                                                <div class="col-md-12 p-0" ng-hide="sendTimeLock == 'scheduled'">
-                                                <span class="small-gray-text">
-                                                    Until
-                                                </span>
-                                                    <input class="form-control"
+                                                <div class="date-item" ng-show="multiSendAsset.showTimeLockSend">
+                                                    <div class="marker">UNTIL</div>
+                                                    <input class="form-control date-input"
                                                            type="text"
                                                            timepicker-neutral-timezone
                                                            min="{{todayDate}}"
@@ -1354,16 +1347,61 @@
                                                            uib-datepicker-popup="MM/dd/yyyy"
                                                            alt-input-formats="altInputFormats"
                                                            onkeydown="return false"
-                                                           ng-change="checkSendDate('fromEndTime')"
-                                                           ng-model="fromEndTime"
+                                                           ng-change="checkSendDate('fromEndTime', multiSendAsset)"
+                                                           ng-model="multiSendAsset.fromEndTime"
                                                            ng-click="popup.opened4 = true"
                                                            show-button-bar="false"
                                                            placeholder="mm/dd/yyyy"
+                                                           ng-hide="multiSendAsset.sendTimeLock == 'scheduled'"
                                                     >
+                                                    <div class="b-form small-gray-text text-fusion fusion-text-14 p-1" 
+                                                        ng-show="multiSendAsset.sendTimeLock == 'scheduled'">∞ Forever</div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-grp">
+                                                <button class="btn btn-white main-btn-secondary date-btn"
+                                                    ng-click="cancelSetSendTimeLock(multiSendAsset)">
+                                                    Cancel
+                                                </button>
+                                                <button class="btn btn-primary main-btn-primary date-btn"
+                                                    ng-click="setSendTimeLock(multiSendAsset)"
+                                                    ng-disabled="!multiSendAsset.fromStartTime || (multiSendAsset.sendTimeLock == 'daterange' && !multiSendAsset.fromEndTime)">
+                                                    Set Time-lock
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="time-lock-dropdown" 
+                                            ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showExistingTimeLocksDropdown"
+                                            style="{{ (multiSendAsset.sendExistingTimeLockSet || (multiSendAsset.sendTimeLockSet && multiSendAsset.sendExistingTimeLocksAvailable)) ?
+                                            ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
+                                            <div class="time-lock-header">
+                                                <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px"
+                                                    ng-click="multiSendAsset.showExistingTimeLocksDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
+                                                <div class="header-title">Existing {{multiSendAsset.selectedSendAssetSymbol}} Time-lock</div>
+                                            </div>
+                                            <div class="existing-time-locks" >
+                                                <div class="existing-tl-item" 
+                                                    ng-repeat="asset in myActiveTimeLocks[multiSendAsset.selectedSendContract]"
+                                                    ng-click="setExistingTimeLock(asset.asset_id,asset.id,multiSendAsset); ">
+                                                    <img class="icon" ng-if="asset.hasImage"
+                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
+                                                    <span ng-if="!asset.hasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
+                                                    <div class="tl-item-details">
+                                                        <div class="asset">
+                                                            <div class="amt">{{asset.amount}}</div>
+                                                            <div class="currency">{{multiSendAsset.selectedSendAssetSymbol}}</div>
+                                                        </div>
+                                                        <div class="time-range">
+                                                            <img class="icon" src="images/sendtl.svg" width="12px" height="12px">
+                                                            <div class="range">{{asset.startTimeString}} - {{asset.endTimeString}}</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="action-remove-asset" 
                                         ng-hide="multiMakeSwapSendAssetArray.length <= 1"
                                         ng-click="removeMakeSwapSendAssetRow(multiSendAsset)">
@@ -1371,6 +1409,8 @@
                                     </div>
 
                                 </div>
+                                 
+                                <span class="usan-error-message inline pt-3" ng-show="usanAlreadySwapped">You have already created a swap with this USAN. </span>
 
                                 <!-- MAKE SWAP ADD SEND ASSET MARKER -->
 
@@ -1399,30 +1439,46 @@
                                     <div class="action-amount-available">
                                         <input type="text" class="form-control m-0 mt-1 action-amount"
                                                ng-model="multiReceiveAsset.makeReceiveAmount"
+                                               id={{"makeReceiveAmount_"+multiReceiveAsset.id}}
                                                placeholder="Amount"
                                                ng-change="setSwapRate(multiReceiveAsset);checkMakeSwapConditions(multiReceiveAsset);"
                                         >
                                     </div>
+
                                     <div class="action-amount-currency">
-                                        <a class="btn btn-secondary custom-dropdown mt-1 action-selected"
-                                           ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
-                                            <div ng-show="!multiReceiveAsset.selectedReceiveAsset || multiReceiveAsset.selectedReceiveAsset === 'All Assets' || multiReceiveAsset.selectedReceiveAsset === 'Select asset'">
-                                                Select Asset</div>
-                                            <div class="col" click-out="!multiReceiveAsset.receiveDropDown"
-                                                ng-show="multiReceiveAsset.selectedReceiveAsset && multiReceiveAsset.selectedReceiveAsset !== 'All Assets' && multiReceiveAsset.selectedReceiveAsset !== 'Select asset'">
-                                                <img ng-if="multiReceiveAsset.selectedReceiveHasImage"
-                                                     ng-src="images/verifiedassets/{{multiReceiveAsset.selectedReceiveImage}}"/>
-                                                <span ng-if="!multiReceiveAsset.selectedReceiveHasImage"
-                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
-                                                <div class="curr-symbol">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</div>
-                                                <img class="verifier" ng-if="multiReceiveAsset.selectedReceiveVerified"
-                                                     src="./images/verified.svg" height="14px"
-                                                     width="14px"/>
-                                                <img class="verifier" ng-if="!multiReceiveAsset.selectedReceiveVerified"
-                                                     src="./images/unverified.svg"
-                                                     height="16px" width="14px"/>
+                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected">
+                                            <div ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
+                                                <div ng-show="!multiReceiveAsset.selectedReceiveAsset || multiReceiveAsset.selectedReceiveAsset === 'All Assets' || multiReceiveAsset.selectedReceiveAsset === 'Select asset'">
+                                                    Select Asset</div>
+                                                <div class="col" click-out="!multiReceiveAsset.receiveDropDown"
+                                                    ng-show="multiReceiveAsset.selectedReceiveAsset && multiReceiveAsset.selectedReceiveAsset !== 'All Assets' && multiReceiveAsset.selectedReceiveAsset !== 'Select asset'">
+                                                    <img ng-if="multiReceiveAsset.selectedReceiveHasImage"
+                                                        ng-src="images/verifiedassets/{{multiReceiveAsset.selectedReceiveImage}}"/>
+                                                    <span ng-if="!multiReceiveAsset.selectedReceiveHasImage"
+                                                        class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
+                                                    <div class="curr-symbol">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</div>
+                                                    <img class="verifier" ng-if="multiReceiveAsset.selectedReceiveVerified"
+                                                        src="./images/verified.svg" height="14px" width="14px"/>
+                                                    <img class="verifier" ng-if="!multiReceiveAsset.selectedReceiveVerified"
+                                                        src="./images/unverified.svg" height="16px" width="14px"/>
+                                                </div>
                                             </div>
-                                        </a>
+
+                                            <!-- NEW RECEIVE TIME-LOCK BUTTON MARKER --> 
+                                            <div class="as-time-lock" ng-show="multiReceiveAsset.receiveTimeLockSet" id={{"receiveBlueSection_"+multiReceiveAsset.id}}>
+                                                <div class="as-tl-value" ng-click="toggleReceiveTimelock(multiReceiveAsset)">
+                                                    <img class="time-icon" src="images/sendtl.svg" width="12px">
+                                                    <div class="time-range">
+                                                        {{multiReceiveAsset.fromStartTimeString + " - "}}
+                                                        <span ng-show="multiReceiveAsset.receiveTimeLock == 'daterange' && multiReceiveAsset.fromEndTime">{{multiReceiveAsset.fromEndTimeString}}</span>
+                                                        <span ng-show="multiReceiveAsset.receiveTimeLock == 'scheduled'">∞ Forever</span>
+                                                    </div>
+                                                </div>
+                                                <div class="as-tl-action" ng-click="removeReceiveTimeLock(multiReceiveAsset)">
+                                                    <img class="close-icon" src="images/t.svg" width="12px">
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="action-dropdown"
                                              ng-show="multiReceiveAsset.receiveDropDown2"
@@ -1505,87 +1561,85 @@
                                         </div>
                                     </div>
 
-                                    <div class="action-time-lock" ng-show="false">
-                                        <button class="btn btn-sm btn-primary button-timelock p-2 mt-2 time-lock-btn"
-                                                ng-click="showTimeLockReceive = !showTimeLockReceive"
-                                                ng-hide="showTimeLockReceive"
-                                        >Set Time-lock
-                                        </button>
-                                        <div ng-show="showTimeLockReceive">
-                                            <div class="col-md-5 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white w-100"
-                                                        ng-click="receiveTimeLock ='daterange'"
-                                                        ng-class="{'time-active' : receiveTimeLock == 'daterange'}"
-                                                >
-                                                    Date to Date
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white w-100"
-                                                        ng-click="receiveTimeLock ='scheduled'"
-                                                        ng-class="{'time-active' : receiveTimeLock == 'scheduled'}"
-                                                >
-                                                    Date to Forever
-                                                </button>
-                                            </div>
-                                            <div class="col-md-1 p-0 pb-2">
-                                                <button class="btn btn-sm btn-white"
-                                                        ng-click="showTimeLockReceive = !showTimeLockReceive"
-                                                >
-                                                    X
-                                                </button>
-                                            </div>
+                                    <!-- RECEIVE NEW TIME-LOCK MARKER -->
+
+                                    <div class="action-time-lock" 
+                                        ng-show="multiReceiveAsset.selectedReceiveContract !== DEFAULT_USAN && multiReceiveAsset.selectedReceiveAsset !== 'All Assets'
+                                        && multiReceiveAsset.selectedReceiveAsset !== 'Select asset'"
+                                        tw-click-outside="closeReceiveTimeLockDropDown(multiReceiveAsset)"
+                                        ignore-if="!multiReceiveAsset.showTimeLockReceive">
+                                        
+                                        <div class="time-lock-btn" ng-click="toggleReceiveTimelock(multiReceiveAsset)" ng-hide="multiReceiveAsset.receiveTimeLockSet">
+                                            <div class="name">Time-lock</div>
+                                            <img class="icon" src="images/caret-down-2.svg">
                                         </div>
-                                        <div ng-show="receiveTimeLock == 'scheduled' || receiveTimeLock == 'daterange'  && showTimeLockReceive">
-                                            <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
-                                            <span class="small-gray-text">
-                                        From
-                                </span>
-                                                <br>
-                                                <input class="form-control"
+
+                                        <div class="time-lock-dropdown" 
+                                            ng-show="multiReceiveAsset.showTimeLockReceive && (multiReceiveAsset.showSimpleTimelockReceiveDropdown || multiReceiveAsset.showNewTimelockDropdown)"
+                                            style="{{ multiReceiveAsset.receiveTimeLockSet ? ('left: -'+ getReceiveTimeLockLeftAdjust(multiReceiveAsset) +'px !important') : ''}}">
+                                            <div class="tab-selector">
+                                                <div class="tab-option tab-option-left"
+                                                    ng-click="handleReceiveTimeLockDateToDate(multiReceiveAsset)"
+                                                    ng-class="{'tab-option-selected' : multiReceiveAsset.receiveTimeLock == 'daterange'}">Date to Date</div>
+                                                <div class="tab-option tab-option-right" ng-click="multiReceiveAsset.receiveTimeLock ='scheduled'"
+                                                        ng-class="{'tab-option-selected' : multiReceiveAsset.receiveTimeLock == 'scheduled'}">Date to Forever</div>
+                                            </div>
+                                            <div class="date-range">
+                                                <div class="date-item" ng-show="multiReceiveAsset.showTimeLockReceive">
+                                                    <div class="marker">FROM</div>
+                                                    <input class="form-control date-input"
                                                        type="text"
+                                                       timepicker-neutral-timezone
                                                        min="{{todayDate}}"
                                                        is-open="popup.opened5"
-                                                       onkeydown="return false"
-                                                       ng-change="checkReceiveDate('ToStartTime')"
-                                                       ng-model="ToStartTime"
-                                                       timepicker-neutral-timezone
                                                        datepicker-options="dateOptions"
                                                        uib-datepicker-popup="MM/dd/yyyy"
                                                        alt-input-formats="altInputFormats"
+                                                       onkeydown="return false"
+                                                       ng-change="checkReceiveDate('ToStartTime', multiReceiveAsset)"
+                                                       ng-model="multiReceiveAsset.fromStartTime"
                                                        ng-click="popup.opened5 = true"
                                                        show-button-bar="false"
                                                        placeholder="mm/dd/yyyy"
                                                 >
-                                            </div>
-                                            <div class="col-md-12 p-0" ng-show="showTimeLockReceive">
-                                                <span class="small-gray-text" ng-show="receiveTimeLock == 'scheduled'">Until</span>
-                                                <div class="col-md-12 p-0" ng-show="receiveTimeLock == 'scheduled'">
-                                                    <span class="b-form small-gray-text text-fusion fusion-text-14 p-1">∞ Forever</span>
                                                 </div>
-                                                <div class="col-md-12 p-0" ng-hide="receiveTimeLock == 'scheduled'">
-                                                <span class="small-gray-text">
-                                                    Until
-                                                </span>
-                                                    <input class="form-control"
+                                                <div class="date-item" ng-show="multiReceiveAsset.showTimeLockReceive">
+                                                    <div class="marker">UNTIL</div>
+                                                    <input class="form-control date-input"
                                                            type="text"
-                                                           is-open="popup.opened6"
-                                                           min="{{todayDate}}"
                                                            timepicker-neutral-timezone
-                                                           onkeydown="return false"
-                                                           ng-change="checkReceiveDate('ToEndTime')"
-                                                           ng-model="ToEndTime"
+                                                           min="{{todayDate}}"
+                                                           is-open="popup.opened6"
                                                            datepicker-options="dateOptions"
                                                            uib-datepicker-popup="MM/dd/yyyy"
                                                            alt-input-formats="altInputFormats"
+                                                           onkeydown="return false"
+                                                           ng-change="checkReceiveDate('ToEndTime', multiReceiveAsset)"
+                                                           ng-model="multiReceiveAsset.ToEndTime"
                                                            ng-click="popup.opened6 = true"
                                                            show-button-bar="false"
                                                            placeholder="mm/dd/yyyy"
+                                                           ng-hide="multiReceiveAsset.receiveTimeLock == 'scheduled'"
                                                     >
+                                                    <div class="b-form small-gray-text text-fusion fusion-text-14 p-1" 
+                                                        ng-show="multiReceiveAsset.receiveTimeLock == 'scheduled'">∞ Forever</div>
                                                 </div>
+                                            </div>
+                                            <div class="btn-grp">
+                                                <button class="btn btn-white main-btn-secondary date-btn"
+                                                    ng-click="cancelSetReceiveTimeLock(multiReceiveAsset)">
+                                                    Cancel
+                                                </button>
+                                                <button class="btn btn-primary main-btn-primary date-btn"
+                                                    ng-click="setReceiveTimeLock(multiReceiveAsset)"
+                                                    ng-disabled="!multiReceiveAsset.fromStartTime || (multiReceiveAsset.receiveTimeLock == 'daterange' && !multiReceiveAsset.fromEndTime)">
+                                                    Set Time-lock
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div class="action-remove-asset" 
                                         ng-hide="multiMakeSwapReceiveAssetArray.length <= 1"
                                         ng-click="removeMakeSwapReceiveAssetRow(multiReceiveAsset)">

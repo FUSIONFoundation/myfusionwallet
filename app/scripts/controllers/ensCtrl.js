@@ -52,6 +52,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         })
     }
+    $scope.closeSendTimeLockDropDown = function () {
+        $scope.$applyAsync(function () {
+            $scope.showTimeLockSend = false;
+        })
+    }
+    $scope.closeReceiveTimeLockDropDown = function () {
+        $scope.$applyAsync(function () {
+            $scope.showTimeLockReceive = false;
+        })
+    }
     $scope.closeReceiveDropDown = function () {
         $scope.$applyAsync(function () {
             $scope.receiveDropDown = false;
@@ -359,6 +369,58 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.selectedTimeLockTimespan = "-";
     $scope.selectedTimeLockAmount = "Select time-lock";
 
+    $scope.removeSendTimeLock = function (asset) {
+        if(asset) {
+            $scope.$eval(function () {
+                asset.selectedTimeLockTimespan = "-";
+                asset.selectedTimeLockAmount = "Select time-lock";
+                asset.todayData = "";
+                asset.fromEndTime = "";
+                asset.hasTimeLockSet = false;
+                asset.sendTimeLockSet = false;
+                asset.sendExistingTimeLockSet = false;
+            });
+            $scope.getAssetBalance();
+            $scope.closeSendTimelockDropdowns(asset);
+        } else {
+            $scope.$eval(function () {
+                $scope.selectedTimeLockTimespan = "-";
+                $scope.selectedTimeLockAmount = "Select time-lock";
+                $scope.todayData = "";
+                $scope.fromEndTime = "";
+                $scope.hasTimeLockSet = false;
+                $scope.sendTimeLockSet = false;
+            });
+            $scope.getAssetBalance();
+        }
+    };
+
+    $scope.removeReceiveTimeLock = function (asset) {
+        if(asset) {
+            $scope.$eval(function () {
+                asset.selectedTimeLockTimespan = "-";
+                asset.selectedTimeLockAmount = "Select time-lock";
+                asset.todayData = "";
+                asset.fromEndTime = "";
+                asset.hasTimeLockSet = false;
+                asset.receiveTimeLockSet = false;
+                asset.receiveExistingTimeLockSet = false;
+            });
+            $scope.getAssetBalance();
+            $scope.closeReceiveTimelockDropdowns(asset);
+        } else {
+            $scope.$eval(function () {
+                $scope.selectedTimeLockTimespan = "-";
+                $scope.selectedTimeLockAmount = "Select time-lock";
+                $scope.todayData = "";
+                $scope.fromEndTime = "";
+                $scope.hasTimeLockSet = false;
+                $scope.receiveTimeLockSet = false;
+            });
+            $scope.getAssetBalance();
+        }
+    };
+
     $scope.closeExistingTimeLock = function () {
         $scope.$eval(function () {
             $scope.selectedTimeLockTimespan = "-";
@@ -375,151 +437,593 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return new Date(temp.setDate(temp.getDate() + 1));
     }
 
-    $scope.checkSendDate = function (source) {
-        // window.log("checkSendDate source: " + source);
-        if ($scope.transactionType == "scheduled") {
-            return;
-        } else {
-            let today = new Date();
-            // window.log("fromStartTime: " + $scope.fromStartTime);
-            // window.log("fromEndTime: " + $scope.fromEndTime);
-            if (!$scope.fromEndTime || !$scope.fromStartTime) {
-                return;
+    $scope.converTimelocksToDateStrings = function(asset){
+        $scope.$eval(function () {
+            if(asset.fromStartTime) {
+                asset.fromStartTimeString = $scope.returnDateString(
+                    new Date(asset.fromStartTime).getTime() / 1000.0 + 1000
+                );
             }
-            if ($scope.fromStartTime >= today
-                && $scope.fromEndTime >= today
-                && $scope.fromStartTime <= $scope.fromEndTime) {
-                // window.log("dates ok");
-                return;
+            if(asset.fromEndTime){
+                asset.fromEndTimeString = $scope.returnDateString(
+                    new Date(asset.fromEndTime).getTime() / 1000.0 + 1000
+                );
             }
-            if (source === "fromStartTime") {
-                // window.log("fromStartTime changed");
-                if ($scope.fromStartTime < today) {
-                    $scope.$eval(function () {
-                        $scope.fromStartTime = today;
-                        // window.log("fromStartTime changed to today");
-                    });
-                    if (today > $scope.fromEndTime) {
-                        // change fromEndTime to: tomorrow
-                        let dayAfter = $scope.getDayAfter(today);
+            if(asset.ToStartTime) {
+                asset.ToStartTimeString = $scope.returnDateString(
+                    new Date(asset.ToStartTime).getTime() / 1000.0 + 1000
+                );
+            }
+            if(asset.ToEndTime){
+                asset.ToEndTimeString = $scope.returnDateString(
+                    new Date(asset.ToEndTime).getTime() / 1000.0 + 1000
+                );
+            }
+        });
+    }
+
+    $scope.checkSendDate = function (source, asset) {
+
+        if(asset) {
+
+            // window.log("checkSendDate source: " + source);
+            if (asset.transactionType == "scheduled") {
+                $scope.converTimelocksToDateStrings(asset);
+                return;
+            } else {
+                let today = new Date();
+                // window.log("fromStartTime: " + asset.fromStartTime);
+                // window.log("fromEndTime: " + asset.fromEndTime);
+                if (!asset.fromEndTime || !asset.fromStartTime) {
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if (asset.fromStartTime >= today
+                    && asset.fromEndTime >= today
+                    && asset.fromStartTime <= asset.fromEndTime) {
+                    // window.log("dates ok");
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if (source === "fromStartTime") {
+                    // window.log("fromStartTime changed");
+                    if (asset.fromStartTime < today) {
                         $scope.$eval(function () {
-                            $scope.fromEndTime = dayAfter;
-                            // window.log("fromEndTime changed to " + dayAfter);
+                            asset.fromStartTime = today;
+                            // window.log("fromStartTime changed to today");
+                        });
+                        if (today > asset.fromEndTime) {
+                            // change fromEndTime to: tomorrow
+                            $scope.$eval(function () {
+                                let dayAfter = $scope.getDayAfter(today);
+                                asset.fromEndTime = dayAfter;
+                                // window.log("fromEndTime changed to " + dayAfter);
+                            });
+                        }
+                    } else {
+                        if (asset.fromStartTime > asset.fromEndTime) {
+                            $scope.$eval(function () {
+                                let dayAfter = $scope.getDayAfter(asset.fromStartTime);
+                                asset.fromEndTime = dayAfter;
+                                // window.log("fromEndTime changed to " + dayAfter);
+                            })
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else if (source === "fromEndTime") {
+                    // window.log("fromEndTime changed");
+                    if (asset.fromEndTime < today) {
+                        $scope.$eval(function () {
+                            asset.fromEndTime = today;
+                            asset.fromStartTime = today;
+                            // window.log("dates changed to today");
+                        });
+                    } else {
+                        if (asset.fromEndTime < asset.fromStartTime) {
+                            // change fromStartTime to: today
+                            $scope.$eval(function () {
+                                asset.fromStartTime = today;
+                                // window.log("fromStartTime changed to today");
+                            });
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else {
+                    if (asset.fromEndTime < today) {
+                        $scope.$eval(function () {
+                            asset.fromEndTime = today;
                         });
                     }
-                } else {
-                    if ($scope.fromStartTime > $scope.fromEndTime) {
+                    if (asset.fromEndTime < asset.fromStartTime) {
                         $scope.$eval(function () {
-                            let dayAfter = $scope.getDayAfter($scope.fromStartTime);
-                            $scope.fromEndTime = dayAfter;
-                            // window.log("fromEndTime changed to " + dayAfter);
-                        })
+                            asset.fromStartTime = today;
+                        });
                     }
                 }
-            } else if (source === "fromEndTime") {
-                // window.log("fromEndTime changed");
-                if ($scope.fromEndTime < today) {
-                    $scope.$eval(function () {
-                        $scope.fromEndTime = today;
-                        $scope.fromStartTime = today;
-                        // window.log("dates changed to today");
-                    });
-                } else {
-                    if ($scope.fromEndTime < $scope.fromStartTime) {
-                        // change fromStartTime to: today
+            }
+
+        } else {
+            // window.log("checkSendDate source: " + source);
+            if ($scope.transactionType == "scheduled") {
+                $scope.converTimelocksToDateStrings(asset);
+                return;
+            } else {
+                let today = new Date();
+                // window.log("fromStartTime: " + $scope.fromStartTime);
+                // window.log("fromEndTime: " + $scope.fromEndTime);
+                if (!$scope.fromEndTime || !$scope.fromStartTime) {
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if ($scope.fromStartTime >= today
+                    && $scope.fromEndTime >= today
+                    && $scope.fromStartTime <= $scope.fromEndTime) {
+                    // window.log("dates ok");
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if (source === "fromStartTime") {
+                    // window.log("fromStartTime changed");
+                    if ($scope.fromStartTime < today) {
                         $scope.$eval(function () {
                             $scope.fromStartTime = today;
                             // window.log("fromStartTime changed to today");
                         });
+                        if (today > $scope.fromEndTime) {
+                            // change fromEndTime to: tomorrow
+                            let dayAfter = $scope.getDayAfter(today);
+                            $scope.$eval(function () {
+                                $scope.fromEndTime = dayAfter;
+                                // window.log("fromEndTime changed to " + dayAfter);
+                            });
+                        }
+                    } else {
+                        if ($scope.fromStartTime > $scope.fromEndTime) {
+                            $scope.$eval(function () {
+                                let dayAfter = $scope.getDayAfter($scope.fromStartTime);
+                                $scope.fromEndTime = dayAfter;
+                                // window.log("fromEndTime changed to " + dayAfter);
+                            })
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else if (source === "fromEndTime") {
+                    // window.log("fromEndTime changed");
+                    if ($scope.fromEndTime < today) {
+                        $scope.$eval(function () {
+                            $scope.fromEndTime = today;
+                            $scope.fromStartTime = today;
+                            // window.log("dates changed to today");
+                        });
+                    } else {
+                        if ($scope.fromEndTime < $scope.fromStartTime) {
+                            // change fromStartTime to: today
+                            $scope.$eval(function () {
+                                $scope.fromStartTime = today;
+                                // window.log("fromStartTime changed to today");
+                            });
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else {
+                    if ($scope.fromEndTime < today) {
+                        $scope.$eval(function () {
+                            $scope.fromEndTime = today;
+                        });
+                    }
+                    if ($scope.fromEndTime < $scope.fromStartTime) {
+                        $scope.$eval(function () {
+                            $scope.fromStartTime = today;
+                        });
                     }
                 }
-            } else {
-                if ($scope.fromEndTime < today) {
-                    $scope.$eval(function () {
-                        $scope.fromEndTime = today;
-                    });
-                }
-                if ($scope.fromEndTime < $scope.fromStartTime) {
-                    $scope.$eval(function () {
-                        $scope.fromStartTime = today;
-                    });
-                }
-            }
 
+            }
         }
     };
 
-    $scope.checkReceiveDate = function (source) {
-        // window.log("checkReceiveDate source: " + source);
-        if ($scope.transactionType == "scheduled") {
-            return;
-        } else {
-            let today = new Date();
-            // window.log("ToStartTime: " + $scope.ToStartTime);
-            // window.log("ToEndTime: " + $scope.ToEndTime);
-            if (!$scope.ToEndTime || !$scope.ToStartTime) {
+    $scope.checkReceiveDate = function (source, asset) {
+        if(asset) {
+            // window.log("checkReceiveDate source: " + source);
+            if (asset.transactionType == "scheduled") {
+                $scope.converTimelocksToDateStrings(asset);
                 return;
-            }
-            if ($scope.ToStartTime >= today
-                && $scope.ToEndTime >= today
-                && $scope.ToStartTime <= $scope.ToEndTime) {
-                // window.log("dates ok");
-                return;
-            }
-            if (source === "ToStartTime") {
-                // window.log("ToStartTime changed");
-                if ($scope.ToStartTime < today) {
-                    $scope.$eval(function () {
-                        $scope.ToStartTime = today;
-                        // window.log("ToStartTime changed to today");
-                    });
-                    if (today > $scope.ToEndTime) {
-                        // change ToEndTime to: tomorrow
-                        let dayAfter = $scope.getDayAfter(today);
+            } else {
+                let today = new Date();
+                // window.log("ToStartTime: " + asset.ToStartTime);
+                // window.log("ToEndTime: " + asset.ToEndTime);
+                if (!asset.ToEndTime || !asset.ToStartTime) {
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if (asset.ToStartTime >= today
+                    && asset.ToEndTime >= today
+                    && asset.ToStartTime <= asset.ToEndTime) {
+                    // window.log("dates ok");
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if (source === "ToStartTime") {
+                    // window.log("ToStartTime changed");
+                    if (asset.ToStartTime < today) {
                         $scope.$eval(function () {
-                            $scope.ToEndTime = dayAfter;
-                            // window.log("ToEndTime changed to " + dayAfter);
+                            asset.ToStartTime = today;
+                            // window.log("ToStartTime changed to today");
+                        });
+                        if (today > asset.ToEndTime) {
+                            // change ToEndTime to: tomorrow
+                            let dayAfter = $scope.getDayAfter(today);
+                            $scope.$eval(function () {
+                                asset.ToEndTime = dayAfter;
+                                // window.log("ToEndTime changed to " + dayAfter);
+                            });
+                        }
+                    } else {
+                        if (asset.ToStartTime > asset.ToEndTime) {
+                            $scope.$eval(function () {
+                                let dayAfter = $scope.getDayAfter(asset.ToStartTime);
+                                asset.ToEndTime = dayAfter;
+                                // window.log("ToEndTime changed to " + dayAfter);
+                            })
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else if (source === "ToEndTime") {
+                    // window.log("ToEndTime changed");
+                    if (asset.ToEndTime < today) {
+                        $scope.$eval(function () {
+                            asset.ToEndTime = today;
+                            asset.ToStartTime = today;
+                            // window.log("dates changed to today");
+                        });
+                    } else {
+                        if (asset.ToEndTime < asset.ToStartTime) {
+                            // change ToStartTime to: today
+                            $scope.$eval(function () {
+                                asset.ToStartTime = today;
+                                // window.log("ToStartTime changed to today");
+                            });
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else {
+                    if (asset.ToEndTime < today) {
+                        $scope.$eval(function () {
+                            asset.ToEndTime = today;
                         });
                     }
-                } else {
-                    if ($scope.ToStartTime > $scope.ToEndTime) {
+                    if (asset.ToEndTime < asset.ToStartTime) {
                         $scope.$eval(function () {
-                            let dayAfter = $scope.getDayAfter($scope.ToStartTime);
-                            $scope.ToEndTime = dayAfter;
-                            // window.log("ToEndTime changed to " + dayAfter);
-                        })
+                            asset.ToStartTime = today;
+                        });
                     }
                 }
-            } else if (source === "ToEndTime") {
-                // window.log("ToEndTime changed");
-                if ($scope.ToEndTime < today) {
-                    $scope.$eval(function () {
-                        $scope.ToEndTime = today;
-                        $scope.ToStartTime = today;
-                        // window.log("dates changed to today");
-                    });
-                } else {
-                    if ($scope.ToEndTime < $scope.ToStartTime) {
-                        // change ToStartTime to: today
+
+            }
+
+        } else {
+            // window.log("checkReceiveDate source: " + source);
+            if ($scope.transactionType == "scheduled") {
+                $scope.converTimelocksToDateStrings(asset);
+                return;
+            } else {
+                let today = new Date();
+                // window.log("ToStartTime: " + $scope.ToStartTime);
+                // window.log("ToEndTime: " + $scope.ToEndTime);
+                if (!$scope.ToEndTime || !$scope.ToStartTime) {
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if ($scope.ToStartTime >= today
+                    && $scope.ToEndTime >= today
+                    && $scope.ToStartTime <= $scope.ToEndTime) {
+                    // window.log("dates ok");
+                    $scope.converTimelocksToDateStrings(asset);
+                    return;
+                }
+                if (source === "ToStartTime") {
+                    // window.log("ToStartTime changed");
+                    if ($scope.ToStartTime < today) {
                         $scope.$eval(function () {
                             $scope.ToStartTime = today;
                             // window.log("ToStartTime changed to today");
                         });
+                        if (today > $scope.ToEndTime) {
+                            // change ToEndTime to: tomorrow
+                            let dayAfter = $scope.getDayAfter(today);
+                            $scope.$eval(function () {
+                                $scope.ToEndTime = dayAfter;
+                                // window.log("ToEndTime changed to " + dayAfter);
+                            });
+                        }
+                    } else {
+                        if ($scope.ToStartTime > $scope.ToEndTime) {
+                            $scope.$eval(function () {
+                                let dayAfter = $scope.getDayAfter($scope.ToStartTime);
+                                $scope.ToEndTime = dayAfter;
+                                // window.log("ToEndTime changed to " + dayAfter);
+                            })
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else if (source === "ToEndTime") {
+                    // window.log("ToEndTime changed");
+                    if ($scope.ToEndTime < today) {
+                        $scope.$eval(function () {
+                            $scope.ToEndTime = today;
+                            $scope.ToStartTime = today;
+                            // window.log("dates changed to today");
+                        });
+                    } else {
+                        if ($scope.ToEndTime < $scope.ToStartTime) {
+                            // change ToStartTime to: today
+                            $scope.$eval(function () {
+                                $scope.ToStartTime = today;
+                                // window.log("ToStartTime changed to today");
+                            });
+                        }
+                    }
+                    $scope.converTimelocksToDateStrings(asset);
+                } else {
+                    if ($scope.ToEndTime < today) {
+                        $scope.$eval(function () {
+                            $scope.ToEndTime = today;
+                        });
+                    }
+                    if ($scope.ToEndTime < $scope.ToStartTime) {
+                        $scope.$eval(function () {
+                            $scope.ToStartTime = today;
+                        });
                     }
                 }
-            } else {
-                if ($scope.ToEndTime < today) {
-                    $scope.$eval(function () {
-                        $scope.ToEndTime = today;
-                    });
-                }
-                if ($scope.ToEndTime < $scope.ToStartTime) {
-                    $scope.$eval(function () {
-                        $scope.ToStartTime = today;
-                    });
-                }
-            }
 
+            }
+        }
+    };
+
+    $scope.handleSendTimeLockDateToDate = function(asset) {
+        asset.sendTimeLock ='daterange';
+        if(asset.fromStartTime && !asset.fromEndTime){
+            $scope.$eval(function () {
+                asset.fromEndTime = $scope.getDayAfter(asset.fromStartTime);
+                asset.fromEndTimeString = $scope.returnDateString(
+                    new Date(asset.fromEndTime).getTime() / 1000.0 + 1000
+                );
+            });
+        }
+    }
+
+    $scope.handleReceiveTimeLockDateToDate = function(asset) {
+        asset.receiveTimeLock ='daterange';
+        if(asset.ToStartTime && !asset.ToEndTime){
+            $scope.$eval(function () {
+                asset.ToEndTime = $scope.getDayAfter(asset.ToStartTime);
+                asset.ToEndTimeString = $scope.returnDateString(
+                    new Date(asset.ToEndTime).getTime() / 1000.0 + 1000
+                );
+            });
+        }
+    }
+
+    $scope.setSendTimeLock = function(asset){
+        if(asset) {
+            window.log("setSendTimeLock called");
+            $scope.$eval(function () {
+                asset.showTimeLockSend = false;
+                asset.sendTimeLockSet = true;
+                asset.sendExistingTimeLockSet = false;
+            });
+            $scope.converTimelocksToDateStrings(asset);
+            $scope.closeSendTimelockDropdowns(asset);
+
+        } else {
+            window.log("setSendTimeLock called");
+            $scope.$eval(function () {
+                $scope.fromStartTimeString = $scope.returnDateString(
+                    new Date($scope.fromStartTime).getTime() / 1000.0 + 1000
+                );
+                $scope.fromEndTimeString = $scope.returnDateString(
+                    new Date($scope.fromEndTime).getTime() / 1000.0 + 1000
+                );
+                $scope.showTimeLockSend = false;
+                $scope.sendTimeLockSet = true;
+                // $scope.toStartTimeString = $scope.returnDateString(
+                //     new Date($scope.ToStartTime).getTime() / 1000.0 + 1000
+                // );
+                // $scope.toEndTimeString = $scope.returnDateString(
+                //     new Date($scope.ToEndTime).getTime() / 1000.0 + 1000
+                // );
+                // $scope.selectedTimeLockTimespan = 
+            });
+        }
+    }
+
+    $scope.setReceiveTimeLock = function(asset){
+        if(asset) {
+            window.log("setReceiveTimeLock called");
+            $scope.$eval(function () {
+                asset.showTimeLockReceive = false;
+                asset.receiveTimeLockSet = true;
+                asset.receiveExistingTimeLockSet = false;
+            });
+            $scope.converTimelocksToDateStrings(asset);
+            $scope.closeReceiveTimelockDropdowns(asset);
+
+        } else {
+            window.log("setReceiveTimeLock called");
+            $scope.$eval(function () {
+                $scope.ToStartTimeString = $scope.returnDateString(
+                    new Date($scope.ToStartTime).getTime() / 1000.0 + 1000
+                );
+                $scope.ToEndTimeString = $scope.returnDateString(
+                    new Date($scope.ToEndTime).getTime() / 1000.0 + 1000
+                );
+                $scope.showTimeLockReceive = false;
+                $scope.receiveTimeLockSet = true;
+                // $scope.toStartTimeString = $scope.returnDateString(
+                //     new Date($scope.ToStartTime).getTime() / 1000.0 + 1000
+                // );
+                // $scope.toEndTimeString = $scope.returnDateString(
+                //     new Date($scope.ToEndTime).getTime() / 1000.0 + 1000
+                // );
+                // $scope.selectedTimeLockTimespan = 
+            });
+        }
+    }
+
+    $scope.cancelSetSendTimeLock = function(asset){
+        $scope.$eval(function () {
+            asset.sendTimeLock = asset.sendTimeLockReset;
+            asset.fromStartTime = asset.fromStartTimeReset;
+            asset.fromEndTime = asset.fromEndTimeReset;
+            asset.showTimeLockSend = false;
+        });
+        $scope.converTimelocksToDateStrings(asset);
+    }
+
+    $scope.cancelSetReceiveTimeLock = function(asset){
+        $scope.$eval(function () {
+            asset.receiveTimeLock = asset.receiveTimeLockReset;
+            asset.ToStartTime = asset.ToStartTimeReset;
+            asset.ToEndTime = asset.ToEndTimeReset;
+            asset.showTimeLockReceive = false;
+        });
+        $scope.converTimelocksToDateStrings(asset);
+    }
+
+    $scope.getSendTimeLockLeftAdjust = function (asset) {
+        if(asset && document.getElementById('sendBlueSection_'+asset.id)) {
+            return document.getElementById('sendBlueSection_'+asset.id).clientWidth + 6;
+        }
+        return 0;
+    };
+
+    $scope.getReceiveTimeLockLeftAdjust = function (asset) {
+        if(asset && document.getElementById('receiveBlueSection_'+asset.id)) {
+            return document.getElementById('receiveBlueSection_'+asset.id).clientWidth + 6;
+        }
+        return 0;
+    };
+
+    $scope.closeSendTimelockDropdowns = async function (asset) {
+        if(asset) {
+            $scope.$eval(function () {
+                asset.showTimeLockSend = false;
+                asset.showSimpleTimelockSendDropdown = false;
+                asset.showMenuTimelockSendDropdown = false;
+                asset.showNewTimelockSendDropdown = false;
+                asset.showExistingTimeLocksSendDropdown = false;
+            });
+        }
+    };
+
+    $scope.closeReceiveTimelockDropdowns = async function (asset) {
+        if(asset) {
+            $scope.$eval(function () {
+                asset.showTimeLockReceive = false;
+                asset.showSimpleTimelockReceiveDropdown = false;
+                asset.showMenuTimelockReceiveDropdown = false;
+                asset.showNewTimelockReceiveDropdown = false;
+                asset.showExistingTimeLocksReceiveDropdown = false;
+            });
+        }
+    };
+
+    $scope.toggleSendTimelock = async function (asset) {
+        if(asset.sendTimeLockSet){
+            console.log("time-lock set!");
+            if(!asset.sendExistingTimeLockSet){
+                console.log("regular time-lock set!");
+                if($scope.myActiveTimeLocks[asset.selectedSendContract]
+                    && $scope.myActiveTimeLocks[asset.selectedSendContract].length > 0){
+                        // time-locks are available
+                        $scope.$eval(function () {
+                            asset.showTimeLockSend = !asset.showTimeLockSend;
+                            asset.showSimpleTimelockSendDropdown = true;
+                            asset.sendTimeLockReset = asset.sendTimeLock;
+                            asset.fromStartTimeReset = asset.fromStartTime;
+                            asset.fromEndTimeReset = asset.fromEndTime;
+                            asset.sendExistingTimeLocksAvailable = true;
+                        });
+                    } else {
+                        $scope.$eval(function () {
+                            asset.showTimeLockSend = !asset.showTimeLockSend;
+                            asset.showSimpleTimelockSendDropdown = true;
+                            asset.sendTimeLockReset = asset.sendTimeLock;
+                            asset.fromStartTimeReset = asset.fromStartTime;
+                            asset.fromEndTimeReset = asset.fromEndTime;
+                            asset.sendExistingTimeLocksAvailable = false;
+                        });
+                    }
+            } else {
+                // open time-locks menu
+                console.log("existing time-lock set!");
+                $scope.$eval(function () {
+                    asset.showTimeLockSend = !asset.showTimeLockSend;
+                    asset.showSimpleTimelockSendDropdown = false;
+                    asset.showMenuTimelockSendDropdown = false;
+                    asset.showNewTimelockSendDropdown = false;
+                    asset.showExistingTimeLocksSendDropdown = true;
+                });
+            }
+        } else {
+            console.log("time-lock NOT set!");
+            if(!asset.showTimeLockSend) {
+                // open dropdown
+                if(asset.selectedSendContract !== $scope.DEFAULT_USAN 
+                    && asset.selectedSendAsset !== 'All Assets'
+                    && asset.selectedSendAsset !== 'Select asset') {
+
+                    if($scope.myActiveTimeLocks[asset.selectedSendContract]
+                        && $scope.myActiveTimeLocks[asset.selectedSendContract].length > 0) {
+                            console.log("existing time-locks found! menu shown");
+                            $scope.$eval(function () {
+                                asset.showTimeLockSend = true;
+                                asset.showMenuTimelockSendDropdown = true;
+                                asset.showNewTimelockDropdown = false;
+                                asset.showExistingTimeLocksDropdown = false;
+                                asset.showSimpleTimelockSendDropdown = false;
+                            });
+                            
+                        } else {
+                            console.log("basic menu shown");
+                            $scope.$eval(function () {
+                                asset.showTimeLockSend = true;
+                                asset.sendTimeLock = 'daterange';
+                                asset.showSimpleTimelockSendDropdown = true; 
+                            });
+                        }
+                }
+            } else { 
+                // close dropdown
+                $scope.closeSendTimelockDropdowns(asset);
+            }
+        }
+    };
+
+    $scope.toggleReceiveTimelock = async function (asset) {
+        if(asset.receiveTimeLockSet){
+            $scope.$eval(function () {
+                asset.showTimeLockReceive = !asset.showTimeLockReceive;
+                asset.showSimpleTimelockReceiveDropdown = true;
+                asset.receiveTimeLockReset = asset.receiveTimeLock;
+                asset.fromStartTimeReset = asset.fromStartTime;
+                asset.fromEndTimeReset = asset.fromEndTime;
+            });
+        } else {
+            console.log("time-lock NOT set!");
+            if(!asset.showTimeLockReceive) {
+                // open dropdown
+                console.log("basic menu shown");
+                $scope.$eval(function () {
+                    asset.showTimeLockReceive = true;
+                    asset.receiveTimeLock = 'daterange';
+                    asset.showSimpleTimelockReceiveDropdown = true; 
+                });
+            } else { 
+                // close dropdown
+                $scope.closeReceiveTimelockDropdowns(asset);
+            }
         }
     };
 
@@ -1034,20 +1538,40 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
     }
 
-    $scope.setExistingTimeLock = function (asset_id, id) {
-        $scope.$eval(function () {
-            $scope.selectedAssetBalance =
-                $scope.myActiveTimeLocks[asset_id][id].amount;
-            $scope.selectedTimeLockAmount =
-                $scope.myActiveTimeLocks[asset_id][id].amount;
-            $scope.selectedTimeLockTimespan = `${
-                $scope.myActiveTimeLocks[asset_id][id].startTimeString
-                } - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
-            $scope.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
-            $scope.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
-            $scope.hasTimeLockSet = true;
-            $scope.timeLockDropDown = false;
-        });
+    $scope.setExistingTimeLock = function (asset_id, id, multiAsset) {
+        console.log("setExistingTimeLock called!")
+        if(multiAsset){
+            $scope.$eval(function () {
+                multiAsset.selectedAssetBalance =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                multiAsset.selectedTimeLockAmount =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                multiAsset.selectedTimeLockTimespan = `${
+                    $scope.myActiveTimeLocks[asset_id][id].startTimeString
+                    } - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
+                multiAsset.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
+                multiAsset.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
+                multiAsset.hasTimeLockSet = true;
+                multiAsset.sendTimeLockSet = true;
+                multiAsset.sendExistingTimeLockSet = true;
+                multiAsset.timeLockDropDown = false;
+                $scope.closeSendTimelockDropdowns(multiAsset);
+            });
+        } else {
+            $scope.$eval(function () {
+                $scope.selectedAssetBalance =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                $scope.selectedTimeLockAmount =
+                    $scope.myActiveTimeLocks[asset_id][id].amount;
+                $scope.selectedTimeLockTimespan = `${
+                    $scope.myActiveTimeLocks[asset_id][id].startTimeString
+                    } - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
+                $scope.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
+                $scope.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
+                $scope.hasTimeLockSet = true;
+                $scope.timeLockDropDown = false;
+            });
+        }
     };
 
     $scope.setSwapRate = function (asset) {
@@ -1230,7 +1754,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 asset.sendHasTimeLockBalance = $scope.assetListOwned[id].timelockBalance;
                 asset.sendDropDown = false;
                 asset.sendDropDown2 = false;
+                asset.showTimeLockSend = false;
             });
+            $scope.closeSendTimelockDropdowns(asset);
             $scope.getAssetBalance(asset);
             $scope.sendChanged = 1;
             await $scope.allSwaps(0);
@@ -1275,7 +1801,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.sendChanged = 1;
         await $scope.allSwaps(0);
     };
-
 
     $scope.copyToClipboard = function (text) {
         let clipboardAvailable;
