@@ -2706,8 +2706,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 //     $scope.makeSendAmount : $scope.makeReceiveAmount !== 0 ?
                 //     $scope.makeSendAmount / $scope.makeReceiveAmount : $scope.makeSendAmount;
                 row.makeSendAmountConfirm = row.makeSendAmount;
-                // $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
-                //     1: $scope.makeMinumumSwap;
+                $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
+                    1: $scope.makeMinumumSwap;
                 row.makeMinumumSwapConfirm = row.makeMinumumSwap;
                 row.assetToSendConfirm = sendAssetSymbol;
                 row.fromStartTimeString = $scope.returnDateString(
@@ -2965,6 +2965,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             data.MinFromAmount = "0x" + "1".toString(16);
             data.SwapSize = parseInt(1);
         }
+
+        data.sendAssets = $scope.multiMakeSwapSendAssetArray;
+        data.receiveAssets = $scope.multiMakeSwapReceiveAssetArray;
+        console.log("data for sending: " + JSON.stringify(data));
 
         try {
             await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
