@@ -1655,7 +1655,7 @@
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
                                     <div class="fills-minimum-curr" ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray track by $index">
-                                        <img class="icon" ng-if="multiSendAsset.showTimeLockSend || hasTimeLockSet"
+                                        <img class="icon" ng-if="multiSendAsset.sendTimeLockSet"
                                              src="./images/send-timelock-icon.svg"
                                              height="12px" width="12px"/>
                                         <span class="amt">{{multiSendAsset.minimumMakeSend}}</span>
@@ -1666,7 +1666,7 @@
                                 <div>
                                     <div class="fills-minimum-title">Minimum Receive</div>
                                     <div class="fills-minimum-curr" ng-repeat="multiReceiveAsset in multiMakeSwapReceiveAssetArray track by $index">
-                                        <img class="icon" ng-if="multiReceiveAsset.showTimeLockReceive"
+                                        <img class="icon" ng-if="multiReceiveAsset.receiveTimeLockSet"
                                              src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
                                         <span class="amt">{{multiReceiveAsset.minimumReceiveSend}}</span>
                                         <span class="currency">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
