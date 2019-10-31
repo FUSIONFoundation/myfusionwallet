@@ -375,7 +375,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 asset.selectedTimeLockTimespan = "-";
                 asset.selectedTimeLockAmount = "Select time-lock";
                 asset.todayData = "";
+                asset.fromStartTime = "";
                 asset.fromEndTime = "";
+                asset.fromStartTimeString = "";
+                asset.fromEndTimeString = "";
                 asset.hasTimeLockSet = false;
                 asset.sendTimeLockSet = false;
                 asset.sendExistingTimeLockSet = false;
@@ -401,7 +404,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 asset.selectedTimeLockTimespan = "-";
                 asset.selectedTimeLockAmount = "Select time-lock";
                 asset.todayData = "";
-                asset.fromEndTime = "";
+                asset.toStartTime = "";
+                asset.toEndTime = "";
+                asset.toStartTimeString = "";
+                asset.toEndTimeString = "";
                 asset.hasTimeLockSet = false;
                 asset.receiveTimeLockSet = false;
                 asset.receiveExistingTimeLockSet = false;
@@ -2650,6 +2656,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             data.id = $scope.multiMakeSwapSendAssetIdTracker;
             data.sendDropDown2 = false;
             data.searchSendAsset = "";
+            $scope.removeSendTimeLock(data);
             // console.log("data.id: "+$scope.multiMakeSwapSendAssetIdTracker);
             // console.log("last row after id update: ", data);
             $scope.multiMakeSwapSendAssetArray.push(data);
@@ -2665,6 +2672,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             data.id = $scope.multiMakeSwapReceiveAssetIdTracker;
             data.receiveDropDown2 = false;
             data.searchReceiveAsset = "";
+            $scope.removeReceiveTimeLock(data);
             // console.log("data.id: "+$scope.multiMakeSwapReceiveAssetIdTracker);
             // console.log("last row after id update: ", data);
             $scope.multiMakeSwapReceiveAssetArray.push(data);
