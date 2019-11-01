@@ -382,6 +382,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 asset.hasTimeLockSet = false;
                 asset.sendTimeLockSet = false;
                 asset.sendExistingTimeLockSet = false;
+                asset.showExistingTimeLocksSendDropdown = false;
             });
             $scope.getAssetBalance();
             $scope.closeSendTimelockDropdowns(asset);
@@ -987,7 +988,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                                 asset.showTimeLockSend = true;
                                 asset.showMenuTimelockSendDropdown = true;
                                 asset.showNewTimelockDropdown = false;
-                                asset.showExistingTimeLocksDropdown = false;
+                                asset.showExistingTimeLocksSendDropdown = false;
                                 asset.showSimpleTimelockSendDropdown = false;
                             });
                             

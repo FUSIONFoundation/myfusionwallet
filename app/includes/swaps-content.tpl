@@ -1275,7 +1275,7 @@
                                                 ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showNewTimelockDropdown=true;multiSendAsset.sendTimeLock='daterange';">
                                                 New Time-lock</div>
                                             <div class="time-lock-menu"
-                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showExistingTimeLocksDropdown=true">Existing Time-lock</div>
+                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showExistingTimeLocksSendDropdown=true">Existing Time-lock</div>
                                         </div>
                                         
                                         <div class="time-lock-dropdown" 
@@ -1347,12 +1347,12 @@
                                             </div>
                                         </div>
                                         <div class="time-lock-dropdown" 
-                                            ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showExistingTimeLocksDropdown"
+                                            ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showExistingTimeLocksSendDropdown"
                                             style="{{ (multiSendAsset.sendExistingTimeLockSet || (multiSendAsset.sendTimeLockSet && multiSendAsset.sendExistingTimeLocksAvailable)) ?
                                             ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
                                             <div class="time-lock-header">
                                                 <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px"
-                                                    ng-click="multiSendAsset.showExistingTimeLocksDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
+                                                    ng-click="multiSendAsset.showExistingTimeLocksSendDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
                                                 <div class="header-title">Existing {{multiSendAsset.selectedSendAssetSymbol}} Time-lock</div>
                                             </div>
                                             <div class="existing-time-locks" >
