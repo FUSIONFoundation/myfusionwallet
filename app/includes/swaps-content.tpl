@@ -1196,7 +1196,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetListOwned | filter:multiSendAsset.searchSendAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned', 'name','symbol']
                                                         as verifiedSendAssetListOwned track by $index">
-                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id, multiSendAsset)">
+                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id, multiSendAsset);removeSendTimeLock(multiSendAsset);">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1204,8 +1204,8 @@
                                                                     class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                                 <div class="details-wrapper">
                                                                     <div class="details">
-                                                                        <div class="name">{{formatName(asset.name)}}</div>
-                                                                        <div class="currency">({{formatSymbol(asset.symbol)}})</div>
+                                                                        <div class="name">{{asset.name}}</div>
+                                                                        <div class="currency">({{asset.symbol}})</div>
                                                                         <span class="color-Active verifier" ng-show="asset.verified">
                                                                             <img src="./images/verified.svg" height="14px" width="14px"/>
                                                                         </span>
@@ -1226,7 +1226,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetListOwned | filter:multiSendAsset.searchSendAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                         as unverifiedSendAssetListOwned track by $index">
-                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id, multiSendAsset)">
+                                                        <a class="search-item-link" ng-click="setSendAsset(asset.id, multiSendAsset);removeSendTimeLock(multiSendAsset);">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1234,8 +1234,8 @@
                                                                     class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{asset.symbol}}</span>
                                                                 <div class="details-wrapper">
                                                                     <div class="details">
-                                                                        <div class="name">{{formatName(asset.name)}}</div>
-                                                                        <div class="currency">({{formatSymbol(asset.symbol)}})</div>
+                                                                        <div class="name">{{asset.name}}</div>
+                                                                        <div class="currency">({{asset.symbol}})</div>
                                                                         <span class="color-Active verifier"
                                                                             ng-show="asset.verified">                                    <img
                                                                                     src="./images/verified.svg"
@@ -1249,30 +1249,6 @@
                                                                 </div>
                                                             </div>
                                                         </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="action-dropdown-tl" ng-show="false" tw-click-outside="closeSendDropDown2()" ignore-if="!sendDropDown2">
-                                            <div class="header">
-                                                <img class="icon" ng-if="true" ng-src="images/arrow-left.svg"/>
-                                                <div class="name">Existing FSN Time-lock</div>
-                                            </div>
-                                            <div class="content">
-                                                <div class="content-item">
-                                                    <img class="icon" ng-if="false"
-                                                        ng-src="images/verifiedassets/{{asset.image}}"/>
-                                                    <span ng-if="true"
-                                                        class="btn btn-white btn-circle w32 asset-round mt-0 icon-custom">{{"FSN"}}</span>
-                                                    <div class="content-item-details">
-                                                        <div class="asset">
-                                                            <div class="asset-amount">245.19982</div>
-                                                            <div class="asset-currency">FSN</div>
-                                                        </div>
-                                                        <div class="time-details">
-                                                            <img class="icon" src="images/sendtl.svg" width="12px">
-                                                            <div class="time-range">Aug 29 2019</div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1299,7 +1275,7 @@
                                                 ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showNewTimelockDropdown=true;multiSendAsset.sendTimeLock='daterange';">
                                                 New Time-lock</div>
                                             <div class="time-lock-menu"
-                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showExistingTimeLocksDropdown=true">Existing Time-lock</div>
+                                                ng-click="multiSendAsset.showMenuTimelockSendDropdown=false;multiSendAsset.showExistingTimeLocksSendDropdown=true">Existing Time-lock</div>
                                         </div>
                                         
                                         <div class="time-lock-dropdown" 
@@ -1371,12 +1347,12 @@
                                             </div>
                                         </div>
                                         <div class="time-lock-dropdown" 
-                                            ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showExistingTimeLocksDropdown"
+                                            ng-show="multiSendAsset.showTimeLockSend && multiSendAsset.showExistingTimeLocksSendDropdown"
                                             style="{{ (multiSendAsset.sendExistingTimeLockSet || (multiSendAsset.sendTimeLockSet && multiSendAsset.sendExistingTimeLocksAvailable)) ?
                                             ('left: -'+ getSendTimeLockLeftAdjust(multiSendAsset) +'px !important') : ''}}">
                                             <div class="time-lock-header">
                                                 <img class="back-btn" src="images/arrow-left.svg" width="24px" height="24px"
-                                                    ng-click="multiSendAsset.showExistingTimeLocksDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
+                                                    ng-click="multiSendAsset.showExistingTimeLocksSendDropdown=false;multiSendAsset.showMenuTimelockSendDropdown=true;">
                                                 <div class="header-title">Existing {{multiSendAsset.selectedSendAssetSymbol}} Time-lock</div>
                                             </div>
                                             <div class="existing-time-locks" >
@@ -1469,8 +1445,8 @@
                                                 <div class="as-tl-value" ng-click="toggleReceiveTimelock(multiReceiveAsset)">
                                                     <img class="time-icon" src="images/sendtl.svg" width="12px">
                                                     <div class="time-range">
-                                                        {{multiReceiveAsset.fromStartTimeString + " - "}}
-                                                        <span ng-show="multiReceiveAsset.receiveTimeLock == 'daterange' && multiReceiveAsset.fromEndTime">{{multiReceiveAsset.fromEndTimeString}}</span>
+                                                        {{multiReceiveAsset.toStartTimeString + " - "}}
+                                                        <span ng-show="multiReceiveAsset.receiveTimeLock == 'daterange' && multiReceiveAsset.toEndTime">{{multiReceiveAsset.toEndTimeString}}</span>
                                                         <span ng-show="multiReceiveAsset.receiveTimeLock == 'scheduled'">∞ Forever</span>
                                                     </div>
                                                 </div>
@@ -1500,7 +1476,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetList | filter:multiReceiveAsset.searchReceiveAsset | filter: {verified:'true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['pinned','name','symbol']
                                                         as verifiedReceiveAssetListOwned">
-                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id, multiReceiveAsset)">
+                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id, multiReceiveAsset);removeReceiveTimeLock(multiReceiveAsset);">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1510,14 +1486,10 @@
                                                                     <div class="details">
                                                                         <div class="name">{{asset.name}}</div>
                                                                         <div class="currency">({{asset.symbol}})</div>
-                                                                        <span class="color-Active verifier"
-                                                                            ng-show="asset.verified">                                    <img
-                                                                                    src="./images/verified.svg"
-                                                                                    height="14px" width="14px"/></span>
-                                                                        <span class="color-Active verifier"
-                                                                            ng-show="!asset.verified">                                    <img
-                                                                                    src="./images/unverified.svg"
-                                                                                    height="14px" width="14px"/></span>
+                                                                        <span class="color-Active verifier" ng-show="asset.verified">
+                                                                            <img src="./images/verified.svg" height="14px" width="14px"/></span>
+                                                                        <span class="color-Active verifier" ng-show="!asset.verified">
+                                                                            <img src="./images/unverified.svg" height="14px" width="14px"/></span>
                                                                     </div>
                                                                     <div class="address">{{formatAddress(asset.contractaddress)}}</div>
                                                                 </div>
@@ -1532,7 +1504,7 @@
                                                     </div>
                                                     <div ng-repeat="asset in assetList | filter:multiReceiveAsset.searchReceiveAsset | filter: {verified:'!true', 'contractaddress': '!'+DEFAULT_USAN} | unique:'contractaddress' | orderBy:['name','symbol']
                                                         as unverifiedReceiveAssetListOwned">
-                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id, multiReceiveAsset)">
+                                                        <a class="search-item-link" ng-click="setReceiveAsset(asset.id, multiReceiveAsset);removeReceiveTimeLock(multiReceiveAsset);">
                                                             <div class="search-item">
                                                                 <img class="icon" ng-if="asset.hasImage"
                                                                     ng-src="images/verifiedassets/{{asset.image}}"/>
@@ -1596,8 +1568,8 @@
                                                        uib-datepicker-popup="MM/dd/yyyy"
                                                        alt-input-formats="altInputFormats"
                                                        onkeydown="return false"
-                                                       ng-change="checkReceiveDate('ToStartTime', multiReceiveAsset)"
-                                                       ng-model="multiReceiveAsset.fromStartTime"
+                                                       ng-change="checkReceiveDate('toStartTime', multiReceiveAsset)"
+                                                       ng-model="multiReceiveAsset.toStartTime"
                                                        ng-click="popup.opened5 = true"
                                                        show-button-bar="false"
                                                        placeholder="mm/dd/yyyy"
@@ -1614,8 +1586,8 @@
                                                            uib-datepicker-popup="MM/dd/yyyy"
                                                            alt-input-formats="altInputFormats"
                                                            onkeydown="return false"
-                                                           ng-change="checkReceiveDate('ToEndTime', multiReceiveAsset)"
-                                                           ng-model="multiReceiveAsset.ToEndTime"
+                                                           ng-change="checkReceiveDate('toEndTime', multiReceiveAsset)"
+                                                           ng-model="multiReceiveAsset.toEndTime"
                                                            ng-click="popup.opened6 = true"
                                                            show-button-bar="false"
                                                            placeholder="mm/dd/yyyy"
@@ -1632,7 +1604,7 @@
                                                 </button>
                                                 <button class="btn btn-primary main-btn-primary date-btn"
                                                     ng-click="setReceiveTimeLock(multiReceiveAsset)"
-                                                    ng-disabled="!multiReceiveAsset.fromStartTime || (multiReceiveAsset.receiveTimeLock == 'daterange' && !multiReceiveAsset.fromEndTime)">
+                                                    ng-disabled="!multiReceiveAsset.toStartTime || (multiReceiveAsset.receiveTimeLock == 'daterange' && !multiReceiveAsset.toEndTime)">
                                                     Set Time-lock
                                                 </button>
                                             </div>
@@ -1683,7 +1655,7 @@
                                 <div>
                                     <div class="fills-minimum-title">Minimum Send</div>
                                     <div class="fills-minimum-curr" ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray track by $index">
-                                        <img class="icon" ng-if="multiSendAsset.showTimeLockSend || hasTimeLockSet"
+                                        <img class="icon" ng-if="multiSendAsset.sendTimeLockSet"
                                              src="./images/send-timelock-icon.svg"
                                              height="12px" width="12px"/>
                                         <span class="amt">{{multiSendAsset.minimumMakeSend}}</span>
@@ -1694,7 +1666,7 @@
                                 <div>
                                     <div class="fills-minimum-title">Minimum Receive</div>
                                     <div class="fills-minimum-curr" ng-repeat="multiReceiveAsset in multiMakeSwapReceiveAssetArray track by $index">
-                                        <img class="icon" ng-if="multiReceiveAsset.showTimeLockReceive"
+                                        <img class="icon" ng-if="multiReceiveAsset.receiveTimeLockSet"
                                              src="./images/send-timelock-icon.svg" height="12px" width="12px"/>
                                         <span class="amt">{{multiReceiveAsset.minimumReceiveSend}}</span>
                                         <span class="currency">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
@@ -1759,7 +1731,7 @@
                                 </div>
                                 <div class="summary-content">
                                     
-                                     <!-- REVIEW MAKE SWAP SEND MULTI ASSETS MARKER -->
+                                    <!-- REVIEW MAKE SWAP SEND MULTI ASSETS MARKER -->
                                     <div ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray track by $index">
                                         <div class="summary-cell" ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN">
                                             <div class="logo">
@@ -1781,12 +1753,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="date-range">
-                                                    <span class="small-gray-text" ng-show="multiSendAsset.showTimeLockSend">
+                                                    <span class="small-gray-text" ng-show="multiSendAsset.sendTimeLockSet">
                                                         <img class="mr-2" src="images/send-timelock-icon.svg" width="12px">
-                                                        <span ng-show="multiSendAsset.sendTimeLock == 'scheduled'">{{multiSendAsset.fromStartTimeString}}
+                                                        <span ng-show="multiSendAsset.sendTimeLock == 'scheduled' && !multiSendAsset.hasTimeLockSet">{{multiSendAsset.fromStartTimeString}}
                                                             - ∞ Forever</span>
-                                                        <span ng-show="multiSendAsset.receiveTimeLock == 'daterange'">{{multiSendAsset.fromStartTimeString}}
+                                                        <span ng-show="multiSendAsset.receiveTimeLock == 'daterange' && !multiSendAsset.hasTimeLockSet">{{multiSendAsset.fromStartTimeString}}
                                                             - {{multiSendAsset.fromEndTimeString}}</span>
+                                                        <span ng-show="multiSendAsset.hasTimeLockSet">{{multiSendAsset.selectedTimeLockTimespan}}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -1830,7 +1803,7 @@
                                                 </div>
                                             </div>
                                             <div class="date-range">
-                                                <span class="small-gray-text" ng-show="multiReceiveAsset.showTimeLockReceive">
+                                                <span class="small-gray-text" ng-show="multiReceiveAsset.receiveTimeLockSet">
                                                     <img class="mr-2" src="images/send-timelock-icon.svg" width="12px">
                                                     <span ng-show="multiReceiveAsset.receiveTimeLock == 'scheduled'">{{multiReceiveAsset.toStartTimeString}}
                                                         - ∞ Forever</span>
@@ -1967,12 +1940,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="date-range">
-                                                    <span class="small-gray-text" ng-show="multiSendAsset.showTimeLockSend">
+                                                    <span class="small-gray-text" ng-show="multiSendAsset.sendTimeLockSet">
                                                         <img class="mr-2" src="images/send-timelock-icon.svg" width="12px">
-                                                        <span ng-show="multiSendAsset.sendTimeLock == 'scheduled'">{{multiSendAsset.fromStartTimeString}}
+                                                        <span ng-show="multiSendAsset.sendTimeLock == 'scheduled' && !multiSendAsset.hasTimeLockSet">{{multiSendAsset.fromStartTimeString}}
                                                             - ∞ Forever</span>
-                                                        <span ng-show="multiSendAsset.receiveTimeLock == 'daterange'">{{multiSendAsset.fromStartTimeString}}
+                                                        <span ng-show="multiSendAsset.receiveTimeLock == 'daterange' && !multiSendAsset.hasTimeLockSet">{{multiSendAsset.fromStartTimeString}}
                                                             - {{multiSendAsset.fromEndTimeString}}</span>
+                                                        <span ng-show="multiSendAsset.hasTimeLockSet">{{multiSendAsset.selectedTimeLockTimespan}}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -2016,7 +1990,7 @@
                                                 </div>
                                             </div>
                                             <div class="date-range">
-                                                <span class="small-gray-text" ng-show="multiReceiveAsset.showTimeLockReceive">
+                                                <span class="small-gray-text" ng-show="multiReceiveAsset.receiveTimeLockSet">
                                                     <img class="mr-2" src="images/send-timelock-icon.svg" width="12px">
                                                     <span ng-show="multiReceiveAsset.receiveTimeLock == 'scheduled'">{{multiReceiveAsset.toStartTimeString}}
                                                         - ∞ Forever</span>
