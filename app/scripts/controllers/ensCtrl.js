@@ -2860,6 +2860,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    $scope.checkMakeSwapTimeLocks = async (array) => {
+        if(!array.FromStartTime || array.FromStartTime === "0xNaN"){
+            delete array.FromStartTime;
+        }
+        if(!array.FromEndTime || array.FromEndTime === "0xNaN"){
+            delete array.FromEndTime;
+        }
+        if(!array.ToStartTime || array.ToStartTime === "0xNaN"){
+            delete array.ToStartTime;
+        }
+        if(!array.ToEndTime || array.ToEndTime === "0xNaN"){
+            delete array.ToEndTime;
+        }
+        return array;
+    }
+
     $scope.makeSwap = async function () {
         $scope.targesArray = [];
         let password = walletService.password;
@@ -2979,7 +2995,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 SwapSize: parseInt($scope.makeMinumumSwap),
                 from: walletAddress,
             }
-            data = txData;
+            data = await $scope.checkMakeSwapTimeLocks(txData);
 
             console.log(data);
 
