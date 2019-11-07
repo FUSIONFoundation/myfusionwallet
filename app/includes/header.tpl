@@ -192,7 +192,7 @@
                                translate="{{tab.name}}" class="title"></a>
                         </div>
                         }
-                    </div>                    
+                    </div>
                     <div class="hidden-xs">
                         <span class="badge badge-secondary text-fusion ml-4">{{versionNumber}}</span>
                         <span class="badge badge-secondary text-fusion mr-1"><i class="fa fa-cube"></i> {{latestBlock}}</span>
@@ -255,7 +255,7 @@
                                 </li>
                             </ul>
                         </span>
-                        
+
                     </div>
                     }
                 </section>

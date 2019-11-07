@@ -42,7 +42,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
     $scope.closeSendDropDown2 = function (asset) {
         $scope.$applyAsync(function () {
-            if(asset) {
+            if (asset) {
                 $scope.multiMakeSwapSendAssetArray.forEach((row) => {
                     row.sendDropDown2 = false
                 });
@@ -69,7 +69,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
     $scope.closeReceiveDropDown2 = function (asset) {
         $scope.$applyAsync(function () {
-            if(asset) {
+            if (asset) {
                 $scope.multiMakeSwapReceiveAssetArray.forEach((row) => {
                     row.receiveDropDown2 = false
                 });
@@ -263,7 +263,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.makeSwapReviewDisabled = true;
     $scope.usanAlreadySwapped = false;
     $scope.checkMakeSwapConditions = async (asset) => {
-        if(asset) {
+        if (asset) {
             let z = true;
             if (!asset.selectedSendContract == $scope.DEFAULT_USAN) {
                 if (asset.makeSendAmount == '' || asset.makeReceiveAmount == '' || asset.makeMinumumSwap == '') {
@@ -370,7 +370,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.selectedTimeLockAmount = "Select time-lock";
 
     $scope.removeSendTimeLock = function (asset) {
-        if(asset) {
+        if (asset) {
             $scope.$eval(function () {
                 asset.selectedTimeLockTimespan = "-";
                 asset.selectedTimeLockAmount = "Select time-lock";
@@ -400,7 +400,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.removeReceiveTimeLock = function (asset) {
-        if(asset) {
+        if (asset) {
             $scope.$eval(function () {
                 asset.selectedTimeLockTimespan = "-";
                 asset.selectedTimeLockAmount = "Select time-lock";
@@ -444,24 +444,24 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return new Date(temp.setDate(temp.getDate() + 1));
     }
 
-    $scope.converTimelocksToDateStrings = function(asset){
+    $scope.converTimelocksToDateStrings = function (asset) {
         $scope.$eval(function () {
-            if(asset.fromStartTime) {
+            if (asset.fromStartTime) {
                 asset.fromStartTimeString = $scope.returnDateString(
                     new Date(asset.fromStartTime).getTime() / 1000.0 + 1000
                 );
             }
-            if(asset.fromEndTime){
+            if (asset.fromEndTime) {
                 asset.fromEndTimeString = $scope.returnDateString(
                     new Date(asset.fromEndTime).getTime() / 1000.0 + 1000
                 );
             }
-            if(asset.toStartTime) {
+            if (asset.toStartTime) {
                 asset.toStartTimeString = $scope.returnDateString(
                     new Date(asset.toStartTime).getTime() / 1000.0 + 1000
                 );
             }
-            if(asset.toEndTime){
+            if (asset.toEndTime) {
                 asset.toEndTimeString = $scope.returnDateString(
                     new Date(asset.toEndTime).getTime() / 1000.0 + 1000
                 );
@@ -471,7 +471,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.checkSendDate = function (source, asset) {
 
-        if(asset) {
+        if (asset) {
 
             // window.log("checkSendDate source: " + source);
             if (asset.transactionType == "scheduled") {
@@ -630,7 +630,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.checkReceiveDate = function (source, asset) {
-        if(asset) {
+        if (asset) {
             // window.log("checkReceiveDate source: " + source);
             if (asset.transactionType == "scheduled") {
                 $scope.converTimelocksToDateStrings(asset);
@@ -788,9 +788,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
-    $scope.handleSendTimeLockDateToDate = function(asset) {
-        asset.sendTimeLock ='daterange';
-        if(asset.fromStartTime && !asset.fromEndTime){
+    $scope.handleSendTimeLockDateToDate = function (asset) {
+        asset.sendTimeLock = 'daterange';
+        if (asset.fromStartTime && !asset.fromEndTime) {
             $scope.$eval(function () {
                 asset.fromEndTime = $scope.getDayAfter(asset.fromStartTime);
                 asset.fromEndTimeString = $scope.returnDateString(
@@ -800,9 +800,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     }
 
-    $scope.handleReceiveTimeLockDateToDate = function(asset) {
-        asset.receiveTimeLock ='daterange';
-        if(asset.toStartTime && !asset.toEndTime){
+    $scope.handleReceiveTimeLockDateToDate = function (asset) {
+        asset.receiveTimeLock = 'daterange';
+        if (asset.toStartTime && !asset.toEndTime) {
             $scope.$eval(function () {
                 asset.toEndTime = $scope.getDayAfter(asset.toStartTime);
                 asset.toEndTimeString = $scope.returnDateString(
@@ -812,8 +812,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     }
 
-    $scope.setSendTimeLock = function(asset){
-        if(asset) {
+    $scope.setSendTimeLock = function (asset) {
+        if (asset) {
             window.log("setSendTimeLock called");
             $scope.$eval(function () {
                 asset.showTimeLockSend = false;
@@ -840,13 +840,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 // $scope.toEndTimeString = $scope.returnDateString(
                 //     new Date($scope.ToEndTime).getTime() / 1000.0 + 1000
                 // );
-                // $scope.selectedTimeLockTimespan = 
+                // $scope.selectedTimeLockTimespan =
             });
         }
     }
 
-    $scope.setReceiveTimeLock = function(asset){
-        if(asset) {
+    $scope.setReceiveTimeLock = function (asset) {
+        if (asset) {
             window.log("setReceiveTimeLock called");
             $scope.$eval(function () {
                 asset.showTimeLockReceive = false;
@@ -873,12 +873,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 // $scope.toEndTimeString = $scope.returnDateString(
                 //     new Date($scope.ToEndTime).getTime() / 1000.0 + 1000
                 // );
-                // $scope.selectedTimeLockTimespan = 
+                // $scope.selectedTimeLockTimespan =
             });
         }
     }
 
-    $scope.cancelSetSendTimeLock = function(asset){
+    $scope.cancelSetSendTimeLock = function (asset) {
         $scope.$eval(function () {
             asset.sendTimeLock = asset.sendTimeLockReset;
             asset.fromStartTime = asset.fromStartTimeReset;
@@ -888,7 +888,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.converTimelocksToDateStrings(asset);
     }
 
-    $scope.cancelSetReceiveTimeLock = function(asset){
+    $scope.cancelSetReceiveTimeLock = function (asset) {
         $scope.$eval(function () {
             asset.receiveTimeLock = asset.receiveTimeLockReset;
             asset.toStartTime = asset.toStartTimeReset;
@@ -899,21 +899,21 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
     $scope.getSendTimeLockLeftAdjust = function (asset) {
-        if(asset && document.getElementById('sendBlueSection_'+asset.id)) {
-            return document.getElementById('sendBlueSection_'+asset.id).clientWidth + 6;
+        if (asset && document.getElementById('sendBlueSection_' + asset.id)) {
+            return document.getElementById('sendBlueSection_' + asset.id).clientWidth + 6;
         }
         return 0;
     };
 
     $scope.getReceiveTimeLockLeftAdjust = function (asset) {
-        if(asset && document.getElementById('receiveBlueSection_'+asset.id)) {
-            return document.getElementById('receiveBlueSection_'+asset.id).clientWidth + 6;
+        if (asset && document.getElementById('receiveBlueSection_' + asset.id)) {
+            return document.getElementById('receiveBlueSection_' + asset.id).clientWidth + 6;
         }
         return 0;
     };
 
     $scope.closeSendTimelockDropdowns = async function (asset) {
-        if(asset) {
+        if (asset) {
             $scope.$eval(function () {
                 asset.showTimeLockSend = false;
                 asset.showSimpleTimelockSendDropdown = false;
@@ -925,7 +925,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.closeReceiveTimelockDropdowns = async function (asset) {
-        if(asset) {
+        if (asset) {
             $scope.$eval(function () {
                 asset.showTimeLockReceive = false;
                 asset.showSimpleTimelockReceiveDropdown = false;
@@ -937,31 +937,31 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.toggleSendTimelock = async function (asset) {
-        if(asset.sendTimeLockSet){
+        if (asset.sendTimeLockSet) {
             console.log("time-lock set!");
-            if(!asset.sendExistingTimeLockSet){
+            if (!asset.sendExistingTimeLockSet) {
                 console.log("regular time-lock set!");
-                if($scope.myActiveTimeLocks[asset.selectedSendContract]
-                    && $scope.myActiveTimeLocks[asset.selectedSendContract].length > 0){
-                        // time-locks are available
-                        $scope.$eval(function () {
-                            asset.showTimeLockSend = !asset.showTimeLockSend;
-                            asset.showSimpleTimelockSendDropdown = true;
-                            asset.sendTimeLockReset = asset.sendTimeLock;
-                            asset.fromStartTimeReset = asset.fromStartTime;
-                            asset.fromEndTimeReset = asset.fromEndTime;
-                            asset.sendExistingTimeLocksAvailable = true;
-                        });
-                    } else {
-                        $scope.$eval(function () {
-                            asset.showTimeLockSend = !asset.showTimeLockSend;
-                            asset.showSimpleTimelockSendDropdown = true;
-                            asset.sendTimeLockReset = asset.sendTimeLock;
-                            asset.fromStartTimeReset = asset.fromStartTime;
-                            asset.fromEndTimeReset = asset.fromEndTime;
-                            asset.sendExistingTimeLocksAvailable = false;
-                        });
-                    }
+                if ($scope.myActiveTimeLocks[asset.selectedSendContract]
+                    && $scope.myActiveTimeLocks[asset.selectedSendContract].length > 0) {
+                    // time-locks are available
+                    $scope.$eval(function () {
+                        asset.showTimeLockSend = !asset.showTimeLockSend;
+                        asset.showSimpleTimelockSendDropdown = true;
+                        asset.sendTimeLockReset = asset.sendTimeLock;
+                        asset.fromStartTimeReset = asset.fromStartTime;
+                        asset.fromEndTimeReset = asset.fromEndTime;
+                        asset.sendExistingTimeLocksAvailable = true;
+                    });
+                } else {
+                    $scope.$eval(function () {
+                        asset.showTimeLockSend = !asset.showTimeLockSend;
+                        asset.showSimpleTimelockSendDropdown = true;
+                        asset.sendTimeLockReset = asset.sendTimeLock;
+                        asset.fromStartTimeReset = asset.fromStartTime;
+                        asset.fromEndTimeReset = asset.fromEndTime;
+                        asset.sendExistingTimeLocksAvailable = false;
+                    });
+                }
             } else {
                 // open time-locks menu
                 console.log("existing time-lock set!");
@@ -975,33 +975,33 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         } else {
             console.log("time-lock NOT set!");
-            if(!asset.showTimeLockSend) {
+            if (!asset.showTimeLockSend) {
                 // open dropdown
-                if(asset.selectedSendContract !== $scope.DEFAULT_USAN 
+                if (asset.selectedSendContract !== $scope.DEFAULT_USAN
                     && asset.selectedSendAsset !== 'All Assets'
                     && asset.selectedSendAsset !== 'Select asset') {
 
-                    if($scope.myActiveTimeLocks[asset.selectedSendContract]
+                    if ($scope.myActiveTimeLocks[asset.selectedSendContract]
                         && $scope.myActiveTimeLocks[asset.selectedSendContract].length > 0) {
-                            console.log("existing time-locks found! menu shown");
-                            $scope.$eval(function () {
-                                asset.showTimeLockSend = true;
-                                asset.showMenuTimelockSendDropdown = true;
-                                asset.showNewTimelockDropdown = false;
-                                asset.showExistingTimeLocksSendDropdown = false;
-                                asset.showSimpleTimelockSendDropdown = false;
-                            });
-                            
-                        } else {
-                            console.log("basic menu shown");
-                            $scope.$eval(function () {
-                                asset.showTimeLockSend = true;
-                                asset.sendTimeLock = 'daterange';
-                                asset.showSimpleTimelockSendDropdown = true; 
-                            });
-                        }
+                        console.log("existing time-locks found! menu shown");
+                        $scope.$eval(function () {
+                            asset.showTimeLockSend = true;
+                            asset.showMenuTimelockSendDropdown = true;
+                            asset.showNewTimelockDropdown = false;
+                            asset.showExistingTimeLocksSendDropdown = false;
+                            asset.showSimpleTimelockSendDropdown = false;
+                        });
+
+                    } else {
+                        console.log("basic menu shown");
+                        $scope.$eval(function () {
+                            asset.showTimeLockSend = true;
+                            asset.sendTimeLock = 'daterange';
+                            asset.showSimpleTimelockSendDropdown = true;
+                        });
+                    }
                 }
-            } else { 
+            } else {
                 // close dropdown
                 $scope.closeSendTimelockDropdowns(asset);
             }
@@ -1009,7 +1009,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.toggleReceiveTimelock = async function (asset) {
-        if(asset.receiveTimeLockSet){
+        if (asset.receiveTimeLockSet) {
             $scope.$eval(function () {
                 asset.showTimeLockReceive = !asset.showTimeLockReceive;
                 asset.showSimpleTimelockReceiveDropdown = true;
@@ -1019,15 +1019,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             });
         } else {
             console.log("time-lock NOT set!");
-            if(!asset.showTimeLockReceive) {
+            if (!asset.showTimeLockReceive) {
                 // open dropdown
                 console.log("basic menu shown");
                 $scope.$eval(function () {
                     asset.showTimeLockReceive = true;
                     asset.receiveTimeLock = 'daterange';
-                    asset.showSimpleTimelockReceiveDropdown = true; 
+                    asset.showSimpleTimelockReceiveDropdown = true;
                 });
-            } else { 
+            } else {
                 // close dropdown
                 $scope.closeReceiveTimelockDropdowns(asset);
             }
@@ -1314,10 +1314,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     // format name if length > 20
     $scope.formatName = function (name, max) {
-        if(!max) max = 16;
+        if (!max) max = 16;
         if (!name || name.length <= max)
             return name;
-        return name.substring(0,(max-3)) + "...";
+        return name.substring(0, (max - 3)) + "...";
     };
 
     // format symbol if length > 4
@@ -1547,7 +1547,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.setExistingTimeLock = function (asset_id, id, multiAsset) {
         console.log("setExistingTimeLock called!")
-        if(multiAsset){
+        if (multiAsset) {
             $scope.$eval(function () {
                 multiAsset.selectedAssetBalance =
                     $scope.myActiveTimeLocks[asset_id][id].amount;
@@ -1582,22 +1582,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.setSwapRate = function (asset) {
-        if(asset){
+        if (asset) {
 
             if (asset.makeReceiveAmount <= 0) {
                 return;
             }
             window.Decimal.set({precision: 18, rounding: 4});
-    
+
             let makeSendAmountBN = new Decimal(
                 $scope.convertToString(asset.makeSendAmount)
             );
             let makeReceiveAmountBN = new Decimal(
                 $scope.convertToString(asset.makeReceiveAmount)
             );
-    
+
             let swapRateFinal = makeSendAmountBN.div(makeReceiveAmountBN);
-    
+
             asset.makeSendSwapRate = swapRateFinal.toString();
 
         } else {
@@ -1606,16 +1606,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 return;
             }
             window.Decimal.set({precision: 18, rounding: 4});
-    
+
             let makeSendAmountBN = new Decimal(
                 $scope.convertToString($scope.makeSendAmount)
             );
             let makeReceiveAmountBN = new Decimal(
                 $scope.convertToString($scope.makeReceiveAmount)
             );
-    
+
             let swapRateFinal = makeSendAmountBN.div(makeReceiveAmountBN);
-    
+
             $scope.makeSendSwapRate = swapRateFinal.toString();
 
         }
@@ -1638,7 +1638,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.setReceiveAmountMakeSwap = function (asset) {
-        if(asset) {
+        if (asset) {
             if (asset.makeSendAmount <= 0 || asset.makeSendSwapRate <= 0 || asset.makeMinumumSwap == '' || asset.makeMinumumSwap <= 0) {
                 return;
             }
@@ -1650,11 +1650,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let makeSendAmountBN = new Decimal(
                 $scope.convertToString(asset.makeSendAmount)
             );
-    
+
             let calc = one.div(makeSendSwapRateBN);
-    
+
             let receiveAmountFinal = makeSendAmountBN.mul(calc);
-    
+
             asset.makeReceiveAmount = receiveAmountFinal.toString();
         } else {
             if ($scope.makeSendAmount <= 0 || $scope.makeSendSwapRate <= 0 || $scope.makeMinumumSwap == '' || $scope.makeMinumumSwap <= 0) {
@@ -1668,11 +1668,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let makeSendAmountBN = new Decimal(
                 $scope.convertToString($scope.makeSendAmount)
             );
-    
+
             let calc = one.div(makeSendSwapRateBN);
-    
+
             let receiveAmountFinal = makeSendAmountBN.mul(calc);
-    
+
             $scope.makeReceiveAmount = receiveAmountFinal.toString();
         }
     };
@@ -1716,7 +1716,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.setReceiveAsset = async function (id, asset) {
         $scope.$eval(function () {
-            if(asset) {
+            if (asset) {
                 asset.selectedReceiveAsset = `${$scope.assetList[id].name} (${
                     $scope.assetList[id].symbol
                     })`;
@@ -1747,7 +1747,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.setSendAsset = async function (id, asset) {
-        if(asset) {
+        if (asset) {
             $scope.$eval(function () {
                 asset.selectedSendAsset = `${$scope.assetListOwned[id].name} (${
                     $scope.assetListOwned[id].symbol
@@ -2007,8 +2007,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     didFSN = true;
                 }
 
-                if(assetList[asset]["Name"].length >= 19){
-                    let a = assetList[asset]["Name"].substr(0,19);
+                if (assetList[asset]["Name"].length >= 19) {
+                    let a = assetList[asset]["Name"].substr(0, 19);
                     assetList[asset]["Name"] = a;
                 }
 
@@ -2303,11 +2303,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let maximumAmount = $scope.swapsList[id].toAmount;
         let maximumSize = $scope.swapsList[id].size;
 
-        console.log(balance.toString(),maximumAmount,maximumSize);
+        console.log(balance.toString(), maximumAmount, maximumSize);
 
         let maxTake = 0;
 
-        if(balance.toString() > maximumAmount){
+        if (balance.toString() > maximumAmount) {
             maxTake = maximumSize;
         } else {
 
@@ -2554,8 +2554,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.getLastRow = function (rows) {
-        if(rows.length)
-            return rows[rows.length-1];
+        if (rows.length)
+            return rows[rows.length - 1];
         return null;
     }
 
@@ -2565,17 +2565,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.multiMakeSwapReceiveAssetIdTracker = 0;
         let sendData = {
             id: $scope.multiMakeSwapSendAssetIdTracker,
-            makeSendAmount : 0,
-            makeMinumumSwap : 0,
-            privateAccess : false,
-            makeTarges : "",
-            showTimeLockSend : false,
-            showExistingTimeLocks : false,
-            showTimeLockReceive : false,
-            ToStartTime : "",
-            ToEndTime : "",
-            fromStartTime : "",
-            fromEndTime : "",
+            makeSendAmount: 0,
+            makeMinumumSwap: 0,
+            privateAccess: false,
+            makeTarges: "",
+            showTimeLockSend: false,
+            showExistingTimeLocks: false,
+            showTimeLockReceive: false,
+            ToStartTime: "",
+            ToEndTime: "",
+            fromStartTime: "",
+            fromEndTime: "",
             selectedSendContract: $scope.selectedSendContract,
             selectedAssetBalance: $scope.selectedAssetBalance,
             sendDropDown2: $scope.sendDropDown2,
@@ -2588,17 +2588,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         };
         let receiveData = {
             id: $scope.multiMakeSwapReceiveAssetIdTracker,
-            makeReceiveAmount : 0,
-            makeMinumumSwap : 0,
-            privateAccess : false,
-            makeTarges : "",
-            showTimeLockSend : false,
-            showExistingTimeLocks : false,
-            showTimeLockReceive : false,
-            ToStartTime : "",
-            ToEndTime : "",
-            fromStartTime : "",
-            fromEndTime : "",
+            makeReceiveAmount: 0,
+            makeMinumumSwap: 0,
+            privateAccess: false,
+            makeTarges: "",
+            showTimeLockSend: false,
+            showExistingTimeLocks: false,
+            showTimeLockReceive: false,
+            ToStartTime: "",
+            ToEndTime: "",
+            fromStartTime: "",
+            fromEndTime: "",
             receiveDropDown2: $scope.receiveDropDown2,
             selectedReceiveAsset: $scope.selectedReceiveAsset,
             selectedReceiveHasImage: $scope.selectedReceiveHasImage,
@@ -2609,7 +2609,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         };
 
         $scope.$eval(function () {
-            
+
             $scope.multiMakeSwapSendAssetArray.push(sendData);
             $scope.multiMakeSwapReceiveAssetArray.push(receiveData);
             $scope.makeSendAmount = 0;
@@ -2636,7 +2636,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }, 200);
     };
 
-    $scope.closeMakeSwapModal = async function(){
+    $scope.closeMakeSwapModal = async function () {
         $scope.$eval(function () {
             $scope.multiMakeSwapSendAssetArray = [];
             $scope.multiMakeSwapSendAssetIdTracker = 0;
@@ -2646,7 +2646,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.makeSwapModal.close();
     }
 
-    // TO DO: 
+    // TO DO:
     // handle when USAN has been selected in previous rows (?)
     // add focus on last row (?)
     $scope.addMakeSwapSendAssetRow = async function () {
@@ -2702,7 +2702,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
 
         $scope.$eval(function () {
-            
+
             $scope.multiMakeSwapSendAssetArray.forEach((row) => {
 
                 let sendAssetSymbol = "";
@@ -2715,8 +2715,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 //     $scope.makeSendAmount : $scope.makeReceiveAmount !== 0 ?
                 //     $scope.makeSendAmount / $scope.makeReceiveAmount : $scope.makeSendAmount;
                 row.makeSendAmountConfirm = row.makeSendAmount;
-                $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
-                    1: $scope.makeMinumumSwap;
+                $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ?
+                    1 : $scope.makeMinumumSwap;
                 row.makeMinumumSwapConfirm = row.makeMinumumSwap;
                 row.assetToSendConfirm = sendAssetSymbol;
                 row.fromStartTimeString = $scope.returnDateString(
@@ -2725,7 +2725,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 row.fromEndTimeString = $scope.returnDateString(
                     new Date(row.fromEndTime).getTime() / 1000.0 + 1000
                 );
-            
+
             });
 
             $scope.multiMakeSwapReceiveAssetArray.forEach((row) => {
@@ -2739,7 +2739,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 // row.makeReceiveAmountConfirm = $scope.selectedSendContract !== $scope.DEFAULT_USAN ?
                 //     1 : row.makeReceiveAmount;
                 row.makeReceiveAmountConfirm = row.makeReceiveAmount;
-                // $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ? 
+                // $scope.makeMinumumSwapConfirm = $scope.selectedSendContract === $scope.DEFAULT_USAN ?
                 //     1: $scope.makeMinumumSwap;
                 row.makeMinumumSwapConfirm = row.makeMinumumSwap;
                 row.assetToReceiveConfirm = receiveAssetSymbol;
@@ -2751,7 +2751,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 );
 
             });
-            
+
         });
 
         if (end === "end") {
@@ -2795,6 +2795,39 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
     };
 
+    $scope.createMinAmountHex = async (amount, assetId, makeminumumswap) => {
+        console.log(amount,assetId,makeminumumswap)
+        if (!makeminumumswap || makeminumumswap <= 0) {
+            makeminumumswap = 1;
+        }
+        makeminumumswap = new BigNumber(
+            $scope.convertToString(makeminumumswap)
+        );
+
+        let asset = [];
+        try {
+            await window.__fsnGetAsset(assetId).then(function (res) {
+                asset = res;
+            });
+        } catch (err) {
+            $scope.errorModal.open();
+            console.log(err);
+        }
+        //Send Part
+        BigNumber.config({DECIMAL_PLACES: parseInt(asset["Decimals"]) > 0 ? parseInt(asset["Decimals"]) - 1 : 0});
+        let makeSendAmountBN = new BigNumber(
+            $scope.convertToString(amount)
+        );
+        let makeSendAmountDiv = makeSendAmountBN.div(makeminumumswap);
+        let makeSendString = makeSendAmountDiv.toString();
+        let makeSendFinal = $scope.makeBigNumber(
+            makeSendString,
+            parseInt(asset["Decimals"])
+        );
+
+        return "0x" + makeSendFinal.toString(16);
+    }
+
     $scope.takeGetAllBalances = async function () {
         try {
             let accountData = uiFuncs.getTxData($scope);
@@ -2833,27 +2866,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
 
-        let fromAsset = [];
-        let toAsset = [];
-
-        try {
-            await window.__fsnGetAsset($scope.assetToSend).then(function (res) {
-                fromAsset = res;
-            });
-        } catch (err) {
-            $scope.errorModal.open();
-            console.log(err);
-        }
-
-        try {
-            await window.__fsnGetAsset($scope.assetToReceive).then(function (res) {
-                toAsset = res;
-            });
-        } catch (err) {
-            $scope.errorModal.open();
-            console.log(err);
-        }
-
         if ($scope.makeTarges !== "") {
             $scope.makeTarges = $scope.makeTarges.replace(" ", "");
             let targesArr = $scope.makeTarges.split(",");
@@ -2862,103 +2874,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.targesArray = [];
         }
 
-        if ($scope.makeMinumumSwap == "" || $scope.makeMinumumSwap <= 0) {
-            $scope.makeMinumumSwap = 1;
-        }
+        // let data = {
+        //     from: walletAddress,
+        //     FromAssetID: $scope.assetToSend,
+        //     ToAssetID: $scope.assetToReceive,
+        //     MinToAmount: minToAmountHex,
+        //     MinFromAmount: minFromAmountHex,
+        //     SwapSize: parseInt($scope.makeMinumumSwap),
+        //     Targes: $scope.targesArray
+        // };
 
-        //Global
-        let makeMinimumSwapBN = new BigNumber(
-            $scope.convertToString($scope.makeMinumumSwap)
-        );
-
-        //Receive Part
-
-        BigNumber.config({DECIMAL_PLACES: parseInt(toAsset["Decimals"]) > 0 ? parseInt(toAsset["Decimals"]) - 1 : 0});
-        let makeReceiveAmountBN = new BigNumber(
-            $scope.convertToString($scope.makeReceiveAmount)
-        );
-        let makeReceiveAmountDiv = makeReceiveAmountBN.div(makeMinimumSwapBN);
-        let makeReceiveString = makeReceiveAmountDiv.toString();
-        let makeReceiveFinal = $scope.makeBigNumber(
-            makeReceiveString,
-            parseInt(toAsset["Decimals"])
-        );
-
-        //Send Part
-        BigNumber.config({DECIMAL_PLACES: parseInt(fromAsset["Decimals"]) > 0 ? parseInt(fromAsset["Decimals"]) - 1 : 0});
-        let makeSendAmountBN = new BigNumber(
-            $scope.convertToString($scope.makeSendAmount)
-        );
-        let makeSendAmountDiv = makeSendAmountBN.div(makeMinimumSwapBN);
-        let makeSendString = makeSendAmountDiv.toString();
-        let makeSendFinal = $scope.makeBigNumber(
-            makeSendString,
-            parseInt(fromAsset["Decimals"])
-        );
-
-        //Convert to Hex
-
-        let minToAmountHex = "0x" + makeReceiveFinal.toString(16);
-        let minFromAmountHex = "0x" + makeSendFinal.toString(16);
-
-        let data = {
-            from: walletAddress,
-            FromAssetID: $scope.assetToSend,
-            ToAssetID: $scope.assetToReceive,
-            MinToAmount: minToAmountHex,
-            MinFromAmount: minFromAmountHex,
-            SwapSize: parseInt($scope.makeMinumumSwap),
-            Targes: $scope.targesArray
-        };
-
-        // Send part
-        if ($scope.showTimeLockSend == true) {
-            if ($scope.sendTimeLock == "scheduled") {
-                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
-                let fromEndTime = web3.fsn.consts.TimeForeverStr;
-
-                data.FromStartTime = fromStartTime;
-                data.FromEndTime = fromEndTime;
-            }
-            if ($scope.sendTimeLock == "daterange") {
-                let fromStartTime = getHexDate(convertDate($scope.fromStartTime));
-                let fromEndTime = getHexDate(convertDate($scope.fromEndTime));
-
-                data.FromStartTime = fromStartTime;
-                data.FromEndTime = fromEndTime;
-            }
-        }
-
-        if ($scope.hasTimeLockSet) {
-            let fromStartTime = "0x" + ($scope.todayDate).toString(16);
-            let fromEndTime = "";
-            if ($scope.fromEndTime == 18446744073709552000) {
-                fromEndTime = web3.fsn.consts.TimeForeverStr;
-            } else {
-                fromEndTime = "0x" + ($scope.fromEndTime).toString(16);
-            }
-            data.FromStartTime = fromStartTime;
-            data.FromEndTime = fromEndTime;
-        }
-
-        // Receive part
-        if ($scope.showTimeLockReceive == true) {
-            if ($scope.receiveTimeLock == "scheduled") {
-                let toStartTime = getHexDate(convertDate($scope.ToStartTime));
-                let toEndTime = web3.fsn.consts.TimeForeverStr;
-
-                data.ToStartTime = toStartTime;
-                data.ToEndTime = toEndTime;
-            }
-
-            if ($scope.receiveTimeLock == "daterange") {
-                let toStartTime = getHexDate(convertDate($scope.ToStartTime));
-                let toEndTime = getHexDate(convertDate($scope.ToEndTime));
-
-                data.ToStartTime = toStartTime;
-                data.ToEndTime = toEndTime;
-            }
-        }
 
         if (!$scope.account && $scope.wallet.hwType !== "ledger") {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
@@ -2966,40 +2891,121 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             );
         }
 
-        if (data.ToAssetID == $scope.DEFAULT_USAN) {
+        if (data.ToAssetID === $scope.DEFAULT_USAN) {
             data.MinToAmount = "0x" + "1".toString(16);
             data.SwapSize = parseInt(1);
         }
-        if (data.FromAssetID == $scope.DEFAULT_USAN) {
+        if (data.FromAssetID === $scope.DEFAULT_USAN) {
             data.MinFromAmount = "0x" + "1".toString(16);
             data.SwapSize = parseInt(1);
         }
 
-        data.sendAssets = $scope.multiMakeSwapSendAssetArray;
-        data.receiveAssets = $scope.multiMakeSwapReceiveAssetArray;
-        console.log("data for sending: " + JSON.stringify(data));
+        console.log(data);
 
-        try {
-            await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
-                tx.from = walletAddress;
-                tx.chainId = _CHAINID;
-                data = tx;
-                if ($scope.wallet.hwType == "ledger") {
-                    return;
-                }
-                return web3.fsn
-                    .signAndTransmit(tx, $scope.account.signTransaction)
-                    .then(txHash => {
-                        $scope.makeTxid = txHash;
-                        $scope.getTransactionStatus(txHash);
-                        window.log(`TXID: ${txHash}`);
-                        $scope.makeSwapConfirmation("end");
-                    });
-            });
-        } catch (err) {
-            $scope.errorModal.open();
-            console.log(err);
+        if ($scope.multiMakeSwapSendAssetArray.length !== 1 && $scope.multiMakeSwapSendAssetArray.length !== 1) {
+            console.log(`Multi swap`)
+            let s = $scope.multiMakeSwapSendAssetArray;
+            let r = $scope.multiMakeSwapReceiveAssetArray;
+
+            let FromAssetID = [];
+            let MinFromAmount = [];
+            let FromStartTime = [];
+            let FromEndTime = []
+            let ToAssetID = [];
+            let MinToAmount = [];
+            let ToStartTime = [];
+            let ToEndTime = [];
+
+            // Send
+            for (let x in s){
+                FromAssetID.push(s[x].assetToSend);
+                MinFromAmount.push(await $scope.createMinAmountHex(s[x].makeSendAmount, s[x].assetToSend, $scope.makeMinumumSwap));
+            }
+
+            // Receive
+            for (let x in r){
+                ToAssetID.push(r[x].assetToReceive);
+                MinToAmount.push(await $scope.createMinAmountHex(r[x].makeReceiveAmount, r[x].assetToReceive, $scope.makeMinumumSwap));
+            }
+
+            let txData = {
+                from: walletAddress,
+                FromAssetID: FromAssetID,
+                ToAssetID: ToAssetID,
+                MinFromAmount: MinFromAmount,
+                MinToAmount: MinToAmount,
+                SwapSize: parseInt($scope.makeMinumumSwap)
+            }
+
+            data = txData;
+
+            try {
+                await web3.fsntx.buildMakeMultiSwapTx(data).then(function (tx) {
+                    tx.from = walletAddress;
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    return web3.fsn
+                        .signAndTransmit(tx, $scope.account.signTransaction)
+                        .then(txHash => {
+                            $scope.makeTxid = txHash;
+                            $scope.getTransactionStatus(txHash);
+                            window.log(`TXID: ${txHash}`);
+                            $scope.makeSwapConfirmation("end");
+                        });
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+                console.log(err);
+            }
+
+            console.log(txData);
+        } else {
+            console.log(`Not multi swap.`);
+            let s = $scope.multiMakeSwapSendAssetArray[0];
+            let r = $scope.multiMakeSwapReceiveAssetArray[0];
+            let txData = {
+                FromAssetID: s.assetToSend,
+                MinFromAmount: await $scope.createMinAmountHex(s.makeSendAmount, s.assetToSend, $scope.makeMinumumSwap),
+                FromStartTime: getHexDate(convertDate(s.fromStartTime)),
+                FromEndTime: getHexDate(convertDate(s.fromEndTime)),
+                ToAssetID: r.assetToReceive,
+                MinToAmount: await $scope.createMinAmountHex(r.makeReceiveAmount, r.assetToReceive, $scope.makeMinumumSwap),
+                ToStartTime: getHexDate(convertDate(r.toStartTime)),
+                ToEndTime: getHexDate(convertDate(r.toEndTime)),
+                Targes: $scope.targesArray,
+                SwapSize: parseInt($scope.makeMinumumSwap),
+                from: walletAddress,
+            }
+            data = txData;
+
+            console.log(data);
+
+            try {
+                await web3.fsntx.buildMakeSwapTx(data).then(function (tx) {
+                    tx.from = walletAddress;
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    return web3.fsn
+                        .signAndTransmit(tx, $scope.account.signTransaction)
+                        .then(txHash => {
+                            $scope.makeTxid = txHash;
+                            $scope.getTransactionStatus(txHash);
+                            window.log(`TXID: ${txHash}`);
+                            $scope.makeSwapConfirmation("end");
+                        });
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+                console.log(err);
+            }
         }
+
         if ($scope.wallet.hwType == "ledger") {
             let ledgerConfig = {
                 privKey: $scope.wallet.privKey
@@ -3182,7 +3188,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.getAssetBalance = async function (multiAsset) {
-        if(multiAsset) {
+        if (multiAsset) {
             let asset = multiAsset.assetToSend;
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
@@ -3529,13 +3535,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         if (input === 'sendDropDown2') {
             $scope.$eval(function () {
-                if(asset) {
+                if (asset) {
                     $scope.multiMakeSwapSendAssetArray.forEach((row) => {
-                        if(row.id !== asset.id){
+                        if (row.id !== asset.id) {
                             row.sendDropDown = false;
                             row.sendDropDown2 = false;
                             row.receiveDropDown = false;
-                            row.receiveDropDown2 = false;        
+                            row.receiveDropDown2 = false;
                         } else {
                             row.sendDropDown = false;
                             row.receiveDropDown = false;
@@ -3560,9 +3566,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
         if (input === 'receiveDropDown2') {
             $scope.$eval(function () {
-                if(asset) {
+                if (asset) {
                     $scope.multiMakeSwapSendAssetArray.forEach((row) => {
-                        if(row.id !== asset.id){
+                        if (row.id !== asset.id) {
                             row.sendDropDown = false;
                             row.sendDropDown2 = false;
                             row.receiveDropDown = false;
@@ -3889,7 +3895,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         toVerifiedImage: toVerifiedImage,
                         toHasImage: toHasImage,
                         toVerified: toVerified,
-                        
+
                         // multi-swap related
                         expand: false,
                         fromAssetsArray: [],
@@ -3906,6 +3912,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
 
             $scope.$applyAsync(function () {
+                console.log(swapListFront);
                 $scope.swapsList = swapListFront;
                 // sort according to timePosixValue
                 $scope.swapsList = $scope.swapsList.sort(function (a, b) {

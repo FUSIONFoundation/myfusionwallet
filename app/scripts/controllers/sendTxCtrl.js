@@ -2882,7 +2882,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.walletTimeOut = async function () {
         timeout = setTimeout(function () {
             window.location.reload();
-        }, 60000);
+        }, 600000);
     }
     $scope.walletTimeOut();
 
