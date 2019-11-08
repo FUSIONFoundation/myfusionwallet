@@ -2796,7 +2796,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.createMinAmountHex = async (amount, assetId, makeminumumswap) => {
-        console.log(amount, assetId, makeminumumswap)
         if (!makeminumumswap || makeminumumswap <= 0) {
             makeminumumswap = 1;
         }
@@ -2935,12 +2934,36 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             // Send
             for (let x in s) {
                 FromAssetID.push(s[x].assetToSend);
+                console.log(s[x].fromStartTime);
+                if(!s[x].fromStartTime){
+                    s[x].fromStartTime = 0;
+                }
+                console.log(s[x].fromEndTime);
+                if(!s[x].fromEndTime || s[x].fromEndTime == ""){
+                    s[x].fromEndTime = web3.fsn.consts.TimeForeverStr;
+                    FromEndTime.push(s[x].fromEndTime);
+                } else {
+                    FromEndTime.push(getHexDate(convertDate(s[x].fromEndTime)));
+                }
+                console.log(s[x].fromEndTime);
+                FromStartTime.push(getHexDate(convertDate(s[x].fromStartTime)));
                 MinFromAmount.push(await $scope.createMinAmountHex(s[x].makeSendAmount, s[x].assetToSend, $scope.makeMinumumSwap));
             }
 
             // Receive
             for (let x in r) {
+                if(!r[x].toStartTime){
+                    r[x].toStartTime = 0;
+                }
+                if(!r[x].toEndTime || r[x].toEndTime == ""){
+                    r[x].toEndTime = web3.fsn.consts.TimeForeverStr;
+                    ToEndTime.push(r[x].toEndTime);
+                } else {
+                    ToEndTime.push(getHexDate(convertDate(r[x].toEndTime)));
+                }
+                console.log(r[x].toEndTime);
                 ToAssetID.push(r[x].assetToReceive);
+                ToStartTime.push(getHexDate(convertDate(r[x].toStartTime)));
                 MinToAmount.push(await $scope.createMinAmountHex(r[x].makeReceiveAmount, r[x].assetToReceive, $scope.makeMinumumSwap));
             }
 
@@ -2950,7 +2973,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 ToAssetID: ToAssetID,
                 MinFromAmount: MinFromAmount,
                 MinToAmount: MinToAmount,
-                SwapSize: parseInt($scope.makeMinumumSwap)
+                ToStartTime: ToStartTime,
+                ToEndTime: ToEndTime,
+                FromStartTime: FromStartTime,
+                FromEndTime: FromEndTime,
+                Targes: $scope.targesArray,
+                SwapSize: parseInt($scope.makeMinumumSwap),
             }
 
             data = txData;
