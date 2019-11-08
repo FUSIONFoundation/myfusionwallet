@@ -3087,7 +3087,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.recallSwap = async function (swap_id) {
         $scope.recallTxid = undefined;
-
         if (walletService.wallet !== null) {
             let password = walletService.password;
             let accountData = uiFuncs.getTxData($scope);
@@ -3104,28 +3103,70 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 );
             }
 
-            try {
-                await web3.fsntx.buildRecallSwapTx(data).then(function (tx) {
-                    tx.from = walletAddress;
-                    tx.chainId = _CHAINID;
-                    data = tx;
-                    if ($scope.wallet.hwType == "ledger") {
-                        return;
-                    }
-                    return web3.fsn
-                        .signAndTransmit(tx, $scope.account.signTransaction)
-                        .then(txHash => {
-                            console.log(txHash);
-                            $scope.$applyAsync(function () {
-                                $scope.recallTxid = txHash;
-                                $scope.getTransactionStatus(txHash);
-                            })
-                            $scope.recallSwapSuccess.open();
-                        });
-                });
-            } catch (err) {
-                $scope.errorModal.open();
-                console.log(err);
+            let url = `${window.getApiServer()}/swaps2/${data.SwapID}`
+            let d;
+            await ajaxReq.http.get(url).then(function (r) {
+                d = r.data[0];
+            });
+
+            if (!d) {
+                return;
+            }
+
+            let swapDetails = JSON.parse(d.data);
+            let isMultiSwap = false;
+            if(Array.isArray(swapDetails.FromAssetID) || Array.isArray(swapDetails.ToAssetID)){
+                isMultiSwap = true;
+            }
+
+            if(isMultiSwap){
+                try {
+                    await web3.fsntx.buildRecallMultiSwapTx(data).then(function (tx) {
+                        tx.from = walletAddress;
+                        tx.chainId = _CHAINID;
+                        data = tx;
+                        if ($scope.wallet.hwType == "ledger") {
+                            return;
+                        }
+                        return web3.fsn
+                            .signAndTransmit(tx, $scope.account.signTransaction)
+                            .then(txHash => {
+                                console.log(txHash);
+                                $scope.$applyAsync(function () {
+                                    $scope.recallTxid = txHash;
+                                    $scope.getTransactionStatus(txHash);
+                                })
+                                $scope.recallSwapSuccess.open();
+                            });
+                    });
+                } catch (err) {
+                    $scope.errorModal.open();
+                    console.log(err);
+                }
+            } else {
+                try {
+                    await web3.fsntx.buildRecallSwapTx(data).then(function (tx) {
+                        tx.from = walletAddress;
+                        tx.chainId = _CHAINID;
+                        data = tx;
+                        if ($scope.wallet.hwType == "ledger") {
+                            return;
+                        }
+                        return web3.fsn
+                            .signAndTransmit(tx, $scope.account.signTransaction)
+                            .then(txHash => {
+                                console.log(txHash);
+                                $scope.$applyAsync(function () {
+                                    $scope.recallTxid = txHash;
+                                    $scope.getTransactionStatus(txHash);
+                                })
+                                $scope.recallSwapSuccess.open();
+                            });
+                    });
+                } catch (err) {
+                    $scope.errorModal.open();
+                    console.log(err);
+                }
             }
             if ($scope.wallet.hwType == "ledger") {
                 let ledgerConfig = {
@@ -3700,7 +3741,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }
                 data.fromAssetId = x.FromAssetID[i];
                 data.fromAssetSymbol = allAssets[x.FromAssetID[i]]["Symbol"];
-                let formattedAmount = await $scope.returnFormattedAmount(x.MinFromAmount[i], allAssets[x.FromAssetID[i]]["Decimals"], x["SwapSize"],leftOverBN);
+                let formattedAmount = await $scope.returnFormattedAmount(x.MinFromAmount[i], allAssets[x.FromAssetID[i]]["Decimals"], x["SwapSize"], leftOverBN);
                 data.fromAmount = formattedAmount.toString();
                 data.fromAmountCut = +formattedAmount.toFixed(8);
                 data.FromStartTime = x.FromStartTime[i];
@@ -3767,7 +3808,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }
                 data.toAssetId = x.ToAssetID[i];
                 data.toAssetSymbol = allAssets[x.ToAssetID[i]]["Symbol"];
-                let formattedAmount = await $scope.returnFormattedAmount(x.MinToAmount[i], allAssets[x.ToAssetID[i]]["Decimals"], x["SwapSize"],leftOverBN);
+                let formattedAmount = await $scope.returnFormattedAmount(x.MinToAmount[i], allAssets[x.ToAssetID[i]]["Decimals"], x["SwapSize"], leftOverBN);
                 data.toAmount = formattedAmount.toString();
                 data.toAmountCut = +formattedAmount.toFixed(8);
                 data.ToStartTime = x.ToStartTime[i];
@@ -3791,7 +3832,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
     $scope.returnFormattedAmount = async (minamount, decimals, swapsize, leftoverbn) => {
-        console.log(minamount,decimals,swapsize,leftoverbn);
+        console.log(minamount, decimals, swapsize, leftoverbn);
         let minFromAmountBN = new window.BigNumber(minamount.toString());
         let fromAmountDec = $scope.countDecimals(decimals);
         let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
@@ -3874,22 +3915,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             for (let asset in swapList) {
                 console.log(swapList[asset]);
                 // from
-                if(!Array.isArray(swapList[asset]["FromAssetID"])){
+                if (!Array.isArray(swapList[asset]["FromAssetID"])) {
                     let a = [];
                     a.push(swapList[asset]["FromAssetID"]);
                     swapList[asset]["FromAssetID"] = a;
                 }
-                if(!Array.isArray(swapList[asset]["FromEndTime"])){
+                if (!Array.isArray(swapList[asset]["FromEndTime"])) {
                     let a = [];
                     a.push(swapList[asset]["FromEndTime"]);
                     swapList[asset]["FromEndTime"] = a;
                 }
-                if(!Array.isArray(swapList[asset]["FromStartTime"])){
+                if (!Array.isArray(swapList[asset]["FromStartTime"])) {
                     let a = [];
                     a.push(swapList[asset]["FromStartTime"]);
                     swapList[asset]["FromStartTime"] = a;
                 }
-                if(!Array.isArray(swapList[asset]["MinFromAmount"])){
+                if (!Array.isArray(swapList[asset]["MinFromAmount"])) {
                     let a = [];
                     a.push(swapList[asset]["MinFromAmount"]);
                     swapList[asset]["MinFromAmount"] = a;
@@ -3897,22 +3938,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
                 // to
 
-                if(!Array.isArray(swapList[asset]["ToAssetID"])){
+                if (!Array.isArray(swapList[asset]["ToAssetID"])) {
                     let a = [];
                     a.push(swapList[asset]["ToAssetID"]);
                     swapList[asset]["ToAssetID"] = a;
                 }
-                if(!Array.isArray(swapList[asset]["ToEndTime"])){
+                if (!Array.isArray(swapList[asset]["ToEndTime"])) {
                     let a = [];
                     a.push(swapList[asset]["ToEndTime"]);
                     swapList[asset]["ToEndTime"] = a;
                 }
-                if(!Array.isArray(swapList[asset]["ToStartTime"])){
+                if (!Array.isArray(swapList[asset]["ToStartTime"])) {
                     let a = [];
                     a.push(swapList[asset]["ToStartTime"]);
                     swapList[asset]["ToStartTime"] = a;
                 }
-                if(!Array.isArray(swapList[asset]["MinToAmount"])){
+                if (!Array.isArray(swapList[asset]["MinToAmount"])) {
                     let a = [];
                     a.push(swapList[asset]["MinToAmount"]);
                     swapList[asset]["MinToAmount"] = a;
