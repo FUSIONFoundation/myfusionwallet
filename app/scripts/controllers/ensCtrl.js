@@ -2267,6 +2267,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         let fromAsset = [];
 
+        $scope.$applyAsync(function () {
+            $scope.multiTakeSwapSendAssetArray = $scope.swapsList[id].toAssetsArray;
+            $scope.multiTakeSwapReceiveAssetArray = $scope.swapsList[id].fromAssetsArray;
+        });
+
+        console.log($scope.multiTakeSwapSendAssetArray);
+
         try {
             await web3.fsn
                 .getBalance($scope.swapsList[id].toAssetId, walletAddress)
@@ -2375,36 +2382,43 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         }
 
         window.Decimal.set({precision: 18, rounding: 4});
-
         let perc1 = new window.Decimal(
             $scope.convertToString($scope.takeAmountSwap)
         );
-
         if (amount >= 0) {
             perc1 = new window.Decimal($scope.convertToString(1));
         }
-
         let perc2 = new window.Decimal(
             $scope.convertToString($scope.takeDataFront.size)
         );
         let perc3 = perc1.div($scope.convertToString(perc2));
 
-        let perc4 = perc1.dividedBy(perc2.toString());
 
-        let fromAmountBN = new window.Decimal(
-            $scope.convertToString($scope.takeDataFront.fromAmount)
-        );
-        let fromFinal = fromAmountBN.times($scope.convertToString(perc3));
+        for (let i in $scope.multiTakeSwapSendAssetArray) {
+            let fromAmountBN = new window.Decimal(
+                $scope.convertToString($scope.multiTakeSwapSendAssetArray[i].toAmount)
+            );
+            let fromFinal = fromAmountBN.times($scope.convertToString(perc3));
 
-        let toAmountBN = new window.Decimal(
-            $scope.convertToString($scope.takeDataFront.toAmount)
-        );
-        let toFinal = toAmountBN.times($scope.convertToString(perc3));
+            let toAmountBN = new window.Decimal(
+                $scope.convertToString($scope.takeDataFront.toAmount)
+            );
+            let toFinal = toAmountBN.times($scope.convertToString(perc3));
 
-        await $scope.$applyAsync(function () {
-            $scope.receiveTokens = fromFinal.toPrecision(5);
-            $scope.sendTokens = toFinal.toPrecision(5);
-        });
+            await $scope.$applyAsync(function () {
+                $scope.multiTakeSwapSendAssetArray[i].sendTokens = fromFinal.toPrecision(5);
+            });
+        }
+        for (let i in $scope.multiTakeSwapReceiveAssetArray) {
+            let toAmountBN = new window.Decimal(
+                $scope.convertToString($scope.multiTakeSwapReceiveAssetArray[i].fromAmount)
+            );
+            let toFinal = toAmountBN.times($scope.convertToString(perc3));
+
+            await $scope.$applyAsync(function () {
+                $scope.multiTakeSwapReceiveAssetArray[i].receiveTokens = toFinal.toPrecision(5);
+            });
+        }
     };
 
     $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
@@ -2935,11 +2949,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             for (let x in s) {
                 FromAssetID.push(s[x].assetToSend);
                 console.log(s[x].fromStartTime);
-                if(!s[x].fromStartTime){
+                if (!s[x].fromStartTime) {
                     s[x].fromStartTime = 0;
                 }
                 console.log(s[x].fromEndTime);
-                if(!s[x].fromEndTime || s[x].fromEndTime == ""){
+                if (!s[x].fromEndTime || s[x].fromEndTime == "") {
                     s[x].fromEndTime = web3.fsn.consts.TimeForeverStr;
                     FromEndTime.push(s[x].fromEndTime);
                 } else {
@@ -2952,10 +2966,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             // Receive
             for (let x in r) {
-                if(!r[x].toStartTime){
+                if (!r[x].toStartTime) {
                     r[x].toStartTime = 0;
                 }
-                if(!r[x].toEndTime || r[x].toEndTime == ""){
+                if (!r[x].toEndTime || r[x].toEndTime == "") {
                     r[x].toEndTime = web3.fsn.consts.TimeForeverStr;
                     ToEndTime.push(r[x].toEndTime);
                 } else {
@@ -3143,11 +3157,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             let swapDetails = JSON.parse(d.data);
             let isMultiSwap = false;
-            if(Array.isArray(swapDetails.FromAssetID) || Array.isArray(swapDetails.ToAssetID)){
+            if (Array.isArray(swapDetails.FromAssetID) || Array.isArray(swapDetails.ToAssetID)) {
                 isMultiSwap = true;
             }
 
-            if(isMultiSwap){
+            if (isMultiSwap) {
                 try {
                     await web3.fsntx.buildRecallMultiSwapTx(data).then(function (tx) {
                         tx.from = walletAddress;
