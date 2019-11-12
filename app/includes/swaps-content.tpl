@@ -1698,7 +1698,7 @@
                         <hr class="last-hr">
                         <div class="row actions-row">
                             <div class="btn-grp">
-                                <button class="btn btn-white main-btn-secondary" ng-click="makeSwapModal.close()">
+                                <button class="btn btn-white main-btn-secondary" ng-click="closeMakeSwapModal()">
                                     Cancel
                                 </button>
                                 <button class="btn btn-primary main-btn-primary"
