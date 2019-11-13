@@ -9312,7 +9312,7 @@
                         <hr class="last-hr">
                         <div class="row actions-row">
                             <div class="btn-grp">
-                                <button class="btn btn-white main-btn-secondary" ng-click="makeSwapModal.close()">
+                                <button class="btn btn-white main-btn-secondary" ng-click="closeMakeSwapModal()">
                                     Cancel
                                 </button>
                                 <button class="btn btn-primary main-btn-primary"
@@ -9926,11 +9926,11 @@
                                     <!-- CONFIRM TAKE SWAP SEND MULTI ASSETS MARKER -->
                                     <div class="summary-cell" ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
                                         <div class="logo">
-                                            <img ng-if="multiSendAsset.swapId.toHasImage==true"
-                                                 ng-src="images/verifiedassets/{{multiSendAsset.swapId.toVerifiedImage}}"
+                                            <img ng-if="multiSendAsset.toHasImage==true"
+                                                 ng-src="images/verifiedassets/{{multiSendAsset.toVerifiedImage}}"
                                                  height="32px" width="32px"/>
-                                            <span ng-if="!multiSendAsset.swapId.toHasImage"
-                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.swapId.toAssetSymbol}}</span>
+                                            <span ng-if="!multiSendAsset.toHasImage"
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.toAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
@@ -9945,11 +9945,11 @@
                                             </div>
                                             <div class="date-range">
                                                 <span class="small-gray-text"
-                                                      ng-hide="multiSendAsset.swapId.ToStartTime == 0 && multiSendAsset.swapId.ToEndTime == 18446744073709552000">
+                                                      ng-hide="multiSendAsset.ToStartTime == 0 && multiSendAsset.ToEndTime == 18446744073709552000">
                                                     <img class="mr-2 icon" src="images/send-timelock-icon.svg"
                                                          width="12px">
-                                                    <span class="range">{{multiSendAsset.swapId.ToStartTimeString}}
-                                                        - {{multiSendAsset.swapId.ToEndTimeString}}</span>
+                                                    <span class="range">{{multiSendAsset.ToStartTimeString}}
+                                                        - {{multiSendAsset.ToEndTimeString}}</span>
                                                 </span>
                                             </div>
                                         </div>
@@ -9967,11 +9967,11 @@
                                     <div ng-repeat="multiReceiveAsset in multiTakeSwapReceiveAssetArray track by $index">
                                         <div class="summary-cell" ng-show="multiReceiveAsset.toAssetId !== DEFAULT_USAN">
                                             <div class="logo">
-                                                <img ng-if="multiReceiveAsset.swapId.fromHasImage==true"
-                                                    ng-src="images/verifiedassets/{{multiReceiveAsset.swapId.fromVerifiedImage}}"
+                                                <img ng-if="multiReceiveAsset.fromHasImage==true"
+                                                    ng-src="images/verifiedassets/{{multiReceiveAsset.fromVerifiedImage}}"
                                                     height="32px" width="32px"/>
-                                                <span ng-if="!multiReceiveAsset.swapId.fromHasImage"
-                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.swapId.fromAssetSymbol}}</span>
+                                                <span ng-if="!multiReceiveAsset.fromHasImage"
+                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.fromAssetSymbol}}</span>
                                             </div>
                                             <div class="details-wrapper">
                                                 <div class="details">
@@ -9986,8 +9986,8 @@
                                                 </div>
                                                 <div class="date-range">
                                                     <span class="small-gray-text"
-                                                        ng-hide="multiReceiveAsset.swapId.FromStartTime == 0
-                                                        && multiReceiveAsset.swapId.FromEndTime == 18446744073709552000">
+                                                        ng-hide="multiReceiveAsset.FromStartTime == 0
+                                                        && multiReceiveAsset.FromEndTime == 18446744073709552000">
                                                         <img class="mr-2" src="images/sendtl.svg" width="12px">
                                                         <span>{{multiReceiveAsset.swapId.FromStartTimeString}}
                                                             - {{multiReceiveAsset.swapId.FromEndTimeString}}</span>
