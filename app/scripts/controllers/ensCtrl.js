@@ -2255,9 +2255,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         await $scope.allSwaps(0);
     };
 
+    $scope.getIdForSwap = async (id) =>{
+        let d = 0;
+        for (let i in $scope.swapsList){
+            if($scope.swapsList[i].id === id){
+                d = i;
+            }
+        }
+
+        return d;
+    }
 
     $scope.takeId = 0;
+
     $scope.takeModal = async function (id, pass) {
+        id = await $scope.getIdForSwap(id);
+        console.log(`The ID is ${id}`);
+        console.log($scope.swapsList[id].toAssetsArray);
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let balance = "";
@@ -2453,27 +2467,62 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             );
         }
 
-        try {
-            await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
-                tx.from = walletAddress;
-                tx.chainId = _CHAINID;
-                data = tx;
-                if ($scope.wallet.hwType == "ledger") {
-                    return;
-                }
-                web3.fsn
-                    .signAndTransmit(tx, $scope.account.signTransaction)
-                    .then(txHash => {
-                        $scope.takeTxid = txHash;
-                        $scope.getTransactionStatus(txHash);
-                        window.log(`TXID : ${txHash}`);
-                    });
+        let isMultiSwap = false;
 
-                return $scope.takeSwapEndConfirm.open();
-            });
-        } catch (err) {
-            $scope.errorModal.open();
-            console.log(err);
+        if(swap_id.fromAssetsArray.length > 1 || swap_id.toAssetsArray.length > 1){
+            isMultiSwap = true;
+        }
+
+        if(!isMultiSwap) {
+            try {
+                await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
+                    tx.from = walletAddress;
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    web3.fsn
+                        .signAndTransmit(tx, $scope.account.signTransaction)
+                        .then(txHash => {
+                            $scope.takeTxid = txHash;
+                            $scope.getTransactionStatus(txHash);
+                            window.log(`TXID : ${txHash}`);
+                        });
+
+                    return $scope.takeSwapEndConfirm.open();
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+                console.log(err);
+            }
+        }
+
+        // if multi swap
+
+        if(isMultiSwap) {
+            try {
+                await web3.fsntx.buildTakeMultiSwapTx(data).then(function (tx) {
+                    tx.from = walletAddress;
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    web3.fsn
+                        .signAndTransmit(tx, $scope.account.signTransaction)
+                        .then(txHash => {
+                            $scope.takeTxid = txHash;
+                            $scope.getTransactionStatus(txHash);
+                            window.log(`TXID : ${txHash}`);
+                        });
+
+                    return $scope.takeSwapEndConfirm.open();
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+                console.log(err);
+            }
         }
         if ($scope.wallet.hwType == "ledger") {
             let ledgerConfig = {
