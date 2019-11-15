@@ -1246,7 +1246,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.walletTimeOut = function () {
         timeout = setTimeout(function () {
             window.location.reload();
-        }, 600000);
+        }, 6000000);
     }
     $scope.walletTimeOut();
 
@@ -1960,7 +1960,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         id = r;
         });
         let d = $scope.swapsList[id];
-        console.log(d);
         let leftOver = parseInt(d.size) / parseInt(d.maxswaps);
         let leftOverBN = new window.BigNumber(leftOver.toString());
         let toAssets = $scope.swapsList[id].toAssetsArray;
@@ -1974,7 +1973,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let compress = compressArray(b);
         let totalAmount = new window.BigNumber("0");
         if (compress[0].count == toAssets.length) {
-            console.log(`All the same`);
             allSame = true;
             for(let asset in toAssets){
                 let b = new window.BigNumber(toAssets[asset].toAmount);
@@ -2550,8 +2548,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             isMultiSwap = true;
         }
 
-        return $scope.takeSwapEndConfirm.open();
-
         if(!isMultiSwap) {
             try {
                 await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
@@ -2575,11 +2571,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.errorModal.open();
                 console.log(err);
             }
-        }
-
-        // if multi swap
-
-        if(isMultiSwap) {
+        } else if(isMultiSwap) {
             try {
                 await web3.fsntx.buildTakeMultiSwapTx(data).then(function (tx) {
                     tx.from = walletAddress;
