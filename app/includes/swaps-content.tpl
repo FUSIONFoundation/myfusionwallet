@@ -781,7 +781,7 @@
                         <div ng-hide="asset.owned == true">
                             <button class="btn btn-sm btn-white m-0 swap-btn"
                                     ng-click="takeModal(asset.id)"
-                                    ng-disabled="takeAvailable(asset.toAssetId,asset.minswaptaker,asset.ToStartTime,asset.ToEndTime)"
+                                    ng-disabled="takeAvailable(asset.id)"
                             >Take Swap
                             </button>
                         </div>

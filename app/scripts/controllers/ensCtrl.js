@@ -1924,23 +1924,102 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.hasTimeLockBalance = function (asset_id) {
         return $scope.myTimeLockedAssets.includes(asset_id);
     };
-    $scope.takeAvailable = function (asset_id, minswaptaker, ToStartTime, ToEndTime) {
-        if ($scope.allBalance[asset_id] >= minswaptaker) {
-            return false;
-        } else if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
-            if ($scope.allBalance[asset_id] >= minswaptaker) {
-                // console.log(asset_id, minswaptaker, ToStartTime, ToEndTime);
-                return false;
+
+    function compressArray(original) {
+
+        var compressed = [];
+        // make a copy of the input array
+        var copy = original.slice(0);
+
+        // first loop goes over every element
+        for (var i = 0; i < original.length; i++) {
+
+            var myCount = 0;
+            // loop over every element in the copy and see if it's the same
+            for (var w = 0; w < copy.length; w++) {
+                if (original[i] == copy[w]) {
+                    // increase amount of times duplicate is found
+                    myCount++;
+                    // sets item to undefined
+                    delete copy[w];
+                }
+            }
+
+            if (myCount > 0) {
+                var a = new Object();
+                a.value = original[i];
+                a.count = myCount;
+                compressed.push(a);
+            }
+        }
+
+        return compressed;
+    };
+    $scope.takeAvailable = (id) => {
+        $scope.getIdForSwap(id).then(function(r){
+        id = r;
+        });
+        let d = $scope.swapsList[id];
+        console.log(d);
+        let leftOver = parseInt(d.size) / parseInt(d.maxswaps);
+        let leftOverBN = new window.BigNumber(leftOver.toString());
+        let toAssets = $scope.swapsList[id].toAssetsArray;
+
+        let b = [];
+        for(let i in toAssets){
+            b.push(toAssets[i].toAssetId);
+        }
+
+        let allSame = false;
+        let compress = compressArray(b);
+        let totalAmount = new window.BigNumber("0");
+        if (compress[0].count == toAssets.length) {
+            console.log(`All the same`);
+            allSame = true;
+            for(let asset in toAssets){
+                let b = new window.BigNumber(toAssets[asset].toAmount);
+                totalAmount = totalAmount.plus(b);
+            }
+        }
+
+
+        for(let asset in toAssets){
+            let toAmount;
+            if(!allSame) {
+                toAmount = new window.BigNumber(toAssets[asset].toAmount);
             } else {
+                toAmount = new window.BigNumber(totalAmount);
+            }
+            let needMinimumBalance = toAmount.mul(leftOverBN);
+            let asset_id = toAssets[asset].toAssetId;
+
+            if($scope.allBalance[asset_id] == undefined){
                 return true;
             }
-        } else if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000) {
-            if ($scope.myTimeLockedAssets.includes(asset_id) == true) {
+
+            let balance = new window.BigNumber($scope.allBalance[asset_id]);
+
+            if (balance.gte(needMinimumBalance)) {
                 return false;
             } else {
                 return true;
             }
         }
+
+        // } else if (ToStartTime == 0 && ToEndTime == 18446744073709552000) {
+        //     if ($scope.allBalance[asset_id] >= minswaptaker) {
+        //         // console.log(asset_id, minswaptaker, ToStartTime, ToEndTime);
+        //         return false;
+        //     } else {
+        //         return true;
+        //     }
+        // } else if (ToStartTime != 0 && ToEndTime != 18446744073709552000 || ToStartTime == 0 && ToEndTime != 18446744073709552000 || ToStartTime != 0 && ToEndTime == 18446744073709552000) {
+        //     if ($scope.myTimeLockedAssets.includes(asset_id) == true) {
+        //         return false;
+        //     } else {
+        //         return true;
+        //     }
+        // }
     }
 
 
@@ -2473,59 +2552,57 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         return $scope.takeSwapEndConfirm.open();
 
-        debugger
+        if(!isMultiSwap) {
+            try {
+                await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
+                    tx.from = walletAddress;
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    web3.fsn
+                        .signAndTransmit(tx, $scope.account.signTransaction)
+                        .then(txHash => {
+                            $scope.takeTxid = txHash;
+                            $scope.getTransactionStatus(txHash);
+                            window.log(`TXID : ${txHash}`);
+                        });
 
-        // if(!isMultiSwap) {
-        //     try {
-        //         await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
-        //             tx.from = walletAddress;
-        //             tx.chainId = _CHAINID;
-        //             data = tx;
-        //             if ($scope.wallet.hwType == "ledger") {
-        //                 return;
-        //             }
-        //             web3.fsn
-        //                 .signAndTransmit(tx, $scope.account.signTransaction)
-        //                 .then(txHash => {
-        //                     $scope.takeTxid = txHash;
-        //                     $scope.getTransactionStatus(txHash);
-        //                     window.log(`TXID : ${txHash}`);
-        //                 });
-        //
-        //             return $scope.takeSwapEndConfirm.open();
-        //         });
-        //     } catch (err) {
-        //         $scope.errorModal.open();
-        //         console.log(err);
-        //     }
-        // }
-        //
-        // // if multi swap
-        //
-        // if(isMultiSwap) {
-        //     try {
-        //         await web3.fsntx.buildTakeMultiSwapTx(data).then(function (tx) {
-        //             tx.from = walletAddress;
-        //             tx.chainId = _CHAINID;
-        //             data = tx;
-        //             if ($scope.wallet.hwType == "ledger") {
-        //                 return;
-        //             }
-        //             web3.fsn
-        //                 .signAndTransmit(tx, $scope.account.signTransaction)
-        //                 .then(txHash => {
-        //                     $scope.takeTxid = txHash;
-        //                     $scope.getTransactionStatus(txHash);
-        //                     window.log(`TXID : ${txHash}`);
-        //                 });
-        //
-        //             return $scope.takeSwapEndConfirm.open();
-        //         });
-        //     } catch (err) {
-        //         $scope.errorModal.open();
-        //         console.log(err);
-        //     }
-        // }
+                    return $scope.takeSwapEndConfirm.open();
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+                console.log(err);
+            }
+        }
+
+        // if multi swap
+
+        if(isMultiSwap) {
+            try {
+                await web3.fsntx.buildTakeMultiSwapTx(data).then(function (tx) {
+                    tx.from = walletAddress;
+                    tx.chainId = _CHAINID;
+                    data = tx;
+                    if ($scope.wallet.hwType == "ledger") {
+                        return;
+                    }
+                    web3.fsn
+                        .signAndTransmit(tx, $scope.account.signTransaction)
+                        .then(txHash => {
+                            $scope.takeTxid = txHash;
+                            $scope.getTransactionStatus(txHash);
+                            window.log(`TXID : ${txHash}`);
+                        });
+
+                    return $scope.takeSwapEndConfirm.open();
+                });
+            } catch (err) {
+                $scope.errorModal.open();
+                console.log(err);
+            }
+        }
         if ($scope.wallet.hwType == "ledger") {
             let ledgerConfig = {
                 privKey: $scope.wallet.privKey
@@ -3469,7 +3546,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 if (!Array.isArray(swapList[asset]["FromAssetID"])) {
                     let a = [];
                     a.push(swapList[asset]["FromAssetID"]);
-                    console.log(swapList[asset])
                     swapList[asset]["FromAssetID"] = a;
                 }
                 if (!Array.isArray(swapList[asset]["FromEndTime"])) {
