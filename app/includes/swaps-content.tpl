@@ -736,9 +736,9 @@
                                                 <div class="asset">{{fromAsset.fromAmountCut}}</div>
                                                 <div class="currency">{{fromAsset.fromAssetSymbol}}</div>
                                                 <img class="color-Active verifier" ng-show="fromAsset.fromVerified"
-                                                    src="./images/verified.svg" height="14px" width="14px"/>
+                                                     src="./images/verified.svg" height="14px" width="14px"/>
                                                 <img class="color-Active verifier" ng-show="!fromAsset.fromVerified"
-                                                    src="./images/unverified.svg" height="14px" width="14px"/>
+                                                     src="./images/unverified.svg" height="14px" width="14px"/>
                                             </div>
                                             <div class="row-layout time-range"
                                                 ng-hide="fromAsset.FromStartTime == 0 && fromAsset.FromEndTime == 18446744073709552000">
@@ -936,10 +936,10 @@
                                                     <span class="qty">{{multiReceiveAsset.receiveTokens}}</span>
                                                     <div class="curr-sym">
                                                         <span class="currency">{{multiReceiveAsset.toAssetSymbol}}</span>
-                                                        <img class="symbol" ng-if="multiReceiveAsset.toVerified"
-                                                            src="./images/verified.svg" height="14px" width="14px"/>
-                                                        <img class="symbol" ng-if="!multiReceiveAsset.toVerified"
-                                                            src="./images/unverified.svg" height="16px" width="14px"/>
+                                                        <img class="color-Active verifier" ng-show="multiReceiveAsset.fromVerified"
+                                                             src="./images/verified.svg" height="14px" width="14px"/>
+                                                        <img class="color-Active verifier" ng-show="!multiReceiveAsset.fromVerified"
+                                                             src="./images/unverified.svg" height="14px" width="14px"/>
                                                     </div>
                                                 </div>
                                                 <div class="date-range">
@@ -1933,9 +1933,9 @@
                                                     <span class="qty">{{multiSendAsset.makeSendAmount}}</span>
                                                     <div class="curr-sym">
                                                         <span class="currency">{{multiSendAsset.selectedSendAssetSymbol}}</span>
-                                                        <img class="symbol" ng-if="multiSendAsset.selectedSendVerified"
+                                                        <img class="symbol" ng-if="multiSendAsset.toVerified"
                                                             src="./images/verified.svg" height="14px" width="14px"/>
-                                                        <img class="symbol" ng-if="!multiSendAsset.selectedSendVerified"
+                                                        <img class="symbol" ng-if="!multiSendAsset.toVerified"
                                                             src="./images/unverified.svg" height="16px" width="14px"/>
                                                     </div>
                                                 </div>
@@ -2323,9 +2323,9 @@
                                                 <span class="qty">{{multiSendAsset.sendTokens}}</span>
                                                 <div class="curr-sym">
                                                     <span class="currency">{{multiSendAsset.fromAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="multiSendAsset.fromVerified"
+                                                    <img class="symbol" ng-if="multiSendAsset.toVerified"
                                                          src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!multiSendAsset.fromVerified"
+                                                    <img class="symbol" ng-if="!multiSendAsset.toVerified"
                                                          src="./images/unverified.svg" height="16px" width="14px"/>
                                                 </div>
                                             </div>
@@ -2364,10 +2364,10 @@
                                                     <span class="qty">{{multiReceiveAsset.receiveTokens}}</span>
                                                     <div class="curr-sym">
                                                         <span class="currency">{{multiReceiveAsset.toAssetSymbol}}</span>
-                                                        <img class="symbol" ng-if="multiReceiveAsset.toVerified"
-                                                            src="./images/verified.svg" height="14px" width="14px"/>
-                                                        <img class="symbol" ng-if="!multiReceiveAsset.toVerified"
-                                                            src="./images/unverified.svg" height="16px" width="14px"/>
+                                                        <img class="color-Active verifier" ng-show="multiReceiveAsset.fromVerified"
+                                                             src="./images/verified.svg" height="14px" width="14px"/>
+                                                        <img class="color-Active verifier" ng-show="!multiReceiveAsset.fromVerified"
+                                                             src="./images/unverified.svg" height="14px" width="14px"/>
                                                     </div>
                                                 </div>
                                                 <div class="date-range">
@@ -2528,9 +2528,9 @@
                                                 <span class="qty">{{multiSendAsset.sendTokens}}</span>
                                                 <div class="curr-sym">
                                                     <span class="currency">{{multiSendAsset.fromAssetSymbol}}</span>
-                                                    <img class="symbol" ng-if="multiSendAsset.fromVerified"
+                                                    <img class="symbol" ng-if="multiSendAsset.toVerified"
                                                          src="./images/verified.svg" height="14px" width="14px"/>
-                                                    <img class="symbol" ng-if="!multiSendAsset.fromVerified"
+                                                    <img class="symbol" ng-if="!multiSendAsset.toVerified"
                                                          src="./images/unverified.svg" height="16px" width="14px"/>
                                                 </div>
                                             </div>
@@ -2570,9 +2570,9 @@
                                                     <span class="qty">{{multiReceiveAsset.receiveTokens}}</span>
                                                     <div class="curr-sym">
                                                         <span class="currency">{{multiReceiveAsset.toAssetSymbol}}</span>
-                                                        <img class="symbol" ng-if="multiReceiveAsset.toVerified"
+                                                        <img class="symbol" ng-if="multiReceiveAsset.fromVerified"
                                                             src="./images/verified.svg" height="14px" width="14px"/>
-                                                        <img class="symbol" ng-if="!multiReceiveAsset.toVerified"
+                                                        <img class="symbol" ng-if="!multiReceiveAsset.fromVerified"
                                                             src="./images/unverified.svg" height="16px" width="14px"/>
                                                     </div>
                                                 </div>

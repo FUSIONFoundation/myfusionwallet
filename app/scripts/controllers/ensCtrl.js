@@ -2270,8 +2270,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.takeModal = async function (id, pass) {
         id = await $scope.getIdForSwap(id);
-        console.log(`The ID is ${id}`);
-        console.log($scope.swapsList[id].toAssetsArray);
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let balance = "";
@@ -2364,7 +2362,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
 
         await $scope.setReceive(1).then(function () {
-            if (!pass) {
+            if (!pass || $scope.takeDataFront.toAssetId !== "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
                 if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
                     if (!$scope.takeDataFront.toVerified) {
                         $scope.suspiciousAssetModal.open();
@@ -2473,57 +2471,61 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             isMultiSwap = true;
         }
 
-        if(!isMultiSwap) {
-            try {
-                await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
-                    tx.from = walletAddress;
-                    tx.chainId = _CHAINID;
-                    data = tx;
-                    if ($scope.wallet.hwType == "ledger") {
-                        return;
-                    }
-                    web3.fsn
-                        .signAndTransmit(tx, $scope.account.signTransaction)
-                        .then(txHash => {
-                            $scope.takeTxid = txHash;
-                            $scope.getTransactionStatus(txHash);
-                            window.log(`TXID : ${txHash}`);
-                        });
+        return $scope.takeSwapEndConfirm.open();
 
-                    return $scope.takeSwapEndConfirm.open();
-                });
-            } catch (err) {
-                $scope.errorModal.open();
-                console.log(err);
-            }
-        }
+        debugger
 
-        // if multi swap
-
-        if(isMultiSwap) {
-            try {
-                await web3.fsntx.buildTakeMultiSwapTx(data).then(function (tx) {
-                    tx.from = walletAddress;
-                    tx.chainId = _CHAINID;
-                    data = tx;
-                    if ($scope.wallet.hwType == "ledger") {
-                        return;
-                    }
-                    web3.fsn
-                        .signAndTransmit(tx, $scope.account.signTransaction)
-                        .then(txHash => {
-                            $scope.takeTxid = txHash;
-                            $scope.getTransactionStatus(txHash);
-                            window.log(`TXID : ${txHash}`);
-                        });
-
-                    return $scope.takeSwapEndConfirm.open();
-                });
-            } catch (err) {
-                $scope.errorModal.open();
-                console.log(err);
-            }
-        }
+        // if(!isMultiSwap) {
+        //     try {
+        //         await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
+        //             tx.from = walletAddress;
+        //             tx.chainId = _CHAINID;
+        //             data = tx;
+        //             if ($scope.wallet.hwType == "ledger") {
+        //                 return;
+        //             }
+        //             web3.fsn
+        //                 .signAndTransmit(tx, $scope.account.signTransaction)
+        //                 .then(txHash => {
+        //                     $scope.takeTxid = txHash;
+        //                     $scope.getTransactionStatus(txHash);
+        //                     window.log(`TXID : ${txHash}`);
+        //                 });
+        //
+        //             return $scope.takeSwapEndConfirm.open();
+        //         });
+        //     } catch (err) {
+        //         $scope.errorModal.open();
+        //         console.log(err);
+        //     }
+        // }
+        //
+        // // if multi swap
+        //
+        // if(isMultiSwap) {
+        //     try {
+        //         await web3.fsntx.buildTakeMultiSwapTx(data).then(function (tx) {
+        //             tx.from = walletAddress;
+        //             tx.chainId = _CHAINID;
+        //             data = tx;
+        //             if ($scope.wallet.hwType == "ledger") {
+        //                 return;
+        //             }
+        //             web3.fsn
+        //                 .signAndTransmit(tx, $scope.account.signTransaction)
+        //                 .then(txHash => {
+        //                     $scope.takeTxid = txHash;
+        //                     $scope.getTransactionStatus(txHash);
+        //                     window.log(`TXID : ${txHash}`);
+        //                 });
+        //
+        //             return $scope.takeSwapEndConfirm.open();
+        //         });
+        //     } catch (err) {
+        //         $scope.errorModal.open();
+        //         console.log(err);
+        //     }
+        // }
         if ($scope.wallet.hwType == "ledger") {
             let ledgerConfig = {
                 privKey: $scope.wallet.privKey
@@ -2980,7 +2982,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         console.log(data);
 
-        if ($scope.multiMakeSwapSendAssetArray.length !== 1 && $scope.multiMakeSwapSendAssetArray.length !== 1) {
+        if ($scope.multiMakeSwapSendAssetArray.length !== 1 || $scope.multiMakeSwapSendAssetArray.length !== 1) {
             console.log(`Multi swap`)
             let s = $scope.multiMakeSwapSendAssetArray;
             let r = $scope.multiMakeSwapReceiveAssetArray;
@@ -3420,7 +3422,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.openMakesList = async function () {
         $scope.usanAlreadyInSwap = false;
         let usanAlreadyInSwap = false;
-        let swapList = {};
+        let swapList = [];
         let openMakeListFront = [];
 
         if (openMakesListRunning) {
@@ -3442,8 +3444,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 for (let swap in swaps) {
                     if (swaps[swap].data) {
                         let data = JSON.parse(swaps[swap].data);
-                        swapList[data["SwapID"]] = data;
-                        swapList[data["SwapID"]].size = swaps[swap].size
+                        if(data["SwapID"] !== undefined) {
+                            swapList[data["SwapID"]] = data;
+                            swapList[data["SwapID"]].size = swaps[swap].size;
+                        }
                     }
                 }
             } catch (err) {
@@ -3460,11 +3464,58 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
 
             for (let asset in swapList) {
+
+                // from
+                if (!Array.isArray(swapList[asset]["FromAssetID"])) {
+                    let a = [];
+                    a.push(swapList[asset]["FromAssetID"]);
+                    console.log(swapList[asset])
+                    swapList[asset]["FromAssetID"] = a;
+                }
+                if (!Array.isArray(swapList[asset]["FromEndTime"])) {
+                    let a = [];
+                    a.push(swapList[asset]["FromEndTime"]);
+                    swapList[asset]["FromEndTime"] = a;
+                }
+                if (!Array.isArray(swapList[asset]["FromStartTime"])) {
+                    let a = [];
+                    a.push(swapList[asset]["FromStartTime"]);
+                    swapList[asset]["FromStartTime"] = a;
+                }
+                if (!Array.isArray(swapList[asset]["MinFromAmount"])) {
+                    let a = [];
+                    a.push(swapList[asset]["MinFromAmount"]);
+                    swapList[asset]["MinFromAmount"] = a;
+                }
+
+                // to
+
+                if (!Array.isArray(swapList[asset]["ToAssetID"])) {
+                    let a = [];
+                    a.push(swapList[asset]["ToAssetID"]);
+                    swapList[asset]["ToAssetID"] = a;
+                }
+                if (!Array.isArray(swapList[asset]["ToEndTime"])) {
+                    let a = [];
+                    a.push(swapList[asset]["ToEndTime"]);
+                    swapList[asset]["ToEndTime"] = a;
+                }
+                if (!Array.isArray(swapList[asset]["ToStartTime"])) {
+                    let a = [];
+                    a.push(swapList[asset]["ToStartTime"]);
+                    swapList[asset]["ToStartTime"] = a;
+                }
+                if (!Array.isArray(swapList[asset]["MinToAmount"])) {
+                    let a = [];
+                    a.push(swapList[asset]["MinToAmount"]);
+                    swapList[asset]["MinToAmount"] = a;
+                }
+
                 let id = swapList[asset]["ID"];
                 let assetBalance = "";
 
-                let fromAsset = allAssets[swapList[asset]["FromAssetID"]];
-                let toAsset = allAssets[swapList[asset]["ToAssetID"]];
+                let fromAsset = allAssets[swapList[asset]["FromAssetID"][0]];
+                let toAsset = allAssets[swapList[asset]["ToAssetID"][0]];
                 let fromVerifiedImage = "";
                 let fromHasImage = false;
                 let fromVerified = false;
@@ -3568,7 +3619,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let leftOverBN = new window.BigNumber(leftOver.toString());
 
                 // fromAmount
-                let minFromAmountBN = new window.BigNumber(swapList[asset]["MinFromAmount"].toString());
+                let minFromAmountBN = new window.BigNumber(swapList[asset]["MinFromAmount"][0].toString());
                 let fromAmountDec = $scope.countDecimals(fromAsset["Decimals"]);
                 let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
                 let minFromAmountFormattedBN = minFromAmountBN.div(minFromAmountDecimalsBN);
@@ -3577,7 +3628,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let minFromAmountFinal = leftOverBN.times(minFromMaxAmountBN);
 
                 // toAmount
-                let minToAmountBN = new window.BigNumber(swapList[asset]["MinToAmount"].toString());
+                let minToAmountBN = new window.BigNumber(swapList[asset]["MinToAmount"][0].toString());
                 let toAmountDec = $scope.countDecimals(toAsset["Decimals"]);
                 let minToAmountDecimalsBN = new window.BigNumber(toAmountDec.toString());
                 let minToAmountFormattedBN = minToAmountBN.div(minToAmountDecimalsBN);
@@ -3589,16 +3640,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromAmountF = minFromAmountFinal.toString();
 
                 let minimumswapopenmake =
-                    fromAmountF / parseInt(swapList[asset]["size"]);
+                    fromAmountF / parseInt(swapList[asset]["SwapSize"]);
 
                 let data = {
                     id: openMakeListFront.length,
                     swap_id: swapList[asset]["SwapID"],
-                    fromAssetId: swapList[asset]["FromAssetID"],
+                    fromAssetId: swapList[asset]["FromAssetID"][0],
                     fromAssetSymbol: fromAsset["Symbol"],
                     fromAmount: fromAmountF,
                     fromAmountCut: +minFromAmountFinal.toFixed(8),
-                    toAssetId: swapList[asset]["ToAssetID"],
+                    toAssetId: swapList[asset]["ToAssetID"][0],
                     toAmount: toAmountF,
                     toAmountCut: +minToAmountFinal.toFixed(8),
                     toAssetSymbol: toAsset["Symbol"],
@@ -3614,24 +3665,24 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     targes: targes,
                     owner: swapList[asset]["Owner"],
                     owned: true,
-                    FromEndTime: swapList[asset]["FromEndTime"],
-                    FromStartTime: swapList[asset]["FromStartTime"],
+                    FromEndTime: swapList[asset]["FromEndTime"][0],
+                    FromStartTime: swapList[asset]["FromStartTime"][0],
                     FromEndTimeString: $scope.returnDateString(
-                        swapList[asset]["FromEndTime"],
+                        swapList[asset]["FromEndTime"][0],
                         "End"
                     ),
                     FromStartTimeString: $scope.returnDateString(
-                        swapList[asset]["FromStartTime"],
+                        swapList[asset]["FromStartTime"][0],
                         "Start"
                     ),
-                    ToEndTime: swapList[asset]["ToEndTime"],
-                    ToStartTime: swapList[asset]["ToStartTime"],
+                    ToEndTime: swapList[asset]["ToEndTime"][0],
+                    ToStartTime: swapList[asset]["ToStartTime"][0],
                     ToEndTimeString: $scope.returnDateString(
-                        swapList[asset]["ToEndTime"],
+                        swapList[asset]["ToEndTime"][0],
                         "End"
                     ),
                     ToStartTimeString: $scope.returnDateString(
-                        swapList[asset]["ToStartTime"],
+                        swapList[asset]["ToStartTime"][0],
                         "Start"
                     ),
                     fromVerifiedImage: fromVerifiedImage,
@@ -3643,9 +3694,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
                     // multi-swap related
                     expand: false,
-                    fromAssetsArray: [],
-                    toAssetsArray: [],
+                    fromAssetsArray: await $scope.returnFromSwapsDatastructure(swapList[asset]),
+                    toAssetsArray: await $scope.returnToSwapsDatastructure(swapList[asset]),
                 };
+
+                console.log(data);
 
                 await openMakeListFront.push(data);
 
@@ -3657,6 +3710,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.openMakes = openMakeListFront;
             $scope.openMakeSwaps = $scope.openMakes.length;
         });
+        console.log($scope.openMakes);
         await $scope.checkMakeSwapConditions();
         window.log("Finished retrieving all Open Swaps");
         openMakesListRunning = false;
@@ -3809,7 +3863,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let fromHasImage = false;
                 let fromVerified = false;
                 let data = {};
-                console.log(i);
+                // console.log(i);
 
                 for (let a in window.verifiedAssetsImages) {
                     if (
@@ -3851,7 +3905,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     s.push(data);
             }
         }
-        console.log(s);
+        // console.log(s);
         return s;
     }
     $scope.returnToSwapsDatastructure = async (x) => {
@@ -3876,7 +3930,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 let toHasImage = false;
                 let toVerified = false;
                 let data = {};
-                console.log(i);
+                // console.log(i);
 
                 for (let a in window.verifiedAssetsImages) {
                     if (
@@ -3918,12 +3972,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     s.push(data);
             }
         }
-        console.log(s);
+        // console.log(s);
         return s;
     }
 
     $scope.returnFormattedAmount = async (minamount, decimals, swapsize, leftoverbn) => {
-        console.log(minamount, decimals, swapsize, leftoverbn);
+        // console.log(minamount, decimals, swapsize, leftoverbn);
         let minFromAmountBN = new window.BigNumber(minamount.toString());
         let fromAmountDec = $scope.countDecimals(decimals);
         let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
@@ -4004,7 +4058,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
 
             for (let asset in swapList) {
-                console.log(swapList[asset]);
                 // from
                 if (!Array.isArray(swapList[asset]["FromAssetID"])) {
                     let a = [];
@@ -4051,7 +4104,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }
 
 
-                console.log(swapList[asset]);
+                // console.log(swapList[asset]);
                 let id = swapList[asset]["ID"];
                 let owner = swapList[asset]["Owner"];
                 let owned = false;
@@ -4244,7 +4297,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                         fromAssetsArray: await $scope.returnFromSwapsDatastructure(swapList[asset]),
                         toAssetsArray: await $scope.returnToSwapsDatastructure(swapList[asset]),
                     };
-                    console.log(data);
+                    // console.log(data);
                     if (swapList[asset]["Targes"].length > 0) {
                         if (swapList[asset]["Targes"].includes(walletAddress)) {
                             await swapListFront.push(data)
@@ -4256,7 +4309,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
 
             $scope.$applyAsync(function () {
-                console.log(swapListFront);
+                // console.log(swapListFront);
                 $scope.swapsList = swapListFront;
                 // sort according to timePosixValue
                 $scope.swapsList = $scope.swapsList.sort(function (a, b) {
