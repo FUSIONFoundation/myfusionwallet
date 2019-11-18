@@ -5,13 +5,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     let data = nu ? JSON.parse(nu) : {};
     let _CHAINID = window.defaultChainId;
 
-    $scope.suspiciousAsset = function (input) {
-        if (window.verifiedList.list.some(item => item.symbol === input.toUpperCase()) ||
-            window.verifiedList.list.some(item => item.name.toUpperCase() === input.toUpperCase())) {
-            return true;
-        } else {
-            return false;
+    $scope.suspiciousAsset = async (id) => {
+        id = await $scope.getIdForSwap(id);
+        let assets = $scope.swapsList[id].toAssetsArray;
+        for (let i in assets) {
+            if (assets[i].toVerified === true) {
+                return true;
+            }
         }
+        return false;
     };
 
     $scope.closesendDropDown = function () {
@@ -1956,8 +1958,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return compressed;
     };
     $scope.takeAvailable = (id) => {
-        $scope.getIdForSwap(id).then(function(r){
-        id = r;
+        $scope.getIdForSwap(id).then(function (r) {
+            id = r;
         });
         let d = $scope.swapsList[id];
         let leftOver = parseInt(d.size) / parseInt(d.maxswaps);
@@ -1965,7 +1967,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let toAssets = $scope.swapsList[id].toAssetsArray;
 
         let b = [];
-        for(let i in toAssets){
+        for (let i in toAssets) {
             b.push(toAssets[i].toAssetId);
         }
 
@@ -1974,16 +1976,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let totalAmount = new window.BigNumber("0");
         if (compress[0].count == toAssets.length) {
             allSame = true;
-            for(let asset in toAssets){
+            for (let asset in toAssets) {
                 let b = new window.BigNumber(toAssets[asset].toAmount);
                 totalAmount = totalAmount.plus(b);
             }
         }
 
 
-        for(let asset in toAssets){
+        for (let asset in toAssets) {
             let toAmount;
-            if(!allSame) {
+            if (!allSame) {
                 toAmount = new window.BigNumber(toAssets[asset].toAmount);
             } else {
                 toAmount = new window.BigNumber(totalAmount);
@@ -1991,7 +1993,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let needMinimumBalance = toAmount.mul(leftOverBN);
             let asset_id = toAssets[asset].toAssetId;
 
-            if($scope.allBalance[asset_id] == undefined){
+            if ($scope.allBalance[asset_id] == undefined) {
                 return true;
             }
 
@@ -2332,10 +2334,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         await $scope.allSwaps(0);
     };
 
-    $scope.getIdForSwap = async (id) =>{
+    $scope.getIdForSwap = async (id) => {
         let d = 0;
-        for (let i in $scope.swapsList){
-            if($scope.swapsList[i].id === id){
+        for (let i in $scope.swapsList) {
+            if ($scope.swapsList[i].id === id) {
                 d = i;
             }
         }
@@ -2439,26 +2441,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
 
         await $scope.setReceive(1).then(function () {
-            if (!pass || $scope.takeDataFront.toAssetId !== "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff") {
-                if ($scope.suspiciousAsset($scope.takeDataFront.toAssetName) || $scope.suspiciousAsset($scope.takeDataFront.toAssetSymbol)) {
-                    if (!$scope.takeDataFront.toVerified) {
-                        $scope.suspiciousAssetModal.open();
-                    } else {
-                        $scope.takeSwapModal.open()
-                    }
+            if (!pass) {
+                if (!$scope.suspiciousAsset(id)) {
+                    $scope.suspiciousAssetModal.open();
                 } else {
-                    try {
-                        $scope.takeSwapModal.open();
-                    } catch (err) {
-                        console.log(err);
-                    }
+                    $scope.takeSwapModal.open();
                 }
             } else {
-                try {
-                    $scope.takeSwapModal.open();
-                } catch (err) {
-                    console.log(err);
-                }
+                $scope.takeSwapModal.open();
             }
         });
     };
@@ -2508,6 +2498,25 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.multiTakeSwapReceiveAssetArray[i].receiveTokens = toFinal.toPrecision(5);
             });
         }
+
+        for (let i in $scope.multiTakeSwapSendAssetArray) {
+            let fromAmountBN = new window.Decimal(
+                $scope.convertToString($scope.multiTakeSwapSendAssetArray[i].toAmount)
+            );
+
+            let k = i;
+            if($scope.multiTakeSwapReceiveAssetArray[i].fromAmount == undefined){
+                k = i -1;
+            }
+            let toAmountBN = new window.Decimal(
+                $scope.convertToString($scope.multiTakeSwapReceiveAssetArray[k].fromAmount)
+            );
+            let swapRate = fromAmountBN.div($scope.convertToString(toAmountBN));
+
+            await $scope.$applyAsync(function () {
+                $scope.multiTakeSwapSendAssetArray[i].swaprate = swapRate;
+            });
+        }
     };
 
     $scope.calculateSwapSize = function (amount, swap_size, maxamount) {
@@ -2544,11 +2553,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         let isMultiSwap = false;
 
-        if(swap_id.fromAssetsArray.length > 1 || swap_id.toAssetsArray.length > 1){
+        if (swap_id.fromAssetsArray.length > 1 || swap_id.toAssetsArray.length > 1) {
             isMultiSwap = true;
         }
 
-        if(!isMultiSwap) {
+        if (!isMultiSwap) {
             try {
                 await web3.fsntx.buildTakeSwapTx(data).then(function (tx) {
                     tx.from = walletAddress;
@@ -2571,7 +2580,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.errorModal.open();
                 console.log(err);
             }
-        } else if(isMultiSwap) {
+        } else if (isMultiSwap) {
             try {
                 await web3.fsntx.buildTakeMultiSwapTx(data).then(function (tx) {
                     tx.from = walletAddress;
@@ -3513,7 +3522,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 for (let swap in swaps) {
                     if (swaps[swap].data) {
                         let data = JSON.parse(swaps[swap].data);
-                        if(data["SwapID"] !== undefined) {
+                        if (data["SwapID"] !== undefined) {
                             swapList[data["SwapID"]] = data;
                             swapList[data["SwapID"]].size = swaps[swap].size;
                         }

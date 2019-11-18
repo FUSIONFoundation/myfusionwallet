@@ -7934,7 +7934,7 @@
                                 <!-- TAKE SWAP MULTI ASSETS PRICE MARKER -->
                                 <div class="price-value">
                                     <div ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
-                                        <span class="amt">{{multiSendAsset.swapRate}}</span>
+                                        <span class="amt">{{multiSendAsset.swaprate}}</span>
                                         <span class="currency">
                                             {{multiSendAsset.fromAssetSymbol + (($index != multiTakeSwapSendAssetArray.length-1) ? ', ' : '')}}</span>
                                     </div>
@@ -9332,8 +9332,8 @@
                                                         ng-hide="multiReceiveAsset.FromStartTime == 0
                                                         && multiReceiveAsset.FromEndTime == 18446744073709552000">
                                                         <img class="mr-2" src="images/sendtl.svg" width="12px">
-                                                        <span>{{multiReceiveAsset.swapId.FromStartTimeString}}
-                                                            - {{multiReceiveAsset.swapId.FromEndTimeString}}</span>
+                                                        <span>{{multiReceiveAsset.FromStartTimeString}}
+                                                            - {{multiReceiveAsset.FromEndTimeString}}</span>
                                                     </span>
                                                 </div>
                                             </div>
@@ -9362,7 +9362,7 @@
                                 <!-- CONFIRM TAKE SWAP MULTI ASSETS PRICE MARKER -->
                                 <div class="price-value">
                                     <div ng-repeat="multiSendAsset in multiTakeSwapSendAssetArray track by $index">
-                                        <span class="amt">{{multiSendAsset.swapRate}}</span>
+                                        <span class="amt">{{multiSendAsset.swaprate}}</span>
                                         <span class="currency">
                                             {{multiSendAsset.fromAssetSymbol + (($index != multiTakeSwapSendAssetArray.length-1) ? ', ' : '')}}</span>
                                     </div>
