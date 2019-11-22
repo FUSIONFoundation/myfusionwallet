@@ -1710,11 +1710,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     };
 
     $scope.setMinimumMakes = function () {
+
         if (
             $scope.makeMinumumSwap <= 0 ||
-            $scope.makeMinumumSwap == "" ||
-            $scope.makeSendAmount <= 0 ||
-            $scope.makeReceiveAmount <= 0
+            $scope.makeMinumumSwap == ""
         ) {
             return;
         }
@@ -1723,19 +1722,30 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.convertToString($scope.makeMinumumSwap)
         );
 
-        //Send an receive
-        let makeSendBN = new window.BigNumber(
-            $scope.convertToString($scope.makeSendAmount)
-        );
-        let makeReceiveBN = new window.BigNumber(
-            $scope.convertToString($scope.makeReceiveAmount)
-        );
+        for (let i in $scope.multiMakeSwapSendAssetArray){
 
-        let makeSendFinal = makeSendBN.div(makeMinBN);
-        let makeReceiveFinal = makeReceiveBN.div(makeMinBN);
+            let makeSendBN = new window.BigNumber(
+                $scope.convertToString($scope.multiMakeSwapSendAssetArray[i].makeSendAmount)
+            );
+            let makeSendFinal = makeSendBN.div(makeMinBN);
+            $scope.$applyAsync(function() {
+                $scope.multiMakeSwapSendAssetArray[i].minimumMakeSend = makeSendFinal.toString();
+            });
+        }
 
-        $scope.minimumMakeSend = makeSendFinal.toString();
-        $scope.minimumReceiveSend = makeReceiveFinal.toString();
+        for (let i in $scope.multiMakeSwapReceiveAssetArray){
+
+            let makeReceiveBN = new window.BigNumber(
+                $scope.convertToString($scope.multiMakeSwapReceiveAssetArray[i].makeReceiveAmount)
+            );
+
+            let makeReceiveFinal = makeReceiveBN.div(makeMinBN);
+
+            $scope.$applyAsync(function(){
+                $scope.multiMakeSwapReceiveAssetArray[i].minimumReceiveSend = makeReceiveFinal.toString();
+            })
+
+        }
     };
 
     $scope.setReceiveAsset = async function (id, asset) {
