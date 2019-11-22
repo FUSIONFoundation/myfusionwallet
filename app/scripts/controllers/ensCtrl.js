@@ -213,26 +213,48 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         }
     }
-    $scope.setMakeUSAN = async () => {
-        $scope.$eval(function () {
-            $scope.selectedSendAsset = `USAN ${$scope.usanAddress}`;
-            $scope.selectedSendAssetSymbol = `${$scope.usanAddress}`;
-            $scope.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
-            $scope.selectedSendImage = false;
-            $scope.selectedSendHasImage = false;
-            $scope.assetToSend = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
-            $scope.selectedSendVerified = false;
-            $scope.sendHasTimeLockBalance = false;
-            $scope.sendDropDown = false;
-            $scope.sendDropDown2 = false;
-        });
-        $scope.sendChanged = 1;
-        $scope.$applyAsync(function () {
-            $scope.makeUSAN = true;
-        })
-        await $scope.checkMakeSwapConditions();
-        await $scope.allSwaps(0);
+    $scope.setMakeUSAN = async (asset) => {
+        if (asset) {
+            $scope.$eval(function () {
+                asset.selectedSendAsset = `USAN ${$scope.usanAddress}`;
+                asset.selectedSendAssetSymbol = `${$scope.usanAddress}`;
+                asset.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+                asset.selectedSendImage = false;
+                asset.selectedSendHasImage = false;
+                asset.assetToSend = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+                asset.selectedSendVerified = false;
+                asset.sendHasTimeLockBalance = false;
+                asset.sendDropDown = false;
+                asset.sendDropDown2 = false;
+            });
+            $scope.sendChanged = 1;
+            $scope.$applyAsync(function () {
+                $scope.makeUSAN = true;
+            })
+            await $scope.checkMakeSwapConditions();
+            await $scope.allSwaps(0);
+        } else {
+            $scope.$eval(function () {
+                $scope.selectedSendAsset = `USAN ${$scope.usanAddress}`;
+                $scope.selectedSendAssetSymbol = `${$scope.usanAddress}`;
+                $scope.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+                $scope.selectedSendImage = false;
+                $scope.selectedSendHasImage = false;
+                $scope.assetToSend = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
+                $scope.selectedSendVerified = false;
+                $scope.sendHasTimeLockBalance = false;
+                $scope.sendDropDown = false;
+                $scope.sendDropDown2 = false;
+            });
+            $scope.sendChanged = 1;
+            $scope.$applyAsync(function () {
+                $scope.makeUSAN = true;
+            })
+            await $scope.checkMakeSwapConditions();
+            await $scope.allSwaps(0);
+        }
     }
+
     $scope.setReceiveUSAN = async () => {
         $scope.$eval(function () {
             $scope.selectedReceiveAsset = `USAN`;
