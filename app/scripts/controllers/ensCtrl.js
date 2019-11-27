@@ -3109,18 +3109,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             // Send
             for (let x in s) {
                 FromAssetID.push(s[x].assetToSend);
-                console.log(s[x].fromStartTime);
                 if (!s[x].fromStartTime) {
                     s[x].fromStartTime = 0;
                 }
-                console.log(s[x].fromEndTime);
                 if (!s[x].fromEndTime || s[x].fromEndTime == "") {
                     s[x].fromEndTime = web3.fsn.consts.TimeForeverStr;
                     FromEndTime.push(s[x].fromEndTime);
                 } else {
                     FromEndTime.push(getHexDate(convertDate(s[x].fromEndTime)));
                 }
-                console.log(s[x].fromEndTime);
                 FromStartTime.push(getHexDate(convertDate(s[x].fromStartTime)));
                 MinFromAmount.push(await $scope.createMinAmountHex(s[x].makeSendAmount, s[x].assetToSend, $scope.makeMinumumSwap));
             }
@@ -3136,7 +3133,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 } else {
                     ToEndTime.push(getHexDate(convertDate(r[x].toEndTime)));
                 }
-                console.log(r[x].toEndTime);
                 ToAssetID.push(r[x].assetToReceive);
                 ToStartTime.push(getHexDate(convertDate(r[x].toStartTime)));
                 MinToAmount.push(await $scope.createMinAmountHex(r[x].makeReceiveAmount, r[x].assetToReceive, $scope.makeMinumumSwap));

@@ -8805,7 +8805,7 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeMinumumSwapConfirm}}</div>
                             </div>
-                            <div class="address-row" ng-show="privateAccess">
+                            <div class="address-row" ng-show="privateAccess && targesArray.length > 0">
                                 <div class="left-grp">
                                     <div class="price">
                                         <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
@@ -8875,25 +8875,25 @@
                                 </div>
                                 <div class="summary-content">
 
-                                     <!-- PENDING MAKE SWAP SEND MULTI ASSETS MARKER -->
+                                    <!-- REVIEW MAKE SWAP SEND MULTI ASSETS MARKER -->
                                     <div ng-repeat="multiSendAsset in multiMakeSwapSendAssetArray track by $index">
                                         <div class="summary-cell" ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN">
                                             <div class="logo">
                                                 <img ng-if="multiSendAsset.selectedSendHasImage==true"
-                                                    ng-src="images/verifiedassets/{{multiSendAsset.selectedSendImage}}" height="32px"
-                                                    width="32px"/>
+                                                     ng-src="images/verifiedassets/{{multiSendAsset.selectedSendImage}}" height="32px"
+                                                     width="32px"/>
                                                 <span ng-if="!multiSendAsset.selectedSendHasImage"
-                                                    class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.selectedSendAssetSymbol}}</span>
+                                                      class="btn btn-white btn-circle w32 asset-round mt-0">{{multiSendAsset.selectedSendAssetSymbol}}</span>
                                             </div>
                                             <div class="details-wrapper">
                                                 <div class="details">
                                                     <span class="qty">{{multiSendAsset.makeSendAmount}}</span>
                                                     <div class="curr-sym">
                                                         <span class="currency">{{multiSendAsset.selectedSendAssetSymbol}}</span>
-                                                        <img class="symbol" ng-if="multiSendAsset.toVerified"
-                                                            src="./images/verified.svg" height="14px" width="14px"/>
-                                                        <img class="symbol" ng-if="!multiSendAsset.toVerified"
-                                                            src="./images/unverified.svg" height="16px" width="14px"/>
+                                                        <img class="symbol" ng-if="multiSendAsset.selectedSendVerified"
+                                                             src="./images/verified.svg" height="14px" width="14px"/>
+                                                        <img class="symbol" ng-if="!multiSendAsset.selectedSendVerified"
+                                                             src="./images/unverified.svg" height="16px" width="14px"/>
                                                     </div>
                                                 </div>
                                                 <div class="date-range">
@@ -8926,14 +8926,14 @@
                                 </div>
                                 <div class="summary-content">
 
-                                    <!-- PENDING MAKE SWAP SEND MULTI ASSETS MARKER -->
+                                    <!-- REVIEW MAKE SWAP SEND MULTI ASSETS MARKER -->
                                     <div class="summary-cell" ng-repeat="multiReceiveAsset in multiMakeSwapReceiveAssetArray track by $index">
                                         <div class="logo">
                                             <img ng-if="multiReceiveAsset.multiReceiveAssetselectedReceiveHasImage==true"
-                                                ng-src="images/verifiedassets/{{multiReceiveAsset.selectedReceiveImage}}" height="32px"
-                                                width="32px"/>
+                                                 ng-src="images/verifiedassets/{{multiReceiveAsset.selectedReceiveImage}}" height="32px"
+                                                 width="32px"/>
                                             <span ng-if="!multiReceiveAsset.selectedReceiveHasImage"
-                                                class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
+                                                  class="btn btn-white btn-circle w32 asset-round mt-0">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
                                         </div>
                                         <div class="details-wrapper">
                                             <div class="details">
@@ -8941,9 +8941,9 @@
                                                 <div class="curr-sym">
                                                     <span class="currency">{{multiReceiveAsset.selectedReceiveAssetSymbol}}</span>
                                                     <img class="symbol" ng-if="multiReceiveAsset.selectedReceiveVerified"
-                                                        src="./images/verified.svg" height="14px" width="14px"/>
+                                                         src="./images/verified.svg" height="14px" width="14px"/>
                                                     <img class="symbol" ng-if="!multiReceiveAsset.selectedReceiveVerified"
-                                                        src="./images/unverified.svg" height="16px" width="14px"/>
+                                                         src="./images/unverified.svg" height="16px" width="14px"/>
                                                 </div>
                                             </div>
                                             <div class="date-range">
@@ -9005,7 +9005,7 @@
                                 <div class="price-filler"></div>
                                 <div class="price-value">{{makeMinumumSwapConfirm}}</div>
                             </div>
-                            <div class="address-row" ng-show="privateAccess">
+                            <div class="address-row" ng-show="privateAccess && targesArray.length > 0">
                                 <div class="left-grp">
                                     <div class="price">
                                         <img class="icon" src="./images/private.svg" height="24px" width="24px"/>
