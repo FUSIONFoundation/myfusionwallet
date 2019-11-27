@@ -2377,6 +2377,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return d;
     }
 
+    $scope.getSuspiciousMessage = async () => {
+        let suspicious = false;
+        for ( let i in $scope.multiTakeSwapReceiveAssetArray){
+            console.log($scope.multiTakeSwapReceiveAssetArray[i]);
+            if($scope.multiTakeSwapReceiveAssetArray[i].fromVerified === false) suspicious = true;
+        }
+
+        return suspicious;
+    }
     $scope.takeId = 0;
 
     $scope.takeModal = async function (id, pass) {
@@ -2395,7 +2404,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.multiTakeSwapReceiveAssetArray = $scope.swapsList[id].fromAssetsArray;
         });
 
-        console.log($scope.multiTakeSwapSendAssetArray);
+        let suspicious = await $scope.getSuspiciousMessage();
 
         try {
             await web3.fsn
@@ -2463,7 +2472,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.takeDataFront.fromAmount = $scope.swapsList[id].fromAmount;
             $scope.takeDataFront.toAmount = $scope.swapsList[id].toAmount;
             $scope.takeDataFront.fromVerified = $scope.swapsList[id].toVerified;
-            $scope.takeDataFront.toVerified = $scope.swapsList[id].fromVerified;
+            $scope.takeDataFront.toVerified = suspicious;
             $scope.takeDataFront.size = $scope.swapsList[id].size;
             $scope.takeDataFront.maxTake = maxTake;
             $scope.takeAmountSwap = 1;
