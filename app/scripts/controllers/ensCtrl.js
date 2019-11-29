@@ -2378,13 +2378,14 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
     $scope.getSuspiciousMessage = async () => {
-        let suspicious = false;
         for ( let i in $scope.multiTakeSwapReceiveAssetArray){
             console.log($scope.multiTakeSwapReceiveAssetArray[i]);
-            if($scope.multiTakeSwapReceiveAssetArray[i].fromVerified === false) suspicious = true;
+            if($scope.multiTakeSwapReceiveAssetArray[i].fromVerified === false) {
+                return true;
+            } else {
+                return false;
+            }
         }
-
-        return suspicious;
     }
     $scope.takeId = 0;
 
@@ -2399,13 +2400,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         let fromAsset = [];
 
-        $scope.$applyAsync(function () {
+        await $scope.$applyAsync(function () {
             $scope.multiTakeSwapSendAssetArray = $scope.swapsList[id].toAssetsArray;
             $scope.multiTakeSwapReceiveAssetArray = $scope.swapsList[id].fromAssetsArray;
         });
 
         let suspicious = await $scope.getSuspiciousMessage();
-
+        
         try {
             await web3.fsn
                 .getBalance($scope.swapsList[id].toAssetId, walletAddress)
