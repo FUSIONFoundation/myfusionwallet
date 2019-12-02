@@ -1371,12 +1371,22 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let data = {};
         let owner = '';
         let size = 0;
+        let id = await $scope.getIdForSwap(swap_id);
+        swap_id = $scope.swapsList[id].swap_id;
+
 
         await ajaxReq.http.get(`${window.getApiServer()}/swaps2/${swap_id}`).then(function (r) {
+            console.log(r.data)
             size = r.data[0].size;
             data = JSON.parse(r.data[0].data);
             owner = r.data[0].fromAddress;
         });
+
+
+        console.log($scope.swapsList[id]);
+        console.log($scope.swapsList[id].toAssetsArray);
+        console.log($scope.swapsList[id].fromAssetsArray);
+
 
         let time = new Date(parseInt(data["Time"]) * 1000);
 
@@ -1386,151 +1396,42 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         time = $scope.months[tMonth] + " " + tDay + ", " + tYear;
 
-        let fromStartTime = "";
-        let fromEndTime = "";
-        let toStartTime = "";
-        let toEndTime = "";
-
-        if (data["FromStartTime"] == 0) {
-            fromStartTime = "Now";
-        } else {
-            fromStartTime = $scope.returnDateString(data["FromStartTime"]);
-        }
-        if (data["FromEndTime"] == 18446744073709552000) {
-            fromEndTime = "Forever";
-        } else {
-            fromEndTime = $scope.returnDateString(data["FromEndTime"]);
-        }
-
-        if (data["ToStartTime"] == 0) {
-            toStartTime = "Now";
-        } else {
-            toStartTime = $scope.returnDateString(data["ToStartTime"]);
-        }
-        if (data["ToEndTime"] == 18446744073709552000) {
-            toEndTime = "Forever";
-        } else {
-            toEndTime = $scope.returnDateString(data["ToEndTime"]);
-        }
-
         let targes = [];
 
         data["Targes"].length <= 0 ? (targes = "Public") : (targes = "Private");
 
-        let fromAsset = {};
-        let toAsset = {};
-
-        try {
-            await window.__fsnGetAsset(data["FromAssetID"]).then(function (res) {
-                fromAsset = res;
-            });
-        } catch (err) {
-            console.log(err);
-        }
-
-        try {
-            await window.__fsnGetAsset(data["ToAssetID"]).then(function (res) {
-                toAsset = res;
-            });
-        } catch (err) {
-            console.log(err);
-        }
-
-        let minFromAmount;
-        let minToAmount;
 
         let leftOver = parseInt(size) / parseInt(data["SwapSize"]);
         let leftOverBN = new window.BigNumber(leftOver.toString());
 
-        // fromAmount
-        let minFromAmountBN = new window.BigNumber(data["MinFromAmount"].toString());
-        let fromAmountDec = $scope.countDecimals(fromAsset["Decimals"]);
-        let minFromAmountDecimalsBN = new window.BigNumber(fromAmountDec.toString());
-        let minFromAmountFormattedBN = minFromAmountBN.div(minFromAmountDecimalsBN);
-        let minFromSwapSizeBN = new window.BigNumber(data["SwapSize"]);
-        let minFromMaxAmountBN = minFromAmountFormattedBN.times(minFromSwapSizeBN);
-        let minFromAmountFinal = leftOverBN.times(minFromMaxAmountBN);
-
-        //toAmount
-        let minToAmountBN = new window.BigNumber(data["MinToAmount"].toString());
-        let toAmountDec = $scope.countDecimals(toAsset["Decimals"]);
-        let minToAmountDecimalsBN = new window.BigNumber(toAmountDec.toString());
-        let minToAmountFormattedBN = minToAmountBN.div(minToAmountDecimalsBN);
-        let minToSwapSizeBN = new window.BigNumber(data["SwapSize"]);
-        let minToMaxAmountBN = minToAmountFormattedBN.times(minToSwapSizeBN);
-        let minToAmountFinal = leftOverBN.times(minToMaxAmountBN);
-
-        minFromAmount = minFromAmountFinal.toString()
-        minToAmount = minToAmountFinal.toString()
-
-        let fromVerifiedImage = "";
-        let fromHasImage = false;
-        let fromVerified = false;
-
-        for (let a in window.verifiedAssetsImages) {
-            if (window.verifiedAssetsImages[a].assetID == data["FromAssetID"]) {
-                // Set matched image name
-                fromVerifiedImage = window.verifiedAssetsImages[a].image;
-                fromHasImage = true;
-                fromVerified = true;
-            } else if (
-                data["FromAssetID"] ==
-                "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-            ) {
-                // Set matched image name
-                fromVerifiedImage = "EFSN_LIGHT.svg";
-                fromHasImage = true;
-                fromVerified = true;
-            }
-        }
-
-        let toVerifiedImage = "";
-        let toHasImage = false;
-        let toVerified = false;
-
-        for (let a in window.verifiedAssetsImages) {
-            if (window.verifiedAssetsImages[a].assetID == data["ToAssetID"]) {
-                // Set matched image name
-                toVerifiedImage = window.verifiedAssetsImages[a].image;
-                toHasImage = true;
-                toVerified = true;
-            } else if (
-                data["ToAssetID"] ==
-                "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
-            ) {
-                // Set matched image name
-                toVerifiedImage = "EFSN_LIGHT.svg";
-                toHasImage = true;
-                toVerified = true;
-            }
-        }
-
         $scope.$apply(function () {
             $scope.swapInfo = {
-                FromAssetName: fromAsset["Name"],
-                FromAssetSymbol: fromAsset["Symbol"],
-                FromAssetID: data["FromAssetID"],
-                FromEndTime: fromEndTime,
-                FromStartTime: fromStartTime,
+                FromAssetName: "",
+                FromAssetSymbol: "",
+                FromAssetID: "",
+                FromEndTime: "",
+                FromStartTime: "",
                 ID: data["SwapID"],
-                MinFromAmount: minFromAmount,
-                MinToAmount: minToAmount,
+                MinFromAmount: "",
+                MinToAmount: "",
                 Owner: owner,
                 SwapSize: parseInt(data["SwapSize"]),
                 Targes: targes,
                 Time: time,
                 size: parseInt(size),
-                ToAssetName: toAsset["Name"],
-                ToAssetSymbol: toAsset["Symbol"],
-                ToAssetID: data["ToAssetID"],
-                ToEndTime: toEndTime,
-                ToStartTime: toStartTime,
-                toVerifiedImage: toVerifiedImage,
-                toHasImage: toHasImage,
-                toVerified: toVerified,
-                fromVerifiedImage: fromVerifiedImage,
-                fromHasImage: fromHasImage,
-                fromVerified: fromVerified
+                ToAssets: $scope.swapsList[id].toAssetsArray,
+                FromAssets: $scope.swapsList[id].fromAssetsArray,
+                ToAssetName: "",
+                ToAssetSymbol: "",
+                ToAssetID: "",
+                ToEndTime: "",
+                ToStartTime: "",
+                toVerifiedImage: "",
+                toHasImage: "",
+                toVerified: "",
+                fromVerifiedImage: "",
+                fromHasImage: "",
+                fromVerified: ""
             };
         });
 
@@ -2406,7 +2307,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         });
 
         let suspicious = await $scope.getSuspiciousMessage();
-        
+        console.log(`Suspicious is ${suspicious}`)
+
         try {
             await web3.fsn
                 .getBalance($scope.swapsList[id].toAssetId, walletAddress)
