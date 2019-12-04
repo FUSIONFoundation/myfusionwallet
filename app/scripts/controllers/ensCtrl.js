@@ -3002,9 +3002,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             data.SwapSize = parseInt(1);
         }
 
-        console.log(data);
-
-        if ($scope.multiMakeSwapSendAssetArray.length !== 1 || $scope.multiMakeSwapSendAssetArray.length !== 1) {
+        if ($scope.multiMakeSwapSendAssetArray.length !== 1 || $scope.multiMakeSwapReceiveAssetArray.length !== 1) {
             console.log(`Multi swap`)
             let s = $scope.multiMakeSwapSendAssetArray;
             let r = $scope.multiMakeSwapReceiveAssetArray;

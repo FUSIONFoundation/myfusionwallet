@@ -8034,7 +8034,7 @@
                                      ng-click="asset.expand = true">
                                     <div class="expand-link">+{{asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY}}
                                         more
-                                        asset{{ (asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}
+                                        asset{(asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}
                                     </div>
                                 </div>
                             </td>
@@ -8135,7 +8135,7 @@
                                      ng-click="asset.expand = true">
                                     <div class="expand-link">+{{asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY}}
                                         more
-                                        asset{{ (asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1 ? "s" : "")}}
+                                        asset{{ (asset.fromAssetsArray.length - MAX_ASSETS_TO_DISPLAY > 1) ? "s" : ""}}
                                     </div>
                                 </div>
                             </td>
