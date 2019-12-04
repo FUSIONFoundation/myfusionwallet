@@ -1367,13 +1367,26 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return nameSymbol.substring(0, ((nameSymbol.length - (symbol.length + allowance))));
     };
 
-    $scope.swapInformationModalOpen = async function (swap_id) {
+    $scope.swapInformationModalOpen = async function (swap_id,make) {
         let data = {};
         let owner = '';
         let size = 0;
-        let id = await $scope.getIdForSwap(swap_id);
-        swap_id = $scope.swapsList[id].swap_id;
+        let id;
 
+        let toAssetsArray;
+        let fromAssetsArray;
+
+        if(make){
+            id = await $scope.getIdForMakeSwap(swap_id);
+            toAssetsArray = $scope.openMakes[id].toAssetsArray;
+            fromAssetsArray = $scope.openMakes[id].fromAssetsArray;
+            swap_id = $scope.openMakes[id].swap_id;
+        } else {
+            id = await $scope.getIdForSwap(swap_id);
+            toAssetsArray = $scope.swapsList[id].toAssetsArray;
+            fromAssetsArray = $scope.swapsList[id].fromAssetsArray;
+            swap_id = $scope.swapsList[id].swap_id;
+        }
 
         await ajaxReq.http.get(`${window.getApiServer()}/swaps2/${swap_id}`).then(function (r) {
             console.log(r.data)
@@ -1381,12 +1394,6 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             data = JSON.parse(r.data[0].data);
             owner = r.data[0].fromAddress;
         });
-
-
-        console.log($scope.swapsList[id]);
-        console.log($scope.swapsList[id].toAssetsArray);
-        console.log($scope.swapsList[id].fromAssetsArray);
-
 
         let time = new Date(parseInt(data["Time"]) * 1000);
 
@@ -1419,8 +1426,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 Targes: targes,
                 Time: time,
                 size: parseInt(size),
-                ToAssets: $scope.swapsList[id].toAssetsArray,
-                FromAssets: $scope.swapsList[id].fromAssetsArray,
+                ToAssets: toAssetsArray,
+                FromAssets: fromAssetsArray,
                 ToAssetName: "",
                 ToAssetSymbol: "",
                 ToAssetID: "",
@@ -2271,6 +2278,17 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let d = 0;
         for (let i in $scope.swapsList) {
             if ($scope.swapsList[i].id === id) {
+                d = i;
+            }
+        }
+
+        return d;
+    }
+
+    $scope.getIdForMakeSwap = async (id) => {
+        let d = 0;
+        for (let i in $scope.openMakes) {
+            if ($scope.openMakes[i].id === id) {
                 d = i;
             }
         }

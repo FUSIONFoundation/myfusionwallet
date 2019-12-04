@@ -475,7 +475,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in openMakes | orderBy:'-timePosix'| filter: { owned: true } track by $index">
-                            <td class="text-left cell-reset" ng-click="swapInformationModalOpen($index)">
+                            <td class="text-left cell-reset" ng-click="swapInformationModalOpen(asset.id,true)">
                                 <div class="row-layout">
                                     <div class="asset"
                                          ng-hide="asset.fromAssetId == DEFAULT_USAN">{{asset.swaprate.toFixed(4)}}</div>
@@ -489,7 +489,7 @@
                                     <div class="currency">{{asset.toAssetSymbol}}</div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen($index)"
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.id,true)"
                                 ng-class="{'usan-cell-reset' : asset.fromAssetId == DEFAULT_USAN}">
                                 <div class="row-item" ng-repeat="fromAsset in asset.fromAssetsArray track by $index">
                                     <div class="column-layout" ng-show="fromAsset.fromAssetId !== DEFAULT_USAN">
@@ -525,7 +525,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen($index)">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.id,true)">
                                 <div class="row-item" ng-repeat="toAsset in asset.toAssetsArray track by $index">
                                     <div class="column-layout">
                                         <div class="row-layout">
@@ -552,7 +552,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen($index)">
+                            <td class="text-right cell-reset" ng-click="swapInformationModalOpen(asset.id,true)">
                                 <div class="column-layout">
                                     <div class="row-layout">
                                         <div class="asset">{{asset.minswapopenmake.toFixed(4)}}</div>
