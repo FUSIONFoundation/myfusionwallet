@@ -158,6 +158,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         await $scope.setWalletAddress();
         await $scope.takeGetAllBalances();
         await $scope.openMakesList();
+        await $scope.allSwaps($scope.cachedAllSwapsPage,true);
         await $scope.takeSwapList();
         await $scope.getUSAN();
     }, 12000);
@@ -2929,6 +2930,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             parseInt(asset["Decimals"])
         );
 
+        if(assetId === '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'){
+            return "0x1";
+        }
+
         return "0x" + makeSendFinal.toString(16);
     }
 
@@ -3731,7 +3736,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     toAssetsArray: await $scope.returnToSwapsDatastructure(swapList[asset]),
                 };
 
-                console.log(data);
+                // console.log(data);
 
                 await openMakeListFront.push(data);
 
@@ -3743,7 +3748,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.openMakes = openMakeListFront;
             $scope.openMakeSwaps = $scope.openMakes.length;
         });
-        console.log($scope.openMakes);
+       // console.log($scope.openMakes);
         await $scope.checkMakeSwapConditions();
         window.log("Finished retrieving all Open Swaps");
         openMakesListRunning = false;
@@ -4021,18 +4026,29 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return minFromAmountFinal;
     }
 
-    $scope.allSwaps = async function (page) {
+    $scope.cachedAllSwapsPage = undefined;
+    $scope.$watch('currentPage',function(){
+        $scope.cachedAllSwapsPage = $scope.currentPage;
+    })
+
+    $scope.cachedAllSwapsPageRunning = false;
+
+    $scope.allSwaps = async function (page, cache) {
         if (!page) page = 0;
         if (walletService.wallet !== null) {
             if ($scope.allSwapsRunning) {
                 window.log(`allSwaps already running!`);
                 return;
             }
-            $scope.swapsList = [];
+            // $scope.swapsList = [];
             let swapList = [];
             let swapListFront = [];
 
             $scope.allSwapsRunning = true;
+
+            if(cache){
+                $scope.cachedAllSwapsPageRunning = true
+            }
             let accountData = uiFuncs.getTxData($scope);
             let walletAddress = accountData.from;
             let totalSwapsInQuery;
@@ -4341,18 +4357,20 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 }
             }
 
-            $scope.$applyAsync(function () {
+            swapListFront = swapListFront.sort(function (a, b) {
+                return b.timePosixValue - a.timePosixValue
+            });
+
+            await $scope.$applyAsync(function () {
                 // console.log(swapListFront);
                 $scope.swapsList = swapListFront;
                 // sort according to timePosixValue
-                $scope.swapsList = $scope.swapsList.sort(function (a, b) {
-                    return b.timePosixValue - a.timePosixValue
-                });
                 $scope.showLoader = false;
             });
 
             console.log($scope.swapsList);
             $scope.allSwapsRunning = false;
+            $scope.cachedAllSwapsPageRunning = false;
             window.log("Finished retrieving all Swaps");
         }
     };

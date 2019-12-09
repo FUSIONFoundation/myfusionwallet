@@ -618,14 +618,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 text-center p-5" ng-show="allSwapsRunning">
+                    <div class="col-md-12 text-center p-5" ng-show="allSwapsRunning && !cachedAllSwapsPageRunning">
                         <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                         <span class="small-gray-text">Loading...</span>
                     </div>
                     <div class="col-md-12 text-center p-5" ng-show="swapsList.length === 0 && !allSwapsRunning">
                         <span>No swaps for this trading pair</span>
                     </div>
-                    <table class="table table-new" ng-show="swapsList.length > 0 && !allSwapsRunning">
+                    <table class="table table-new" ng-show="swapsList.length > 0">
                         <thead>
                         <tr class="small-gray-table">
                             <th class="text-left header-left-edge" scope="col">PRICE</th>
