@@ -214,9 +214,10 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         }
     }
-    $scope.setMakeUSAN = async (asset) => {
-        if (asset) {
-            $scope.$eval(function () {
+    $scope.setMakeUSAN = async (asset,address) => {
+        console.log(asset);
+        if (address === $scope.DEFAULT_USAN) {
+            $scope.$applyAsync(function () {
                 asset.selectedSendAsset = `USAN ${$scope.usanAddress}`;
                 asset.selectedSendAssetSymbol = `${$scope.usanAddress}`;
                 asset.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
@@ -227,15 +228,13 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 asset.sendHasTimeLockBalance = false;
                 asset.sendDropDown = false;
                 asset.sendDropDown2 = false;
+                $scope.makeUSAN = true;
             });
             $scope.sendChanged = 1;
-            $scope.$applyAsync(function () {
-                $scope.makeUSAN = true;
-            })
             await $scope.checkMakeSwapConditions();
             await $scope.allSwaps(0);
         } else {
-            $scope.$eval(function () {
+            $scope.$applyAsync(function () {
                 $scope.selectedSendAsset = `USAN ${$scope.usanAddress}`;
                 $scope.selectedSendAssetSymbol = `${$scope.usanAddress}`;
                 $scope.selectedSendContract = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
@@ -1208,7 +1207,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     $scope.multiTakeSwapReceiveAssetArray = [];
 
     $scope.FUSION_CONTRACT_ADDRESS = "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
-    $scope.DEFAULT_USAN = "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe";
+    $scope.DEFAULT_USAN = '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe';
     $scope.sortByString = "Default";
     $scope.takeAmountSwap = "";
     $scope.showOpenTakes = false;
@@ -3114,6 +3113,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(`Not multi swap.`);
             let s = $scope.multiMakeSwapSendAssetArray[0];
             let r = $scope.multiMakeSwapReceiveAssetArray[0];
+
             let txData = {
                 FromAssetID: s.assetToSend,
                 MinFromAmount: await $scope.createMinAmountHex(s.makeSendAmount, s.assetToSend, $scope.makeMinumumSwap),
@@ -3129,6 +3129,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
             data = await $scope.checkMakeSwapTimeLocks(txData);
 
+            if(s.assetToSend === $scope.DEFAULT_USAN){
+                data.SwapSize = 1;
+            }
             console.log(data);
 
             try {

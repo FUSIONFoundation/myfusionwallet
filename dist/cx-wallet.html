@@ -8863,7 +8863,7 @@
                                             </div>
                                             <div class="ad-options-wrapper">
                                                 <div class="ad-usan" ng-show="!!usanAddress"
-                                                     ng-click="setMakeUSAN(multiSendAsset)">
+                                                     ng-click="setMakeUSAN(multiSendAsset,DEFAULT_USAN)">
                                                     <div class="ad-usan-title">SHORT ACCOUNT NUMBER</div>
                                                     <div class="ad-usan-content">
                                                         <div class="usan-selected">
@@ -9099,7 +9099,7 @@
 
                                 <div class="add-asset-btn"
                                      ng-click="addMakeSwapSendAssetRow()"
-                                     ng-hide="multiMakeSwapSendAssetArray.length >= MAX_SEND_ASSETS">
+                                     ng-hide="multiMakeSwapSendAssetArray.length >= MAX_SEND_ASSETS || makeUSAN">
                                     <img class="icon" src="images/add-circle-icon.svg" width="14px" height="14px">
                                     <div class="btn-name">Add Asset</div>
                                 </div>
@@ -9352,7 +9352,7 @@
 
                                 <div class="add-asset-btn"
                                      ng-click="addMakeSwapReceiveAssetRow()"
-                                     ng-hide="multiMakeSwapReceiveAssetArray.length >= MAX_RECEIVE_ASSETS">
+                                     ng-hide="multiMakeSwapReceiveAssetArray.length >= MAX_RECEIVE_ASSETS || makeUSAN">
                                     <img class="icon" src="images/add-circle-icon.svg" width="14px" height="14px">
                                     <div class="btn-name">Add Asset</div>
                                 </div>
@@ -9360,7 +9360,7 @@
                         </div>
 
                         <div class="number-fills-section"
-                             ng-show="selectedSendContract !== DEFAULT_USAN">
+                             ng-show="!makeUSAN">
 
                             <div class="fills-header">
                                 <img src="./images/fills.svg" width="24px" height="24px">
