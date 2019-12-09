@@ -8802,8 +8802,8 @@
                                         </div>
                                     </div>
                                     <div class="action-amount-currency">
-                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected">
-                                            <div ng-click="multiSendAsset.sendDropDown2 = !multiSendAsset.sendDropDown2  && closeAllOtherDropDowns('sendDropDown2', multiSendAsset)">
+                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected" ng-click="multiSendAsset.sendDropDown2 = !multiSendAsset.sendDropDown2  && closeAllOtherDropDowns('sendDropDown2', multiSendAsset)">
+                                            <div>
                                                 <div ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
                                                     (!multiSendAsset.selectedSendAsset || multiSendAsset.selectedSendAsset === 'All Assets'
                                                     || multiSendAsset.selectedSendAsset === 'Select asset')">Select
@@ -9130,8 +9130,8 @@
                                     </div>
 
                                     <div class="action-amount-currency">
-                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected">
-                                            <div ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
+                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected"  ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
+                                            <div>
                                                 <div ng-show="!multiReceiveAsset.selectedReceiveAsset || multiReceiveAsset.selectedReceiveAsset === 'All Assets' || multiReceiveAsset.selectedReceiveAsset === 'Select asset'">
                                                     Select Asset
                                                 </div>
@@ -9585,7 +9585,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="price-row">
+                            <div class="price-row" ng-show="!makeUSAN">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS
@@ -9800,7 +9800,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="price-row">
+                            <div class="price-row" ng-show="!makeUSAN">
                                 <div class="price">
                                     <img class="icon" src="./images/fills.svg" height="24px" width="24px"/>
                                     NUMBER OF FILLS
