@@ -1835,7 +1835,7 @@
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
                     <img class="close-btn" src="images/t.svg" width="20px" height="20px"
-                         ng-click="makeSwapConfirmModal.close()">
+                         ng-click="closeMakeSwapConfirmModal()">
                     <div class="limit-width">
                         <h3 class="h3-blue title">Review Make Swap</h3>
                         <p class="description">Please review the following details carefully before making your
@@ -2023,7 +2023,7 @@
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
                     <img class="close-btn" src="images/t.svg" width="20px" height="20px"
-                         ng-click="makeSwapConfirmEndModal.close()">
+                         ng-click="closeMakeSwapConfirmEndModal()">
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
                             <div class="spinner-grow text-primary icon" role="status"
@@ -2221,7 +2221,7 @@
                         <div class="row actions-row">
                             <div class="btn-grp">
                                 <button class="btn btn-white main-btn-secondary"
-                                        ng-click="makeSwapConfirmEndModal.close()">Close
+                                        ng-click="closeMakeSwapConfirmEndModal()">Close
                                 </button>
                             </div>
                         </div>
