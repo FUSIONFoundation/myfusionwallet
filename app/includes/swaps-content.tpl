@@ -2023,7 +2023,7 @@
             <section class="modal-content no-shadow">
                 <article class="block no-shadow reset-modal" ng-hide="wallet.type=='addressOnly'">
                     <img class="close-btn" src="images/t.svg" width="20px" height="20px"
-                         ng-click="closeMakeSwapConfirmModal()">
+                         ng-click="closeMakeSwapConfirmEndModal()">
                     <div class="limit-width">
                         <div class="ms-confirmed-title-wrapper">
                             <div class="spinner-grow text-primary icon" role="status"
