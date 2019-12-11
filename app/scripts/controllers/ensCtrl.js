@@ -2751,6 +2751,36 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         $scope.makeSwapModal.close();
     }
 
+    $scope.closeMakeSwapConfirmModal = async function () {
+        $scope.$eval(function () {
+            $scope.multiMakeSwapSendAssetArray = [];
+            $scope.multiMakeSwapSendAssetIdTracker = 0;
+            $scope.multiMakeSwapReceiveAssetArray = [];
+            $scope.multiMakeSwapReceiveAssetIdTracker = 0;
+        });
+        $scope.makeSwapConfirmModal.close();
+    }
+
+    $scope.closeMakeSwapConfirmModal = async function () {
+        $scope.$eval(function () {
+            $scope.multiMakeSwapSendAssetArray = [];
+            $scope.multiMakeSwapSendAssetIdTracker = 0;
+            $scope.multiMakeSwapReceiveAssetArray = [];
+            $scope.multiMakeSwapReceiveAssetIdTracker = 0;
+        });
+        $scope.makeSwapConfirmModal.close();
+    }
+
+    $scope.closeMakeSwapConfirmEndModal = async function () {
+        $scope.$eval(function () {
+            $scope.multiMakeSwapSendAssetArray = [];
+            $scope.multiMakeSwapSendAssetIdTracker = 0;
+            $scope.multiMakeSwapReceiveAssetArray = [];
+            $scope.multiMakeSwapReceiveAssetIdTracker = 0;
+        });
+        $scope.makeSwapConfirmEndModal.close();
+    }
+
     // TO DO:
     // handle when USAN has been selected in previous rows (?)
     // add focus on last row (?)
