@@ -1518,6 +1518,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             let a = "0" + amount;
             amount = a;
         }
+        if(decimals === 18){
+            return new window.BigNumber(web3.utils.toWei(amount.toString(), "ether"));
+        }
         let pieces = amount.split(".");
         let d = parseInt(decimals);
         if (pieces.length === 1) {
