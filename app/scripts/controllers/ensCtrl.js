@@ -1479,6 +1479,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
     $scope.setExistingTimeLock = function (asset_id, id, multiAsset) {
         console.log("setExistingTimeLock called!")
+        console.log($scope.myActiveTimeLocks[asset_id][id]);
         if (multiAsset) {
             $scope.$eval(function () {
                 multiAsset.selectedAssetBalance =
@@ -1488,7 +1489,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 multiAsset.selectedTimeLockTimespan = `${
                     $scope.myActiveTimeLocks[asset_id][id].startTimeString
                     } - ${$scope.myActiveTimeLocks[asset_id][id].endTimeString}`;
-                multiAsset.todayDate = $scope.myActiveTimeLocks[asset_id][id].startTime;
+                multiAsset.fromStartTime = $scope.myActiveTimeLocks[asset_id][id].startTime;
                 multiAsset.fromEndTime = $scope.myActiveTimeLocks[asset_id][id].endTime;
                 multiAsset.hasTimeLockSet = true;
                 multiAsset.sendTimeLockSet = true;
@@ -3059,6 +3060,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             let s = $scope.multiMakeSwapSendAssetArray;
             let r = $scope.multiMakeSwapReceiveAssetArray;
 
+            console.log(s);
+            console.log(r);
+
             let FromAssetID = [];
             let MinFromAmount = [];
             let FromStartTime = [];
@@ -3074,13 +3078,23 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 if (!s[x].fromStartTime) {
                     s[x].fromStartTime = 0;
                 }
-                if (!s[x].fromEndTime || s[x].fromEndTime == "") {
+                if (!s[x].fromEndTime || s[x].fromEndTime == "" || s[x].fromEndTime == 18446744073709551615) {
                     s[x].fromEndTime = web3.fsn.consts.TimeForeverStr;
                     FromEndTime.push(s[x].fromEndTime);
                 } else {
-                    FromEndTime.push(getHexDate(convertDate(s[x].fromEndTime)));
+                    let d = s[x].fromEndTime;
+                    if(!isNaN(d)){
+                        FromEndTime.push(getHexDate(d * 1000));
+                    } else {
+                        FromEndTime.push(getHexDate(convertDate(d)));
+                    }
                 }
-                FromStartTime.push(getHexDate(convertDate(s[x].fromStartTime)));
+                let d = s[x].fromStartTime;
+                if(!isNaN(d)){
+                    FromStartTime.push(getHexDate(d * 1000));
+                } else {
+                    FromStartTime.push(getHexDate(convertDate(d)));
+                }
                 MinFromAmount.push(await $scope.createMinAmountHex(s[x].makeSendAmount, s[x].assetToSend, $scope.makeMinumumSwap));
             }
 
@@ -3143,6 +3157,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(`Not multi swap.`);
             let s = $scope.multiMakeSwapSendAssetArray[0];
             let r = $scope.multiMakeSwapReceiveAssetArray[0];
+
+            console.log(s);
+            console.log(r);
 
             let txData = {
                 FromAssetID: s.assetToSend,
