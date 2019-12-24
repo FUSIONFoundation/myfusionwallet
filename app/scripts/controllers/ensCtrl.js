@@ -3161,11 +3161,29 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             console.log(s);
             console.log(r);
 
+            // StartTime
+            let fromStartTime;
+            let d = s.fromStartTime;
+            if(!isNaN(d)){
+                fromStartTime = getHexDate(d * 1000);
+            } else {
+                fromStartTime = getHexDate(convertDate(d));
+            }
+
+            // EndTime
+            let fromEndTime;
+            let b = s.fromEndTime;
+            if(!isNaN(b)){
+                fromEndTime = getHexDate(b * 1000);
+            } else {
+                fromEndTime = getHexDate(convertDate(b));
+            }
+
             let txData = {
                 FromAssetID: s.assetToSend,
                 MinFromAmount: await $scope.createMinAmountHex(s.makeSendAmount, s.assetToSend, $scope.makeMinumumSwap),
-                FromStartTime: getHexDate(convertDate(s.fromStartTime)),
-                FromEndTime: getHexDate(convertDate(s.fromEndTime)),
+                FromStartTime: fromStartTime,
+                FromEndTime: fromEndTime,
                 ToAssetID: r.assetToReceive,
                 MinToAmount: await $scope.createMinAmountHex(r.makeReceiveAmount, r.assetToReceive, $scope.makeMinumumSwap),
                 ToStartTime: getHexDate(convertDate(r.toStartTime)),
