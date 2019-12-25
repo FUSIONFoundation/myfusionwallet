@@ -916,7 +916,7 @@
                                        min="1"
                                        max="{{takeDataFront.size}}"
                                        ng-change="setReceive()" placeholder="Fills">
-                                <div class="max-fills" ng-click="takeAmountSwap = takeDataFront.size">Max
+                                <div class="max-fills" ng-click="takeAmountSwap = takeDataFront.size; setReceive(parseInt(takeDataFront.size))">Max
                                     Fills {{takeDataFront.size}}</div>
                             </div>
                         </div>
@@ -1188,7 +1188,8 @@
                                         </div>
                                     </div>
                                     <div class="action-amount-currency">
-                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected" ng-click="multiSendAsset.sendDropDown2 = !multiSendAsset.sendDropDown2  && closeAllOtherDropDowns('sendDropDown2', multiSendAsset)">
+                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected"
+                                             ng-click="multiSendAsset.sendDropDown2 = !multiSendAsset.sendDropDown2  && closeAllOtherDropDowns('sendDropDown2', multiSendAsset)">
                                             <div>
                                                 <div ng-show="multiSendAsset.selectedSendContract !== DEFAULT_USAN &&
                                                     (!multiSendAsset.selectedSendAsset || multiSendAsset.selectedSendAsset === 'All Assets'
@@ -1516,7 +1517,8 @@
                                     </div>
 
                                     <div class="action-amount-currency">
-                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected"  ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
+                                        <div class="btn btn-secondary custom-dropdown mt-1 action-selected"
+                                             ng-click="multiReceiveAsset.receiveDropDown2 = !multiReceiveAsset.receiveDropDown2 && closeAllOtherDropDowns('receiveDropDown2', multiReceiveAsset)">
                                             <div>
                                                 <div ng-show="!multiReceiveAsset.selectedReceiveAsset || multiReceiveAsset.selectedReceiveAsset === 'All Assets' || multiReceiveAsset.selectedReceiveAsset === 'Select asset'">
                                                     Select Asset
@@ -2411,7 +2413,10 @@
                                         SWAP ID
                                     </div>
                                     <div class="price-filler"></div>
-                                    <div class="price-value">{{formatAddress(swapInfo.ID)}}</div>
+                                    <span class="price-value copy"
+                                          ng-click="copyToClipboard(swapInfo.ID)">
+                                                                                {{formatAddress(swapInfo.ID)}}
+                                        </span>
                                 </div>
                                 <div class="price-row">
                                     <div class="price">
@@ -2450,7 +2455,7 @@
                                                                 ng-hide="swapInfo.Targes=='Private'"></i>
                                         <i class="fa fa-lock" aria-hidden="true"
                                            ng-hide="swapInfo.Targes=='Public'"></i>
-                                       <span class="ml-2">{{swapInfo.Targes}}</span></div>
+                                        <span class="ml-2">{{swapInfo.Targes}}</span></div>
                                 </div>
                             </div>
                         </div>

@@ -151,7 +151,7 @@ var web3;
 let localCacheOfAssets = {};
 const iplocate = require("node-iplocate");
 
-window.versionNumber = '3.12.00';
+window.versionNumber = '3.13.00';
 window.currentNet = '';
 
 window.locationCookie = 'locationCookie';
@@ -607,14 +607,14 @@ app.filter('startFrom', function () {
 app.filter('unique', function () {
 
     return function (items, filterOn) {
-  
+
       if (filterOn === false) {
         return items;
       }
-  
+
       if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
         var hashCheck = {}, newItems = [];
-  
+
         var extractValueToCompare = function (item) {
           if (angular.isObject(item) && angular.isString(filterOn)) {
             return item[filterOn];
@@ -622,10 +622,10 @@ app.filter('unique', function () {
             return item;
           }
         };
-  
+
         angular.forEach(items, function (item) {
           var valueToCheck, isDuplicate = false;
-  
+
           for (var i = 0; i < newItems.length; i++) {
             if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
               isDuplicate = true;
@@ -635,7 +635,7 @@ app.filter('unique', function () {
           if (!isDuplicate) {
             newItems.push(item);
           }
-  
+
         });
         items = newItems;
       }

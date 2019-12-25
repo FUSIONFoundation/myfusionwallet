@@ -2422,6 +2422,11 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.takeAmountSwap = 1;
             });
         }
+        if(amount){
+            $scope.$applyAsync(function(){
+                $scope.takeAmountSwap = amount;
+            });
+        }
 
         window.Decimal.set({precision: 18, rounding: 4});
         let perc1 = new window.Decimal(
