@@ -3088,17 +3088,19 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     FromEndTime.push(s[x].fromEndTime);
                 } else {
                     let d = s[x].fromEndTime;
-                    if(!isNaN(d)){
-                        FromEndTime.push(getHexDate(d * 1000));
-                    } else {
+                    if(typeof d.getMonth === 'function') {
                         FromEndTime.push(getHexDate(convertDate(d)));
+                    } else if (!isNaN(d)) {
+                        FromEndTime.push(getHexDate(d * 1000));
                     }
                 }
                 let d = s[x].fromStartTime;
-                if(!isNaN(d)){
-                    FromStartTime.push(getHexDate(d * 1000));
-                } else {
-                    FromStartTime.push(getHexDate(convertDate(d)));
+                if(d) {
+                    if(typeof d.getMonth === 'function') {
+                        FromStartTime.push(getHexDate(convertDate(d)));
+                    } else if (!isNaN(d)) {
+                        FromStartTime.push(getHexDate(d * 1000));
+                    }
                 }
                 MinFromAmount.push(await $scope.createMinAmountHex(s[x].makeSendAmount, s[x].assetToSend, $scope.makeMinumumSwap));
             }
@@ -3169,20 +3171,28 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             // StartTime
             let fromStartTime;
             let d = s.fromStartTime;
-            if(!isNaN(d)){
-                fromStartTime = getHexDate(d * 1000);
-            } else {
-                fromStartTime = getHexDate(convertDate(d));
+            if(d) {
+                if(typeof d.getMonth === 'function') {
+                    fromStartTime = getHexDate(convertDate(d));
+                } else if (!isNaN(d)) {
+                    fromStartTime = getHexDate(d * 1000);
+                }
             }
+
+            console.log(d);
 
             // EndTime
             let fromEndTime;
             let b = s.fromEndTime;
-            if(!isNaN(b)){
-                fromEndTime = getHexDate(b * 1000);
-            } else {
-                fromEndTime = getHexDate(convertDate(b));
+            if(b) {
+                if(typeof b.getMonth === 'function') {
+                    fromEndTime = getHexDate(convertDate(b));
+                } else if (!isNaN(b)) {
+                    fromEndTime = getHexDate(b * 1000);
+                }
             }
+
+            console.log(b);
 
             let txData = {
                 FromAssetID: s.assetToSend,
