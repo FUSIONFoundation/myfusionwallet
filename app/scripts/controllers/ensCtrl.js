@@ -3095,7 +3095,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     }
                 }
                 let d = s[x].fromStartTime;
-                if(d) {
+                if(d || d === 0) {
                     if(typeof d.getMonth === 'function') {
                         FromStartTime.push(getHexDate(convertDate(d)));
                     } else if (!isNaN(d)) {
@@ -3171,7 +3171,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             // StartTime
             let fromStartTime;
             let d = s.fromStartTime;
-            if(d) {
+            if(d || d === 0) {
                 if(typeof d.getMonth === 'function') {
                     fromStartTime = getHexDate(convertDate(d));
                 } else if (!isNaN(d)) {
