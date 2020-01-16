@@ -1519,7 +1519,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             amount = a;
         }
         if(decimals === 18){
-            return new window.BigNumber(web3.utils.toWei(amount.toString(), "ether"));
+            return new web3.utils.toBN(web3.utils.toWei(amount.toString(), "ether"));
         }
         let pieces = amount.split(".");
         let d = parseInt(decimals);
@@ -1585,7 +1585,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             decimals = parseInt(res["Decimals"]);
         });
 
-        let amount = new BigNumber($scope.sendAsset.amountToSend);
+        let amount = new window.BigNumber($scope.sendAsset.amountToSend);
         let amountBNString = amount.toString();
 
         amount = $scope.makeBigNumber(amountBNString, decimals);
