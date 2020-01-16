@@ -1574,6 +1574,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             });
         }
 
+        if(to === "0x0000000000000000000000000000000000000000"){
+            $scope.$eval(function () {
+                $scope.errorMessage = "To address may not be zero address";
+            });
+            return $scope.errorModal.open();
+        }
+
         await window.__fsnGetAsset(asset).then(function (res) {
             decimals = parseInt(res["Decimals"]);
         });
@@ -1883,6 +1890,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         let decimals = "";
         let asset = $scope.assetToSend;
         let hash = "";
+
+        if(to === "0x0000000000000000000000000000000000000000"){
+            $scope.$eval(function () {
+                $scope.errorMessage = "To address may not be zero address";
+            });
+            return $scope.errorModal.open();
+        }
+
 
         let fromTime = web3.utils.numberToHex($scope.timeLockStartTimePosix);
         let tillTime = web3.utils.numberToHex($scope.timeLockEndTimePosix);
