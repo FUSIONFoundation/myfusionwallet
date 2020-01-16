@@ -158,7 +158,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         await $scope.setWalletAddress();
         await $scope.takeGetAllBalances();
         await $scope.openMakesList();
-        await $scope.allSwaps($scope.cachedAllSwapsPage,true);
+        await $scope.allSwaps($scope.cachedAllSwapsPage, true);
         await $scope.takeSwapList();
         await $scope.getUSAN();
     }, 12000);
@@ -214,7 +214,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
         }
     }
-    $scope.setMakeUSAN = async (asset,address) => {
+    $scope.setMakeUSAN = async (asset, address) => {
         console.log(asset);
         if (address === $scope.DEFAULT_USAN) {
             $scope.$applyAsync(function () {
@@ -1367,7 +1367,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         return nameSymbol.substring(0, ((nameSymbol.length - (symbol.length + allowance))));
     };
 
-    $scope.swapInformationModalOpen = async function (swap_id,make) {
+    $scope.swapInformationModalOpen = async function (swap_id, make) {
         let data = {};
         let owner = '';
         let size = 0;
@@ -1376,7 +1376,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let toAssetsArray;
         let fromAssetsArray;
 
-        if(make){
+        if (make) {
             id = await $scope.getIdForMakeSwap(swap_id);
             toAssetsArray = $scope.openMakes[id].toAssetsArray;
             fromAssetsArray = $scope.openMakes[id].fromAssetsArray;
@@ -1631,18 +1631,18 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.convertToString($scope.makeMinumumSwap)
         );
 
-        for (let i in $scope.multiMakeSwapSendAssetArray){
+        for (let i in $scope.multiMakeSwapSendAssetArray) {
 
             let makeSendBN = new window.BigNumber(
                 $scope.convertToString($scope.multiMakeSwapSendAssetArray[i].makeSendAmount)
             );
             let makeSendFinal = makeSendBN.div(makeMinBN);
-            $scope.$applyAsync(function() {
+            $scope.$applyAsync(function () {
                 $scope.multiMakeSwapSendAssetArray[i].minimumMakeSend = makeSendFinal.toString();
             });
         }
 
-        for (let i in $scope.multiMakeSwapReceiveAssetArray){
+        for (let i in $scope.multiMakeSwapReceiveAssetArray) {
 
             let makeReceiveBN = new window.BigNumber(
                 $scope.convertToString($scope.multiMakeSwapReceiveAssetArray[i].makeReceiveAmount)
@@ -1650,7 +1650,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             let makeReceiveFinal = makeReceiveBN.div(makeMinBN);
 
-            $scope.$applyAsync(function(){
+            $scope.$applyAsync(function () {
                 $scope.multiMakeSwapReceiveAssetArray[i].minimumReceiveSend = makeReceiveFinal.toString();
             })
 
@@ -2298,13 +2298,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
     $scope.getSuspiciousMessage = async () => {
-        for ( let i in $scope.multiTakeSwapReceiveAssetArray){
-            console.log($scope.multiTakeSwapReceiveAssetArray[i]);
-            if($scope.multiTakeSwapReceiveAssetArray[i].fromVerified === false) {
-                return true;
-            } else {
-                return false;
-            }
+        let a = [];
+        for (let i in $scope.multiTakeSwapReceiveAssetArray) {
+            console.log(`${i} ${$scope.multiTakeSwapReceiveAssetArray[i].fromVerified}`);
+            a.push($scope.multiTakeSwapReceiveAssetArray[i].fromVerified)
+        }
+        if (a.includes(false)) {
+            return false;
+        } else if (a.includes(true)) {
+            return true;
         }
     }
     $scope.takeId = 0;
@@ -2319,14 +2321,16 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let fromName = "";
 
         let fromAsset = [];
+        let suspicious;
+        $scope.multiTakeSwapSendAssetArray = $scope.swapsList[id].toAssetsArray;
+        $scope.multiTakeSwapReceiveAssetArray = $scope.swapsList[id].fromAssetsArray;
 
         await $scope.$applyAsync(function () {
             $scope.multiTakeSwapSendAssetArray = $scope.swapsList[id].toAssetsArray;
             $scope.multiTakeSwapReceiveAssetArray = $scope.swapsList[id].fromAssetsArray;
         });
 
-        let suspicious = await $scope.getSuspiciousMessage();
-        console.log(`Suspicious is ${suspicious}`)
+        suspicious = await $scope.getSuspiciousMessage();
 
         try {
             await web3.fsn
@@ -2374,7 +2378,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
         }
 
-        await $scope.$apply(function () {
+        await $scope.$applyAsync(function () {
             $scope.takeDataFront.swapId = $scope.swapsList[id];
             $scope.takeDataFront.fromAssetName = toName;
             $scope.takeDataFront.fromAmountCut = $scope.swapsList[id].fromAmountCut;
@@ -2422,8 +2426,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                 $scope.takeAmountSwap = 1;
             });
         }
-        if(amount){
-            $scope.$applyAsync(function(){
+        if (amount) {
+            $scope.$applyAsync(function () {
                 $scope.takeAmountSwap = amount;
             });
         }
@@ -2473,8 +2477,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             );
 
             let k = i;
-            if($scope.multiTakeSwapReceiveAssetArray[i].fromAmount == undefined){
-                k = i -1;
+            if ($scope.multiTakeSwapReceiveAssetArray[i].fromAmount == undefined) {
+                k = i - 1;
             }
             let toAmountBN = new window.Decimal(
                 $scope.convertToString($scope.multiTakeSwapReceiveAssetArray[k].fromAmount)
@@ -2965,7 +2969,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             parseInt(asset["Decimals"])
         );
 
-        if(assetId === '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe'){
+        if (assetId === '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe') {
             return "0x1";
         }
 
@@ -3088,15 +3092,15 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     FromEndTime.push(s[x].fromEndTime);
                 } else {
                     let d = s[x].fromEndTime;
-                    if(typeof d.getMonth === 'function') {
+                    if (typeof d.getMonth === 'function') {
                         FromEndTime.push(getHexDate(convertDate(d)));
                     } else if (!isNaN(d)) {
                         FromEndTime.push(getHexDate(d * 1000));
                     }
                 }
                 let d = s[x].fromStartTime;
-                if(d || d === 0) {
-                    if(typeof d.getMonth === 'function') {
+                if (d || d === 0) {
+                    if (typeof d.getMonth === 'function') {
                         FromStartTime.push(getHexDate(convertDate(d)));
                     } else if (!isNaN(d)) {
                         FromStartTime.push(getHexDate(d * 1000));
@@ -3171,8 +3175,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             // StartTime
             let fromStartTime;
             let d = s.fromStartTime;
-            if(d || d === 0) {
-                if(typeof d.getMonth === 'function') {
+            if (d || d === 0) {
+                if (typeof d.getMonth === 'function') {
                     fromStartTime = getHexDate(convertDate(d));
                 } else if (!isNaN(d)) {
                     fromStartTime = getHexDate(d * 1000);
@@ -3184,8 +3188,8 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             // EndTime
             let fromEndTime;
             let b = s.fromEndTime;
-            if(b) {
-                if(typeof b.getMonth === 'function') {
+            if (b) {
+                if (typeof b.getMonth === 'function') {
                     fromEndTime = getHexDate(convertDate(b));
                 } else if (!isNaN(b)) {
                     fromEndTime = getHexDate(b * 1000);
@@ -3209,7 +3213,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             }
             data = await $scope.checkMakeSwapTimeLocks(txData);
 
-            if(s.assetToSend === $scope.DEFAULT_USAN){
+            if (s.assetToSend === $scope.DEFAULT_USAN) {
                 data.SwapSize = 1;
             }
             console.log(data);
@@ -3831,7 +3835,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
             $scope.openMakes = openMakeListFront;
             $scope.openMakeSwaps = $scope.openMakes.length;
         });
-       // console.log($scope.openMakes);
+        // console.log($scope.openMakes);
         await $scope.checkMakeSwapConditions();
         window.log("Finished retrieving all Open Swaps");
         openMakesListRunning = false;
@@ -4110,7 +4114,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
     }
 
     $scope.cachedAllSwapsPage = undefined;
-    $scope.$watch('currentPage',function(){
+    $scope.$watch('currentPage', function () {
         $scope.cachedAllSwapsPage = $scope.currentPage;
     })
 
@@ -4129,7 +4133,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
 
             $scope.allSwapsRunning = true;
 
-            if(cache){
+            if (cache) {
                 $scope.cachedAllSwapsPageRunning = true
             }
             let accountData = uiFuncs.getTxData($scope);
