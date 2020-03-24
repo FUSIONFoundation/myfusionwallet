@@ -203,17 +203,9 @@ window.getLocation = async function () {
 
 window.getApiServer = function () {
     if (window.currentNet === 'mainnet') {
-        if (location.continent === 'Asia' && location.country_code === 'CN') {
-            return 'https://asiaapi.fusionnetwork.io';
-        } else {
-            return 'https://mainnetapi.fusionnetwork.io';
-        }
+        return 'https://mainnetapi.fusionnetwork.io';
     } else if (window.currentNet === 'testnet') {
-        if (location.continent === 'Asia' && location.country_code === 'CN') {
-            return 'https://testnetasiaapi.fusionnetwork.io';
-        } else {
-            return 'https://testnetapi.fusionnetwork.io'
-        }
+        return 'https://testnetapi.fusionnetwork.io';
     }
 };
 
