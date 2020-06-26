@@ -2613,8 +2613,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 let balanceBN = new window.BigNumber(assetBalance);
                 let divBN = new window.BigNumber($scope.countDecimals(assetList[asset]["Decimals"]));
                 let balanceFinal = balanceBN.div(divBN);
-                let totalBN = new window.BigNumber(assetList[asset]["Total"]);
-                let totalBNFinal = totalBN.div(divBN);
+
+                let totalBN;
+                let totalBNFinal;
+                try {
+                    totalBN = new window.BigNumber(assetList[asset]["Total"]);
+                    totalBNFinal = totalBN.div(divBN);
+                } catch (err) {
+                    totalBNFinal = new window.BigNumber("1000000")
+                }
                 let data = {
                     name: assetList[asset]["Name"],
                     symbol: assetList[asset]["Symbol"],
