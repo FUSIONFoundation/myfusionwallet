@@ -54,7 +54,7 @@
     "idna-uts46": "^1.0.1",
     "install": "^0.10.1",
     "levenshtein": "^1.0.5",
-    "marked": "^0.3.6",
+    "marked": "^4.0.10",
     "npm": "^6.5.0",
     "punycode": "^2.1.0",
     "run-sequence": "^1.2.2",
