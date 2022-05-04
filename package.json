@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@myetherwallet/mewconnect-web-client": "^1.0.9",
-    "angular": "^1.6.2",
+    "angular": "^1.8.3",
     "angular-animate": "^1.6.2",
     "angular-qr": "^0.2.3",
     "angular-sanitize": "^1.6.2",
