@@ -33,9 +33,9 @@ app.use(function(req, res, next) {
         next();
         return
     }
-    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+    /* if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
         res.redirect('https://' + req.get('Host') + req.url);
-    }
+    } */
     else
         next();
 });

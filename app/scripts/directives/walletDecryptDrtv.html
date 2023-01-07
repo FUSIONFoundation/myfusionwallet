@@ -3,7 +3,7 @@
 <p class="text-center">Please ensure that you are on the correct site before entering keys.</p>
 <div class="fusion-verify fusion-verify-new">
     <span class="fusion-lock icon"><i class="fa fa-lock"></i> </span>
-    <div class="fusion-link text-center title">https://www.myfusionwallet.com</div>
+    <div class="fusion-link text-center title">https://myfusionwallet.com</div>
 </div>
 
 <section class="timeout-message text-center" ng-show="showLogoutMessage"><i class="fa fa-info-circle" aria-hidden="true"></i> Your wallet session timed-out due to inactivity.</section>
@@ -38,20 +38,6 @@
         <!--<img src="images/MEWconnectLogo.svg" width="120" height="26">-->
         <!--</span>-->
         <!--</label>-->
-
-        <!-- MetaMask -->
-        <!--<label aria-flowto="aria2"-->
-        <!--class="radio">-->
-        <!--<input aria-flowto="aria2"-->
-        <!--type="radio"-->
-        <!--aria-label="MetaMask / Mist"-->
-        <!--ng-model="walletType"-->
-        <!--value="metamask" />-->
-        <!--<span translate="x_MetaMask">-->
-        <!--MetaMask / Mist-->
-        <!--</span>-->
-        <!--</label>-->
-
 
         <!-- TREZOR -->
 
@@ -91,6 +77,21 @@
         <!--Secalot-->
         <!--</label>-->
 
+        <!-- MetaMask //TODO HTML MetaMask -->
+        <label aria-flowto="aria3"
+                class="radio p-2 pr-4"
+                ng-class="{'selectWalletActive' : walletType == 'metamask'}"
+                ng-click="activeWallet == 'metamask'"
+                >
+             <input aria-flowto="aria3"
+                    type="radio"
+                    class="ml-0"
+                    ng-click="activeWallet == 'metamask'"
+                    ng-model="walletType"
+                    value="metamask"/>
+                    MetaMask
+             <!-- <span class="badge badge-primary">BETA</span> -->
+         </label>
         <!--Ledger -->
         <label aria-flowto="aria3"
                 class="radio p-2 pr-4"
@@ -107,6 +108,7 @@
              Ledger Wallet
              <!-- <span class="badge badge-primary">BETA</span> -->
          </label>
+
 
         <!-- Keystore / JSON File -->
         <label aria-flowto="aria6"
@@ -230,10 +232,10 @@
         <!--  MetaMask -->
         <div id="selectedTypeMetamask"
              ng-if="walletType=='metamask'">
-            <h4 translate="x_MetaMask">
-                MetaMask / Mist
+            <h4>
+                MetaMask 
             </h4>
-            <h5>
+            <h5 style="display: flex; column-gap: 10px;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 79.536 79.536">
                     <path fill="#5dba5a"
                           d="M39.769 0C17.8 0 0 17.8 0 39.768c0 21.965 17.8 39.768 39.769 39.768 21.965 0 39.768-17.803 39.768-39.768C79.536 17.8 61.733 0 39.769 0zm-5.627 58.513L15.397 39.768l7.498-7.498 11.247 11.247 22.497-22.493 7.498 7.498-29.995 29.991z"/>
@@ -246,14 +248,14 @@
                 phishing &amp; malicious websites.
             </div>
             <ul>
-                <li class="u__protip">
+                <!-- <li class="u__protip">
                     <a tabindex="0"
                        href="https://kb.myetherwallet.com/migration/moving-from-private-key-to-metamask.html"
                        target="_blank"
                        rel="noopener noreferrer">
                         How to Move to MetaMask
                     </a>
-                </li>
+                </li> -->
                 <li class="u__download">
                     <a tabindex="0"
                        href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"
@@ -274,8 +276,8 @@
             <div class="form-group"
                  ng-hide="isSSL">
         <span class="text-danger"
-              translate="ADD_Ledger_0a">
-            Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.
+              >
+            Please use MyFusionWallet on a secure (SSL / HTTPS) connection to connect.
         </span>
             </div>
             <div class="form-group">
@@ -309,20 +311,28 @@
                 It is more secure because your private key never leaves the hardware wallet. It protects you from
                 phishing, malware, and more.
             </div> -->
-            <div class="form-group content-ledger">
+            <div>
                 <!-- 1 -->
-                <span class="big-numbers">1</span>
-                <h5 class="ledger-message">Open the ethereum app</h5>
-                <p class="text-ledger">
-                    Open the ethereum app on your ledger.  <br> Make sure your ledger is updated to the latest firmware.
-                </p>
+                <!-- <span class="big-numbers">1</span> -->
+                <h3>Use MetaMask to connect Ledger</h3>
+                <h4>
+                    Guide can be found 
+                        <a
+                        style="color: blue;text-decoration: revert;"
+                           href="https://support.ledger.com/hc/en-us/articles/4404366864657-How-to-access-your-Ledger-Ethereum-ETH-account-via-Metamask?docs=true"
+                           target="_blank"
+                           >
+                           here
+                        </a>
+                 
+                    </h4>
                 <!-- 2 -->
-                <span class="big-numbers">2</span>
-                <h5 class="ledger-message">Adjust app settings</h5>
+                <!-- span class="big-numbers">Guide can be found here</span> -->
+                <!-- <h5 class="ledger-message">Adjust app settings</h5>
                 <p class="text-ledger">Contract Data     <span class="status status-on">YES</span></p>
-                <p class="text-ledger">Data Display    <span class="status status-off">NO</span></p>
+                <p class="text-ledger">Data Display    <span class="status status-off">NO</span></p> -->
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <a class="btn btn-primary w-100"
                    ng-click="scanLedger()"
                    ng-show="walletType=='ledger'"
@@ -331,7 +341,7 @@
                    translate="ADD_Ledger_scan">
                     SCAN
                 </a>
-            </div>
+            </div> -->
             <div role="alert" ng-show="ledgerError">
                 <p class="strong text-danger">
                     {{ledgerErrorString}}
@@ -339,7 +349,7 @@
                 <ul>
                     <li ng-hide="isSSL"
                         translate="ADD_Ledger_0a">
-                        Please use MyEtherWallet on a secure (SSL / HTTPS) connection to connect.
+                        Please use MyFusionWallet on a secure (SSL / HTTPS) connection to connect.
                     </li>
                     <li>
             <span translate="ADD_Ledger_2"

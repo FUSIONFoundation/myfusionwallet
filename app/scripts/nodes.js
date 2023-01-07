@@ -2,7 +2,7 @@
 var nodes = function() {};
 nodes.customNode = require("./nodeHelpers/customNode");
 nodes.infuraNode = require("./nodeHelpers/infura");
-nodes.metamaskNode = require("./nodeHelpers/metamask");
+//nodes.metamaskNode = require("./nodeHelpers/metamask");
 nodes.nodeTypes = {
     ETH: "ETH",
     ETC: "ETC",

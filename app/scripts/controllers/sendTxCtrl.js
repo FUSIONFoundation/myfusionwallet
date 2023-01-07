@@ -22,7 +22,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.assetListLoading = true;
     $scope.showNoAssets = false;
     $scope.selectedAssetBalance = "";
-    $scope.altInputFormats = ['M!/d!/yyyy'];
+    $scope.altInputFormats = ['M!/d!/yyyy/hh/mm/ss'];
     $scope.todayDate = formatDate();
     $scope.tx = {};
     $scope.signedTx = "";
@@ -84,7 +84,24 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (counter === 0) return clearInterval(intv);
     }
     $scope.getTransactionStatus = async function (txid) {
-        let tx;
+        const txStatus = (tx) => ({"jsonrpc":"2.0","method":"fsn_getTransactionAndReceipt","params":[`${tx}`],"id":1888})
+        await ajaxReq.http.post(`${window.getApiServer()}`, txStatus(txid)).then(function (r) {
+            if(!r.data.result) {
+                $scope.countDownFunc();
+                console.log('Transaction not found, will retry in 5s..');
+                setTimeout(function () {
+                    console.log('Last check: ' + new Date);
+                    $scope.getTransactionStatus(txid)
+                }, 5000);
+                return;
+            } else {
+                uiFuncs.notifier.info('Transaction was successfully processed', 5000);
+                $scope.$applyAsync(function () {
+                    $scope.transactionStatus = 'Success'
+                })
+            } 
+        });
+        /* let tx;
         await ajaxReq.http.get(`${window.getApiServer()}/transactions/${txid}`).then(function (r) {
             tx = r.data[0];
             if (tx === undefined) {
@@ -101,7 +118,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     $scope.transactionStatus = 'Success'
                 })
             }
-        });
+        }); */
     }
 
     $scope.currentPage = 0;
@@ -663,7 +680,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -697,7 +715,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     } else {
@@ -744,7 +763,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     } else {
@@ -824,6 +844,28 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }
 
             if ($scope.wallet.hwType == "trezor") {
+            }
+        }
+        if($scope.wallet.hwType == "Metamask") {
+            const params = [{
+                "from": walletAddress,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                $scope.$apply(function () {
+                    $scope.changeSupplyInfo.txhash = result;
+                });
+                $scope.changeSupplySuccess.open();
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
             }
         }
     };
@@ -941,20 +983,43 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     };
 
     $scope.sendAssetModalConfirm = async function (asset) {
+        //TODO send asset modalConfig
+       // console.log('fromTime');
+        //Date.UTC(year, monthIndex, day, hour, minute, second)
+        /* const timestamp = new Date(Date.UTC(
+            $scope.sendAsset.fromTime.getFullYear(),
+            $scope.sendAsset.fromTime.getMonth(),
+            $scope.sendAsset.fromTime.getDate(),
+            $scope.sendAsset.fromTime.getHours(),
+            $scope.sendAsset.fromTime.getMinutes(),
+            $scope.sendAsset.fromTime.getSeconds()
+        )) */
+        //console.log('timestamp')
+        //console.log(UTCDate.getTime())
+        //console.log('tillTime');
+        //console.log($scope.sendAsset.tillTime)
+
         let fromTimeString = new Date($scope.sendAsset.fromTime);
         let tillTimeString = new Date($scope.sendAsset.tillTime);
-        console.log(fromTimeString.toUTCString());
-        console.log(tillTimeString.toUTCString());
+        function pad(s) {
+            return s < 10 ? "0" + s : s;
+        }
 
         var fMonth = fromTimeString.getUTCMonth();
         var fDay = fromTimeString.getUTCDate();
+        var fHours = fromTimeString.getUTCHours();
+        var fMinutes = fromTimeString.getUTCMinutes();
+        var fSeconds = fromTimeString.getUTCSeconds();
         var fYear = fromTimeString.getUTCFullYear();
         var tMonth = tillTimeString.getUTCMonth();
         var tDay = tillTimeString.getUTCDate();
+        var tHours = tillTimeString.getUTCHours();
+        var tMinutes = tillTimeString.getUTCMinutes();
+        var tSeconds = tillTimeString.getUTCSeconds();
         var tYear = tillTimeString.getUTCFullYear();
 
-        let startTime = $scope.months[fMonth] + " " + fDay + ", " + fYear;
-        let endTime = $scope.months[tMonth] + " " + tDay + ", " + tYear;
+        let startTime = $scope.months[fMonth] + " " + fDay + ", " + fYear + ' / ' + pad(fHours) + ':' + pad(fMinutes) + ':' + pad(fSeconds) + ' +UTC';
+        let endTime = $scope.months[tMonth] + " " + tDay + ", " + tYear + ' / ' + pad(tHours) + ':' + pad(tMinutes) + ':' + pad(tSeconds) + ' +UTC';
 
         await window.__fsnGetAsset(asset).then(function (res) {
             $scope.$eval(function () {
@@ -971,77 +1036,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     };
 
     $scope.getDayAfter = function (date){
+        console.log('getDayAfter')
         let temp = new Date(date);
         return new Date(temp.setDate(temp.getDate() + 1));
     }
 
     $scope.checkDate = function (source) {
-        // console.log("scope.checkDate called 14!!");
-        let today = new Date();
-        // console.log("fromTime: " + $scope.sendAsset.fromTime);
-        // console.log("tillTime: " + $scope.sendAsset.tillTime);
-        if (!$scope.sendAsset.tillTime || !$scope.sendAsset.fromTime){
-           return;
-        }
-        if($scope.sendAsset.fromTime >= today
-            && $scope.sendAsset.tillTime >= today
-            && $scope.sendAsset.fromTime <= $scope.sendAsset.tillTime) {
-                // console.log("dates ok");
-            return;
-        }
-        if(source === "fromTime") {
-            // console.log("fromTime changed");
-            if($scope.sendAsset.fromTime < today) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.fromTime = today;
-                    // console.log("fromTime changed to today");
-                });
-                if(today > $scope.sendAsset.tillTime) {
-                    // change tillTime to: tomorrow
-                    let dayAfter = $scope.getDayAfter(today);
-                    $scope.$eval(function () {
-                        $scope.sendAsset.tillTime = dayAfter;
-                        // console.log("tillTime changed to " + dayAfter);
-                    });
-                }
-            } else {
-                if($scope.sendAsset.fromTime > $scope.sendAsset.tillTime) {
-                    $scope.$eval(function () {
-                        let dayAfter = $scope.getDayAfter($scope.sendAsset.fromTime);
-                        $scope.sendAsset.tillTime = dayAfter;
-                        // console.log("tillTime changed to " + dayAfter);
-                    })
-                }
-            }
-        } else if (source === "tillTime") {
-            // console.log("tillTime changed");
-            if($scope.sendAsset.tillTime < today) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.tillTime = today;
-                    $scope.sendAsset.fromTime = today;
-                    // console.log("dates changed to today");
-                });
-            } else {
-                if($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
-                    // change fromTime to: today
-                    $scope.$eval(function () {
-                        $scope.sendAsset.fromTime = today;
-                        // console.log("fromTime changed to today");
-                    });
-                }
-            }
-        } else {
-            if ($scope.sendAsset.tillTime < today) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.tillTime = today;
-                });
-            }
-            if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.fromTime = today;
-                });
-            }
-        }
+        
     };
 
     $scope.checkDateWithForever = function () {
@@ -1076,6 +1077,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     };
 
     $scope.sendAssetModalOpen = async function (id, timelockonly) {
+        let d = new Date()
+
+        function pad(s) {
+            return s < 10 ? "0" + s : s;
+        }
+        //new Date(`${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDay())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:00.000Z`);
         $scope.$eval(function () {
             $scope.sendAssetDisabled = false;
             $scope.sufficientBalance = undefined;
@@ -1084,9 +1091,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.validWalletAddress = false;
             $scope.sendAssetDisabled = false;
             $scope.checkingUSAN = false;
-            $scope.dateOptionsFrom.minDate = new Date();
+            $scope.dateOptionsFrom.minDate = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T00:00:00.000Z`
             $scope.dateOptionsFrom.maxDate = "";
-            $scope.dateOptionsTill.minDate = new Date();
+            $scope.dateOptionsTill.minDate = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T00:00:00.000Z`
             $scope.dateOptionsTill.maxDate = "";
         });
 
@@ -1126,7 +1133,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (id >= 0 && timelockonly == true) {
             let assetData = $scope.timeLockList[id];
             console.log(assetData);
-            $scope.$applyAsync(function () {
+            $scope.$applyAsync(function () { 
                 $scope.assetToSend = assetData.asset;
                 $scope.assetName = assetData.name;
                 // If end time is forever, set endtime 3 months ahead
@@ -1184,17 +1191,24 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         }, 200);
     };
 
-    function convertDate(inputFormat) {
+    function convertDate(input) {
+        //TODO convert Date
         function pad(s) {
             return s < 10 ? "0" + s : s;
         }
+        //console.log(inputFormat)
+        //var d = new Date(inputFormat);
 
-        var d = new Date(inputFormat);
-        return [
-            d.getUTCFullYear(),
-            pad(d.getUTCMonth() + 1),
-            pad(d.getUTCDate())
-        ].join("-");
+        /* const fromTime = new Date(Date.UTC(
+            $scope.sendAsset.fromTime.getFullYear(),
+            $scope.sendAsset.fromTime.getMonth(),
+            $scope.sendAsset.fromTime.getDate(),
+            $scope.sendAsset.fromTime.getHours(),
+            $scope.sendAsset.fromTime.getMinutes(),
+            $scope.sendAsset.fromTime.getSeconds()
+        )).getTime().toString(16); */
+        //2013-01-31T12:34:00.000Z
+        return `${input.getUTCFullYear()}-${pad(input.getUTCMonth() + 1)}-${pad(input.getUTCDate())}T${pad(input.getUTCHours())}:${pad(input.getUTCMonth())}:${pad(input.getUTCSeconds())}.000Z`
     }
 
     function getHexDate(d) {
@@ -1366,7 +1380,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         $scope.sendBackToAssetsModal.open();
     };
 
-    $scope.sendBackToAssetsFunction = async function (id) {
+    $scope.sendBackToAssetsFunction = async function (id) { //TODO sendBackToAssetsFunction
         let accountData = uiFuncs.getTxData($scope);
         id = $scope.timeLockToAssetId;
         let tlData = $scope.timeLockList[id];
@@ -1376,7 +1390,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -1409,7 +1424,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     }
@@ -1479,6 +1495,25 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }
         }
         if ($scope.wallet.hwType == "trezor") {
+        }
+        if ($scope.wallet.hwType == "Metamask") {
+            const params = [{
+                "from": data.from,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+
+            try {
+                await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                $scope.successModal.open();
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
         }
     };
 
@@ -1591,11 +1626,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         amount = $scope.makeBigNumber(amountBNString, decimals);
 
         if ($scope.transactionType == "none") {
-            if (
-                !$scope.account &&
-                $scope.wallet.hwType !== "ledger" &&
-                $scope.wallet.hwType !== "trezor"
-            ) {
+            if (!$scope.account && $scope.wallet.hwType !== "ledger" && $scope.wallet.hwType !== "trezor" && $scope.wallet.hwType !== 'Metamask') {
                 $scope.account = web3.eth.accounts.privateKeyToAccount(
                     $scope.toHexString($scope.wallet.getPrivateKey())
                 );
@@ -1612,11 +1643,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                         tx.from = from;
                         tx.chainId = _CHAINID;
                         data = tx;
-                        console.log(tx);
-                        if (
-                            $scope.wallet.hwType == "ledger" ||
-                            $scope.wallet.hwType == "trezor"
-                        ) {
+                        console.log(data);
+                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor" || $scope.wallet.hwType == 'Metamask') {
                             return;
                         }
                         return web3.fsn
@@ -1637,13 +1665,14 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 });
+                return
             }
 
             $scope.$apply(function () {
                 $scope.successHash = hash;
             });
         }
-        if ($scope.transactionType == "daterange") {
+        if ($scope.transactionType == "daterange") { //TODO assetToTL
             if ($scope.sendAsset.fromTime == "") {
                 $scope.sendAsset.fromTime = new Date();
             }
@@ -1653,13 +1682,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             if (
                 !$scope.account &&
                 $scope.wallet.hwType !== "ledger" &&
-                $scope.wallet.hwType !== "trezor"
+                $scope.wallet.hwType !== "trezor" &&
+                $scope.wallet.hwType !== 'Metamask'
             ) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount(
                     $scope.toHexString($scope.wallet.getPrivateKey())
                 );
             }
-
             try {
                 await web3.fsntx
                     .buildAssetToTimeLockTx({
@@ -1676,7 +1705,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                         data = tx;
                         if (
                             $scope.wallet.hwType == "ledger" ||
-                            $scope.wallet.hwType == "trezor"
+                            $scope.wallet.hwType == "trezor" ||
+                            $scope.wallet.hwType == 'Metamask'
                         ) {
                             return;
                         }
@@ -1697,17 +1727,19 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 });
+                return
             }
         }
 
-        if ($scope.transactionType == "scheduled") {
+        if ($scope.transactionType == "scheduled") { // TODO TL TO TL
             let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
             let tillTime = web3.fsn.consts.TimeForeverStr;
 
             if (
                 !$scope.account &&
                 $scope.wallet.hwType !== "ledger" &&
-                $scope.wallet.hwType !== "trezpr"
+                $scope.wallet.hwType !== "trezpr" &&
+                $scope.wallet.hwType !== 'Metamask'
             ) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount(
                     $scope.toHexString($scope.wallet.getPrivateKey())
@@ -1730,7 +1762,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                         data = tx;
                         if (
                             $scope.wallet.hwType == "ledger" ||
-                            $scope.wallet.hwType == "trezor"
+                            $scope.wallet.hwType == "trezor" ||
+                            $scope.wallet.hwType == 'Metamask'
                         ) {
                             return;
                         }
@@ -1751,6 +1784,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 });
+                return
             }
         }
         if ($scope.wallet.hwType == "ledger") {
@@ -1849,6 +1883,43 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 });
             });
         }
+        if ($scope.wallet.hwType == "Metamask") { //TODO create tx metamask
+            let params = []
+            if($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff' && $scope.transactionType == "none") {
+                params = [{ // Transfer
+                    "from": from,
+                    "to": to,
+                    "value": amount.toString(16),
+                    "gas": Number(21000).toString(16),
+                    /* "gasPrice": Number(000).toString(16), */
+                    
+                }]
+            } else {
+                params = [{ // Asset send
+                    "from": data.from,
+                    "to": data.to,
+                    "gas": data.gas,
+                    "gasPrice": data.gasPrice,
+                    "data": data.input
+                }]
+            }
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params})
+                hash = result;
+                $scope.getTransactionStatus(result);
+                $scope.sendAssetFinal.open();
+                $scope.$eval(function () {
+                    $scope.successHash = hash;
+                    $scope.successHash = hash;
+                });
+                //console.log(result);
+            } catch(err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
+        }
     };
 
     $scope.hideExpired = function (id) {
@@ -1882,7 +1953,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         localStorage.setItem("hiddenTimeLocks", JSON.stringify(data));
     };
 
-    $scope.timeLockToTimeLock = async function () {
+    $scope.timeLockToTimeLock = async function () { //TODO timeLockToTimeLock
         $scope.successMessagebool = true;
         let accountData = uiFuncs.getTxData($scope);
         let from = accountData.from;
@@ -1914,7 +1985,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         }
 
         // JavaScript / Go incompatibility -1 error
-        if ($scope.timeLockEndTimePosix === 18446744073709552000) {
+        if (tillTime === "0x10000000000000180") {
             tillTime = web3.fsn.consts.TimeForeverStr;
         }
 
@@ -1937,7 +2008,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -1961,7 +2033,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     }
@@ -1982,6 +2055,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.$eval(function () {
                 $scope.errorMessage = err.message;
             });
+            return
         }
 
         if ($scope.wallet.hwType == "ledger") {
@@ -2041,7 +2115,33 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }
         }
 
-        if ($scope.wallet.hwType == "trezor") {
+        if ($scope.wallet.hwType == "trezor") {}
+
+        if ($scope.wallet.hwType == "Metamask") {
+            const params = [{
+                "from": data.from,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+            console.log(params)
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                hash = result;
+                $scope.getTransactionStatus(result);
+                $scope.sendAssetFinal.open();
+                $scope.$eval(function () {
+                    $scope.successHash = hash;
+                    $scope.successHash = hash;
+                });
+                //console.log(result);
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
         }
     };
 
@@ -2117,7 +2217,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         $scope.createAssetReview.open();
     };
 
-    $scope.createAsset = async function () {
+    $scope.createAsset = async function () { //TODO create asset TX
         $scope.$eval(function () {
             $scope.assetCreate.errorMessage = "";
         });
@@ -2137,7 +2237,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -2170,7 +2271,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 console.log(tx);
                 if (
                     $scope.wallet.hwType == "ledger" ||
-                    $scope.wallet.hwType == "trezor"
+                    $scope.wallet.hwType == "trezor" ||
+                    $scope.wallet.hwType == "Metamask"
                 ) {
                     return;
                 } else {
@@ -2256,6 +2358,32 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
 
         if ($scope.wallet.hwType == "trezor") {
         }
+        if($scope.wallet.hwType == "Metamask") { //TODO (MM)create asset
+            //console.log(data)
+            const params = [{
+                "from": walletAddress,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+            //console.log(params)
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                //console.log(result)
+                $scope.$eval(function () {
+                    $scope.assetCreate.errorMessage = "";
+                    $scope.assetCreate.assetHash = result;
+                });
+                $scope.createAssetFinal.open();
+                //console.log(result);
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
+        }
     };
     $scope.getVerifiedAssets();
     $scope.$watch("wallet", function () {
@@ -2300,7 +2428,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         // if the start and endtime are now and forever
         if (
             startTimePosix <= currentDate &&
-            endTimePosix === "18446744073709551615"
+            String(endTimePosix) === "18446744073709552000"
         ) {
             return (status = "Available");
             // if the start and end date in range of the current date
@@ -2317,10 +2445,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
             return (status = "Active");
         }
-        //
-        // if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
-        //     return status = 'Available';
-        // }
+        
+        if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
+            return (status = 'Expired');
+        }
     };
 
     $scope.getTimeLockAssets = async function () {
@@ -2345,7 +2473,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         });
 
         let allAssets = await window.__fsnGetAllAssets();
-
+        //debugger
         let x = 0;
         for (let asset in timeLockList) {
             let assetId = Object.keys(timeLockList);
@@ -2354,10 +2482,27 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             let assetDecimals = "";
             let divider = "";
             let status = "";
+            let res
 
+            if(allAssets[assetId[x]] == undefined ) { //FIXME switch MM err LT when not Asset
+                const getAsset = (tokenId) => ({ "jsonrpc": "2.0", id: tokenId, "method": "fsn_getAsset", "params": [`${tokenId}`, "latest"], })
+                await ajaxReq.http.post(`${window.getApiServer()}`, getAsset(assetId[x])).then(function (r) {
+                    console.log(assetId[x])
+                    //localCacheOfAssets[array[asset]] = r.data.result;
+                    window.localCacheOfAssetsG[assetId[x]] = r.data.result
+                    res = r.data.result
+                });
+            } else {
+                res = allAssets[assetId[x]];
+            }
 
-            let res = allAssets[assetId[x]];
-
+            //let res = allAssets[assetId[x]];
+            
+            /* if(res == undefined) {
+                await window.__fsnGetAllAssets(Object.keys(timeLockList));
+                return
+            } */
+            
             assetName = res["Name"];
             assetSymbol = res["Symbol"];
             assetDecimals = res["Decimals"];
@@ -2385,6 +2530,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 hasImage = true;
                 verifiedAsset = true;
             }
+            function pad(s) {
+                return s < 10 ? "0" + s : s;
+            }
 
             for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
                 let startTimePosix = timeLockList[asset]["Items"][i]["StartTime"];
@@ -2402,10 +2550,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     var month = a.getUTCMonth();
                     var day = a.getUTCDate();
                     var year = a.getUTCFullYear();
+                    var hour = a.getUTCHours();
+                    var min = a.getUTCMinutes();
+                    var sec = a.getUTCSeconds();
 
-                    startTime = $scope.months[month] + " " + day + ", " + year;
+                    startTime = $scope.months[month] + " " + day + ", " + year + ` / ${pad(hour)}:${pad(min)} UTC`;
                 }
-                if (endTimePosix === "18446744073709551615") {
+                if (String(endTimePosix) === "18446744073709552000") {
                     endTime = "∞ Forever";
                 } else {
                     let a = new Date(
@@ -2415,8 +2566,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     var month = a.getUTCMonth();
                     var day = a.getUTCDate();
                     var year = a.getUTCFullYear();
+                    var hour = a.getUTCHours();
+                    var min = a.getUTCMinutes();
+                    var sec = a.getUTCSeconds();
 
-                    endTime = $scope.months[month] + " " + day + ", " + year;
+                    endTime = $scope.months[month] + " " + day + ", " + year + ` / ${pad(hour)}:${pad(min)} UTC`;
                 }
 
                 // Calculate the status of the Time Lock
@@ -2454,7 +2608,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 }
                 if (status == "Available") {
                     await availableList.push(data);
+                } 
+                if(status == 'Expired') {
+                    await availableList.push(data);
                 }
+                
+
             }
             x++;
         }

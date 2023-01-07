@@ -9,6 +9,7 @@ var angularTranslate = require("angular-translate");
 var angularTranslateErrorLog = require("angular-translate-handler-log");
 var angularSanitize = require("angular-sanitize");
 var angularAnimate = require("angular-animate");
+let verifyA = require('./verifyAssets').verifyA
 var bip39 = require("bip39");
 var HDKey = require("hdkey");
 var xssFilters = require("xss-filters");
@@ -149,6 +150,7 @@ window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
 let localCacheOfAssets = {};
+window.localCacheOfAssetsG = localCacheOfAssets
 const iplocate = require("node-iplocate");
 
 window.versionNumber = '3.14.00';
@@ -203,9 +205,9 @@ window.getLocation = async function () {
 
 window.getApiServer = function () {
     if (window.currentNet === 'mainnet') {
-        return 'https://mainnetapi.fusionnetwork.io';
+        return 'https://mainnet.fusionnetwork.io';
     } else if (window.currentNet === 'testnet') {
-        return 'https://testnetapi.fusionnetwork.io';
+        return 'https://testnet.fusionnetwork.io';
     }
 };
 
@@ -287,15 +289,49 @@ window.__fsnGetAllAssets = async function (array) {
     inGetAllAsets = true
     if (!lastGetAllAssetTime || (lastGetAllAssetTime + 15000) < (new Date()).getTime()) {
         let totalAssets = 0;
-        await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
-            let globalInfo = r.data;
-            totalAssets = globalInfo.totalAssets;
-            if (localCacheOfAssets.length == totalAssets) {
+        //await ajaxReq.http.get(`${window.getApiServer()}/fsnprice`).then(function (r) {
+            const glob = {
+                priceInfo: {
+                  _id: "1673106667",
+                  recCreated: "2023-01-07T15:51:45.000Z",
+                  recEdited: "2023-01-07T15:51:45.000Z",
+                  price: 0.2777950582463314,
+                  market_cap: 20439680,
+                  circulating_supply: 73578271,
+                  percentChange1H: -0.09,
+                  percentChange24H: 3.12,
+                  last_updated: null,
+                  total_supply: 70354039
+                },
+                totalTransactions: 257458527,
+                totalAssets: 727,
+                lastTwoBlocks: [
+                  
+                ],
+                maxBlock: 8497439,
+                totalAddresses: 632907
+              }
+
+
+            //let globalInfo = r.data;
+            /* let globalInfo = glob
+            totalAssets = globalInfo.totalAssets;*/
+            if (array && localCacheOfAssets.length == array.length) {
                 inGetAllAsets = false
                 clearOutAssetPromises(null, null)
                 return;
+            } 
+            const getAsset = (tokenId) => ({ "jsonrpc": "2.0", id: tokenId, "method": "fsn_getAsset", "params": [`${tokenId}`, "latest"], })
+        
+            for (let asset in array) {
+                await ajaxReq.http.post(`${window.getApiServer()}`, getAsset(array[asset])).then(function (r) {
+                    localCacheOfAssets[array[asset]] = r.data.result;
+                });
             }
-            for (let i = 0; i < Math.ceil(totalAssets / 100); i++) {
+
+            
+
+            /* for (let i = 0; i < Math.ceil(totalAssets / 100); i++) {
                 ajaxReq.http.get(`${window.getApiServer()}/assets/all?page=${i}&size=100`).then(function (r) {
                     let assets = r.data;
                     for (let asset in assets) {
@@ -306,7 +342,7 @@ window.__fsnGetAllAssets = async function (array) {
 
                     }
                 });
-            }
+            } */
             localCacheOfAssets['0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'] = {
                 AssetID: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
                 CanChange: false,
@@ -328,9 +364,11 @@ window.__fsnGetAllAssets = async function (array) {
                 Total: 0,
             }
             inGetAllAsets = false
+            //clearOutAssetPromises(null, null)
             clearOutAssetPromises(localCacheOfAssets, null)
             return localCacheOfAssets;
-        });
+        //}
+        //);
     }
     if (!lastGetAllAssetTime || (lastGetAllAssetTime + 7500) < (new Date()).getTime()) {
         if (array) {
@@ -439,17 +477,24 @@ window.__fsnGetAllBalances = async function (walletaddress, returnTimeLock = fal
         (wallet.lastGetAllBalancesTime + 7500) < (new Date()).getTime()) {
         try {
             let data
-            await ajaxReq.http.get(`${window.getApiServer()}/search/${walletaddress}`).then(function (r) {
-                data = JSON.parse(r.data.address[0].balanceInfo);
-            });
+
+            const getAllInfoByAddress = (addr) => ({ "jsonrpc": "2.0", id: 123, "method": "fsn_allInfoByAddress", "params": [`${addr}`, "latest"] })
+            
+            await ajaxReq.http.post(`${window.getApiServer()}`, getAllInfoByAddress(walletaddress)).then(function (r) {
+                data = r.data.result
+            })
+            
+            
             // cache the notation while we here
             wallet.lastGetAllBalancesTime = (new Date()).getTime()
             wallet.data = data
             wallet.inHere = false
             clearOutBalancesPromises(wallet, null, returnFullData)
+            
             if (returnFullData) {
                 return data
             }
+            
             return returnTimeLock ? data.timeLockBalances : data.balances
         } catch (err) {
             wallet.inHere = false
@@ -481,7 +526,7 @@ window.__fsnGetAllVerifiedAssets = async function () {
     //
     if (!lastGetAllVerifiedAssets || !lastGetAllVerifiedAssetsTime || (lastGetAllVerifiedAssetsTime + (2 * 60) * 1000) < (new Date()).getTime()) {
         try {
-            let r = await ajaxReq.http.get(`${window.getApiServer()}/assets/verified`)
+            let r = verifyA//await ajaxReq.http.get(`${window.getApiServer()}/assets/verified`)
             let allVerifiedAssets = r.data;
             let keys = Object.keys(allVerifiedAssets)
             for (let k of keys) {
@@ -505,8 +550,8 @@ window.__fsnGetAllVerifiedAssets = async function () {
     return lastGetAllVerifiedAssets
 }
 
-let cookieName = "gatewayURL1337";
-let defaultGateway = "wss://mainnetpublicgateway1.fusionnetwork.io:10001";
+let cookieName = "gatewayURL1338";
+let defaultGateway = "wss://mainnet.fusionnetwork.io";
 let defaultChainId = 32659;
 window.cookieName = cookieName;
 window.defaultGateway = defaultGateway;
@@ -535,9 +580,9 @@ function keepWeb3Alive() {
     }
 
     // Initialize Testnet/Mainnet
-    if (nodeUrl == "wss://mainnetpublicgateway1.fusionnetwork.io:10001") {
+    if (nodeUrl == "wss://mainnet.fusionnetwork.io") {
         window.currentNet = 'mainnet'
-    } else if (nodeUrl == "wss://testnetpublicgateway1.fusionnetwork.io:10001") {
+    } else if (nodeUrl == "wss://testnet.fusionnetwork.io") {
         window.currentNet = 'testnet'
     } else {
         window.currentNet = 'custom'

@@ -151,7 +151,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList | orderBy:sortKey:reverse |filter:searchTimeLock | startFrom:currentPage*pageSize | limitTo:pageSize track by $index"
-                            ng-hide="asset.status === 'Expired'">
+                            >
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
                             <td>
                                 <img ng-if="asset.hasImage"
@@ -185,7 +185,7 @@
                                     Send
                                 </button>
                                 <button class="btn-sm btn-white action-button p-0"
-                                        ng-show="asset.status === 'Expired'"
+                                        ng-show="asset.status === ''"
                                         ng-click="hideExpired(asset.id)">
                                     Remove
                                 </button>
@@ -258,7 +258,7 @@
                                 <span class="text-fusion">{{assetName}}</span>
                                 <span class="small-gray-text" ng-show="showStaticTimeLockAsset"><br>{{timeLockStartTime}} - {{timeLockEndTime}}</span>
                                 <div class="break-word">
-                                    <span class="small-gray-text">{{assetToSend}}</span>
+                                    <span style="text-transform: lowercase; font-family: monospace;" class="small-gray-text">{{assetToSend}}</span>
                                 </div>
                             </div>
                         </div>
@@ -330,7 +330,7 @@
                         <div ng-hide="transactionType =='none'">
                             <div class="col-md-6">
                             <span class="small-gray-text" ng-hide="transactionType == 'scheduled'">
-                                    From
+                                    From (+UTC)
                             </span>
                                 <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
                                     From
@@ -344,12 +344,12 @@
                                        is-open="popup.opened"
                                        datepicker-options="dateOptionsFrom"
                                        ng-model-options="{timezone: 'UTC'}"
-                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       uib-datepicker-popup="MM/dd/yyyy HH:mm:ss"
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened = true"
                                        show-button-bar="false"
-                                       placeholder="mm/dd/yyyy"
-                                       onkeydown="return false"
+                                       placeholder="mm/dd/yyyy hh:mm:ss"
+                                       
                                 >
                             </div>
                             <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
@@ -361,22 +361,24 @@
                             </div>
                             <div class="col-md-6" ng-hide="transactionType == 'scheduled'">
                             <span class="small-gray-text">
-                                    Until
+                                    Until (+UTC)
                                 </span>
                                 <br>
                                 <input class="form-control"
                                        type="text"
                                        ng-change="checkDate('tillTime')"
-                                       onkeydown="return false"
+                                       ng-model-options="{timezone: 'UTC'}"
                                        ng-model="sendAsset.tillTime"
                                        is-open="popup.opened2"
                                        datepicker-options="dateOptionsTill"
-                                       uib-datepicker-popup="MM/dd/yyyy"
-                                       ng-model-options="{timezone: 'UTC'}"
+                                       uib-datepicker-popup="MM/dd/yyyy HH:mm:ss"
+                                       
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened2 = true"
                                        show-button-bar="false"
-                                       placeholder="mm/dd/yyyy">
+                                       placeholder="mm/dd/yyyy hh:mm:ss"
+                                       
+                                       >
                             </div>
                         </div>
                     </section>
@@ -543,7 +545,7 @@
                                 <span class="fusion-text-14">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})
                                     </span>
                                 <br>
-                                <span class="small-gray-text">{{sendAsset.assetHash}}</span>
+                                <span style="font-family: monospace; text-transform: lowercase;" class="small-gray-text">{{sendAsset.assetHash}}</span>
                             </div>
                             <br>
                         </div>

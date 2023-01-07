@@ -11,8 +11,8 @@
                 <div class="col-md-3 col-xs-6">
                     <span class="small-gray-text mb-2">FUSION Tools</span>
                     <ul class="list-unstyled pt-2">
-                        <li><a href="https://node.fusionnetwork.io" target="_blank">Node Monitor</a></li>
-                        <li><a href="https://blocks.fusionnetwork.io" target="_blank">Block Explorer</a></li>
+                        <li><a href="https://stats.fusionnetwork.io" target="_blank">Node Monitor</a></li>
+                        <li><a href="https://fsnscan.com" target="_blank">Block Explorer</a></li>
                         <li><a href="https://api.fusionnetwork.io" target="_blank">API Gateway</a></li>
                     </ul>
                 </div>
@@ -20,7 +20,6 @@
                 <div class="col-md-3 col-xs-6">
                     <span class="small-gray-text mb-2">More</span>
                     <ul class="list-unstyled pt-2">
-                        <li><a href="https://www.fusion.org/products/fusion-network" target="_blank">Fusion Network</a></li>
                         <li><a href="https://www.fusion.org/fsn-token" target="_blank">FSN Token</a></li>
                         <li><a href="https://www.fusion.org/about-us" target="_blank">About Us</a></li>
                     </ul>
@@ -28,9 +27,7 @@
                 <div class="col-md-3 col-xs-12">
                     <span class="small-gray-text mb-2">Support</span>
                     <ul class="list-unstyled pt-2">
-                        <li><a href="https://www.fusion.org/contact" target="_blank">Contact</a></li>
-                        <li><a href="https://fusionnetworks.zendesk.com/hc/en-us/categories/360001287813-FAQs" target="_blank">FAQ</a></li>
-                        <li><a href="https://fusionnetworks.zendesk.com/hc/en-us/requests/new" target="_blank">Submit an Issue</a></li>
+                        <li><a href="https://t.me/FsnDevCommunity" target="_blank">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -57,7 +54,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                <p>©2016 - 2019 Fusion Foundation Ltd, All Rights Reserved</p>
+                <p>©2016 - 2023 Fusion Foundation Ltd, All Rights Reserved</p>
             </div>
             </hr>
         </div>

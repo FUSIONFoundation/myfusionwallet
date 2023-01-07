@@ -121,15 +121,7 @@
                                       Wallet
                                     </span>
                             </a>
-                            <a href="https://assetgateway.fusionnetwork.io" target="_blank"
-                               class="col-md-12 col-xs-12 p-2 app-select-active">
-                                    <span class="fusion-text-14">
-                                    <img src="images/group-6.svg"
-                                         class="Group-6">
-                                      Asset Gateway
-                                    </span>
-                            </a>
-                               <a href="https://blocks.fusionnetwork.io/#!/" target="_blank"
+                               <a href="https://fsnscan.com" target="_blank"
                                   class="col-md-12 col-xs-12 p-2 app-select-active">
 
                                     <span class="fusion-text-14">
@@ -138,7 +130,7 @@
                                       Block Explorer
                                     </span>
                             </a>
-                               <a href="http://node.fusionnetwork.io" target="_blank"
+                               <a href="https://stats.fusionnetwork.io" target="_blank"
                                   class="col-md-12 col-xs-12 p-2 app-select-active">
 
                                     <span class="fusion-text-14">
@@ -174,8 +166,8 @@
                         </div>
                         <div class="header-link" \
                             ng-class="{active: 7==gService.currentTab}"
-                            ng-click="tabClick(7)">
-                            <a tabindex="0" class="title">
+                            >
+                            <a tabindex="0" class="title" style="cursor: not-allowed;">
                                 <img src="images/tab-icon-swap-active.svg" ng-show="7==gService.currentTab" width="24" height="24" class="icon">
                                 <img src="images/tab-icon-swap-inactive.svg" ng-show="7!=gService.currentTab" width="24" height="24" class="icon">
                                 Quantum Swaps
@@ -201,7 +193,7 @@
                     <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
                     <div class="tagline">
                         <a class="dropdown-toggle btn btn-gray m-3 hidden-xs"
-                           href="https://fusionnetworks.zendesk.com/hc/en-us/requests/new"
+                           href="https://t.me/FsnDevCommunity"
                            target="_blank">Feedback</a>
                         <div class="dropdown dropdown-node">
                             <a tabindex="0"
