@@ -174,8 +174,8 @@
                         </div>
                         <div class="header-link" \
                             ng-class="{active: 7==gService.currentTab}"
-                            ng-click="tabClick(7)">
-                            <a tabindex="0" class="title">
+                            >
+                            <a tabindex="0" class="title" style="cursor: not-allowed;">
                                 <img src="images/tab-icon-swap-active.svg" ng-show="7==gService.currentTab" width="24" height="24" class="icon">
                                 <img src="images/tab-icon-swap-inactive.svg" ng-show="7!=gService.currentTab" width="24" height="24" class="icon">
                                 Quantum Swaps
@@ -201,7 +201,7 @@
                     <!-- Warning: The separators you see on the frontend are in styles/etherwallet-custom.less. If you add / change a node, you have to adjust these. Ping tayvano if you're not a CSS wizard -->
                     <div class="tagline">
                         <a class="dropdown-toggle btn btn-gray m-3 hidden-xs"
-                           href="https://fusionnetworks.zendesk.com/hc/en-us/requests/new"
+                           href="https://t.me/FsnDevCommunity"
                            target="_blank">Feedback</a>
                         <div class="dropdown dropdown-node">
                             <a tabindex="0"

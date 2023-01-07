@@ -11,7 +11,7 @@ var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var port = process.env.PORT ||8080;
+var port = process.env.PORT ||3000;
 
 
 app.use(compression());
@@ -33,9 +33,9 @@ app.use(function(req, res, next) {
         next();
         return
     }
-    if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
+    /* if((!req.secure) && (req.get('X-Forwarded-Proto') !== 'https')) {
         res.redirect('https://' + req.get('Host') + req.url);
-    }
+    } */
     else
         next();
 });

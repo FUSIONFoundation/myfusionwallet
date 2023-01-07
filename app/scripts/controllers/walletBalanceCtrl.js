@@ -30,10 +30,12 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let ticketsData;
             let tickets = {};
 
-            // data = await window.__fsnGetAllBalances(walletaddress,  false, true )
-            await ajaxReq.http.get(`${window.getApiServer()}/balances/${walletAddress}`).then(function (r) {
+            data = await window.__fsnGetAllBalances(walletaddress,  false, true )
+            /* console.log('test');
+            console.log(data); */
+            /* await ajaxReq.http.get(`${window.getApiServer()}/balances/${walletAddress}`).then(function (r) {
                 data = r.data
-            })
+            }) */
 
             if (data.length == 0){
                 $scope.$eval(function () {
@@ -313,13 +315,14 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let notation = '';
 
             try {
-                await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function (r) {
+                /* await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function (r) {
                     if (r.data.address[0].san !== "0") {
                         notation = r.data.address[0].san;
                     } else {
                         notation = 0;
                     }
-                });
+                }); */
+                notation = 0;
             } catch (err){
                 notation = 0;
             }

@@ -114,13 +114,20 @@ Wallet.prototype.setBalance = async function (callback) {
     var balance = 0;
     this.balance = 'loading';
     //GET FSN BALANCE INSTEAD OF ETHER
-    await ajaxReq.http.get(`${window.getApiServer()}/balances/${parentObj.getAddressString()}`).then(function (r) {
+    const getBalance = (addr) => ({"jsonrpc":"2.0","method":"fsn_getBalance","params":["0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",`${addr}`,"latest"],"id":124})
+
+    await ajaxReq.http.post(`${window.getApiServer()}`, getBalance(parentObj.getAddressString())).then(function (r) {
+        return parentObj.balance = r.data.result;
+    })
+
+
+    /* await ajaxReq.http.get(`${window.getApiServer()}/balances/${parentObj.getAddressString()}`).then(function (r) {
         if (r.data.length === 0) {
             return parentObj.balance = 0;
         } else {
             return parentObj.balance = r.data[0].fsnBalance / 1000000000000000000;
         }
-    });
+    }); */
 }
 Wallet.prototype.getBalance = function () {
     return this.balance;

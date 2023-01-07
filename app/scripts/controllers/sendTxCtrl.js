@@ -84,7 +84,24 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (counter === 0) return clearInterval(intv);
     }
     $scope.getTransactionStatus = async function (txid) {
-        let tx;
+        const txStatus = (tx) => ({"jsonrpc":"2.0","method":"fsn_getTransactionAndReceipt","params":[`${tx}`],"id":1888})
+        await ajaxReq.http.post(`${window.getApiServer()}`, txStatus(txid)).then(function (r) {
+            if(!r.data.result) {
+                $scope.countDownFunc();
+                console.log('Transaction not found, will retry in 5s..');
+                setTimeout(function () {
+                    console.log('Last check: ' + new Date);
+                    $scope.getTransactionStatus(txid)
+                }, 5000);
+                return;
+            } else {
+                uiFuncs.notifier.info('Transaction was successfully processed', 5000);
+                $scope.$applyAsync(function () {
+                    $scope.transactionStatus = 'Success'
+                })
+            } 
+        });
+        /* let tx;
         await ajaxReq.http.get(`${window.getApiServer()}/transactions/${txid}`).then(function (r) {
             tx = r.data[0];
             if (tx === undefined) {
@@ -101,7 +118,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     $scope.transactionStatus = 'Success'
                 })
             }
-        });
+        }); */
     }
 
     $scope.currentPage = 0;
@@ -2300,7 +2317,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         // if the start and endtime are now and forever
         if (
             startTimePosix <= currentDate &&
-            endTimePosix === "18446744073709551615"
+            String(endTimePosix) === "18446744073709552000"
         ) {
             return (status = "Available");
             // if the start and end date in range of the current date
@@ -2345,7 +2362,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         });
 
         let allAssets = await window.__fsnGetAllAssets();
-
+        //debugger
         let x = 0;
         for (let asset in timeLockList) {
             let assetId = Object.keys(timeLockList);
@@ -2405,7 +2422,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
 
                     startTime = $scope.months[month] + " " + day + ", " + year;
                 }
-                if (endTimePosix === "18446744073709551615") {
+                if (String(endTimePosix) === "18446744073709552000") {
                     endTime = "∞ Forever";
                 } else {
                     let a = new Date(

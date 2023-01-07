@@ -177,12 +177,12 @@ var tabsCtrl = function ($scope, globalService, $translate, $sce) {
         let url = {};
         if (net == 'mainnet') {
             url = {
-                "url": "wss://mainnetpublicgateway1.fusionnetwork.io:10001",
+                "url": "wss://mainnet.fusionnetwork.io",
                 "chainid": 32659
             };
         } else if (net == 'testnet') {
             url = {
-                "url": "wss://testnetpublicgateway1.fusionnetwork.io:10001",
+                "url": "wss://testnet.fusionnetwork.io",
                 "chainid": 46688
             };
         }

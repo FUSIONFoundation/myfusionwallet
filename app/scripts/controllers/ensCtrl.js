@@ -1457,10 +1457,9 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         if (counter === 0) return clearInterval(intv);
     }
     $scope.getTransactionStatus = async function (txid) {
-        let tx;
-        await ajaxReq.http.get(`${window.getApiServer()}/transactions/${txid}`).then(function (r) {
-            tx = r.data[0];
-            if (tx === undefined) {
+        const txStatus = (tx) => ({"jsonrpc":"2.0","method":"fsn_getTransactionAndReceipt","params":[`${tx}`],"id":1888})
+        await ajaxReq.http.post(`${window.getApiServer()}`, txStatus(txid)).then(function (r) {
+            if(!r.data.result) {
                 $scope.countDownFunc();
                 console.log('Transaction not found, will retry in 5s..');
                 setTimeout(function () {
@@ -1468,12 +1467,12 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                     $scope.getTransactionStatus(txid)
                 }, 5000);
                 return;
-            } else if (tx) {
+            } else {
                 uiFuncs.notifier.info('Transaction was successfully processed', 5000);
                 $scope.$applyAsync(function () {
                     $scope.transactionStatus = 'Success'
                 })
-            }
+            } 
         });
     }
 
@@ -1827,7 +1826,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let allAssets = await window.__fsnGetAllAssets();
-        await window.__fsnGetAllTimeLockBalances(walletAddress).then(function (res) {
+        await window.__fsnGetAllTimeLockBalances(walletAddress).then(function (res) {// остановился тут пока не правильно получает балансы
             $scope.myActiveTimeLocks = [];
             for (let asset in res) {
                 let timelocks = res[asset].Items;
@@ -1853,6 +1852,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
                             "End"
                         )
                     };
+                    console.log(data)
                     x++;
                     $scope.myActiveTimeLocks[asset].push(data);
                 }
