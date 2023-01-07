@@ -11,7 +11,7 @@ var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var port = process.env.PORT ||3000;
+var port = process.env.PORT ||8080;
 
 
 app.use(compression());
