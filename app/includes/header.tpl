@@ -121,15 +121,7 @@
                                       Wallet
                                     </span>
                             </a>
-                            <a href="https://assetgateway.fusionnetwork.io" target="_blank"
-                               class="col-md-12 col-xs-12 p-2 app-select-active">
-                                    <span class="fusion-text-14">
-                                    <img src="images/group-6.svg"
-                                         class="Group-6">
-                                      Asset Gateway
-                                    </span>
-                            </a>
-                               <a href="https://blocks.fusionnetwork.io/#!/" target="_blank"
+                               <a href="https://fsnscan.com" target="_blank"
                                   class="col-md-12 col-xs-12 p-2 app-select-active">
 
                                     <span class="fusion-text-14">
@@ -138,7 +130,7 @@
                                       Block Explorer
                                     </span>
                             </a>
-                               <a href="http://node.fusionnetwork.io" target="_blank"
+                               <a href="https://stats.fusionnetwork.io" target="_blank"
                                   class="col-md-12 col-xs-12 p-2 app-select-active">
 
                                     <span class="fusion-text-14">
