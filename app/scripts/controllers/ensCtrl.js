@@ -1826,7 +1826,7 @@ var ensCtrl = function ($scope, $sce, walletService, $timeout, $rootScope) {
         let accountData = uiFuncs.getTxData($scope);
         let walletAddress = accountData.from;
         let allAssets = await window.__fsnGetAllAssets();
-        await window.__fsnGetAllTimeLockBalances(walletAddress).then(function (res) {// остановился тут пока не правильно получает балансы
+        await window.__fsnGetAllTimeLockBalances(walletAddress).then(function (res) {
             $scope.myActiveTimeLocks = [];
             for (let asset in res) {
                 let timelocks = res[asset].Items;

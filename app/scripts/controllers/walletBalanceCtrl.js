@@ -314,15 +314,16 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let walletAddress = accountData.from;
             let notation = '';
 
+            const getNotation = (address) => ({"jsonrpc":"2.0","method":"fsn_getNotation","params":[`${address}`,"latest"],"id":125})
+
             try {
-                /* await ajaxReq.http.get(`${window.getApiServer()}/search/${walletAddress}`).then(function (r) {
-                    if (r.data.address[0].san !== "0") {
-                        notation = r.data.address[0].san;
+                await ajaxReq.http.post(`${window.getApiServer()}`, getNotation(walletAddress)).then(function (r) {
+                    if (r.data.result !== 0) {
+                        notation = r.data.result;
                     } else {
                         notation = 0;
                     }
-                }); */
-                notation = 0;
+                })
             } catch (err){
                 notation = 0;
             }
