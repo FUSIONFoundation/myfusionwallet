@@ -330,7 +330,7 @@
                         <div ng-hide="transactionType =='none'">
                             <div class="col-md-6">
                             <span class="small-gray-text" ng-hide="transactionType == 'scheduled'">
-                                    From
+                                    From (+UTC)
                             </span>
                                 <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
                                     From
@@ -343,13 +343,13 @@
                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
                                        is-open="popup.opened"
                                        datepicker-options="dateOptionsFrom"
-                                       ng-model-options="{timezone: 'UTC'}"
-                                       uib-datepicker-popup="MM/dd/yyyy"
+                                       
+                                       uib-datepicker-popup="MM/dd/yyyy HH:mm:ss"
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened = true"
                                        show-button-bar="false"
-                                       placeholder="mm/dd/yyyy"
-                                       onkeydown="return false"
+                                       placeholder="mm/dd/yyyy hh:mm:ss"
+                                       
                                 >
                             </div>
                             <span class="small-gray-text" ng-show="transactionType == 'scheduled'">
@@ -361,22 +361,24 @@
                             </div>
                             <div class="col-md-6" ng-hide="transactionType == 'scheduled'">
                             <span class="small-gray-text">
-                                    Until
+                                    Until (+UTC)
                                 </span>
                                 <br>
                                 <input class="form-control"
                                        type="text"
                                        ng-change="checkDate('tillTime')"
-                                       onkeydown="return false"
+                                      
                                        ng-model="sendAsset.tillTime"
                                        is-open="popup.opened2"
                                        datepicker-options="dateOptionsTill"
-                                       uib-datepicker-popup="MM/dd/yyyy"
-                                       ng-model-options="{timezone: 'UTC'}"
+                                       uib-datepicker-popup="MM/dd/yyyy HH:mm:ss"
+                                       
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened2 = true"
                                        show-button-bar="false"
-                                       placeholder="mm/dd/yyyy">
+                                       placeholder="mm/dd/yyyy hh:mm:ss"
+                                       
+                                       >
                             </div>
                         </div>
                     </section>

@@ -22,7 +22,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     $scope.assetListLoading = true;
     $scope.showNoAssets = false;
     $scope.selectedAssetBalance = "";
-    $scope.altInputFormats = ['M!/d!/yyyy'];
+    $scope.altInputFormats = ['M!/d!/yyyy/hh/mm/ss'];
     $scope.todayDate = formatDate();
     $scope.tx = {};
     $scope.signedTx = "";
@@ -958,20 +958,43 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     };
 
     $scope.sendAssetModalConfirm = async function (asset) {
+        //TODO send asset modalConfig
+       // console.log('fromTime');
+        //Date.UTC(year, monthIndex, day, hour, minute, second)
+        /* const timestamp = new Date(Date.UTC(
+            $scope.sendAsset.fromTime.getFullYear(),
+            $scope.sendAsset.fromTime.getMonth(),
+            $scope.sendAsset.fromTime.getDate(),
+            $scope.sendAsset.fromTime.getHours(),
+            $scope.sendAsset.fromTime.getMinutes(),
+            $scope.sendAsset.fromTime.getSeconds()
+        )) */
+        //console.log('timestamp')
+        //console.log(UTCDate.getTime())
+        //console.log('tillTime');
+        //console.log($scope.sendAsset.tillTime)
+
         let fromTimeString = new Date($scope.sendAsset.fromTime);
         let tillTimeString = new Date($scope.sendAsset.tillTime);
-        console.log(fromTimeString.toUTCString());
-        console.log(tillTimeString.toUTCString());
+        function pad(s) {
+            return s < 10 ? "0" + s : s;
+        }
 
-        var fMonth = fromTimeString.getUTCMonth();
-        var fDay = fromTimeString.getUTCDate();
-        var fYear = fromTimeString.getUTCFullYear();
-        var tMonth = tillTimeString.getUTCMonth();
-        var tDay = tillTimeString.getUTCDate();
-        var tYear = tillTimeString.getUTCFullYear();
+        var fMonth = fromTimeString.getMonth();
+        var fDay = fromTimeString.getDate();
+        var fHours = fromTimeString.getHours();
+        var fMinutes = fromTimeString.getMinutes();
+        var fSeconds = fromTimeString.getSeconds();
+        var fYear = fromTimeString.getFullYear();
+        var tMonth = tillTimeString.getMonth();
+        var tDay = tillTimeString.getDate();
+        var tHours = tillTimeString.getHours();
+        var tMinutes = tillTimeString.getMinutes();
+        var tSeconds = tillTimeString.getSeconds();
+        var tYear = tillTimeString.getFullYear();
 
-        let startTime = $scope.months[fMonth] + " " + fDay + ", " + fYear;
-        let endTime = $scope.months[tMonth] + " " + tDay + ", " + tYear;
+        let startTime = $scope.months[fMonth] + " " + fDay + ", " + fYear + ' / ' + pad(fHours) + ':' + pad(fMinutes) + ':' + pad(fSeconds) + ' +UTC';
+        let endTime = $scope.months[tMonth] + " " + tDay + ", " + tYear + ' / ' + pad(tHours) + ':' + pad(tMinutes) + ':' + pad(tSeconds) + ' +UTC';
 
         await window.__fsnGetAsset(asset).then(function (res) {
             $scope.$eval(function () {
@@ -988,77 +1011,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     };
 
     $scope.getDayAfter = function (date){
+        console.log('getDayAfter')
         let temp = new Date(date);
         return new Date(temp.setDate(temp.getDate() + 1));
     }
 
     $scope.checkDate = function (source) {
-        // console.log("scope.checkDate called 14!!");
-        let today = new Date();
-        // console.log("fromTime: " + $scope.sendAsset.fromTime);
-        // console.log("tillTime: " + $scope.sendAsset.tillTime);
-        if (!$scope.sendAsset.tillTime || !$scope.sendAsset.fromTime){
-           return;
-        }
-        if($scope.sendAsset.fromTime >= today
-            && $scope.sendAsset.tillTime >= today
-            && $scope.sendAsset.fromTime <= $scope.sendAsset.tillTime) {
-                // console.log("dates ok");
-            return;
-        }
-        if(source === "fromTime") {
-            // console.log("fromTime changed");
-            if($scope.sendAsset.fromTime < today) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.fromTime = today;
-                    // console.log("fromTime changed to today");
-                });
-                if(today > $scope.sendAsset.tillTime) {
-                    // change tillTime to: tomorrow
-                    let dayAfter = $scope.getDayAfter(today);
-                    $scope.$eval(function () {
-                        $scope.sendAsset.tillTime = dayAfter;
-                        // console.log("tillTime changed to " + dayAfter);
-                    });
-                }
-            } else {
-                if($scope.sendAsset.fromTime > $scope.sendAsset.tillTime) {
-                    $scope.$eval(function () {
-                        let dayAfter = $scope.getDayAfter($scope.sendAsset.fromTime);
-                        $scope.sendAsset.tillTime = dayAfter;
-                        // console.log("tillTime changed to " + dayAfter);
-                    })
-                }
-            }
-        } else if (source === "tillTime") {
-            // console.log("tillTime changed");
-            if($scope.sendAsset.tillTime < today) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.tillTime = today;
-                    $scope.sendAsset.fromTime = today;
-                    // console.log("dates changed to today");
-                });
-            } else {
-                if($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
-                    // change fromTime to: today
-                    $scope.$eval(function () {
-                        $scope.sendAsset.fromTime = today;
-                        // console.log("fromTime changed to today");
-                    });
-                }
-            }
-        } else {
-            if ($scope.sendAsset.tillTime < today) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.tillTime = today;
-                });
-            }
-            if ($scope.sendAsset.tillTime < $scope.sendAsset.fromTime) {
-                $scope.$eval(function () {
-                    $scope.sendAsset.fromTime = today;
-                });
-            }
-        }
+        
     };
 
     $scope.checkDateWithForever = function () {
@@ -1093,6 +1052,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
     };
 
     $scope.sendAssetModalOpen = async function (id, timelockonly) {
+        let d = new Date()
+
+        function pad(s) {
+            return s < 10 ? "0" + s : s;
+        }
+        //new Date(`${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDay())}T${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}:00.000Z`);
         $scope.$eval(function () {
             $scope.sendAssetDisabled = false;
             $scope.sufficientBalance = undefined;
@@ -1101,9 +1066,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.validWalletAddress = false;
             $scope.sendAssetDisabled = false;
             $scope.checkingUSAN = false;
-            $scope.dateOptionsFrom.minDate = new Date();
+            $scope.dateOptionsFrom.minDate = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T00:00:00.000Z`
             $scope.dateOptionsFrom.maxDate = "";
-            $scope.dateOptionsTill.minDate = new Date();
+            $scope.dateOptionsTill.minDate = `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}-${pad(d.getUTCDate())}T00:00:00.000Z`
             $scope.dateOptionsTill.maxDate = "";
         });
 
@@ -1143,7 +1108,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (id >= 0 && timelockonly == true) {
             let assetData = $scope.timeLockList[id];
             console.log(assetData);
-            $scope.$applyAsync(function () {
+            $scope.$applyAsync(function () { //FIXME TL TO TL(bag time UTC)
                 $scope.assetToSend = assetData.asset;
                 $scope.assetName = assetData.name;
                 // If end time is forever, set endtime 3 months ahead
@@ -1201,17 +1166,24 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         }, 200);
     };
 
-    function convertDate(inputFormat) {
+    function convertDate(input) {
+        //TODO convert Date
         function pad(s) {
             return s < 10 ? "0" + s : s;
         }
+        //console.log(inputFormat)
+        //var d = new Date(inputFormat);
 
-        var d = new Date(inputFormat);
-        return [
-            d.getUTCFullYear(),
-            pad(d.getUTCMonth() + 1),
-            pad(d.getUTCDate())
-        ].join("-");
+        /* const fromTime = new Date(Date.UTC(
+            $scope.sendAsset.fromTime.getFullYear(),
+            $scope.sendAsset.fromTime.getMonth(),
+            $scope.sendAsset.fromTime.getDate(),
+            $scope.sendAsset.fromTime.getHours(),
+            $scope.sendAsset.fromTime.getMinutes(),
+            $scope.sendAsset.fromTime.getSeconds()
+        )).getTime().toString(16); */
+        //2013-01-31T12:34:00.000Z
+        return `${input.getFullYear()}-${pad(input.getMonth() + 1)}-${pad(input.getDate())}T${pad(input.getHours())}:${pad(input.getMonth())}:${pad(input.getSeconds())}.000Z`
     }
 
     function getHexDate(d) {
@@ -1676,7 +1648,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     $scope.toHexString($scope.wallet.getPrivateKey())
                 );
             }
-
+            //TODO create TX
             try {
                 await web3.fsntx
                     .buildAssetToTimeLockTx({
@@ -2402,6 +2374,9 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 hasImage = true;
                 verifiedAsset = true;
             }
+            function pad(s) {
+                return s < 10 ? "0" + s : s;
+            }
 
             for (let i = 0; i < timeLockList[asset]["Items"].length; i++) {
                 let startTimePosix = timeLockList[asset]["Items"][i]["StartTime"];
@@ -2419,8 +2394,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     var month = a.getUTCMonth();
                     var day = a.getUTCDate();
                     var year = a.getUTCFullYear();
+                    var hour = a.getUTCHours();
+                    var min = a.getUTCMinutes();
+                    var sec = a.getUTCSeconds();
 
-                    startTime = $scope.months[month] + " " + day + ", " + year;
+                    startTime = $scope.months[month] + " " + day + ", " + year + ` / ${pad(hour)}:${pad(min)} UTC`;
                 }
                 if (String(endTimePosix) === "18446744073709552000") {
                     endTime = "∞ Forever";
@@ -2432,8 +2410,11 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     var month = a.getUTCMonth();
                     var day = a.getUTCDate();
                     var year = a.getUTCFullYear();
+                    var hour = a.getUTCHours();
+                    var min = a.getUTCMinutes();
+                    var sec = a.getUTCSeconds();
 
-                    endTime = $scope.months[month] + " " + day + ", " + year;
+                    endTime = $scope.months[month] + " " + day + ", " + year + ` / ${pad(hour)}:${pad(min)} UTC`;
                 }
 
                 // Calculate the status of the Time Lock
