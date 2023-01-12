@@ -980,18 +980,18 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             return s < 10 ? "0" + s : s;
         }
 
-        var fMonth = fromTimeString.getMonth();
-        var fDay = fromTimeString.getDate();
-        var fHours = fromTimeString.getHours();
-        var fMinutes = fromTimeString.getMinutes();
-        var fSeconds = fromTimeString.getSeconds();
-        var fYear = fromTimeString.getFullYear();
-        var tMonth = tillTimeString.getMonth();
-        var tDay = tillTimeString.getDate();
-        var tHours = tillTimeString.getHours();
-        var tMinutes = tillTimeString.getMinutes();
-        var tSeconds = tillTimeString.getSeconds();
-        var tYear = tillTimeString.getFullYear();
+        var fMonth = fromTimeString.getUTCMonth();
+        var fDay = fromTimeString.getUTCDate();
+        var fHours = fromTimeString.getUTCHours();
+        var fMinutes = fromTimeString.getUTCMinutes();
+        var fSeconds = fromTimeString.getUTCSeconds();
+        var fYear = fromTimeString.getUTCFullYear();
+        var tMonth = tillTimeString.getUTCMonth();
+        var tDay = tillTimeString.getUTCDate();
+        var tHours = tillTimeString.getUTCHours();
+        var tMinutes = tillTimeString.getUTCMinutes();
+        var tSeconds = tillTimeString.getUTCSeconds();
+        var tYear = tillTimeString.getUTCFullYear();
 
         let startTime = $scope.months[fMonth] + " " + fDay + ", " + fYear + ' / ' + pad(fHours) + ':' + pad(fMinutes) + ':' + pad(fSeconds) + ' +UTC';
         let endTime = $scope.months[tMonth] + " " + tDay + ", " + tYear + ' / ' + pad(tHours) + ':' + pad(tMinutes) + ':' + pad(tSeconds) + ' +UTC';
@@ -1108,7 +1108,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (id >= 0 && timelockonly == true) {
             let assetData = $scope.timeLockList[id];
             console.log(assetData);
-            $scope.$applyAsync(function () { //FIXME TL TO TL(bag time UTC)
+            $scope.$applyAsync(function () { 
                 $scope.assetToSend = assetData.asset;
                 $scope.assetName = assetData.name;
                 // If end time is forever, set endtime 3 months ahead
@@ -1183,7 +1183,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.sendAsset.fromTime.getSeconds()
         )).getTime().toString(16); */
         //2013-01-31T12:34:00.000Z
-        return `${input.getFullYear()}-${pad(input.getMonth() + 1)}-${pad(input.getDate())}T${pad(input.getHours())}:${pad(input.getMonth())}:${pad(input.getSeconds())}.000Z`
+        return `${input.getUTCFullYear()}-${pad(input.getUTCMonth() + 1)}-${pad(input.getUTCDate())}T${pad(input.getUTCHours())}:${pad(input.getUTCMonth())}:${pad(input.getUTCSeconds())}.000Z`
     }
 
     function getHexDate(d) {

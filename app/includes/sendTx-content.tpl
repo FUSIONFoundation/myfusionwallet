@@ -343,7 +343,7 @@
                                        ng-show="transactionType == 'scheduled' || transactionType == 'daterange'"
                                        is-open="popup.opened"
                                        datepicker-options="dateOptionsFrom"
-                                       
+                                       ng-model-options="{timezone: 'UTC'}"
                                        uib-datepicker-popup="MM/dd/yyyy HH:mm:ss"
                                        alt-input-formats="altInputFormats"
                                        ng-click="popup.opened = true"
@@ -367,7 +367,7 @@
                                 <input class="form-control"
                                        type="text"
                                        ng-change="checkDate('tillTime')"
-                                      
+                                       ng-model-options="{timezone: 'UTC'}"
                                        ng-model="sendAsset.tillTime"
                                        is-open="popup.opened2"
                                        datepicker-options="dateOptionsTill"
