@@ -1355,7 +1355,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         $scope.sendBackToAssetsModal.open();
     };
 
-    $scope.sendBackToAssetsFunction = async function (id) {
+    $scope.sendBackToAssetsFunction = async function (id) { //TODO sendBackToAssetsFunction
         let accountData = uiFuncs.getTxData($scope);
         id = $scope.timeLockToAssetId;
         let tlData = $scope.timeLockList[id];
@@ -1365,7 +1365,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -1398,7 +1399,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     }
@@ -1468,6 +1470,32 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }
         }
         if ($scope.wallet.hwType == "trezor") {
+        }
+        if ($scope.wallet.hwType == "Metamask") {
+            const params = [{
+                "from": data.from,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                hash = result;
+                $scope.getTransactionStatus(result);
+                $scope.sendAssetFinal.open();
+                $scope.$eval(function () {
+                    $scope.successHash = hash;
+                    $scope.successHash = hash;
+                });
+                //console.log(result);
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
         }
     };
 
@@ -1580,11 +1608,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         amount = $scope.makeBigNumber(amountBNString, decimals);
 
         if ($scope.transactionType == "none") {
-            if (
-                !$scope.account &&
-                $scope.wallet.hwType !== "ledger" &&
-                $scope.wallet.hwType !== "trezor"
-            ) {
+            if (!$scope.account && $scope.wallet.hwType !== "ledger" && $scope.wallet.hwType !== "trezor" && $scope.wallet.hwType !== 'Metamask') {
                 $scope.account = web3.eth.accounts.privateKeyToAccount(
                     $scope.toHexString($scope.wallet.getPrivateKey())
                 );
@@ -1601,11 +1625,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                         tx.from = from;
                         tx.chainId = _CHAINID;
                         data = tx;
-                        console.log(tx);
-                        if (
-                            $scope.wallet.hwType == "ledger" ||
-                            $scope.wallet.hwType == "trezor"
-                        ) {
+                        console.log(data);
+                        if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor" || $scope.wallet.hwType == 'Metamask') {
                             return;
                         }
                         return web3.fsn
@@ -1632,7 +1653,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 $scope.successHash = hash;
             });
         }
-        if ($scope.transactionType == "daterange") {
+        if ($scope.transactionType == "daterange") { //TODO assetToTL
             if ($scope.sendAsset.fromTime == "") {
                 $scope.sendAsset.fromTime = new Date();
             }
@@ -1642,13 +1663,13 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             if (
                 !$scope.account &&
                 $scope.wallet.hwType !== "ledger" &&
-                $scope.wallet.hwType !== "trezor"
+                $scope.wallet.hwType !== "trezor" &&
+                $scope.wallet.hwType !== 'Metamask'
             ) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount(
                     $scope.toHexString($scope.wallet.getPrivateKey())
                 );
             }
-            //TODO create TX
             try {
                 await web3.fsntx
                     .buildAssetToTimeLockTx({
@@ -1665,7 +1686,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                         data = tx;
                         if (
                             $scope.wallet.hwType == "ledger" ||
-                            $scope.wallet.hwType == "trezor"
+                            $scope.wallet.hwType == "trezor" ||
+                            $scope.wallet.hwType == 'Metamask'
                         ) {
                             return;
                         }
@@ -1689,14 +1711,15 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }
         }
 
-        if ($scope.transactionType == "scheduled") {
+        if ($scope.transactionType == "scheduled") { // TODO TL TO TL
             let fromTime = getHexDate(convertDate($scope.sendAsset.fromTime));
             let tillTime = web3.fsn.consts.TimeForeverStr;
 
             if (
                 !$scope.account &&
                 $scope.wallet.hwType !== "ledger" &&
-                $scope.wallet.hwType !== "trezpr"
+                $scope.wallet.hwType !== "trezpr" &&
+                $scope.wallet.hwType !== 'Metamask'
             ) {
                 $scope.account = web3.eth.accounts.privateKeyToAccount(
                     $scope.toHexString($scope.wallet.getPrivateKey())
@@ -1719,7 +1742,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                         data = tx;
                         if (
                             $scope.wallet.hwType == "ledger" ||
-                            $scope.wallet.hwType == "trezor"
+                            $scope.wallet.hwType == "trezor" ||
+                            $scope.wallet.hwType == 'Metamask'
                         ) {
                             return;
                         }
@@ -1838,6 +1862,43 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 });
             });
         }
+        if ($scope.wallet.hwType == "Metamask") { //TODO create tx metamask
+            let params = []
+            if($scope.assetToSend == '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff' && $scope.transactionType == "none") {
+                params = [{ // Transfer
+                    "from": from,
+                    "to": to,
+                    "value": amount.toString(16),
+                    "gas": Number(21000).toString(16),
+                    /* "gasPrice": Number(000).toString(16), */
+                    
+                }]
+            } else {
+                params = [{ // Asset send
+                    "from": data.from,
+                    "to": data.to,
+                    "gas": data.gas,
+                    "gasPrice": data.gasPrice,
+                    "data": data.input
+                }]
+            }
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params})
+                hash = result;
+                $scope.getTransactionStatus(result);
+                $scope.sendAssetFinal.open();
+                $scope.$eval(function () {
+                    $scope.successHash = hash;
+                    $scope.successHash = hash;
+                });
+                //console.log(result);
+            } catch(err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
+        }
     };
 
     $scope.hideExpired = function (id) {
@@ -1871,7 +1932,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         localStorage.setItem("hiddenTimeLocks", JSON.stringify(data));
     };
 
-    $scope.timeLockToTimeLock = async function () {
+    $scope.timeLockToTimeLock = async function () { //TODO timeLockToTimeLock
         $scope.successMessagebool = true;
         let accountData = uiFuncs.getTxData($scope);
         let from = accountData.from;
@@ -1903,7 +1964,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         }
 
         // JavaScript / Go incompatibility -1 error
-        if ($scope.timeLockEndTimePosix === 18446744073709552000) {
+        if (tillTime === "0x10000000000000180") {
             tillTime = web3.fsn.consts.TimeForeverStr;
         }
 
@@ -1926,7 +1987,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -1950,7 +2012,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     }
@@ -2030,7 +2093,33 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }
         }
 
-        if ($scope.wallet.hwType == "trezor") {
+        if ($scope.wallet.hwType == "trezor") {}
+
+        if ($scope.wallet.hwType == "Metamask") {
+            const params = [{
+                "from": data.from,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+            console.log(params)
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                hash = result;
+                $scope.getTransactionStatus(result);
+                $scope.sendAssetFinal.open();
+                $scope.$eval(function () {
+                    $scope.successHash = hash;
+                    $scope.successHash = hash;
+                });
+                //console.log(result);
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
         }
     };
 

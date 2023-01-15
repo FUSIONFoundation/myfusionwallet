@@ -716,7 +716,13 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
   };
   $scope.scanLedger = function() {
     $scope.ledgerError = false;
+    //TODO scan ledger
+    console.log('startScan')
+
     $scope.ledger = new Ledger3("w0w");
+
+    console.log('next')
+
     var app = new ledgerEth($scope.ledger);
     var path = $scope.getLedgerPath();
     app.getAddress(path, $scope.ledgerCallback, false, true);
@@ -901,7 +907,108 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     //   });
     //   window.postMessage({ type: 'ETHEREUM_PROVIDER_REQUEST', web3: true }, '*');
     // }
-    if (window.ethereum) {
+
+
+    if (ethereum.isMetaMask) {
+      //console.log('MetaMask is installed!')
+      //TODO SCAN METAMASK
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+
+      if(window.currentNet == 'testnet') {
+        try {
+          await ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0xb660' }],
+          });
+        } catch (switchError) {
+          if (switchError.code === 4902) {
+            try {
+              await ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: '0xB660',
+                    chainName: 'Fusion Testnet',
+                    nativeCurrency: {
+                        name: 'Fusion',
+                        symbol: 'FSN',
+                        decimals: 18
+                    },
+                    rpcUrls: ['https://testnet.fusionnetwork.io'],
+                    blockExplorerUrls: ['https://testnet.fsnscan.com']
+                  },
+                ],
+              });
+            } catch (addError) {
+
+            }
+          } else {
+            $scope.notifier.danger(
+              switchError.message
+            );
+            return
+          }
+        }
+      } else {
+        try {
+          await ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x7f93' }],
+          });
+        } catch (switchError) {
+          if (switchError.code === 4902) {
+            try {
+              await ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: '0x7F93',
+                    chainName: 'Fusion Mainnet',
+                    nativeCurrency: {
+                      name: 'Fusion',
+                      symbol: 'FSN',
+                      decimals: 18
+                    },
+                    rpcUrls: ['https://mainnet.fusionnetwork.io'],
+                    blockExplorerUrls: ['https://fsnscan.com']
+                  },
+                ],
+              });
+            } catch (addError) {
+              
+            }
+          } else {
+            $scope.notifier.danger(
+              switchError.message
+            );
+            return
+          }
+        }
+      }
+
+      
+      var address = accounts[0];
+      var addressBuffer = Buffer.from(address.slice(2), "hex");
+      var wallet = new Web3Wallet(addressBuffer);
+      wallet.setBalance(false);
+      // set wallet
+      $scope.wallet = wallet;
+      walletService.wallet = wallet;
+      //$scope.notifier.info(globalFuncs.successMsgs[6]);
+      $scope.wallet.type = "Metamask";
+      $scope.wallet.hwType = "Metamask"
+      $scope.wallet.pubKey = ethereum.selectedAddress
+      //console.log(walletService.wallet)
+
+    } else {
+      $scope.notifier.danger(
+        "Metamask Not Found"
+      );
+    }
+
+
+
+    /* if (ethereum.isMetaMask !== 'undefined') {
       window.web3 = new Web3(ethereum);
       try {
         await ethereum.enable();
@@ -918,7 +1025,7 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
       $scope.notifier.danger(
         "Non-Ethereum browser detected. You should consider trying MetaMask!"
       );
-    }
+    } */
   };
 
   // helper function that removes 0x prefix from strings

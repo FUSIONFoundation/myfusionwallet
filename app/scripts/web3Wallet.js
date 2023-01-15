@@ -24,12 +24,12 @@ Web3Wallet.prototype.getAddress = function() {
 // Web3Wallet.prototype.getHWTransport = function() {
 //     throw new Error('Web3Wallet - method not supported')
 // }
-Web3Wallet.prototype.getPrivateKey = function() {
+/* Web3Wallet.prototype.getPrivateKey = function() {
     throw new Error('Web3Wallet - method not supported')
 }
 Web3Wallet.prototype.getPrivateKeyString = function() {
     throw new Error('Web3Wallet - method not supported')
-}
+} */
 Web3Wallet.prototype.getPublicKey = function() {
     throw new Error('Web3Wallet - method not supported')
 }
