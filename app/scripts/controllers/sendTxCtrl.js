@@ -1481,15 +1481,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }]
 
             try {
-                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
-                hash = result;
-                $scope.getTransactionStatus(result);
-                $scope.sendAssetFinal.open();
-                $scope.$eval(function () {
-                    $scope.successHash = hash;
-                    $scope.successHash = hash;
-                });
-                //console.log(result);
+                await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                $scope.successModal.open();
             } catch (err) {
                 $scope.errorModal.open();
                 $scope.$eval(function () {
