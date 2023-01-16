@@ -2432,7 +2432,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
 
 
             let res = allAssets[assetId[x]];
-
+            //FIXME switch MM err LT when not Asset
+            /* if(res == undefined) {
+                await window.__fsnGetAllAssets(Object.keys(timeLockList));
+                return
+            } */
+            
             assetName = res["Name"];
             assetSymbol = res["Symbol"];
             assetDecimals = res["Decimals"];
