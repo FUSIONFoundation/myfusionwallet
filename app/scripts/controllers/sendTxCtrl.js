@@ -1647,6 +1647,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 });
+                return
             }
 
             $scope.$apply(function () {
@@ -1708,6 +1709,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 });
+                return
             }
         }
 
@@ -1764,6 +1766,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 $scope.$eval(function () {
                     $scope.errorMessage = err.message;
                 });
+                return
             }
         }
         if ($scope.wallet.hwType == "ledger") {
@@ -2034,6 +2037,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.$eval(function () {
                 $scope.errorMessage = err.message;
             });
+            return
         }
 
         if ($scope.wallet.hwType == "ledger") {

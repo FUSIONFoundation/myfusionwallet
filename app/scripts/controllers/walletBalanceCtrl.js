@@ -357,7 +357,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
             let data = {};
             let walletAddress = accountData.from;
 
-            if ($scope.wallet.hwType !== "ledger" && $scope.wallet.hwType !== "trezor") {
+            if ($scope.wallet.hwType !== "ledger" && $scope.wallet.hwType !== "trezor" && $scope.wallet.hwType !== "Metamask") {
                 if (!$scope.account) {
                     $scope.account = web3.eth.accounts.privateKeyToAccount($scope.toHexString($scope.wallet.getPrivateKey()));
                 }
@@ -369,7 +369,7 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                 tx.chainId = _CHAINID;
                 data = tx;
                 tx.from = walletAddress;
-                if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor") {
+                if ($scope.wallet.hwType == "ledger" || $scope.wallet.hwType == "trezor" || $scope.wallet.hwType == "Metamask") {
                     return;
                 }
                 return web3.fsn.signAndTransmit(tx, $scope.account.signTransaction).then(txHash => {
@@ -503,6 +503,29 @@ var walletBalanceCtrl = function ($scope, $sce, walletService, $rootScope) {
                     });
                 } catch (err){
                     console.log(err);
+                }
+            }
+            if($scope.wallet.hwType == "Metamask") { //TODO setNotatoin
+                const params = [{
+                    "from": data.from,
+                    "to": data.to,
+                    "gas": data.gas,
+                    "gasPrice": data.gasPrice,
+                    "data": data.input
+                }]
+    
+                try {
+                    await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                    $scope.requestedSAN = true;
+                    $scope.$apply(function () {
+                        $scope.addressNotation.value = 'USAN Requested';
+                        $scope.addressNotation.value = 'USAN Requested';
+                    });
+                } catch (err) {
+                    $scope.errorModal.open();
+                    $scope.$eval(function () {
+                        $scope.errorMessage = err.message;
+                    });
                 }
             }
         }
