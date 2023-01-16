@@ -2192,7 +2192,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         $scope.createAssetReview.open();
     };
 
-    $scope.createAsset = async function () {
+    $scope.createAsset = async function () { //TODO create asset TX
         $scope.$eval(function () {
             $scope.assetCreate.errorMessage = "";
         });
@@ -2212,7 +2212,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -2245,7 +2246,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 console.log(tx);
                 if (
                     $scope.wallet.hwType == "ledger" ||
-                    $scope.wallet.hwType == "trezor"
+                    $scope.wallet.hwType == "trezor" ||
+                    $scope.wallet.hwType == "Metamask"
                 ) {
                     return;
                 } else {
@@ -2330,6 +2332,32 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         }
 
         if ($scope.wallet.hwType == "trezor") {
+        }
+        if($scope.wallet.hwType == "Metamask") { //TODO (MM)create asset
+            //console.log(data)
+            const params = [{
+                "from": walletAddress,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+            //console.log(params)
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                //console.log(result)
+                $scope.$eval(function () {
+                    $scope.assetCreate.errorMessage = "";
+                    $scope.assetCreate.assetHash = result;
+                });
+                $scope.createAssetFinal.open();
+                //console.log(result);
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
+            }
         }
     };
     $scope.getVerifiedAssets();
