@@ -680,7 +680,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (
             !$scope.account &&
             $scope.wallet.hwType !== "ledger" &&
-            $scope.wallet.hwType !== "trezor"
+            $scope.wallet.hwType !== "trezor" &&
+            $scope.wallet.hwType !== "Metamask"
         ) {
             $scope.account = web3.eth.accounts.privateKeyToAccount(
                 $scope.toHexString($scope.wallet.getPrivateKey())
@@ -714,7 +715,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     } else {
@@ -761,7 +763,8 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                     data = tx;
                     if (
                         $scope.wallet.hwType == "ledger" ||
-                        $scope.wallet.hwType == "trezor"
+                        $scope.wallet.hwType == "trezor" ||
+                        $scope.wallet.hwType == "Metamask"
                     ) {
                         return;
                     } else {
@@ -841,6 +844,28 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             }
 
             if ($scope.wallet.hwType == "trezor") {
+            }
+        }
+        if($scope.wallet.hwType == "Metamask") {
+            const params = [{
+                "from": walletAddress,
+                "to": data.to,
+                "gas": data.gas,
+                "gasPrice": data.gasPrice,
+                "data": data.input
+            }]
+
+            try {
+                const result = await window.ethereum.request({ method: 'eth_sendTransaction', params })
+                $scope.$apply(function () {
+                    $scope.changeSupplyInfo.txhash = result;
+                });
+                $scope.changeSupplySuccess.open();
+            } catch (err) {
+                $scope.errorModal.open();
+                $scope.$eval(function () {
+                    $scope.errorMessage = err.message;
+                });
             }
         }
     };
