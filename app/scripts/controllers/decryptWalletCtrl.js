@@ -1008,13 +1008,8 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
 
       connect(accounts)
       ethereum.on('accountsChanged', function (accounts) {
-        
         connect(accounts)
       })
-      ethereum.on('disconnect', function () { 
-        console.log('disc')
-        window.location.reload() 
-      });
     } else {
       $scope.notifier.danger(
         "Metamask Not Found"

@@ -2458,9 +2458,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             let divider = "";
             let status = "";
 
+            if(allAssets[assetId[x]] == undefined ) { //FIXME switch MM err LT when not Asset
+                x++
+                continue
+            }
 
             let res = allAssets[assetId[x]];
-            //FIXME switch MM err LT when not Asset
             /* if(res == undefined) {
                 await window.__fsnGetAllAssets(Object.keys(timeLockList));
                 return
