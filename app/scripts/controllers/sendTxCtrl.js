@@ -2420,10 +2420,10 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
         if (startTimePosix <= currentDate && endTimePosix >= currentDate) {
             return (status = "Active");
         }
-        //
-        // if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
-        //     return status = 'Available';
-        // }
+        
+        if (startTimePosix <= currentDate && endTimePosix <= currentDate) {
+            return (status = 'Expired');
+        }
     };
 
     $scope.getTimeLockAssets = async function () {
@@ -2457,13 +2457,22 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             let assetDecimals = "";
             let divider = "";
             let status = "";
+            let res
 
             if(allAssets[assetId[x]] == undefined ) { //FIXME switch MM err LT when not Asset
-                x++
-                continue
+                const getAsset = (tokenId) => ({ "jsonrpc": "2.0", id: tokenId, "method": "fsn_getAsset", "params": [`${tokenId}`, "latest"], })
+                await ajaxReq.http.post(`${window.getApiServer()}`, getAsset(assetId[x])).then(function (r) {
+                    console.log(assetId[x])
+                    //localCacheOfAssets[array[asset]] = r.data.result;
+                    window.localCacheOfAssetsG[assetId[x]] = r.data.result
+                    res = r.data.result
+                });
+            } else {
+                res = allAssets[assetId[x]];
             }
 
-            let res = allAssets[assetId[x]];
+            //let res = allAssets[assetId[x]];
+            
             /* if(res == undefined) {
                 await window.__fsnGetAllAssets(Object.keys(timeLockList));
                 return
@@ -2574,7 +2583,12 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
                 }
                 if (status == "Available") {
                     await availableList.push(data);
+                } 
+                if(status == 'Expired') {
+                    await availableList.push(data);
                 }
+                
+
             }
             x++;
         }

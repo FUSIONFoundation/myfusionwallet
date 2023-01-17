@@ -1008,7 +1008,10 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
 
       connect(accounts)
       ethereum.on('accountsChanged', function (accounts) {
-        connect(accounts)
+        //window.localCacheOfAssetsG = {}
+        //window.__getNotation(accounts[0])
+        location.reload();
+        //connect(accounts)
       })
     } else {
       $scope.notifier.danger(

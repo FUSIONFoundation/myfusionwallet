@@ -150,6 +150,7 @@ window.web3FusionExtend = web3FusionExtend;
 var provider;
 var web3;
 let localCacheOfAssets = {};
+window.localCacheOfAssetsG = localCacheOfAssets
 const iplocate = require("node-iplocate");
 
 window.versionNumber = '3.14.00';

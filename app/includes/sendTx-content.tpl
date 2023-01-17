@@ -151,7 +151,7 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="asset in timeLockList | orderBy:sortKey:reverse |filter:searchTimeLock | startFrom:currentPage*pageSize | limitTo:pageSize track by $index"
-                            ng-hide="asset.status === 'Expired'">
+                            >
                             <td class="color-{{asset.status}}">● {{asset.status}}</td>
                             <td>
                                 <img ng-if="asset.hasImage"
