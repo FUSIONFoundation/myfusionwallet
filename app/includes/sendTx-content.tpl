@@ -258,7 +258,7 @@
                                 <span class="text-fusion">{{assetName}}</span>
                                 <span class="small-gray-text" ng-show="showStaticTimeLockAsset"><br>{{timeLockStartTime}} - {{timeLockEndTime}}</span>
                                 <div class="break-word">
-                                    <span class="small-gray-text">{{assetToSend}}</span>
+                                    <span style="text-transform: lowercase; font-family: monospace;" class="small-gray-text">{{assetToSend}}</span>
                                 </div>
                             </div>
                         </div>
@@ -545,7 +545,7 @@
                                 <span class="fusion-text-14">{{sendAsset.assetName}} ({{sendAsset.assetSymbol}})
                                     </span>
                                 <br>
-                                <span class="small-gray-text">{{sendAsset.assetHash}}</span>
+                                <span style="font-family: monospace; text-transform: lowercase;" class="small-gray-text">{{sendAsset.assetHash}}</span>
                             </div>
                             <br>
                         </div>
