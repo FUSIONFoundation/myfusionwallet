@@ -3,7 +3,7 @@
 <p class="text-center">Please ensure that you are on the correct site before entering keys.</p>
 <div class="fusion-verify fusion-verify-new">
     <span class="fusion-lock icon"><i class="fa fa-lock"></i> </span>
-    <div class="fusion-link text-center title">https://www.myfusionwallet.com</div>
+    <div class="fusion-link text-center title">https://myfusionwallet.com</div>
 </div>
 
 <section class="timeout-message text-center" ng-show="showLogoutMessage"><i class="fa fa-info-circle" aria-hidden="true"></i> Your wallet session timed-out due to inactivity.</section>
@@ -311,20 +311,28 @@
                 It is more secure because your private key never leaves the hardware wallet. It protects you from
                 phishing, malware, and more.
             </div> -->
-            <div class="form-group content-ledger">
+            <div>
                 <!-- 1 -->
-                <span class="big-numbers">1</span>
-                <h5 class="ledger-message">Open the ethereum app</h5>
-                <p class="text-ledger">
-                    Open the ethereum app on your ledger.  <br> Make sure your ledger is updated to the latest firmware.
-                </p>
+                <!-- <span class="big-numbers">1</span> -->
+                <h3>Use MetaMask to connect Ledger</h3>
+                <h4>
+                    Guide can be found 
+                        <a
+                        style="color: blue;text-decoration: revert;"
+                           href="https://support.ledger.com/hc/en-us/articles/4404366864657-How-to-access-your-Ledger-Ethereum-ETH-account-via-Metamask?docs=true"
+                           target="_blank"
+                           >
+                           here
+                        </a>
+                 
+                    </h4>
                 <!-- 2 -->
-                <span class="big-numbers">2</span>
-                <h5 class="ledger-message">Adjust app settings</h5>
+                <!-- span class="big-numbers">Guide can be found here</span> -->
+                <!-- <h5 class="ledger-message">Adjust app settings</h5>
                 <p class="text-ledger">Contract Data     <span class="status status-on">YES</span></p>
-                <p class="text-ledger">Data Display    <span class="status status-off">NO</span></p>
+                <p class="text-ledger">Data Display    <span class="status status-off">NO</span></p> -->
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <a class="btn btn-primary w-100"
                    ng-click="scanLedger()"
                    ng-show="walletType=='ledger'"
@@ -333,7 +341,7 @@
                    translate="ADD_Ledger_scan">
                     SCAN
                 </a>
-            </div>
+            </div> -->
             <div role="alert" ng-show="ledgerError">
                 <p class="strong text-danger">
                     {{ledgerErrorString}}
