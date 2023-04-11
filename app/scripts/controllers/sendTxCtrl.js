@@ -1208,7 +1208,7 @@ var sendTxCtrl = function ($scope, $sce, walletService, $rootScope, globalServic
             $scope.sendAsset.fromTime.getSeconds()
         )).getTime().toString(16); */
         //2013-01-31T12:34:00.000Z
-        return `${input.getUTCFullYear()}-${pad(input.getUTCMonth() + 1)}-${pad(input.getUTCDate())}T${pad(input.getUTCHours())}:${pad(input.getUTCMonth())}:${pad(input.getUTCSeconds())}.000Z`
+        return `${input.getUTCFullYear()}-${pad(input.getUTCMonth() + 1)}-${pad(input.getUTCDate())}T${pad(input.getUTCHours())}:${pad(input.getUTCMinutes())}:${pad(input.getUTCSeconds())}.000Z`
     }
 
     function getHexDate(d) {
